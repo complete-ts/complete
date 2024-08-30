@@ -1,40 +1,22 @@
 {
   "name": "complete",
-  "version": "0.0.0",
-  "description": "",
+  "private": true,
+  "description": "The monorepo for complete.",
   "keywords": [],
-  "homepage": "https://github.com/Zamiell/complete",
+  "homepage": "https://complete-js.github.io/",
   "bugs": {
-    "url": "https://github.com/Zamiell/complete/issues"
+    "url": "https://github.com/complete-ts/complete/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zamiell/complete.git"
+    "url": "git+https://github.com/complete-ts/complete.git"
   },
   "license": "GPL-3.0",
   "author": "Zamiell",
   "type": "module",
-  "files": [
-    "dist",
-    "LICENSE",
-    "package.json",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "lint": "tsx ./scripts/lint.ts",
-    "nuke": "isaacscript nuke",
-    "publish": "isaacscript publish-ts",
-    "start": "tsx ./src/main.ts",
-    "update": "isaacscript update"
-  },
   "devDependencies": {
-    "@types/node": "^22.4.1",
-    "isaacscript": "^4.4.4",
-    "isaacscript-common-node": "^4.0.6",
-    "isaacscript-lint": "^6.20.0",
-    "isaacscript-tsconfig": "^5.0.0",
-    "tsx": "^4.17.0",
-    "typescript": "5.3.3"
+    "@types/node": "^22.5.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
   }
 }
