@@ -15,6 +15,7 @@
     "comments",
     "format",
     "autoformat",
+    "prettier",
     "sentences"
   ],
   "homepage": "https://isaacscript.github.io/",

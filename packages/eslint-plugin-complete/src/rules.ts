@@ -6,7 +6,6 @@ import { completeSentencesJSDoc } from "./rules/complete-sentences-jsdoc.js";
 import { completeSentencesLineComments } from "./rules/complete-sentences-line-comments.js";
 import { consistentEnumValues } from "./rules/consistent-enum-values.js";
 import { consistentNamedTuples } from "./rules/consistent-named-tuples.js";
-import { enumMemberNumberSeparation } from "./rules/enum-member-number-separation.js";
 import { eqeqeqFix } from "./rules/eqeqeq-fix.js";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments.js";
 import { formatLineComments } from "./rules/format-line-comments.js";
@@ -18,7 +17,6 @@ import { noEmptyLineComments } from "./rules/no-empty-line-comments.js";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops.js";
 import { noExplicitMapSetLoops } from "./rules/no-explicit-map-set-loops.js";
 import { noForIn } from "./rules/no-for-in.js";
-import { noInvalidDefaultMap } from "./rules/no-invalid-default-map.js";
 import { noLetAny } from "./rules/no-let-any.js";
 import { noMutableReturn } from "./rules/no-mutable-return.js";
 import { noNumberEnums } from "./rules/no-number-enums.js";
@@ -26,7 +24,6 @@ import { noObjectAny } from "./rules/no-object-any.js";
 import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set.js";
 import { noStringLength0 } from "./rules/no-string-length-0.js";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix.js";
-import { noThrow } from "./rules/no-throw.js";
 import { noUndefinedReturnType } from "./rules/no-undefined-return-type.js";
 import { noUnnecessaryAssignment } from "./rules/no-unnecessary-assignment.js";
 import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus.js";
@@ -40,7 +37,6 @@ import { requireBreak } from "./rules/require-break.js";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions.js";
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only.js";
 import { requireUnannotatedConstAssertions } from "./rules/require-unannotated-const-assertions.js";
-import { requireVRegistration } from "./rules/require-v-registration.js";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument.js";
 import { strictArrayMethods } from "./rules/strict-array-methods.js";
 import { strictEnums } from "./rules/strict-enums.js";
@@ -52,7 +48,6 @@ export const rules = {
   "complete-sentences-line-comments": completeSentencesLineComments,
   "consistent-enum-values": consistentEnumValues,
   "consistent-named-tuples": consistentNamedTuples,
-  "enum-member-number-separation": enumMemberNumberSeparation,
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,
@@ -64,7 +59,6 @@ export const rules = {
   "no-explicit-array-loops": noExplicitArrayLoops,
   "no-explicit-map-set-loops": noExplicitMapSetLoops,
   "no-for-in": noForIn,
-  "no-invalid-default-map": noInvalidDefaultMap,
   "no-let-any": noLetAny,
   "no-mutable-return": noMutableReturn,
   "no-number-enums": noNumberEnums,
@@ -72,7 +66,6 @@ export const rules = {
   "no-object-methods-with-map-set": noObjectMethodsWithMapSet,
   "no-string-length-0": noStringLength0,
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
-  "no-throw": noThrow,
   "no-undefined-return-type": noUndefinedReturnType,
   "no-unnecessary-assignment": noUnnecessaryAssignment,
   "no-unsafe-plusplus": noUnsafePlusplus,
@@ -86,7 +79,6 @@ export const rules = {
   "require-capital-const-assertions": requireCapitalConstAssertions,
   "require-capital-read-only": requireCapitalReadOnly,
   "require-unannotated-const-assertions": requireUnannotatedConstAssertions,
-  "require-v-registration": requireVRegistration,
   "require-variadic-function-argument": requireVariadicFunctionArgument,
   "strict-array-methods": strictArrayMethods,
   "strict-enums": strictEnums,
