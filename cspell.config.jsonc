@@ -24,10 +24,12 @@
   "words": [
     "autocrlf",
     "dbaeumer",
+    "eqeqeq",
     "esbenp",
     "knip",
     "lockb",
     "packagejson",
+    "plusplus",
     "sarisia",
     "Zamiell",
   ],

@@ -6,7 +6,7 @@ This is the exact same thing as the ESLint [`prefer-const`](https://eslint.org/d
 
 ## Rule Details
 
-This version of the rule without an autofixer is useful because it is common during development to comment out code that modifies a `let` variable. In these cases, the auto-fixer is harmful, since it would require us to manually go change the `const` back to a `let` after uncommenting the code to put it back the way it way.
+This version of the rule without an auto-fixer is useful because it is common during development to comment out code that modifies a `let` variable. In these cases, the auto-fixer is harmful, since it would require us to manually go change the `const` back to a `let` after uncommenting the code to put it back the way it way.
 
 ## Gotchas
 

@@ -1,14 +1,13 @@
 {
-  "name": "eslint-plugin-isaacscript",
-  "version": "3.12.2",
+  "name": "eslint-plugin-complete",
+  "version": "1.0.0",
   "description": "An ESLint plugin that contains useful rules.",
   "keywords": [
     "eslint",
     "plugin",
-    "isaacscript",
+    "complete",
     "lint",
     "linting",
-    "prettier",
     "rules",
     "enum",
     "enums",
@@ -16,7 +15,6 @@
     "comments",
     "format",
     "autoformat",
-    "complete",
     "sentences"
   ],
   "homepage": "https://isaacscript.github.io/",

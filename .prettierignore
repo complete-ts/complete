@@ -10,3 +10,12 @@ bun.lockb
 # Minified files
 *.min.js
 *.min.css
+
+# @template-customization-start
+
+# Rules copied from ESLint
+packages/eslint-plugin-complete/src/rules/eqeqeq-fix.ts
+packages/eslint-plugin-complete/src/rules/no-useless-return.ts
+packages/eslint-plugin-complete/src/rules/prefer-const.ts
+
+# @template-customization-end

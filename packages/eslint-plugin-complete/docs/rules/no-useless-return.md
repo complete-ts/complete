@@ -6,7 +6,7 @@ This is the exact same thing as the ESLint [`no-useless-return`](https://eslint.
 
 ## Rule Details
 
-This version of the rule without an autofixer is useful because it is common during development to comment out code after an [early return](https://medium.com/swlh/return-early-pattern-3d18a41bba8). In these cases, the auto-fixer is harmful, since it would require us to manually go put the return statement back after uncommenting the code.
+This version of the rule without an auto-fixer is useful because it is common during development to comment out code after an [early return](https://medium.com/swlh/return-early-pattern-3d18a41bba8). In these cases, the auto-fixer is harmful, since it would require us to manually go put the return statement back after uncommenting the code.
 
 ## Gotchas
 

@@ -1,28 +1,23 @@
-# eslint-plugin-isaacscript
+# eslint-plugin-complete
 
-<img src="https://isaacscript.github.io/img/items/magic-mushroom.png" alt="Magic Mushroom">
+`eslint-plugin-complete` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
 
-`eslint-plugin-isaacscript` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
+If you already have ESLint set up in your project, then you can try enabling the [`complete/recommend`](#configs) config to get all of the goodness from this plugin in your project at once. Alternatively, if you want more control, feel free to enable the specific rules that you need.
 
-If you already have ESLint set up in your project, then you can try enabling the [`isaacscript/recommend`](#configs) config to get all of the goodness from this plugin in your project at once. Alternatively, if you want more control, feel free to enable the specific rules that you need.
-
-Alternatively, if you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`isaacscript-lint`](https://github.com/IsaacScript/isaacscript/tree/main/packages/isaacscript-lint) meta-package.
-
-<br>
+Alternatively, if you want to get off the ground and running with ESLint + TypeScript in a new project, then you should check out the [`complete-lint`](https://github.com/complete-ts/complete/tree/main/packages/complete-lint) meta-package.
 
 ## Install / Usage
 
-- `npm install --save-dev eslint eslint-plugin-isaacscript`
-- Add `"plugin:isaacscript/recommended"` to the `extends` section of your `.eslintrc.cjs` file. (This will automatically add the plugin and add all of the recommended rules.)
-  - Alternatively, if you want to only enable some specific rules, then add `"isaacscript"` to the `plugins` section of your `.eslintrc.cjs` file, and then add the specific rules that you want in the `rules` section.
+If you do not want to use the `complete-lint` meta-package, then you can install this plugin manually:
 
-<br>
+- `npm install --save-dev eslint typescript eslint-plugin-complete` (`eslint` and `typescript` are peer-dependencies)
+- TODO
+- Add `"plugin:complete/recommended"` to the `extends` section of your `.eslintrc.cjs` file. (This will automatically add the plugin and add all of the recommended rules.)
+  - Alternatively, if you want to only enable some specific rules, then add `"complete"` to the `plugins` section of your `.eslintrc.cjs` file, and then add the specific rules that you want in the `rules` section.
 
 ## Configs
 
-- `recommended` - Enables just the recommended rules. (Some rules are not recommended since they are intended for very specific environments.)
-
-<br>
+- `recommended` - Currently, every rule in this plugin is recommended.
 
 ## Rules
 
@@ -35,56 +30,54 @@ Each rule has emojis denoting:
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
 <!-- RULES_TABLE -->
 
-| Name                                                                                                     | Description                                                                                                 | :white_check_mark: | :wrench: | :thought_balloon: |
-| -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ | -------- | ----------------- |
-| [`isaacscript/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md)                         | Requires complete sentences for JSDoc comments                                                              | :white_check_mark: |          |                   |
-| [`isaacscript/complete-sentences-line-comments`](docs/rules/complete-sentences-line-comments.md)         | Requires complete sentences for multi-line leading line comments                                            | :white_check_mark: |          |                   |
-| [`isaacscript/consistent-enum-values`](docs/rules/consistent-enum-values.md)                             | Requires consistent enum values                                                                             | :white_check_mark: |          |                   |
-| [`isaacscript/consistent-named-tuples`](docs/rules/consistent-named-tuples.md)                           | Requires that if one or more tuple elements are named, all of them are named                                | :white_check_mark: |          |                   |
-| [`isaacscript/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)               | Disallows numbers next to letters in enum members                                                           |                    |          |                   |
-| [`isaacscript/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                                     | Requires the use of `===` and `!==` (and automatically fixes)                                               | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                               | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together       | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/format-line-comments`](docs/rules/format-line-comments.md)                                 | Disallows `//` comments longer than N characters and multi-line comments that can be merged together        | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/jsdoc-code-block-language`](docs/rules/jsdoc-code-block-language.md)                       | Requires a language specification for every JSDoc code block                                                | :white_check_mark: |          |                   |
-| [`isaacscript/newline-between-switch-case`](docs/rules/newline-between-switch-case.md)                   | Requires newlines between switch cases                                                                      | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-confusing-set-methods`](docs/rules/no-confusing-set-methods.md)                         | Disallows confusing methods for sets                                                                        | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                             | Disallows empty JSDoc comments                                                                              | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-empty-line-comments`](docs/rules/no-empty-line-comments.md)                             | Disallows empty line comments                                                                               | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-explicit-array-loops`](docs/rules/no-explicit-array-loops.md)                           | Disallows explicit iteration for arrays                                                                     | :white_check_mark: | :wrench: | :thought_balloon: |
-| [`isaacscript/no-explicit-map-set-loops`](docs/rules/no-explicit-map-set-loops.md)                       | Disallows explicit iteration for maps and sets                                                              | :white_check_mark: | :wrench: | :thought_balloon: |
-| [`isaacscript/no-for-in`](docs/rules/no-for-in.md)                                                       | Disallows "for x in y" statements                                                                           | :white_check_mark: |          |                   |
-| [`isaacscript/no-invalid-default-map`](docs/rules/no-invalid-default-map.md)                             | Disallows invalid constructors for the DefaultMap class                                                     |                    |          | :thought_balloon: |
-| [`isaacscript/no-let-any`](docs/rules/no-let-any.md)                                                     | Disallows declaring variables with let that do not have a type                                              | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-mutable-return`](docs/rules/no-mutable-return.md)                                       | Disallows returning mutable arrays, maps, and sets from functions                                           | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-number-enums`](docs/rules/no-number-enums.md)                                           | Disallows number enums                                                                                      | :white_check_mark: |          |                   |
-| [`isaacscript/no-object-any`](docs/rules/no-object-any.md)                                               | Disallows declaring objects and arrays that do not have a type                                              | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-object-methods-with-map-set`](docs/rules/no-object-methods-with-map-set.md)             | Disallows using object methods with maps and sets                                                           | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-string-length-0`](docs/rules/no-string-length-0.md)                                     | Disallows checking for empty strings via the length method in favor of direct comparison to an empty string | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md)           | Disallows template literal placeholder syntax in regular strings (and automatically fixes)                  | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/no-throw`](docs/rules/no-throw.md)                                                         | Disallows the usage of "throw"                                                                              |                    |          |                   |
-| [`isaacscript/no-undefined-return-type`](docs/rules/no-undefined-return-type.md)                         | Disallows `undefined` return types on functions                                                             | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-unnecessary-assignment`](docs/rules/no-unnecessary-assignment.md)                       | Disallows useless assignments                                                                               | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-unsafe-plusplus`](docs/rules/no-unsafe-plusplus.md)                                     | Disallow unsafe and confusing uses of the "++" and "--" operators                                           | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/no-useless-return`](docs/rules/no-useless-return.md)                                       | Disallow redundant return statements (with no autofixer)                                                    | :white_check_mark: |          |                   |
-| [`isaacscript/no-void-return-type`](docs/rules/no-void-return-type.md)                                   | Disallows `void` return types on non-exported functions                                                     | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/prefer-const`](docs/rules/prefer-const.md)                                                 | Require `const` declarations for variables that are never reassigned after declared (with no autofixer)     | :white_check_mark: |          |                   |
-| [`isaacscript/prefer-plusplus`](docs/rules/prefer-plusplus.md)                                           | Require "++" or "--" operators instead of assignment operators where applicable                             | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/prefer-postfix-plusplus`](docs/rules/prefer-postfix-plusplus.md)                           | Require "i++" instead of "++i"                                                                              | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/prefer-readonly-parameter-types`](docs/rules/prefer-readonly-parameter-types.md)           | Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs              | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/require-break`](docs/rules/require-break.md)                                               | Requires that each case of a switch statement has a `break` statement                                       | :white_check_mark: |          |                   |
-| [`isaacscript/require-capital-const-assertions`](docs/rules/require-capital-const-assertions.md)         | Requires a capital letter for named objects and arrays that have a const assertion                          | :white_check_mark: | :wrench: |                   |
-| [`isaacscript/require-capital-read-only`](docs/rules/require-capital-read-only.md)                       | Requires maps/sets/arrays with a capital letter to be read-only                                             | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/require-unannotated-const-assertions`](docs/rules/require-unannotated-const-assertions.md) | Disallows explicit type annotations for variables that have a const assertion                               | :white_check_mark: |          |                   |
-| [`isaacscript/require-v-registration`](docs/rules/require-v-registration.md)                             | Require variables named "v" to be registered with the save data manager                                     |                    |          |                   |
-| [`isaacscript/require-variadic-function-argument`](docs/rules/require-variadic-function-argument.md)     | Requires that variadic functions must be supplied with at least one argument                                | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/strict-array-methods`](docs/rules/strict-array-methods.md)                                 | Requires boolean return types on array method functions                                                     | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/strict-enums`](docs/rules/strict-enums.md)                                                 | Disallows the usage of unsafe enum patterns                                                                 | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/strict-undefined-functions`](docs/rules/strict-undefined-functions.md)                     | Disallows empty return statements in functions annotated as returning undefined                             | :white_check_mark: |          | :thought_balloon: |
-| [`isaacscript/strict-void-functions`](docs/rules/strict-void-functions.md)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          |                   |
+| Name                                                                                                  | Description                                                                                                 | :white_check_mark: | :wrench: | :thought_balloon: |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ | -------- | ----------------- |
+| [`complete/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md)                         | Requires complete sentences for JSDoc comments                                                              | :white_check_mark: |          |                   |
+| [`complete/complete-sentences-line-comments`](docs/rules/complete-sentences-line-comments.md)         | Requires complete sentences for multi-line leading line comments                                            | :white_check_mark: |          |                   |
+| [`complete/consistent-enum-values`](docs/rules/consistent-enum-values.md)                             | Requires consistent enum values                                                                             | :white_check_mark: |          |                   |
+| [`complete/consistent-named-tuples`](docs/rules/consistent-named-tuples.md)                           | Requires that if one or more tuple elements are named, all of them are named                                | :white_check_mark: |          |                   |
+| [`complete/enum-member-number-separation`](docs/rules/enum-member-number-separation.md)               | Disallows numbers next to letters in enum members                                                           |                    |          |                   |
+| [`complete/eqeqeq-fix`](docs/rules/eqeqeq-fix.md)                                                     | Requires the use of `===` and `!==` (and automatically fixes)                                               | :white_check_mark: | :wrench: |                   |
+| [`complete/format-jsdoc-comments`](docs/rules/format-jsdoc-comments.md)                               | Disallows `/**` comments longer than N characters and multi-line comments that can be merged together       | :white_check_mark: | :wrench: |                   |
+| [`complete/format-line-comments`](docs/rules/format-line-comments.md)                                 | Disallows `//` comments longer than N characters and multi-line comments that can be merged together        | :white_check_mark: | :wrench: |                   |
+| [`complete/jsdoc-code-block-language`](docs/rules/jsdoc-code-block-language.md)                       | Requires a language specification for every JSDoc code block                                                | :white_check_mark: |          |                   |
+| [`complete/newline-between-switch-case`](docs/rules/newline-between-switch-case.md)                   | Requires newlines between switch cases                                                                      | :white_check_mark: | :wrench: |                   |
+| [`complete/no-confusing-set-methods`](docs/rules/no-confusing-set-methods.md)                         | Disallows confusing methods for sets                                                                        | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-empty-jsdoc`](docs/rules/no-empty-jsdoc.md)                                             | Disallows empty JSDoc comments                                                                              | :white_check_mark: | :wrench: |                   |
+| [`complete/no-empty-line-comments`](docs/rules/no-empty-line-comments.md)                             | Disallows empty line comments                                                                               | :white_check_mark: | :wrench: |                   |
+| [`complete/no-explicit-array-loops`](docs/rules/no-explicit-array-loops.md)                           | Disallows explicit iteration for arrays                                                                     | :white_check_mark: | :wrench: | :thought_balloon: |
+| [`complete/no-explicit-map-set-loops`](docs/rules/no-explicit-map-set-loops.md)                       | Disallows explicit iteration for maps and sets                                                              | :white_check_mark: | :wrench: | :thought_balloon: |
+| [`complete/no-for-in`](docs/rules/no-for-in.md)                                                       | Disallows "for x in y" statements                                                                           | :white_check_mark: |          |                   |
+| [`complete/no-invalid-default-map`](docs/rules/no-invalid-default-map.md)                             | Disallows invalid constructors for the DefaultMap class                                                     |                    |          | :thought_balloon: |
+| [`complete/no-let-any`](docs/rules/no-let-any.md)                                                     | Disallows declaring variables with let that do not have a type                                              | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-mutable-return`](docs/rules/no-mutable-return.md)                                       | Disallows returning mutable arrays, maps, and sets from functions                                           | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-number-enums`](docs/rules/no-number-enums.md)                                           | Disallows number enums                                                                                      | :white_check_mark: |          |                   |
+| [`complete/no-object-any`](docs/rules/no-object-any.md)                                               | Disallows declaring objects and arrays that do not have a type                                              | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-object-methods-with-map-set`](docs/rules/no-object-methods-with-map-set.md)             | Disallows using object methods with maps and sets                                                           | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-string-length-0`](docs/rules/no-string-length-0.md)                                     | Disallows checking for empty strings via the length method in favor of direct comparison to an empty string | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-template-curly-in-string-fix`](docs/rules/no-template-curly-in-string-fix.md)           | Disallows template literal placeholder syntax in regular strings (and automatically fixes)                  | :white_check_mark: | :wrench: |                   |
+| [`complete/no-throw`](docs/rules/no-throw.md)                                                         | Disallows the usage of "throw"                                                                              |                    |          |                   |
+| [`complete/no-undefined-return-type`](docs/rules/no-undefined-return-type.md)                         | Disallows `undefined` return types on functions                                                             | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-unnecessary-assignment`](docs/rules/no-unnecessary-assignment.md)                       | Disallows useless assignments                                                                               | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-unsafe-plusplus`](docs/rules/no-unsafe-plusplus.md)                                     | Disallow unsafe and confusing uses of the "++" and "--" operators                                           | :white_check_mark: |          | :thought_balloon: |
+| [`complete/no-useless-return`](docs/rules/no-useless-return.md)                                       | Disallow redundant return statements (with no auto-fixer)                                                   | :white_check_mark: |          |                   |
+| [`complete/no-void-return-type`](docs/rules/no-void-return-type.md)                                   | Disallows `void` return types on non-exported functions                                                     | :white_check_mark: | :wrench: |                   |
+| [`complete/prefer-const`](docs/rules/prefer-const.md)                                                 | Require `const` declarations for variables that are never reassigned after declared (with no auto-fixer)    | :white_check_mark: |          |                   |
+| [`complete/prefer-plusplus`](docs/rules/prefer-plusplus.md)                                           | Require "++" or "--" operators instead of assignment operators where applicable                             | :white_check_mark: | :wrench: |                   |
+| [`complete/prefer-postfix-plusplus`](docs/rules/prefer-postfix-plusplus.md)                           | Require "i++" instead of "++i"                                                                              | :white_check_mark: |          | :thought_balloon: |
+| [`complete/prefer-readonly-parameter-types`](docs/rules/prefer-readonly-parameter-types.md)           | Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs              | :white_check_mark: |          | :thought_balloon: |
+| [`complete/require-break`](docs/rules/require-break.md)                                               | Requires that each case of a switch statement has a `break` statement                                       | :white_check_mark: |          |                   |
+| [`complete/require-capital-const-assertions`](docs/rules/require-capital-const-assertions.md)         | Requires a capital letter for named objects and arrays that have a const assertion                          | :white_check_mark: | :wrench: |                   |
+| [`complete/require-capital-read-only`](docs/rules/require-capital-read-only.md)                       | Requires maps/sets/arrays with a capital letter to be read-only                                             | :white_check_mark: |          | :thought_balloon: |
+| [`complete/require-unannotated-const-assertions`](docs/rules/require-unannotated-const-assertions.md) | Disallows explicit type annotations for variables that have a const assertion                               | :white_check_mark: |          |                   |
+| [`complete/require-v-registration`](docs/rules/require-v-registration.md)                             | Require variables named "v" to be registered with the save data manager                                     |                    |          |                   |
+| [`complete/require-variadic-function-argument`](docs/rules/require-variadic-function-argument.md)     | Requires that variadic functions must be supplied with at least one argument                                | :white_check_mark: |          | :thought_balloon: |
+| [`complete/strict-array-methods`](docs/rules/strict-array-methods.md)                                 | Requires boolean return types on array method functions                                                     | :white_check_mark: |          | :thought_balloon: |
+| [`complete/strict-enums`](docs/rules/strict-enums.md)                                                 | Disallows the usage of unsafe enum patterns                                                                 | :white_check_mark: |          | :thought_balloon: |
+| [`complete/strict-undefined-functions`](docs/rules/strict-undefined-functions.md)                     | Disallows empty return statements in functions annotated as returning undefined                             | :white_check_mark: |          | :thought_balloon: |
+| [`complete/strict-void-functions`](docs/rules/strict-void-functions.md)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          |                   |
 
 <!-- /RULES_TABLE -->
-
-<br>
 
 ## Automatic Fixing
 
@@ -107,13 +100,9 @@ For example, if you use [VSCode](https://code.visualstudio.com/), and you have t
 }
 ```
 
-<br>
-
 ## Comment Formatting
 
 For a discussion around comments and the motivations for some of the comment rules in the plugin, see [this page](docs/comments.md).
-
-<br>
 
 ## Contributing
 
@@ -127,5 +116,3 @@ git status # Show what the script did.
 ```
 
 Additionally, You can contact me [on Discord](https://discord.gg/KapmKQ2gUD) if you are doing a PR and have questions.
-
-<br>
