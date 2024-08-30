@@ -3,8 +3,8 @@
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
     // "lib" specifies a set of bundled library declaration files that describe the target run-time
-    // environment. We choose "ES2021" because that is the earliest version that supports the
-    // `String.replaceAll` method.
+    // environment. Browser environments need "DOM". Additionally, we include "ES2021" because that
+    // is the earliest version that supports the `String.replaceAll` method.
     "lib": ["DOM", "ES2021"],
   },
 }

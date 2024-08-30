@@ -1,21 +1,20 @@
 {
-  "name": "isaacscript-tsconfig",
-  "version": "5.0.0",
-  "description": "A sharable TypeScript config for TypeScript and IsaacScript projects.",
+  "name": "complete-tsconfig",
+  "version": "1.0.0",
+  "description": "A sharable TypeScript config for TypeScript projects.",
   "keywords": [
-    "isaacscript",
     "tsconfig",
     "typescript",
     "config",
     "configs"
   ],
-  "homepage": "https://isaacscript.github.io/",
+  "homepage": "https://complete-js.github.io/",
   "bugs": {
-    "url": "https://github.com/IsaacScript/isaacscript/issues"
+    "url": "https://github.com/complete-ts/complete/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+    "url": "git+https://github.com/complete-ts/complete.git"
   },
   "license": "MIT",
   "author": "Zamiell",

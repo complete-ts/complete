@@ -1,9 +1,7 @@
-# isaacscript-tsconfig
+# complete-tsconfig
 
-[![npm version](https://img.shields.io/npm/v/isaacscript-tsconfig.svg)](https://www.npmjs.com/package/isaacscript-tsconfig)
+[![npm version](https://img.shields.io/npm/v/complete-tsconfig.svg)](https://www.npmjs.com/package/complete-tsconfig)
 
-These are shared TypeScript configuration files that are intended to be used in either [TypeScript](https://www.typescriptlang.org/) projects or [IsaacScript](https://isaacscript.github.io/) mods.
+These are shared TypeScript configuration files that are intended to be used in [TypeScript](https://www.typescriptlang.org/) projects.
 
-IsaacScript mods are automatically configured to use these configs.
-
-Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies.
+Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies. (You also must also install `@tsconfig/node-lts` if you are using the Node.js config.)
