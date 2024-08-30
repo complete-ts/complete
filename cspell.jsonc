@@ -22,6 +22,7 @@
     "yarn.lock",
   ],
   "words": [
+    "autocrlf",
     "dbaeumer",
     "esbenp",
     "isaacscript",

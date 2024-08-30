@@ -1,16 +1,12 @@
-// The configuration file for TypeScript.
+// We must have a "tsconfig.json" file next to the "eslint.config.mjs" file. (Otherwise, we would
+// put this in the "scripts" directory like we do elsewhere in this monorepo.)
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
-  // We extend the IsaacScript config for Node.js:
-  // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/tsconfig.node.json
-  "extends": "isaacscript-tsconfig/tsconfig.node.json",
+  "extends": [
+    "./packages/complete-tsconfig/tsconfig.base.json",
+    "./packages/complete-tsconfig/tsconfig.node.json",
+  ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    "outDir": "dist",
-  },
-
-  // A list of the TypeScript files to compile.
-  "include": ["./src/**/*.ts"],
+  "include": ["./scripts/*.ts"],
 }
