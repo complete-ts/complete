@@ -23,9 +23,11 @@
   ],
   "words": [
     "autocrlf",
+    "compat",
     "dbaeumer",
     "eqeqeq",
     "esbenp",
+    "isaacscript",
     "knip",
     "lockb",
     "packagejson",

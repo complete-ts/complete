@@ -18,13 +18,13 @@
     "prettier",
     "sentences"
   ],
-  "homepage": "https://isaacscript.github.io/",
+  "homepage": "https://complete-js.github.io/",
   "bugs": {
-    "url": "https://github.com/IsaacScript/isaacscript/issues"
+    "url": "https://github.com/complete-js/complete/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+    "url": "git+https://github.com/complete-js/complete.git"
   },
   "license": "MIT",
   "author": "Zamiell",
