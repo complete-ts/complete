@@ -1,0 +1,56 @@
+{
+  "name": "eslint-plugin-isaacscript",
+  "version": "3.12.2",
+  "description": "An ESLint plugin that contains useful rules.",
+  "keywords": [
+    "eslint",
+    "plugin",
+    "isaacscript",
+    "lint",
+    "linting",
+    "prettier",
+    "rules",
+    "enum",
+    "enums",
+    "comment",
+    "comments",
+    "format",
+    "autoformat",
+    "complete",
+    "sentences"
+  ],
+  "homepage": "https://isaacscript.github.io/",
+  "bugs": {
+    "url": "https://github.com/IsaacScript/isaacscript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaacScript/isaacscript.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsx ./scripts/build.ts",
+    "create-rule": "tsx ./scripts/createRule.ts",
+    "generate": "tsx ./scripts/generate.ts",
+    "lint": "tsx ./scripts/lint.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@typescript-eslint/type-utils": "^8.3.0",
+    "@typescript-eslint/utils": "^8.3.0",
+    "typescript-eslint": "^8.3.0"
+  },
+  "peerDependencies": {
+    "eslint": ">= 9.0.0",
+    "typescript": ">= 5.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
+
+  "extends": [
+    "../../isaacscript-tsconfig/tsconfig.base.json",
+    "../../isaacscript-tsconfig/tsconfig.node.json",
+    "../../../tsconfig.monorepo.json",
+  ],
+
+  "include": ["./**/*.ts"],
+}
