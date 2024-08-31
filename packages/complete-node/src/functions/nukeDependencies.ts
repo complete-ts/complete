@@ -1,7 +1,6 @@
 import path from "node:path";
 import { $s } from "./execa.js";
 import { isFile, rm } from "./file.js";
-import { PACKAGE_JSON } from "./packageJSON.js";
 import {
   getPackageManagerForProject,
   getPackageManagerLockFileName,
@@ -28,10 +27,10 @@ export function nukeDependencies(packageRoot: string | undefined): void {
     packageRoot = process.cwd(); // eslint-disable-line no-param-reassign
   }
 
-  const packageJSONPath = path.join(packageRoot, PACKAGE_JSON);
+  const packageJSONPath = path.join(packageRoot, "package.json");
   if (!isFile(packageJSONPath)) {
     fatalError(
-      `Failed to find the "${PACKAGE_JSON}" file at the package root: ${packageRoot}`,
+      `Failed to find the "package.json" file at the package root: ${packageRoot}`,
     );
   }
 

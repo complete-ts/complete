@@ -8,6 +8,7 @@ export * from "./functions/execa.js";
 export * from "./functions/file.js";
 export * from "./functions/git.js";
 export * from "./functions/jsonc.js";
+export * from "./functions/monorepo.js";
 export * from "./functions/npm.js";
 export * from "./functions/nukeDependencies.js";
 export * from "./functions/packageJSON.js";

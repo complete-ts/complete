@@ -7,7 +7,7 @@ type PackageJSONDependencyFieldName =
   | "devDependencies"
   | "peerDependencies";
 
-export const PACKAGE_JSON = "package.json";
+const PACKAGE_JSON = "package.json";
 
 /**
  * Helper function to get a "package.json" file as an object. This will print an error message and

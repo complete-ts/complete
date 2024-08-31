@@ -3,7 +3,6 @@ import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $op } from "./execa.js";
 import { getFilePath, readFile } from "./file.js";
-import { PACKAGE_JSON } from "./packageJSON.js";
 import {
   getPackageManagerForProject,
   getPackageManagersForProject,
@@ -55,7 +54,7 @@ export function updatePackageJSON(
   installAfterUpdate = true,
   quiet = false,
 ): boolean {
-  const packageJSONPath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
+  const packageJSONPath = getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
 
   const yarnUpdated = updateYarn(packageJSONPath, packageRoot, quiet);

@@ -3,12 +3,33 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  get-build-packages:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
-      # - run: npm run build
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts build
+
+  build:
+    needs: get-build-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-build-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run build
+      - name: Store the docs build directory
+        if: ${{ matrix.package-name == 'docs' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build
+          path: ./packages/docs/build
 
   lint:
     runs-on: ubuntu-latest
