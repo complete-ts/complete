@@ -44,7 +44,7 @@ switch (foo) {
 ```json
 {
   "rules": {
-    "isaacscript/newline-between-switch-case": "error"
+    "complete/newline-between-switch-case": "error"
   }
 }
 ```

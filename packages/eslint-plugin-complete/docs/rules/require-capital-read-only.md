@@ -64,7 +64,7 @@ const MY_OBJECT: Readonly<Foo> = {
 ```json
 {
   "rules": {
-    "isaacscript/require-capital-read-only": "error"
+    "complete/require-capital-read-only": "error"
   }
 }
 ```

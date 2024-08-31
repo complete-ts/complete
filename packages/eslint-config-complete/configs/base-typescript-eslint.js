@@ -260,7 +260,7 @@ export const baseTypeScriptESLint = tseslint.config(
 
       "@typescript-eslint/prefer-readonly": "warn",
 
-      /** Superseded by the `isaacscript/prefer-readonly-parameter-types` rule. */
+      /** Superseded by the `complete/prefer-readonly-parameter-types` rule. */
       "@typescript-eslint/prefer-readonly-parameter-types": "off",
 
       "@typescript-eslint/prefer-reduce-type-parameter": "warn",

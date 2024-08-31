@@ -21,7 +21,7 @@ if (foo === "") {
 ```json
 {
   "rules": {
-    "isaacscript/no-string-length-0": "error"
+    "complete/no-string-length-0": "error"
   }
 }
 ```

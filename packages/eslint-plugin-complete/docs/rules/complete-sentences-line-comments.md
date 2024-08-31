@@ -15,7 +15,7 @@ Requires complete sentences for multi-line leading line comments.
 ```json
 {
   "rules": {
-    "isaacscript/complete-sentences-line-comments": "error"
+    "complete/complete-sentences-line-comments": "error"
   }
 }
 ```

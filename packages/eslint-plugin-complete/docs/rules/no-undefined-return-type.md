@@ -33,7 +33,7 @@ function foo() {
 ```json
 {
   "rules": {
-    "isaacscript/no-undefined-return-type": "error"
+    "complete/no-undefined-return-type": "error"
   }
 }
 ```

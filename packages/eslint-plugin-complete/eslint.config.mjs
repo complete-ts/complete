@@ -1,6 +1,6 @@
 import tseslint from "typescript-eslint";
-import { base } from "../eslint-config-isaacscript/base.js";
-import { monorepo } from "../eslint-config-isaacscript/monorepo.js";
+import { base } from "../eslint-config-complete/base.js";
+import { monorepo } from "../eslint-config-complete/monorepo.js";
 
 export default tseslint.config(
   ...base,

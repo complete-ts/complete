@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
-import { isFirstLetterCapitalized } from "../isaacScriptCommon.js";
+import { isFirstLetterCapitalized } from "../completeCommon.js";
 import { getTypeName } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 

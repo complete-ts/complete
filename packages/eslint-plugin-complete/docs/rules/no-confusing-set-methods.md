@@ -23,7 +23,7 @@ for (const value of mySet) {
 ```json
 {
   "rules": {
-    "isaacscript/no-confusing-set-methods": "error"
+    "complete/no-confusing-set-methods": "error"
   }
 }
 ```

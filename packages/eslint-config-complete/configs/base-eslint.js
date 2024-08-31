@@ -100,8 +100,8 @@ const SUGGESTIONS = {
   camelcase: "off",
 
   /**
-   * Superseded by the `isaacscript/complete-sentences-jsdoc` and
-   * `isaacscript/complete-sentences-line-comments` rules.
+   * Superseded by the `complete/complete-sentences-jsdoc` and
+   * `complete/complete-sentences-line-comments` rules.
    */
   "capitalized-comments": "off",
 
@@ -141,7 +141,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/dot-notation` rule. */
   "dot-notation": "off",
 
-  /** Superseded by the `isaacscript/eqeqeq-fix` rule. */
+  /** Superseded by the `complete/eqeqeq-fix` rule. */
   eqeqeq: "off",
 
   "func-name-matching": "warn",
@@ -155,7 +155,7 @@ const SUGGESTIONS = {
 
   "grouped-accessor-pairs": "warn",
 
-  /** Superseded by the `isaacscript/no-for-in` rule. */
+  /** Superseded by the `complete/no-for-in` rule. */
   "guard-for-in": "off",
 
   /** Disabled since it is expected to be configured with project-specific keywords. */
@@ -516,8 +516,7 @@ const SUGGESTIONS = {
   "no-useless-rename": "warn",
 
   /**
-   * Superseded by the `isaacscript/no-useless-return` rule (since the auto-fix is usually
-   * unwanted).
+   * Superseded by the `complete/no-useless-return` rule (since the auto-fix is usually unwanted).
    */
   "no-useless-return": "off",
 
@@ -548,7 +547,7 @@ const SUGGESTIONS = {
   "operator-assignment": "warn",
   "prefer-arrow-callback": "warn",
 
-  /** Superseded by the `isaacscript/prefer-const` rule (since the auto-fix is usually unwanted). */
+  /** Superseded by the `complete/prefer-const` rule (since the auto-fix is usually unwanted). */
   "prefer-const": "off",
 
   /** Superseded by the `@typescript-eslint/prefer-destructuring` rule. */
@@ -607,8 +606,8 @@ const SUGGESTIONS = {
   "sort-vars": "off",
 
   /**
-   * Partially superseded by `isaacscript/format-jsdoc-comments` and
-   * `isaacscript/format-line-comments`, but those rules do not handle trailing line comments.
+   * Partially superseded by `complete/format-jsdoc-comments` and `complete/format-line-comments`,
+   * but those rules do not handle trailing line comments.
    *
    * The `markers` option is provided to make this rule ignore lines that start with "///".
    */

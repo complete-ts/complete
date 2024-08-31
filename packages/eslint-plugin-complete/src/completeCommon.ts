@@ -1,12 +1,11 @@
-// We do not want "eslint-plugin-isaacscript" to depend on "isaacscript-common-ts" because it
-// complicates the usage of the plugin inside of the monorepo. Specifically, since we manually copy
-// the compiled output to the monorepo "node_modules" directory, it would cause errors if the
-// "isaacscript-common-ts" directory did not also exist there. To fix this, we could also compile
-// and copy "isaacscript-common-ts" in the build script for this plugin. However, that is
-// undesirable for two reasons:
+// We do not want "eslint-plugin-complete" to depend on "complete-common" because it complicates the
+// usage of the plugin inside of the monorepo. Specifically, since we manually copy the compiled
+// output to the monorepo "node_modules" directory, it would cause errors if the "complete-common"
+// directory did not also exist there. To fix this, we could also compile and copy "complete-common"
+// in the build script for this plugin. However, that is undesirable for two reasons:
 // 1) It increases the complexity of the build script.
-// 2) If "isaacscript-common-ts" exists in the monorepo's "node_modules" directory, it can cause
-//    bugs due to tooling preferring the "real" directory over the tsconfig "paths" resolution.
+// 2) If "complete-common" exists in the monorepo's "node_modules" directory, it can cause bugs due
+//    to tooling preferring the "real" directory over the tsconfig "paths" resolution.
 
 export type ReadonlyRecord<K extends string | number | symbol, V> = Readonly<
   Record<K, V>

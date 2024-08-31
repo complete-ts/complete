@@ -29,7 +29,7 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```json
 {
   "rules": {
-    "isaacscript/prefer-const": "error"
+    "complete/prefer-const": "error"
   }
 }
 ```

@@ -21,7 +21,7 @@ const array = [1, 2, 3] as const;
 ```json
 {
   "rules": {
-    "isaacscript/require-unannotated-const-assertions": "error"
+    "complete/require-unannotated-const-assertions": "error"
   }
 }
 ```

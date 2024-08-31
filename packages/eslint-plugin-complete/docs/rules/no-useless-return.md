@@ -29,7 +29,7 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```json
 {
   "rules": {
-    "isaacscript/no-useless-return": "error"
+    "complete/no-useless-return": "error"
   }
 }
 ```

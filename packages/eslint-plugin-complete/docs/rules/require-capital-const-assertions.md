@@ -67,7 +67,7 @@ const FOO = [1, 2, 3] as const;
 ```json
 {
   "rules": {
-    "isaacscript/require-capital-const-assertions": "error"
+    "complete/require-capital-const-assertions": "error"
   }
 }
 ```

@@ -47,7 +47,7 @@ You can open a GitHub issue if you find a situation where this rule should be sm
 ```json
 {
   "rules": {
-    "isaacscript/format-line-comments": [
+    "complete/format-line-comments": [
       "error",
       {
         "maxLength": 100

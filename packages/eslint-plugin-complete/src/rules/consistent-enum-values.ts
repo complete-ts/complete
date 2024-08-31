@@ -26,8 +26,8 @@ export const consistentEnumValues = createRule({
           return;
         }
 
-        // Ignore number enums; those are intended to be checked with the
-        // `isaacscript/no-number-enums` rule.
+        // Ignore number enums; those are intended to be checked with the `complete/no-number-enums`
+        // rule.
         const enumValue = initializer.value;
         if (typeof enumValue !== "string") {
           return;

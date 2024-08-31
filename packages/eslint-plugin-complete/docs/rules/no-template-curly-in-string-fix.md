@@ -41,7 +41,7 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```json
 {
   "rules": {
-    "isaacscript/no-template-curly-in-string-fix": "error"
+    "complete/no-template-curly-in-string-fix": "error"
   }
 }
 ```

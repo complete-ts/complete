@@ -1,10 +1,8 @@
 # Comments
 
-`eslint-plugin-isaacscript` contains several rules that make working with comments very strict. Why would anyone want to subject themselves to that?
+`eslint-plugin-complete` contains several rules that make working with comments very strict. Why would anyone want to subject themselves to that?
 
 Let's have a short discussion on the motivation for these rules.
-
-<br>
 
 ## The Types of Comments
 
@@ -66,8 +64,6 @@ Like line comments, JSDoc comments can either be single-line or multi-line:
 
 Multi-line JSDoc comments use asterisks to denote the beginning of each line.
 
-<br>
-
 ## Ignoring In-Line Comments
 
 With the definitions out of the way, let's talk about how we use the different kinds of comments. It is common to use _trailing line comments_ to write quick annotations:
@@ -85,8 +81,6 @@ bar(); // Calling this function is probably not needed, but we call it just in c
 ```
 
 Thus, _trailing line comments_ are ignored by the rules in this plugin.
-
-<br>
 
 ## Annotating Information on Variables and Functions
 
@@ -115,9 +109,7 @@ However, one problem remains. You are [supposed to use complete sentences in JSD
 const foo = 100;
 ```
 
-Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`isaacscript/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
-
-<br>
+Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`complete/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
 
 ## Using a Ruler
 
@@ -132,8 +124,6 @@ In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/doc
 ```
 
 Formatters such as [Prettier](https://prettier.io/) have taken this concept to the next level. Prettier automatically reformats your code to stay within the line limit. Since it happens automatically, using Prettier is a huge timer-saver!
-
-<br>
 
 ## Using JSDoc With a Ruler
 
@@ -165,9 +155,7 @@ This comment is aligned with a ruler of 100 characters. Imagine that I need to a
 
 Oh no! Now we have to manually re-adjust the next N lines of the block in order to keep everything aligned.
 
-This annoying problem is why the [`isaacscript/format-jsdoc-comments`](docs/rules/complete-sentences-jsdoc.md) rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is save the file, and all of the subsequent lines will be automatically adjusted.
-
-<br>
+This annoying problem is why the [`complete/format-jsdoc-comments`](docs/rules/complete-sentences-jsdoc.md) rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is save the file, and all of the subsequent lines will be automatically adjusted.
 
 ## Using Line Comments With a Ruler
 
@@ -183,9 +171,7 @@ The same problem happens with multi-line _leading line comments_:
 
 After adding "ADDING INFORMATION HERE", we have to manually re-adjust the next N lines of the block in order to keep everything aligned.
 
-Similar to the `format-jsdoc-comments` rule, the [`isaacscript/format-line-comments`](rules/format-line-comments.md) rule saves us from the tedium of manually formatting.
-
-<br>
+Similar to the `format-jsdoc-comments` rule, the [`complete/format-line-comments`](rules/format-line-comments.md) rule saves us from the tedium of manually formatting.
 
 ## Consistency With Line Comments and JSDoc Comments
 
@@ -205,7 +191,7 @@ In this style, line breaks are used instead of periods. This kind of style can l
 // This is how we do things here I don't know why It's just the way it is
 ```
 
-In order to prevent this from happening, the [`isaacscript/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md) rule forces you to use complete sentences for any _leading line comment_. In the previous example, once we use complete sentences, it gets auto-formatted to this:
+In order to prevent this from happening, the [`complete/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md) rule forces you to use complete sentences for any _leading line comment_. In the previous example, once we use complete sentences, it gets auto-formatted to this:
 
 ```ts
 // This is how we do things here. I don't know why. It's just the way it is.

@@ -47,7 +47,7 @@ function getSet(): ReadonlySet<string>[] {
 ```json
 {
   "rules": {
-    "isaacscript/no-mutable-return": "error"
+    "complete/no-mutable-return": "error"
   }
 }
 ```

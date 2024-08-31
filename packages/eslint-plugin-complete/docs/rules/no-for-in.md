@@ -33,7 +33,7 @@ for (const key of Object.keys(object)) {
 ```json
 {
   "rules": {
-    "isaacscript/no-for-in": "error"
+    "complete/no-for-in": "error"
   }
 }
 ```

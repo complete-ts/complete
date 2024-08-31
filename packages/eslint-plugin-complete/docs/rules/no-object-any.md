@@ -27,7 +27,7 @@ const myArray: string[] = [];
 ```json
 {
   "rules": {
-    "isaacscript/no-object-any": "error"
+    "complete/no-object-any": "error"
   }
 }
 ```

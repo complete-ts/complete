@@ -45,7 +45,7 @@ For more information on why you should use this rule, see the [comment formattin
 // Good
 /**
  * URLS are ignored.
- * https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript/
+ * https://github.com/foo/bar/tree/main/packages/baz/
  */
 ```
 
@@ -74,7 +74,7 @@ The rule tries to be as smart as possible. You can open a GitHub issue if you fi
 ```json
 {
   "rules": {
-    "isaacscript/complete-sentences-jsdoc": "error"
+    "complete/complete-sentences-jsdoc": "error"
   }
 }
 ```

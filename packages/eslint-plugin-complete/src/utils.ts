@@ -35,7 +35,7 @@ export function areStringsEqualExcludingTrailingSpaces(
 // eslint-disable-next-line new-cap
 export const createRule = ESLintUtils.RuleCreator<MyPluginDocs>(
   (ruleName) =>
-    `https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/${ruleName}.md`,
+    `https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/docs/rules/${ruleName}.md`,
 );
 
 /**

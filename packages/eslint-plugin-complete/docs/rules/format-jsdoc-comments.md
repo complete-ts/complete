@@ -80,7 +80,7 @@ For example:
 ```json
 {
   "rules": {
-    "isaacscript/format-jsdoc-comments": [
+    "complete/format-jsdoc-comments": [
       "error",
       {
         "maxLength": 100

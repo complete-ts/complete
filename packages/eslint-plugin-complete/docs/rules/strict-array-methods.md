@@ -35,7 +35,7 @@ const filteredNumbers = numbers.filter((element) => {
 ```json
 {
   "rules": {
-    "isaacscript/strict-array-methods": "error"
+    "complete/strict-array-methods": "error"
   }
 }
 ```

@@ -44,7 +44,7 @@ switch (foo) {
 ```json
 {
   "rules": {
-    "isaacscript/require-break": "error"
+    "complete/require-break": "error"
   }
 }
 ```

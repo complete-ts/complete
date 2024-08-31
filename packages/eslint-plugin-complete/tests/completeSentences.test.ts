@@ -3,7 +3,6 @@ import {
   getIncompleteSentences,
   getSentences,
 } from "../src/completeSentence.js";
-import { assertDefined } from "../src/isaacScriptCommon.js";
 
 function testSentences(text: string, numSentences: number) {
   const sentences = getSentences(text);
@@ -51,10 +50,9 @@ function testIncompleteSentence(
   }
 
   const firstIncompleteSentence = incompleteSentences[0];
-  assertDefined(
-    firstIncompleteSentence,
-    "Failed to get the first incomplete sentence.",
-  );
+  if (firstIncompleteSentence === undefined) {
+    throw new TypeError("Failed to get the first incomplete sentence.");
+  }
   expect(firstIncompleteSentence.messageId).toBe(messageId);
 }
 
@@ -199,7 +197,7 @@ test("ts-expect", () => {
 
 test("eslint-disable", () => {
   const text = `
-eslint-disable-next-line isaacscript/complete-sentences-jsdoc
+eslint-disable-next-line foo/bar
   `;
   testIncompleteSentence(text, undefined);
 });

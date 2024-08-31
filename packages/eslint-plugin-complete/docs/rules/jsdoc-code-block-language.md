@@ -35,7 +35,7 @@ function foo() {}
 ```json
 {
   "rules": {
-    "isaacscript/jsdoc-code-block-language": "error"
+    "complete/jsdoc-code-block-language": "error"
   }
 }
 ```

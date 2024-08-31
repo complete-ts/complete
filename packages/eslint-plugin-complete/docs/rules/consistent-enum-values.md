@@ -14,7 +14,7 @@ enum Foo {
 
 Use this rule to enforce a consistent enum style throughout your codebase.
 
-This rule only enforces the naming style for string enums. Thus, you should use this rule in conjunction with the [`isaacscript/no-number-enums`](no-number-enums.md) rule and the [`@typescript-eslint/prefer-enum-initializers`](https://typescript-eslint.io/rules/prefer-enum-initializers/) rule to prevent all number enums.
+This rule only enforces the naming style for string enums. Thus, you should use this rule in conjunction with the [`complete/no-number-enums`](no-number-enums.md) rule and the [`@typescript-eslint/prefer-enum-initializers`](https://typescript-eslint.io/rules/prefer-enum-initializers/) rule to prevent all number enums.
 
 ```ts
 // Bad
@@ -51,7 +51,7 @@ The next simplest and easiest-to-maintain solution is to simply copy the values 
 ```json
 {
   "rules": {
-    "isaacscript/consistent-enum-values": "error"
+    "complete/consistent-enum-values": "error"
   }
 }
 ```

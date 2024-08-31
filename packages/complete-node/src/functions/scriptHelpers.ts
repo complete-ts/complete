@@ -48,7 +48,7 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
  *
  * For more information, see the documentation for the `script` helper function.
  */
-export async function lintCommands(commands: string[]): Promise<void> {
+export async function lintCommands(commands: readonly string[]): Promise<void> {
   await lintScript(async () => {
     const promises: Array<Promise<unknown>> = [];
 
@@ -91,7 +91,7 @@ export async function testScript(func: ScriptCallback): Promise<void> {
  *             `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
  * @param upStackBy Optional. The number of functions to rewind in the calling stack before
- *                  attempting to file the closest "package.json" file. Default is 1.
+ *                  attempting to find the closest "package.json" file. Default is 1.
  */
 export async function script(
   func: ScriptCallback,
@@ -109,11 +109,6 @@ export async function script(
 
   const fromDir = dirOfCaller(upStackBy);
   const packageRoot = findPackageRoot(fromDir);
-  if (packageRoot === null) {
-    fatalError(
-      `Failed to find the package root starting from directory: ${fromDir}`,
-    );
-  }
 
   process.chdir(packageRoot);
 
@@ -154,7 +149,7 @@ async function getTSConfigJSONOutDir(
     return undefined;
   }
 
-  // eslint-disable-next-line isaacscript/no-template-curly-in-string-fix
+  // eslint-disable-next-line complete/no-template-curly-in-string-fix
   if (outDir.includes("${configDir}")) {
     fatalError(
       `The parsed file at "${tsConfigJSONPath}" has an "outDir" that includes a "\${configDir}" literal, which means that the parser did not properly instantiate the variable.`,

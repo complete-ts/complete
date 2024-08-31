@@ -25,7 +25,7 @@ foo--;
 ```json
 {
   "rules": {
-    "isaacscript/prefer-postfix-plusplus": "error"
+    "complete/prefer-postfix-plusplus": "error"
   }
 }
 ```

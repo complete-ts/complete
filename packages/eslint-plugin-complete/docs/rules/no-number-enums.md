@@ -31,7 +31,7 @@ Obviously, there are [some cases where number enums are superior](strict-enums.m
 ```json
 {
   "rules": {
-    "isaacscript/no-number-enums": "error"
+    "complete/no-number-enums": "error"
   }
 }
 ```

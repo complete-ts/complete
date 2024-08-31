@@ -28,7 +28,7 @@ function foo(): undefined {
 ```json
 {
   "rules": {
-    "isaacscript/strict-void-functions": "error"
+    "complete/strict-void-functions": "error"
   }
 }
 ```

@@ -59,7 +59,7 @@ for (const value of mySet.values()) {
 ```json
 {
   "rules": {
-    "isaacscript/no-object-methods-with-map-set": "error"
+    "complete/no-object-methods-with-map-set": "error"
   }
 }
 ```

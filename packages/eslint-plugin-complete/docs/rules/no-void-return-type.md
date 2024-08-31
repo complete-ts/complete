@@ -25,7 +25,7 @@ function foo() {}
 ```json
 {
   "rules": {
-    "isaacscript/no-void-return-type": "error"
+    "complete/no-void-return-type": "error"
   }
 }
 ```

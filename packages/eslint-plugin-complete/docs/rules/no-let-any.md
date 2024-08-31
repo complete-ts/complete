@@ -19,7 +19,7 @@ let foo: string;
 ```json
 {
   "rules": {
-    "isaacscript/no-let-any": "error"
+    "complete/no-let-any": "error"
   }
 }
 ```

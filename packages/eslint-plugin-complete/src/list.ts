@@ -11,11 +11,7 @@
 export interface List {
   kind: ListKind;
 
-  // eslint-disable-next-line isaacscript/format-jsdoc-comments
-  /**
-   * The size of the whitespace prior to the marker.
-   * e.g. "  1. Foo" would be 2.
-   */
+  /** The size of the whitespace prior to the marker. For example, " 1. Foo" would be 2. */
   numLeadingSpaces: number;
 
   /**

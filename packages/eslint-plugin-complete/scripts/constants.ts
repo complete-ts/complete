@@ -2,10 +2,11 @@ import { findPackageRoot } from "complete-node";
 import path from "node:path";
 
 const packageRoot = findPackageRoot();
-const packageNameWords = packageRoot.split("-");
+const packageName = path.basename(packageRoot);
+const packageNameWords = packageName.split("-");
 const pluginName = packageNameWords.at(-1);
 if (pluginName === undefined || pluginName === "") {
-  throw new Error("Failed to parse the plugin name from the package root.");
+  throw new Error("Failed to parse the plugin name from the package name.");
 }
 
 export const PLUGIN_NAME = pluginName;

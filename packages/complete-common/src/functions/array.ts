@@ -7,7 +7,7 @@ import { assertDefined } from "./utils.js";
  * Helper function to copy a two-dimensional array. Note that the sub-arrays will only be shallow
  * copied (using the spread operator).
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function arrayCopyTwoDimensional<T>(
   array: ReadonlyArray<readonly T[]>,
 ): T[][] {
@@ -45,7 +45,7 @@ export function arrayEquals<T>(
  *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemove<T>(
   originalArray: readonly T[],
   ...elementsToRemove: readonly T[]
@@ -74,9 +74,9 @@ export function arrayRemove<T>(
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function arrayRemoveInPlace<T>(
-  // eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
   array: T[],
   ...elementsToRemove: readonly T[]
 ): T[] {
@@ -94,7 +94,7 @@ export function arrayRemoveInPlace<T>(
 }
 
 /** Helper function to remove all of the elements in an array in-place. */
-// eslint-disable-next-line isaacscript/prefer-readonly-parameter-types
+// eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function emptyArray<T>(array: T[]): void {
   array.splice(0, array.length);
 }
@@ -110,7 +110,7 @@ export function emptyArray<T>(array: T[]): void {
  * This is named `filterMap` after the Rust function:
  * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function filterMap<OldT, NewT>(
   array: readonly OldT[],
   func: (element: OldT) => NewT | undefined,
@@ -198,7 +198,7 @@ export function isArray(arg: unknown): arg is unknown[] {
 }
 
 /** Initializes an array with all elements containing the specified default value. */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function newArray<T>(length: number, value: T): T[] {
   return Array.from({ length }, () => value);
 }

@@ -7,14 +7,14 @@
 
 import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
 
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function objectFilter<K extends string | number | symbol, V>(
   object: ReadonlyRecord<K, V>,
   predicate: (value: V) => boolean,
 ): V[] {
   const array: V[] = [];
 
-  // eslint-disable-next-line isaacscript/no-for-in
+  // eslint-disable-next-line complete/no-for-in
   for (const key in object) {
     const value = object[key];
     const match = predicate(value);

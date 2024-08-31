@@ -35,7 +35,7 @@ Disallows empty JSDoc comments (and automatically removes them).
 ```json
 {
   "rules": {
-    "isaacscript/no-empty-jsdoc": "error"
+    "complete/no-empty-jsdoc": "error"
   }
 }
 ```

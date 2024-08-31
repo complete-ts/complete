@@ -49,7 +49,7 @@ Note that while "<<" is technically a useless operator when combined with 0, thi
 ```json
 {
   "rules": {
-    "isaacscript/no-unnecessary-assignment": "error"
+    "complete/no-unnecessary-assignment": "error"
   }
 }
 ```

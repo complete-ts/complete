@@ -7,7 +7,7 @@
  * If you want to perform a filter and a map at the same time on an array, use the `filterMap`
  * helper function instead.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function mapFilter<K, V>(
   map: ReadonlyMap<K, V>,
   predicate: (value: V) => boolean,
@@ -57,7 +57,7 @@ export function mapFind<K, V>(
  *
  * Also see the `objectToReadonlyMap` function.
  */
-// eslint-disable-next-line isaacscript/no-mutable-return
+// eslint-disable-next-line complete/no-mutable-return
 export function objectToMap<K extends string | number | symbol, V>(
   object: Record<K, V>,
 ): Map<K, V> {

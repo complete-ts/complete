@@ -14,9 +14,9 @@ However, the `++` operator is historically controversial in JavaScript. For exam
 
 This justification does not apply if you use the combination of:
 
-- The [Prettier](https://prettier.io/) autoformatter (which automatically inserts semicolons for you)
-- The [`isaacscript/no-unsafe-plusplus`](no-unsafe-plusplus.md) rule (which prevents usage of `++i` where swapping it to `i++` would change the functionality of the program)
-- The [`isaacscript/prefer-postfix-plusplus`](prefer-postfix-plusplus) rule (which prevents usage of `++i` in favor of `i++`)
+- The [Prettier](https://prettier.io/) auto-formatter (which automatically inserts semicolons for you)
+- The [`complete/no-unsafe-plusplus`](no-unsafe-plusplus.md) rule (which prevents usage of `++i` where swapping it to `i++` would change the functionality of the program)
+- The [`complete/prefer-postfix-plusplus`](prefer-postfix-plusplus) rule (which prevents usage of `++i` in favor of `i++`)
 
 Together, these heavily restrict the usage of the operator, making the only legal usage equal to that of "+= 1".
 
@@ -33,7 +33,7 @@ i++;
 ```json
 {
   "rules": {
-    "isaacscript/prefer-plusplus": "error"
+    "complete/prefer-plusplus": "error"
   }
 }
 ```

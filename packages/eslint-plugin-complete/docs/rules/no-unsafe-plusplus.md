@@ -28,7 +28,7 @@ for (; ; foo++) {}
 ```json
 {
   "rules": {
-    "isaacscript/no-unsafe-plusplus": "error"
+    "complete/no-unsafe-plusplus": "error"
   }
 }
 ```

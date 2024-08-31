@@ -29,7 +29,7 @@ Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare becaus
 ```json
 {
   "rules": {
-    "isaacscript/no-explicit-array-loops": "error"
+    "complete/no-explicit-array-loops": "error"
   }
 }
 ```

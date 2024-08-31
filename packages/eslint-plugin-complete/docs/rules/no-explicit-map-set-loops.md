@@ -35,7 +35,7 @@ Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare becaus
 ```json
 {
   "rules": {
-    "isaacscript/no-explicit-map-set-loops": "error"
+    "complete/no-explicit-map-set-loops": "error"
   }
 }
 ```

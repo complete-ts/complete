@@ -3,3 +3,5 @@
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
 - see followup on https://github.com/un-ts/eslint-plugin-import-x/pull/140
   (need to customize import-x config further)
+- edit README file for all projects to go to docs website
+  - once done, update URL in "export const createRule"

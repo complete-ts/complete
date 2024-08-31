@@ -43,7 +43,7 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 ```json
 {
   "rules": {
-    "isaacscript/eqeqeq-fix": "error"
+    "complete/eqeqeq-fix": "error"
   }
 }
 ```

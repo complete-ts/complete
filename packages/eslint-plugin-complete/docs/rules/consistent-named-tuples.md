@@ -17,7 +17,7 @@ type MyTuple = [arg1: string, arg2: number];
 ```json
 {
   "rules": {
-    "isaacscript/consistent-named-tuples": "error"
+    "complete/consistent-named-tuples": "error"
   }
 }
 ```

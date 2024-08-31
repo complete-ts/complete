@@ -47,7 +47,7 @@ function getCars(...carTypes: CarType[]) {}
 ```json
 {
   "rules": {
-    "isaacscript/require-variadic-function-argument": "error"
+    "complete/require-variadic-function-argument": "error"
   }
 }
 ```

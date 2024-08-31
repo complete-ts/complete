@@ -21,7 +21,7 @@ Disallows empty line comments (and automatically removes them).
 ```json
 {
   "rules": {
-    "isaacscript/no-empty-line-comments": "error"
+    "complete/no-empty-line-comments": "error"
   }
 }
 ```

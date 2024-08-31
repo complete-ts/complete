@@ -1,8 +1,8 @@
 import { isSeparatorLine } from "../comments.js";
+import { assertDefined } from "../completeCommon.js";
 import type { CompleteSentenceMessageIds } from "../completeSentence.js";
 import { getIncompleteSentences } from "../completeSentence.js";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants.js";
-import { assertDefined } from "../isaacScriptCommon.js";
 import {
   allCommentsInBlockAreCommentedOutArrayElements,
   getCommentBlocks,

@@ -15,7 +15,7 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/check-access": "off",
 
-      /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/check-alignment": "off",
 
       /**
@@ -24,7 +24,7 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/check-examples": "off",
 
-      /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/check-indentation": "off",
 
       /**
@@ -68,8 +68,8 @@ export const baseJSDoc = tseslint.config(
             "minimum",
             "maximum",
 
-            // Ignore tags used in `eslint-plugin-isaacscript`:
-            // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/require-variadic-function-argument.md
+            // Ignore tags used in `eslint-plugin-complete`:
+            // https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/docs/rules/require-variadic-function-argument.md
             "allowEmptyVariadic",
           ],
         },
@@ -102,16 +102,16 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/lines-before-block": "off",
 
-      /** Superseded by the `isaacscript/jsdoc-full-sentences` rule. */
+      /** Superseded by the `complete/jsdoc-full-sentences` rule. */
       "jsdoc/match-description": "off",
 
       /** Disabled because it is only needed for projects with specific JSDoc requirements. */
       "jsdoc/match-name": "off",
 
-      /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/multiline-blocks": "off",
 
-      /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/newline-after-description": "off",
 
       /**
@@ -120,10 +120,10 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/no-bad-blocks": "off",
 
-      /** Superseded by the `isaacscript/format-jsdoc-comments` rule. */
+      /** Superseded by the `complete/format-jsdoc-comments` rule. */
       "jsdoc/no-blank-block-descriptions": "off",
 
-      /** Superseded by the `isaacscript/no-empty-jsdoc` rule. */
+      /** Superseded by the `complete/no-empty-jsdoc` rule. */
       "jsdoc/no-blank-blocks": "off",
 
       /** Disabled because it provides little value; the `@default` tag is rare. */
@@ -132,7 +132,7 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is too project-specific. */
       "jsdoc/no-missing-syntax": "off",
 
-      /** Superseded by the `isaacscript/limit-jsdoc-comments` rule. */
+      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/no-multi-asterisks": "off",
 
       /**
@@ -153,7 +153,7 @@ export const baseJSDoc = tseslint.config(
 
       "jsdoc/require-asterisk-prefix": "warn",
 
-      /** Superseded by the `isaacscript/jsdoc-complete-sentences` rule. */
+      /** Superseded by the `complete/jsdoc-complete-sentences` rule. */
       "jsdoc/require-description-complete-sentence": "off",
 
       /** Disabled because it is overboard for every function to have a description. */
@@ -250,7 +250,7 @@ export const baseJSDoc = tseslint.config(
        */
       "jsdoc/sort-tags": "off",
 
-      /** Superseded by the `isaacscript/format-jsdoc-comments` rule. */
+      /** Superseded by the `complete/format-jsdoc-comments` rule. */
       "jsdoc/tag-lines": "off",
 
       /**
