@@ -1,15 +1,8 @@
-import {
-  $s,
-  PACKAGE_JSON,
-  buildScript,
-  cp,
-  mkdir,
-  rm,
-} from "isaacscript-common-node";
-import { assertDefined } from "isaacscript-common-ts";
+import { assertDefined } from "complete-common";
+import { $s, buildScript, cp, mkdir, rm } from "complete-node";
 import path from "node:path";
 
-await buildScript(({ outDir, packageRoot }) => {
+await buildScript(({ packageRoot, outDir }) => {
   assertDefined(
     outDir,
     'Failed to get the "outDir" from the "tsconfig.json" file.',
@@ -26,17 +19,20 @@ await buildScript(({ outDir, packageRoot }) => {
  */
 function copyToMonorepoNodeModules(packageRoot: string, outDir: string) {
   const monorepoRoot = path.join(packageRoot, "..", "..");
+  const packageName = path.basename(packageRoot);
   const monorepoPluginDir = path.join(
     monorepoRoot,
     "node_modules",
-    "eslint-plugin-isaacscript",
+    packageName,
   );
   rm(monorepoPluginDir);
-
   mkdir(monorepoPluginDir);
-  const newPackageJSONPath = path.join(monorepoPluginDir, PACKAGE_JSON);
-  cp(PACKAGE_JSON, newPackageJSONPath);
 
+  // We only need to copy the "package.json" file and the "dist" directory in order for it to work
+  // properly.
+  const packageJSONPath = path.join(packageRoot, "package.json");
+  const newPackageJSONPath = path.join(monorepoPluginDir, "package.json");
+  cp(packageJSONPath, newPackageJSONPath);
   const monorepoPluginDistDir = path.join(monorepoPluginDir, "dist");
   cp(outDir, monorepoPluginDistDir);
 }

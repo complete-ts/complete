@@ -1,7 +1,7 @@
 // This generates the files in the "src/configs" directory.
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import { writeFile } from "isaacscript-common-node";
+import { writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";
@@ -27,12 +27,19 @@ const BASE_CONFIG = [
     plugins: {},
 
     rules: {
-      // The ESLint "eqeqeq" rule will conflict with the "isaacscript/eqeqeq-fix" rule.
+      // The ESLint "eqeqeq" rule will conflict with the "complete/eqeqeq-fix" rule.
       eqeqeq: "off",
 
+      // The ESLint "no-useless-return" rule will conflict with the "complete/no-useless-return"
+      // rule.
+      "no-useless-return": "off",
+
       // The ESLint "no-template-curly-in-string" rule will conflict with the
-      // "isaacscript/no-template-curly-in-string-fix" rule.
+      // "complete/no-template-curly-in-string-fix" rule.
       "no-template-curly-in-string": "off",
+
+      // The ESLint "prefer-const" rule will conflict with the "complete/prefer-const" rule.
+      "prefer-const": "off",
     },
   },
 
@@ -40,10 +47,10 @@ const BASE_CONFIG = [
   {
     files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
-      "isaacscript/no-let-any": "off",
-      "isaacscript/no-object-any": "off",
-      "isaacscript/require-capital-const-assertions": "off",
-      "isaacscript/require-capital-read-only": "off",
+      "complete/no-let-any": "off",
+      "complete/no-object-any": "off",
+      "complete/require-capital-const-assertions": "off",
+      "complete/require-capital-read-only": "off",
     },
   },
 ] as const satisfies TSESLint.FlatConfig.ConfigArray;

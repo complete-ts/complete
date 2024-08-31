@@ -1,6 +1,5 @@
-import ESLintPluginIsaacScript from "eslint-plugin-isaacscript";
+import ESLintPluginComplete from "eslint-plugin-complete";
 import tseslint from "typescript-eslint";
-import { baseDeprecation } from "./configs/base-deprecation.js";
 import { baseESLint } from "./configs/base-eslint.js";
 import { baseImportX } from "./configs/base-import-x.js";
 import { baseJSDoc } from "./configs/base-jsdoc.js";
@@ -9,8 +8,8 @@ import { baseStylistic } from "./configs/base-stylistic.js";
 import { baseTypeScriptESLint } from "./configs/base-typescript-eslint.js";
 import { baseUnicorn } from "./configs/base-unicorn.js";
 
-// Hot-patch "eslint-plugin-isaacscript" to convert errors to warnings.
-for (const config of ESLintPluginIsaacScript.configs.recommended) {
+// Hot-patch "eslint-plugin-complete" to convert errors to warnings.
+for (const config of ESLintPluginComplete.configs.recommended) {
   if (config.rules !== undefined) {
     for (const [key, value] of Object.entries(config.rules)) {
       if (value === "error") {
@@ -34,11 +33,10 @@ export const base = tseslint.config(
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
   ...baseUnicorn,
-  ...baseDeprecation,
 
-  // `eslint-plugin-isaacscript` provides extra miscellaneous rules to keep code safe:
-  // https://github.com/IsaacScript/isaacscript/tree/main/packages/eslint-plugin-isaacscript
-  ...ESLintPluginIsaacScript.configs.recommended,
+  // `eslint-plugin-complete` provides extra miscellaneous rules to keep code safe:
+  // https://github.com/complete-ts/complete/tree/main/packages/eslint-plugin-complete
+  ...ESLintPluginComplete.configs.recommended,
 
   // We prefer the official `reportUnusedDisableDirectives` linter option over the 3rd-party plugin
   // of "eslint-plugin-eslint-comments".

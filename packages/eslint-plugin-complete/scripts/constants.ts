@@ -1,5 +1,13 @@
+import { findPackageRoot } from "complete-node";
 import path from "node:path";
 
-export const PLUGIN_NAME = "isaacscript";
+const packageRoot = findPackageRoot();
+const packageNameWords = packageRoot.split("-");
+const pluginName = packageNameWords.at(-1);
+if (pluginName === undefined || pluginName === "") {
+  throw new Error("Failed to parse the plugin name from the package root.");
+}
+
+export const PLUGIN_NAME = pluginName;
 export const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
 export const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
