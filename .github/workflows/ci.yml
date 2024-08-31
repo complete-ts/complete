@@ -31,16 +31,56 @@ jobs:
           name: docs-build
           path: ./packages/docs/build
 
-  lint:
+  get-lint-packages:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/setup
-      # - run: npm run lint
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts lint
+
+  lint:
+    needs: get-lint-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-lint-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        run: npm run lint
+
+  get-test-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - id: set-matrix
+        run: npx tsx ./scripts/getMonorepoPackageNames.ts test
+
+  test:
+    needs: get-test-packages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-name: ${{ fromJson(needs.get-test-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - working-directory: ./packages/${{ matrix.package-name }}
+        # We specify custom Node.js options in order to increase the memory size, since GitHub
+        # Actions can fail with the following error when doing the `eslint-plugin-complete` tests:
+        # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+        run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
 
   discord:
     name: Discord Failure Notification
-    needs: [build, lint]
+    needs: [build, lint, test]
     if: failure()
     runs-on: ubuntu-latest
     steps:
