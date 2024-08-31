@@ -29,8 +29,6 @@ ruleTester.run("jsdoc-code-block-language", jsdocCodeBlockLanguage, {
  * local socket = require("socket")
  * \`\`\`
  *
- * In order to import socket, the "--luadebug" launch flag must be enabled.
- *
  * The documentation is located at:
  * https://web.tecgraf.puc-rio.br/luasocket/old/luasocket-2.0-beta/tcp.html
  */

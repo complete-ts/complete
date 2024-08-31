@@ -7,7 +7,7 @@ import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $ } from "./execa.js";
 import { isFile, mv, rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
-import { fatalError, getArgs } from "./utils.js";
+import { getArgs } from "./utils.js";
 
 type ScriptCallback = (
   scriptCallbackData: ScriptCallbackData,
@@ -49,7 +49,7 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
  * For more information, see the documentation for the `script` helper function.
  */
 export async function lintCommands(commands: readonly string[]): Promise<void> {
-  await lintScript(async () => {
+  const func = async () => {
     const promises: Array<Promise<unknown>> = [];
 
     for (const command of commands) {
@@ -58,7 +58,9 @@ export async function lintCommands(commands: readonly string[]): Promise<void> {
     }
 
     await Promise.all(promises);
-  });
+  };
+
+  await script(func, "linted", 2);
 }
 
 /** See the documentation for the `script` helper function. */
@@ -151,9 +153,9 @@ async function getTSConfigJSONOutDir(
 
   // eslint-disable-next-line complete/no-template-curly-in-string-fix
   if (outDir.includes("${configDir}")) {
-    fatalError(
-      `The parsed file at "${tsConfigJSONPath}" has an "outDir" that includes a "\${configDir}" literal, which means that the parser did not properly instantiate the variable.`,
-    );
+    // The parsed file has an "outDir" of that includes a "${configDir}" literal, which means that
+    // the parser did not properly instantiate the variable.
+    return undefined;
   }
 
   return outDir;

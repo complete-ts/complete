@@ -472,7 +472,7 @@ valid.push({
   name: "Comment with JSDoc link with URL without trailing text",
   code: `
 /**
- * This starts a debug session with ZeroBrane Studio. For more information, see the
+ * This starts a debug session with ZB Studio. For more information, see the
  * [documentation](https://wofsauge.github.io/IsaacDocs/rep/tutorials/ZeroBraneStudio.html).
  */
   `,
