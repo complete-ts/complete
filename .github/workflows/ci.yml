@@ -78,9 +78,16 @@ jobs:
         # FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
         run: NODE_OPTIONS='--max-old-space-size=8192' npm run test
 
+  monorepo-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/setup
+      - run: npm run lint
+
   discord:
     name: Discord Failure Notification
-    needs: [build, lint, test]
+    needs: [build, lint, test, monorepo-lint]
     if: failure()
     runs-on: ubuntu-latest
     steps:

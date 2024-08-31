@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@arktype/fs": "^0.6.0",
+    "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
     "@eslint/compat": "^1.1.1",
     "@stylistic/eslint-plugin": "^2.7.1",
