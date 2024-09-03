@@ -88,8 +88,8 @@ export function interfaceSatisfiesEnum<
  * @param value The value to check.
  * @param transpiledEnum The enum to check against.
  * @param set Optional. A set that contains all of the values of an enum. If provided, this function
- *            will for existence using the set (instead of the enum itself). Using a set should be
- *            more performant for enums with around 52 or more elements.
+ *            will check for existence using the set (instead of the enum itself). Using a set
+ *            should be more performant for enums with around 52 or more elements.
  */
 export function isEnumValue<T extends TranspiledEnum>(
   value: number | string,

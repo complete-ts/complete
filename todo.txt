@@ -5,3 +5,4 @@
   (need to customize import-x config further)
 - edit README file for all projects to go to docs website
   - once done, update URL in "export const createRule"
+- remove yarn functions from monorepo

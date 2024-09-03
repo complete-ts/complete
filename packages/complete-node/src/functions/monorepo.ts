@@ -1,3 +1,4 @@
+import { trimPrefix } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import {
@@ -7,7 +8,12 @@ import {
   isDirectory,
   isFile,
 } from "./file.js";
-import { packageJSONHasScript } from "./packageJSON.js";
+import {
+  getPackageJSONDependencies,
+  getPackageJSONField,
+  packageJSONHasScript,
+  setPackageJSONDependency,
+} from "./packageJSON.js";
 
 /**
  * Helper function to copy a package's build output to the "node_modules" folder at the root of the
@@ -36,12 +42,15 @@ export function copyToMonorepoNodeModules(packageRoot: string): void {
  *
  * @param scriptName Optional. If specified, the package names will be filtered to only include
  *                   those that include scripts with the given name.
+ * @param fromDir Optional. The directory to start looking for the "package.json" file. Default is
+ *                the directory of the calling function.
  */
 export function getMonorepoPackageNames(
   scriptName?: string,
+  fromDir?: string,
 ): readonly string[] {
-  const fromDir = dirOfCaller();
-  const monorepoRoot = findPackageRoot(fromDir);
+  const fromDirToUse = fromDir ?? dirOfCaller();
+  const monorepoRoot = findPackageRoot(fromDirToUse);
   const packagesPath = path.join(monorepoRoot, "packages");
   if (!isDirectory(packagesPath)) {
     throw new Error(
@@ -75,4 +84,71 @@ export function getMonorepoPackageNames(
 
     return packageJSONHasScript(packageJSONPath, scriptName);
   });
+}
+
+/** @returns Whether anything was updated. */
+export function updateMonorepoSelfDependencies(): boolean {
+  const fromDir = dirOfCaller();
+  const monorepoRoot = findPackageRoot(fromDir);
+
+  let updatedSomething = false;
+
+  const monorepoPackageNames = getMonorepoPackageNames(undefined, monorepoRoot);
+  for (const monorepoPackageName of monorepoPackageNames) {
+    const monorepoPackagePath = path.join(
+      monorepoRoot,
+      "packages",
+      monorepoPackageName,
+    );
+
+    const packageJSONPath = path.join(monorepoPackagePath, "package.json");
+    if (!isFile(packageJSONPath)) {
+      continue;
+    }
+
+    const version = getPackageJSONField(packageJSONPath, "version");
+    if (version === undefined) {
+      continue;
+    }
+
+    for (const monorepoPackageName2 of monorepoPackageNames) {
+      const monorepoPackagePath2 = path.join(
+        monorepoRoot,
+        "packages",
+        monorepoPackageName2,
+      );
+
+      const packageJSONPath2 = path.join(monorepoPackagePath2, "package.json");
+      if (!isFile(packageJSONPath2)) {
+        continue;
+      }
+
+      const dependencies = getPackageJSONDependencies(
+        monorepoPackagePath2,
+        "dependencies",
+      );
+      if (dependencies === undefined) {
+        continue;
+      }
+
+      const depVersion = dependencies[monorepoPackageName];
+      if (depVersion === undefined) {
+        continue;
+      }
+
+      const depVersionTrimmed = trimPrefix(depVersion, "^");
+
+      if (depVersionTrimmed !== version) {
+        const versionWithPrefix = `^${version}`;
+        setPackageJSONDependency(
+          monorepoPackagePath2,
+          monorepoPackageName,
+          versionWithPrefix,
+        );
+        updatedSomething = true;
+      }
+    }
+  }
+
+  return updatedSomething;
 }
