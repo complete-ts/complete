@@ -5,8 +5,6 @@ import {
 } from "complete-node";
 import path from "node:path";
 
-const REPO_ROOT = path.join(import.meta.dirname, "..");
-
 await lintScript(async () => {
   const promises: Array<Promise<unknown>> = [
     // Use Prettier to check formatting.
@@ -35,8 +33,20 @@ await lintScript(async () => {
     // TODO
 
     // Check to see if the child "package.json" files are up to date.
-    updatePackageJSONDependenciesMonorepoChildren(REPO_ROOT, true),
+    checkChildPackageJSONFiles(),
   ];
 
   await Promise.all(promises);
 });
+
+async function checkChildPackageJSONFiles() {
+  const repoRoot = path.join(import.meta.dirname, "..");
+  const filesUpdated = await updatePackageJSONDependenciesMonorepoChildren(
+    repoRoot,
+    true,
+  );
+  if (filesUpdated) {
+    console.error('One or more child "package.json" files are out of sync.');
+    process.exit(1);
+  }
+}
