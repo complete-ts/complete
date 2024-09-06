@@ -37,15 +37,15 @@ export function getPackageJSON(
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
- * @param dependencyFieldName Optional. The specific dependencies field to get. Defaults to
- *                            "dependencies".
+ * @param dependencyType Optional. The specific dependencies field to get. Defaults to
+ *                       "dependencies".
  */
 export function getPackageJSONDependencies(
   filePathOrDirPathOrRecord:
     | string
     | ReadonlyRecord<string, unknown>
     | undefined,
-  dependencyFieldName:
+  dependencyType:
     | "dependencies"
     | "devDependencies"
     | "peerDependencies" = "dependencies",
@@ -55,7 +55,7 @@ export function getPackageJSONDependencies(
       ? filePathOrDirPathOrRecord
       : getPackageJSON(filePathOrDirPathOrRecord);
 
-  const field = packageJSON[dependencyFieldName];
+  const field = packageJSON[dependencyType];
   if (field === undefined) {
     return undefined;
   }
@@ -64,12 +64,12 @@ export function getPackageJSONDependencies(
     if (typeof filePathOrDirPathOrRecord === "string") {
       // eslint-disable-next-line unicorn/prefer-type-error
       throw new Error(
-        `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
+        `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
       );
     }
 
     throw new Error(
-      `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file.`,
+      `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file.`,
     );
   }
 
@@ -77,7 +77,7 @@ export function getPackageJSONDependencies(
     if (typeof value !== "string") {
       // eslint-disable-next-line unicorn/prefer-type-error
       throw new Error(
-        `Failed to parse the "${dependencyFieldName}" field in a "${PACKAGE_JSON}" file since the "${key}" entry was not a string.`,
+        `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file since the "${key}" entry was not a string.`,
       );
     }
   }
@@ -369,19 +369,25 @@ export function packageJSONHasScript(
  * @param version The new value for the dependency field. Note that most of the time, the version
  *                should have a "^" character prefix to indicate that patch updates should
  *                automatically be downloaded by the package manager.
+ * @param dependencyType Optional. The specific dependencies field to update. Defaults to
+ *                       "dependencies".
  */
 export function setPackageJSONDependency(
   filePathOrDirPath: string | undefined,
   dependencyName: string,
   version: string,
+  dependencyType:
+    | "dependencies"
+    | "devDependencies"
+    | "peerDependencies" = "dependencies",
 ): void {
   const filePath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageJSON = getPackageJSON(filePath);
 
   const dependencies =
-    getPackageJSONDependencies(packageJSON, "dependencies") ?? {};
+    getPackageJSONDependencies(packageJSON, dependencyType) ?? {};
   dependencies[dependencyName] = version;
-  packageJSON["dependencies"] = dependencies;
+  packageJSON[dependencyType] = dependencies;
 
   const newFileContents = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
   writeFile(filePath, newFileContents);

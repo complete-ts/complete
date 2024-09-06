@@ -8,3 +8,5 @@
 - remove yarn functions from monorepo
 - configure "no-extraneous-dependencies" to not fire in scripts folder for end-user consumers
 - uncomment docs stuff in "ci.yml"
+- remove all TODO in ./scripts/lint.ts
+- remove TODO in \packages\eslint-plugin-complete\README.md
