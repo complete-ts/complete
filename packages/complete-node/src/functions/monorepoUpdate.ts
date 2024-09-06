@@ -87,6 +87,12 @@ function updateChildNormalDependencies(
       for (const [dependencyName, dependencyVersion] of Object.entries(
         childDependencies,
       )) {
+        // Monorepo packages that depend on other monorepo packages will not exist in the root
+        // "package.json" file, so we have to skip them.
+        if (monorepoPackageNames.includes(dependencyName)) {
+          continue;
+        }
+
         const monorepoDependencyVersion = monorepoDependencies[dependencyName];
         if (monorepoDependencyVersion === undefined) {
           throw new Error(

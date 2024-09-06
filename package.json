@@ -16,7 +16,7 @@
   "scripts": {
     "postinstall": "tsx ./packages/eslint-plugin-complete/scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
-    "update": "npm-check-updates --upgrade && npm install"
+    "update": "tsx ./scripts/update.ts"
   },
   "dependencies": {
     "@arktype/fs": "^0.8.0",
