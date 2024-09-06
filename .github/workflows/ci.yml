@@ -6,7 +6,7 @@ jobs:
   get-build-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.package-names }}
+      package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - id: set-matrix
@@ -35,7 +35,7 @@ jobs:
   get-lint-packages:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.package-names }}
+      package-names: ${{ steps.set-matrix.outputs.package-names }}
     steps:
       - uses: actions/checkout@v4
       - id: set-matrix
