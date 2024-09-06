@@ -2,7 +2,6 @@ import path from "node:path";
 import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  getFileNamesInDirectory,
   isDirectory,
   moveFile,
 } from "./file.js";
@@ -47,33 +46,4 @@ export function fixMonorepoPackageDistDirectory(
   moveFile(realOutDir, tempPath);
   deleteFileOrDirectory(outDir);
   moveFile(tempPath, outDir);
-}
-
-/**
- * Helper function to get the package names in a monorepo by looking at all of the subdirectories in
- * the "packages" directory.
- *
- * @param monorepoRoot The full path to the root of the monorepo.
- */
-export function getMonorepoPackageNames(
-  monorepoRoot: string,
-): readonly string[] {
-  const packagesPath = path.join(monorepoRoot, "packages");
-  if (!isDirectory(packagesPath)) {
-    throw new Error(
-      `Failed to find the monorepo packages directory at: ${packagesPath}`,
-    );
-  }
-
-  const packageNames: string[] = [];
-
-  const fileNames = getFileNamesInDirectory(packagesPath);
-  for (const fileName of fileNames) {
-    const filePath = path.join(packagesPath, fileName);
-    if (isDirectory(filePath)) {
-      packageNames.push(fileName);
-    }
-  }
-
-  return packageNames;
 }

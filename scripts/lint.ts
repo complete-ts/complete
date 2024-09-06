@@ -1,31 +1,42 @@
-import { lintCommands } from "complete-node";
+import {
+  $,
+  lintScript,
+  updatePackageJSONDependenciesMonorepoChildren,
+} from "complete-node";
+import path from "node:path";
 
-await lintCommands([
-  // Use Prettier to check formatting.
-  // - "--log-level=warn" makes it only output errors.
-  "prettier --log-level=warn --check .",
+const REPO_ROOT = path.join(import.meta.dirname, "..");
 
-  // Type-check the code using the TypeScript compiler.
-  "tsc --noEmit",
+await lintScript(async () => {
+  const promises: Array<Promise<unknown>> = [
+    // Use Prettier to check formatting.
+    // - "--log-level=warn" makes it only output errors.
+    $`prettier --log-level=warn --check .`,
 
-  // Use ESLint to lint the TypeScript.
-  // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-  "eslint --max-warnings 0 scripts *.mjs", // We have to exclude the packages directory.
+    // Type-check the code using the TypeScript compiler.
+    $`tsc --noEmit`,
 
-  // Check for unused files, dependencies, and exports.
-  // TODO: https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251
-  /// "knip --no-progress",
+    // Use ESLint to lint the TypeScript.
+    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+    $`eslint --max-warnings 0 scripts *.mjs`, // We have to exclude the packages directory.
 
-  // Spell check every file using CSpell.
-  // - "--no-progress" and "--no-summary" make it only output errors.
-  "cspell --no-progress --no-summary .",
+    // Check for unused files, dependencies, and exports.
+    // TODO: https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251
+    /// $`knip --no-progress`,
 
-  // Check for unused CSpell words.
-  "cspell-check-unused-words",
+    // Spell check every file using CSpell.
+    // - "--no-progress" and "--no-summary" make it only output errors.
+    $`cspell --no-progress --no-summary .`,
 
-  // Check for template updates.
-  // TODO
+    // Check for unused CSpell words.
+    $`cspell-check-unused-words`,
 
-  // Check for package.json errors.
-  // TODO
-]);
+    // Check for template updates.
+    // TODO
+
+    // Check to see if the child "package.json" files are up to date.
+    updatePackageJSONDependenciesMonorepoChildren(REPO_ROOT, true),
+  ];
+
+  await Promise.all(promises);
+});

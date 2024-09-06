@@ -1,5 +1,6 @@
 import { trimSuffix } from "complete-common";
 import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import path from "node:path";
 
 /**
@@ -96,7 +97,7 @@ export function getFileNamesInDirectory(
     fileList = fs.readdirSync(directoryPath);
   } catch (error) {
     throw new Error(
-      `Failed to get the files in the "${directoryPath}" directory: ${error}`,
+      `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
     );
   }
 
@@ -104,8 +105,27 @@ export function getFileNamesInDirectory(
 }
 
 /**
- * Helper function to get the path to file, given either a file path, a directory path, or
- * `undefined`.
+ * Helper function to asynchronously get the file names inside of a directory. (If the full path is
+ * required, you must manually join the file name with the path to the directory.)
+ *
+ * This will throw an error if there is an error when checking the directory.
+ */
+export async function getFileNamesInDirectoryAsync(
+  directoryPath: string,
+): Promise<readonly string[]> {
+  try {
+    const fileList = await fsPromises.readdir(directoryPath);
+    return fileList;
+  } catch (error) {
+    throw new Error(
+      `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
+    );
+  }
+}
+
+/**
+ * Helper function to synchronously get the path to file, given either a file path, a directory
+ * path, or `undefined`.
  *
  * This will throw an error if the file cannot be found.
  *
@@ -122,23 +142,67 @@ export function getFilePath(
     filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
   }
 
-  let filePath: string;
   if (isFile(filePathOrDirPath)) {
-    filePath = filePathOrDirPath;
-  } else if (isDirectory(filePathOrDirPath)) {
-    filePath = path.join(filePathOrDirPath, fileName);
-    if (!fs.existsSync(filePath)) {
-      throw new Error(
-        `Failed to find a "${fileName}" file at the following directory: ${filePathOrDirPath}`,
-      );
+    return filePathOrDirPath;
+  }
+
+  if (isDirectory(filePathOrDirPath)) {
+    const filePath = path.join(filePathOrDirPath, fileName);
+    if (isFile(filePath)) {
+      return filePath;
     }
-  } else {
+
     throw new Error(
-      `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
+      `Failed to find a "${fileName}" file at the following directory: ${filePathOrDirPath}`,
     );
   }
 
-  return filePath;
+  throw new Error(
+    `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
+  );
+}
+
+/**
+ * Helper function to asynchronously get the path to file, given either a file path, a directory
+ * path, or `undefined`.
+ *
+ * This will throw an error if the file cannot be found.
+ *
+ * @param fileName The name of the file to find.
+ * @param filePathOrDirPath Either the path to a file or the path to a directory which contains the
+ *                          file. If undefined is passed, the current working directory will be
+ *                          used.
+ */
+export async function getFilePathAsync(
+  fileName: string,
+  filePathOrDirPath: string | undefined,
+): Promise<string> {
+  if (filePathOrDirPath === undefined) {
+    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
+  }
+
+  const file = await isFileAsync(filePathOrDirPath);
+  const directory = await isDirectoryAsync(filePathOrDirPath);
+
+  if (file) {
+    return filePathOrDirPath;
+  }
+
+  if (directory) {
+    const filePath = path.join(filePathOrDirPath, fileName);
+    const filePathIsFile = await isFileAsync(filePath);
+    if (filePathIsFile) {
+      return filePath;
+    }
+
+    throw new Error(
+      `Failed to find a "${fileName}" file at the following directory: ${filePathOrDirPath}`,
+    );
+  }
+
+  throw new Error(
+    `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
+  );
 }
 
 /**
@@ -180,17 +244,49 @@ export async function getMatchingFilePaths(
 
 /** Helper function to synchronously check if the provided path exists and is a directory. */
 export function isDirectory(filePath: string): boolean {
-  return fs.existsSync(filePath) && fs.statSync(filePath).isDirectory();
+  try {
+    return fs.existsSync(filePath) && fs.statSync(filePath).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
+/** Helper function to asynchronously check if the provided path exists and is a directory. */
+export async function isDirectoryAsync(filePath: string): Promise<boolean> {
+  try {
+    const stats = await fsPromises.stat(filePath);
+    return stats.isDirectory();
+  } catch {
+    return false;
+  }
 }
 
 /** Helper function to synchronously check if the provided path exists and is a file. */
 export function isFile(filePath: string): boolean {
-  return fs.existsSync(filePath) && fs.statSync(filePath).isFile();
+  try {
+    return fs.existsSync(filePath) && fs.statSync(filePath).isFile();
+  } catch {
+    return false;
+  }
+}
+
+/** Helper function to asynchronously check if the provided path exists and is a file. */
+export async function isFileAsync(filePath: string): Promise<boolean> {
+  try {
+    const stats = await fsPromises.stat(filePath);
+    return stats.isFile();
+  } catch {
+    return false;
+  }
 }
 
 /** Helper function to synchronously check if the provided path exists and is a symbolic link. */
 export function isLink(filePath: string): boolean {
-  return fs.existsSync(filePath) && fs.lstatSync(filePath).isSymbolicLink();
+  try {
+    return fs.existsSync(filePath) && fs.lstatSync(filePath).isSymbolicLink();
+  } catch {
+    return false;
+  }
 }
 
 /** Helper function to see if a directory is a subdirectory of another one. */
@@ -267,7 +363,26 @@ export function readFile(filePath: string): string {
   try {
     fileContents = fs.readFileSync(filePath, "utf8");
   } catch (error) {
-    throw new Error(`Failed to read file "${filePath}": ${error}`);
+    throw new Error(`Failed to read text file "${filePath}": ${error}`);
+  }
+
+  return fileContents;
+}
+
+/**
+ * Helper function to asynchronously read a file.
+ *
+ * This assumes that the file is a text file and uses an encoding of "utf8".
+ *
+ * This will throw an error if the file cannot be read.
+ */
+export async function readFileAsync(filePath: string): Promise<string> {
+  let fileContents: string;
+
+  try {
+    fileContents = await fsPromises.readFile(filePath, "utf8");
+  } catch (error) {
+    throw new Error(`Failed to read text file "${filePath}": ${error}`);
   }
 
   return fileContents;
@@ -374,6 +489,22 @@ export function touch(filePath: string): void {
 export function writeFile(filePath: string, data: string): void {
   try {
     fs.writeFileSync(filePath, data);
+  } catch (error) {
+    throw new Error(`Failed to write to the "${filePath}" file: ${error}`);
+  }
+}
+
+/**
+ * Helper function to asynchronously write data to a file.
+ *
+ * This will throw an error if the file cannot be written to.
+ */
+export async function writeFileAsync(
+  filePath: string,
+  data: string,
+): Promise<void> {
+  try {
+    await fsPromises.writeFile(filePath, data);
   } catch (error) {
     throw new Error(`Failed to write to the "${filePath}" file: ${error}`);
   }

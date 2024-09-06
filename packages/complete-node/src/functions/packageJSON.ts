@@ -1,12 +1,20 @@
 import type { ReadonlyRecord } from "complete-common";
 import { isObject, setAdd } from "complete-common";
-import { getFilePath, readFile, writeFile } from "./file.js";
+import type { DependencyType } from "../types/DependencyType.js";
+import {
+  getFilePath,
+  getFilePathAsync,
+  readFile,
+  readFileAsync,
+  writeFile,
+  writeFileAsync,
+} from "./file.js";
 
 const PACKAGE_JSON = "package.json";
 
 /**
- * Helper function to get a "package.json" file as an object. This will throw an error if the
- * "package.json" file cannot be found or is otherwise invalid.
+ * Helper function to synchronously get a "package.json" file as an object. This will throw an error
+ * if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
@@ -28,8 +36,32 @@ export function getPackageJSON(
 }
 
 /**
- * Helper function to get the "dependencies" or "devDependencies" or "peerDependencies" field from a
- * "package.json" file. If the corresponding field does not exist, `undefined` will be returned.
+ * Helper function to asynchronously get a "package.json" file as an object. This will throw an
+ * error if the "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
+ */
+export async function getPackageJSONAsync(
+  filePathOrDirPath: string | undefined,
+): Promise<Record<string, unknown>> {
+  const filePath = await getFilePathAsync(PACKAGE_JSON, filePathOrDirPath);
+  const packageJSONContents = await readFileAsync(filePath);
+  const packageJSON = JSON.parse(packageJSONContents) as unknown;
+  if (!isObject(packageJSON)) {
+    throw new Error(
+      `Failed to parse a "${PACKAGE_JSON}" file at the following path: ${filePath}`,
+    );
+  }
+
+  return packageJSON;
+}
+
+/**
+ * Helper function to synchronously get the "dependencies" or "devDependencies" or
+ * "peerDependencies" field from a "package.json" file. If the corresponding field does not exist,
+ * `undefined` will be returned.
  *
  * This will throw an error if the "package.json" file cannot be found or is otherwise invalid.
  *
@@ -45,29 +77,55 @@ export function getPackageJSONDependencies(
     | string
     | ReadonlyRecord<string, unknown>
     | undefined,
-  dependencyType:
-    | "dependencies"
-    | "devDependencies"
-    | "peerDependencies" = "dependencies",
+  dependencyType: DependencyType = "dependencies",
 ): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
       ? filePathOrDirPathOrRecord
       : getPackageJSON(filePathOrDirPathOrRecord);
 
+  return getPackageJSONDependenciesSub(packageJSON, dependencyType);
+}
+
+/**
+ * Helper function to asynchronously get the "dependencies" or "devDependencies" or
+ * "peerDependencies" field from a "package.json" file. If the corresponding field does not exist,
+ * `undefined` will be returned.
+ *
+ * This will throw an error if the "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param dependencyType Optional. The specific dependencies field to get. Defaults to
+ *                       "dependencies".
+ */
+export async function getPackageJSONDependenciesAsync(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  dependencyType: DependencyType = "dependencies",
+): Promise<Record<string, string> | undefined> {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : await getPackageJSONAsync(filePathOrDirPathOrRecord);
+
+  return getPackageJSONDependenciesSub(packageJSON, dependencyType);
+}
+
+function getPackageJSONDependenciesSub(
+  packageJSON: ReadonlyRecord<string, unknown>,
+  dependencyType: DependencyType,
+) {
   const field = packageJSON[dependencyType];
   if (field === undefined) {
     return undefined;
   }
 
   if (!isObject(field)) {
-    if (typeof filePathOrDirPathOrRecord === "string") {
-      // eslint-disable-next-line unicorn/prefer-type-error
-      throw new Error(
-        `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
-      );
-    }
-
     throw new Error(
       `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file.`,
     );
@@ -75,8 +133,7 @@ export function getPackageJSONDependencies(
 
   for (const [key, value] of Object.entries(field)) {
     if (typeof value !== "string") {
-      // eslint-disable-next-line unicorn/prefer-type-error
-      throw new Error(
+      throw new TypeError(
         `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file since the "${key}" entry was not a string.`,
       );
     }
@@ -86,9 +143,9 @@ export function getPackageJSONDependencies(
 }
 
 /**
- * Helper function to get an arbitrary string field from a "package.json" file. If the field does
- * not exist, `undefined` will be returned. This will throw an error if the "package.json" file
- * cannot be found or is otherwise invalid.
+ * Helper function to synchronously get an arbitrary string field from a "package.json" file. If the
+ * field does not exist, `undefined` will be returned. This will throw an error if the
+ * "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -132,8 +189,54 @@ export function getPackageJSONField(
 }
 
 /**
- * Helper function to get an arbitrary string field from a "package.json" file. This will throw an
- * error if the field does not exist or if the "package.json" file cannot be found.
+ * Helper function to asynchronously get an arbitrary string field from a "package.json" file. If
+ * the field does not exist, `undefined` will be returned. This will throw an error if the
+ * "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param fieldName The name of the field to retrieve.
+ */
+export async function getPackageJSONFieldAsync(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  fieldName: string,
+): Promise<string | undefined> {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : await getPackageJSONAsync(filePathOrDirPathOrRecord);
+
+  const field = packageJSON[fieldName];
+  if (field === undefined) {
+    return undefined;
+  }
+
+  // Assume that all fields are strings. For objects (like e.g. "dependencies"), other helper
+  // functions should be used.
+  if (typeof field !== "string") {
+    if (typeof filePathOrDirPathOrRecord === "string") {
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
+      );
+    }
+
+    throw new Error(
+      `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+    );
+  }
+
+  return field;
+}
+
+/**
+ * Helper function to synchronously get an arbitrary string field from a "package.json" file. This
+ * will throw an error if the field does not exist or if the "package.json" file cannot be found.
  *
  * Also see the `getPackageJSONField` function.
  *
@@ -161,8 +264,9 @@ export function getPackageJSONFieldMandatory(
 }
 
 /**
- * Helper function to get N arbitrary string fields from a "package.json" file. This will throw an
- * error if any of the fields do not exist or if the "package.json" file cannot be found.
+ * Helper function to synchronously get N arbitrary string fields from a "package.json" file. This
+ * will throw an error if any of the fields do not exist or if the "package.json" file cannot be
+ * found.
  *
  * Also see the `getPackageJSONFieldMandatory` function.
  *
@@ -194,9 +298,9 @@ export function getPackageJSONFieldsMandatory<T extends string>(
 }
 
 /**
- * Helper function to get the "scripts" field from a "package.json" file. If the field does not
- * exist, `undefined` will be returned. This will throw an error if the "package.json" file cannot
- * be found or is otherwise invalid.
+ * Helper function to synchronously get the "scripts" field from a "package.json" file. If the field
+ * does not exist, `undefined` will be returned. This will throw an error if the "package.json" file
+ * cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -245,9 +349,9 @@ export function getPackageJSONScripts(
 }
 
 /**
- * Helper function to get the "version" field from a "package.json" file. This will throw an error
- * if the "package.json" file cannot be found or is otherwise invalid. It will also throw an error
- * if the "version" field does not exist.
+ * Helper function to synchronously get the "version" field from a "package.json" file. This will
+ * throw an error if the "package.json" file cannot be found or is otherwise invalid. It will also
+ * throw an error if the "version" field does not exist.
  *
  * If you want to allow for the "version" field not existing, use the `getPackageJSONField` helper
  * function instead.
@@ -282,9 +386,9 @@ export function getPackageJSONVersion(
 }
 
 /**
- * Helper function to check if a "package.json" file has a particular dependency. Both the
- * "dependencies" and the "devDependencies" fields will be checked. This will throw an error if the
- * "package.json" file cannot be found or is otherwise invalid.
+ * Helper function to synchronously check if a "package.json" file has a particular dependency. Both
+ * the "dependencies" and the "devDependencies" fields will be checked. This will throw an error if
+ * the "package.json" file cannot be found or is otherwise invalid.
  *
  * This function is variadic, meaning that you can pass as many dependency names as you want to
  * check for. This function will return true if one or more dependencies were found.
@@ -328,8 +432,8 @@ export function isPackageJSONDependency(
 }
 
 /**
- * Helper function to check if a "package.json" file has a particular script. This will throw an
- * error if the "package.json" file cannot be found or is otherwise invalid.
+ * Helper function to synchronously check if a "package.json" file has a particular script. This
+ * will throw an error if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -359,8 +463,8 @@ export function packageJSONHasScript(
 }
 
 /**
- * Helper function to set a dependency in a "package.json" file to a new value. This will throw an
- * error if the "package.json" file cannot be found or is otherwise invalid.
+ * Helper function to synchronously set a dependency in a "package.json" file to a new value. This
+ * will throw an error if the "package.json" file cannot be found or is otherwise invalid.
  *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
@@ -376,19 +480,61 @@ export function setPackageJSONDependency(
   filePathOrDirPath: string | undefined,
   dependencyName: string,
   version: string,
-  dependencyType:
-    | "dependencies"
-    | "devDependencies"
-    | "peerDependencies" = "dependencies",
+  dependencyType: DependencyType = "dependencies",
 ): void {
   const filePath = getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageJSON = getPackageJSON(filePath);
 
-  const dependencies =
-    getPackageJSONDependencies(packageJSON, dependencyType) ?? {};
+  const dependencies = getPackageJSONDependencies(packageJSON, dependencyType);
+  if (dependencies === undefined) {
+    throw new Error(
+      `Failed to find the "${dependencyType}" field when updating the following file: ${filePath}`,
+    );
+  }
+
   dependencies[dependencyName] = version;
   packageJSON[dependencyType] = dependencies;
 
   const newFileContents = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
   writeFile(filePath, newFileContents);
+}
+
+/**
+ * Helper function to asynchronously set a dependency in a "package.json" file to a new value. This
+ * will throw an error if the "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
+ *                          which contains a "package.json" file. If undefined is passed, the
+ *                          current working directory will be used.
+ * @param dependencyName The name of the dependency to update.
+ * @param version The new value for the dependency field. Note that most of the time, the version
+ *                should have a "^" character prefix to indicate that patch updates should
+ *                automatically be downloaded by the package manager.
+ * @param dependencyType Optional. The specific dependencies field to update. Defaults to
+ *                       "dependencies".
+ */
+export async function setPackageJSONDependencyAsync(
+  filePathOrDirPath: string | undefined,
+  dependencyName: string,
+  version: string,
+  dependencyType: DependencyType = "dependencies",
+): Promise<void> {
+  const filePath = await getFilePathAsync(PACKAGE_JSON, filePathOrDirPath);
+  const packageJSON = await getPackageJSONAsync(filePath);
+
+  const dependencies = await getPackageJSONDependenciesAsync(
+    packageJSON,
+    dependencyType,
+  );
+  if (dependencies === undefined) {
+    throw new Error(
+      `Failed to find the "${dependencyType}" field when updating the following file: ${filePath}`,
+    );
+  }
+
+  dependencies[dependencyName] = version;
+  packageJSON[dependencyType] = dependencies;
+
+  const newFileContents = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
+  await writeFileAsync(filePath, newFileContents);
 }
