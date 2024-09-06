@@ -2,11 +2,6 @@ import type { ReadonlyRecord } from "complete-common";
 import { isObject, setAdd } from "complete-common";
 import { getFilePath, readFile, writeFile } from "./file.js";
 
-type PackageJSONDependencyFieldName =
-  | "dependencies"
-  | "devDependencies"
-  | "peerDependencies";
-
 const PACKAGE_JSON = "package.json";
 
 /**
@@ -50,7 +45,10 @@ export function getPackageJSONDependencies(
     | string
     | ReadonlyRecord<string, unknown>
     | undefined,
-  dependencyFieldName: PackageJSONDependencyFieldName = "dependencies",
+  dependencyFieldName:
+    | "dependencies"
+    | "devDependencies"
+    | "peerDependencies" = "dependencies",
 ): Record<string, string> | undefined {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"

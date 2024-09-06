@@ -89,8 +89,8 @@ export function getPackageManagerExecCommand(
  * Helper function to look at the lock files in a given directory in order to detect the package
  * manager being used for the project.
  *
- * Since 2 or more different kinds of lock files can exist, this will print an error message and
- * exit the program if 0 lock files are found or if 2 or more lock files are found.
+ * Since 2 or more different kinds of lock files can exist, this will throw an error if 0 lock files
+ * are found or if 2 or more lock files are found.
  */
 export function getPackageManagerForProject(
   packageRoot: string,

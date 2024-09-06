@@ -6,3 +6,4 @@
 - edit README file for all projects to go to docs website
   - once done, update URL in "export const createRule"
 - remove yarn functions from monorepo
+- configure "no-extraneous-dependencies" to not fire in scripts folder for end-user consumers

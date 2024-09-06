@@ -1,43 +1,26 @@
 /* eslint-disable sort-exports/sort-exports */
 
-import { isObject } from "complete-common";
 import path from "node:path";
-import * as tsconfck from "tsconfck";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $ } from "./execa.js";
-import { isFile, mv, rm } from "./file.js";
+import { rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getArgs } from "./utils.js";
 
 type ScriptCallback = (
-  scriptCallbackData: ScriptCallbackData,
+  /** The full path to the directory where the closest "package.json" is located. */
+  packageRoot: string,
 ) => Promise<void> | void;
 
-interface ScriptCallbackData {
-  /** The full path to the directory where the closest "package.json" is located. */
-  readonly packageRoot: string;
-
-  /**
-   * The full path to the directory where the compiled output directory, according to the project's
-   * "tsconfig.json" file. This will be undefined if there is no "outDir" specified.
-   */
-  readonly outDir?: string;
-}
-
 /**
- * Removes the "outDir" directory specified in the "tsconfig.json" file (if it exists), then runs
- * the provided logic.
+ * Removes the "dist" directory (if it exists), then runs the provided logic.
  *
  * For more information, see the documentation for the `script` helper function.
  */
 export async function buildScript(func: ScriptCallback): Promise<void> {
-  const buildFunc: ScriptCallback = async (data) => {
-    const { outDir } = data;
-    if (outDir !== undefined) {
-      rm(outDir);
-    }
-
-    await func(data);
+  const buildFunc: ScriptCallback = async (packageRoot) => {
+    rm("dist");
+    await func(packageRoot);
   };
 
   await script(buildFunc, "built", 2);
@@ -49,7 +32,7 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
  * For more information, see the documentation for the `script` helper function.
  */
 export async function lintCommands(commands: readonly string[]): Promise<void> {
-  const func = async () => {
+  const func: ScriptCallback = async () => {
     const promises: Array<Promise<unknown>> = [];
 
     for (const command of commands) {
@@ -114,51 +97,13 @@ export async function script(
 
   process.chdir(packageRoot);
 
-  const outDir = await getTSConfigJSONOutDir(packageRoot);
-
   const startTime = Date.now();
-  const data = { packageRoot, outDir };
-  await func(data);
+  await func(packageRoot);
 
   if (!quiet && verb !== undefined) {
     const packageName = path.basename(packageRoot);
     printSuccess(startTime, verb, packageName);
   }
-}
-
-async function getTSConfigJSONOutDir(
-  packageRoot: string,
-): Promise<string | undefined> {
-  const tsConfigJSONPath = path.join(packageRoot, "tsconfig.json");
-  if (!isFile(tsConfigJSONPath)) {
-    return undefined;
-  }
-
-  const parseResult = await tsconfck.parseNative(tsConfigJSONPath);
-
-  const tsconfig = parseResult.tsconfig as unknown;
-  if (!isObject(tsconfig)) {
-    return undefined;
-  }
-
-  const { compilerOptions } = tsconfig;
-  if (!isObject(compilerOptions)) {
-    return undefined;
-  }
-
-  const { outDir } = compilerOptions;
-  if (typeof outDir !== "string") {
-    return undefined;
-  }
-
-  // eslint-disable-next-line complete/no-template-curly-in-string-fix
-  if (outDir.includes("${configDir}")) {
-    // The parsed file has an "outDir" of that includes a "${configDir}" literal, which means that
-    // the parser did not properly instantiate the variable.
-    return undefined;
-  }
-
-  return outDir;
 }
 
 /**
@@ -192,25 +137,6 @@ export function echo(...args: readonly unknown[]): void {
 /** An alias for "process.exit". */
 export function exit(code = 0): never {
   return process.exit(code);
-}
-
-/**
- * In a monorepo without project references, `tsc` will compile parent projects and include it in
- * the build output, making a weird directory structure. Since build output for a single package
- * should not be include other monorepo dependencies inside of it, all of the output needs to be
- * deleted except for the actual package output.
- */
-export function fixMonorepoPackageDistDirectory(
-  packageRoot: string,
-  outDir: string,
-): void {
-  const projectName = path.basename(packageRoot);
-  const realOutDir = path.join(outDir, projectName, "src");
-  const tempPath = path.join(packageRoot, projectName);
-  rm(tempPath);
-  mv(realOutDir, tempPath);
-  rm(outDir);
-  mv(tempPath, outDir);
 }
 
 export async function sleep(seconds: number): Promise<unknown> {

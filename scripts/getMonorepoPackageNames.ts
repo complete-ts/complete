@@ -1,7 +1,6 @@
 import {
   appendFile,
   echo,
-  fatalError,
   getArgs,
   getMonorepoPackageNames,
 } from "complete-node";
@@ -11,7 +10,7 @@ const GITHUB_ACTIONS_OUTPUT_VARIABLE_NAME = "matrix";
 // Validate environment variables.
 const gitHubOutputFile = process.env["GITHUB_OUTPUT"];
 if (gitHubOutputFile === undefined || gitHubOutputFile === "") {
-  fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
+  throw new Error("Failed to read the environment variable: GITHUB_OUTPUT");
 }
 
 const args = getArgs();

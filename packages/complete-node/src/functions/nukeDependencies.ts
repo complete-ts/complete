@@ -50,5 +50,6 @@ export function nukeDependencies(packageRoot: string | undefined): void {
   rm(packageManagerLockFilePath);
   console.log(`Removed: ${packageManagerLockFilePath}`);
 
+  console.log(`Running: ${packageManager} install`);
   $s`${packageManager} install`;
 }

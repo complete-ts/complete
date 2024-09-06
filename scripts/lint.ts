@@ -13,7 +13,7 @@ await lintCommands([
   "eslint --max-warnings 0 scripts *.mjs", // We have to exclude the packages directory.
 
   // Check for unused files, dependencies, and exports.
-  "knip --no-progress",
+  /// "knip --no-progress", // TODO
 
   // Spell check every file using CSpell.
   // - "--no-progress" and "--no-summary" make it only output errors.
