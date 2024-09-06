@@ -15,5 +15,5 @@ export * from "./functions/packageJSON.js";
 export * from "./functions/packageManager.js";
 export * from "./functions/scriptHelpers.js";
 export * from "./functions/time.js";
-export * from "./functions/updatePackageJSON.js";
+export * from "./functions/update.js";
 export * from "./functions/utils.js";

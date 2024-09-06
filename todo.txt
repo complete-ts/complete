@@ -7,3 +7,4 @@
   - once done, update URL in "export const createRule"
 - remove yarn functions from monorepo
 - configure "no-extraneous-dependencies" to not fire in scripts folder for end-user consumers
+- uncomment docs stuff in "ci.yml"
