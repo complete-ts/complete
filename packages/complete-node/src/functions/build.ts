@@ -8,8 +8,11 @@ import { getMatchingFilePaths, renameFileExtensions, rm } from "./file.js";
 /**
  * Helper function to invoke `tsc` twice, producing both CommonJS (CJS) and ECMAScript modules (ESM)
  * output.
+ *
+ * @param outDir Optional. The full path to the directory that TypeScript puts the compiled files.
+ *               Default is "dist".
  */
-export async function buildCJSAndESM(outDir: string): Promise<void> {
+export async function buildCJSAndESM(outDir = "dist"): Promise<void> {
   rm(outDir);
 
   // `tsc` will create the following files:
