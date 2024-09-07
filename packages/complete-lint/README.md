@@ -6,7 +6,7 @@ This is a meta package to install all of the dependencies necessary for [ESLint]
 
 ## Why This Package Is Useful
 
-It is a pain to get Prettier & ESLint working with TypeScript. `isaacscript-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies. Don't bother researching which of the hundreds of existing ESLint rules to turn on and turn off. Just use `isaacscript-lint`.
+It is a pain to get Prettier & ESLint working with TypeScript. `complete-lint` is designed to make it as easy as possible. Don't clutter your `package.json` file with 15+ different ESLint-related dependencies. Don't bother researching which of the hundreds of existing ESLint rules to turn on and turn off. Just use `complete-lint`.
 
 If you are ready to start, see the [installation instructions](#installation-instructions).
 
@@ -149,16 +149,16 @@ In JavaScript and TypeScript land, there isn't an official code formatting stand
 
 [Prettier](https://prettier.io/) is an auto-formatter for JavaScript/TypeScript. First released in 2017, it has become widespread and is probably considered to be the industry standard in 2023. Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make better transformations than other tools.
 
-In `isaacscript-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+In `complete-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Prettier handles almost everything, but the `isaacscript-lint` linting config also has a few formatting-related rules turned on, like [`isaacscript/format-jsdoc-comments`](https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-plugin-isaacscript/docs/rules/format-jsdoc-comments.md) (since Prettier does not format comments).
+Prettier handles almost everything, but the `complete-lint` linting config also has a few formatting-related rules turned on, like [`complete/format-jsdoc-comments`](TODO) (since Prettier does not format comments).
 
 ### ESLint
 
 ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
 
-With `isaacscript-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-isaacscript`](https://isaacscript.github.io/eslint-config-isaacscript).
+With `complete-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-complete`](TODO).
 
 ### Using Prettier & ESLint Together
 
-In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `isaacscript-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
+In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `complete-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
