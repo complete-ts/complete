@@ -1,3 +1,4 @@
+import { assertDefined } from "complete-common";
 import path from "node:path";
 import { PACKAGE_MANAGER_VALUES } from "../cachedEnumValues.js";
 import { PackageManager } from "../enums/PackageManager.js";
@@ -105,11 +106,10 @@ export function getPackageManagerForProject(
   }
 
   const packageManager = packageManagers[0];
-  if (packageManager === undefined) {
-    throw new Error(
-      `No package manager lock files exist at "${packageRoot}". You should install dependencies using the package manager of your choice so that this program can correctly detect your package manager.`,
-    );
-  }
+  assertDefined(
+    packageManager,
+    `No package manager lock files exist at "${packageRoot}". You should install dependencies using the package manager of your choice so that this program can correctly detect your package manager.`,
+  );
 
   return packageManager;
 }

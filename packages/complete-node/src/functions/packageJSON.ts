@@ -1,5 +1,5 @@
 import type { ReadonlyRecord } from "complete-common";
-import { isObject, setAdd } from "complete-common";
+import { assertDefined, isObject, setAdd } from "complete-common";
 import type { DependencyType } from "../types/DependencyType.js";
 import {
   getFilePath,
@@ -254,11 +254,10 @@ export function getPackageJSONFieldMandatory(
   fieldName: string,
 ): string {
   const field = getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
-  if (field === undefined) {
-    throw new Error(
-      `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
-    );
-  }
+  assertDefined(
+    field,
+    `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+  );
 
   return field;
 }
@@ -285,11 +284,10 @@ export function getPackageJSONFieldsMandatory<T extends string>(
 
   for (const fieldName of fieldNames) {
     const field = getPackageJSONField(packageJSON, fieldName);
-    if (field === undefined) {
-      throw new Error(
-        `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
-      );
-    }
+    assertDefined(
+      field,
+      `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+    );
 
     fields[fieldName] = field;
   }
@@ -526,11 +524,10 @@ export async function setPackageJSONDependencyAsync(
     packageJSON,
     dependencyType,
   );
-  if (dependencies === undefined) {
-    throw new Error(
-      `Failed to find the "${dependencyType}" field when updating the following file: ${filePath}`,
-    );
-  }
+  assertDefined(
+    dependencies,
+    `Failed to find the "${dependencyType}" field when updating the following file: ${filePath}`,
+  );
 
   dependencies[dependencyName] = version;
   packageJSON[dependencyType] = dependencies;

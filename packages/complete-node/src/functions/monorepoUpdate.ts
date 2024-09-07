@@ -171,11 +171,10 @@ async function updateChildNormalDependencies(
         .map(async ([dependencyName, dependencyVersion]) => {
           const monorepoDependencyVersion =
             monorepoDependencies[dependencyName];
-          if (monorepoDependencyVersion === undefined) {
-            throw new Error(
-              `Failed to find the following dependency at the root of the monorepo: ${dependencyName}`,
-            );
-          }
+          assertDefined(
+            monorepoDependencyVersion,
+            `Failed to find the following dependency at the root of the monorepo: ${dependencyName}`,
+          );
 
           if (dependencyVersion !== monorepoDependencyVersion) {
             console.log(
