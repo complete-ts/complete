@@ -22,8 +22,8 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  * This is intended to be called in a monorepo lint script. It will exit the program with an error
  * code of 1 if discrepancies are found.
  *
- * It attempts to find the monorepo root directory automatically based on searching backwards from
- * the file of the calling function.
+ * This function attempts to find the monorepo root directory automatically based on searching
+ * backwards from the file of the calling function.
  */
 export async function lintMonorepoPackageJSONs(): Promise<void> {
   const fromDir = dirOfCaller();
@@ -40,7 +40,11 @@ export async function lintMonorepoPackageJSONs(): Promise<void> {
 
 /**
  * Helper function to update the dependencies in all of the monorepo "package.json" files. If there
- * are any updates, the package manager used in the project will be automatically invoked.
+ * are any updates, the package manager used in the project will be automatically invoked to install
+ * them.
+ *
+ * This function attempts to find the monorepo root directory automatically based on searching
+ * backwards from the file of the calling function.
  *
  * @returns Whether one or more "package.json" files were updated.
  */
@@ -74,7 +78,7 @@ export async function updatePackageJSONDependenciesMonorepo(): Promise<boolean> 
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
  * @returns Whether one or more "package.json" files were updated.
  */
-export async function updatePackageJSONDependenciesMonorepoChildren(
+async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,
   dryRun = false,
 ): Promise<boolean> {

@@ -22,6 +22,7 @@
     "yarn.lock",
   ],
   "words": [
+    "adduser",
     "arktype",
     "Basarat",
     "bunx",
@@ -34,6 +35,7 @@
     "nonblock",
     "nonconstructor",
     "nonoctal",
+    "preid",
     "remarkrc",
     "sarisia",
     "Syed",

@@ -16,6 +16,7 @@
   "scripts": {
     "postinstall": "tsx ./packages/eslint-plugin-complete/scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
+    "publish": "tsx ./scripts/publish.ts",
     "update": "tsx ./scripts/update.ts"
   },
   "dependencies": {

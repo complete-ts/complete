@@ -9,6 +9,7 @@ export * from "./functions/file.js";
 export * from "./functions/git.js";
 export * from "./functions/jsonc.js";
 export * from "./functions/monorepo.js";
+export * from "./functions/monorepoPublish.js";
 export * from "./functions/monorepoUpdate.js";
 export * from "./functions/npm.js";
 export * from "./functions/nukeDependencies.js";
