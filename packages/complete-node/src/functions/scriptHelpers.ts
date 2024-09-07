@@ -2,7 +2,6 @@
 
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { $ } from "./execa.js";
 import { rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getArgs } from "./utils.js";
@@ -24,35 +23,6 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
   };
 
   await script(buildFunc, "built", 2);
-}
-
-/**
- * Helper function to run several linting commands all at the same time for a TypeScript project.
- *
- * The list of commands can include strings (which will be turned into shell commands) and promises
- * (from async functions).
- *
- * Under the hood, this function invokes the `script` helper function.
- */
-export async function lintCommands(
-  commands: ReadonlyArray<string | Promise<void>>,
-): Promise<void> {
-  const func: ScriptCallback = async () => {
-    const promises: Array<Promise<unknown>> = [];
-
-    for (const command of commands) {
-      if (typeof command === "string") {
-        const promise = $`${command}`;
-        promises.push(promise);
-      } else {
-        promises.push(command);
-      }
-    }
-
-    await Promise.all(promises);
-  };
-
-  await script(func, "linted", 2);
 }
 
 /** See the documentation for the `script` helper function. */
