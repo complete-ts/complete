@@ -5,7 +5,10 @@ import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $o, $op, $s, $sq } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
-import { updatePackageJSONDependenciesMonorepo } from "./monorepoUpdate.js";
+import {
+  updatePackageJSONDependenciesMonorepo,
+  updatePackageJSONDependenciesMonorepoChildren,
+} from "./monorepoUpdate.js";
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { echo, exit } from "./scriptHelpers.js";
@@ -150,16 +153,21 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     )}" version "${chalk.green(version)}" in ${elapsedSeconds} ${secondsText}.`,
   );
 
-  // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
   if (updateMonorepo) {
+    // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
     console.log("Checking for monorepo updates...");
-    await updatePackageJSONDependenciesMonorepo();
+    await updatePackageJSONDependenciesMonorepo(monorepoRoot);
+  } else {
+    // Even though we are not updating the dependencies in the root "package.json" file, we still
+    // have to bump the version of monorepo packages that are in other package's "package.json"
+    // files.
+    await updatePackageJSONDependenciesMonorepoChildren(monorepoRoot);
+  }
 
-    if (!isGitRepositoryClean(monorepoRoot)) {
-      const gitCommitMessage = "chore: updating dependencies";
-      $sq`git add --all`;
-      $sq`git commit --message ${gitCommitMessage}`;
-    }
+  if (!isGitRepositoryClean(monorepoRoot)) {
+    const gitCommitMessage = "chore: updating dependencies";
+    $sq`git add --all`;
+    $sq`git commit --message ${gitCommitMessage}`;
   }
 
   $sq`git push`;

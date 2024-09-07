@@ -46,11 +46,16 @@ export async function lintMonorepoPackageJSONs(): Promise<void> {
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
+ * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
  * @returns Whether one or more "package.json" files were updated.
  */
-export async function updatePackageJSONDependenciesMonorepo(): Promise<boolean> {
-  const fromDir = dirOfCaller();
-  const monorepoRoot = findPackageRoot(fromDir);
+export async function updatePackageJSONDependenciesMonorepo(
+  monorepoRoot?: string,
+): Promise<boolean> {
+  if (monorepoRoot === undefined) {
+    const fromDir = dirOfCaller();
+    monorepoRoot = findPackageRoot(fromDir); // eslint-disable-line no-param-reassign
+  }
 
   // First, update the main "package.json" at the root of the monorepo.
   const monorepoPackageJSONChanged =
@@ -78,7 +83,7 @@ export async function updatePackageJSONDependenciesMonorepo(): Promise<boolean> 
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
  * @returns Whether one or more "package.json" files were updated.
  */
-async function updatePackageJSONDependenciesMonorepoChildren(
+export async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,
   dryRun = false,
 ): Promise<boolean> {
