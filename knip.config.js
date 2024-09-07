@@ -2,6 +2,9 @@
 const config = {
   workspaces: {
     "packages/*": {},
+    "packages/complete-common": {
+      ignoreDependencies: ["complete-node"],
+    },
     "packages/complete-node": {
       ignoreDependencies: ["npm-check-updates"],
     },
