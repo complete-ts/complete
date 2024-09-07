@@ -24,6 +24,8 @@ npm install complete-lint --save-dev
 
 (It should be a development dependency because it is only used to lint your code before compilation/deployment.)
 
+Note that if you use [pnpm](https://pnpm.io/), you cannot use `complete-lint`, since pnpm does not handle transitive dependencies properly.
+
 ### Step 2 - Create `eslint.config.mjs`
 
 Create a `eslint.config.mjs` file in the root of your repository:
@@ -31,6 +33,8 @@ Create a `eslint.config.mjs` file in the root of your repository:
 ```js
 // This is the configuration file for ESLint, the TypeScript linter:
 // https://eslint.org/docs/latest/use/configure/
+
+// @ts-check
 
 import tseslint from "typescript-eslint";
 import { completeConfigBase } from "eslint-config-complete";
@@ -48,7 +52,38 @@ export default tseslint.config(
 );
 ```
 
-### Step 3 - IDE Integration
+### Step 3 - Create `prettier.config.mjs`
+
+Create a `prettier.config.mjs` file at the root of your repository:
+
+```js
+// This is the configuration file for Prettier, the auto-formatter:
+// https://prettier.io/docs/en/configuration.html
+
+// @ts-check
+
+/** @type {import("prettier").Config} */
+const config = {
+  plugins: [
+    "prettier-plugin-organize-imports", // Prettier does not format imports by default.
+    "prettier-plugin-packagejson", // Prettier does not format "package.json" by default.
+  ],
+
+  overrides: [
+    // Allow proper formatting of JSONC files that have JSON file extensions.
+    {
+      files: ["**/.vscode/*.json", "**/tsconfig.json", "**/tsconfig.*.json"],
+      options: {
+        parser: "jsonc",
+      },
+    },
+  ],
+};
+
+export default config;
+```
+
+### Step 4 - IDE Integration
 
 You will probably want to set up your code editor such that both ESLint and Prettier are automatically run every time the file is saved. Below, we show how to do that with [VSCode](https://code.visualstudio.com/), the most popular TypeScript editor / IDE. It is also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
 
@@ -71,30 +106,26 @@ Once installed, these extensions provide a nice dichotomy:
 
 #### `.vscode/settings.json`
 
-Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a TypeScript file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
+Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
 
 ```ts
 // These are Visual Studio Code settings that should apply to this particular repository.
 {
-  "[javascript]": {
+  "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
   },
-
-  "[typescript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit",
-    },
+  "[css][html][json][jsonc][markdown][postcss][yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
   },
 }
 ```
 
-(Create this file if it does not already exist.)
+(Create the ".vscode" directory and the "settings.json" file if they do not already exist.)
 
 You should also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project (and uses VSCode).
 
@@ -114,9 +145,94 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 }
 ```
 
+### Step 5 - Create a Lint Script
+
+At this point, we should be able to see squiggly lines when errors happen, making for a nice editor experience. However, there might be errors in files that are not currently open in our editor. Thus, we might want to run a command to check the entire repository for errors. Since we use several different tools, we need to run several different commands to invoke each tool. One way to accomplish this is to create a "./scripts/lint.ts" file that runs all the tools in parallel:
+
+```ts
+import { $, lintScript } from "complete-node";
+
+await lintScript(async () => {
+  const promises = [
+    // Use TypeScript to type-check the code.
+    $`tsc --noEmit`,
+
+    // Use ESLint to lint the TypeScript code.
+    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+    $`eslint --max-warnings 0 .`,
+
+    // Use Prettier to check formatting.
+    // - "--log-level=warn" makes it only output errors.
+    $`prettier --log-level=warn --check .`,
+
+    // Use Knip to check for unused files, exports, and dependencies.
+    $`knip --no-progress`,
+
+    // Use CSpell to spell check every file.
+    // - "--no-progress" and "--no-summary" make it only output errors.
+    $`cspell --no-progress --no-summary .`,
+
+    // Check for unused words in the CSpell configuration file.
+    $`cspell-check-unused-words`,
+  ];
+
+  await Promise.all(promises);
+});
+```
+
+If you want, you can also put the script in your "package.json" file:
+
+```json
+  "scripts": {
+    "lint": "tsx ./scripts/lint.ts"
+  },
+```
+
+That allows you to type `npm run lint` to more easily run the script.
+
+### Step 6 - Lint in CI
+
+If you use GitHub, you can create a [GitHub Actions](https://docs.github.com/en/actions) file to automatically run linting for [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration) (CI). This is nice because the linting will automatically run on every commit, showing a green checkmark or a red x when you look at the repository on GitHub. You can also do things like configure alerts for when linting fails.
+
+To set this up, create a `./.github/workflows/ci.yml` file:
+
+```yml
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  # You can add a "test" job too if your repository includes tests.
+```
+
 ## Package Documentation
 
+These are the specific packages that `complete-lint` provides:
+
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
+- [`complete-node`](TODO) - A library that allows you to easily create a linting script to run several tools at once.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
 - [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
@@ -125,6 +241,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 - [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) - A plugin used because Prettier will not organize "package.json" files automatically.
+- [`tsx`](https://github.com/privatenumber/tsx) - A tool to run a TypeScript file directly. This is included so that you can execute your linting script without having to explicitly install it.
 
 ## Why Code Formatting is Important
 

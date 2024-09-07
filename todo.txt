@@ -1,3 +1,4 @@
+- why do we need to put ts-check in eslint config? it should just work without that?
 - fix TODO in "complete-common/README.md"
 - lint package.json (maybe abstract/consolidate monorepo logic?)
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
