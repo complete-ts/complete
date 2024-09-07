@@ -33,18 +33,19 @@ Create a `eslint.config.mjs` file in the root of your repository:
 // https://eslint.org/docs/latest/use/configure/
 
 import tseslint from "typescript-eslint";
+import { completeConfigBase } from "eslint-config-complete";
 
 export default tseslint.config(
-  // The linter base is the complete config:
-  // https://github.com/complete-ts/complete/blob/main/packages/eslint-config-complete/base.js
-  ...complete.recommended,
+  // We use "eslint-config-complete" as the base of the config:
+  // https://github.com/complete-ts/complete/blob/main/packages/eslint-config-complete/src/base.js
+  ...completeConfigBase,
 
   {
     rules: {
       // Insert changed or disabled rules here, if necessary.
     },
-  }
-};
+  },
+);
 ```
 
 ### Step 3 - IDE Integration
