@@ -1,5 +1,9 @@
 /** @type {import("knip").KnipConfig} */
 const config = {
+  // Ignore all dependencies in the root.
+  // https://github.com/webpro-nl/knip/issues/778
+  ignoreDependencies: [".*"],
+
   workspaces: {
     "packages/*": {},
     "packages/complete-common": {
@@ -9,7 +13,10 @@ const config = {
       ignoreDependencies: ["npm-check-updates"],
     },
     "packages/eslint-config-complete": {
-      ignoreDependencies: ["eslint-import-resolver-typescript"],
+      ignoreDependencies: [
+        "complete-node",
+        "eslint-import-resolver-typescript",
+      ],
     },
     "packages/eslint-plugin-complete": {
       ignore: [
@@ -17,6 +24,7 @@ const config = {
         "tests/template.ts",
         "tests/fixtures/file.ts",
       ],
+      ignoreDependencies: ["complete-common", "complete-node"],
     },
   },
 };

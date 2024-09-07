@@ -35,15 +35,6 @@ export function getTypeName(type: ts.Type): string | undefined {
 }
 
 /**
- * `isFunctionLike` does not seem to work with basic function expressions, so this function instead
- * resorts to checking if any signatures exist.
- */
-export function isFunction(type: ts.Type, checker: ts.TypeChecker): boolean {
-  const signatures = checker.getSignaturesOfType(type, ts.SignatureKind.Call);
-  return signatures.length > 0;
-}
-
-/**
  * @param symbol The symbol to check.
  * @param flagsToCheck The composition of one or more `ts.SymbolFlags`.
  */
