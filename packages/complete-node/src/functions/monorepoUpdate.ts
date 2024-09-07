@@ -21,10 +21,13 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  *
  * This is intended to be called in a monorepo lint script. It will exit the program with an error
  * code of 1 if discrepancies are found.
+ *
+ * It attempts to find the monorepo root directory automatically based on searching backwards from
+ * the file of the calling function.
  */
-export async function lintMonorepoPackageJSONs(
-  monorepoRoot: string,
-): Promise<void> {
+export async function lintMonorepoPackageJSONs(): Promise<void> {
+  const fromDir = dirOfCaller();
+  const monorepoRoot = findPackageRoot(fromDir);
   const filesUpdated = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
     true,

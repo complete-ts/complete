@@ -1,7 +1,4 @@
 import { lintCommands, lintMonorepoPackageJSONs } from "complete-node";
-import path from "node:path";
-
-const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 await lintCommands([
   // Use Prettier to check formatting.
@@ -30,5 +27,5 @@ await lintCommands([
   // TODO
 
   // Check to see if the child "package.json" files are up to date.
-  lintMonorepoPackageJSONs(REPO_ROOT),
+  lintMonorepoPackageJSONs(),
 ]);
