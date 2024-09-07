@@ -177,16 +177,19 @@ async function updateChildNormalDependencies(
           );
 
           if (dependencyVersion !== monorepoDependencyVersion) {
-            console.log(
-              `A dependency is out of date in "${childPackageJSONPath}": ${dependencyName} - ${dependencyVersion} --> ${monorepoDependencyVersion}`,
-            );
-
-            if (!dryRun) {
+            if (dryRun) {
+              console.log(
+                `A dependency is out of date in "${childPackageJSONPath}": ${dependencyName} - ${dependencyVersion} --> ${monorepoDependencyVersion}`,
+              );
+            } else {
               await setPackageJSONDependencyAsync(
                 childPackageJSONPath,
                 dependencyName,
                 monorepoDependencyVersion,
                 dependencyType,
+              );
+              console.log(
+                `Updated "${childPackageJSONPath}": ${dependencyName} - ${dependencyVersion} --> ${monorepoDependencyVersion}`,
               );
             }
 
@@ -267,16 +270,19 @@ async function updateChildMonorepoDependencies(
       const depVersionTrimmed = trimPrefix(depVersion, "^");
 
       if (depVersionTrimmed !== correctVersion) {
-        console.log(
-          `A dependency is out of date in "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
-        );
-
-        if (!dryRun) {
+        if (dryRun) {
+          console.log(
+            `A dependency is out of date in "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
+          );
+        } else {
           const versionWithPrefix = `^${correctVersion}`;
           await setPackageJSONDependencyAsync(
             childPackagePath2,
             monorepoPackageName,
             versionWithPrefix,
+          );
+          console.log(
+            `A dependency is out of date in "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
           );
         }
 
