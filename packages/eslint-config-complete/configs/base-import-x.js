@@ -232,7 +232,7 @@ export const baseImportX = tseslint.config(
     //   error will appear: "Resolve error: typescript with invalid interface loaded as resolver"
     // - However, it is discussed in this issue to include that dep as part of
     //   "eslint-plugin-import-x" itself:
-    // https://github.com/un-ts/eslint-plugin-import-x/pull/122
+    // https://github.com/un-ts/eslint-plugin-import-x/issues/150
     // - Second, we extend the upstream TypeScript configuration:
     // https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/typescript.ts
     // - Third, we need to specify "typescript: true" under the resolver, as documented here:
@@ -280,6 +280,10 @@ export const baseImportX = tseslint.config(
       "eslint.config.mjs",
       "jest.config.js",
       "jest.config.mjs",
+      "knip.js",
+      "knip.ts",
+      "knip.config.js",
+      "knip.config.ts",
       "prettier.config.js",
       "prettier.config.mjs",
       "typedoc.config.js",

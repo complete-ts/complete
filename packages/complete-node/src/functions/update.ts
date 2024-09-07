@@ -54,6 +54,9 @@ function runNPMCheckUpdates(
 
   const oldPackageJSONString = readFile(packageJSONPath);
 
+  // We want to run the CLI command instead of invoking the API because it provides a progress meter
+  // and pretty diff.
+
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
   // - "--packageFile" is necessary because the current working directory may not contain the
