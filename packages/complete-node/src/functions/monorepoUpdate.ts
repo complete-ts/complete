@@ -282,7 +282,7 @@ async function updateChildMonorepoDependencies(
             versionWithPrefix,
           );
           console.log(
-            `A dependency is out of date in "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
+            `Updated "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
           );
         }
 
