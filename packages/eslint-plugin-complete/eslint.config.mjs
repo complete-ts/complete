@@ -1,10 +1,10 @@
 import tseslint from "typescript-eslint";
-import { base } from "../eslint-config-complete/base.js";
-import { monorepo } from "../eslint-config-complete/monorepo.js";
+import { completeConfigBase } from "../eslint-config-complete/src/base.js";
+import { completeConfigMonorepo } from "../eslint-config-complete/src/monorepo.js";
 
 export default tseslint.config(
-  ...base,
-  ...monorepo,
+  ...completeConfigBase,
+  ...completeConfigMonorepo,
 
   {
     rules: {

@@ -1,12 +1,12 @@
 import ESLintPluginComplete from "eslint-plugin-complete";
 import tseslint from "typescript-eslint";
-import { baseESLint } from "./configs/base-eslint.js";
-import { baseImportX } from "./configs/base-import-x.js";
-import { baseJSDoc } from "./configs/base-jsdoc.js";
-import { baseN } from "./configs/base-n.js";
-import { baseStylistic } from "./configs/base-stylistic.js";
-import { baseTypeScriptESLint } from "./configs/base-typescript-eslint.js";
-import { baseUnicorn } from "./configs/base-unicorn.js";
+import { baseESLint } from "./baseConfigs/base-eslint.js";
+import { baseImportX } from "./baseConfigs/base-import-x.js";
+import { baseJSDoc } from "./baseConfigs/base-jsdoc.js";
+import { baseN } from "./baseConfigs/base-n.js";
+import { baseStylistic } from "./baseConfigs/base-stylistic.js";
+import { baseTypeScriptESLint } from "./baseConfigs/base-typescript-eslint.js";
+import { baseUnicorn } from "./baseConfigs/base-unicorn.js";
 
 // Hot-patch "eslint-plugin-complete" to convert errors to warnings.
 for (const config of ESLintPluginComplete.configs.recommended) {
@@ -25,7 +25,7 @@ for (const config of ESLintPluginComplete.configs.recommended) {
  * Rule modifications are split out into different files for better organization (based on the
  * originating plugin) .
  */
-export const base = tseslint.config(
+export const completeConfigBase = tseslint.config(
   ...baseESLint,
   ...baseTypeScriptESLint,
   ...baseStylistic,

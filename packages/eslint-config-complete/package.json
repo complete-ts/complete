@@ -21,12 +21,12 @@
   "license": "MIT",
   "author": "Zamiell",
   "type": "module",
+  "main": "./src/index.js",
   "files": [
-    "configs",
-    "base.js",
     "LICENSE",
     "package.json",
-    "README.md"
+    "README.md",
+    "src"
   ],
   "scripts": {
     "lint": "tsx ./scripts/lint.ts"

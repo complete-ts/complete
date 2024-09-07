@@ -1,0 +1,20 @@
+import tseslint from "typescript-eslint";
+
+/**
+ * This ESLint config is meant to be used in monorepos (in addition to the `completeBase` config).
+ */
+export const completeConfigMonorepo = tseslint.config(
+  {
+    files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
+    rules: {},
+  },
+
+  {
+    files: ["eslint.config.mjs"],
+    rules: {
+      // ESLint configs in monorepos often intentionally import from the "packages" subdirectory
+      // (because the config files are JavaScript so they cannot use tsconfig-paths).
+      "import-x/no-relative-packages": "off",
+    },
+  },
+);

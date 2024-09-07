@@ -1,4 +1,4 @@
-import { base } from "./packages/eslint-config-complete/base.js";
-import { monorepo } from "./packages/eslint-config-complete/monorepo.js";
+import { completeConfigBase } from "./packages/eslint-config-complete/src/base.js";
+import { completeConfigMonorepo } from "./packages/eslint-config-complete/src/monorepo.js";
 
-export default [...base, ...monorepo];
+export default [...completeConfigBase, ...completeConfigMonorepo];

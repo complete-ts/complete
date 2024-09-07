@@ -7,5 +7,5 @@
     "../../tsconfig.monorepo.json",
   ],
 
-  "include": ["./**/*.js"],
+  "include": ["./src/**/*.js"],
 }
