@@ -29,15 +29,24 @@ export async function buildScript(func: ScriptCallback): Promise<void> {
 /**
  * Helper function to run several linting commands all at the same time for a TypeScript project.
  *
- * For more information, see the documentation for the `script` helper function.
+ * The list of commands can include strings (which will be turned into shell commands) and promises
+ * (from async functions).
+ *
+ * Under the hood, this function invokes the `script` helper function.
  */
-export async function lintCommands(commands: readonly string[]): Promise<void> {
+export async function lintCommands(
+  commands: ReadonlyArray<string | Promise<void>>,
+): Promise<void> {
   const func: ScriptCallback = async () => {
     const promises: Array<Promise<unknown>> = [];
 
     for (const command of commands) {
-      const promise = $`${command}`;
-      promises.push(promise);
+      if (typeof command === "string") {
+        const promise = $`${command}`;
+        promises.push(promise);
+      } else {
+        promises.push(command);
+      }
     }
 
     await Promise.all(promises);
