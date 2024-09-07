@@ -16,6 +16,26 @@ import { updatePackageJSONDependencies } from "./update.js";
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
 /**
+ * Helper function to check if all of the dependencies in the monorepo "package.json" files are up
+ * to date.
+ *
+ * This is intended to be called in a monorepo lint script. It will exit the program with an error
+ * code of 1 if discrepancies are found.
+ */
+export async function lintMonorepoPackageJSONs(
+  monorepoRoot: string,
+): Promise<void> {
+  const filesUpdated = await updatePackageJSONDependenciesMonorepoChildren(
+    monorepoRoot,
+    true,
+  );
+  if (filesUpdated) {
+    console.error('One or more child "package.json" files are out of sync.');
+    process.exit(1);
+  }
+}
+
+/**
  * Helper function to update the dependencies in all of the monorepo "package.json" files. If there
  * are any updates, the package manager used in the project will be automatically invoked.
  *
@@ -43,6 +63,9 @@ export async function updatePackageJSONDependenciesMonorepo(): Promise<boolean> 
  * This will update both the normal dependencies (to match what is in the monorepo root
  * "package.json") and the monorepo dependencies (to be what is listed in the "version" field of the
  * respective "package.json" file).
+ *
+ * If you need to check this in a lint script, then use the `lintMonorepoPackageJSONs` function
+ * instead.
  *
  * @param monorepoRoot The full path to the monorepo root directory.
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
