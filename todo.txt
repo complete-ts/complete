@@ -10,3 +10,4 @@
 - uncomment docs stuff in "ci.yml"
 - remove all TODO in ./scripts/lint.ts
 - remove TODO in \packages\eslint-plugin-complete\README.md
+- remove TODO in complete-lint/README.md
