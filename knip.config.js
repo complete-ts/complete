@@ -1,8 +1,10 @@
+// @ts-check
+
 /** @type {import("knip").KnipConfig} */
 const config = {
   // Ignore all dependencies in the root.
   // https://github.com/webpro-nl/knip/issues/778
-  ignoreDependencies: [".*"],
+  ignoreDependencies: [".+"],
 
   workspaces: {
     "packages/*": {},

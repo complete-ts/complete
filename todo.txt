@@ -1,13 +1,12 @@
-- why do we need to put ts-check in eslint config? it should just work without that?
-- migrate knip config to typescript: https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251
 - fix TODO in "complete-common/README.md"
-- lint package.json (maybe abstract/consolidate monorepo logic?)
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
 - edit README file for all projects to go to docs website
   - once done, update URL in "export const createRule"
-- remove yarn functions from monorepo
 - configure "no-extraneous-dependencies" to not fire in scripts folder for end-user consumers
 - uncomment docs stuff in "ci.yml"
 - remove all TODO in ./scripts/lint.ts
 - remove TODO in \packages\eslint-plugin-complete\README.md
 - remove TODO in complete-lint/README.md
+
+waiting on replies:
+- migrate knip config to typescript: https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251

@@ -22,6 +22,13 @@ const PACKAGE_MANAGER_EXEC_COMMANDS = {
   [PackageManager.bun]: "bunx",
 } as const satisfies Record<PackageManager, string>;
 
+const PACKAGE_MANAGER_INSTALL_CI_COMMANDS = {
+  [PackageManager.npm]: "npm ci",
+  [PackageManager.yarn]: "yarn install --immutable",
+  [PackageManager.pnpm]: "pnpm install --frozen-lockfile",
+  [PackageManager.bun]: "bun install --frozen-lockfile",
+} as const satisfies Record<PackageManager, string>;
+
 /**
  * Helper function to get the add command for a package manager. For example, the command for npm
  * is: `npm install foo --save`
@@ -121,23 +128,7 @@ export function getPackageManagerForProject(
 export function getPackageManagerInstallCICommand(
   packageManager: PackageManager,
 ): string {
-  switch (packageManager) {
-    case PackageManager.npm: {
-      return "npm ci";
-    }
-
-    case PackageManager.yarn: {
-      return "yarn install --immutable";
-    }
-
-    case PackageManager.pnpm: {
-      return "pnpm install --frozen-lockfile";
-    }
-
-    case PackageManager.bun: {
-      return "bun install --frozen-lockfile";
-    }
-  }
+  return PACKAGE_MANAGER_INSTALL_CI_COMMANDS[packageManager];
 }
 
 /**
