@@ -147,7 +147,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 
 ### Step 5 - Create a Lint Script
 
-At this point, we should be able to see squiggly lines when errors happen, making for a nice editor experience. However, there might be errors in files that are not currently open in our editor. Thus, we might want to run a command to check the entire repository for errors. Since we use several different tools, we need to run several different commands to invoke each tool. One way to accomplish this is to create a "./scripts/lint.ts" file that runs all the tools in parallel:
+At this point, we should be able to see squiggly lines when errors happen, making for a nice editor experience. However, there might be errors in files that are not currently open in our editor. Thus, we might want to run a command to check the entire repository for errors. Since we use several different tools, we need to run several different commands to invoke each tool. One way to accomplish this is to create a `./scripts/lint.ts` file that runs all the tools in parallel:
 
 ```ts
 import { $, lintScript } from "complete-node";
