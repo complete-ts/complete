@@ -295,4 +295,26 @@ export const baseImportX = tseslint.config(
       "import-x/no-default-export": "off",
     },
   },
+
+  {
+    files: ["eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"],
+
+    rules: {
+      "import-x/no-extraneous-dependencies": [
+        "warn",
+        {
+          devDependencies: [
+            "eslint.config.js",
+            "eslint.config.cjs",
+            "eslint.config.mjs",
+          ],
+
+          // ESLint configs in monorepos will import from "eslint-config-complete" and
+          // "typescript-eslint", which might be installed as part of `complete-lint` (as a
+          // transitive dependency).
+          whitelist: ["eslint-config-complete", "typescript-eslint"],
+        },
+      ],
+    },
+  },
 );
