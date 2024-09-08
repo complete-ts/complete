@@ -235,9 +235,6 @@ export const baseImportX = tseslint.config(
     // https://github.com/un-ts/eslint-plugin-import-x/issues/150
     // - Second, we extend the upstream TypeScript configuration:
     // https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/typescript.ts
-    // - Third, we need to specify "typescript: true" under the resolver, as documented here:
-    // https://github.com/un-ts/eslint-plugin-import-x/issues/29
-    // (Otherwise, the "no-cycle" rule will not work.)
     settings: {
       "import-x/extensions": ALL_EXTENSIONS,
       "import-x/external-module-folders": [
@@ -249,9 +246,6 @@ export const baseImportX = tseslint.config(
       },
       "import-x/resolver": {
         typescript: true,
-        node: {
-          extensions: ALL_EXTENSIONS,
-        },
       },
     },
 

@@ -1,9 +1,8 @@
 - why do we need to put ts-check in eslint config? it should just work without that?
+- migrate knip config to typescript: https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251
 - fix TODO in "complete-common/README.md"
 - lint package.json (maybe abstract/consolidate monorepo logic?)
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
-- see followup on https://github.com/un-ts/eslint-plugin-import-x/pull/140
-  (need to customize import-x config further)
 - edit README file for all projects to go to docs website
   - once done, update URL in "export const createRule"
 - remove yarn functions from monorepo
