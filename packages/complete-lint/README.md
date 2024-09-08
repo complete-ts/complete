@@ -83,7 +83,7 @@ const config = {
 export default config;
 ```
 
-### Step 4 - IDE Integration
+### Step 4 - Editor Integration
 
 You will probably want to set up your code editor such that both ESLint and Prettier are automatically run every time the file is saved. Below, we show how to do that with [VSCode](https://code.visualstudio.com/), the most popular TypeScript editor / IDE. It is also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
 
