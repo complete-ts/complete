@@ -1,0 +1,27 @@
+// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
+// by VSCode.
+{
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
+
+  "extends": [
+    "../complete-tsconfig/tsconfig.base.json",
+
+    // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
+    "@docusaurus/tsconfig",
+  ],
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
+    "lib": ["DOM", "ES2021"],
+  },
+
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./static/js/*.js",
+    "docusaurus.config.ts",
+    "sidebars.ts",
+    "typedoc.config.base.mjs",
+  ],
+}

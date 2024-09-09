@@ -1,7 +1,10 @@
 import confusingBrowserGlobals from "confusing-browser-globals";
 import tseslint from "typescript-eslint";
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#possible-problems
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
   "array-callback-return": [
@@ -87,7 +90,10 @@ const POSSIBLE_PROBLEMS = {
   "valid-typeof": "warn",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#suggestions
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const SUGGESTIONS = {
   "accessor-pairs": "warn",
   "arrow-body-style": "warn",
@@ -627,12 +633,18 @@ const SUGGESTIONS = {
   yoda: "warn",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#suggestions
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const LAYOUT_AND_FORMATTING = {
   "unicode-bom": "warn",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://eslint.org/docs/latest/rules/#deprecated
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const DEPRECATED = {
   /** Disabled since the rule is deprecated. */
   "array-bracket-newline": "off",

@@ -1,12 +1,12 @@
 import ESLintPluginComplete from "eslint-plugin-complete";
 import tseslint from "typescript-eslint";
-import { baseESLint } from "./baseConfigs/base-eslint.js";
-import { baseImportX } from "./baseConfigs/base-import-x.js";
-import { baseJSDoc } from "./baseConfigs/base-jsdoc.js";
-import { baseN } from "./baseConfigs/base-n.js";
-import { baseStylistic } from "./baseConfigs/base-stylistic.js";
-import { baseTypeScriptESLint } from "./baseConfigs/base-typescript-eslint.js";
-import { baseUnicorn } from "./baseConfigs/base-unicorn.js";
+import { baseESLint } from "./base/base-eslint.js";
+import { baseImportX } from "./base/base-import-x.js";
+import { baseJSDoc } from "./base/base-jsdoc.js";
+import { baseN } from "./base/base-n.js";
+import { baseStylistic } from "./base/base-stylistic.js";
+import { baseTypeScriptESLint } from "./base/base-typescript-eslint.js";
+import { baseUnicorn } from "./base/base-unicorn.js";
 
 // Hot-patch "eslint-plugin-complete" to convert errors to warnings.
 for (const config of ESLintPluginComplete.configs.recommended) {

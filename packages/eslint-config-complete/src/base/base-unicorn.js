@@ -1,7 +1,10 @@
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/readme.md#rules
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const NORMAL_RULES = {
   "unicorn/better-regex": "warn",
   "unicorn/catch-error-name": "warn",
@@ -166,7 +169,10 @@ const NORMAL_RULES = {
   "unicorn/throw-new-error": "warn",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/deprecated-rules.md
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const DEPRECATED_RULES = {
   /** Disabled because this rule is deprecated. */
   "unicorn/import-index": "off",

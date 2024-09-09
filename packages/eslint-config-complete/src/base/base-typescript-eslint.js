@@ -140,6 +140,7 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-base-to-string": "warn",
       "@typescript-eslint/no-confusing-non-null-assertion": "warn",
       "@typescript-eslint/no-confusing-void-expression": "warn",
+      "@typescript-eslint/no-deprecated": "warn",
       "@typescript-eslint/no-duplicate-enum-values": "warn",
       "@typescript-eslint/no-duplicate-type-constituents": "warn",
       "@typescript-eslint/no-dynamic-delete": "warn",

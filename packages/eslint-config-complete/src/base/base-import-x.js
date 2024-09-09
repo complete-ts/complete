@@ -1,7 +1,10 @@
 import ESLintPluginImportX from "eslint-plugin-import-x";
 import tseslint from "typescript-eslint";
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#helpful-warnings
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const HELPFUL_WARNINGS = {
   "import-x/export": "warn",
 
@@ -61,6 +64,8 @@ const HELPFUL_WARNINGS = {
    */
   "import-x/no-named-as-default-member": "off",
 
+  "import-x/no-rename-default": "warn",
+
   /**
    * Disabled since this check is better performed by the [`knip`](https://github.com/webpro/knip)
    * tool.
@@ -68,7 +73,10 @@ const HELPFUL_WARNINGS = {
   "import-x/no-unused-modules": "off",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#module-systems
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const MODULE_SYSTEMS = {
   "import-x/no-amd": "warn",
   "import-x/no-commonjs": "warn",
@@ -81,7 +89,10 @@ const MODULE_SYSTEMS = {
   "import-x/unambiguous": "off",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#static-analysis
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const STATIC_ANALYSIS = {
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -130,7 +141,10 @@ const STATIC_ANALYSIS = {
   "import-x/no-webpack-loader-syntax": "warn",
 };
 
-/** @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>} */
+/**
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#style-guide
+ * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ */
 const STYLE_GUIDE = {
   "import-x/consistent-type-specifier-style": "warn",
 

@@ -29,6 +29,7 @@
     "src"
   ],
   "scripts": {
+    "docs": "tsx ./scripts/docs.ts",
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
