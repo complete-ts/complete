@@ -1,3 +1,5 @@
+- add part of monorepo package.json lint to look for unused dependencies
+
 - removing deprecated eslint rule didn't trigger audit, so logic is bugged?
 
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)

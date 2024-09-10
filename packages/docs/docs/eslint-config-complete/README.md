@@ -6,15 +6,11 @@ This is a sharable configuration for [ESLint](https://eslint.org/) that is inten
 
 The config is environment-agnostic, meaning that it will work in client-side projects (e.g. React), server-side projects (e.g. Node.js), and so on.
 
-<br />
-
 ## Installation
 
 This package is part of the [`complete-lint`](TODO) meta-linting package. It is recommended that instead of consuming this package directly, you instead list `complete-lint` as a dependency, as that will install both this config and all of the rule plugins that it depends on.
 
 For installation instructions, see [the `complete-lint` page](TODO).
-
-<br />
 
 ## Why Do I Need To Use ESLint?
 
@@ -23,8 +19,6 @@ If you are reading this page, you are likely a user of [TypeScript](https://www.
 But there are many other code problems that do not have to do with types. In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables lots of good linting rules to catch even more bugs.
 
 ESLint rules can help catch bugs, but they can also help to make your codebase more consistent and adhere to best-practices within the TypeScript ecosystem. Remember that [code is read more often than it is written](https://skeptics.stackexchange.com/questions/48560/is-code-read-more-often-than-its-written). If you care about your code being the best that it can possibly be, then using ESLint is a must!
-
-<br />
 
 ## Why Do I Need `eslint-config-complete`?
 
@@ -39,8 +33,6 @@ Don't bother creating and maintaining a huge ESLint config yourself. We've done 
 - Weed out the rules covered by [Prettier](https://prettier.io/) (because many ESLint rules were written before Prettier existed).
 - Weed out the rules that are too noisy to provide value (and document them below).
 
-<br />
-
 ## Our Config Philosophy
 
 We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. (More on false positives [later](#dealing-with-false-positives).)
@@ -49,15 +41,11 @@ In line with this philosophy, our linting config enables nearly all of the recom
 
 This config also assumes that you are using [Prettier](https://prettier.io/) to format your TypeScript code, which is considered to be best-practice in the ecosystem. Subsequently, all formatting-related rules that conflict with Prettier are disabled. (However, we use a few formatting-related rules that are not handled by Prettier.)
 
-<br />
-
 ## Auto-Fixing
 
 Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the `--fix` flag. So, by running `npx eslint --fix .` in the root of your project, you can take care of a lot of the warnings automatically.
 
 Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automatically run `--fix` whenever you save a file](TODO).
-
-<br />
 
 ## Dealing with False Positives
 
@@ -69,11 +57,11 @@ With that said, with so many ESLint rules turned on, you will undoubtedly come a
 
 If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your `eslint.config.mjs` file. Some rules won't make sense for every project and that's okay!
 
-<br />
-
 ## Rule List
 
 Below, we provide documentation for every rule that is disabled. (We take a blacklist approach rather than a whitelist approach.)
+
+<!-- markdownlint-disable MD033 -->
 
 ### [Core ESLint Rules](https://eslint.org/docs/latest/rules/)
 
