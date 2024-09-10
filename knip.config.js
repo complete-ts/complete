@@ -14,6 +14,9 @@ const config = {
     "packages/complete-node": {
       ignoreDependencies: ["npm-check-updates"],
     },
+    "packages/docs": {
+      ignore: ["docusaurus.config.ts", "sidebars.ts"],
+    },
     "packages/eslint-config-complete": {
       ignoreDependencies: [
         "complete-node",
