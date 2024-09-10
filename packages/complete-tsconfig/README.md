@@ -6,6 +6,12 @@ These are shared TypeScript configuration files that are intended to be used in 
 
 Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies. (You also must also install `@tsconfig/node-lts` if you are using the Node.js config.)
 
+## Configs Offered
+
+- [tsconfig.base.json](tsconfig.base.json) - A config meant to be used by all TypeScript projects.
+- [tsconfig.browser.json](tsconfig.browser.json) - A config meant for projects running in Node.js.
+- [tsconfig.node.json](tsconfig.node.json) - A config meant for projects running in the browser.
+
 ## Install
 
 ```sh
@@ -13,6 +19,8 @@ npm install complete-tsconfig --save
 ```
 
 ## Usage
+
+First, extend from the base config. Second, extend from either the node config or the browser. For example:
 
 ```jsonc
 // The configuration file for TypeScript.
@@ -33,7 +41,7 @@ Note that the [base config](tsconfig.base.json) handily specifies an `include` o
 
 ## Strict Schema
 
-By default, VSCode will automatically recognize TypeScript config files and apply a schema. However, this schema allows for additional properties, in order to prevent throwing errors for tools/frameworks like [Angular](https://angular.dev/) adding [custom fields](https://angular.dev/reference/configs/angular-compiler-options).
+By default, VSCode will automatically recognize TypeScript config files and apply a schema. However, this schema allows for additional properties in order to prevent throwing errors for tools/frameworks like [Angular](https://angular.dev/) that add [custom fields](https://angular.dev/reference/configs/angular-compiler-options).
 
 However, the problem with this is that you might accidentally misspell a property (or e.g. accidentally add a compiler option to the root object). In these cases, you will not get a red squiggly line in your editor, making for a frustrating troubleshooting experience.
 

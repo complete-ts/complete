@@ -20,7 +20,7 @@ const HELPFUL_WARNINGS = {
    * The options are [copied from
    * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/import.js).
    *
-   * We also add a "scripts" directory entry for "devDependencies".
+   * We also add a "scripts" and a "tests" directory entry for "devDependencies".
    */
   "import-x/no-extraneous-dependencies": [
     "warn",
@@ -50,6 +50,7 @@ const HELPFUL_WARNINGS = {
         "**/.eslintrc.js", // eslint config
 
         "**/scripts/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
+        "**/tests/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
       ],
       optionalDependencies: false,
     },
