@@ -6,6 +6,12 @@
 .DS_Store
 thumbs.db
 
+# Docusaurus artifacts
+# https://github.com/facebook/docusaurus/blob/main/packages/create-docusaurus/templates/shared/gitignore
+build
+.docusaurus
+.cache-loader
+
 # ------------------------------
 # GitHub Node.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore
