@@ -15,9 +15,10 @@ const config = {
       ignoreDependencies: ["npm-check-updates"],
     },
     "packages/docs": {
-      ignore: ["docusaurus.config.ts", "sidebars.ts"],
+      ignore: ["docusaurus.config.ts", "sidebars.ts", "static/js/hotkey.js"],
     },
     "packages/eslint-config-complete": {
+      ignore: ["scripts/extract-comments.d.ts"],
       ignoreDependencies: [
         "complete-node",
         "eslint-import-resolver-typescript",
