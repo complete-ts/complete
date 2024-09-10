@@ -20,7 +20,7 @@ npm install complete-tsconfig --save
 
 ## Usage
 
-First, extend from the base config. Second, extend from either the node config or the browser. For example:
+First, extend from the base config. Second, extend from either the Node.js config or the browser config. For example:
 
 ```jsonc
 // The configuration file for TypeScript.
