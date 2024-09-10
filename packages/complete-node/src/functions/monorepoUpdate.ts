@@ -205,15 +205,15 @@ async function updateChildNormalDependencies(
         });
 
       const results = await Promise.all(promises3);
-      return results.includes(true);
+      return results.some(Boolean); // Can't use ".includes" or else it will early return.
     });
 
     const results = await Promise.all(promises2);
-    return results.includes(true);
+    return results.some(Boolean); // Can't use ".includes" or else it will early return.
   });
 
   const results = await Promise.all(promises);
-  return results.includes(true);
+  return results.some(Boolean); // Can't use ".includes" or else it will early return.
 }
 
 /** @returns Whether one or more "package.json" files were updated. */
@@ -298,9 +298,9 @@ async function updateChildMonorepoDependencies(
     });
 
     const results = await Promise.all(promises2);
-    return results.includes(true);
+    return results.some(Boolean); // Can't use ".includes" or else it will early return.
   });
 
   const results = await Promise.all(promises);
-  return results.includes(true);
+  return results.some(Boolean); // Can't use ".includes" or else it will early return.
 }
