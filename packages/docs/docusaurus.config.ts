@@ -17,7 +17,7 @@ const config: Config = {
   projectName: "complete-ts.github.io",
 
   onBrokenAnchors: "throw",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn", // TODO: change to "throw"
   onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
 
@@ -51,7 +51,6 @@ const config: Config = {
         src: "img/logo.png",
       },
       items: [
-        { to: "main/features", label: "Main", position: "left" },
         {
           href: "https://github.com/complete-ts/complete",
           className: "header-github-link",

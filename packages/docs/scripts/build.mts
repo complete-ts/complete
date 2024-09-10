@@ -25,7 +25,7 @@ await buildScript(async (packageRoot) => {
 
   const repoRoot = path.join(packageRoot, "..", "..");
 
-  const promises = [makeCompleteCommonDocs(repoRoot), makeECIDocs(true)];
+  const promises = [makeDocsEslintConfigComplete(repoRoot)];
 
   await Promise.all(promises);
 
@@ -38,9 +38,8 @@ await buildScript(async (packageRoot) => {
   $s`docusaurus build`;
 });
 
-async function makeCompleteCommonDocs(repoRoot: string): Promise<void> {
-  const packagePath = path.join(repoRoot, "packages", "complete-common");
+async function makeDocsEslintConfigComplete(repoRoot: string): Promise<void> {
+  const packagePath = path.join(repoRoot, "packages", "eslint-config-complete");
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
-  /// await $`tsx --tsconfig ./scripts/tsconfig.json ./scripts/fixIsaacTypeScriptDefinitions.mts`;
 }

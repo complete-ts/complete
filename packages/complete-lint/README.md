@@ -232,12 +232,12 @@ jobs:
 These are the specific packages that `complete-lint` provides:
 
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
-- [`complete-node`](TODO) - A library that allows you to easily create a linting script to run several tools at once.
+- [`complete-node`](/complete-node) - A library that allows you to easily create a linting script to run several tools at once.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
 - [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
 - [`eslint-import-resolver-typescript`](https://github.com/import-js/eslint-import-resolver-typescript) - Necessary for `eslint-plugin-import-x` to work properly, which is part of `eslint-config-complete`. (Even though it is a direct dependency of `eslint-config-complete`, it does not work properly when it is a nested transitive dependency, so it must explicitly be in this package.)
-- [`eslint-config-complete`](TODO) - Contains the master ESLint configuration.
+- [`eslint-config-complete`](/eslint-config-complete) - Contains the master ESLint configuration.
 - [`knip`](https://github.com/webpro/knip) - A tool to look for unused files, dependencies, and exports. Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for unused exports.
 - [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
@@ -246,11 +246,11 @@ These are the specific packages that `complete-lint` provides:
 
 ## Why Code Formatting is Important
 
-In the 90's, the most popular scripting language in the world was [Perl](https://www.perl.org/), invented by [Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall). One of Larry's slogans was that "There Is Always More Than One Way To Do It", abbreviated as the TIAMTOWTDI principle. In Perl, there were many different ways to do even the most basic thing, like adding an element to an array. This resulted in a Perl ecosystem where programs often looked nothing like each other, where everyone had different coding styles, and where everything was hard to read and comprehend. <!-- cspell:ignore TIAMTOWTDI -->
+In the 90's, the most popular scripting language in the world was [Perl](https://www.perl.org/), invented by [Larry Wall](https://en.wikipedia.org/wiki/Larry_Wall). One of Larry's slogans was that "There Is Always More Than One Way To Do It", abbreviated as the TIAMTOWTDI principle. In Perl, there were many different ways to do even the most basic thing, like adding an element to an array. This resulted in a Perl ecosystem where programs often looked nothing like each other, where everyone had different coding styles, and where everything was hard to read and comprehend.
 
-One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum), the creator of the [Python](https://www.python.org/) programming language, was that [code is read much more often than it is written](https://www.python.org/dev/peps/pep-0008/). Python was designed to be concise, clean, and readable. It had standard ways of doing things and recommended that everyone follow the [PEP-8 coding standard](https://www.python.org/dev/peps/pep-0008/). And so, in the 90s, there was a massive movement away from Perl and towards Python. Now, Python is the [most popular programming language in the world](https://pypl.github.io/PYPL.html). <!-- cspell:ignore Rossum -->
+One of the key insights of [Guido van Rossum](https://en.wikipedia.org/wiki/Guido_van_Rossum), the creator of the [Python](https://www.python.org/) programming language, was that [code is read much more often than it is written](https://www.python.org/dev/peps/pep-0008/). Python was designed to be concise, clean, and readable. It had standard ways of doing things and recommended that everyone follow the [PEP-8 coding standard](https://www.python.org/dev/peps/pep-0008/). And so, in the 90s, there was a massive movement away from Perl and towards Python. Now, Python is the [most popular programming language in the world](https://pypl.github.io/PYPL.html).
 
-[Go](https://golang.org/), the programming language designed at Google in 2009, took this concept a step further. They included a code formatter inside of the language itself, called `gofmt` (which is short for "Go formatter"). When you are coding a Go program, it will automatically format all of the code as soon as you save the file. This can be surprising and disturbing for newcomers: "Why does `gofmt` make my code ugly?!" <!-- cspell:ignore gofmt -->
+[Go](https://golang.org/), the programming language designed at Google in 2009, took this concept a step further. They included a code formatter inside of the language itself, called `gofmt` (which is short for "Go formatter"). When you are coding a Go program, it will automatically format all of the code as soon as you save the file. This can be surprising and disturbing for newcomers: "Why does `gofmt` make my code ugly?!"
 
 However, once people get used to the formatter, they realize that it saves them a _tremendous amount of time_. By ignoring all formatting and typing out code "raw", and then summoning the formatter to instantly fix everything, you can quite literally code twice as fast. Rob Pike, one of the creators of Go, famously said that "gofmt's style is no one's favorite, yet gofmt is everyone's favorite". ([This YouTube clip](https://www.youtube.com/embed/PAAkCSZUG1c?start=523&end=568) of Rob is a much-watch!)
 
@@ -270,13 +270,13 @@ In JavaScript and TypeScript land, there isn't an official code formatting stand
 
 In `complete-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
 
-Prettier handles almost everything, but the `complete-lint` linting config also has a few formatting-related rules turned on, like [`complete/format-jsdoc-comments`](TODO) (since Prettier does not format comments).
+Prettier handles almost everything, but the `complete-lint` linting config also has a few formatting-related rules turned on, like [`complete/format-jsdoc-comments`](/eslint-plugin-complete/rules/format-jsdoc-comments) (since Prettier does not format comments).
 
 ### ESLint
 
 ESLint is the best tool to lint JavaScript and TypeScript, as it has a massive ecosystem of rules and plugins that can help find errors in your codebase.
 
-With `complete-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-complete`](TODO).
+With `complete-lint`, the philosophy is that we want to enable as many lint rules as possible, so that we can catch as many bugs as possible. It takes a lot of work to figure out which rules to turn on and which to not bother with, but we've done it for you. This is documented in more detail on [the docs for `eslint-config-complete`](/eslint-config-complete).
 
 ### Using Prettier & ESLint Together
 

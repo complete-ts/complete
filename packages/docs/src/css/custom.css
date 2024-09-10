@@ -139,9 +139,3 @@ html[data-theme="dark"] .header-wof-link:before {
   position: relative;
   top: 0.6em;
 }
-
-/* Added styles for TypeDoc pages */
-
-html[class*="isaacscript-common"] h3 {
-  color: #ac4b29;
-}

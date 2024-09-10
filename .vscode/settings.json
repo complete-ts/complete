@@ -32,6 +32,11 @@
     "package-lock.json": true,
     "pnpm-lock.yaml": true,
     "yarn.lock": true,
+
+    // @template-customization-start
+    "packages/docs/build/": true,
+    "packages/docs/docs/eslint-config-complete/": true,
+    // @template-customization-end
   },
 
   // ------------------
