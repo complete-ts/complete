@@ -16,16 +16,13 @@ const HELPFUL_WARNINGS = {
 
   "import-x/no-empty-named-blocks": "warn",
 
-  /**
-   * The options are [copied from
-   * Airbnb](https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/import.js).
-   *
-   * We also add a "scripts" and a "tests" directory entry for "devDependencies".
-   */
+  /** We add common patterns to the "devDependencies" array. */
   "import-x/no-extraneous-dependencies": [
     "warn",
     {
       devDependencies: [
+        // From:
+        // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
         "test/**", // tape, common npm pattern
         "tests/**", // also common npm pattern
         "spec/**", // mocha, rspec-like pattern
@@ -34,8 +31,8 @@ const HELPFUL_WARNINGS = {
         "test.{js,jsx}", // repos with a single test file
         "test-*.{js,jsx}", // repos with multiple top-level test files
         "**/*{.,_}{test,spec}.{js,jsx}", // tests where the extension or filename suffix denotes that it is a test
-        "**/jest.config.js", // jest config
-        "**/jest.setup.js", // jest setup
+        "**/jest.config.{js,cjs,mjs,ts,cts,mts}", // jest config // Modified for extra file extensions.
+        "**/jest.setup.{js,cjs,mjs,ts,cts,mts}", // jest setup // Modified for extra file extensions.
         "**/vue.config.js", // vue-cli config
         "**/webpack.config.js", // webpack config
         "**/webpack.config.*.js", // webpack config
@@ -47,10 +44,12 @@ const HELPFUL_WARNINGS = {
         "**/protractor.conf.js", // protractor config
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config
-        "**/.eslintrc.js", // eslint config
+        "**/.eslintrc.{js,cjs,mjs,ts,cts,mts}", // eslint config // Modified for extra file extensions.
 
         "**/scripts/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
         "**/tests/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
+        "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // ESLint config
+        "**/prettier.config.{js,cjs,mjs,ts,cts,mts}", // Prettier config
       ],
       optionalDependencies: false,
     },
@@ -65,7 +64,11 @@ const HELPFUL_WARNINGS = {
    */
   "import-x/no-named-as-default-member": "off",
 
-  "import-x/no-rename-default": "warn",
+  /**
+   * Temporarily disabled due to [false
+   * positives](https://github.com/un-ts/eslint-plugin-import-x/pull/157).
+   */
+  "import-x/no-rename-default": "off",
 
   /**
    * Disabled since this check is better performed by the [`knip`](https://github.com/webpro/knip)
@@ -302,28 +305,6 @@ export const baseImportX = tseslint.config(
     ],
     rules: {
       "import-x/no-default-export": "off",
-    },
-  },
-
-  {
-    files: ["eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"],
-
-    rules: {
-      "import-x/no-extraneous-dependencies": [
-        "warn",
-        {
-          devDependencies: [
-            "eslint.config.js",
-            "eslint.config.cjs",
-            "eslint.config.mjs",
-          ],
-
-          // ESLint configs in monorepos will import from "eslint-config-complete" and
-          // "typescript-eslint", which might be installed as part of `complete-lint` (as a
-          // transitive dependency).
-          whitelist: ["eslint-config-complete", "typescript-eslint"],
-        },
-      ],
     },
   },
 );

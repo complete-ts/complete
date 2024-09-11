@@ -1,19 +1,25 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
 import ESLintJS from "@eslint/js";
-import TypeScriptESLintPlugin from "@typescript-eslint/eslint-plugin";
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
-import { assertDefined, isArray, isObject } from "complete-common";
+import {
+  assertDefined,
+  isArray,
+  isObject,
+  kebabCaseToCamelCase,
+} from "complete-common";
 import { echo, isDirectory, mkdir, readFile, writeFile } from "complete-node";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
 import ESLintPluginImportX from "eslint-plugin-import-x";
-import ESLintPluginJSDoc from "eslint-plugin-jsdoc"; // eslint-disable-line import-x/no-rename-default
+import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import path from "node:path";
 import url from "node:url";
+import tseslint from "typescript-eslint";
 
 const FAIL_ON_MISSING_RULES = true as boolean;
 
@@ -106,40 +112,43 @@ const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 );
 
 /**
+ * We only need the rule lists for the 6 main configs.
+ *
+ * @see
  * https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/src/configs
  */
 const TYPESCRIPT_ESLINT_RULES = {
-  all: getTypeScriptESLintConfigRules("all"),
-  "eslint-recommended": getTypeScriptESLintConfigRules("eslint-recommended"),
+  recommended: getTypeScriptESLintConfigRules("recommended"),
   "recommended-type-checked": getTypeScriptESLintConfigRules(
     "recommended-type-checked",
   ),
-  recommended: getTypeScriptESLintConfigRules("recommended"),
-  "strict-type-checked": getTypeScriptESLintConfigRules("strict-type-checked"),
   strict: getTypeScriptESLintConfigRules("strict"),
+  "strict-type-checked": getTypeScriptESLintConfigRules("strict-type-checked"),
+  stylistic: getTypeScriptESLintConfigRules("stylistic"),
   "stylistic-type-checked": getTypeScriptESLintConfigRules(
     "stylistic-type-checked",
   ),
-  stylistic: getTypeScriptESLintConfigRules("stylistic"),
 } as const;
 
+/**
+ * We only need the rule sets for the 6 main configs.
+ *
+ * @see
+ * https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/src/configs
+ */
 const TYPESCRIPT_ESLINT_RULES_SET = {
-  all: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.all)),
-  "eslint-recommended": new Set(
-    Object.keys(TYPESCRIPT_ESLINT_RULES["eslint-recommended"]),
-  ),
+  recommended: new Set(TYPESCRIPT_ESLINT_RULES.recommended),
   "recommended-type-checked": new Set(
-    Object.keys(TYPESCRIPT_ESLINT_RULES["recommended-type-checked"]),
+    TYPESCRIPT_ESLINT_RULES["recommended-type-checked"],
   ),
-  recommended: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.recommended)),
+  strict: new Set(TYPESCRIPT_ESLINT_RULES.strict),
   "strict-type-checked": new Set(
-    Object.keys(TYPESCRIPT_ESLINT_RULES["strict-type-checked"]),
+    TYPESCRIPT_ESLINT_RULES["strict-type-checked"],
   ),
-  strict: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.strict)),
+  stylistic: new Set(TYPESCRIPT_ESLINT_RULES.stylistic),
   "stylistic-type-checked": new Set(
-    Object.keys(TYPESCRIPT_ESLINT_RULES["stylistic-type-checked"]),
+    TYPESCRIPT_ESLINT_RULES["stylistic-type-checked"],
   ),
-  stylistic: new Set(Object.keys(TYPESCRIPT_ESLINT_RULES.stylistic)),
 } as const;
 
 /** https://github.com/prettier/eslint-config-prettier/blob/main/index.js */
@@ -147,44 +156,33 @@ const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintConfigPrettier.rules),
 );
 
-function getTypeScriptESLintConfigRules(configName: string) {
-  const config = TypeScriptESLintPlugin.configs[configName];
+function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
+  const configNameCamelCase = kebabCaseToCamelCase(configName);
+  const configKey = configNameCamelCase as keyof typeof tseslint.configs;
+  const configArray = tseslint.configs[configKey] as
+    | FlatConfig.ConfigArray
+    | undefined;
   assertDefined(
-    config,
-    `Failed to parse the "@typescript-eslint/${configName}" config.`,
+    configArray,
+    `Failed to parse the "typescript-eslint/${configName}" config.`,
   );
 
-  // Unlike the other configs, the "eslint-recommended" rules are contained within an "overrides"
-  // directive.
-  if (configName === "eslint-recommended") {
-    const { overrides } = config;
-    assertDefined(
-      overrides,
-      `Failed to parse the "@typescript-eslint/${configName}" config overrides.`,
-    );
+  const rulesList: string[] = [];
 
-    const firstElement = overrides[0];
-    assertDefined(
-      firstElement,
-      `Failed to parse the "@typescript-eslint/${configName}" config overrides first element.`,
-    );
+  for (const config of configArray) {
+    const { rules } = config;
+    if (rules === undefined) {
+      continue;
+    }
 
-    const { rules } = firstElement;
-    assertDefined(
-      rules,
-      `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
-    );
-
-    return rules;
+    for (const [key, value] of Object.entries(rules)) {
+      if (value === "warn" || value === "error") {
+        rulesList.push(key);
+      }
+    }
   }
 
-  const { rules } = config;
-  assertDefined(
-    rules,
-    `Failed to parse the "@typescript-eslint/${configName}" config rules.`,
-  );
-
-  return rules;
+  return rulesList;
 }
 
 const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
@@ -273,7 +271,7 @@ async function main(): Promise<void> {
     "`@typescript-eslint` Rules",
     "https://typescript-eslint.io/rules/",
     "https://typescript-eslint.io/rules/__RULE_NAME__/",
-    TypeScriptESLintPlugin,
+    tseslint,
   );
 
   markdownOutput += await getMarkdownRuleSection(
@@ -316,7 +314,7 @@ async function main(): Promise<void> {
   echo(`Successfully created: ${README_PATH}`);
 }
 
-function getPluginHeaderTitle(pluginName: string) {
+function getPluginHeaderTitle(pluginName: string): string {
   return `\`eslint-plugin-${pluginName}\` Rules`;
 }
 
@@ -420,34 +418,24 @@ function auditBaseConfigRules(
 function getAllRulesFromImport(
   configName: string,
   upstreamImport: unknown,
-): Record<string, unknown> {
+): ReadonlyRecord<string, unknown> {
   // The core ESLint rules are a special case.
   if (configName === "eslint") {
-    return getAllRulesFromImportCoreESLint(configName, upstreamImport);
+    return getAllRulesFromCoreESLintConfig(configName, upstreamImport);
   }
 
-  if (typeof upstreamImport !== "object" || upstreamImport === null) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
+  // The "typescript-eslint" plugin is a special case (since it uses the flat config).
+  if (configName === "typescript-eslint") {
+    return getAllRulesFromFlatConfig(configName, upstreamImport);
   }
 
-  if (!("rules" in upstreamImport)) {
-    throw new Error(
-      `Failed to find the rules in the import for: ${configName}`,
-    );
-  }
-
-  const { rules } = upstreamImport;
-  if (typeof rules !== "object" || rules === null) {
-    throw new Error(`Failed to parse the import rules for: ${configName}`);
-  }
-
-  return rules as Record<string, unknown>;
+  return getAllRulesFromOldConfig(configName, upstreamImport);
 }
 
-function getAllRulesFromImportCoreESLint(
+function getAllRulesFromCoreESLintConfig(
   configName: string,
   upstreamImport: unknown,
-): Record<string, unknown> {
+): ReadonlyRecord<string, unknown> {
   if (!isObject(upstreamImport)) {
     throw new Error(`Failed to parse the import for: ${configName}`);
   }
@@ -459,7 +447,7 @@ function getAllRulesFromImportCoreESLint(
 
   const { all } = configs;
   if (!isObject(all)) {
-    throw new Error(`Failed to parse the "all" configs for: ${configName}`);
+    throw new Error(`Failed to parse the "all" config for: ${configName}`);
   }
 
   const { rules } = all;
@@ -467,6 +455,67 @@ function getAllRulesFromImportCoreESLint(
     throw new Error(
       `Failed to parse the "all" config rules for: ${configName}`,
     );
+  }
+
+  return rules;
+}
+
+function getAllRulesFromFlatConfig(
+  configName: string,
+  upstreamImport: unknown,
+): ReadonlyRecord<string, unknown> {
+  if (!isObject(upstreamImport)) {
+    throw new Error(`Failed to parse the import for: ${configName}`);
+  }
+
+  const { configs } = upstreamImport;
+  if (!isObject(configs)) {
+    throw new Error(`Failed to parse the configs for: ${configName}`);
+  }
+
+  const { all } = configs;
+  if (!isArray(all)) {
+    throw new Error(`Failed to parse the "all" config for: ${configName}`);
+  }
+
+  for (const section of all) {
+    if (!isObject(section)) {
+      throw new Error(
+        `Failed to parse one of the sections of the "all" config for: ${configName}`,
+      );
+    }
+
+    const { name } = section;
+    if (name !== "typescript-eslint/all") {
+      continue;
+    }
+
+    const { rules } = section;
+    if (!isObject(rules)) {
+      throw new Error(
+        'Failed to parse the rules from the "typescript-eslint/all" section.',
+      );
+    }
+
+    return rules;
+  }
+
+  throw new Error(
+    'Failed to find the section containing "typescript-eslint/all".',
+  );
+}
+
+function getAllRulesFromOldConfig(
+  configName: string,
+  upstreamImport: unknown,
+): ReadonlyRecord<string, unknown> {
+  if (!isObject(upstreamImport)) {
+    throw new Error(`Failed to parse the import for: ${configName}`);
+  }
+
+  const { rules } = upstreamImport;
+  if (!isObject(rules)) {
+    throw new Error(`Failed to parse the rules for: ${configName}`);
   }
 
   return rules;
@@ -535,10 +584,6 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   }
 
   // -----------------------------------------------------------------------------------------------
-
-  if (TYPESCRIPT_ESLINT_RULES_SET["eslint-recommended"].has(ruleName)) {
-    parentConfigs.push("@typescript-eslint/eslint-recommended");
-  }
 
   if (
     TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName) &&
@@ -643,7 +688,9 @@ function getRuleComments(
 }
 
 function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
-  const rule = TYPESCRIPT_ESLINT_RULES["eslint-recommended"][ruleName];
+  const ruleNameIndex =
+    ruleName as keyof typeof tseslint.configs.eslintRecommended;
+  const rule = tseslint.configs.eslintRecommended[ruleNameIndex];
   if (rule === undefined) {
     return false;
   }
@@ -664,7 +711,7 @@ function isRuleHandledByPrettier(ruleName: string): boolean {
   return rule === 0 || rule === "off";
 }
 
-function getLineOfCodeStartingAtPos(pos: number, code: string) {
+function getLineOfCodeStartingAtPos(pos: number, code: string): string {
   const codeStartingAtPos = code.slice(pos);
   const newlineIndex = codeStartingAtPos.indexOf("\n");
 
