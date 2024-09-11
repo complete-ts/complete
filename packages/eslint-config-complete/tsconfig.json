@@ -7,5 +7,11 @@
     "../../tsconfig.monorepo.json",
   ],
 
+  "compilerOptions": {
+    // Needed since this is a library.
+    "declaration": true,
+    "declarationMap": true,
+  },
+
   "include": ["./src/**/*.js"],
 }

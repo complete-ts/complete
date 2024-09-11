@@ -18,7 +18,5 @@
       );
 
 waiting on replies:
-- migrate knip config to typescript:
-  https://discord.com/channels/1143209786612125696/1281699259988574251/1281699259988574251
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157
