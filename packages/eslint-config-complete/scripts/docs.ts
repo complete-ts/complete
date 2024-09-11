@@ -48,9 +48,9 @@ The config is environment-agnostic, meaning that it will work in client-side pro
 
 ## Installation
 
-This package is part of the [\`complete-lint\`](TODO) meta-linting package. It is recommended that instead of consuming this package directly, you instead list \`complete-lint\` as a dependency, as that will install both this config and all of the rule plugins that it depends on.
+This package is part of the [\`complete-lint\`](/complete-lint) meta-linting package. It is recommended that instead of consuming \`eslint-config-complete\` directly, you instead list \`complete-lint\` as a dependency, as that will install both this config and all of the rule plugins that it depends on.
 
-For installation instructions, see [the \`complete-lint\` page](TODO).
+For installation instructions, see [the \`complete-lint\` page](/complete-lint).
 
 ## Why Do I Need To Use ESLint?
 
@@ -85,13 +85,13 @@ This config also assumes that you are using [Prettier](https://prettier.io/) to 
 
 Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the \`--fix\` flag. So, by running \`npx eslint --fix .\` in the root of your project, you can take care of a lot of the warnings automatically.
 
-Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automatically run \`--fix\` whenever you save a file](TODO).
+Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automatically run \`--fix\` whenever you save a file](/complete-lint#step-4---editor-integration).
 
 ## Dealing with False Positives
 
 Your first reaction to having a bunch of yellow squiggly lines might be to disable any rule that gets in your way. However, even if you think an ESLint warning is superfluous, it is often a sign that your codebase is structured in a bug-prone or non-idiomatic way. Before simply disabling a rule, sometimes it is good to do some research and think carefully if your code can be refactored in some way to be cleaner.
 
-Additionally, some ESLint rules are not about catching bugs, but are about code style and code consistency. If you find the new style to be foreign and weird, it can be tempting to ignore or disable the rule. But before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](TODO)!
+Additionally, some ESLint rules are not about catching bugs, but are about code style and code consistency. If you find the new style to be foreign and weird, it can be tempting to ignore or disable the rule. But before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](/complete-lint#why-code-formatting-is-important)!
 
 With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a \`// eslint-disable-next-line insert-rule-name-here\` comment. And you can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to \`Ctrl + .\` by default.
 
