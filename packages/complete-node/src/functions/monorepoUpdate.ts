@@ -2,63 +2,15 @@ import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject, trimPrefix } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import {
-  getFileNamesInDirectoryAsync,
-  isDirectoryAsync,
-  isFileAsync,
-} from "./file.js";
+import { isFileAsync } from "./file.js";
+import { getMonorepoPackageNames } from "./monorepo.js";
 import {
   getPackageJSONAsync,
-  packageJSONHasScriptAsync,
   setPackageJSONDependencyAsync,
 } from "./packageJSON.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
-
-/**
- * Helper function to asynchronously get the package names in a monorepo by looking at all of the
- * subdirectories in the "packages" directory.
- *
- * @param monorepoRoot The full path to the root of the monorepo.
- * @param scriptName Optional. If specified, the package names will be filtered to only include
- *                   those that include scripts with the given name.
- */
-export async function getMonorepoPackageNames(
-  monorepoRoot: string,
-  scriptName?: string,
-): Promise<readonly string[]> {
-  const packagesPath = path.join(monorepoRoot, "packages");
-  const packagesPathExists = await isDirectoryAsync(packagesPath);
-  if (!packagesPathExists) {
-    throw new Error(
-      `Failed to find the monorepo packages directory at: ${packagesPath}`,
-    );
-  }
-
-  const fileNames = await getFileNamesInDirectoryAsync(packagesPath);
-  const filePaths = fileNames.map((fileName) =>
-    path.join(packagesPath, fileName),
-  );
-  const directoryCheckPromises = filePaths.map(isDirectoryAsync);
-  const directoryChecks = await Promise.all(directoryCheckPromises);
-  const directories = fileNames.filter((_, i) => directoryChecks[i] === true);
-
-  if (scriptName === undefined || scriptName === "") {
-    return directories;
-  }
-
-  const hasScriptPromises = directories.map(async (directory) => {
-    const packageJSONPath = path.join(packagesPath, directory, "package.json");
-    const exists = await isFileAsync(packageJSONPath);
-    return exists
-      ? packageJSONHasScriptAsync(packageJSONPath, scriptName)
-      : false;
-  });
-
-  const hasScript = await Promise.all(hasScriptPromises);
-  return directories.filter((_package, i) => hasScript[i] === true);
-}
 
 /**
  * Helper function to:
