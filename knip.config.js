@@ -24,7 +24,6 @@ const config = {
         "tests/template.ts",
         "tests/fixtures/file.ts",
       ],
-      ignoreDependencies: ["complete-common", "complete-node"],
     },
   },
 };

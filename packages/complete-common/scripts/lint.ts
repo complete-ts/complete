@@ -6,5 +6,6 @@ await lintScript(async () => {
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
   ];
+
   await Promise.all(promises);
 });
