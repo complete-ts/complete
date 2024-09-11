@@ -1,7 +1,7 @@
-// This is a tsconfig.json intended to be used as a base for all TypeScript projects. It only
-// contains options that have to do with code checking strictness and omits all options having to do
-// with environment or transpilation (besides the "include" and "outDir" options, which should be
-// standardized across all projects).
+// This is a TypeScript configuration intended to be used as a base for all TypeScript projects. It
+// only contains options that have to do with code checking strictness and omits all options having
+// to do with environment or transpilation (besides the "include" and "outDir" options, which should
+// be standardized across all projects).
 {
   // We extend the strictest base config:
   // https://github.com/tsconfig/bases/blob/main/bases/strictest.json
