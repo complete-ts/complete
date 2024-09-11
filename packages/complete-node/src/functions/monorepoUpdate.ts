@@ -13,11 +13,6 @@ import {
 } from "./packageJSON.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
-/**
- * The keys are the package names. The values are the objects from the parsed "package.json" files.
- */
-type PackageJSONMap = ReadonlyMap<string, ReadonlyRecord<string, unknown>>;
-
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
 /**
@@ -255,7 +250,7 @@ async function getMonorepoPackageNames(
 async function getMonorepoChildPackageJSONMap(
   monorepoRoot: string,
   monorepoPackageNames: readonly string[],
-): Promise<PackageJSONMap> {
+): Promise<ReadonlyMap<string, ReadonlyRecord<string, unknown>>> {
   const promises = monorepoPackageNames.map(async (monorepoPackageName) => {
     const childPackagePath = path.join(
       monorepoRoot,
