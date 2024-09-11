@@ -1,4 +1,4 @@
-- fix docs.ts script to work
+- fix docs.ts script to only insert links inside the tags, similar to how plugin readme script does it
 - doing update doesn't update multiple package.json child deps, need to troubleshoot
 
 - removing deprecated eslint rule didn't trigger audit, so logic is bugged?
