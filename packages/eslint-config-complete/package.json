@@ -53,6 +53,6 @@
     "complete-node": "^1.1.0",
     "eslint-config-prettier": "^9.1.0",
     "extract-comments": "^1.1.0",
-    "typescript": "5.5.3"
+    "typescript": "5.5.4"
   }
 }

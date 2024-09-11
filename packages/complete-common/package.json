@@ -38,7 +38,7 @@
     "complete-node": "^1.1.0",
     "eslint-plugin-sort-exports": "^0.9.1",
     "glob": "^11.0.0",
-    "typescript": "5.5.3",
+    "typescript": "5.5.4",
     "typescript-eslint": "^8.5.0"
   }
 }
