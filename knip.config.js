@@ -8,9 +8,6 @@ const config = {
 
   workspaces: {
     "packages/*": {},
-    "packages/complete-common": {
-      ignoreDependencies: ["complete-node"],
-    },
     "packages/complete-node": {
       ignoreDependencies: ["npm-check-updates"],
     },
@@ -19,10 +16,7 @@ const config = {
     },
     "packages/eslint-config-complete": {
       ignore: ["scripts/extract-comments.d.ts"],
-      ignoreDependencies: [
-        "complete-node",
-        "eslint-import-resolver-typescript",
-      ],
+      ignoreDependencies: ["eslint-import-resolver-typescript"],
     },
     "packages/eslint-plugin-complete": {
       ignore: [

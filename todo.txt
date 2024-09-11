@@ -1,3 +1,4 @@
+- fix docs.ts script to work
 - doing update doesn't update multiple package.json child deps, need to troubleshoot
 
 - removing deprecated eslint rule didn't trigger audit, so logic is bugged?
