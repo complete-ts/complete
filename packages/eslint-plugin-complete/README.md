@@ -1,4 +1,4 @@
-# eslint-plugin-complete
+# `eslint-plugin-complete`
 
 `eslint-plugin-complete` is a collection of miscellaneous [ESLint](https://eslint.org/) rules that can help make your TypeScript code more safe or more strict.
 

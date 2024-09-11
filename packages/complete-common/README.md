@@ -1,4 +1,4 @@
-# complete-common
+# `complete-common`
 
 [![npm version](https://img.shields.io/npm/v/complete-common.svg)](https://www.npmjs.com/package/complete-common)
 
