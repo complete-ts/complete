@@ -50,6 +50,8 @@ const HELPFUL_WARNINGS = {
         "**/tests/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
         "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // ESLint config
         "**/prettier.config.{js,cjs,mjs,ts,cts,mts}", // Prettier config
+        "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}", // TypeDoc config
+        "**/typedoc.config.*.{js,cjs,mjs,ts,cts,mts}", // TypeDoc config
       ],
       optionalDependencies: false,
     },
