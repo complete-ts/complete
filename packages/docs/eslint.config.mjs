@@ -1,10 +1,7 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import path from "node:path";
 import tseslint from "typescript-eslint";
 import { completeConfigBase } from "../eslint-config-complete/src/base.js";
 import { completeConfigMonorepo } from "../eslint-config-complete/src/monorepo.js";
-
-const REPO_ROOT = path.join(import.meta.dirname, "..", "..");
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
