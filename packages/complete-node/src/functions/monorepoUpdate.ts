@@ -16,8 +16,10 @@ import { updatePackageJSONDependencies } from "./update.js";
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
 /**
- * Helper function to check if all of the dependencies in the monorepo "package.json" files are up
- * to date.
+ * Helper function to:
+ *
+ * - Check if all of the dependencies in the monorepo "package.json" files are up to date.
+ * - Check if any dependencies in the monorepo root "package.json" are unused.
  *
  * This is intended to be called in a monorepo lint script. It will exit the program with an error
  * code of 1 if discrepancies are found.
@@ -28,11 +30,12 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 export async function lintMonorepoPackageJSONs(): Promise<void> {
   const fromDir = dirOfCaller();
   const monorepoRoot = findPackageRoot(fromDir);
-  const filesUpdated = await updatePackageJSONDependenciesMonorepoChildren(
+
+  const valid = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
     true,
   );
-  if (filesUpdated) {
+  if (!valid) {
     console.error('One or more child "package.json" files are out of sync.');
     process.exit(1);
   }
@@ -47,7 +50,7 @@ export async function lintMonorepoPackageJSONs(): Promise<void> {
  * backwards from the file of the calling function.
  *
  * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
- * @returns Whether one or more "package.json" files were updated.
+ * @returns Whether any "package.json" files were changed.
  */
 export async function updatePackageJSONDependenciesMonorepo(
   monorepoRoot?: string,
@@ -62,10 +65,10 @@ export async function updatePackageJSONDependenciesMonorepo(
     updatePackageJSONDependencies(monorepoRoot);
 
   // Second, check to see if child "package.json" dependencies are up to date.
-  const childPackageJSONChanged =
+  const zeroFilesChanged =
     await updatePackageJSONDependenciesMonorepoChildren(monorepoRoot);
 
-  return monorepoPackageJSONChanged || childPackageJSONChanged;
+  return monorepoPackageJSONChanged || !zeroFilesChanged;
 }
 
 /**
@@ -81,7 +84,7 @@ export async function updatePackageJSONDependenciesMonorepo(
  *
  * @param monorepoRoot The full path to the monorepo root directory.
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
- * @returns Whether one or more "package.json" files were updated.
+ * @returns Whether all of the "package.json" files were valid.
  */
 export async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,
@@ -122,8 +125,18 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
     monorepoPackageNames,
   );
 
-  // Third, validate the child "package.json" files.
+  // Third, validate that all of the root monorepo dependencies are being used.
+  const monorepoDepsUsed = isAllMonorepoDepsUsed(
+    monorepoDependencies,
+    childPackageJSONMap,
+  );
+  if (!monorepoDepsUsed) {
+    throw new Error("One or more monorepo dependencies are unused.");
+  }
+
+  // Fourth, validate the child "package.json" files.
   const promises: Array<Promise<unknown>> = [];
+  let valid = true;
 
   for (const [childPackageName, childPackageJSON] of childPackageJSONMap) {
     const childPackageJSONPath = path.join(
@@ -158,6 +171,8 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
           }
 
           if (depVersion !== monorepoVersion) {
+            valid = false;
+
             if (dryRun) {
               console.log(
                 `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${monorepoVersion}`,
@@ -187,6 +202,8 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
 
           const depVersionTrimmed = trimPrefix(depVersion, "^");
           if (depVersionTrimmed !== correctVersion) {
+            valid = false;
+
             const correctVersionWithPrefix = `^${correctVersion}`;
             if (dryRun) {
               console.log(
@@ -204,20 +221,15 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
                 `Updated "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
               );
             }
-
-            return true;
           }
         }
       }
     }
   }
 
-  if (promises.length === 0) {
-    return false;
-  }
-
   await Promise.all(promises);
-  return true;
+
+  return valid;
 }
 
 /**
@@ -284,4 +296,36 @@ async function getMonorepoChildPackageJSONMap(
   }
 
   return childPackageJSONsMap;
+}
+
+function isAllMonorepoDepsUsed(
+  monorepoDependencies: ReadonlyRecord<string, unknown>,
+  childPackageJSONMap: ReadonlyMap<string, ReadonlyRecord<string, unknown>>,
+): boolean {
+  // First, create a set of every dependency that is being used by all child packages.
+  const usedDependencies = new Set<string>();
+
+  for (const childPackageJSON of childPackageJSONMap.values()) {
+    for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
+      const dependencies = childPackageJSON[dependencyType];
+      if (!isObject(dependencies)) {
+        continue;
+      }
+
+      for (const depName of Object.keys(dependencies)) {
+        usedDependencies.add(depName);
+      }
+    }
+  }
+
+  // Second, use the set to check for unused dependencies.
+  let allDepsUsed = true;
+  for (const depName of Object.keys(monorepoDependencies)) {
+    if (!usedDependencies.has(depName)) {
+      allDepsUsed = false;
+      console.error(`Monorepo dependency is unused: ${depName}`);
+    }
+  }
+
+  return allDepsUsed;
 }

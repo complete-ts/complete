@@ -32,5 +32,11 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "eslint-plugin-sort-exports": "^0.9.1",
+    "glob": "^11.0.0",
+    "typescript": "5.5.3"
   }
 }
