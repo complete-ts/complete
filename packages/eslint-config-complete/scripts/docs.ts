@@ -498,7 +498,7 @@ function getRuleSeverity(ruleName: string, rule: Linter.RuleEntry): string {
     return rule;
   }
 
-  if (Array.isArray(rule)) {
+  if (isArray(rule)) {
     const firstElement = rule[0];
     if (typeof firstElement !== "string") {
       throw new TypeError(

@@ -1,4 +1,5 @@
-import { assertDefined, trimPrefix } from "complete-common";
+import type { ReadonlyRecord } from "complete-common";
+import { assertDefined, isObject, trimPrefix } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import {
@@ -7,11 +8,15 @@ import {
   isFileAsync,
 } from "./file.js";
 import {
-  getPackageJSONDependenciesAsync,
-  getPackageJSONFieldAsync,
+  getPackageJSONAsync,
   setPackageJSONDependencyAsync,
 } from "./packageJSON.js";
 import { updatePackageJSONDependencies } from "./update.js";
+
+/**
+ * The keys are the package names. The values are the objects from the parsed "package.json" files.
+ */
+type PackageJSONMap = ReadonlyMap<string, ReadonlyRecord<string, unknown>>;
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
@@ -87,24 +92,137 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,
   dryRun = false,
 ): Promise<boolean> {
+  // First, get and validate the root monorepo "package.json" file.
+  const monorepoPackageJSON = await getPackageJSONAsync(monorepoRoot);
+
+  const monorepoDependencies = monorepoPackageJSON["dependencies"];
+  assertDefined(
+    monorepoDependencies,
+    `The "${monorepoRoot}/package.json" file does not have a "dependencies" field.`,
+  );
+  if (!isObject(monorepoDependencies)) {
+    throw new Error(
+      `The "${monorepoRoot}/package.json" has a "dependencies" field that is not an object.`,
+    );
+  }
+
+  const monorepoDevDependencies = monorepoPackageJSON["devDependencies"];
+  if (monorepoDevDependencies !== undefined) {
+    throw new Error(
+      `The "${monorepoRoot}/package.json" file has a "devDependencies" field. This is incorrect because a monorepo should only have normal dependencies.`,
+    );
+  }
+
+  const monorepoPeerDependencies = monorepoPackageJSON["peerDependencies"];
+  if (monorepoPeerDependencies !== undefined) {
+    throw new Error(
+      `The "${monorepoRoot}/package.json" file has a "peerDependencies" field. This is incorrect because a monorepo should only have normal dependencies.`,
+    );
+  }
+
+  // Second, get the child "package.json" files.
   const monorepoPackageNames = await getMonorepoPackageNames(monorepoRoot);
-
-  // First, check to see if child packages match the dependencies at the root of the monorepo.
-  const normalDepsUpdated = await updateChildNormalDependencies(
+  const childPackageJSONMap = await getMonorepoChildPackageJSONMap(
     monorepoRoot,
     monorepoPackageNames,
-    dryRun,
   );
 
-  // Third, check to see if child packages that depend on monorepo packages match the versions from
-  // those package's "package.json" files.
-  const monorepoDepsUpdated = await updateChildMonorepoDependencies(
-    monorepoRoot,
-    monorepoPackageNames,
-    dryRun,
-  );
+  // Third, validate the child "package.json" files.
+  const promises: Array<Promise<unknown>> = [];
 
-  return normalDepsUpdated || monorepoDepsUpdated;
+  for (const [childPackageName, childPackageJSON] of childPackageJSONMap) {
+    const childPackageJSONPath = path.join(
+      monorepoRoot,
+      "packages",
+      childPackageName,
+      "package.json",
+    );
+
+    for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
+      const childDependencies = childPackageJSON[dependencyType];
+      if (!isObject(childDependencies)) {
+        continue;
+      }
+
+      for (const [depName, depVersion] of Object.entries(childDependencies)) {
+        if (typeof depVersion !== "string") {
+          throw new TypeError(
+            `Failed to parse the value of the dependency of: ${childPackageName} --> ${depName}`,
+          );
+        }
+
+        const otherPackageJSON = childPackageJSONMap.get(depName);
+        if (otherPackageJSON === undefined) {
+          // This is not a monorepo package, so we have to look for the correct version in the root
+          // monorepo "package.json" file.
+          const monorepoVersion = monorepoDependencies[depName];
+          if (typeof monorepoVersion !== "string") {
+            throw new TypeError(
+              `Failed to find the monorepo dependency of "${depName}" for package "${childPackageName}".`,
+            );
+          }
+
+          if (depVersion !== monorepoVersion) {
+            if (dryRun) {
+              console.log(
+                `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${monorepoVersion}`,
+              );
+            } else {
+              const promise = setPackageJSONDependencyAsync(
+                childPackageJSONPath,
+                depName,
+                monorepoVersion,
+                dependencyType,
+              );
+              promises.push(promise);
+              console.log(
+                `Updated "${childPackageName}": ${depName} - ${depVersion} --> ${monorepoVersion}`,
+              );
+            }
+          }
+        } else {
+          // This is a monorepo package, so we have to look for the correct version in the
+          // individual package's "package.json" file.
+          const correctVersion = otherPackageJSON["version"];
+          if (typeof correctVersion !== "string") {
+            throw new TypeError(
+              `Failed to parse the version for package: ${depName}`,
+            );
+          }
+
+          const depVersionTrimmed = trimPrefix(depVersion, "^");
+          if (depVersionTrimmed !== correctVersion) {
+            const correctVersionWithPrefix = `^${correctVersion}`;
+            if (dryRun) {
+              console.log(
+                `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
+              );
+            } else {
+              const promise = setPackageJSONDependencyAsync(
+                childPackageJSONPath,
+                depName,
+                correctVersionWithPrefix,
+                dependencyType,
+              );
+              promises.push(promise);
+              console.log(
+                `Updated "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
+              );
+            }
+
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  if (promises.length === 0) {
+    return false;
+  }
+
+  await Promise.all(promises);
+  return true;
 }
 
 /**
@@ -134,19 +252,10 @@ async function getMonorepoPackageNames(
   return fileNames.filter((_, i) => directoryChecks[i] === true);
 }
 
-/** @returns Whether one or more "package.json" files were updated. */
-async function updateChildNormalDependencies(
+async function getMonorepoChildPackageJSONMap(
   monorepoRoot: string,
   monorepoPackageNames: readonly string[],
-  dryRun: boolean,
-): Promise<boolean> {
-  const monorepoDependencies =
-    await getPackageJSONDependenciesAsync(monorepoRoot);
-  assertDefined(
-    monorepoDependencies,
-    "Failed to get the dependencies at the root of the monorepo.",
-  );
-
+): Promise<PackageJSONMap> {
   const promises = monorepoPackageNames.map(async (monorepoPackageName) => {
     const childPackagePath = path.join(
       monorepoRoot,
@@ -157,150 +266,27 @@ async function updateChildNormalDependencies(
     const childPackageJSONPath = path.join(childPackagePath, "package.json");
     const childPackageJSONExists = await isFileAsync(childPackageJSONPath);
     if (!childPackageJSONExists) {
-      return false;
+      return undefined;
     }
 
-    const promises2 = DEPENDENCY_TYPES_TO_CHECK.map(async (dependencyType) => {
-      const childDependencies = await getPackageJSONDependenciesAsync(
-        childPackagePath,
-        dependencyType,
-      );
-      if (childDependencies === undefined) {
-        return false;
-      }
+    const childPackageJSON = await getPackageJSONAsync(childPackagePath);
 
-      const promises3 = Object.entries(childDependencies)
-        .filter(
-          ([dependencyName]) => !monorepoPackageNames.includes(dependencyName),
-        )
-        .map(async ([dependencyName, dependencyVersion]) => {
-          const monorepoDependencyVersion =
-            monorepoDependencies[dependencyName];
-          assertDefined(
-            monorepoDependencyVersion,
-            `Failed to find the following dependency at the root of the monorepo: ${dependencyName}`,
-          );
-
-          if (dependencyVersion !== monorepoDependencyVersion) {
-            if (dryRun) {
-              console.log(
-                `A dependency is out of date in "${childPackageJSONPath}": ${dependencyName} - ${dependencyVersion} --> ${monorepoDependencyVersion}`,
-              );
-            } else {
-              await setPackageJSONDependencyAsync(
-                childPackageJSONPath,
-                dependencyName,
-                monorepoDependencyVersion,
-                dependencyType,
-              );
-              console.log(
-                `Updated "${childPackageJSONPath}": ${dependencyName} - ${dependencyVersion} --> ${monorepoDependencyVersion}`,
-              );
-            }
-
-            return true;
-          }
-
-          return false;
-        });
-
-      const results = await Promise.all(promises3);
-      return results.some(Boolean); // Cannot use ".includes" or else it will early return.
-    });
-
-    const results = await Promise.all(promises2);
-    return results.some(Boolean); // Cannot use ".includes" or else it will early return.
+    return childPackageJSON;
   });
 
-  const results = await Promise.all(promises);
-  return results.some(Boolean); // Cannot use ".includes" or else it will early return.
-}
+  const childPackageJSONs = await Promise.all(promises);
 
-/** @returns Whether one or more "package.json" files were updated. */
-async function updateChildMonorepoDependencies(
-  monorepoRoot: string,
-  monorepoPackageNames: readonly string[],
-  dryRun: boolean,
-): Promise<boolean> {
-  const promises = monorepoPackageNames.map(async (monorepoPackageName) => {
-    const childPackagePath = path.join(
-      monorepoRoot,
-      "packages",
-      monorepoPackageName,
-    );
+  const childPackageJSONsMap = new Map<
+    string,
+    ReadonlyRecord<string, unknown>
+  >();
 
-    const childPackageJSONPath = path.join(childPackagePath, "package.json");
-    const childPackageJSONExists = await isFileAsync(childPackageJSONPath);
-    if (!childPackageJSONExists) {
-      return false;
+  for (const [i, packageName] of monorepoPackageNames.entries()) {
+    const packageJSON = childPackageJSONs[i];
+    if (packageJSON !== undefined) {
+      childPackageJSONsMap.set(packageName, packageJSON);
     }
+  }
 
-    const correctVersion = await getPackageJSONFieldAsync(
-      childPackageJSONPath,
-      "version",
-    );
-    if (correctVersion === undefined) {
-      return false;
-    }
-
-    const promises2 = monorepoPackageNames.map(async (monorepoPackageName2) => {
-      const childPackagePath2 = path.join(
-        monorepoRoot,
-        "packages",
-        monorepoPackageName2,
-      );
-
-      const childPackageJSONPath2 = path.join(
-        childPackagePath2,
-        "package.json",
-      );
-      const childPackageJSONExists2 = await isFileAsync(childPackageJSONPath2);
-      if (!childPackageJSONExists2) {
-        return false;
-      }
-
-      const dependencies = await getPackageJSONDependenciesAsync(
-        childPackagePath2,
-        "dependencies",
-      );
-      if (dependencies === undefined) {
-        return false;
-      }
-
-      const depVersion = dependencies[monorepoPackageName];
-      if (depVersion === undefined) {
-        return false;
-      }
-
-      const depVersionTrimmed = trimPrefix(depVersion, "^");
-
-      if (depVersionTrimmed !== correctVersion) {
-        if (dryRun) {
-          console.log(
-            `A dependency is out of date in "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
-          );
-        } else {
-          const versionWithPrefix = `^${correctVersion}`;
-          await setPackageJSONDependencyAsync(
-            childPackagePath2,
-            monorepoPackageName,
-            versionWithPrefix,
-          );
-          console.log(
-            `Updated "${childPackageJSONPath}": ${monorepoPackageName} - ${depVersionTrimmed} --> ${correctVersion}`,
-          );
-        }
-
-        return true;
-      }
-
-      return false;
-    });
-
-    const results = await Promise.all(promises2);
-    return results.some(Boolean); // Cannot use ".includes" or else it will early return.
-  });
-
-  const results = await Promise.all(promises);
-  return results.some(Boolean); // Cannot use ".includes" or else it will early return.
+  return childPackageJSONsMap;
 }
