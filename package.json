@@ -1,5 +1,5 @@
 {
-  "name": "complete",
+  "name": "complete-monorepo",
   "private": true,
   "description": "The monorepo for complete.",
   "homepage": "https://complete-js.github.io/",
