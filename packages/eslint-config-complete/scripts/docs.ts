@@ -394,18 +394,22 @@ function auditBaseConfigRules(
   const allRuleNames = Object.keys(allRules);
 
   for (const ruleName of allRuleNames) {
-    let fullRuleName: string;
-    if (configName === "eslint") {
-      fullRuleName = ruleName;
-    } else if (configName === "typescript-eslint") {
-      fullRuleName = `@${configName}/${ruleName}`;
-    } else {
-      fullRuleName = `${configName}/${ruleName}`;
+    // Some TSESLint configs turn off core ESLint rules.
+    if (
+      configName === "typescript-eslint" &&
+      !ruleName.startsWith("@typescript-eslint/")
+    ) {
+      continue;
     }
+
+    const fullRuleName =
+      configName === "eslint" || configName === "typescript-eslint"
+        ? ruleName
+        : `${configName}/${ruleName}`;
 
     const rule = baseRules[fullRuleName];
     if (rule === undefined) {
-      const msg = `Failed to find a rule in the base config for config "${configName}": ${fullRuleName}`;
+      const msg = `Failed to find a rule in the base config from upstream config "${configName}": ${fullRuleName}`;
       if (FAIL_ON_MISSING_RULES) {
         throw new Error(msg);
       } else {

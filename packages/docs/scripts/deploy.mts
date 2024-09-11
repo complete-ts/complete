@@ -14,7 +14,7 @@ import {
 } from "complete-node";
 import path from "node:path";
 
-const DOCS_REPO_NAME = "isaacscript.github.io";
+const DOCS_REPO_NAME = "complete-ts.github.io";
 const GITHUB_PAGES_URL = `https://${DOCS_REPO_NAME}/isaacscript-common/core/constants/index.html`;
 const SECONDS_TO_SLEEP = 10;
 
