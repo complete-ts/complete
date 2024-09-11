@@ -102,10 +102,8 @@ jobs:
           name: docs-build
           path: ./packages/docs/build
 
-      - name: Check if "DOCS_SSH_PRIVATE_KEY" secret is set
-        env:
-          SECRET_TO_CHECK: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
-        if: ${{ env.SECRET_TO_CHECK == '' }}
+      - name: Check if GitHub secrets are set
+        if: ${{ secrets.DOCS_SSH_PRIVATE_KEY == '' }}
         run: |
           echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
           exit 1

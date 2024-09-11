@@ -34,12 +34,12 @@ export function copyToMonorepoNodeModules(packageRoot: string): void {
  * the build output, making a weird directory structure. Since build output for a single package
  * should not be include other monorepo dependencies inside of it, all of the output needs to be
  * deleted except for the actual package output.
+ *
+ * This function will assume an "outDir" of "dist".
  */
-export function fixMonorepoPackageDistDirectory(
-  packageRoot: string,
-  outDir: string,
-): void {
+export function fixMonorepoPackageDistDirectory(packageRoot: string): void {
   const projectName = path.basename(packageRoot);
+  const outDir = path.join(packageRoot, "dist");
   const realOutDir = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
   deleteFileOrDirectory(tempPath);
