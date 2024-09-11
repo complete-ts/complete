@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-complete",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A sharable ESLint config for TypeScript projects.",
   "keywords": [
     "eslint",
