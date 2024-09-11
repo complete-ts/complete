@@ -181,7 +181,15 @@ await lintScript(async () => {
 });
 ```
 
-If you want, you can also put the script in your "package.json" file:
+Or, if you want to abstract this away, you can simplify the script by using a helper function:
+
+```ts
+import { lintScript, standardLintFunction } from "complete-node";
+
+await lintScript(standardLintFunction);
+```
+
+Additionally, you can also optionally put the script in your "package.json" file:
 
 ```json
   "scripts": {
@@ -189,7 +197,7 @@ If you want, you can also put the script in your "package.json" file:
   },
 ```
 
-That allows you to type `npm run lint` to more easily run the script.
+That allows you to type `npm run lint` in order to more easily run the script.
 
 ### Step 6 - Lint in CI
 
