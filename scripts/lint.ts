@@ -1,5 +1,7 @@
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
+// This script lints the monorepo. It does not run the lint scripts for each individual package. For
+// that, use the "lintAll.ts" script.
 await lintScript(async () => {
   const promises = [
     // Use TypeScript to type-check the code.

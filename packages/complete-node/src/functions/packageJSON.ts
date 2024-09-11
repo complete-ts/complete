@@ -347,6 +347,57 @@ export function getPackageJSONScripts(
 }
 
 /**
+ * Helper function to asynchronously get the "scripts" field from a "package.json" file. If the
+ * field does not exist, `undefined` will be returned. This will throw an error if the
+ * "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ */
+export async function getPackageJSONScriptsAsync(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+): Promise<Record<string, string> | undefined> {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : await getPackageJSONAsync(filePathOrDirPathOrRecord);
+
+  const { scripts } = packageJSON;
+  if (scripts === undefined) {
+    return undefined;
+  }
+
+  if (!isObject(scripts)) {
+    if (typeof filePathOrDirPathOrRecord === "string") {
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
+      );
+    }
+
+    throw new Error(
+      `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file.`,
+    );
+  }
+
+  for (const [key, value] of Object.entries(scripts)) {
+    if (typeof value !== "string") {
+      // eslint-disable-next-line unicorn/prefer-type-error
+      throw new Error(
+        `Failed to parse the "${key}" script in the "${PACKAGE_JSON}" file.`,
+      );
+    }
+  }
+
+  return scripts as Record<string, string>;
+}
+
+/**
  * Helper function to synchronously get the "version" field from a "package.json" file. This will
  * throw an error if the "package.json" file cannot be found or is otherwise invalid. It will also
  * throw an error if the "version" field does not exist.
@@ -452,6 +503,37 @@ export function packageJSONHasScript(
       : getPackageJSON(filePathOrDirPathOrRecord);
 
   const scripts = getPackageJSONScripts(packageJSON);
+  if (scripts === undefined) {
+    return false;
+  }
+
+  const script = scripts[scriptName];
+  return script !== undefined;
+}
+
+/**
+ * Helper function to asynchronously check if a "package.json" file has a particular script. This
+ * will throw an error if the "package.json" file cannot be found or is otherwise invalid.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param scriptName The name of the script to check for.
+ */
+export async function packageJSONHasScriptAsync(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  scriptName: string,
+): Promise<boolean> {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : await getPackageJSONAsync(filePathOrDirPathOrRecord);
+
+  const scripts = await getPackageJSONScriptsAsync(packageJSON);
   if (scripts === undefined) {
     return false;
   }
