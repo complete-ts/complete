@@ -23,10 +23,16 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  *
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
+ *
+ * @param monorepoRoot Optional. If specified, automatic searching will be skipped.
  */
-export async function lintMonorepoPackageJSONs(): Promise<void> {
-  const fromDir = dirOfCaller();
-  const monorepoRoot = findPackageRoot(fromDir);
+export async function lintMonorepoPackageJSONs(
+  monorepoRoot?: string,
+): Promise<void> {
+  if (monorepoRoot === undefined) {
+    const fromDir = dirOfCaller();
+    monorepoRoot = findPackageRoot(fromDir); // eslint-disable-line no-param-reassign
+  }
 
   const valid = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
