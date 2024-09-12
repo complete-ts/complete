@@ -101,20 +101,6 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
     );
   }
 
-  const monorepoDevDependencies = monorepoPackageJSON["devDependencies"];
-  if (monorepoDevDependencies !== undefined) {
-    throw new Error(
-      `The "${monorepoRoot}/package.json" file has a "devDependencies" field. This is incorrect because a monorepo should only have normal dependencies.`,
-    );
-  }
-
-  const monorepoPeerDependencies = monorepoPackageJSON["peerDependencies"];
-  if (monorepoPeerDependencies !== undefined) {
-    throw new Error(
-      `The "${monorepoRoot}/package.json" file has a "peerDependencies" field. This is incorrect because a monorepo should only have normal dependencies.`,
-    );
-  }
-
   // Second, get the child "package.json" files.
   const monorepoPackageNames = await getMonorepoPackageNames(monorepoRoot);
   const childPackageJSONMap = await getMonorepoChildPackageJSONMap(
