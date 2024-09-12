@@ -24,7 +24,7 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
- * @param monorepoRoot Optional. If specified, automatic searching will be skipped.
+ * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
  */
 export async function lintMonorepoPackageJSONs(
   monorepoRoot?: string,
