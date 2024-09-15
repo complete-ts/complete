@@ -52,7 +52,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.13",
     "@types/node": "^22.5.5",
     "@typescript-eslint/rule-tester": "^8.5.0",
     "@typescript-eslint/types": "^8.5.0",
