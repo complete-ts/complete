@@ -2,13 +2,24 @@ import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject, trimPrefix } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { isFileAsync } from "./file.js";
+import { isFileAsync, writeFileAsync } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
-import {
-  getPackageJSONAsync,
-  setPackageJSONDependencyAsync,
-} from "./packageJSON.js";
+import { getPackageJSONAsync } from "./packageJSON.js";
 import { updatePackageJSONDependencies } from "./update.js";
+
+type DepType = "dependencies" | "devDependencies" | "peerDependencies";
+
+type PendingPackageJSONUpdates = Map<
+  string,
+  readonly [
+    packageJSON: Record<string, unknown>,
+    updates: Array<{
+      depType: DepType;
+      depName: string;
+      newVersion: string;
+    }>,
+  ]
+>;
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
@@ -124,19 +135,12 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   }
 
   // Fourth, validate the child "package.json" files.
-  const promises: Array<Promise<unknown>> = [];
+  const pendingPackageJSONUpdates: PendingPackageJSONUpdates = new Map();
   let valid = true;
 
   for (const [childPackageName, childPackageJSON] of childPackageJSONMap) {
-    const childPackageJSONPath = path.join(
-      monorepoRoot,
-      "packages",
-      childPackageName,
-      "package.json",
-    );
-
-    for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
-      const childDependencies = childPackageJSON[dependencyType];
+    for (const depType of DEPENDENCY_TYPES_TO_CHECK) {
+      const childDependencies = childPackageJSON[depType];
       if (!isObject(childDependencies)) {
         continue;
       }
@@ -167,15 +171,13 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
                 `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${monorepoVersion}`,
               );
             } else {
-              const promise = setPackageJSONDependencyAsync(
-                childPackageJSONPath,
+              addPendingUpdate(
+                pendingPackageJSONUpdates,
+                childPackageName,
+                childPackageJSON,
+                depType,
                 depName,
                 monorepoVersion,
-                dependencyType,
-              );
-              promises.push(promise);
-              console.log(
-                `Updated "${childPackageName}": ${depName} - ${depVersion} --> ${monorepoVersion}`,
               );
             }
           }
@@ -199,15 +201,13 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
                 `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
               );
             } else {
-              const promise = setPackageJSONDependencyAsync(
-                childPackageJSONPath,
+              addPendingUpdate(
+                pendingPackageJSONUpdates,
+                childPackageName,
+                childPackageJSON,
+                depType,
                 depName,
                 correctVersionWithPrefix,
-                dependencyType,
-              );
-              promises.push(promise);
-              console.log(
-                `Updated "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
               );
             }
           }
@@ -216,7 +216,44 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
     }
   }
 
-  await Promise.all(promises);
+  // Update the "package.json" files to fix the discrepancies that we found above.
+  if (!dryRun) {
+    const promises: Array<Promise<unknown>> = [];
+
+    for (const [packageName, tuple] of pendingPackageJSONUpdates) {
+      const [packageJSON, updatesArray] = tuple;
+
+      for (const update of updatesArray) {
+        const { depType, depName, newVersion } = update;
+        const dependencies = packageJSON[depType];
+        if (!isObject(dependencies)) {
+          throw new Error(
+            `The "package.json" file for "${packageName}" does not have a valid field for: ${depType}`,
+          );
+        }
+
+        const oldVersion = dependencies[depName];
+        dependencies[depName] = newVersion;
+
+        console.log(
+          `Updated "${packageName}": ${depName} - ${oldVersion} --> ${newVersion}`,
+        );
+      }
+
+      const childPackageJSONPath = path.join(
+        monorepoRoot,
+        "packages",
+        packageName,
+        "package.json",
+      );
+
+      const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
+      const promise = writeFileAsync(childPackageJSONPath, packageJSONString);
+      promises.push(promise);
+    }
+
+    await Promise.all(promises);
+  }
 
   return valid;
 }
@@ -290,4 +327,24 @@ function isAllMonorepoDepsUsed(
   }
 
   return allDepsUsed;
+}
+
+function addPendingUpdate(
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  pendingPackageJSONUpdates: PendingPackageJSONUpdates,
+  packageName: string,
+  packageJSON: Record<string, unknown>,
+  depType: DepType,
+  depName: string,
+  newVersion: string,
+) {
+  let tuple = pendingPackageJSONUpdates.get(packageName);
+  if (tuple === undefined) {
+    tuple = [packageJSON, []];
+    pendingPackageJSONUpdates.set(packageName, tuple);
+  }
+
+  const updatesArray = tuple[1];
+  const update = { depType, depName, newVersion };
+  updatesArray.push(update);
 }
