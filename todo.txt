@@ -21,22 +21,3 @@
 waiting on replies:
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157
-
-----------------------------------
-
-lint rule doesn't work:
-
-```
-function addPendingUpdate(
-  monorepoRoot: string,
-  pendingPackageJSONUpdates: PendingPackageJSONUpdates,
-  packageName: string,
-  packageJSON: Record<string, unknown>,
-  depType: string,
-  depName: string,
-  newVersion: string,
-) {
-```
-
-(remove "monorepoRoot" param and then lint rule triggers)
-first, just try adding test with a param in the second position
