@@ -61,6 +61,30 @@ function foo(record: Record<string, string>) {}
         `,
         errors: [{ messageId: "shouldBeReadonly" }],
       },
+      {
+        code: `
+function foo(arg1: boolean, array: string[]) {}
+        `,
+        errors: [{ messageId: "shouldBeReadonly" }],
+      },
+      {
+        code: `
+function foo(arg1: boolean, map: Map<string, string>) {}
+        `,
+        errors: [{ messageId: "shouldBeReadonly" }],
+      },
+      {
+        code: `
+function foo(arg1: boolean, map: Set<string>) {}
+        `,
+        errors: [{ messageId: "shouldBeReadonly" }],
+      },
+      {
+        code: `
+function foo(arg1: boolean, record: Record<string, string>) {}
+        `,
+        errors: [{ messageId: "shouldBeReadonly" }],
+      },
     ],
   },
 );

@@ -38,15 +38,24 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
         type: "object",
         additionalProperties: false,
         properties: {
-          allow: readonlynessOptionsSchema.properties.allow,
+          allow: {
+            ...readonlynessOptionsSchema.properties.allow,
+            description: "An array of type specifiers to ignore.",
+          },
           checkParameterProperties: {
+            description: "Whether to check class parameter properties.",
             type: "boolean",
           },
           ignoreInferredTypes: {
+            description:
+              "Whether to ignore parameters which don't explicitly specify a type.",
             type: "boolean",
           },
-          treatMethodsAsReadonly:
-            readonlynessOptionsSchema.properties.treatMethodsAsReadonly,
+          treatMethodsAsReadonly: {
+            ...readonlynessOptionsSchema.properties.treatMethodsAsReadonly,
+            description:
+              "Whether to treat all mutable methods as though they are readonly.",
+          },
           onlyRecordsArraysMapsSet: {
             type: "boolean",
           },
@@ -111,6 +120,8 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           | TSESTree.TSMethodSignature,
       ): void {
         for (const param of node.params) {
+          console.log("XX", param);
+
           if (
             checkParameterProperties === false &&
             param.type === AST_NODE_TYPES.TSParameterProperty
@@ -133,6 +144,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           const type = services.getTypeAtLocation(actualParam);
 
           if (onlyRecordsArraysMapsSet === true) {
+            // Handle the case of only checking records, arrays, maps, and sets.
             const parts = unionTypeParts(type);
             const hasAllBasicDataStructures = parts.every((t) => {
               const typeName = getTypeName(t);
@@ -145,10 +157,9 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
             });
 
             if (!hasAllBasicDataStructures) {
-              return;
+              continue;
             }
 
-            // Handle the case of only checking records, arrays, maps, and sets.
             for (const t of parts) {
               const typeName = getTypeName(t);
 
