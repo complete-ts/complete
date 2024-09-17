@@ -333,7 +333,7 @@ function addPendingUpdate(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   pendingPackageJSONUpdates: PendingPackageJSONUpdates,
   packageName: string,
-  packageJSON: Record<string, unknown>,
+  packageJSON: ReadonlyRecord<string, unknown>,
   depType: DepType,
   depName: string,
   newVersion: string,
