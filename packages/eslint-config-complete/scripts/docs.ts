@@ -160,7 +160,7 @@ function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
   const configNameCamelCase = kebabCaseToCamelCase(configName);
   const configKey = configNameCamelCase as keyof typeof tseslint.configs;
   const configArray = tseslint.configs[configKey] as
-    | FlatConfig.ConfigArray
+    | FlatConfig.Config[]
     | undefined;
   assertDefined(
     configArray,

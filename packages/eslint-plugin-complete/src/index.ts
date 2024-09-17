@@ -36,7 +36,7 @@ function getPackageJSON(): Record<string, unknown> {
 
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
 function addPluginToConfigs(
-  configsToMutate: ReadonlyRecord<string, TSESLint.FlatConfig.ConfigArray>,
+  configsToMutate: ReadonlyRecord<string, TSESLint.FlatConfig.Config[]>,
   packageName: unknown,
 ) {
   if (typeof packageName !== "string") {

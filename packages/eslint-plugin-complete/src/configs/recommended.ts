@@ -4,7 +4,7 @@
 
 import type { TSESLint } from "@typescript-eslint/utils";
 
-export const recommended: TSESLint.FlatConfig.ConfigArray = [
+export const recommended: TSESLint.FlatConfig.Config[] = [
   {
     plugins: {},
     rules: {
