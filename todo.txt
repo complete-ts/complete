@@ -11,11 +11,6 @@
 - remove TODO in complete-lint/README.md
 - fix TODO in "complete-common/README.md"
 
-- figure out why this doesn't trigger a lint error:
-      throw new Error(
-        `Failed to parse the rules from the "typescript-eslint/all" section.`,
-      );
-
 ----------------------------------
 
 waiting on replies:

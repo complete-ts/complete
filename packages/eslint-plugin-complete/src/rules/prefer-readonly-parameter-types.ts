@@ -120,8 +120,6 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           | TSESTree.TSMethodSignature,
       ): void {
         for (const param of node.params) {
-          console.log("XX", param);
-
           if (
             checkParameterProperties === false &&
             param.type === AST_NODE_TYPES.TSParameterProperty

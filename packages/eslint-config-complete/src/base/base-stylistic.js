@@ -26,6 +26,8 @@ export const baseStylistic = tseslint.config({
      * `eslint-config-prettier`
      * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
      */
+    // The rule is currently bugged:
+    // https://github.com/eslint-stylistic/eslint-stylistic/issues/542
     "@stylistic/quotes": [
       "warn",
       "double",
