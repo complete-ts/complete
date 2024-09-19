@@ -166,9 +166,9 @@ valid.push({
   name: "Multi-line comment with a URL and trailing text",
   code: `
 /**
- * The TypeScript config extends it:
- * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js
- * (This includes the "parser" declaration of "@typescript-eslint/parser".)
+ * The thing extends it:
+ * https://something.com/
+ * (This includes the "parser" declaration of "foo/parser".)
  */
   `,
 });

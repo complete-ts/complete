@@ -2,8 +2,8 @@
 
 /** @type {import("knip").KnipConfig} */
 const config = {
-  // Ignore all dependencies in the root.
-  // https://github.com/webpro-nl/knip/issues/778
+  // Ignore all dependencies in the root. (This is checked by the `lintMonorepoPackageJSONs` helper
+  // function.)
   ignoreDependencies: [".+"],
 
   workspaces: {
