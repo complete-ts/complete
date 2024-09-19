@@ -21,6 +21,6 @@ export default tseslint.config(
   },
 
   {
-    ignores: ["**/build/", "**/.docusaurus/"],
+    ignores: ["**/.docusaurus/", "**/build/"],
   },
 );
