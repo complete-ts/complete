@@ -1,12 +1,7 @@
-- add eslint-plugin-complete rules to eslint-config-complete docs
-
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
 
 - edit README file for all projects to go to docs website
   - once done, update URL in "export const createRule"
-- remove all TODO in ./scripts/lint.ts
-- remove TODO in \packages\eslint-plugin-complete\README.md
-- remove TODO in complete-lint/README.md
 - fix TODO in "complete-common/README.md"
 
 ----------------------------------
