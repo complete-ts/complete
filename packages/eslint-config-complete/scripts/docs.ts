@@ -333,10 +333,8 @@ function auditBaseConfigRules(
   upstreamImport: unknown,
   baseRules: ReadonlyRecord<string, Linter.RuleEntry>,
 ) {
-  if (upstreamImport === undefined) {
-    throw new Error(
-      `Failed to find the upstream import for config: ${configName}`,
-    );
+  if (!isObject(upstreamImport)) {
+    throw new Error(`Failed to parse the import for: ${configName}`);
   }
 
   const allRules = getAllRulesFromImport(configName, upstreamImport);
@@ -356,7 +354,7 @@ function auditBaseConfigRules(
 
 function getAllRulesFromImport(
   pluginName: string,
-  upstreamImport: unknown,
+  upstreamImport: Record<string, unknown>,
 ): readonly string[] {
   // The core ESLint rules are a special case.
   if (pluginName === "eslint") {
@@ -373,12 +371,8 @@ function getAllRulesFromImport(
 
 function getAllRulesFromCoreESLint(
   configName: string,
-  upstreamImport: unknown,
+  upstreamImport: Record<string, unknown>,
 ): readonly string[] {
-  if (!isObject(upstreamImport)) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
-  }
-
   // The core ESLint import only has a "configs" property and nothing else.
   const { configs } = upstreamImport;
   if (!isObject(configs)) {
@@ -405,12 +399,8 @@ function getAllRulesFromCoreESLint(
 
 function getAllRulesFromTSESLint(
   pluginName: string,
-  upstreamImport: unknown,
+  upstreamImport: Record<string, unknown>,
 ): readonly string[] {
-  if (!isObject(upstreamImport)) {
-    throw new Error(`Failed to parse the import for: ${pluginName}`);
-  }
-
   const { plugin } = upstreamImport;
   if (!isObject(plugin)) {
     throw new Error(`Failed to parse the "plugin" property for: ${pluginName}`);
@@ -421,17 +411,14 @@ function getAllRulesFromTSESLint(
     throw new Error(`Failed to parse the "rules" property for: ${pluginName}`);
   }
 
+  // The plugin name is equal to "typescript-eslint", but the proper prefer includes an "@".
   return Object.keys(rules).map((rule) => `@typescript-eslint/${rule}`);
 }
 
 function getAllRulesFromOldPlugin(
   configName: string,
-  upstreamImport: unknown,
+  upstreamImport: Record<string, unknown>,
 ): readonly string[] {
-  if (!isObject(upstreamImport)) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
-  }
-
   const { rules } = upstreamImport;
   if (!isObject(rules)) {
     throw new Error(`Failed to parse the rules for: ${configName}`);
