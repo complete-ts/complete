@@ -17,7 +17,7 @@ const EMOJI_RECOMMENDED = ":white_check_mark:";
 const EMOJI_FIXABLE = ":wrench:";
 const EMOJI_REQUIRES_TYPE_INFORMATION = ":thought_balloon:";
 
-export const README_MD_PATH = path.join(PACKAGE_ROOT, "README.md");
+export const README_MD_PATH = path.join(PACKAGE_ROOT, "website-root.md");
 const MARKER_NAME = "RULES_TABLE";
 
 export async function generateReadme(): Promise<void> {

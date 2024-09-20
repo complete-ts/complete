@@ -11,7 +11,7 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   RULES_TS_PATH,
   // From "generateConfigs.mts":
   path.join(CONFIGS_DIRECTORY_PATH, "recommended.ts"),
-  // From: "generateReadme.mts"
+  // From: "generateReadme.mts":
   README_MD_PATH,
 ] as const;
 
