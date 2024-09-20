@@ -9,7 +9,12 @@ import {
   isObject,
   kebabCaseToCamelCase,
 } from "complete-common";
-import { echo, isDirectory, mkdir, readFile, writeFile } from "complete-node";
+import {
+  echo,
+  isMain,
+  readFile,
+  setMarkdownContentInsideMarker,
+} from "complete-node";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
 import ESLintPluginImportX from "eslint-plugin-import-x";
@@ -25,16 +30,8 @@ const FAIL_ON_MISSING_RULES = true as boolean;
 
 const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
 const PACKAGE_NAME = path.basename(PACKAGE_ROOT);
-const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
 const BASE_CONFIGS_PATH = path.join(PACKAGE_ROOT, "src", "base");
-const OUTPUT_DOCS_PATH = path.join(
-  REPO_ROOT,
-  "packages",
-  "docs",
-  "docs",
-  PACKAGE_NAME,
-);
-const README_PATH = path.join(OUTPUT_DOCS_PATH, "README.md");
+const README_PATH = path.join(PACKAGE_ROOT, "website-root.md");
 
 // -------------------------------------------------------------------------------------------------
 
@@ -185,12 +182,14 @@ const PARENT_CONFIG_LINKS = {
 
 // -------------------------------------------------------------------------------------------------
 
-await main();
+if (isMain()) {
+  await setReadmeRules(false);
+}
 
-async function main(): Promise<void> {
-  let markdownOutput = "";
+export async function setReadmeRules(quiet: boolean): Promise<void> {
+  let rulesTable = "";
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "eslint",
     "Core ESLint Rules",
     "https://eslint.org/docs/latest/rules/",
@@ -198,7 +197,7 @@ async function main(): Promise<void> {
     ESLintJS,
   );
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "typescript-eslint",
     "`@typescript-eslint` Rules",
     "https://typescript-eslint.io/rules/",
@@ -206,7 +205,7 @@ async function main(): Promise<void> {
     tseslint,
   );
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "import-x",
     getPluginHeaderTitle("import-x"),
     "https://github.com/un-ts/eslint-plugin-import-x",
@@ -214,7 +213,7 @@ async function main(): Promise<void> {
     ESLintPluginImportX,
   );
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "jsdoc",
     getPluginHeaderTitle("jsdoc"),
     "https://github.com/gajus/eslint-plugin-jsdoc",
@@ -222,7 +221,7 @@ async function main(): Promise<void> {
     ESLintPluginJSDoc,
   );
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "n",
     getPluginHeaderTitle("n"),
     "https://github.com/eslint-community/eslint-plugin-n",
@@ -230,7 +229,7 @@ async function main(): Promise<void> {
     ESLintPluginN,
   );
 
-  markdownOutput += await getMarkdownRuleSection(
+  rulesTable += await getMarkdownRuleSection(
     "unicorn",
     getPluginHeaderTitle("unicorn"),
     "https://github.com/sindresorhus/eslint-plugin-unicorn",
@@ -238,12 +237,16 @@ async function main(): Promise<void> {
     ESLintPluginUnicorn,
   );
 
-  if (!isDirectory(OUTPUT_DOCS_PATH)) {
-    mkdir(OUTPUT_DOCS_PATH);
-  }
-  writeFile(README_PATH, markdownOutput);
+  await setMarkdownContentInsideMarker(
+    README_PATH,
+    rulesTable,
+    "RULES_TABLE",
+    PACKAGE_ROOT,
+  );
 
-  echo(`Successfully created: ${README_PATH}`);
+  if (!quiet) {
+    echo(`Successfully filled: ${README_PATH}`);
+  }
 }
 
 function getPluginHeaderTitle(pluginName: string): string {
