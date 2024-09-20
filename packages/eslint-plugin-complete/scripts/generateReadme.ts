@@ -1,46 +1,32 @@
 // Generates the rules table in "README.md".
 
 import { assertDefined } from "complete-common";
-import { readFile, writeFile } from "complete-node";
+import { setMarkdownContentInsideMarker } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";
 import {
-  formatWithPrettier,
   getRuleEntries,
   getRuleNameWithPluginNamePrefix,
   isRecommendedRule,
 } from "./utils.js";
 
-interface Marker {
-  start: string;
-  end: string;
-}
+const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 const EMOJI_RECOMMENDED = ":white_check_mark:";
 const EMOJI_FIXABLE = ":wrench:";
 const EMOJI_REQUIRES_TYPE_INFORMATION = ":thought_balloon:";
 
 export const README_MD_PATH = path.join(PACKAGE_ROOT, "README.md");
-const RULES_TABLE_MARKER = newMarker("RULES_TABLE");
-
-function newMarker(marker: string): Marker {
-  return {
-    start: newHTMLComment(marker),
-    end: newHTMLComment(`/${marker}`),
-  };
-}
-
-function newHTMLComment(comment: string) {
-  return `<!-- ${comment} -->`;
-}
+const MARKER_NAME = "RULES_TABLE";
 
 export async function generateReadme(): Promise<void> {
   const rulesTable = await getRulesTable();
-  await updateFileContentInsideMark(
+  await setMarkdownContentInsideMarker(
     README_MD_PATH,
     rulesTable,
-    RULES_TABLE_MARKER,
+    MARKER_NAME,
+    REPO_ROOT,
   );
 }
 
@@ -93,60 +79,4 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   ];
 
   return `| ${ruleCells.join(" | ")} |`;
-}
-
-async function updateFileContentInsideMark(
-  filePath: string,
-  text: string,
-  marker: Marker,
-) {
-  const originalFileText = readFile(filePath);
-  const modifiedFileText = replaceContentInsideMark(
-    originalFileText,
-    text,
-    marker,
-  );
-
-  const formattedModifiedFileText = await formatWithPrettier(
-    modifiedFileText,
-    "markdown",
-  );
-
-  if (originalFileText === formattedModifiedFileText) {
-    return;
-  }
-
-  writeFile(filePath, formattedModifiedFileText);
-}
-
-function replaceContentInsideMark(
-  original: string,
-  text: string,
-  marker: Marker,
-) {
-  const startMarkIndex = original.indexOf(marker.start);
-  const endMarkIndex = original.indexOf(marker.end);
-
-  if (startMarkIndex === -1) {
-    throw new Error(`'${marker.start}' mark lost.`);
-  }
-
-  if (endMarkIndex === -1) {
-    throw new Error(`'${marker.end}' mark lost.`);
-  }
-
-  if (startMarkIndex > endMarkIndex) {
-    throw new Error(`'${marker.start}' should used before '${marker.end}'.`);
-  }
-
-  if (text !== "") {
-    text = `${text}\n`;
-  }
-
-  text = `\n${text}`;
-
-  const before = original.slice(0, startMarkIndex + marker.start.length);
-  const after = original.slice(endMarkIndex);
-
-  return before + text + after;
 }
