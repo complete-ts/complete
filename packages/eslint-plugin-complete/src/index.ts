@@ -5,7 +5,7 @@ import type { ReadonlyRecord } from "./completeCommon.js";
 import { configs } from "./configs.js";
 import { rules } from "./rules.js";
 
-const { name, version } = getPackageJSON();
+const { name, version } = getPackageJSONNameAndVersion();
 
 const plugin = {
   meta: {
@@ -23,15 +23,34 @@ export default plugin;
 /**
  * We parse the package JSON manually since importing JSON files directly in Node is experimental.
  */
-function getPackageJSON(): Record<string, unknown> {
+function getPackageJSONNameAndVersion() {
   const packageRoot = path.join(import.meta.dirname, "..");
   const packageJSONPath = path.join(packageRoot, "package.json");
+  let packageJSON: Record<string, unknown>;
   try {
     const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
-    return JSON.parse(packageJSONString) as Record<string, unknown>;
+    packageJSON = JSON.parse(packageJSONString) as Record<string, unknown>;
   } catch (error) {
     throw new Error(`Failed to read the "${packageJSONPath}" file: ${error}`);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const { name } = packageJSON;
+  if (typeof name !== "string") {
+    throw new TypeError(
+      'Failed to parse the "name" property of the "package.json" file.',
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const { version } = packageJSON;
+  if (typeof version !== "string") {
+    throw new TypeError(
+      'Failed to parse the "version" property of the "package.json" file.',
+    );
+  }
+
+  return { name, version };
 }
 
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */

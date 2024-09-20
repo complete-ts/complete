@@ -1,5 +1,5 @@
-import ESLintPluginComplete from "eslint-plugin-complete";
 import tseslint from "typescript-eslint";
+import { baseComplete } from "./base/base-complete.js";
 import { baseESLint } from "./base/base-eslint.js";
 import { baseImportX } from "./base/base-import-x.js";
 import { baseJSDoc } from "./base/base-jsdoc.js";
@@ -7,17 +7,6 @@ import { baseN } from "./base/base-n.js";
 import { baseStylistic } from "./base/base-stylistic.js";
 import { baseTypeScriptESLint } from "./base/base-typescript-eslint.js";
 import { baseUnicorn } from "./base/base-unicorn.js";
-
-// Hot-patch "eslint-plugin-complete" to convert errors to warnings.
-for (const config of ESLintPluginComplete.configs.recommended) {
-  if (config.rules !== undefined) {
-    for (const [key, value] of Object.entries(config.rules)) {
-      if (value === "error") {
-        config.rules[key] = "warn";
-      }
-    }
-  }
-}
 
 /**
  * This ESLint config is meant to be used as a base for all TypeScript projects.
@@ -33,10 +22,7 @@ export const completeConfigBase = tseslint.config(
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
   ...baseUnicorn,
-
-  // `eslint-plugin-complete` provides extra miscellaneous rules to keep code safe:
-  // https://github.com/complete-ts/complete/tree/main/packages/eslint-plugin-complete
-  ...ESLintPluginComplete.configs.recommended,
+  ...baseComplete,
 
   // We prefer the official `reportUnusedDisableDirectives` linter option over the 3rd-party plugin
   // of "eslint-plugin-eslint-comments".

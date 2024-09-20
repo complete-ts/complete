@@ -17,6 +17,7 @@ import {
 } from "complete-node";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
+import ESLintPluginComplete from "eslint-plugin-complete";
 import ESLintPluginImportX from "eslint-plugin-import-x";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
@@ -149,6 +150,7 @@ type ParentConfig =
   | "jsdoc/recommended"
   | "n/recommended"
   | "unicorn/recommended"
+  | "complete/recommended"
   | "eslint-config-prettier";
 
 const PARENT_CONFIG_LINKS = {
@@ -176,6 +178,8 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js",
   "unicorn/recommended":
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
+  "complete/recommended":
+    "https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/configs/recommended.ts",
   "eslint-config-prettier":
     "https://github.com/prettier/eslint-config-prettier/blob/main/index.js",
 } as const satisfies Record<ParentConfig, string>;
@@ -235,6 +239,14 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "https://github.com/sindresorhus/eslint-plugin-unicorn",
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/__RULE_NAME__.md",
     ESLintPluginUnicorn,
+  );
+
+  rulesTable += await getMarkdownRuleSection(
+    "complete",
+    getPluginHeaderTitle("complete"),
+    "https://complete-ts.github.io/eslint-plugin-complete",
+    "https://complete-ts.github.io/eslint-plugin-complete/rules/__RULE_NAME__",
+    ESLintPluginComplete,
   );
 
   await setMarkdownContentInsideHTMLMarker(
@@ -322,29 +334,17 @@ function auditBaseConfigRules(
   baseRules: ReadonlyRecord<string, Linter.RuleEntry>,
 ) {
   if (upstreamImport === undefined) {
-    return;
+    throw new Error(
+      `Failed to find the upstream import for config: ${configName}`,
+    );
   }
 
   const allRules = getAllRulesFromImport(configName, upstreamImport);
-  const allRuleNames = Object.keys(allRules);
 
-  for (const ruleName of allRuleNames) {
-    // Some TSESLint configs turn off core ESLint rules.
-    if (
-      configName === "typescript-eslint" &&
-      !ruleName.startsWith("@typescript-eslint/")
-    ) {
-      continue;
-    }
-
-    const fullRuleName =
-      configName === "eslint" || configName === "typescript-eslint"
-        ? ruleName
-        : `${configName}/${ruleName}`;
-
-    const rule = baseRules[fullRuleName];
+  for (const ruleName of allRules) {
+    const rule = baseRules[ruleName];
     if (rule === undefined) {
-      const msg = `Failed to find a rule in the base config from upstream config "${configName}": ${fullRuleName}`;
+      const msg = `Failed to find a rule in the base config from upstream config "${configName}": ${ruleName}`;
       if (FAIL_ON_MISSING_RULES) {
         throw new Error(msg);
       } else {
@@ -355,35 +355,37 @@ function auditBaseConfigRules(
 }
 
 function getAllRulesFromImport(
-  configName: string,
+  pluginName: string,
   upstreamImport: unknown,
-): ReadonlyRecord<string, unknown> {
+): readonly string[] {
   // The core ESLint rules are a special case.
-  if (configName === "eslint") {
-    return getAllRulesFromCoreESLintConfig(configName, upstreamImport);
+  if (pluginName === "eslint") {
+    return getAllRulesFromCoreESLint(pluginName, upstreamImport);
   }
 
   // The "typescript-eslint" plugin is a special case (since it uses the flat config).
-  if (configName === "typescript-eslint") {
-    return getAllRulesFromFlatConfig(configName, upstreamImport);
+  if (pluginName === "typescript-eslint") {
+    return getAllRulesFromTSESLint(pluginName, upstreamImport);
   }
 
-  return getAllRulesFromOldConfig(configName, upstreamImport);
+  return getAllRulesFromOldPlugin(pluginName, upstreamImport);
 }
 
-function getAllRulesFromCoreESLintConfig(
+function getAllRulesFromCoreESLint(
   configName: string,
   upstreamImport: unknown,
-): ReadonlyRecord<string, unknown> {
+): readonly string[] {
   if (!isObject(upstreamImport)) {
     throw new Error(`Failed to parse the import for: ${configName}`);
   }
 
+  // The core ESLint import only has a "configs" property and nothing else.
   const { configs } = upstreamImport;
   if (!isObject(configs)) {
     throw new Error(`Failed to parse the configs for: ${configName}`);
   }
 
+  // There are only "all" and "recommended" configs.
   const { all } = configs;
   if (!isObject(all)) {
     throw new Error(`Failed to parse the "all" config for: ${configName}`);
@@ -396,58 +398,36 @@ function getAllRulesFromCoreESLintConfig(
     );
   }
 
-  return rules;
+  // The "all" config does not contain deprecated rules.
+  // https://discord.com/channels/688543509199716507/1286660477912612906
+  return Object.keys(rules);
 }
 
-function getAllRulesFromFlatConfig(
-  configName: string,
+function getAllRulesFromTSESLint(
+  pluginName: string,
   upstreamImport: unknown,
-): ReadonlyRecord<string, unknown> {
+): readonly string[] {
   if (!isObject(upstreamImport)) {
-    throw new Error(`Failed to parse the import for: ${configName}`);
+    throw new Error(`Failed to parse the import for: ${pluginName}`);
   }
 
-  const { configs } = upstreamImport;
-  if (!isObject(configs)) {
-    throw new Error(`Failed to parse the configs for: ${configName}`);
+  const { plugin } = upstreamImport;
+  if (!isObject(plugin)) {
+    throw new Error(`Failed to parse the "plugin" property for: ${pluginName}`);
   }
 
-  const { all } = configs;
-  if (!isArray(all)) {
-    throw new Error(`Failed to parse the "all" config for: ${configName}`);
+  const { rules } = plugin;
+  if (!isObject(rules)) {
+    throw new Error(`Failed to parse the "rules" property for: ${pluginName}`);
   }
 
-  for (const section of all) {
-    if (!isObject(section)) {
-      throw new Error(
-        `Failed to parse one of the sections of the "all" config for: ${configName}`,
-      );
-    }
-
-    const { name } = section;
-    if (name !== "typescript-eslint/all") {
-      continue;
-    }
-
-    const { rules } = section;
-    if (!isObject(rules)) {
-      throw new Error(
-        'Failed to parse the rules from the "typescript-eslint/all" section.',
-      );
-    }
-
-    return rules;
-  }
-
-  throw new Error(
-    'Failed to find the section containing "typescript-eslint/all".',
-  );
+  return Object.keys(rules).map((rule) => `@typescript-eslint/${rule}`);
 }
 
-function getAllRulesFromOldConfig(
+function getAllRulesFromOldPlugin(
   configName: string,
   upstreamImport: unknown,
-): ReadonlyRecord<string, unknown> {
+): readonly string[] {
   if (!isObject(upstreamImport)) {
     throw new Error(`Failed to parse the import for: ${configName}`);
   }
@@ -457,7 +437,7 @@ function getAllRulesFromOldConfig(
     throw new Error(`Failed to parse the rules for: ${configName}`);
   }
 
-  return rules;
+  return Object.keys(rules).map((rule) => `${configName}/${rule}`);
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
