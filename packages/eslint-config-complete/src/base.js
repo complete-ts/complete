@@ -36,8 +36,8 @@ export const completeConfigBase = tseslint.config(
     // By default, ESLint ignores "**/node_modules/" and ".git/":
     // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
     // We also ignore want to ignore:
-    // - The "dist" directory since it is the idiomatic place for compiled output in TypeScript.
-    // - Minified files.
+    // - The "dist" directory, since it is the idiomatic place for compiled output in TypeScript.
+    // - Minified JavaScript files.
     ignores: ["**/dist/", "*.min.js"],
   },
 );
