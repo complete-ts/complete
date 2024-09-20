@@ -13,7 +13,7 @@ import {
   echo,
   isMain,
   readFile,
-  setMarkdownContentInsideMarker,
+  setMarkdownContentInsideHTMLMarker,
 } from "complete-node";
 import type { Linter } from "eslint";
 import ESLintConfigPrettier from "eslint-config-prettier";
@@ -237,7 +237,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     ESLintPluginUnicorn,
   );
 
-  await setMarkdownContentInsideMarker(
+  await setMarkdownContentInsideHTMLMarker(
     README_PATH,
     rulesTable,
     "RULES_TABLE",

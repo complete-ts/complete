@@ -27,7 +27,7 @@ export async function formatWithPrettier(
  *
  * @returns The modified string.
  */
-export function setContentInsideMarker(
+export function setContentInsideHTMLMarker(
   original: string,
   text: string,
   markerName: string,

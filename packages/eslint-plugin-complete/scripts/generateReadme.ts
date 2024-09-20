@@ -1,7 +1,7 @@
 // Generates the rules table in "README.md".
 
 import { assertDefined } from "complete-common";
-import { setMarkdownContentInsideMarker } from "complete-node";
+import { setMarkdownContentInsideHTMLMarker } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";
@@ -22,7 +22,7 @@ const MARKER_NAME = "RULES_TABLE";
 
 export async function generateReadme(): Promise<void> {
   const rulesTable = await getRulesTable();
-  await setMarkdownContentInsideMarker(
+  await setMarkdownContentInsideHTMLMarker(
     README_MD_PATH,
     rulesTable,
     MARKER_NAME,
