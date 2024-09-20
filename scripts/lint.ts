@@ -12,7 +12,7 @@ await lintScript(async () => {
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
     // @template-ignore-next-line
-    // $`tsc --noEmit --project ./scripts/tsconfig.json`,
+    /// $`tsc --noEmit --project ./scripts/tsconfig.json`,
 
     // Use ESLint to lint the TypeScript code.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.

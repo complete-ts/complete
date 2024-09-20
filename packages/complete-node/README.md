@@ -2,6 +2,6 @@
 
 [![npm version](https://img.shields.io/npm/v/complete-node.svg)](https://www.npmjs.com/package/complete-node)
 
-This package contains helper functions for a Node.js TypeScript project.
+This package contains helper functions for a [Node.js](https://nodejs.org/) [TypeScript](https://www.typescriptlang.org/) project.
 
-For more information about Complete, see the [official website](https://complete-ts.github.io/).
+Please see the [docs](https://complete-js.github.io/complete-node) for more information.

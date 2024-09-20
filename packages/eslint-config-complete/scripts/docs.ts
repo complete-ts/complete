@@ -354,7 +354,7 @@ function auditBaseConfigRules(
 
 function getAllRulesFromImport(
   pluginName: string,
-  upstreamImport: Record<string, unknown>,
+  upstreamImport: ReadonlyRecord<string, unknown>,
 ): readonly string[] {
   // The core ESLint rules are a special case.
   if (pluginName === "eslint") {
@@ -371,7 +371,7 @@ function getAllRulesFromImport(
 
 function getAllRulesFromCoreESLint(
   configName: string,
-  upstreamImport: Record<string, unknown>,
+  upstreamImport: ReadonlyRecord<string, unknown>,
 ): readonly string[] {
   // The core ESLint import only has a "configs" property and nothing else.
   const { configs } = upstreamImport;
@@ -399,7 +399,7 @@ function getAllRulesFromCoreESLint(
 
 function getAllRulesFromTSESLint(
   pluginName: string,
-  upstreamImport: Record<string, unknown>,
+  upstreamImport: ReadonlyRecord<string, unknown>,
 ): readonly string[] {
   const { plugin } = upstreamImport;
   if (!isObject(plugin)) {
@@ -417,7 +417,7 @@ function getAllRulesFromTSESLint(
 
 function getAllRulesFromOldPlugin(
   configName: string,
-  upstreamImport: Record<string, unknown>,
+  upstreamImport: ReadonlyRecord<string, unknown>,
 ): readonly string[] {
   const { rules } = upstreamImport;
   if (!isObject(rules)) {

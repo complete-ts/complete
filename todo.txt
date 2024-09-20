@@ -1,8 +1,7 @@
-- abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
-
-- edit README file for all projects to go to docs website
-  - once done, update URL in "export const createRule"
+- get docs working
 - fix TODO in "complete-common/README.md"
+- abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
+  probably just use: https://github.com/bmish/eslint-doc-generator
 
 ----------------------------------
 
