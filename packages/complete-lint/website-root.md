@@ -197,7 +197,7 @@ Additionally, you can also optionally put the script in your "package.json" file
   },
 ```
 
-That allows you to type `npm run lint` in order to more easily run the script.
+That allows you to type `npm run lint` in order to more easily run the script. (Note that this setup requires that you install `tsx` and `complete-node` as development dependencies.)
 
 ### Step 6 - Lint in CI
 
@@ -242,7 +242,6 @@ These are the specific packages that `complete-lint` provides:
 
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
 - [`@types/node`](https://www.npmjs.com/package/@types/node) - The types for the Node.js runtime. This is included since it is expected that you will be linting your project with a TypeScript script.
-- [`complete-node`](/complete-node) - A library that allows you to easily create a linting script to run several tools at once.
 - [`complete-tsconfig`](/complete-tsconfig) - A collection of TypeScript configuration files that allow for maximum safety.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
@@ -253,7 +252,7 @@ These are the specific packages that `complete-lint` provides:
 - [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) - A plugin used because Prettier will not organize "package.json" files automatically.
-- [`tsx`](https://github.com/privatenumber/tsx) - A tool to run a TypeScript file directly. This is included so that you can execute your linting script without having to explicitly install it.
+- [`tsx`](https://github.com/privatenumber/tsx) - A tool to run a TypeScript file directly. This is included so that you can execute linting scripts.
 
 ## Why Code Formatting is Important
 

@@ -27,7 +27,6 @@
   "dependencies": {
     "@prettier/plugin-xml": "^3.4.1",
     "@types/node": "^22.5.5",
-    "complete-node": "^1.5.1",
     "complete-tsconfig": "^1.1.0",
     "cspell": "^8.14.4",
     "cspell-check-unused-words": "^1.3.6",

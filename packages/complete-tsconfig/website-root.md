@@ -2,9 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/complete-tsconfig.svg)](https://www.npmjs.com/package/complete-tsconfig)
 
-These are shared TypeScript configuration files that are intended to be used in [TypeScript](https://www.typescriptlang.org/) projects.
+## Introduction
 
-Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies. (You also must also install `@tsconfig/node-lts` if you are using the Node.js config.)
+These are shared TypeScript configuration files that are intended to be used in [TypeScript](https://www.typescriptlang.org/) projects. They are based on the [`@tsconfig/strictest`](https://github.com/tsconfig/bases/blob/main/bases/strictest.json) configs for maximum safety.
 
 ## Configs Offered
 
@@ -14,9 +14,21 @@ Note that if you use these configs with `pnpm`, you must also install `@tsconfig
 
 ## Install
 
+### Using `complete-lint`
+
+This package is part of the [`complete-lint`](/complete-lint) meta-linting package. If you also need to install ESLint-related dependencies, then it is recommended that instead of consuming `complete-tsconfig` directly, you instead list `complete-lint` as a dependency, as that will install the configs and other goodies. (However, `complete-lint` will not work with the [pnpm](https://pnpm.io/) package manager, since it does not handle transitive dependencies properly.)
+
+For installation instructions, see [the `complete-lint` page](/complete-lint).
+
+### Manually
+
+If you do not want to use the `complete-lint` meta-package, then you can install this package manually:
+
 ```sh
 npm install complete-tsconfig --save
 ```
+
+Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies. (You also must also install `@tsconfig/node-lts` if you are using the Node.js config.)
 
 ## Usage
 
