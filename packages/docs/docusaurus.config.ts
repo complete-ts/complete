@@ -81,7 +81,16 @@ const config: Config = {
   // Added fields from vanilla
   // -------------------------
 
-  scripts: ["/js/hotkey.js"],
+  scripts: [
+    // Font Awesome is used for the icons on the landing page.
+    {
+      src: "https://kit.fontawesome.com/1932a73877.js",
+      crossorigin: "anonymous",
+    },
+
+    // We provide some keyboard shortcuts for easier navigation.
+    "/js/hotkey.js",
+  ],
 };
 
 export default config;

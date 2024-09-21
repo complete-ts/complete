@@ -1,0 +1,18 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.circle-accent1 {
+  color: #c4a0bc;
+}
+
+.circle-accent2 {
+  color: #e5cb95;
+}
+
+.circle-accent3 {
+  color: #7fcdb8;
+}
