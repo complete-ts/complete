@@ -12,7 +12,13 @@ const config = {
       ignoreDependencies: ["npm-check-updates"],
     },
     "packages/docs": {
-      ignore: ["docusaurus.config.ts", "sidebars.ts", "static/js/hotkey.js"],
+      ignore: [
+        "docusaurus.config.ts",
+        "sidebars.ts",
+        "static/js/hotkey.js",
+        "src/components/HomepageFeatures/index.tsx",
+        "src/pages/index.tsx",
+      ],
     },
     "packages/eslint-config-complete": {
       ignore: ["scripts/extract-comments.d.ts"],
