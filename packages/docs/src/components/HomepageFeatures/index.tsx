@@ -1,27 +1,34 @@
+import {
+  BookOpenIcon,
+  ShieldCheckIcon,
+  WrenchIcon,
+} from "@heroicons/react/24/solid";
 import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 
 interface FeatureItem {
-  num: number;
   title: string;
-  iconName: string;
+  icon: React.JSX.Element;
   description: React.JSX.Element;
 }
+
+const ICON_SIZE = "8em";
 
 // eslint-disable-next-line complete/require-capital-const-assertions, complete/require-capital-read-only
 const FeatureList: FeatureItem[] = [
   {
-    num: 1,
     title: "Maximum Safe TypeScript",
-    iconName: "helmet-safety",
+    icon: <ShieldCheckIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
     description: (
-      <>Complete is a set of packages to make working with TypeScript safer.</>
+      <>
+        Writing safe TypeScript is non-trivial. Complete makes it as easy and
+        safe as possible.
+      </>
     ),
   },
   {
-    num: 2,
     title: "Clean Configs",
-    iconName: "bath",
+    icon: <WrenchIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
     description: (
       <>
         TypeScript tooling can be complex. Keep your project clean by
@@ -30,31 +37,17 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    num: 3,
     title: "Free & Open Source",
-    iconName: "id-card",
+    icon: <BookOpenIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
     description: <>Complete is MIT licensed and supported by the community.</>,
   },
 ];
 
-function Feature({ num, title, iconName, description }: FeatureItem) {
+function Feature({ title, icon, description }: FeatureItem) {
   return (
     <div className={`col col--4 ${styles["feature"]}`}>
-      <div className="text--center">
-        <br />
-        <span className="fa-stack fa-3x">
-          <div
-            className={`fa fa-circle fa-stack-2x ${styles[`circle-accent${num}`]}`}
-          ></div>
-          <div
-            className={`fa fa-solid fa-${iconName} fa-stack-1x fa-inverse`}
-          ></div>
-        </span>
-        <br />
-        <br />
-      </div>
-
       <div className="text--center padding-horiz--md">
+        {icon}
         <Heading as="h3">{title}</Heading>
         <p>{description}</p>
       </div>
