@@ -141,14 +141,10 @@ jobs:
 
       - name: Deploy the documentation website
         id: deploy-website
-        run: npx tsx ./packages/docs/scripts/deploy.mts
-
-      - name: Wait until the new version of the website is deployed
-        if: steps.deploy-website.outputs.SHOULD_CRAWL == '1'
-        run: npx tsx ./packages/docs/scripts/postDeploy.mts ${{ github.sha }} ${{ secrets.GITHUB_TOKEN }}
+        run: npx tsx ./packages/docs/scripts/deploy.mts ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Algolia Crawler
-        if: steps.check-new-website-deployed.outputs.SHOULD_CRAWL == '1'
+        if: steps.deploy-website.outputs.SHOULD_CRAWL == '1'
         env:
           ALGOLIA_CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
           ALGOLIA_CRAWLER_API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}

@@ -14,5 +14,3 @@ Complete is a collection of packages to make working with [TypeScript](https://w
 | [complete-tsconfig](./packages/complete-tsconfig)           | A sharable TypeScript config for TypeScript projects.      | [![npm version](https://img.shields.io/npm/v/complete-tsconfig.svg)](https://www.npmjs.com/package/complete-tsconfig)           |
 | [eslint-config-complete](./packages/eslint-config-complete) | A sharable ESLint config for TypeScript projects.          | [![npm version](https://img.shields.io/npm/v/eslint-config-complete.svg)](https://www.npmjs.com/package/eslint-config-complete) |
 | [eslint-plugin-complete](./packages/eslint-plugin-complete) | An ESLint plugin that contains useful rules.               | [![npm version](https://img.shields.io/npm/v/eslint-plugin-complete.svg)](https://www.npmjs.com/package/eslint-plugin-complete) |
-
-TODO
