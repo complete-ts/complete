@@ -102,7 +102,7 @@ jobs:
           name: docs-build
           path: ./packages/docs/build
 
-      - name: Check if the GitHub "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
+      - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
         env:
           SECRET_CHECK: ${{ secrets.DOCS_SSH_PRIVATE_KEY }}
         if: ${{ env.SECRET_CHECK == '' }}
@@ -124,8 +124,37 @@ jobs:
           path: complete-ts.github.io
 
       - name: Deploy the documentation website
-        id: deploy_documentation_website
-        run: npx tsx ./packages/docs/scripts/deploy.mts ${{ github.sha }}
+        run: npx tsx ./packages/docs/scripts/deploy.mts
+
+      - name: Check new website deployed
+        id: check-new-website-deployed
+        run: npx tsx ./packages/docs/scripts/postDeploy.mts ${{ github.sha }} ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if the "ALGOLIA_CRAWLER_ID" GitHub secret is set
+        env:
+          SECRET_CHECK: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+        if: ${{ env.SECRET_CHECK == '' }}
+        run: |
+          echo "Error: The GitHub secret of \"ALGOLIA_CRAWLER_ID\" is not set."
+          exit 1
+
+      - name: Check if the "ALGOLIA_API_KEY" GitHub secret is set
+        env:
+          SECRET_CHECK: ${{ secrets.ALGOLIA_API_KEY }}
+        if: ${{ env.SECRET_CHECK == '' }}
+        run: |
+          echo "Error: The GitHub secret of \"ALGOLIA_API_KEY\" is not set."
+          exit 1
+
+      - name: Run Algolia Crawler
+        if: steps.check-new-website-deployed.outputs.SHOULD_SCRAPE == '1'
+        env:
+          ALGOLIA_CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            --user $ALGOLIA_CRAWLER_ID:$ALGOLIA_API_KEY \
+            "https://crawler.algolia.com/api/1/crawlers/$ALGOLIA_CRAWLER_ID/reindex"
 
   discord:
     name: Discord Failure Notification

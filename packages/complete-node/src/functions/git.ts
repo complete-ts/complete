@@ -20,8 +20,8 @@ export function isGitRepositoryLatestCommit(
   const $$ = $op({ cwd: gitRepositoryDirectoryPath });
   $$.sync`git fetch`;
 
-  const output1 = $$.sync`git rev-parse HEAD`.stdout;
-  const output2 = $$.sync`git rev-parse @{u}`.stdout;
+  const currentSHA1 = $$.sync`git rev-parse HEAD`.stdout;
+  const latestSHA1 = $$.sync`git rev-parse @{u}`.stdout;
 
-  return output1 === output2;
+  return currentSHA1 === latestSHA1;
 }

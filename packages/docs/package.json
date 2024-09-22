@@ -53,6 +53,7 @@
     "@docusaurus/tsconfig": "^3.5.2",
     "@docusaurus/types": "^3.5.2",
     "@eslint/eslintrc": "^3.1.0",
+    "@octokit/core": "^6.1.2",
     "@types/node": "^22.5.5",
     "complete-node": "1.5.1",
     "typescript": "5.5.4",
