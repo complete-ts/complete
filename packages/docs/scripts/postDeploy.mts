@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/core";
 import {
+  appendFile,
   echo,
   exit,
   fatalError,
@@ -24,14 +25,14 @@ const args = getArgs();
 
 const commitSHA1 = args[0];
 if (commitSHA1 === undefined || commitSHA1 === "") {
-  echo("Error: The SHA1 of the commit is required as the first argument.");
-  exit(1);
+  fatalError(
+    "Error: The SHA1 of the commit is required as the first argument.",
+  );
 }
 
 const gitHubToken = args[1];
 if (gitHubToken === undefined || gitHubToken === "") {
-  echo("Error: The GitHub token is required as the second argument.");
-  exit(1);
+  fatalError("Error: The GitHub token is required as the second argument.");
 }
 
 // Wait for the website to be be live (which usually takes around 5 minutes).
@@ -61,16 +62,26 @@ while (true) {
     },
   );
 
-  console.log(response);
-  // eslint-disable-next-line
-  if (1 === 1) {
+  const data = response.data as Record<string, unknown>;
+
+  const { status, commit } = data;
+
+  if (typeof status !== "string") {
+    fatalError("Failed to parse the status from the GitHub API response.");
+  }
+
+  if (typeof commit !== "string") {
+    fatalError("Failed to parse the commit from the GitHub API response.");
+  }
+
+  if (status === "built" && commit === commitSHA1) {
     break;
   }
 
   echo(
-    `The latest version of the site (${commitSHA1}) has not yet been deployed to GitHub Pages. Sleeping for ${SECONDS_TO_SLEEP} seconds.`,
+    `The latest version of the site (${commitSHA1}) has not yet been deployed to GitHub Pages. (The GitHub page status is "${status}" and the GitHub page commit is "${commit}".) Sleeping for ${SECONDS_TO_SLEEP} seconds.`,
   );
   await sleep(SECONDS_TO_SLEEP); // eslint-disable-line no-await-in-loop
 }
 
-/// appendFile(GITHUB_OUTPUT_FILE, "SHOULD_SCRAPE=1\n");
+appendFile(GITHUB_OUTPUT_FILE, "SHOULD_SCRAPE=1\n");
