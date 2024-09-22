@@ -1,8 +1,10 @@
 import {
   $op,
+  appendFile,
   cp,
   echo,
   exit,
+  fatalError,
   isGitRepositoryClean,
   isGitRepositoryLatestCommit,
   mv,
@@ -17,6 +19,12 @@ const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
 const DOCS_REPO = path.join(REPO_ROOT, DOCS_REPO_NAME);
 const DOCS_REPO_GIT = path.join(DOCS_REPO, ".git");
 const DOCS_REPO_GIT_BACKUP = `/tmp/${DOCS_REPO_NAME}.git`;
+
+// Validate environment variables.
+const GITHUB_OUTPUT_FILE = process.env["GITHUB_OUTPUT"];
+if (GITHUB_OUTPUT_FILE === undefined || GITHUB_OUTPUT_FILE === "") {
+  fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
+}
 
 // The website repository will be already cloned at this point by the previous GitHub action,
 // including switching to the "gh-pages" branch. See "ci.yml" for more information.
@@ -51,3 +59,5 @@ $$.sync`git config --global user.name "github-actions"`;
 $$.sync`git add --all`;
 $$.sync`git commit --message deploy --amend`;
 $$.sync`git push --force-with-lease`;
+
+appendFile(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");

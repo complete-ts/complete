@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/core";
 import {
-  appendFile,
   echo,
   exit,
   fatalError,
@@ -13,12 +12,6 @@ import path from "node:path";
 const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
 const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");
 const SECONDS_TO_SLEEP = 10;
-
-// Validate environment variables.
-const GITHUB_OUTPUT_FILE = process.env["GITHUB_OUTPUT"];
-if (GITHUB_OUTPUT_FILE === undefined || GITHUB_OUTPUT_FILE === "") {
-  fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
-}
 
 // Validate command-line arguments.
 const args = getArgs();
@@ -45,7 +38,7 @@ while (true) {
     exit(0);
   }
 
-  /** @see https://github.com/octokit/core.js#readme */
+  /** @see https://github.com/octokit/core.js */
   const octokit = new Octokit({
     auth: gitHubToken,
   });
@@ -83,5 +76,3 @@ while (true) {
   );
   await sleep(SECONDS_TO_SLEEP); // eslint-disable-line no-await-in-loop
 }
-
-appendFile(GITHUB_OUTPUT_FILE, "SHOULD_SCRAPE=1\n");
