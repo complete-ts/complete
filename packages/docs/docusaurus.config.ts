@@ -76,6 +76,13 @@ const config: Config = {
     colorMode: {
       defaultMode: "dark",
     },
+
+    algolia: {
+      appId: "TLPQBRNPUR", // cspell: disable-line
+      apiKey: "ddb9ff0a6c852e16bfe82b06c353fe56",
+      indexName: "complete",
+      contextualSearch: false, // Enabled by default; only useful for versioned sites.
+    },
   } satisfies Preset.ThemeConfig,
 
   // -------------------------
