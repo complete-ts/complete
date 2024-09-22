@@ -62,6 +62,7 @@ if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
 }
 
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
+
 const $$ = $op({ cwd: DOCS_REPO });
 $$.sync`git config --global user.email "github-actions@users.noreply.github.com"`;
 $$.sync`git config --global user.name "github-actions"`;
