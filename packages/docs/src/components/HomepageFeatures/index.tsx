@@ -17,7 +17,7 @@ const ICON_SIZE = "8em";
 // eslint-disable-next-line complete/require-capital-const-assertions, complete/require-capital-read-only
 const FeatureList: FeatureItem[] = [
   {
-    title: "Maximum Safe TypeScript",
+    title: "Safety First",
     icon: <ShieldCheckIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
     description: (
       <>
