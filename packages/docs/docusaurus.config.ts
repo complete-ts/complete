@@ -7,8 +7,7 @@ const darkCodeTheme = themes.vsDark;
 
 const config: Config = {
   title: "Complete",
-  tagline:
-    "A collection of packages to make working with TypeScript projects easier.",
+  tagline: "A collection of packages to make working with TypeScript easier.",
   favicon: "img/favicon.ico",
 
   url: "https://complete-ts.github.io",
