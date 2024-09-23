@@ -44,6 +44,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/strict-array-methods.ts)
-- [Test source](../../tests/rules/strict-array-methods.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/strict-array-methods.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/strict-array-methods.test.ts)

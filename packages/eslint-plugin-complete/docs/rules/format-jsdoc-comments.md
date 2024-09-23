@@ -2,7 +2,7 @@
 
 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
 
-Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](../../README.md#automatic-fixing) to run `eslint --fix` on save.
+Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run `eslint --fix` on save.
 
 Also see the [`format-line-comments`](format-line-comments.md) rule.
 
@@ -92,6 +92,6 @@ For example:
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/format-jsdoc-comments.ts)
-- [Test source](../../tests/rules/format-jsdoc-comments.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/format-jsdoc-comments.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/format-jsdoc-comments.test.ts)

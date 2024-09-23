@@ -35,6 +35,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/strict-undefined-functions.ts)
-- [Test source](../../tests/rules/strict-undefined-functions.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/strict-undefined-functions.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/strict-undefined-functions.test.ts)

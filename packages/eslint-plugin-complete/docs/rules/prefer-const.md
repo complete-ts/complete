@@ -38,6 +38,6 @@ This rule is not configurable. (All of the unsafe options from the original have
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/prefer-const.ts)
-- [Test source](../../tests/rules/prefer-const.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/prefer-const.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/prefer-const.test.ts)

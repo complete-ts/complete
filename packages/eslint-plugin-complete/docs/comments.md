@@ -109,7 +109,7 @@ However, one problem remains. You are [supposed to use complete sentences in JSD
 const foo = 100;
 ```
 
-Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`complete/complete-sentences-jsdoc`](docs/rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
+Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`complete/complete-sentences-jsdoc`](rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
 
 ## Using a Ruler
 
@@ -155,7 +155,7 @@ This comment is aligned with a ruler of 100 characters. Imagine that I need to a
 
 Oh no! Now we have to manually re-adjust the next N lines of the block in order to keep everything aligned.
 
-This annoying problem is why the [`complete/format-jsdoc-comments`](docs/rules/complete-sentences-jsdoc.md) rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is save the file, and all of the subsequent lines will be automatically adjusted.
+This annoying problem is why the [`complete/format-jsdoc-comments`](rules/complete-sentences-jsdoc.md) rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is save the file, and all of the subsequent lines will be automatically adjusted.
 
 ## Using Line Comments With a Ruler
 

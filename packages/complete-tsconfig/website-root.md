@@ -8,9 +8,9 @@ These are shared TypeScript configuration files that are intended to be used in 
 
 ## Configs Offered
 
-- [tsconfig.base.json](tsconfig.base.json) - A config meant to be used by all TypeScript projects.
-- [tsconfig.browser.json](tsconfig.browser.json) - A config meant for projects running in Node.js.
-- [tsconfig.node.json](tsconfig.node.json) - A config meant for projects running in the browser.
+- [tsconfig.base.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json) - A config meant to be used by all TypeScript projects.
+- [tsconfig.browser.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.browser.json) - A config meant for projects running in Node.js.
+- [tsconfig.node.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json) - A config meant for projects running in the browser.
 
 ## Install
 
@@ -32,7 +32,7 @@ Note that if you use these configs with `pnpm`, you must also install `@tsconfig
 
 ## Usage
 
-First, extend from the base config. Second, extend from either the Node.js config or the browser config. For example:
+First, extend from the base config. Second, you can optionally extend from either the Node.js config or the browser config. For example:
 
 ```jsonc
 // The configuration file for TypeScript.
@@ -49,7 +49,7 @@ First, extend from the base config. Second, extend from either the Node.js confi
 }
 ```
 
-Note that the [base config](tsconfig.base.json) handily specifies an `include` of `["./src/**/*.ts", "./src/**/*.tsx"]` and an `outDir` of `"./dist"`, so you can omit those options to keep your config file small and clean.
+Note that the [base config](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json) handily specifies an `include` of `["./src/**/*.ts", "./src/**/*.tsx"]` and an `outDir` of `"./dist"`, so you can omit those options to keep your config file small and clean.
 
 ## Strict Schema
 

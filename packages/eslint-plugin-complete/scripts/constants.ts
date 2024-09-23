@@ -9,6 +9,7 @@ if (pluginName === undefined || pluginName === "") {
   throw new Error("Failed to parse the plugin name from the package name.");
 }
 
+export const PACKAGE_NAME = packageName;
 export const PLUGIN_NAME = pluginName;
 export const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
 export const REPO_ROOT = path.join(PACKAGE_ROOT, "..", "..");

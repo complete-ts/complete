@@ -1,4 +1,5 @@
 - get docs working
+- // TODO: change to "throw"
 - fix TODO in "complete-common/README.md"
 
 ----------------------------------------------------------------------------------------------------

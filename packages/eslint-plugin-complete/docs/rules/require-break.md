@@ -10,7 +10,7 @@ However, it does not enforce a `break` statement on the final case. This makes s
 
 This rule enforces `break` statements on the final case.
 
-Note that this rule will still apply even if the final case is a `default` case, and this is intentional. Assuming that `default` cases are always at the bottom of a switch statement (using the [`default-case-last`](default-case-last) rule), `default` cases are distinct from other case statements in that they would not ever need to be reorganized or have something added underneath. So, the reasons for wanting a `break` statement in a `default` case are less intuitive. First, having "empty" `default` cases are sometimes required in order to satisfy the [`@typescript-eslint/switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check/) rule (e.g. when you only want to define behavior for 2 out of 10 enum members). In these cases, a `break` statement is useful to order to avoid triggering the [`no-empty`](no-empty) rule and to avoid the appearance of the arm being unfinished. Thus, since `break` statements might be desired for otherwise-empty `default` cases, it can make sense to enforce them in every `default` case across a codebase for consistency.
+Note that this rule will still apply even if the final case is a `default` case, and this is intentional. Assuming that `default` cases are always at the bottom of a switch statement (using the [`default-case-last`](https://eslint.org/docs/latest/rules/default-case-last) rule), `default` cases are distinct from other case statements in that they would not ever need to be reorganized or have something added underneath. So, the reasons for wanting a `break` statement in a `default` case are less intuitive. First, having "empty" `default` cases are sometimes required in order to satisfy the [`@typescript-eslint/switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check/) rule (e.g. when you only want to define behavior for 2 out of 10 enum members). In these cases, a `break` statement is useful to order to avoid triggering the [`no-empty`](https://eslint.org/docs/rules/no-empty) rule and to avoid the appearance of the arm being unfinished. Thus, since `break` statements might be desired for otherwise-empty `default` cases, it can make sense to enforce them in every `default` case across a codebase for consistency.
 
 ```ts
 // Bad
@@ -53,6 +53,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/require-break.ts)
-- [Test source](../../tests/rules/require-break.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/require-break.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/require-break.test.ts)

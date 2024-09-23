@@ -30,6 +30,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/require-unannotated-const-assertions.ts)
-- [Test source](../../tests/rules/require-unannotated-const-assertions.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/require-unannotated-const-assertions.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/require-unannotated-const-assertions.test.ts)

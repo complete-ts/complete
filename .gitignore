@@ -12,6 +12,9 @@ build
 .docusaurus
 .cache-loader
 
+# Copied documentation
+packages/docs/docs
+
 # ------------------------------
 # GitHub Node.gitignore template
 # https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore

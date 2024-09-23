@@ -88,6 +88,12 @@ const config: Config = {
   // Added fields from vanilla
   // -------------------------
 
+  // Needed so that the following text works properly: `1 << -1 (0)`
+  // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
+  markdown: {
+    format: "detect",
+  },
+
   scripts: [
     // We provide some keyboard shortcuts for easier navigation.
     "/js/hotkey.js",

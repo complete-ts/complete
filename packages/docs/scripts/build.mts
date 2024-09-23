@@ -1,35 +1,51 @@
-import { $op, $s, buildScript, rm } from "complete-node";
+import { $op, $s, buildScript, cp, rm } from "complete-node";
 import path from "node:path";
 
-const DOCS_BUILD_ENABLED = true as boolean;
-
-const TYPEDOC_PACKAGES = [
-  /// "isaac-typescript-definitions",
-  /// "isaacscript-common",
-] as const;
-
-const GENERATED_DOC_DIRECTORY_NAMES = [
-  ...TYPEDOC_PACKAGES,
+const PACKAGES_WITH_ONE_PAGE_DOCS = [
+  "complete-lint",
+  "complete-tsconfig",
   "eslint-config-complete",
+  "eslint-plugin-complete",
 ] as const;
 
 await buildScript(async (packageRoot) => {
-  if (!DOCS_BUILD_ENABLED) {
-    return;
-  }
-
-  const generatedDocPaths = GENERATED_DOC_DIRECTORY_NAMES.map((directoryName) =>
-    path.join(packageRoot, "docs", directoryName),
-  );
-  rm(...generatedDocPaths);
-
   const repoRoot = path.join(packageRoot, "..", "..");
 
-  const promises = [makeDocsEslintConfigComplete(repoRoot)];
+  const docsDir = path.join(packageRoot, "docs");
+  rm(docsDir);
 
-  await Promise.all(promises);
+  const srcOverviewPath = path.join(packageRoot, "overview.md");
+  const dstOverviewPath = path.join(docsDir, "overview.md");
+  cp(srcOverviewPath, dstOverviewPath);
 
-  // Format the Markdown output with Prettier, which will remove superfluous backslash escape
+  for (const packageName of PACKAGES_WITH_ONE_PAGE_DOCS) {
+    const srcPath = path.join(
+      repoRoot,
+      "packages",
+      packageName,
+      "website-root.md",
+    );
+    const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
+    cp(srcPath, dstPath);
+  }
+
+  // eslint-plugin-complete
+  const srcPluginPath = path.join(
+    repoRoot,
+    "packages",
+    "eslint-plugin-complete",
+    "docs",
+  );
+  const dstPluginPath = path.join(
+    packageRoot,
+    "docs",
+    "eslint-plugin-complete",
+  );
+  cp(srcPluginPath, dstPluginPath);
+  const templatePath = path.join(dstPluginPath, "template.md");
+  rm(templatePath);
+
+  // Format the TypeDoc output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
   // to avoid creating a spurious "node_modules" folder.)
   const $$ = $op({ cwd: repoRoot });
@@ -37,9 +53,3 @@ await buildScript(async (packageRoot) => {
 
   $s`docusaurus build`;
 });
-
-async function makeDocsEslintConfigComplete(repoRoot: string): Promise<void> {
-  const packagePath = path.join(repoRoot, "packages", "eslint-config-complete");
-  const $$ = $op({ cwd: packagePath });
-  await $$`npm run docs`;
-}

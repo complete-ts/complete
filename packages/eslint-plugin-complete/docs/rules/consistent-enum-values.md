@@ -60,6 +60,6 @@ This rule is not configurable.
 
 ## Resources
 
-- [How to use this rule](../../README.md#install--usage)
-- [Rule source](../../src/rules/consistent-enum-values.ts)
-- [Test source](../../tests/rules/consistent-enum-values.test.ts)
+- [How to use this rule](../..)
+- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/consistent-enum-values.ts)
+- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/consistent-enum-values.test.ts)

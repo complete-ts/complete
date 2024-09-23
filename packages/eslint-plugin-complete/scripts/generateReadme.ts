@@ -3,15 +3,13 @@
 import { assertDefined } from "complete-common";
 import { setMarkdownContentInsideHTMLMarker } from "complete-node";
 import path from "node:path";
-import { PACKAGE_ROOT } from "./constants.js";
+import { PACKAGE_NAME, PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";
 import {
   getRuleEntries,
   getRuleNameWithPluginNamePrefix,
   isRecommendedRule,
 } from "./utils.js";
-
-const REPO_ROOT = path.join(import.meta.dirname, "..");
 
 const EMOJI_RECOMMENDED = ":white_check_mark:";
 const EMOJI_FIXABLE = ":wrench:";
@@ -26,7 +24,7 @@ export async function generateReadme(): Promise<void> {
     README_MD_PATH,
     rulesTable,
     MARKER_NAME,
-    REPO_ROOT,
+    PACKAGE_ROOT,
   );
 }
 
@@ -54,7 +52,7 @@ function getRuleTableRow(ruleEntry: [string, RuleDefinition]) {
   );
 
   const fullRuleName = getRuleNameWithPluginNamePrefix(ruleName);
-  const nameWithLink = `[\`${fullRuleName}\`](docs/rules/${ruleName}.md)`;
+  const nameWithLink = `[\`${fullRuleName}\`](${PACKAGE_NAME}/rules/${ruleName})`;
   const { description } = rule.meta.docs;
   const isRecommended = isRecommendedRule(rule) ? EMOJI_RECOMMENDED : "";
   const isFixable = rule.meta.fixable === undefined ? "" : EMOJI_FIXABLE;
