@@ -1,4 +1,4 @@
-const FIRST_DOC_PAGE_TITLES = new Set(["Features | Complete"]);
+const FIRST_DOC_PAGE_TITLES = new Set(["Overview | Complete"]);
 
 const KEY_MAP = new Map([
   ["ArrowLeft", navigateBackward],

@@ -12,7 +12,7 @@ function HomepageHeader() {
   return (
     <header className={`hero hero--primary ${styles["heroBanner"]}`}>
       <div className="container">
-        <img src={useBaseUrl("img/logo.png")} width="200em" />
+        <img src={useBaseUrl("img/logo.png")} width="180em" />
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
