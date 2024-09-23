@@ -1,3 +1,6 @@
+- change "docs.ts" to warn on ESLint deprecated rules:
+  https://discord.com/channels/688543509199716507/1286660477912612906
+
 - get docs working
   - complete-common
   - complete-node
@@ -19,9 +22,6 @@ waiting on replies:
 
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157
-
-- finding deprecated rules in ESLint:
-  https://discord.com/channels/688543509199716507/1286660477912612906
 
 - algolia crawler curl is forbidden:
   https://support.algolia.com/hc/en-us/requests/647203
