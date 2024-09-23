@@ -164,7 +164,12 @@ const NORMAL_RULES = {
   "unicorn/string-content": "off",
 
   "unicorn/switch-case-braces": "warn",
+
+  /**
+   * Even though this rule is in `eslint-config-prettier`, it is not actually handled by Prettier.
+   */
   "unicorn/template-indent": "warn",
+
   "unicorn/text-encoding-identifier-case": "warn",
   "unicorn/throw-new-error": "warn",
 };
