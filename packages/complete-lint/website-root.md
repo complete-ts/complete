@@ -197,7 +197,7 @@ Additionally, you can also optionally put the script in your "package.json" file
   },
 ```
 
-That allows you to type `npm run lint` in order to more easily run the script. (Note that this setup requires that you install `tsx` and `complete-node` as development dependencies.)
+That allows you to type `npm run lint` in order to more easily run the script. (Note that this setup requires that you install `complete-node` as a development dependency.)
 
 ### Step 6 - Lint in CI
 
