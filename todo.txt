@@ -1,4 +1,5 @@
 - get docs working
+- (These docs are currently under construction. Some links may be broken in the meantime.
 - // TODO: change to "throw"
 - fix TODO in "complete-common/README.md"
 
