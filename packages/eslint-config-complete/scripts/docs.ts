@@ -144,8 +144,14 @@ const UNICORN_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginUnicorn.configs.recommended.rules),
 );
 
+const COMPLETE_RECOMMENDED_RULES =
+  ESLintPluginComplete.configs.recommended[0]?.rules;
+assertDefined(
+  COMPLETE_RECOMMENDED_RULES,
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-complete",
+);
 const COMPLETE_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginComplete.configs.recommended),
+  Object.keys(COMPLETE_RECOMMENDED_RULES),
 );
 
 // -------------------------------------------------------------------------------------------------

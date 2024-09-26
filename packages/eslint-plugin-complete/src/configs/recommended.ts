@@ -8,10 +8,6 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
   {
     plugins: {},
     rules: {
-      eqeqeq: "off",
-      "no-useless-return": "off",
-      "no-template-curly-in-string": "off",
-      "prefer-const": "off",
       "complete/complete-sentences-jsdoc": "error",
       "complete/complete-sentences-line-comments": "error",
       "complete/consistent-enum-values": "error",
@@ -52,6 +48,14 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/strict-enums": "error",
       "complete/strict-undefined-functions": "error",
       "complete/strict-void-functions": "error",
+    },
+  },
+  {
+    rules: {
+      eqeqeq: "off",
+      "no-useless-return": "off",
+      "no-template-curly-in-string": "off",
+      "prefer-const": "off",
     },
   },
   {

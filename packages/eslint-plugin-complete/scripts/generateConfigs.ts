@@ -26,19 +26,25 @@ const BASE_CONFIG = [
     // The "plugins" property is populated in the "index.ts" file.
     plugins: {},
 
+    // The "rules" property is populated below with all of the rules of this plugin.
+    rules: {},
+  },
+
+  // Disable some core ESLint rules that conflict with the rules in this plugin.
+  {
     rules: {
-      // The ESLint "eqeqeq" rule will conflict with the "complete/eqeqeq-fix" rule.
+      // The core ESLint "eqeqeq" rule will conflict with the "complete/eqeqeq-fix" rule.
       eqeqeq: "off",
 
-      // The ESLint "no-useless-return" rule will conflict with the "complete/no-useless-return"
-      // rule.
+      // The core ESLint "no-useless-return" rule will conflict with the
+      // "complete/no-useless-return" rule.
       "no-useless-return": "off",
 
-      // The ESLint "no-template-curly-in-string" rule will conflict with the
+      // The core ESLint "no-template-curly-in-string" rule will conflict with the
       // "complete/no-template-curly-in-string-fix" rule.
       "no-template-curly-in-string": "off",
 
-      // The ESLint "prefer-const" rule will conflict with the "complete/prefer-const" rule.
+      // The core ESLint "prefer-const" rule will conflict with the "complete/prefer-const" rule.
       "prefer-const": "off",
     },
   },
