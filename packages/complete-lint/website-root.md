@@ -40,8 +40,8 @@ import { completeConfigBase } from "eslint-config-complete";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  // We use "eslint-config-complete" as the base of the config:
-  // https://github.com/complete-ts/complete/blob/main/packages/eslint-config-complete/src/base.js
+  // We use "eslint-config-complete" as the config base:
+  // https://complete-ts.github.io/eslint-config-complete
   ...completeConfigBase,
 
   {
