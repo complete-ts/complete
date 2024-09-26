@@ -1,10 +1,5 @@
-- sort alphabetically objects
-
 - eslint-plugin-unicorn recommended show on config docs
 - eslint-plugin-complete recommended show on config docs
-
-- change "docs.ts" to warn on ESLint deprecated rules:
-  https://discord.com/channels/688543509199716507/1286660477912612906
 
 - get docs working
   - complete-common
