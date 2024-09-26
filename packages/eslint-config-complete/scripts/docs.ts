@@ -122,7 +122,7 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 assertDefined(
   ESLintPluginJSDoc.configs.recommended.rules,
-  "Failed to parse the rules from the following plugin: eslint-plugin-jsdoc",
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-jsdoc",
 );
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginJSDoc.configs.recommended.rules),
@@ -130,10 +130,22 @@ const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 assertDefined(
   ESLintPluginN.configs.recommended.rules,
-  "Failed to parse the rules from the following plugin: eslint-plugin-n",
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-n",
 );
 const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginN.configs.recommended.rules),
+);
+
+assertDefined(
+  ESLintPluginUnicorn.configs.recommended.rules,
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-unicorn",
+);
+const UNICORN_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintPluginUnicorn.configs.recommended.rules),
+);
+
+const COMPLETE_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintPluginComplete.configs.recommended),
 );
 
 // -------------------------------------------------------------------------------------------------
@@ -556,6 +568,14 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
 
   if (N_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("n/recommended");
+  }
+
+  if (UNICORN_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("unicorn/recommended");
+  }
+
+  if (COMPLETE_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("complete/recommended");
   }
 
   // -----------------------------------------------------------------------------------------------
