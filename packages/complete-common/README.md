@@ -4,4 +4,4 @@
 
 This package contains helper functions for a typical [TypeScript](https://www.typescriptlang.org/) project, such as [`iRange`](TODO).
 
-Please see the [docs](https://complete-js.github.io/complete-common) for more information.
+Please see the [docs](https://complete-ts.github.io/complete-common) for more information.

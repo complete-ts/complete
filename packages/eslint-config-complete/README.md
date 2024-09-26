@@ -4,4 +4,4 @@
 
 This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects that want to be as safe as possible.
 
-Please see the [docs](https://complete-js.github.io/eslint-config-complete) for more information.
+Please see the [docs](https://complete-ts.github.io/eslint-config-complete) for more information.

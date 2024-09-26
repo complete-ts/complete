@@ -4,4 +4,4 @@
 
 These are shared TypeScript configuration files that are intended to be used in [TypeScript](https://www.typescriptlang.org/) projects.
 
-Please see the [docs](https://complete-js.github.io/complete-tsconfig) for more information.
+Please see the [docs](https://complete-ts.github.io/complete-tsconfig) for more information.

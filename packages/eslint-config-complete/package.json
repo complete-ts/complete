@@ -10,13 +10,13 @@
     "linting",
     "prettier"
   ],
-  "homepage": "https://complete-js.github.io/",
+  "homepage": "https://complete-ts.github.io/",
   "bugs": {
-    "url": "https://github.com/complete-js/complete/issues"
+    "url": "https://github.com/complete-ts/complete/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/complete-js/complete.git"
+    "url": "git+https://github.com/complete-ts/complete.git"
   },
   "license": "MIT",
   "author": "Zamiell",
