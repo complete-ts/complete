@@ -111,9 +111,6 @@ export const baseJSDoc = tseslint.config(
       /** Superseded by the `complete/limit-jsdoc-comments` rule. */
       "jsdoc/multiline-blocks": "off",
 
-      /** Superseded by the `complete/limit-jsdoc-comments` rule. */
-      "jsdoc/newline-after-description": "off",
-
       /**
        * Disabled because it provides little value; it only detects JSDoc comments with tags in
        * them.
@@ -153,11 +150,11 @@ export const baseJSDoc = tseslint.config(
 
       "jsdoc/require-asterisk-prefix": "warn",
 
-      /** Superseded by the `complete/jsdoc-complete-sentences` rule. */
-      "jsdoc/require-description-complete-sentence": "off",
-
       /** Disabled because it is overboard for every function to have a description. */
       "jsdoc/require-description": "off",
+
+      /** Superseded by the `complete/jsdoc-complete-sentences` rule. */
+      "jsdoc/require-description-complete-sentence": "off",
 
       /** Disabled because it is overboard for every function to require an example. */
       "jsdoc/require-example": "off",
@@ -173,6 +170,19 @@ export const baseJSDoc = tseslint.config(
 
       /** Disabled since it is overboard for every function to have a JSDoc comment. */
       "jsdoc/require-jsdoc": "off",
+
+      /** Configured to only apply when there are one or more parameters. */
+      "jsdoc/require-param": [
+        "warn",
+        {
+          contexts: [
+            {
+              context: "FunctionDeclaration",
+              comment: 'JsdocBlock:has(JsdocTag[tag="param"])',
+            },
+          ],
+        },
+      ],
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-description": [
@@ -193,19 +203,6 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-param-type": "off",
 
-      /** Configured to only apply when there are one or more parameters. */
-      "jsdoc/require-param": [
-        "warn",
-        {
-          contexts: [
-            {
-              context: "FunctionDeclaration",
-              comment: 'JsdocBlock:has(JsdocTag[tag="param"])',
-            },
-          ],
-        },
-      ],
-
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property": "off",
 
@@ -214,6 +211,9 @@ export const baseJSDoc = tseslint.config(
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property-type": "off",
+
+      /** Disabled because it is overboard for every function to document every return value. */
+      "jsdoc/require-returns": "off",
 
       /** Disabled because it is overboard for every function to document every return value. */
       "jsdoc/require-returns-check": "off",
@@ -228,9 +228,6 @@ export const baseJSDoc = tseslint.config(
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-returns-type": "off",
-
-      /** Disabled because it is overboard for every function to document every return value. */
-      "jsdoc/require-returns": "off",
 
       /** Disabled because it is overboard to document every generic type variable. */
       "jsdoc/require-template": "off",

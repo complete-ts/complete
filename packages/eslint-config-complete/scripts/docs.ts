@@ -11,6 +11,7 @@ import {
 } from "complete-common";
 import {
   echo,
+  exit,
   isMain,
   readFile,
   setMarkdownContentInsideHTMLMarker,
@@ -339,16 +340,31 @@ function auditBaseConfigRules(
 
   const allRules = getAllRulesFromImport(configName, upstreamImport);
 
+  let allValid = true;
+
+  // Go through every upstream rule.
   for (const ruleName of allRules) {
     const rule = baseRules[ruleName];
     if (rule === undefined) {
-      const msg = `Failed to find a rule in the base config from upstream config "${configName}": ${ruleName}`;
-      if (FAIL_ON_MISSING_RULES) {
-        throw new Error(msg);
-      } else {
-        console.warn(msg);
-      }
+      allValid = false;
+      console.warn(
+        `Failed to find a rule in the base config from upstream config "${configName}": ${ruleName}`,
+      );
     }
+  }
+
+  // Also do the inverted check, which confirms that no deprecated rules are turned on.
+  for (const ruleName of Object.keys(baseRules)) {
+    if (!allRules.includes(ruleName)) {
+      allValid = false;
+      console.warn(
+        `The rule of "${ruleName}" was not found in the upstream configuration. Is it now deprecated?`,
+      );
+    }
+  }
+
+  if (FAIL_ON_MISSING_RULES && !allValid) {
+    exit(1);
   }
 }
 

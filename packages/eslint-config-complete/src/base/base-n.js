@@ -16,14 +16,14 @@ export const baseN = tseslint.config(
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/callback-return": "off",
 
+      /** Disabled since stylistic rules from this plugin are not used. */
+      "n/exports-style": "off",
+
       /**
        * This rule is helpful to automatically fix file extensions in import statements throughout
        * an entire codebase.
        */
       "n/file-extension-in-import": ["warn", "always"],
-
-      /** Disabled since stylistic rules from this plugin are not used. */
-      "n/exports-style": "off",
 
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/global-require": "off",
@@ -87,9 +87,6 @@ export const baseN = tseslint.config(
       "n/no-unpublished-import": "warn",
 
       "n/no-unpublished-require": "warn",
-
-      /** Disabled because this rule is deprecated. */
-      "n/no-unsupported-features": "off",
 
       /** Disabled because it is assumed that we are running on modern versions of Node.js. */
       "n/no-unsupported-features/es-builtins": "off",

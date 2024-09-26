@@ -73,12 +73,19 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/ban-tslint-comment": "warn",
       "@typescript-eslint/class-literal-property-style": "warn",
+      "@typescript-eslint/class-methods-use-this": "warn",
       "@typescript-eslint/consistent-generic-constructors": "warn",
       "@typescript-eslint/consistent-indexed-object-style": "warn",
+
+      /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
+      "@typescript-eslint/consistent-return": "off",
+
       "@typescript-eslint/consistent-type-assertions": "warn",
       "@typescript-eslint/consistent-type-definitions": "warn",
       "@typescript-eslint/consistent-type-exports": "warn",
       "@typescript-eslint/consistent-type-imports": "warn",
+      "@typescript-eslint/default-param-last": "warn",
+      "@typescript-eslint/dot-notation": "warn",
 
       /**
        * Disabled since it would be to cumbersome to require return types for non-exported
@@ -96,13 +103,17 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/explicit-module-boundary-types": "warn",
 
       /**
+       * Disabled since it is superfluous to require an `= undefined` during variable initialization
+       * (and TypeScript will take care of the non-undefined cases).
+       */
+      "@typescript-eslint/init-declarations": "off",
+
+      /**
        * Disabled because enforcing an arbitrary parameter number threshold for every function in a
        * project does not provide much value. (Additionally, using TypeScript reduces the value of
        * such a check.)
        */
       "@typescript-eslint/max-params": "off",
-
-      "@typescript-eslint/member-delimiter-style": "off", // eslint-config-prettier
 
       /** Disabled since prescribed class ordering is too project-specific. */
       "@typescript-eslint/member-ordering": "off",
@@ -140,13 +151,23 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
+      "@typescript-eslint/no-array-constructor": "warn",
+      "@typescript-eslint/no-array-delete": "warn",
       "@typescript-eslint/no-base-to-string": "warn",
       "@typescript-eslint/no-confusing-non-null-assertion": "warn",
       "@typescript-eslint/no-confusing-void-expression": "warn",
       "@typescript-eslint/no-deprecated": "warn",
+
+      /**
+       * Disabled since it is superfluous when using TypeScript according to [the ESLint
+       * documentation](https://eslint.org/docs/latest/rules/no-dupe-class-members#when-not-to-use-it).
+       */
+      "@typescript-eslint/no-dupe-class-members": "off",
+
       "@typescript-eslint/no-duplicate-enum-values": "warn",
       "@typescript-eslint/no-duplicate-type-constituents": "warn",
       "@typescript-eslint/no-dynamic-delete": "warn",
+      "@typescript-eslint/no-empty-function": "warn",
 
       /**
        * The `allowSingleExtends` option is enabled to allow for the common pattern of using using
@@ -179,206 +200,9 @@ export const baseTypeScriptESLint = tseslint.config(
       ],
 
       "@typescript-eslint/no-for-in-array": "warn",
+      "@typescript-eslint/no-implied-eval": "warn",
       "@typescript-eslint/no-import-type-side-effects": "warn",
       "@typescript-eslint/no-inferrable-types": "warn",
-      "@typescript-eslint/no-invalid-void-type": "warn",
-      "@typescript-eslint/no-meaningless-void-operator": "warn",
-      "@typescript-eslint/no-misused-new": "warn",
-      "@typescript-eslint/no-misused-promises": "warn",
-      "@typescript-eslint/no-mixed-enums": "warn",
-      "@typescript-eslint/no-namespace": "warn",
-      "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "warn",
-      "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
-      "@typescript-eslint/no-non-null-assertion": "warn",
-      "@typescript-eslint/no-redundant-type-constituents": "warn",
-      "@typescript-eslint/no-require-imports": "warn",
-
-      /** Disabled since this rule is intended to be used for project-specific types. */
-      "@typescript-eslint/no-restricted-types": "off",
-
-      "@typescript-eslint/no-this-alias": "warn",
-
-      /** Disabled because this rule is deprecated. */
-      "@typescript-eslint/no-type-alias": "off",
-
-      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
-      "@typescript-eslint/no-unnecessary-condition": "warn",
-      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-      "@typescript-eslint/no-unnecessary-qualifier": "warn",
-      "@typescript-eslint/no-unnecessary-template-expression": "warn",
-      "@typescript-eslint/no-unnecessary-type-arguments": "warn",
-      "@typescript-eslint/no-unnecessary-type-assertion": "warn",
-      "@typescript-eslint/no-unnecessary-type-constraint": "warn",
-      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
-      "@typescript-eslint/no-unsafe-argument": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/no-unsafe-declaration-merging": "warn",
-      "@typescript-eslint/no-unsafe-enum-comparison": "warn",
-      "@typescript-eslint/no-unsafe-function-type": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
-      "@typescript-eslint/no-unsafe-return": "warn",
-      "@typescript-eslint/no-unsafe-unary-minus": "warn",
-      "@typescript-eslint/no-useless-empty-export": "warn",
-      "@typescript-eslint/no-var-requires": "warn",
-      "@typescript-eslint/no-wrapper-object-types": "warn",
-      "@typescript-eslint/non-nullable-type-assertion-style": "warn",
-      "@typescript-eslint/only-throw-error": "warn",
-      "@typescript-eslint/parameter-properties": "warn",
-      "@typescript-eslint/prefer-as-const": "warn",
-
-      /**
-       * Object destructuring is enforced but array destructuring is not. This matches usage in the
-       * general TypeScript ecosystem.
-       */
-      "@typescript-eslint/prefer-destructuring": [
-        "warn",
-        {
-          VariableDeclarator: {
-            array: false,
-            object: true,
-          },
-          AssignmentExpression: {
-            array: false,
-            object: true,
-          },
-        },
-        {
-          // We disable this for renamed properties, since code like the following should be valid:
-          // `const someSpecificMyEnum = MyEnum.Value1;`
-          enforceForRenamedProperties: false,
-        },
-      ],
-
-      "@typescript-eslint/prefer-enum-initializers": "warn",
-      "@typescript-eslint/prefer-find": "warn",
-      "@typescript-eslint/prefer-for-of": "warn",
-      "@typescript-eslint/prefer-function-type": "warn",
-      "@typescript-eslint/prefer-includes": "warn",
-      "@typescript-eslint/prefer-literal-enum-member": "warn",
-      "@typescript-eslint/prefer-namespace-keyword": "warn",
-      "@typescript-eslint/prefer-nullish-coalescing": "warn",
-
-      /**
-       * Disabled because it can modify the type of `boolean` declarations, which is [undesired in
-       * some
-       * circumstances](https://github.com/typescript-eslint/typescript-eslint/issues/5269).
-       */
-      "@typescript-eslint/prefer-optional-chain": "off",
-
-      "@typescript-eslint/prefer-readonly": "warn",
-
-      /** Superseded by the `complete/prefer-readonly-parameter-types` rule. */
-      "@typescript-eslint/prefer-readonly-parameter-types": "off",
-
-      "@typescript-eslint/prefer-reduce-type-parameter": "warn",
-
-      /** Disabled since using the `String.match` form might make code easier to read. */
-      "@typescript-eslint/prefer-regexp-exec": "off",
-
-      "@typescript-eslint/prefer-return-this-type": "warn",
-      "@typescript-eslint/prefer-string-starts-ends-with": "warn",
-      "@typescript-eslint/prefer-ts-expect-error": "warn",
-      "@typescript-eslint/promise-function-async": "warn",
-      "@typescript-eslint/require-array-sort-compare": "warn",
-
-      /** The various "allow" options are disabled to make the rule stricter. */
-      "@typescript-eslint/restrict-plus-operands": [
-        "warn",
-        {
-          allowAny: false,
-          allowBoolean: false,
-          allowNullish: false,
-          allowNumberAndString: false,
-          allowRegExp: false,
-        },
-      ],
-
-      /**
-       * Disabled since a common use-case of template strings is to coerce everything to a string.
-       */
-      "@typescript-eslint/restrict-template-expressions": "off",
-
-      /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
-      "@typescript-eslint/sort-type-constituents": "off",
-
-      /** The `allowString` and `allowNumber` options are disabled to make the rule stricter. */
-      "@typescript-eslint/strict-boolean-expressions": [
-        "warn",
-        {
-          allowString: false,
-          allowNumber: false,
-          allowNullableObject: true,
-          allowNullableBoolean: false,
-          allowNullableString: false,
-          allowNullableNumber: false,
-          allowNullableEnum: false,
-          allowAny: false,
-          allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
-        },
-      ],
-
-      /**
-       * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
-       * `requireDefaultForNonUnion` option is enabled to make the rule stricter.
-       */
-      "@typescript-eslint/switch-exhaustiveness-check": [
-        "warn",
-        {
-          allowDefaultCaseForExhaustiveSwitch: false,
-          requireDefaultForNonUnion: true,
-        },
-      ],
-
-      "@typescript-eslint/triple-slash-reference": "warn",
-      "@typescript-eslint/type-annotation-spacing": "off", // eslint-config-prettier
-
-      /**
-       * Disabled since it is not recommended by the `typescript-eslint` team. (They recommend using
-       * the `noImplicitAny` and `strictPropertyInitialization` TypeScript compiler options
-       * instead.)
-       */
-      "@typescript-eslint/typedef": "off",
-
-      "@typescript-eslint/unbound-method": "warn",
-      "@typescript-eslint/unified-signatures": "warn",
-      "@typescript-eslint/use-unknown-in-catch-callback-variable": "warn",
-
-      "@typescript-eslint/block-spacing": "off", // eslint-config-prettier
-      "@typescript-eslint/brace-style": "off", // eslint-config-prettier
-      "@typescript-eslint/class-methods-use-this": "warn",
-      "@typescript-eslint/comma-dangle": "off", // eslint-config-prettier
-      "@typescript-eslint/comma-spacing": "off", // eslint-config-prettier
-
-      /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
-      "@typescript-eslint/consistent-return": "off",
-
-      "@typescript-eslint/default-param-last": "warn",
-      "@typescript-eslint/dot-notation": "warn",
-      "@typescript-eslint/func-call-spacing": "off", // eslint-config-prettier
-      "@typescript-eslint/indent": "off", // eslint-config-prettier
-
-      /**
-       * Disabled since it is superfluous to require an `= undefined` during variable initialization
-       * (and TypeScript will take care of the non-undefined cases).
-       */
-      "@typescript-eslint/init-declarations": "off",
-
-      "@typescript-eslint/key-spacing": "off", // eslint-config-prettier
-      "@typescript-eslint/keyword-spacing": "off", // eslint-config-prettier
-      "@typescript-eslint/no-array-constructor": "warn",
-      "@typescript-eslint/no-array-delete": "warn",
-
-      /**
-       * Disabled since it is superfluous when using TypeScript according to [the ESLint
-       * documentation](https://eslint.org/docs/latest/rules/no-dupe-class-members#when-not-to-use-it).
-       */
-      "@typescript-eslint/no-dupe-class-members": "off",
-
-      "@typescript-eslint/no-empty-function": "warn",
-      "@typescript-eslint/no-extra-parens": "off", // eslint-config-prettier
-      "@typescript-eslint/no-extra-semi": "off", // eslint-config-prettier
-      "@typescript-eslint/no-implied-eval": "warn",
 
       /** The `capIsConstructor` option is disabled to make the rule stricter. */
       "@typescript-eslint/no-invalid-this": [
@@ -388,17 +212,30 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
+      "@typescript-eslint/no-invalid-void-type": "warn",
       "@typescript-eslint/no-loop-func": "warn",
       "@typescript-eslint/no-loss-of-precision": "warn",
 
       /** Disabled since it results in too many false positives. */
       "@typescript-eslint/no-magic-numbers": "off",
 
+      "@typescript-eslint/no-meaningless-void-operator": "warn",
+      "@typescript-eslint/no-misused-new": "warn",
+      "@typescript-eslint/no-misused-promises": "warn",
+      "@typescript-eslint/no-mixed-enums": "warn",
+      "@typescript-eslint/no-namespace": "warn",
+      "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "warn",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
+      "@typescript-eslint/no-non-null-assertion": "warn",
+
       /**
        * Disabled since it is handled by the combination of the TypeScript compiler and the `no-var`
        * ESLint rule.
        */
       "@typescript-eslint/no-redeclare": "off",
+
+      "@typescript-eslint/no-redundant-type-constituents": "warn",
+      "@typescript-eslint/no-require-imports": "warn",
 
       /**
        * Configured to prevent importing with some common patterns that are almost always a mistake:
@@ -455,7 +292,33 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
+      /** Disabled since this rule is intended to be used for project-specific types. */
+      "@typescript-eslint/no-restricted-types": "off",
+
       "@typescript-eslint/no-shadow": "warn",
+      "@typescript-eslint/no-this-alias": "warn",
+
+      /** Disabled because this rule is deprecated. */
+      "@typescript-eslint/no-type-alias": "off",
+
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
+      "@typescript-eslint/no-unnecessary-condition": "warn",
+      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
+      "@typescript-eslint/no-unnecessary-qualifier": "warn",
+      "@typescript-eslint/no-unnecessary-template-expression": "warn",
+      "@typescript-eslint/no-unnecessary-type-arguments": "warn",
+      "@typescript-eslint/no-unnecessary-type-assertion": "warn",
+      "@typescript-eslint/no-unnecessary-type-constraint": "warn",
+      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
+      "@typescript-eslint/no-unsafe-argument": "warn",
+      "@typescript-eslint/no-unsafe-assignment": "warn",
+      "@typescript-eslint/no-unsafe-call": "warn",
+      "@typescript-eslint/no-unsafe-declaration-merging": "warn",
+      "@typescript-eslint/no-unsafe-enum-comparison": "warn",
+      "@typescript-eslint/no-unsafe-function-type": "warn",
+      "@typescript-eslint/no-unsafe-member-access": "warn",
+      "@typescript-eslint/no-unsafe-return": "warn",
+      "@typescript-eslint/no-unsafe-unary-minus": "warn",
 
       /**
        * The `allowTaggedTemplates` option is enabled to allow the rule to work with libraries like
@@ -486,13 +349,52 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-use-before-define": "off",
 
       "@typescript-eslint/no-useless-constructor": "warn",
-      "@typescript-eslint/object-curly-spacing": "off", // eslint-config-prettier
+      "@typescript-eslint/no-useless-empty-export": "warn",
+      "@typescript-eslint/no-var-requires": "warn",
+      "@typescript-eslint/no-wrapper-object-types": "warn",
+      "@typescript-eslint/non-nullable-type-assertion-style": "warn",
+      "@typescript-eslint/only-throw-error": "warn",
+      "@typescript-eslint/parameter-properties": "warn",
+      "@typescript-eslint/prefer-as-const": "warn",
 
       /**
-       * Disabled since it is for inserting extra newlines between specific kinds of statements,
-       * which would be project-dependant. (This kind of formatting is not handled by Prettier.)
+       * Object destructuring is enforced but array destructuring is not. This matches usage in the
+       * general TypeScript ecosystem.
        */
-      "@typescript-eslint/padding-line-between-statements": "off",
+      "@typescript-eslint/prefer-destructuring": [
+        "warn",
+        {
+          VariableDeclarator: {
+            array: false,
+            object: true,
+          },
+          AssignmentExpression: {
+            array: false,
+            object: true,
+          },
+        },
+        {
+          // We disable this for renamed properties, since code like the following should be valid:
+          // `const someSpecificMyEnum = MyEnum.Value1;`
+          enforceForRenamedProperties: false,
+        },
+      ],
+
+      "@typescript-eslint/prefer-enum-initializers": "warn",
+      "@typescript-eslint/prefer-find": "warn",
+      "@typescript-eslint/prefer-for-of": "warn",
+      "@typescript-eslint/prefer-function-type": "warn",
+      "@typescript-eslint/prefer-includes": "warn",
+      "@typescript-eslint/prefer-literal-enum-member": "warn",
+      "@typescript-eslint/prefer-namespace-keyword": "warn",
+      "@typescript-eslint/prefer-nullish-coalescing": "warn",
+
+      /**
+       * Disabled because it can modify the type of `boolean` declarations, which is [undesired in
+       * some
+       * circumstances](https://github.com/typescript-eslint/typescript-eslint/issues/5269).
+       */
+      "@typescript-eslint/prefer-optional-chain": "off",
 
       /** The `allowEmptyReject` option is enabled since this is a common pattern. */
       "@typescript-eslint/prefer-promise-reject-errors": [
@@ -502,7 +404,39 @@ export const baseTypeScriptESLint = tseslint.config(
         },
       ],
 
+      "@typescript-eslint/prefer-readonly": "warn",
+
+      /** Superseded by the `complete/prefer-readonly-parameter-types` rule. */
+      "@typescript-eslint/prefer-readonly-parameter-types": "off",
+
+      "@typescript-eslint/prefer-reduce-type-parameter": "warn",
+
+      /** Disabled since using the `String.match` form might make code easier to read. */
+      "@typescript-eslint/prefer-regexp-exec": "off",
+
+      "@typescript-eslint/prefer-return-this-type": "warn",
+      "@typescript-eslint/prefer-string-starts-ends-with": "warn",
+      "@typescript-eslint/prefer-ts-expect-error": "warn",
+      "@typescript-eslint/promise-function-async": "warn",
+      "@typescript-eslint/require-array-sort-compare": "warn",
       "@typescript-eslint/require-await": "warn",
+
+      /** The various "allow" options are disabled to make the rule stricter. */
+      "@typescript-eslint/restrict-plus-operands": [
+        "warn",
+        {
+          allowAny: false,
+          allowBoolean: false,
+          allowNullish: false,
+          allowNumberAndString: false,
+          allowRegExp: false,
+        },
+      ],
+
+      /**
+       * Disabled since a common use-case of template strings is to coerce everything to a string.
+       */
+      "@typescript-eslint/restrict-template-expressions": "off",
 
       /**
        * Even though the core rule was deprecated, the extended rule uses type information, so it is
@@ -510,10 +444,49 @@ export const baseTypeScriptESLint = tseslint.config(
        */
       "@typescript-eslint/return-await": "warn",
 
-      "@typescript-eslint/semi": "off", // eslint-config-prettier
-      "@typescript-eslint/space-before-blocks": "off", // eslint-config-prettier
-      "@typescript-eslint/space-before-function-paren": "off", // eslint-config-prettier
-      "@typescript-eslint/space-infix-ops": "off", // eslint-config-prettier
+      /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
+      "@typescript-eslint/sort-type-constituents": "off",
+
+      /** The `allowString` and `allowNumber` options are disabled to make the rule stricter. */
+      "@typescript-eslint/strict-boolean-expressions": [
+        "warn",
+        {
+          allowString: false,
+          allowNumber: false,
+          allowNullableObject: true,
+          allowNullableBoolean: false,
+          allowNullableString: false,
+          allowNullableNumber: false,
+          allowNullableEnum: false,
+          allowAny: false,
+          allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+        },
+      ],
+
+      /**
+       * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
+       * `requireDefaultForNonUnion` option is enabled to make the rule stricter.
+       */
+      "@typescript-eslint/switch-exhaustiveness-check": [
+        "warn",
+        {
+          allowDefaultCaseForExhaustiveSwitch: false,
+          requireDefaultForNonUnion: true,
+        },
+      ],
+
+      "@typescript-eslint/triple-slash-reference": "warn",
+
+      /**
+       * Disabled since it is not recommended by the `typescript-eslint` team. (They recommend using
+       * the `noImplicitAny` and `strictPropertyInitialization` TypeScript compiler options
+       * instead.)
+       */
+      "@typescript-eslint/typedef": "off",
+
+      "@typescript-eslint/unbound-method": "warn",
+      "@typescript-eslint/unified-signatures": "warn",
+      "@typescript-eslint/use-unknown-in-catch-callback-variable": "warn",
     },
   },
 

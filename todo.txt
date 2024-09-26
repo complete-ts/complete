@@ -1,3 +1,5 @@
+- sort alphabetically objects
+
 - eslint-plugin-unicorn recommended show on config docs
 - eslint-plugin-complete recommended show on config docs
 

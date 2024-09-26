@@ -52,7 +52,6 @@ const POSSIBLE_PROBLEMS = {
 
   "no-misleading-character-class": "warn",
   "no-new-native-nonconstructor": "warn",
-  "no-new-symbol": "off", // @typescript-eslint/eslint-recommended
   "no-obj-calls": "off", // @typescript-eslint/eslint-recommended`
   "no-promise-executor-return": "warn",
   "no-prototype-builtins": "warn",
@@ -216,9 +215,6 @@ const SUGGESTIONS = {
    */
   "max-statements": "off",
 
-  /** Disabled because it is conventional to use both kinds of comments in TypeScript projects. */
-  "multiline-comment-style": "off",
-
   "new-cap": "warn",
   "no-alert": "warn",
 
@@ -228,7 +224,6 @@ const SUGGESTIONS = {
   "no-bitwise": "warn",
   "no-caller": "warn",
   "no-case-declarations": "warn",
-  "no-confusing-arrow": "off", // eslint-config-prettier
 
   /**
    * Disabled because command-line programs written in TypeScript commonly write to standard out and
@@ -268,11 +263,6 @@ const SUGGESTIONS = {
   "no-extra-bind": "warn",
   "no-extra-boolean-cast": "warn",
   "no-extra-label": "warn",
-
-  /** Superseded by the `@typescript-eslint/no-extra-semi` rule. */
-  "no-extra-semi": "off",
-
-  "no-floating-decimal": "off", // eslint-config-prettier
   "no-global-assign": "warn",
   "no-implicit-coercion": "warn",
   "no-implicit-globals": "warn",
@@ -298,7 +288,6 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/no-magic-numbers` rule. */
   "no-magic-numbers": "off",
 
-  "no-mixed-operators": "off", // eslint-config-prettier
   "no-multi-assign": "warn",
   "no-multi-str": "warn",
 
@@ -549,7 +538,6 @@ const SUGGESTIONS = {
    */
   "one-var": ["warn", "never"],
 
-  "one-var-declaration-per-line": "off", // eslint-config-prettier
   "operator-assignment": "warn",
   "prefer-arrow-callback": "warn",
 
@@ -585,7 +573,6 @@ const SUGGESTIONS = {
   "prefer-rest-params": "warn",
   "prefer-spread": "warn",
   "prefer-template": "warn",
-  "quote-props": "off", // eslint-config-prettier
   radix: "warn",
 
   /** Superseded by the `@typescript-eslint/require-await` rule. */
@@ -610,20 +597,6 @@ const SUGGESTIONS = {
    * Disabled because variable declarations are often not meant to be sorted in alphabetical order.
    */
   "sort-vars": "off",
-
-  /**
-   * Partially superseded by `complete/format-jsdoc-comments` and `complete/format-line-comments`,
-   * but those rules do not handle trailing line comments.
-   *
-   * The `markers` option is provided to make this rule ignore lines that start with "///".
-   */
-  "spaced-comment": [
-    "warn",
-    "always",
-    {
-      markers: ["/"],
-    },
-  ],
 
   /** The `never` option is provided to make the rule stricter. */
   strict: ["warn", "never"],

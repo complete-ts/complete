@@ -36,5 +36,19 @@ export const baseStylistic = tseslint.config({
         allowTemplateLiterals: false,
       },
     ],
+
+    /**
+     * Partially superseded by `complete/format-jsdoc-comments` and `complete/format-line-comments`,
+     * but those rules do not handle trailing line comments.
+     *
+     * The `markers` option is provided to make this rule ignore lines that start with "///".
+     */
+    "@stylistic/spaced-comment": [
+      "warn",
+      "always",
+      {
+        markers: ["/"],
+      },
+    ],
   },
 });
