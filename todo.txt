@@ -1,5 +1,6 @@
 - get docs working
   - complete-common
+    - add link in website-root.md
   - complete-node
 - (These docs are currently under construction. Some links may be broken in the meantime.
 - // TODO: change to "throw"

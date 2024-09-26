@@ -30,6 +30,7 @@
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
+    "docs": "typedoc",
     "lint": "tsx ./scripts/lint.ts",
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },

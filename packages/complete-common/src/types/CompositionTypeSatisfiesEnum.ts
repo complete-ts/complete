@@ -29,9 +29,11 @@
  * entry for `BazObjective`.
  */
 export type CompositionTypeSatisfiesEnum<
-  T extends { type: unknown },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  Enum extends T["type"],
+  T extends {
+    /** The type of the discriminated union. */
+    type: unknown;
+  },
+  _Enum extends T["type"],
 > = unknown;
 
 // -----

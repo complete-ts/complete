@@ -17,6 +17,7 @@ const KEBAB_CASE_REGEX =
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
 const WHITESPACE_REGEX = /\s/g;
 
+/** Helper function to capitalize the first letter of a string. */
 export function capitalizeFirstLetter(string: string): string {
   if (string === "") {
     return string;
@@ -43,6 +44,12 @@ export function escapeHTMLCharacters(string: string): string {
     .replaceAll("'", "&#039;");
 }
 
+/**
+ * Helper function to get the number of consecutive diacritics in a string.
+ *
+ * This is useful for sanitization purposes, since many subsequent diacritics can be a sign of a
+ * malicious string.
+ */
 export function getNumConsecutiveDiacritics(string: string): number {
   // First, normalize with Normalization Form Canonical Decomposition (NFD) so that diacritics are
   // separated from other characters:
@@ -66,6 +73,7 @@ export function getNumConsecutiveDiacritics(string: string): number {
   return maxConsecutiveDiacritic;
 }
 
+/** Helper function to check if a string has one or more diacritics in it. */
 export function hasDiacritic(string: string): boolean {
   // First, normalize with Normalization Form Canonical Decomposition (NFD) so that diacritics are
   // separated from other characters:
@@ -75,6 +83,11 @@ export function hasDiacritic(string: string): boolean {
   return DIACRITIC_REGEX.test(normalizedString);
 }
 
+/**
+ * Helper function to check if a string has one or more emoji in it.
+ *
+ * Under the hood, this uses the same regex check as the Zod library.
+ */
 export function hasEmoji(string: string): boolean {
   return EMOJI_REGEX.test(string);
 }
@@ -107,6 +120,7 @@ export function isSemanticVersion(versionString: string): boolean {
   return match !== null;
 }
 
+/** Helper function to convert a string from kebab-case to camel-case. */
 export function kebabCaseToCamelCase(string: string): string {
   return string.replaceAll(/-./g, (match) => {
     const firstLetterOfWord = match[1];
@@ -154,8 +168,13 @@ export function normalizeString(string: string): string {
  */
 export function parseSemanticVersion(versionString: string):
   | {
+      /** The first number inside of the semantic version. */
       majorVersion: number;
+
+      /** The second number inside of the semantic version. */
       minorVersion: number;
+
+      /** The third number inside of the semantic version. */
       patchVersion: number;
     }
   | undefined {
