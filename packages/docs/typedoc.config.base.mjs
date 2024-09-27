@@ -69,7 +69,7 @@ function getEntryPoints(packageDirectoryPath) {
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   const exportPaths = exportLines.map((line) => {
-    const match = line.match(/export \* from "(.+)";/);
+    const match = line.match(/export (?:type )?\* from "(.+)";/);
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);
     }
