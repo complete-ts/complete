@@ -33,8 +33,7 @@ const config: Config = {
         docs: {
           routeBasePath: "/", // Serve the docs at the site's root.
           sidebarPath: "./sidebars.ts",
-          editUrl:
-            "https://github.com/complete-ts/complete/edit/main/packages/docs",
+          editUrl: undefined,
         },
         theme: {
           customCss: "./src/css/custom.css",
