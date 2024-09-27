@@ -109,7 +109,7 @@ function isTimeoutFunction(callee: TSESTree.Expression): boolean {
  *
  * @see https://github.com/pinojs/pino
  */
-function isLoggerMethod(callee: TSESTree.Expression) {
+function isLoggerMethod(callee: TSESTree.Expression): boolean {
   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
     return false;
   }
