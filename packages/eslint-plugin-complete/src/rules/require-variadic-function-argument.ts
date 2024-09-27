@@ -74,14 +74,19 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
 function isHardCodedException(node: TSESTree.CallExpression): boolean {
   const { callee } = node;
-  return (
-    isConsoleOrWindowFunction(callee) ||
-    isTimeoutFunction(callee) ||
-    isLoggerMethod(callee)
-  );
+
+  return isConsoleOrWindowOrLoggerFunction(callee) || isTimeoutFunction(callee);
 }
 
-function isConsoleOrWindowFunction(callee: TSESTree.Expression): boolean {
+/**
+ * This rule has a false positive with any logger function. (Both `console.log` and logger functions
+ * from logging libraries like Pino and Winston are affected.)
+ *
+ * e.g. `logger.info("hello world");`
+ */
+function isConsoleOrWindowOrLoggerFunction(
+  callee: TSESTree.Expression,
+): boolean {
   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
     return false;
   }
@@ -91,7 +96,11 @@ function isConsoleOrWindowFunction(callee: TSESTree.Expression): boolean {
     return false;
   }
 
-  return object.name === "console" || object.name === "window";
+  return (
+    object.name === "console" ||
+    object.name === "window" ||
+    object.name === "logger"
+  );
 }
 
 function isTimeoutFunction(callee: TSESTree.Expression): boolean {
@@ -100,33 +109,6 @@ function isTimeoutFunction(callee: TSESTree.Expression): boolean {
   }
 
   return callee.name === "setTimeout" || callee.name === "setInterval";
-}
-
-/**
- * This rule has a false positive with any Pino logger function.
- *
- * e.g. `logger.info("hello world");`
- *
- * @see https://github.com/pinojs/pino
- */
-function isLoggerMethod(callee: TSESTree.Expression): boolean {
-  if (callee.type !== AST_NODE_TYPES.MemberExpression) {
-    return false;
-  }
-
-  const { object } = callee;
-  if (object.type !== AST_NODE_TYPES.Identifier) {
-    return false;
-  }
-
-  return (
-    object.name === "trace" ||
-    object.name === "debug" ||
-    object.name === "info" ||
-    object.name === "warn" ||
-    object.name === "error" ||
-    object.name === "fatal"
-  );
 }
 
 function hasJSDocExceptionTag(
