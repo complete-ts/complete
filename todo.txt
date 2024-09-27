@@ -1,10 +1,4 @@
-- get docs working
-  - complete-common
-    - add link in website-root.md
-  - complete-node
-- (These docs are currently under construction. Some links may be broken in the meantime.
-- // TODO: change to "throw"
-- fix TODO in "complete-common/README.md"
+- remove "edit this page" at the bottom for TypeDoc pages
 
 ----------------------------------------------------------------------------------------------------
 
@@ -21,5 +15,5 @@ waiting on replies:
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157
 
-- algolia crawler curl is forbidden:
-  https://support.algolia.com/hc/en-us/requests/647203
+- TypeDoc
+  https://discord.com/channels/508357248330760243/829307039447515176/1289228144808558645

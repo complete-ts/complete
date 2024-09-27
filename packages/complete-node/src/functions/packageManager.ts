@@ -11,10 +11,6 @@ const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.bun]: "bun.lockb",
 } as const satisfies Record<PackageManager, string>;
 
-export const PACKAGE_MANAGER_LOCK_FILE_NAMES: readonly string[] = Object.values(
-  PACKAGE_MANAGER_TO_LOCK_FILE_NAME,
-);
-
 const PACKAGE_MANAGER_EXEC_COMMANDS = {
   [PackageManager.npm]: "npx",
   [PackageManager.yarn]: "npx",
@@ -141,6 +137,10 @@ export function getPackageManagerInstallCommand(
   return `${packageManager} install`;
 }
 
+/**
+ * Helper function to get the corresponding lock file name for a package manager. For example, the
+ * package lock file for npm is "package-lock.json".
+ */
 export function getPackageManagerLockFileName(
   packageManager: PackageManager,
 ): string {

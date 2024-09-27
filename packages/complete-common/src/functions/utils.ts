@@ -1,44 +1,14 @@
+/**
+ * Helper functions that do not belong to any category in particular.
+ *
+ * @module
+ */
+
 // When regexes are located at the root instead of inside the function, the functions are tested to
 // perform 11% faster.
 
 const FLOAT_REGEX = /^-?\d*\.?\d+$/;
 const INTEGER_REGEX = /^-?\d+$/;
-
-/**
- * Helper function to throw an error if the provided value is equal to `undefined`.
- *
- * This is useful to have TypeScript narrow a `T | undefined` value to `T` in a concise way.
- */
-export function assertDefined<T>(
-  value: T,
-  ...[msg]: [undefined] extends [T]
-    ? [string]
-    : [
-        "The assertion is useless because the provided value does not contain undefined.",
-      ]
-): asserts value is Exclude<T, undefined> {
-  if (value === undefined) {
-    throw new TypeError(msg);
-  }
-}
-
-/**
- * Helper function to throw an error if the provided value is equal to `null`.
- *
- * This is useful to have TypeScript narrow a `T | null` value to `T` in a concise way.
- */
-export function assertNotNull<T>(
-  value: T,
-  ...[msg]: [null] extends [T]
-    ? [string]
-    : [
-        "The assertion is useless because the provided value does not contain null.",
-      ]
-): asserts value is Exclude<T, null> {
-  if (value === null) {
-    throw new TypeError(msg);
-  }
-}
 
 /**
  * Helper function to get an iterator of integers with the specified range, inclusive on the lower

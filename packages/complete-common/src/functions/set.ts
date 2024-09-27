@@ -1,4 +1,11 @@
 /**
+ * Helper functions that have to do with
+ * [sets](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
+ *
+ * @module
+ */
+
+/**
  * Helper function to add all of the values in one set to another set. The first set passed will be
  * modified in place.
  *

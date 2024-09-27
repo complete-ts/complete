@@ -1,3 +1,9 @@
+/**
+ * Helper functions that have to do with TypeScript enums.
+ *
+ * @module
+ */
+
 type TranspiledEnum = Record<string, string | number>;
 
 /**

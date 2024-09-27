@@ -1,3 +1,9 @@
+/**
+ * Helper functions that have to do with strings.
+ *
+ * @module
+ */
+
 import { parseIntSafe } from "./utils.js";
 
 // When regular expressions are located at the root instead of inside the function, the functions

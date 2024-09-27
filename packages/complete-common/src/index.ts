@@ -1,5 +1,6 @@
 export * from "./constants.js";
 export * from "./functions/array.js";
+export * from "./functions/assert.js";
 export * from "./functions/enums.js";
 export * from "./functions/map.js";
 export * from "./functions/math.js";

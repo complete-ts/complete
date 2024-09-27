@@ -499,6 +499,7 @@ export const baseTypeScriptESLint = tseslint.config(
   {
     files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {
+      "@typescript-eslint/consistent-type-imports": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-unsafe-argument": "off",

@@ -18,6 +18,7 @@ const config = {
         "static/js/hotkey.js",
         "src/components/HomepageFeatures/index.tsx",
         "src/pages/index.tsx",
+        "typedoc.config.base.mjs",
       ],
     },
     "packages/eslint-config-complete": {

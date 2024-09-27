@@ -1,7 +1,13 @@
+/**
+ * Helper functions that have to do with arrays.
+ *
+ * @module
+ */
+
 import type { WidenLiteral } from "../index.js";
 import { ReadonlySet } from "../types/ReadonlySet.js";
+import { assertDefined } from "./assert.js";
 import { getRandomInt } from "./random.js";
-import { assertDefined } from "./utils.js";
 
 /**
  * Helper function to copy a two-dimensional array. Note that the sub-arrays will only be shallow

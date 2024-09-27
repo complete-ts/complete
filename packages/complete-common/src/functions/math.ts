@@ -1,4 +1,10 @@
 /**
+ * Helper functions that have to do with math.
+ *
+ * @module
+ */
+
+/**
  * Helper function to normalize a number, ensuring that it is within a certain range.
  *
  * - If `num` is less than `min`, then it will be clamped to `min`.

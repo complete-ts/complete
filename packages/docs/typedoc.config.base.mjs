@@ -2,61 +2,74 @@ import fs from "node:fs";
 import path from "node:path";
 import { OptionDefaults } from "typedoc";
 
-/** @type {Partial<import('typedoc').TypeDocOptions>} */
-const config = {
-  readme: "website-root.md",
-  treatWarningsAsErrors: true,
-  validation: {
-    notExported: true,
-    invalidLink: true,
-    notDocumented: true,
-  },
-  plugin: ["typedoc-plugin-markdown"],
-  githubPages: false, // https://typedoc.org/options/output/#githubpages
-  blockTags: [
-    ...OptionDefaults.blockTags,
-    "@allowEmptyVariadic",
-    "@maximum",
-    "@minimum",
-  ],
-};
-
 /**
+ * Helper function for modules to get the base TypeDoc config used in this monorepo.
+ *
  * @param {string} packageDirectoryPath The path to the package directory.
- * @returns {Partial<import('typedoc').TypeDocOptions>} The generated config.
  */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
   const out = path.join(import.meta.dirname, "docs", packageName);
-
-  // We want one entry point for each export source file, which will correspond to one Markdown file
-  // for each source file.
-  const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
-  const typeScriptFileExports = getTypeScriptFileExports(indexTSPath);
-  const exportsWithSrcPrefix = typeScriptFileExports.map((entryPoint) =>
-    entryPoint.replaceAll("./", "./src/"),
-  );
-  const entryPoints = exportsWithSrcPrefix.map(
-    (entryPoint) => `${entryPoint}.ts`,
-  );
+  const entryPoints = getEntryPoints(packageDirectoryPath);
 
   return {
-    ...config,
     out,
-    /// entryPoints, // TODO: is this needed?
+    entryPoints,
+    // We do not want to generate a readme since the "website-root.md" file is copied to the root of
+    // the "docs" directory.
+    readme: "none",
+    treatWarningsAsErrors: true,
+    validation: {
+      notExported: true,
+      invalidLink: true,
+      notDocumented: true,
+    },
+    githubPages: false, // See: https://typedoc.org/options/output/#githubpages
+    blockTags: [...OptionDefaults.blockTags, "@allowEmptyVariadic"],
+
+    plugin: ["typedoc-plugin-markdown"],
+
+    // We copy the options from: https://typedoc-plugin-markdown.org/plugins/docusaurus/options
+    hideBreadcrumbs: true,
+    hidePageHeader: true,
+
+    // We need to customize the output strategy in order to get the plugin to make one Markdown page
+    // per module/category.
+    outputFileStrategy: "modules",
+
+    // We customize some of the "typedoc-plugin-markdown" options to make the generated
+    // documentation look nicer.
+    useCodeBlocks: true,
+    indexFormat: "table",
+    parametersFormat: "table",
+    interfacePropertiesFormat: "table",
+    classPropertiesFormat: "table",
+    enumMembersFormat: "table",
+    typeDeclarationFormat: "table",
+    propertyMembersFormat: "table",
   };
 }
 
 /**
- * @param {string} typeScriptFilePath The path to the ".ts" file.
- * @returns {readonly string[]} An array of exported file paths.
+ * By default, TypeDoc will create a page for each individual function (even if the
+ * "entryPointStrategy" is set to "expand"). Instead, we want to create a page per function
+ * category.
+ *
+ * This function parses the "index.ts" file to find all of the individual exports.
+ *
+ * @param {string} packageDirectoryPath
+ * @returns {string[]}
  */
-function getTypeScriptFileExports(typeScriptFilePath) {
-  const typeScriptFile = fs.readFileSync(typeScriptFilePath, "utf8");
+// eslint-disable-next-line complete/no-mutable-return
+function getEntryPoints(packageDirectoryPath) {
+  // We want one entry point for each export source file, which will correspond to one Markdown file
+  // for each source file.
+  const indexTSPath = path.join(packageDirectoryPath, "src", "index.ts");
+  const typeScriptFile = fs.readFileSync(indexTSPath, "utf8");
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
-  return exportLines.map((line) => {
-    const match = line.match(/"(.+)"/);
+  const exportPaths = exportLines.map((line) => {
+    const match = line.match(/export \* from "(.+)";/);
     if (match === null) {
       throw new Error(`Failed to parse line: ${line}`);
     }
@@ -68,4 +81,8 @@ function getTypeScriptFileExports(typeScriptFilePath) {
 
     return insideQuotes;
   });
+
+  return exportPaths.map((exportPath) =>
+    exportPath.replaceAll("./", "./src/").replaceAll(".js", ".ts"),
+  );
 }

@@ -7,7 +7,11 @@ import { rm } from "./file.js";
 import { getElapsedSeconds } from "./time.js";
 import { getArgs } from "./utils.js";
 
-type ScriptCallback = (
+/**
+ * The type of the function passed to the `script` helper function. (And the related helper
+ * functions.)
+ */
+export type ScriptCallback = (
   /** The full path to the directory where the closest "package.json" is located. */
   packageRoot: string,
 ) => Promise<void> | void;
@@ -31,6 +35,18 @@ export async function lintScript(func: ScriptCallback): Promise<void> {
   await script(func, "linted", 2);
 }
 
+/**
+ * Use this function with the `lintScript` helper function if you want to just use the standard
+ * linting checks for a TypeScript project without any project-specific customization.
+ *
+ * For example:
+ *
+ * ```ts
+ * import { lintScript, standardLintFunction } from "complete-node";
+ *
+ * await lintScript(standardLintFunction);
+ * ```
+ */
 // This function must match the documentation in "complete-lint".
 export async function standardLintFunction(): Promise<void> {
   const promises = [
@@ -148,6 +164,11 @@ export function exit(code = 0): never {
   return process.exit(code);
 }
 
+/**
+ * Helper function to sleep for a certain number of seconds.
+ *
+ * Under the hood, this uses promises with `setTimeout`.
+ */
 export async function sleep(seconds: number): Promise<unknown> {
   // eslint-disable-next-line no-promise-executor-return
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));

@@ -5,7 +5,6 @@ const config = getTypeDocConfig(import.meta.dirname);
 /** @type {import("typedoc").TypeDocOptions} */
 export default {
   ...config,
-  entryPoints: "./src/index.ts",
   intentionallyNotExported: [
     "_TupleOf",
     "BuildTuple",

@@ -21,6 +21,16 @@ export function commandExists(commandName: string): boolean {
  * @param fatal Whether to exit the program if Python is not found.
  */
 export function getPythonCommand(fatal: true): "python" | "python3";
+/**
+ * Helper function to get the locally installed Python command. In most cases, this will be
+ * "python", but on Ubuntu it will be "python3" (for legacy reasons). This is necessary to know if
+ * JavaScript/TypeScript is launching Python.
+ *
+ * Returns undefined if Python is not installed on the system.
+ *
+ * @param fatal Whether to exit the program if Python is not found.
+ */
+// TODO: https://discord.com/channels/508357248330760243/829307039447515176/1289228144808558645
 export function getPythonCommand(
   fatal: false,
 ): "python" | "python3" | undefined;

@@ -1,3 +1,9 @@
+/**
+ * Helper functions that have to do with getting random values.
+ *
+ * @module
+ */
+
 import { ReadonlySet } from "../types/ReadonlySet.js";
 
 /**

@@ -1,13 +1,7 @@
 import { deepStrictEqual, strictEqual } from "node:assert";
 import test, { describe } from "node:test";
-import {
-  assertDefined,
-  assertNotNull,
-  eRange,
-  iRange,
-  parseFloatSafe,
-  parseIntSafe,
-} from "./utils.js";
+import { assertDefined, assertNotNull } from "./assert.js";
+import { eRange, iRange, parseFloatSafe, parseIntSafe } from "./utils.js";
 
 describe("assertsDefined", () => {
   /** We use a value of null since it is the least arbitrary non-undefined value. */

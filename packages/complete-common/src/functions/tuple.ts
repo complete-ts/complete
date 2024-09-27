@@ -1,3 +1,9 @@
+/**
+ * Helper functions that have to do with TypeScript tuples.
+ *
+ * @module
+ */
+
 import type { Tuple } from "../types/Tuple.js";
 
 type TupleKey<T extends readonly unknown[]> = {

@@ -1,4 +1,11 @@
 /**
+ * Helper functions that have to do with
+ * [maps](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).
+ *
+ * @module
+ */
+
+/**
  * Helper function to get the values in a `Map` that match an arbitrary condition. Similar to the
  * `Array.map` method, but works for maps.
  *

@@ -1,4 +1,10 @@
 /**
+ * Helper functions that have to do with sorting.
+ *
+ * @module
+ */
+
+/**
  * Helper function to perform a case insensitive sort. This will copy the provided array and return
  * the sorted copy.
  *

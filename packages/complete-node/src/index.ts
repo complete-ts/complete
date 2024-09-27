@@ -21,3 +21,4 @@ export * from "./functions/string.js";
 export * from "./functions/time.js";
 export * from "./functions/update.js";
 export * from "./functions/utils.js";
+export * from "./types/DependencyType.js";

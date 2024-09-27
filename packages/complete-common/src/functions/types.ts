@@ -1,4 +1,10 @@
 /**
+ * Identity functions that help with narrowing.
+ *
+ * @module
+ */
+
+/**
  * Helper function to narrow an unknown value to an object (i.e. a TypeScript record).
  *
  * Under the hood, this checks for `typeof variable === "object"`, `variable !== null`, and

@@ -30,6 +30,7 @@
   ],
   "scripts": {
     "build": "unbuild",
+    "docs": "typedoc",
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {

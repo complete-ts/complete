@@ -1,3 +1,9 @@
+/**
+ * Helper functions that have to do with objects.
+ *
+ * @module
+ */
+
 import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
 
 /**

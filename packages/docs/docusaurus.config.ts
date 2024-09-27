@@ -17,7 +17,7 @@ const config: Config = {
   projectName: "complete-ts.github.io",
 
   onBrokenAnchors: "throw",
-  onBrokenLinks: "warn", // TODO: change to "throw"
+  onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
 
