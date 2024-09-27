@@ -1,5 +1,3 @@
-- remove "edit this page" at the bottom for TypeDoc pages
-
 ----------------------------------------------------------------------------------------------------
 
 long term:
