@@ -88,6 +88,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "isaacscript": "^5.0.6"
+    "isaacscript": "^5.0.7"
   }
 }
