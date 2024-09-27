@@ -39,18 +39,18 @@
     "confusing-browser-globals": "^1.0.11",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-complete": "^1.0.2",
-    "eslint-plugin-import-x": "^4.2.1",
-    "eslint-plugin-jsdoc": "^50.2.4",
+    "eslint-plugin-import-x": "^4.3.0",
+    "eslint-plugin-jsdoc": "^50.3.0",
     "eslint-plugin-n": "^17.10.3",
     "eslint-plugin-unicorn": "^55.0.0",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.7.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
+    "@eslint/js": "^9.11.1",
     "@types/confusing-browser-globals": "^1.0.3",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.4",
     "complete-common": "^1.0.0",
     "complete-node": "^1.5.1",
     "eslint-config-prettier": "^9.1.0",
