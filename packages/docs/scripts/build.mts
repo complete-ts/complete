@@ -1,4 +1,16 @@
-import { $op, $s, buildScript, cp, rm } from "complete-node";
+import { capitalizeFirstLetter } from "complete-common";
+import {
+  $op,
+  $s,
+  buildScript,
+  cp,
+  getFileNamesInDirectory,
+  isDirectory,
+  isFile,
+  replaceTextInFile,
+  rm,
+  writeFile,
+} from "complete-node";
 import path from "node:path";
 
 const PACKAGES_WITH_WEBSITE_ROOT = [
@@ -9,6 +21,8 @@ const PACKAGES_WITH_WEBSITE_ROOT = [
   "eslint-config-complete",
   "eslint-plugin-complete",
 ] as const;
+
+const CATEGORY_FILE_NAME = "_category_.yml";
 
 await buildScript(async (packageRoot) => {
   const repoRoot = path.join(packageRoot, "..", "..");
@@ -68,14 +82,50 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
   const $$ = $op({ cwd: packagePath });
   await $$`npm run docs`;
 
-  // TypeDoc generates an index file, which we do not need.
-  const readmePath = path.join(
+  const docsOutputPath = path.join(
     packagePath,
     "..",
     "docs",
     "docs",
     packageName,
-    "README.md",
   );
+
+  // TypeDoc generates an index file, which we do not need.
+  const readmePath = path.join(docsOutputPath, "README.md");
   rm(readmePath);
+
+  for (const subdirectory of ["enums", "functions", "types"]) {
+    const directoryPath = path.join(docsOutputPath, subdirectory);
+    if (!isDirectory(directoryPath)) {
+      continue;
+    }
+
+    // We want to remove the "functions/" prefix.
+    for (const _fileName of getFileNamesInDirectory(directoryPath)) {
+      /*
+      const filePath = path.join(directoryPath, fileName);
+      const capitalizedFileName = capitalizeFirstLetter(fileName);
+      const newTitle = trimSuffix(capitalizedFileName, ".md");
+      */
+      /// replaceLineInFile(filePath, 1, `# ${newTitle}`);
+      // TODO: This causes Docusaurus to fail.
+    }
+
+    // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
+    addCategoryFile(directoryPath);
+  }
+
+  // Capitalize the "constants.md" file.
+  const constantsPath = path.join(docsOutputPath, "constants.md");
+  if (isFile(constantsPath)) {
+    replaceTextInFile(constantsPath, "# constants", "# Constants");
+  }
+}
+
+function addCategoryFile(directoryPath: string) {
+  const categoryFilePath = path.join(directoryPath, CATEGORY_FILE_NAME);
+  const directoryName = path.basename(directoryPath);
+  const label = capitalizeFirstLetter(directoryName);
+  const fileContents = `label: ${label}\n`;
+  writeFile(categoryFilePath, fileContents);
 }

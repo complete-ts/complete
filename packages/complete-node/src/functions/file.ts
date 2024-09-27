@@ -437,6 +437,33 @@ export async function renameFileExtensions(
 }
 
 /**
+ * Helper function to replace a specific line in a text file.
+ *
+ * This assumes that the file is a text file and uses an encoding of "utf8".
+ *
+ * This will print an error message and exit the program if the file cannot be read.
+ */
+export function replaceLineInFile(
+  filePath: string,
+  lineNumber: number,
+  newLine: string,
+): void {
+  const fileContents = readFile(filePath);
+  const lines = fileContents.split("\n");
+  const index = lineNumber - 1;
+  const oldLine = lines[index];
+  if (oldLine === undefined) {
+    throw new Error(
+      `Failed to replace line ${lineNumber} in text file "${filePath}" due to that line not existing.`,
+    );
+  }
+
+  lines[index] = newLine;
+  const newFileContents = lines.join("\n");
+  writeFile(filePath, newFileContents);
+}
+
+/**
  * Helper function to synchronously replace text in a file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".

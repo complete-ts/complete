@@ -74,7 +74,11 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
 function isHardCodedException(node: TSESTree.CallExpression): boolean {
   const { callee } = node;
-  return isConsoleOrWindowFunction(callee) || isTimeoutFunction(callee);
+  return (
+    isConsoleOrWindowFunction(callee) ||
+    isTimeoutFunction(callee) ||
+    isLoggerMethod(callee)
+  );
 }
 
 function isConsoleOrWindowFunction(callee: TSESTree.Expression): boolean {
@@ -96,6 +100,33 @@ function isTimeoutFunction(callee: TSESTree.Expression): boolean {
   }
 
   return callee.name === "setTimeout" || callee.name === "setInterval";
+}
+
+/**
+ * This rule has a false positive with any Pino logger function.
+ *
+ * e.g. `logger.info("hello world");`
+ *
+ * @see https://github.com/pinojs/pino
+ */
+function isLoggerMethod(callee: TSESTree.Expression) {
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) {
+    return false;
+  }
+
+  const { object } = callee;
+  if (object.type !== AST_NODE_TYPES.Identifier) {
+    return false;
+  }
+
+  return (
+    object.name === "trace" ||
+    object.name === "debug" ||
+    object.name === "info" ||
+    object.name === "warn" ||
+    object.name === "error" ||
+    object.name === "fatal"
+  );
 }
 
 function hasJSDocExceptionTag(
