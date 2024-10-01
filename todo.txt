@@ -1,3 +1,6 @@
+- docs search is not working
+- "Promise<string[]>" does not trigger readonly function lint rule
+
 ----------------------------------------------------------------------------------------------------
 
 long term:
@@ -5,6 +8,15 @@ long term:
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
   try using: https://github.com/bmish/eslint-doc-generator
   (it might not work because it does not support ESLint 9 and does not look well maintained)
+
+- lint projects:
+  - fix returning `Promise<string[]>`
+  - fix `prefer-readonly-parameter-types` for Array<Foo>
+  - https://github.com/typescript-eslint/typescript-eslint/issues/1804
+  - https://github.com/typescript-eslint/typescript-eslint/issues/4571
+  - https://github.com/typescript-eslint/typescript-eslint/issues/7114
+  - https://github.com/typescript-eslint/typescript-eslint/issues/8079
+  - `T extends Foo[]` --> `T extends readonly Foo[]`
 
 ----------------------------------------------------------------------------------------------------
 
