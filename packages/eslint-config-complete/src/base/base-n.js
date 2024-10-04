@@ -52,7 +52,8 @@ export const baseN = tseslint.config(
       /** Disabled since it is handled by the TypeScript compiler. */
       "n/no-missing-import": "off",
 
-      "n/no-missing-require": "warn",
+      /** Disabled since it is handled by the TypeScript compiler. */
+      "n/no-missing-require": "off",
 
       /** Disabled since stylistic rules from this plugin are not used. */
       "n/no-mixed-requires": "off",
