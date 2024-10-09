@@ -75,9 +75,10 @@ const config: Config = {
       defaultMode: "dark",
     },
 
+    // From: https://dashboard.algolia.com/account/api-keys/all
     algolia: {
-      appId: "TLPQBRNPUR", // cspell: disable-line
-      apiKey: "ddb9ff0a6c852e16bfe82b06c353fe56",
+      appId: "M5MCRT0J4H", // cspell: disable-line
+      apiKey: "7710ae64f8d9560b308377f575ce451b",
       indexName: "complete",
       contextualSearch: false, // Enabled by default; only useful for versioned sites.
     },

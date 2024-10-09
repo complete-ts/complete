@@ -1,7 +1,5 @@
 - make command tool to populate non-existent template files - complete-init
-- change favicon
 - docs search is not working
-- "Promise<string[]>" does not trigger readonly function lint rule
 
 ----------------------------------------------------------------------------------------------------
 
