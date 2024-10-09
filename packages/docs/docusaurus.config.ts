@@ -79,7 +79,7 @@ const config: Config = {
     algolia: {
       appId: "M5MCRT0J4H", // cspell: disable-line
       apiKey: "7710ae64f8d9560b308377f575ce451b",
-      indexName: "complete",
+      indexName: "complete-tsio", // cspell: disable-line
       contextualSearch: false, // Enabled by default; only useful for versioned sites.
     },
   } satisfies Preset.ThemeConfig,
