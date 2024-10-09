@@ -1,6 +1,7 @@
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import type { RuleFix } from "@typescript-eslint/utils/ts-eslint";
 import { isTypeArrayTupleTypeOrUnionOfArrayTupleTypes } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
@@ -140,7 +141,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       context.report({
         loc: methodIdentifier.loc,
         messageId: "noExplicitArray",
-        fix: (fixer) => [
+        fix: (fixer): readonly RuleFix[] => [
           fixer.replaceTextRange(
             [firstReplacementStart, firstReplacementEnd],
             "",
