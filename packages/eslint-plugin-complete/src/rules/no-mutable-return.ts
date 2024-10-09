@@ -1,3 +1,4 @@
+import { isTypeReferenceType } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
 import { getTypeName, unionTypeParts } from "../typeUtils.js";
@@ -57,6 +58,18 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
   const typeName = getTypeName(type);
   if (typeName === undefined) {
     return undefined;
+  }
+
+  // Handle unwrapping promises.
+  if (
+    typeName === "Promise" &&
+    isTypeReferenceType(type) &&
+    type.typeArguments !== undefined
+  ) {
+    const typeArgument = type.typeArguments[0];
+    if (typeArgument !== undefined) {
+      return getErrorMessageId(typeArgument);
+    }
   }
 
   // This would be "ReadonlyMap" if it was the read-only version.

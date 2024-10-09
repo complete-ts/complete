@@ -10,7 +10,6 @@ long term:
   (it might not work because it does not support ESLint 9 and does not look well maintained)
 
 - lint projects:
-  - fix returning `Promise<string[]>`
   - fix `prefer-readonly-parameter-types` for Array<Foo>
   - https://github.com/typescript-eslint/typescript-eslint/issues/1804
   - https://github.com/typescript-eslint/typescript-eslint/issues/4571

@@ -38,6 +38,13 @@ function getSet(): ReadonlySet<string> {
 }
       `,
     },
+    {
+      code: `
+async function getArray(): Promise<readonly string[]> {
+  return [];
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -104,6 +111,14 @@ function getSet(): Set<string> {
 }
       `,
       errors: [{ messageId: "mutableSet" }],
+    },
+    {
+      code: `
+async function getArray(): Promise<string[]> {
+  return [];
+}
+      `,
+      errors: [{ messageId: "mutableArray" }],
     },
   ],
 });
