@@ -215,12 +215,12 @@ export async function getFilePathAsync(
 export async function getMatchingFilePaths(
   directoryPath: string,
   matchFunc: (filePath: string) => boolean,
-): Promise<string[]> {
+): Promise<readonly string[]> {
   const files = await fs.promises.readdir(directoryPath, {
     withFileTypes: true,
   });
 
-  const promises: Array<Promise<string[]>> = [];
+  const promises: Array<Promise<readonly string[]>> = [];
   const filePaths: string[] = [];
 
   for (const file of files) {

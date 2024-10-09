@@ -13,6 +13,7 @@ const NORMAL_RULES = {
   "unicorn/consistent-destructuring": "off",
 
   "unicorn/consistent-empty-array-spread": "warn",
+  "unicorn/consistent-existence-index-check": "warn",
   "unicorn/consistent-function-scoping": "warn",
   "unicorn/custom-error-definition": "warn",
   "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
@@ -115,6 +116,7 @@ const NORMAL_RULES = {
   "unicorn/prefer-dom-node-text-content": "warn",
   "unicorn/prefer-event-target": "warn",
   "unicorn/prefer-export-from": "warn",
+  "unicorn/prefer-global-this": "warn",
   "unicorn/prefer-includes": "warn",
 
   /** Disabled because the rule is not compatible with TypeScript. */
@@ -122,6 +124,7 @@ const NORMAL_RULES = {
 
   "unicorn/prefer-keyboard-event-key": "warn",
   "unicorn/prefer-logical-operator-over-ternary": "warn",
+  "unicorn/prefer-math-min-max": "warn",
   "unicorn/prefer-math-trunc": "warn",
   "unicorn/prefer-modern-dom-apis": "warn",
   "unicorn/prefer-modern-math-apis": "warn",
