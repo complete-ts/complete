@@ -1,4 +1,5 @@
 import { isTypeReferenceType } from "@typescript-eslint/type-utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
 import { getTypeName, unionTypeParts } from "../typeUtils.js";
@@ -32,24 +33,33 @@ export const noMutableReturn = createRule<Options, MessageIds>({
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
 
-    return {
-      FunctionDeclaration(node) {
-        const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
-        const type = checker.getTypeAtLocation(tsNode);
-        const signatures = type.getCallSignatures();
-        for (const signature of signatures) {
-          const returnType = signature.getReturnType();
-          for (const t of unionTypeParts(returnType)) {
-            const messageId = getErrorMessageId(t);
-            if (messageId !== undefined) {
-              context.report({
-                loc: node.loc,
-                messageId,
-              });
-            }
+    function checkReturnType(
+      node:
+        | TSESTree.FunctionDeclaration
+        | TSESTree.FunctionExpression
+        | TSESTree.ArrowFunctionExpression,
+    ) {
+      const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+      const type = checker.getTypeAtLocation(tsNode);
+      const signatures = type.getCallSignatures();
+      for (const signature of signatures) {
+        const returnType = signature.getReturnType();
+        for (const t of unionTypeParts(returnType)) {
+          const messageId = getErrorMessageId(t);
+          if (messageId !== undefined) {
+            context.report({
+              loc: node.loc,
+              messageId,
+            });
           }
         }
-      },
+      }
+    }
+
+    return {
+      FunctionDeclaration: checkReturnType,
+      FunctionExpression: checkReturnType,
+      ArrowFunctionExpression: checkReturnType,
     };
   },
 });
