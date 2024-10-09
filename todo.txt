@@ -1,5 +1,4 @@
 - make command tool to populate non-existent template files - complete-init
-- docs search is not working
 
 ----------------------------------------------------------------------------------------------------
 
