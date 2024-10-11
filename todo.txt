@@ -1,3 +1,5 @@
+short term:
+
 - make command tool to populate non-existent template files - complete-init
 
 ----------------------------------------------------------------------------------------------------
