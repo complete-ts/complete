@@ -13,6 +13,14 @@ function foo(array: readonly string[]) {}
       },
       {
         code: `
+declare interface Foo {
+  someProp: string;
+}
+function foo(array: readonly Foo[]) {}
+        `,
+      },
+      {
+        code: `
 function foo(map: ReadonlyMap<string, string>) {}
         `,
       },
@@ -40,6 +48,15 @@ function foo(arg: Foo | string[]) {}
       {
         code: `
 function foo(array: string[]) {}
+        `,
+        errors: [{ messageId: "shouldBeReadonly" }],
+      },
+      {
+        code: `
+declare interface Foo {
+  someProp: string;
+}
+function foo(array: Foo[]) {}
         `,
         errors: [{ messageId: "shouldBeReadonly" }],
       },
