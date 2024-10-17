@@ -34,10 +34,7 @@ export const noMutableReturn = createRule<Options, MessageIds>({
     const checker = parserServices.program.getTypeChecker();
 
     function checkReturnType(
-      node:
-        | TSESTree.FunctionDeclaration
-        | TSESTree.FunctionExpression
-        | TSESTree.ArrowFunctionExpression,
+      node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression,
     ) {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
       const type = checker.getTypeAtLocation(tsNode);
@@ -56,10 +53,11 @@ export const noMutableReturn = createRule<Options, MessageIds>({
       }
     }
 
+    // We explicitly do not include `TSESTree.ArrowFunctionExpression` because arrow functions are
+    // commonly used inside of other functions, which compartmentalize the mutations.
     return {
       FunctionDeclaration: checkReturnType,
       FunctionExpression: checkReturnType,
-      ArrowFunctionExpression: checkReturnType,
     };
   },
 });
