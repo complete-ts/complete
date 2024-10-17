@@ -72,7 +72,7 @@ export function* eRange(
  * If you want an array instead of an iterator, use the spread operator like this:
  *
  * ```ts
- * const myArray = [...eRange(1, 3)];
+ * const myArray = [...iRange(1, 3)];
  * ```
  *
  * @param start The integer to start at.

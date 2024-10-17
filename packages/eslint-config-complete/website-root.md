@@ -12,7 +12,7 @@ The config is environment-agnostic, meaning that it will work in client-side pro
 
 ### Using `complete-lint`
 
-This package is part of the [`complete-lint`](/complete-lint) meta-linting package. It is recommended that instead of consuming `eslint-config-complete` directly, you instead list `complete-lint` as a dependency, as that will install both this config and other goodies. (However, `complete-lint` will not work with the [pnpm](https://pnpm.io/) package manager, since it does not handle transitive dependencies properly.)
+This package is part of the [`complete-lint`](/complete-lint) meta-linting package. It is recommended that instead of consuming `eslint-config-complete` directly, you instead list `complete-lint` as a dependency, as that will install both this config and other goodies. (However, `complete-lint` will not work with the [pnpm](https://pnpm.io/) package manager, since pnpm does not handle transitive dependencies properly.)
 
 For installation instructions, see [the `complete-lint` page](/complete-lint).
 

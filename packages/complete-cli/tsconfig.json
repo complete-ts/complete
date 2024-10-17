@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
+
+  "extends": [
+    "../complete-tsconfig/tsconfig.base.json",
+    "../complete-tsconfig/tsconfig.node.json",
+    "../../tsconfig.monorepo.json",
+  ],
+
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    // Needed in order to make "source-map-support" work properly.
+    "sourceMap": true,
+  },
+}

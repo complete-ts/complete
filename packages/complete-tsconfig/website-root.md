@@ -16,7 +16,7 @@ These are shared TypeScript configuration files that are intended to be used in 
 
 ### Using `complete-lint`
 
-This package is part of the [`complete-lint`](/complete-lint) meta-linting package. If you also need to install ESLint-related dependencies, then it is recommended that instead of consuming `complete-tsconfig` directly, you instead list `complete-lint` as a dependency, as that will install the configs and other goodies. (However, `complete-lint` will not work with the [pnpm](https://pnpm.io/) package manager, since it does not handle transitive dependencies properly.)
+This package is part of the [`complete-lint`](/complete-lint) meta-linting package. If you also need to install ESLint-related dependencies, then it is recommended that instead of consuming `complete-tsconfig` directly, you instead list `complete-lint` as a dependency, as that will install the configs and other goodies. (However, `complete-lint` will not work with the [pnpm](https://pnpm.io/) package manager, since pnpm does not handle transitive dependencies properly.)
 
 For installation instructions, see [the `complete-lint` page](/complete-lint).
 
