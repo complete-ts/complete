@@ -2,7 +2,7 @@
 // Bash terminal. Thus, we revert to using the simpler Prompt library.
 
 import chalk from "chalk";
-import { ReadonlySet, parseIntSafe } from "complete-common";
+import { ReadonlySet } from "complete-common";
 import { fatalError } from "complete-node";
 import prompt from "prompt";
 
@@ -60,51 +60,4 @@ export async function getInputYesNo(
   }
 
   fatalError('Invalid response; must answer "yes" or "no".');
-}
-
-/** Returns trimmed input. */
-export async function getInputString(
-  msg: string,
-  defaultValue?: string,
-): Promise<string> {
-  prompt.start();
-
-  let description = chalk.bold(msg);
-  if (defaultValue !== undefined) {
-    description += ` ${chalk.gray(`(${defaultValue})`)}`;
-  }
-
-  const { response } = await prompt.get({
-    properties: {
-      response: {
-        type: "string",
-        description,
-      },
-    },
-  });
-
-  if (typeof response !== "string") {
-    fatalError("Failed to get a proper response from the prompt library.");
-  }
-
-  if (response === "" && defaultValue !== undefined) {
-    return defaultValue;
-  }
-
-  return response.trim();
-}
-
-export async function getInputInt(
-  msg: string,
-  defaultValue = 1,
-): Promise<number> {
-  const defaultValueString = defaultValue.toString();
-  const string = await getInputString(msg, defaultValueString);
-  const int = parseIntSafe(string);
-
-  if (int === undefined) {
-    fatalError("Error: You must enter an integer.");
-  }
-
-  return int;
 }
