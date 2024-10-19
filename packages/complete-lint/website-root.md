@@ -153,7 +153,7 @@ At this point, we should be able to see squiggly lines when errors happen, makin
 import { $, lintScript } from "complete-node";
 
 await lintScript(async () => {
-  const promises = [
+  await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
@@ -175,9 +175,7 @@ await lintScript(async () => {
 
     // Check for unused words in the CSpell configuration file.
     $`cspell-check-unused-words`,
-  ];
-
-  await Promise.all(promises);
+  ]);
 });
 ```
 

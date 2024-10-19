@@ -8,7 +8,7 @@
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
 await lintScript(async () => {
-  const promises = [
+  await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
     // @template-ignore-next-line
@@ -43,7 +43,5 @@ await lintScript(async () => {
     lintMonorepoPackageJSONs(),
 
     // @template-customization-end
-  ];
-
-  await Promise.all(promises);
+  ]);
 });

@@ -49,7 +49,7 @@ export async function lintScript(func: ScriptCallback): Promise<void> {
  */
 // This function must match the documentation in "complete-lint".
 export async function standardLintFunction(): Promise<void> {
-  const promises = [
+  await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
@@ -71,9 +71,7 @@ export async function standardLintFunction(): Promise<void> {
 
     // Check for unused words in the CSpell configuration file.
     $`cspell-check-unused-words`,
-  ];
-
-  await Promise.all(promises);
+  ]);
 }
 
 /** See the documentation for the `script` helper function. */

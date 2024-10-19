@@ -73,8 +73,8 @@ async function rewriteDeclarationFiles(
   const readPromises: Array<Promise<string>> = [];
 
   for (const filePath of filePaths) {
-    const promise = fs.promises.readFile(filePath, "utf8");
-    readPromises.push(promise);
+    const readPromise = fs.promises.readFile(filePath, "utf8");
+    readPromises.push(readPromise);
   }
 
   const filesContents = await Promise.all(readPromises);
@@ -92,8 +92,8 @@ async function rewriteDeclarationFiles(
       /\/\/# sourceMappingURL=(.+?)\.d\.ts.map/,
       `//# sourceMappingURL=$1.d.${extensionFinalWord}.map`,
     );
-    const promise = fs.promises.writeFile(filePath, newFileContents);
-    writePromises.push(promise);
+    const writePromise = fs.promises.writeFile(filePath, newFileContents);
+    writePromises.push(writePromise);
   }
 
   await Promise.all(writePromises);
@@ -126,8 +126,8 @@ async function rewriteDeclarationMapFiles(
   const readPromises: Array<Promise<string>> = [];
 
   for (const filePath of filePaths) {
-    const promise = fs.promises.readFile(filePath, "utf8");
-    readPromises.push(promise);
+    const readPromise = fs.promises.readFile(filePath, "utf8");
+    readPromises.push(readPromise);
   }
 
   const filesContents = await Promise.all(readPromises);
@@ -145,8 +145,8 @@ async function rewriteDeclarationMapFiles(
       /"file":"(.+?)\.d\.ts",/,
       `"file":"$1.d.${extensionFinalWord}",`,
     );
-    const promise = fs.promises.writeFile(filePath, newFileContents);
-    writePromises.push(promise);
+    const writePromise = fs.promises.writeFile(filePath, newFileContents);
+    writePromises.push(writePromise);
   }
 
   await Promise.all(writePromises);
@@ -179,8 +179,8 @@ async function rewriteSourceFiles(
   const readPromises: Array<Promise<string>> = [];
 
   for (const filePath of filePaths) {
-    const promise = fs.promises.readFile(filePath, "utf8");
-    readPromises.push(promise);
+    const readPromise = fs.promises.readFile(filePath, "utf8");
+    readPromises.push(readPromise);
   }
 
   const filesContents = await Promise.all(readPromises);
@@ -198,8 +198,8 @@ async function rewriteSourceFiles(
       /\/\/# sourceMappingURL=(.+?)\.js.map/,
       `//# sourceMappingURL=$1.${extensionFinalWord}.map`,
     );
-    const promise = fs.promises.writeFile(filePath, newFileContents);
-    writePromises.push(promise);
+    const writePromise = fs.promises.writeFile(filePath, newFileContents);
+    writePromises.push(writePromise);
   }
 
   await Promise.all(writePromises);
@@ -232,8 +232,8 @@ async function rewriteSourceMapFiles(
   const readPromises: Array<Promise<string>> = [];
 
   for (const filePath of filePaths) {
-    const promise = fs.promises.readFile(filePath, "utf8");
-    readPromises.push(promise);
+    const readPromise = fs.promises.readFile(filePath, "utf8");
+    readPromises.push(readPromise);
   }
 
   const filesContents = await Promise.all(readPromises);
@@ -251,8 +251,8 @@ async function rewriteSourceMapFiles(
       /"file":"(.+?)\.js",/,
       `"file":"$1.${extensionFinalWord}",`,
     );
-    const promise = fs.promises.writeFile(filePath, newFileContents);
-    writePromises.push(promise);
+    const writePromise = fs.promises.writeFile(filePath, newFileContents);
+    writePromises.push(writePromise);
   }
 
   await Promise.all(writePromises);

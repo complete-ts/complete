@@ -3,14 +3,12 @@ import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 
 await lintScript(async (packageRoot) => {
-  const promises = [
+  await Promise.all([
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,
     $`eslint --max-warnings 0 .`,
     checkDocs(packageRoot),
-  ];
-
-  await Promise.all(promises);
+  ]);
 });
 
 async function checkDocs(packageRoot: string) {
