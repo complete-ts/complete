@@ -75,6 +75,7 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("cspell:") ||
     text.startsWith("ts-prune-") || // e.g. ts-prune-ignore-next
     text.startsWith("@ts-") ||
+    text.startsWith("@template-") || // e.g. @template-customization-start (complete-cli directives)
     text.startsWith("TODO:") ||
     text.startsWith("FIXME:") ||
     text === "TODO" ||
