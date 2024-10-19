@@ -1,6 +1,7 @@
 short term:
 
 - make command tool to populate non-existent template files - complete-init
+- // TODO: replace with complete-cli
 
 ----------------------------------------------------------------------------------------------------
 
