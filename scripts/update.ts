@@ -1,12 +1,6 @@
 // Packages held back:
-// - "typescript" - Stuck on "5.5.4" until TSESLint upgrades:
-// https://github.com/typescript-eslint/typescript-eslint/issues/9653
+// - n/a
 
-import { updatePackageJSONDependenciesMonorepoChildren } from "complete-node";
-import path from "node:path";
+import { updatePackageJSONDependenciesMonorepo } from "complete-node";
 
-/// await updatePackageJSONDependenciesMonorepo();
-
-const REPO_ROOT = path.join(import.meta.dirname, "..");
-
-await updatePackageJSONDependenciesMonorepoChildren(REPO_ROOT);
+await updatePackageJSONDependenciesMonorepo();
