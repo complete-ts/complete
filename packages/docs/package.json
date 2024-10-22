@@ -56,10 +56,10 @@
     "@docusaurus/types": "^3.5.2",
     "@eslint/eslintrc": "^3.1.0",
     "@octokit/core": "^6.1.2",
-    "@types/node": "^22.7.7",
+    "@types/node": "^22.7.8",
     "complete-common": "^1.0.0",
-    "complete-node": "1.5.1",
+    "complete-node": "^1.6.0",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.10.0"
+    "typescript-eslint": "^8.11.0"
   }
 }
