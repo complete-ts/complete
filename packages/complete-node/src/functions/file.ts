@@ -1,4 +1,5 @@
 import { trimSuffix } from "complete-common";
+import type { Dirent } from "node:fs";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
@@ -85,23 +86,29 @@ export function fileOrDirectoryExists(filePath: string): boolean {
 
 /**
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
- * required, you must manually join the file name with the path to the directory.)
+ * required, use the `getFilePathsInDirectory` helper function instead.)
  *
  * This will throw an error if there is an error when checking the directory.
+ *
+ * @param directoryPath The path to the directory.
+ * @param filter Optional. If specified, will only return this type of file.
  */
 export function getFileNamesInDirectory(
   directoryPath: string,
+  filter?: "files" | "directories",
 ): readonly string[] {
-  let fileList: string[];
+  let fileEntries: Dirent[];
   try {
-    fileList = fs.readdirSync(directoryPath);
+    fileEntries = fs.readdirSync(directoryPath, {
+      withFileTypes: true,
+    });
   } catch (error) {
     throw new Error(
       `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
     );
   }
 
-  return fileList;
+  return getDirectoryEntryFileNames(fileEntries, filter);
 }
 
 /**
@@ -109,18 +116,56 @@ export function getFileNamesInDirectory(
  * required, you must manually join the file name with the path to the directory.)
  *
  * This will throw an error if there is an error when checking the directory.
+ *
+ * @param directoryPath The path to the directory.
+ * @param filter Optional. If specified, will only return this type of file.
  */
 export async function getFileNamesInDirectoryAsync(
   directoryPath: string,
+  filter?: "files" | "directories",
 ): Promise<readonly string[]> {
+  let fileEntries: Dirent[];
   try {
-    const fileList = await fsPromises.readdir(directoryPath);
-    return fileList;
+    fileEntries = await fsPromises.readdir(directoryPath, {
+      withFileTypes: true,
+    });
   } catch (error) {
     throw new Error(
       `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
     );
   }
+
+  return getDirectoryEntryFileNames(fileEntries, filter);
+}
+
+function getDirectoryEntryFileNames(
+  fileEntries: readonly Dirent[],
+  filter?: "files" | "directories",
+): readonly string[] {
+  let filteredFileEntries: readonly Dirent[];
+
+  switch (filter) {
+    case undefined: {
+      filteredFileEntries = fileEntries;
+      break;
+    }
+
+    case "files": {
+      filteredFileEntries = fileEntries.filter((fileEntry) =>
+        fileEntry.isFile(),
+      );
+      break;
+    }
+
+    case "directories": {
+      filteredFileEntries = fileEntries.filter((fileEntry) =>
+        fileEntry.isDirectory(),
+      );
+      break;
+    }
+  }
+
+  return filteredFileEntries.map((file) => file.name);
 }
 
 /**
@@ -203,6 +248,39 @@ export async function getFilePathAsync(
   throw new Error(
     `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
   );
+}
+
+/**
+ * Helper function to synchronously get the file names inside of a directory.
+ *
+ * This will throw an error if there is an error when checking the directory.
+ *
+ * @param directoryPath The path to the directory.
+ * @param filter Optional. If specified, will only return this type of file.
+ */
+export function getFilePathsInDirectory(
+  directoryPath: string,
+  filter?: "files" | "directories",
+): readonly string[] {
+  const fileNames = getFileNamesInDirectory(directoryPath, filter);
+  return fileNames.map((fileName) => path.join(directoryPath, fileName));
+}
+
+/**
+ * Helper function to asynchronously get the file names inside of a directory.
+ *
+ * This will throw an error if there is an error when checking the directory.
+ *
+ * @param directoryPath The path to the directory.
+ *
+ * @param filter Optional. If specified, will only return this type of file.
+ */
+export async function getFilePathsInDirectoryAsync(
+  directoryPath: string,
+  filter?: "files" | "directories",
+): Promise<readonly string[]> {
+  const fileNames = await getFileNamesInDirectoryAsync(directoryPath, filter);
+  return fileNames.map((fileName) => path.join(directoryPath, fileName));
 }
 
 /**

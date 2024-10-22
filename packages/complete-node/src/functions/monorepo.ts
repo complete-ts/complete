@@ -2,7 +2,7 @@ import path from "node:path";
 import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  getFileNamesInDirectoryAsync,
+  getFilePathsInDirectoryAsync,
   isDirectory,
   isDirectoryAsync,
   isFileAsync,
@@ -72,13 +72,10 @@ export async function getMonorepoPackageNames(
     );
   }
 
-  const fileNames = await getFileNamesInDirectoryAsync(packagesPath);
-  const filePaths = fileNames.map((fileName) =>
-    path.join(packagesPath, fileName),
-  );
+  const filePaths = await getFilePathsInDirectoryAsync(packagesPath);
   const directoryCheckPromises = filePaths.map(isDirectoryAsync);
   const directoryChecks = await Promise.all(directoryCheckPromises);
-  const directories = fileNames.filter((_, i) => directoryChecks[i] === true);
+  const directories = filePaths.filter((_, i) => directoryChecks[i] === true);
 
   if (scriptName === undefined || scriptName === "") {
     return directories;
