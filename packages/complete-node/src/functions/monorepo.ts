@@ -2,7 +2,7 @@ import path from "node:path";
 import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  getFilePathsInDirectoryAsync,
+  getFileNamesInDirectoryAsync,
   isDirectory,
   isDirectoryAsync,
   isFileAsync,
@@ -72,17 +72,21 @@ export async function getMonorepoPackageNames(
     );
   }
 
-  const filePaths = await getFilePathsInDirectoryAsync(packagesPath);
-  const directoryCheckPromises = filePaths.map(isDirectoryAsync);
-  const directoryChecks = await Promise.all(directoryCheckPromises);
-  const directories = filePaths.filter((_, i) => directoryChecks[i] === true);
+  const directoryNames = await getFileNamesInDirectoryAsync(
+    packagesPath,
+    "directories",
+  );
 
   if (scriptName === undefined || scriptName === "") {
-    return directories;
+    return directoryNames;
   }
 
-  const hasScriptPromises = directories.map(async (directory) => {
-    const packageJSONPath = path.join(packagesPath, directory, "package.json");
+  const hasScriptPromises = directoryNames.map(async (directoryName) => {
+    const packageJSONPath = path.join(
+      packagesPath,
+      directoryName,
+      "package.json",
+    );
     const exists = await isFileAsync(packageJSONPath);
     return exists
       ? packageJSONHasScriptAsync(packageJSONPath, scriptName)
@@ -90,5 +94,5 @@ export async function getMonorepoPackageNames(
   });
 
   const hasScript = await Promise.all(hasScriptPromises);
-  return directories.filter((_package, i) => hasScript[i] === true);
+  return directoryNames.filter((_package, i) => hasScript[i] === true);
 }
