@@ -2,6 +2,7 @@ short term:
 
 - make command tool to populate non-existent template files - complete-init
 - // TODO: replace with complete-cli
+- can't upgrade deps until this is fixed: https://github.com/typescript-eslint/typescript-eslint/issues/10191
 
 ----------------------------------------------------------------------------------------------------
 
