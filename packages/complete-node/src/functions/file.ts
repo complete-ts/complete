@@ -368,8 +368,11 @@ export function isLink(filePath: string): boolean {
 }
 
 /** Helper function to see if a directory is a subdirectory of another one. */
-export function isSubdirectoryOf(dir: string, parent: string): boolean {
-  const relative = path.relative(parent, dir);
+export function isSubdirectoryOf(
+  directoryPath: string,
+  parentPath: string,
+): boolean {
+  const relative = path.relative(parentPath, directoryPath);
   return (
     relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative)
   );
@@ -383,21 +386,34 @@ export function isSubdirectoryOf(dir: string, parent: string): boolean {
  *
  * This will throw an error if the directory cannot be created.
  */
-export function makeDirectory(dirPath: string): void {
+export function makeDirectory(directoryPath: string): void {
   try {
-    fs.mkdirSync(dirPath, {
+    fs.mkdirSync(directoryPath, {
       recursive: true,
     });
   } catch (error) {
     throw new Error(
-      `Failed to delete file or directory "${dirPath}": ${error}`,
+      `Failed to delete file or directory "${directoryPath}": ${error}`,
     );
   }
 }
 
 /** Alias for the `makeDirectory` function. Intended to be used in scripts. */
-export function mkdir(dirPath: string): void {
-  makeDirectory(dirPath);
+export function mkdir(directoryPath: string): void {
+  makeDirectory(directoryPath);
+}
+
+/** Helper function to move all files from one directory to another one. */
+export function moveAllFilesInDirectory(
+  srcDirectory: string,
+  dstDirectory: string,
+): void {
+  const filePaths = getFilePathsInDirectory(srcDirectory);
+  for (const filePath of filePaths) {
+    const fileName = path.basename(filePath);
+    const dstPath = path.join(dstDirectory, fileName);
+    moveFile(filePath, dstPath);
+  }
 }
 
 /**
