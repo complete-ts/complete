@@ -1,9 +1,6 @@
 // Packages held back:
 // - n/a
 
-import { updatePackageJSONDependenciesMonorepoChildren } from "complete-node";
-import path from "node:path";
+import { updatePackageJSONDependenciesMonorepo } from "complete-node";
 
-/// await updatePackageJSONDependenciesMonorepo();
-const REPO_ROOT = path.join(import.meta.dirname, "..");
-await updatePackageJSONDependenciesMonorepoChildren(REPO_ROOT);
+await updatePackageJSONDependenciesMonorepo();
