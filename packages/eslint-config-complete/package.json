@@ -52,7 +52,7 @@
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.7.7",
     "complete-common": "^1.0.0",
-    "complete-node": "^1.7.1",
+    "complete-node": "^1.7.2",
     "eslint-config-prettier": "^9.1.0",
     "extract-comments": "^1.1.0",
     "typescript": "^5.6.3"
