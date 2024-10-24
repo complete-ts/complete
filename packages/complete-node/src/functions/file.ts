@@ -35,6 +35,27 @@ export function copyFileOrDirectory(srcPath: string, dstPath: string): void {
   }
 }
 
+/**
+ * Helper function to asynchronously copy a file or directory. If a path to a directory is
+ * specified, the directory will be recursively copied.
+ *
+ * This will throw an error if the file cannot be copied.
+ */
+export async function copyFileOrDirectoryAsync(
+  srcPath: string,
+  dstPath: string,
+): Promise<void> {
+  try {
+    await fs.promises.cp(srcPath, dstPath, {
+      recursive: true,
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to copy file or directory "${srcPath}" to "${dstPath}": ${error}`,
+    );
+  }
+}
+
 /** Alias for the `copyFileOrDirectory` function. Intended to be used in scripts. */
 export function cp(srcPath: string, dstPath: string): void {
   copyFileOrDirectory(srcPath, dstPath);
