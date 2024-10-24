@@ -147,6 +147,11 @@ export function getPackageManagerLockFileName(
   return PACKAGE_MANAGER_TO_LOCK_FILE_NAME[packageManager];
 }
 
+/** Helper function to get an array containing every package manager lock file name. */
+export function getPackageManagerLockFileNames(): readonly string[] {
+  return Object.values(PACKAGE_MANAGER_TO_LOCK_FILE_NAME);
+}
+
 /**
  * Helper function to look at the lock files in a given directory in order to detect the package
  * manager being used for the project.
