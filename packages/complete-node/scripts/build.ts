@@ -64,7 +64,6 @@ async function fixDeclarationMaps(directoryPath: string): Promise<void> {
   // ```json
   // {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"]
   // ```
-
   const extension = ".d.ts.map";
   const matchFunc = (filePath: string) => filePath.endsWith(extension);
   const filePaths = await getMatchingFilePaths(directoryPath, matchFunc);
