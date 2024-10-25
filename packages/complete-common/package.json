@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.7.7",
-    "complete-node": "^1.7.3",
+    "complete-node": "^1.7.4",
     "eslint-plugin-sort-exports": "^0.9.1",
     "glob": "^11.0.0",
     "typescript": "^5.6.3",
