@@ -1,3 +1,4 @@
+import { trimSuffix } from "complete-common";
 import {
   $s,
   buildScript,
@@ -40,6 +41,7 @@ async function buildDeclarationMaps(packageRoot: string) {
   $s`tsc --emitDeclarationOnly`;
   fixMonorepoPackageDistDirectory(packageRoot);
   await fixDeclarationMaps(outDir);
+  await copyDeclarations(outDir);
 
   for (const fileName of OUTPUT_FILES) {
     const srcPath = path.join(tmpDir, fileName);
@@ -49,24 +51,26 @@ async function buildDeclarationMaps(packageRoot: string) {
   }
 }
 
-async function fixDeclarationMaps(directoryPath: string): Promise<void> {
-  // After moving the declaration map files to a different directory, the relative path to the "src"
-  // directory will be broken.
-
-  // For example:
-
-  // ```json
-  // {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/index.ts"]
-  // ```
-
-  // Needs to be rewritten to:
-
-  // ```json
-  // {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"]
-  // ```
+/**
+ * After moving the declaration map files to a different directory, the relative path to the "src"
+ * directory will be broken.
+ *
+ * For example:
+ *
+ * ```json
+ * {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/index.ts"]
+ * ```
+ *
+ * Needs to be rewritten to:
+ *
+ * ```json
+ * {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"]
+ * ```
+ */
+async function fixDeclarationMaps(outDir: string): Promise<void> {
   const extension = ".d.ts.map";
   const matchFunc = (filePath: string) => filePath.endsWith(extension);
-  const filePaths = await getMatchingFilePaths(directoryPath, matchFunc);
+  const filePaths = await getMatchingFilePaths(outDir, matchFunc);
   const filesContents = await Promise.all(
     filePaths.map(async (filePath) => readFileAsync(filePath)),
   );
@@ -78,15 +82,24 @@ async function fixDeclarationMaps(directoryPath: string): Promise<void> {
       return writeFileAsync(filePath, newFileContents);
     }),
   );
+}
 
-  // By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files.
+/** By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files. */
+async function copyDeclarations(outDir: string) {
+  const extension = ".d.ts";
+  const matchFunc = (filePath: string) => filePath.endsWith(extension);
+  const filePaths = await getMatchingFilePaths(outDir, matchFunc);
+
   const promises: Array<Promise<void>> = [];
   for (const filePath of filePaths) {
     for (const newExtension of [".d.cts", ".d.mts"]) {
-      const newPath = filePath.replace(/.d.ts$/, newExtension);
+      const newPath = trimSuffix(filePath, ".d.ts") + newExtension;
       const promise = copyFileOrDirectoryAsync(filePath, newPath);
       promises.push(promise);
     }
   }
   await Promise.all(promises);
+
+  // We do not need to create "index.d.cts.map" or "index.d.mts.map" files, because they already
+  // point to "index.d.ts.map".
 }
