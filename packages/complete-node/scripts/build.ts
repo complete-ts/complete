@@ -17,7 +17,8 @@ const OUTPUT_FILES = ["index.cjs", "index.mjs"] as const;
 
 await buildScript(async (packageRoot) => {
   $s`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
-  await buildDeclarationMaps(packageRoot);
+  await buildDeclarations(packageRoot);
+  await copyDeclarations(packageRoot);
 });
 
 /**
@@ -26,7 +27,7 @@ await buildScript(async (packageRoot) => {
  * (It is not possible to configure `unbuild` to disable declarations, since reading the
  * configuration file is bugged.)
  */
-async function buildDeclarationMaps(packageRoot: string) {
+async function buildDeclarations(packageRoot: string) {
   const outDir = path.join(packageRoot, "dist");
   const tmpDir = os.tmpdir();
 
@@ -41,7 +42,6 @@ async function buildDeclarationMaps(packageRoot: string) {
   $s`tsc --emitDeclarationOnly`;
   fixMonorepoPackageDistDirectory(packageRoot);
   await fixDeclarationMaps(outDir);
-  await copyDeclarations(outDir);
 
   for (const fileName of OUTPUT_FILES) {
     const srcPath = path.join(tmpDir, fileName);
@@ -85,7 +85,8 @@ async function fixDeclarationMaps(outDir: string): Promise<void> {
 }
 
 /** By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files. */
-async function copyDeclarations(outDir: string) {
+async function copyDeclarations(packageRoot: string) {
+  const outDir = path.join(packageRoot, "dist");
   const extension = ".d.ts";
   const matchFunc = (filePath: string) => filePath.endsWith(extension);
   const filePaths = await getMatchingFilePaths(outDir, matchFunc);
@@ -100,6 +101,6 @@ async function copyDeclarations(outDir: string) {
   }
   await Promise.all(promises);
 
-  // We do not need to create "index.d.cts.map" or "index.d.mts.map" files, because they already
-  // point to "index.d.ts.map".
+  // We do not need to create "index.d.cts.map" or "index.d.mts.map" files, because all of the
+  // copied declaration files point to "index.d.ts.map".
 }
