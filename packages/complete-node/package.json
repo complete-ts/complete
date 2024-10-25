@@ -26,7 +26,8 @@
     "src",
     "LICENSE",
     "package.json",
-    "README.md"
+    "README.md",
+    "tsconfig.json"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
