@@ -1,14 +1,20 @@
+/**
+ * Helper functions for working with
+ * [package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json) files.
+ *
+ * @module
+ */
+
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject, setAdd } from "complete-common";
 import type { DependencyType } from "../types/DependencyType.js";
+import { getFilePath, getFilePathAsync } from "./file.js";
 import {
-  getFilePath,
-  getFilePathAsync,
   readFile,
   readFileAsync,
   writeFile,
   writeFileAsync,
-} from "./file.js";
+} from "./readWrite.js";
 
 const PACKAGE_JSON = "package.json";
 

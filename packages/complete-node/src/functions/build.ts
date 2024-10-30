@@ -1,4 +1,8 @@
-// Contains helper functions for build scripts.
+/**
+ * Helper functions for build scripts.
+ *
+ * @module
+ */
 
 import { $q } from "./execa.js";
 

@@ -1,3 +1,9 @@
+/**
+ * Helper functions for creating TypeScript project scripts.
+ *
+ * @module
+ */
+
 /* eslint-disable sort-exports/sort-exports */
 
 import path from "node:path";
@@ -149,7 +155,7 @@ export function printSuccess(
 }
 
 /**
- * An alias for "console.log".
+ * Alias for "console.log".
  *
  * @allowEmptyVariadic
  */
@@ -157,7 +163,7 @@ export function echo(...args: readonly unknown[]): void {
   console.log(...args);
 }
 
-/** An alias for "process.exit". */
+/** Alias for "process.exit". */
 export function exit(code = 0): never {
   return process.exit(code);
 }

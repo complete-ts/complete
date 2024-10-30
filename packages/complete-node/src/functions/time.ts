@@ -1,4 +1,10 @@
 /**
+ * Helper functions having to do with time.
+ *
+ * @module
+ */
+
+/**
  * Helper function to get the number of elapsed seconds since a starting time.
  *
  * This function always returns a whole number (using `Math.floor` on the result).

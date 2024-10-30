@@ -1,51 +1,20 @@
 /**
- * These are functions having to do with running commands in a Bash-like TypeScript script.
+ * Helper functions having to do with running commands in a Bash-like TypeScript script.
  *
- * These functions are based upon the `$` function from "execa", but pass the stdout/stderr to the
+ * These functions are based upon the
+ * [`$`](https://github.com/sindresorhus/execa/blob/main/docs/scripts.md) function from the
+ * [`execa`](https://github.com/sindresorhus/execa) library, but pass the stdout/stderr to the
  * console (which is the default behavior of a Bash script).
  *
  * @module
  */
 
-import type {
-  ExecaScriptMethod,
-  ExecaSyncError,
-  Options,
-  Result,
-  TemplateExpression,
-} from "execa";
-import { $ as dollarSignFunc } from "execa";
+import type { Result, TemplateExpression } from "execa";
+import { $ } from "execa";
 
-const EXECA_DEFAULT_OPTIONS = {
-  // The default is "pipe". We want to pass stdout/stderr to the console, making commands work
-  // similar to how they would in a Bash script.
-  // https://nodejs.org/api/child_process.html#child_process_options_stdio
-  stdio: "inherit",
-} as const satisfies Options;
-
-const dollarSignFuncWithOptions = dollarSignFunc(EXECA_DEFAULT_OPTIONS);
-
-/**
- * A wrapper around the `$` function from `execa`.
- *
- * - The stdout/stderr is passed through to the console.
- * - It throws nicer errors, omitting the JavaScript stack trace.
- */
-export async function $(
-  templates: TemplateStringsArray,
-  ...expressions: readonly TemplateExpression[]
-): Promise<Result> {
-  let returnBase: Result;
-
-  try {
-    returnBase = await dollarSignFuncWithOptions(templates, ...expressions);
-  } catch (error: unknown) {
-    const execaSyncError = error as ExecaSyncError;
-    process.exit(execaSyncError.exitCode);
-  }
-
-  return returnBase;
-}
+// We re-export the "$" function from "execa" so that downstream projects do not have to directly
+// depend on it.
+export { $ } from "execa";
 
 /**
  * Helper function to run a command and grab the output. ("o" is short for "output".)
@@ -60,21 +29,7 @@ export function $o(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
 ): string {
-  const output = $sq(templates, ...expressions).stdout;
-  if (output === undefined) {
-    return "";
-  }
-
-  return typeof output === "string" ? output : output.toString();
-}
-
-/**
- * A wrapper around the `$` function from `execa`. ("op" is short for "options".) This allows you to
- * get a custom executor function without having to consume "execa" directly.
- */
-
-export function $op(options: Options): ExecaScriptMethod<Options> {
-  return dollarSignFunc(options);
+  return $.sync(templates, ...expressions).stdout;
 }
 
 /**
@@ -88,31 +43,18 @@ export async function $q(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
 ): Promise<Result> {
-  // We want to include the JavaScript stack trace in this instance since this function is used for
-  // commands that should not generally fail.
-  return dollarSignFunc(templates, ...expressions);
+  const $$ = $({
+    stdin: "pipe",
+  });
+  return $$(templates, ...expressions);
 }
 
-/**
- * A wrapper around the `$.sync` function from `execa`.
- *
- * - The stdout/stderr is passed through to the console.
- * - It throws nicer errors, omitting the JavaScript stack trace.
- */
+/** Alias for the `$.sync` function from `execa`. */
 export function $s(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
 ): Result {
-  let returnBase: Result;
-
-  try {
-    returnBase = dollarSignFuncWithOptions.sync(templates, ...expressions);
-  } catch (error: unknown) {
-    const execaSyncError = error as ExecaSyncError;
-    process.exit(execaSyncError.exitCode);
-  }
-
-  return returnBase;
+  return $.sync(templates, ...expressions);
 }
 
 /**
@@ -127,7 +69,8 @@ export function $sq(
   templates: TemplateStringsArray,
   ...expressions: readonly TemplateExpression[]
 ): Result {
-  // We want to include the JavaScript stack trace in this instance since this function is used for
-  // commands that should not generally fail.
-  return dollarSignFunc.sync(templates, ...expressions);
+  const $$ = $({
+    stdin: "pipe",
+  });
+  return $$.sync(templates, ...expressions);
 }

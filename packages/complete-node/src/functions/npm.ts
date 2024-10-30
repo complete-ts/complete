@@ -1,3 +1,9 @@
+/**
+ * Helper functions for the [npm package manager](https://www.npmjs.com/).
+ *
+ * @module
+ */
+
 import { $sq } from "./execa.js";
 
 /**

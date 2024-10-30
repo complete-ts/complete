@@ -1,3 +1,9 @@
+/**
+ * Helper functions for JavaScript/TypeScript package managers.
+ *
+ * @module
+ */
+
 import { assertDefined } from "complete-common";
 import path from "node:path";
 import { PACKAGE_MANAGER_VALUES } from "../cachedEnumValues.js";

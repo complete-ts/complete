@@ -1,4 +1,10 @@
-import { readFile, writeFile } from "./file.js";
+/**
+ * Helper functions for working with [Markdown](https://www.markdownguide.org/).
+ *
+ * @module
+ */
+
+import { readFile, writeFile } from "./readWrite.js";
 import { formatWithPrettier, setContentInsideHTMLMarker } from "./string.js";
 
 /**

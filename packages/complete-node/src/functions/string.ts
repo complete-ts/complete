@@ -1,3 +1,9 @@
+/**
+ * Helper functions for string-based operations from files.
+ *
+ * @module
+ */
+
 import * as prettier from "prettier";
 
 /**

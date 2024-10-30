@@ -1,7 +1,14 @@
+/**
+ * Helper functions for updating dependencies in a TypeScript project.
+ *
+ * @module
+ */
+
 import path from "node:path";
-import { $op } from "./execa.js";
-import { getFilePath, readFile } from "./file.js";
+import { $ } from "./execa.js";
+import { getFilePath } from "./file.js";
 import { getPackageManagerForProject } from "./packageManager.js";
+import { readFile } from "./readWrite.js";
 
 /**
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
@@ -31,7 +38,7 @@ export function updatePackageJSONDependencies(
 
   if (packageJSONChanged && installAfterUpdate) {
     const packageManager = getPackageManagerForProject(packageRoot);
-    const $$ = $op({
+    const $$ = $({
       cwd: packageRoot,
       stdio: quiet ? "pipe" : "inherit",
     });
@@ -47,7 +54,7 @@ function runNPMCheckUpdates(
   packageRoot: string,
   quiet: boolean,
 ): boolean {
-  const $$ = $op({
+  const $$ = $({
     cwd: packageRoot,
     stdio: quiet ? "pipe" : "inherit",
   });

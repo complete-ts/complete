@@ -1,26 +1,21 @@
-import { capitalizeFirstLetter } from "complete-common";
+import { capitalizeFirstLetter, trimSuffix } from "complete-common";
 import {
-  $op,
+  $,
   $s,
   buildScript,
   cp,
+  deleteLineInFile,
   getFileNamesInDirectory,
+  getMonorepoPackageNames,
   isDirectory,
   isFile,
+  prependFile,
+  readFile,
   replaceTextInFile,
   rm,
   writeFile,
 } from "complete-node";
 import path from "node:path";
-
-const PACKAGES_WITH_WEBSITE_ROOT = [
-  "complete-common",
-  "complete-lint",
-  "complete-node",
-  "complete-tsconfig",
-  "eslint-config-complete",
-  "eslint-plugin-complete",
-] as const;
 
 const CATEGORY_FILE_NAME = "_category_.yml";
 
@@ -37,15 +32,18 @@ await buildScript(async (packageRoot) => {
   cp(srcOverviewPath, dstOverviewPath);
 
   // Copy all of the "website-root.md" files to match the package names.
-  for (const packageName of PACKAGES_WITH_WEBSITE_ROOT) {
+  const monorepoPackageNames = await getMonorepoPackageNames(repoRoot);
+  for (const packageName of monorepoPackageNames) {
     const srcPath = path.join(
       repoRoot,
       "packages",
       packageName,
       "website-root.md",
     );
-    const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
-    cp(srcPath, dstPath);
+    if (isFile(srcPath)) {
+      const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
+      cp(srcPath, dstPath);
+    }
   }
 
   // Run TypeDoc on the packages that provide library code.
@@ -71,7 +69,7 @@ await buildScript(async (packageRoot) => {
   // Format the TypeDoc output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
   // to avoid creating a spurious "node_modules" folder.)
-  const $$ = $op({ cwd: repoRoot });
+  const $$ = $({ cwd: repoRoot });
   await $$`prettier ./packages/docs/docs --write`;
 
   $s`docusaurus build`;
@@ -79,7 +77,7 @@ await buildScript(async (packageRoot) => {
 
 async function runTypeDoc(repoRoot: string, packageName: string) {
   const packagePath = path.join(repoRoot, "packages", packageName);
-  const $$ = $op({ cwd: packagePath });
+  const $$ = $({ cwd: packagePath });
   await $$`npm run docs`;
 
   const docsOutputPath = path.join(
@@ -100,15 +98,20 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
       continue;
     }
 
-    // We want to remove the "functions/" prefix.
-    for (const _fileName of getFileNamesInDirectory(directoryPath)) {
-      /*
+    // We want to remove the superfluous prefix in the title.
+    const fileNames = getFileNamesInDirectory(directoryPath);
+    for (const fileName of fileNames) {
       const filePath = path.join(directoryPath, fileName);
-      const capitalizedFileName = capitalizeFirstLetter(fileName);
-      const newTitle = trimSuffix(capitalizedFileName, ".md");
-      */
-      /// replaceLineInFile(filePath, 1, `# ${newTitle}`);
-      // TODO: This causes Docusaurus to fail.
+      const newTitle = getMarkdownTitle(fileName, filePath);
+
+      deleteLineInFile(filePath, 1); // e.g. # DependencyType
+      prependFile(
+        filePath,
+        `---
+title: ${newTitle}
+---
+`,
+      );
     }
 
     // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
@@ -119,6 +122,67 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
   const constantsPath = path.join(docsOutputPath, "constants.md");
   if (isFile(constantsPath)) {
     replaceTextInFile(constantsPath, "# constants", "# Constants");
+  }
+}
+
+/**
+ * By default, the title will have a superfluous prefix, like "# types/DependencyType". Remove the
+ * prefix and also handle some special edge-cases.
+ */
+function getMarkdownTitle(fileName: string, filePath: string): string {
+  switch (fileName) {
+    case "env.ts": {
+      return "env";
+    }
+
+    case "npm.ts": {
+      return "npm";
+    }
+
+    case "jsonc.ts": {
+      return "JSONC";
+    }
+
+    default: {
+      break;
+    }
+  }
+
+  const capitalizedFileName = capitalizeFirstLetter(fileName);
+  const title = trimSuffix(capitalizedFileName, ".md");
+
+  const fileContents = readFile(filePath);
+  if (fileContents.includes(`### ${title}`)) {
+    // There is a header with a duplicate name, which means that any links to this header will be
+    // ambiguous. This is not normally a problem, but Docusaurus will throw an error for this case,
+    // counting it as a "broken link". Thus, we have to arbitrarily modify the title so that it does
+    // not overlap.
+    const markdownFileType = getMarkdownFileType(filePath);
+    const capitalizedMarkdownFileType = capitalizeFirstLetter(markdownFileType);
+    return `${title} (${capitalizedMarkdownFileType})`;
+  }
+
+  return title;
+}
+
+function getMarkdownFileType(filePath: string): string {
+  const dirPath = path.dirname(filePath);
+  const dirName = path.basename(dirPath);
+
+  switch (dirName) {
+    case "enums": {
+      return "enum";
+    }
+
+    case "types": {
+      return "type";
+    }
+
+    default: {
+      throw new Error(
+        `Failed to detect the type of Markdown file: ${filePath}`,
+      );
+    }
   }
 }
 

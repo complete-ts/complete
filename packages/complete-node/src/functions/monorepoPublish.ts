@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { isEnumValue, isSemanticVersion } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { $o, $op, $s, $sq } from "./execa.js";
+import { $, $o, $s, $sq } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
 import {
@@ -89,7 +89,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     exit(1);
   }
 
-  const $$ = $op({ cwd: packagePath });
+  const $$ = $({ cwd: packagePath });
 
   // Before bumping the version, check to see if this package builds and lints and tests (so that we
   // can avoid unnecessary version bumps).

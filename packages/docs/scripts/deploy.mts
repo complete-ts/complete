@@ -1,6 +1,6 @@
 import { Octokit } from "@octokit/core";
 import {
-  $op,
+  $,
   appendFile,
   cp,
   echo,
@@ -63,7 +63,7 @@ if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
 
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
 
-const $$ = $op({ cwd: DOCS_REPO });
+const $$ = $({ cwd: DOCS_REPO });
 $$.sync`git config --global user.email "github-actions@users.noreply.github.com"`;
 $$.sync`git config --global user.name "github-actions"`;
 // We overwrite the previous commit instead of adding a new one in order to keep the size of the
@@ -73,7 +73,7 @@ $$.sync`git add --all`;
 $$.sync`git commit --message deploy --amend`;
 $$.sync`git push --force-with-lease`;
 
-const commitSHA1 = $$.sync`git rev-parse HEAD`.stdout?.toString() ?? "";
+const commitSHA1 = $$.sync`git rev-parse HEAD`.stdout;
 if (commitSHA1 === "") {
   fatalError("Failed to parse the deployed website commit SHA1.");
 }

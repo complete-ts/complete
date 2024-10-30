@@ -1,3 +1,9 @@
+/**
+ * Helper functions for working with [monorepos](https://monorepo.tools/).
+ *
+ * @module
+ */
+
 import path from "node:path";
 import {
   copyFileOrDirectory,

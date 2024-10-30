@@ -1,3 +1,9 @@
+/**
+ * Helper functions that do not belong to any category in particular.
+ *
+ * @module
+ */
+
 import chalk from "chalk";
 import { diffLines } from "diff";
 import { fileOfCaller } from "./arkType.js";

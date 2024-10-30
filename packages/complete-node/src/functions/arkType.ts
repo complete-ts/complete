@@ -1,6 +1,6 @@
 /**
- * These are functions having to do with getting the directory of the calling function and getting
- * the directory of the package root.
+ * Helper functions having to do with getting the directory of the calling function and getting the
+ * directory of the package root.
  *
  * They are based on functions from the
  * [`@arktype/fs`](https://github.com/arktypeio/arktype/blob/main/ark/fs/fs.ts) library.

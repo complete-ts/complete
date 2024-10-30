@@ -1,10 +1,17 @@
+/**
+ * Helper functions for updating dependencies within a [monorepo](https://monorepo.tools/).
+ *
+ * @module
+ */
+
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject, trimPrefix } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { isFileAsync, writeFileAsync } from "./file.js";
+import { isFileAsync } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
 import { getPackageJSONAsync } from "./packageJSON.js";
+import { writeFileAsync } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
 type DepType = "dependencies" | "devDependencies" | "peerDependencies";
@@ -63,6 +70,12 @@ export async function lintMonorepoPackageJSONs(
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
+ * Under the hood, this function calls the `updatePackageJSONDependencies` and
+ * `updatePackageJSONDependenciesMonorepoChildren` helper functions.
+ *
+ * If you need to check to see if the monorepo dependencies are up to date in a lint script, then
+ * use the `lintMonorepoPackageJSONs` function instead.
+ *
  * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
  * @returns Whether any "package.json" files were changed.
  */
@@ -93,8 +106,10 @@ export async function updatePackageJSONDependenciesMonorepo(
  * "package.json") and the monorepo dependencies (to be what is listed in the "version" field of the
  * respective "package.json" file).
  *
- * If you need to check this in a lint script, then use the `lintMonorepoPackageJSONs` function
- * instead.
+ * This function is called by the `updatePackageJSONDependenciesMonorepo` script.
+ *
+ * If you need to check to see if the monorepo dependencies are up to date in a lint script, then
+ * use the `lintMonorepoPackageJSONs` function instead.
  *
  * @param monorepoRoot The full path to the monorepo root directory.
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.

@@ -1,3 +1,9 @@
+/**
+ * Helper functions for checking if commands exist.
+ *
+ * @module
+ */
+
 import commandExistsPackage from "command-exists";
 import { execSync } from "node:child_process";
 import { fatalError } from "./utils.js";
@@ -30,7 +36,7 @@ export function getPythonCommand(fatal: true): "python" | "python3";
  *
  * @param fatal Whether to exit the program if Python is not found.
  */
-// TODO: https://discord.com/channels/508357248330760243/829307039447515176/1289228144808558645
+// TODO: https://github.com/TypeStrong/typedoc/issues/2718#event-14441964839
 export function getPythonCommand(
   fatal: false,
 ): "python" | "python3" | undefined;

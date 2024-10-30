@@ -1,9 +1,17 @@
+/**
+ * Helper functions for working with
+ * [JSONC](https://code.visualstudio.com/docs/languages/json#_json-with-comments).
+ *
+ * @module
+ */
+
 import { isObject } from "complete-common";
 import JSONC from "jsonc-parser";
-import { readFile } from "./file.js";
+import { readFile } from "./readWrite.js";
 
 /**
- * Helper function to parse a file as JSONC.
+ * Helper function to parse a file as
+ * [JSONC](https://code.visualstudio.com/docs/languages/json#_json-with-comments).
  *
  * This expects the file to contain an object (i.e. `{}`). This will print an error message and exit
  * the program if any errors occur.
