@@ -131,16 +131,44 @@ title: ${newTitle}
  */
 function getMarkdownTitle(fileName: string, filePath: string): string {
   switch (fileName) {
-    case "env.ts": {
-      return "env";
+    case "env.md": {
+      return "Environment";
     }
 
-    case "npm.ts": {
+    case "npm.md": {
       return "npm";
     }
 
-    case "jsonc.ts": {
+    case "jsonc.md": {
       return "JSONC";
+    }
+
+    case "monorepoPublish.md": {
+      return "Monorepo Publishing";
+    }
+
+    case "monorepoUpdate.md": {
+      return "Monorepo Updating";
+    }
+
+    case "nukeDependencies.md": {
+      return "Nuke Dependencies";
+    }
+
+    case "packageJSON.md": {
+      return "Package JSON";
+    }
+
+    case "packageManager.md": {
+      return "Package Manager";
+    }
+
+    case "readWrite.md": {
+      return "Read/Write";
+    }
+
+    case "scriptHelpers.md": {
+      return "Script Helpers";
     }
 
     default: {
