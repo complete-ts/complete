@@ -9,6 +9,7 @@ export * from "./functions/random.js";
 export * from "./functions/set.js";
 export * from "./functions/sort.js";
 export * from "./functions/string.js";
+export * from "./functions/time.js";
 export * from "./functions/tuple.js";
 export * from "./functions/types.js";
 export * from "./functions/utils.js";

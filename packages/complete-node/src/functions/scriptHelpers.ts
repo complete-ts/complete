@@ -6,11 +6,11 @@
 
 /* eslint-disable sort-exports/sort-exports */
 
+import { getElapsedSeconds } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $ } from "./execa.js";
 import { rm } from "./file.js";
-import { getElapsedSeconds } from "./time.js";
 import { getArgs } from "./utils.js";
 
 /**

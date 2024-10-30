@@ -5,7 +5,11 @@
  */
 
 import chalk from "chalk";
-import { isEnumValue, isSemanticVersion } from "complete-common";
+import {
+  getElapsedSeconds,
+  isEnumValue,
+  isSemanticVersion,
+} from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $, $o, $s, $sq } from "./execa.js";
@@ -18,7 +22,6 @@ import {
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { echo, exit } from "./scriptHelpers.js";
-import { getElapsedSeconds } from "./time.js";
 import { fatalError, getArgs } from "./utils.js";
 
 enum VersionBump {
