@@ -1,3 +1,9 @@
+/**
+ * Helper functions for publishing packages within a [monorepo](https://monorepo.tools/).
+ *
+ * @module
+ */
+
 import chalk from "chalk";
 import { isEnumValue, isSemanticVersion } from "complete-common";
 import path from "node:path";
