@@ -39,27 +39,27 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^3.5.2",
-    "@docusaurus/preset-classic": "^3.5.2",
+    "@docusaurus/core": "^3.6.0",
+    "@docusaurus/preset-classic": "^3.6.0",
     "@heroicons/react": "^2.1.5",
     "@mdx-js/react": "^3.1.0",
     "prism-react-renderer": "^2.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "typedoc": "^0.26.10",
-    "typedoc-plugin-markdown": "^4.2.9"
+    "typedoc": "^0.26.11",
+    "typedoc-plugin-markdown": "^4.2.10"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "^3.5.2",
-    "@docusaurus/module-type-aliases": "^3.5.2",
-    "@docusaurus/tsconfig": "^3.5.2",
-    "@docusaurus/types": "^3.5.2",
+    "@docusaurus/eslint-plugin": "^3.6.0",
+    "@docusaurus/module-type-aliases": "^3.6.0",
+    "@docusaurus/tsconfig": "^3.6.0",
+    "@docusaurus/types": "^3.6.0",
     "@eslint/eslintrc": "^3.1.0",
     "@octokit/core": "^6.1.2",
-    "@types/node": "^22.7.7",
+    "@types/node": "^22.9.0",
     "complete-common": "^1.0.1",
     "complete-node": "^1.7.4",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.10.0"
+    "typescript-eslint": "^8.13.0"
   }
 }

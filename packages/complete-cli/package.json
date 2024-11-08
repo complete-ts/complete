@@ -40,14 +40,14 @@
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "^22.7.7",
+    "@types/node": "^22.9.0",
     "@types/prompt": "^1.1.9",
     "@types/source-map-support": "^0.5.10",
     "complete-node": "^1.7.4",
     "eslint-plugin-sort-exports": "^0.9.1",
     "glob": "^11.0.0",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.10.0",
+    "typescript-eslint": "^8.13.0",
     "unbuild": "^2.0.0"
   },
   "engines": {
