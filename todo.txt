@@ -14,7 +14,6 @@ long term:
 
 - lint projects:
   - https://github.com/typescript-eslint/typescript-eslint/issues/1804
-  - https://github.com/typescript-eslint/typescript-eslint/issues/4571
   - https://github.com/typescript-eslint/typescript-eslint/issues/7114
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - `T extends Foo[]` --> `T extends readonly Foo[]`
