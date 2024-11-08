@@ -14,9 +14,9 @@ import { fileOfCaller } from "./arkType.js";
 export function diff(string1: string, string2: string): void {
   const differences = diffLines(string1, string2);
   for (const difference of differences) {
-    if (difference.added === true) {
+    if (difference.added) {
       console.log(`${chalk.green("+")} ${difference.value.trim()}`);
-    } else if (difference.removed === true) {
+    } else if (difference.removed) {
       console.log(`${chalk.red("-")} ${difference.value.trim()}`);
     }
   }

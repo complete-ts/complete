@@ -466,7 +466,7 @@ export const baseTypeScriptESLint = tseslint.config(
       /**
        * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
        * `requireDefaultForNonUnion` option is enabled to make the rule stricter. However, the
-       * `considerDefaultExhaustiveForUnions` option is disabled since it is not intended to be used
+       * `considerDefaultExhaustiveForUnions` option is enable since it is not intended to be used
        * when `allowDefaultCaseForExhaustiveSwitch` is disabled.
        */
       "@typescript-eslint/switch-exhaustiveness-check": [
@@ -474,7 +474,7 @@ export const baseTypeScriptESLint = tseslint.config(
         {
           allowDefaultCaseForExhaustiveSwitch: false,
           requireDefaultForNonUnion: true,
-          considerDefaultExhaustiveForUnions: false,
+          considerDefaultExhaustiveForUnions: true,
         },
       ],
 
