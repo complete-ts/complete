@@ -13,10 +13,10 @@ long term:
   (it might not work because it does not support ESLint 9 and does not look well maintained)
 
 - lint projects:
-  - https://github.com/typescript-eslint/typescript-eslint/issues/1804
-  - https://github.com/typescript-eslint/typescript-eslint/issues/7114
-  - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - `T extends Foo[]` --> `T extends readonly Foo[]`
+  - https://github.com/typescript-eslint/typescript-eslint/issues/1804 (in-progress)
+  - https://github.com/typescript-eslint/typescript-eslint/issues/8079
+  - https://github.com/typescript-eslint/typescript-eslint/pull/10265 (in-progress)
 
 ----------------------------------------------------------------------------------------------------
 

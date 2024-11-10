@@ -39,8 +39,8 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.0",
-    "@docusaurus/preset-classic": "^3.6.0",
+    "@docusaurus/core": "^3.6.1",
+    "@docusaurus/preset-classic": "^3.6.1",
     "@heroicons/react": "^2.1.5",
     "@mdx-js/react": "^3.1.0",
     "prism-react-renderer": "^2.4.0",
@@ -50,10 +50,10 @@
     "typedoc-plugin-markdown": "^4.2.10"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "^3.6.0",
-    "@docusaurus/module-type-aliases": "^3.6.0",
-    "@docusaurus/tsconfig": "^3.6.0",
-    "@docusaurus/types": "^3.6.0",
+    "@docusaurus/eslint-plugin": "^3.6.1",
+    "@docusaurus/module-type-aliases": "^3.6.1",
+    "@docusaurus/tsconfig": "^3.6.1",
+    "@docusaurus/types": "^3.6.1",
     "@eslint/eslintrc": "^3.1.0",
     "@octokit/core": "^6.1.2",
     "@types/node": "^22.9.0",
