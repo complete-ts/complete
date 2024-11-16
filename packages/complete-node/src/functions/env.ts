@@ -54,5 +54,11 @@ export function getEnv<
     }
   }
 
-  return envSchema.parse(process.env);
+  const result = envSchema.safeParse(process.env);
+  if (!result.success) {
+    console.error(`Failed to parse the file: ${envPath}`);
+    throw new Error(result.error.toString());
+  }
+
+  return result.data;
 }
