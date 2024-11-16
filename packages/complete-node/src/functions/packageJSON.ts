@@ -151,7 +151,7 @@ function getPackageJSONDependenciesSub(
 /**
  * Helper function to synchronously get an arbitrary string field from a "package.json" file. If the
  * field does not exist, `undefined` will be returned. This will throw an error if the
- * "package.json" file cannot be found or is otherwise invalid.
+ * "package.json" file cannot be found or the field is not a string.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -197,7 +197,7 @@ export function getPackageJSONField(
 /**
  * Helper function to asynchronously get an arbitrary string field from a "package.json" file. If
  * the field does not exist, `undefined` will be returned. This will throw an error if the
- * "package.json" file cannot be found or is otherwise invalid.
+ * "package.json" file cannot be found or the field is not a string.
  *
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
@@ -242,7 +242,8 @@ export async function getPackageJSONFieldAsync(
 
 /**
  * Helper function to synchronously get an arbitrary string field from a "package.json" file. This
- * will throw an error if the field does not exist or if the "package.json" file cannot be found.
+ * will throw an error if the "package.json" file cannot be found or the field does not exist or the
+ * field is not a string.
  *
  * Also see the `getPackageJSONField` function.
  *
@@ -270,8 +271,8 @@ export function getPackageJSONFieldMandatory(
 
 /**
  * Helper function to synchronously get N arbitrary string fields from a "package.json" file. This
- * will throw an error if any of the fields do not exist or if the "package.json" file cannot be
- * found.
+ * will throw an error if the "package.json" file cannot be found or any of the fields do not exist
+ * or any of the fields are not strings.
  *
  * Also see the `getPackageJSONFieldMandatory` function.
  *
@@ -405,8 +406,8 @@ export async function getPackageJSONScriptsAsync(
 
 /**
  * Helper function to synchronously get the "version" field from a "package.json" file. This will
- * throw an error if the "package.json" file cannot be found or is otherwise invalid. It will also
- * throw an error if the "version" field does not exist.
+ * throw an error if the "package.json" file cannot be found or the "version" field does not exist
+ * or the "version" field is not a string.
  *
  * If you want to allow for the "version" field not existing, use the `getPackageJSONField` helper
  * function instead.
