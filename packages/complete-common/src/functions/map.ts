@@ -59,8 +59,8 @@ export function mapFind<K, V>(
  * undefined. In this situation, by converting the object to a map, you can avoid unsafe type
  * assertions.
  *
- * Note that the map values will be inserted in a random order, due to how `pairs` works under the
- * hood.
+ * Note that the converted map will only have string keys (due to the nature of JavaScript objects
+ * only having string keys under the hood).
  *
  * Also see the `objectToReadonlyMap` function.
  */

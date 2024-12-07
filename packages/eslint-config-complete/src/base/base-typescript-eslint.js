@@ -318,7 +318,13 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-unsafe-function-type": "warn",
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "@typescript-eslint/no-unsafe-return": "warn",
-      "@typescript-eslint/no-unsafe-type-assertion": "warn",
+
+      /**
+       * Disabled because this rule causes too many false positives. The rule prevents a narrowing
+       * type assertion, but often times this is precisely the point of the assertion.
+       */
+      "@typescript-eslint/no-unsafe-type-assertion": "off",
+
       "@typescript-eslint/no-unsafe-unary-minus": "warn",
 
       /**
