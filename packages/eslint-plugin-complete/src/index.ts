@@ -2,6 +2,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import fs from "node:fs";
 import path from "node:path";
 import type { ReadonlyRecord } from "./completeCommon.js";
+import { isObject } from "./completeCommon.js";
 import { configs } from "./configs.js";
 import { rules } from "./rules.js";
 
@@ -18,6 +19,8 @@ const plugin = {
 
 addPluginToConfigs(configs, name);
 
+// ESLint plugins must provide a default export by design.
+// eslint-disable-next-line
 export default plugin;
 
 /**
@@ -26,12 +29,18 @@ export default plugin;
 function getPackageJSONNameAndVersion() {
   const packageRoot = path.join(import.meta.dirname, "..");
   const packageJSONPath = path.join(packageRoot, "package.json");
-  let packageJSON: Record<string, unknown>;
+  let packageJSON: unknown;
   try {
     const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
-    packageJSON = JSON.parse(packageJSONString) as Record<string, unknown>;
+    packageJSON = JSON.parse(packageJSONString);
   } catch (error) {
     throw new Error(`Failed to read the "${packageJSONPath}" file: ${error}`);
+  }
+
+  if (!isObject(packageJSON)) {
+    throw new Error(
+      `Failed to parse the "${packageJSONPath}" file since it was not an object.`,
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
