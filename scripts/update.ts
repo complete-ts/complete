@@ -1,5 +1,6 @@
 // Packages held back:
-// - n/a
+// - "react" - Docusaurus requires v18.
+// - "react-dom" - Docusaurus requires v18.
 
 import { updatePackageJSONDependenciesMonorepo } from "complete-node";
 

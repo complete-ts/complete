@@ -17,6 +17,7 @@ long term:
   - https://github.com/typescript-eslint/typescript-eslint/issues/1804 (in-progress)
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079
   - https://github.com/typescript-eslint/typescript-eslint/pull/10265 (in-progress)
+  - add TSESLint docs note about "only" in tests
 
 ----------------------------------------------------------------------------------------------------
 
