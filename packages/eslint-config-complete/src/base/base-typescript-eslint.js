@@ -450,6 +450,8 @@ export const baseTypeScriptESLint = tseslint.config(
        * Even though the core rule was deprecated, the extended rule uses type information, so it is
        * much better.
        */
+      // https://github.com/typescript-eslint/typescript-eslint/issues/10165#issuecomment-2525288217
+      // ?
       "@typescript-eslint/return-await": "warn",
 
       /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
