@@ -449,10 +449,12 @@ export const baseTypeScriptESLint = tseslint.config(
       /**
        * Even though the core rule was deprecated, the extended rule uses type information, so it is
        * much better.
+       *
+       * Additionally, we opt for the "always" option instead of the default of "in-try-catch", for
+       * reasons described in [this
+       * issue](https://github.com/typescript-eslint/typescript-eslint/issues/10165#issuecomment-2525288217).
        */
-      // https://github.com/typescript-eslint/typescript-eslint/issues/10165#issuecomment-2525288217
-      // ?
-      "@typescript-eslint/return-await": "warn",
+      "@typescript-eslint/return-await": ["warn", "always"],
 
       /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
       "@typescript-eslint/sort-type-constituents": "off",
