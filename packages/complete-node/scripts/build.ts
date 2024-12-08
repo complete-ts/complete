@@ -72,16 +72,15 @@ async function fixDeclarationMaps(outDir: string): Promise<void> {
   const matchFunc = (filePath: string) => filePath.endsWith(extension);
   const filePaths = await getMatchingFilePaths(outDir, matchFunc);
   const filesContents = await Promise.all(
-    filePaths.map(async (filePath) => readFileAsync(filePath)),
+    filePaths.map(async (filePath) => await readFileAsync(filePath)),
   );
-  await Promise.all(
-    filePaths.map(async (filePath, i) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const fileContents = filesContents[i]!;
-      const newFileContents = fileContents.replaceAll("../../src/", "src/");
-      return writeFileAsync(filePath, newFileContents);
-    }),
-  );
+  const promises = filePaths.map(async (filePath, i) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const fileContents = filesContents[i]!;
+    const newFileContents = fileContents.replaceAll("../../src/", "src/");
+    await writeFileAsync(filePath, newFileContents);
+  });
+  await Promise.all(promises);
 }
 
 /** By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files. */

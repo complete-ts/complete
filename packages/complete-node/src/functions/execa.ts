@@ -46,7 +46,7 @@ export async function $q(
   const $$ = $({
     stdin: "pipe",
   });
-  return $$(templates, ...expressions);
+  return await $$(templates, ...expressions);
 }
 
 /** Alias for the `$.sync` function from `execa`. */

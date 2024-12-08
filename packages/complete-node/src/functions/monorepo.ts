@@ -95,7 +95,7 @@ export async function getMonorepoPackageNames(
     );
     const exists = await isFileAsync(packageJSONPath);
     return exists
-      ? packageJSONHasScriptAsync(packageJSONPath, scriptName)
+      ? await packageJSONHasScriptAsync(packageJSONPath, scriptName)
       : false;
   });
 

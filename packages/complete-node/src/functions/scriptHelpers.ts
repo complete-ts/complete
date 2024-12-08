@@ -175,5 +175,5 @@ export function exit(code = 0): never {
  */
 export async function sleep(seconds: number): Promise<unknown> {
   // eslint-disable-next-line no-promise-executor-return
-  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+  return await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }

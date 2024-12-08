@@ -19,7 +19,7 @@ export async function formatWithPrettier(
 ): Promise<string> {
   const prettierConfig = await prettier.resolveConfig(repoRoot);
 
-  return prettier.format(text, {
+  return await prettier.format(text, {
     parser: language,
     ...prettierConfig,
   });
