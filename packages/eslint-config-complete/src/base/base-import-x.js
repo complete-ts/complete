@@ -290,8 +290,8 @@ export const baseImportX = tseslint.config(
     files: [
       ".remarkrc.js",
       ".remarkrc.mjs",
-      "docusaurus.js",
-      "docusaurus.ts",
+      "docusaurus.config.js",
+      "docusaurus.config.ts",
       "eslint.config.js",
       "eslint.config.mjs",
       "jest.config.js",
