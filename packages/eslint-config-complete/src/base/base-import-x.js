@@ -46,8 +46,8 @@ const HELPFUL_WARNINGS = {
         "**/karma.conf.js", // karma config
         "**/.eslintrc.{js,cjs,mjs,ts,cts,mts}", // eslint config // Modified for extra file extensions.
 
-        "**/scripts/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
-        "**/tests/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
+        "**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
+        "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
         "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // ESLint config
         "**/prettier.config.{js,cjs,mjs,ts,cts,mts}", // Prettier config
         "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}", // TypeDoc config
