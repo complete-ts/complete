@@ -140,7 +140,7 @@ export const baseN = tseslint.config(
 
   // Imports in a "scripts" directory can use "devDependencies".
   {
-    files: ["**/scripts/*.{js,cjs,mjs,ts,cts,mts}"],
+    files: ["**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}"],
     rules: {
       "n/no-unpublished-import": "off",
     },
