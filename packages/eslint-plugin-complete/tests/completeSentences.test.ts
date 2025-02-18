@@ -43,16 +43,29 @@ function testIncompleteSentence(
   messageId: CompleteSentenceMessageIds | undefined,
 ) {
   const incompleteSentences = getIncompleteSentences(text);
+  const firstIncompleteSentence = incompleteSentences[0];
   const expectedLength = messageId === undefined ? 0 : 1;
-  expect(incompleteSentences.length).toBe(expectedLength);
+
+  if (incompleteSentences.length !== expectedLength) {
+    if (firstIncompleteSentence !== undefined) {
+      throw new Error(
+        `Incomplete sentence detected when there is not supposed to be one: ${firstIncompleteSentence.sentence}`,
+      );
+    }
+
+    throw new Error(
+      "Did not detect an incomplete sentence when there was supposed to be one.",
+    );
+  }
+
   if (messageId === undefined) {
     return;
   }
 
-  const firstIncompleteSentence = incompleteSentences[0];
   if (firstIncompleteSentence === undefined) {
     throw new TypeError("Failed to get the first incomplete sentence.");
   }
+
   expect(firstIncompleteSentence.messageId).toBe(messageId);
 }
 
@@ -270,6 +283,16 @@ Note that this contains "Blue Womb" instead of "???" for stage 9.
 test("Sentence with hard-coded allow words", () => {
   const text = `
 iPad on iOS 13 detection.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
+test("Question marks surrounded by brackets", () => {
+  const text = `
+(?) [?]
+
+- (?)
+- [?]
   `;
   testIncompleteSentence(text, undefined);
 });

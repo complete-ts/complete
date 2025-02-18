@@ -68,7 +68,7 @@ await buildScript(async (packageRoot) => {
 
   // Format the TypeDoc output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
-  // to avoid creating a spurious "node_modules" folder.)
+  // to avoid creating a spurious "node_modules" directory.)
   const $$ = $({ cwd: repoRoot });
   await $$`prettier ./packages/docs/docs --write`;
 

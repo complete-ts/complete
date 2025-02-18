@@ -1,63 +1,72 @@
 // Both the Inquirer.js library and the Prompts library have a bug where text is duplicated in a Git
 // Bash terminal. Thus, we revert to using the simpler Prompt library.
 
+import {
+  cancel,
+  confirm,
+  intro,
+  isCancel,
+  log,
+  outro,
+  text,
+} from "@clack/prompts";
 import chalk from "chalk";
-import { ReadonlySet } from "complete-common";
-import { fatalError } from "complete-node";
-import prompt from "prompt";
+import { PROJECT_NAME } from "./constants.js";
 
-const VALID_YES_RESPONSES = new ReadonlySet(["yes", "ye", "y"]);
-const VALID_NO_RESPONSES = new ReadonlySet(["no", "n"]);
+export function promptStart(): void {
+  intro(chalk.inverse(PROJECT_NAME));
+}
 
-export function promptInit(): void {
-  // Override some of the prompt library's default values:
-  // https://github.com/flatiron/prompt#customizing-your-prompt
-  prompt.message = chalk.green("?");
-  prompt.delimiter = " ";
-  prompt.colors = false;
+export function promptEnd(msg: string): never {
+  outro(msg);
+  process.exit();
 }
 
 export async function getInputYesNo(
   msg: string,
   defaultValue = true,
 ): Promise<boolean> {
-  prompt.start();
-
-  // Capitalize the letter that represents the default option.
-  const y = defaultValue ? "Y" : "y";
-  const n = defaultValue ? "n" : "N";
-
-  const questionSuffix = `(${y}\\${n})`;
-  const description = `${chalk.bold(msg)} ${chalk.gray(questionSuffix)}`;
-
-  const { response } = await prompt.get({
-    properties: {
-      response: {
-        type: "string",
-        description,
-      },
-    },
+  const input = await confirm({
+    message: msg,
+    initialValue: defaultValue,
   });
 
-  if (typeof response !== "string") {
-    console.log(typeof response);
-    fatalError("Failed to get a proper response from the prompt library.");
+  if (isCancel(input)) {
+    cancel("Canceled.");
+    process.exit(1);
   }
 
-  const cleanedResponse = response.toLowerCase().trim();
+  return input;
+}
 
-  // Default to true.
-  if (cleanedResponse === "") {
-    return defaultValue;
+/** Returns trimmed input. */
+export async function getInputString(
+  msg: string,
+  defaultValue?: string,
+): Promise<string> {
+  const input = await text({
+    message: msg,
+    initialValue: defaultValue,
+  });
+
+  if (isCancel(input)) {
+    cancel("Canceled.");
+    process.exit(1);
   }
 
-  if (VALID_YES_RESPONSES.has(cleanedResponse)) {
-    return true;
+  const trimmedInput = input.trim();
+  if (trimmedInput === "") {
+    promptError("You must enter a non-empty value.");
   }
 
-  if (VALID_NO_RESPONSES.has(cleanedResponse)) {
-    return false;
-  }
+  return input.trim();
+}
 
-  fatalError('Invalid response; must answer "yes" or "no".');
+export function promptLog(msg: string): void {
+  log.step(msg); // Step is a hollow green diamond.
+}
+
+export function promptError(msg: string): never {
+  cancel(msg);
+  process.exit(1);
 }

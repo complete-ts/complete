@@ -52,9 +52,9 @@ export function getIncompleteSentences(
     }
 
     const sentences = getSentences(squishedText);
-    const loneSentence = sentences.length === 1;
+    const isLoneSentence = sentences.length === 1;
     for (const sentence of sentences) {
-      const messageId = getIncompleteSentenceKind(sentence, loneSentence);
+      const messageId = getIncompleteSentenceKind(sentence, isLoneSentence);
       if (messageId !== undefined) {
         incompleteSentences.push({
           sentence,
@@ -212,7 +212,7 @@ export function getSentences(text: string): readonly string[] {
 
 function getIncompleteSentenceKind(
   sentence: string,
-  loneSentence: boolean,
+  isLoneSentence: boolean,
 ): CompleteSentenceMessageIds | undefined {
   let text = sentence;
 
@@ -261,7 +261,7 @@ function getIncompleteSentenceKind(
   }
 
   if (
-    loneSentence &&
+    isLoneSentence &&
     // Single words, double words, and triple words.
     (/^\S+$/.test(text) || /^\S+ \S+$/.test(text) || /^\S+ \S+ \S+$/.test(text))
   ) {

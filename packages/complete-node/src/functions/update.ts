@@ -23,7 +23,7 @@ import { readFile } from "./readWrite.js";
  * @returns Whether the "package.json" file was updated.
  */
 export function updatePackageJSONDependencies(
-  filePathOrDirPath: string | undefined,
+  filePathOrDirPath?: string,
   installAfterUpdate = true,
   quiet = false,
 ): boolean {
@@ -37,11 +37,11 @@ export function updatePackageJSONDependencies(
   );
 
   if (packageJSONChanged && installAfterUpdate) {
-    const packageManager = getPackageManagerForProject(packageRoot);
     const $$ = $({
       cwd: packageRoot,
       stdio: quiet ? "pipe" : "inherit",
     });
+    const packageManager = getPackageManagerForProject(packageRoot);
     $$.sync`${packageManager} install`;
   }
 

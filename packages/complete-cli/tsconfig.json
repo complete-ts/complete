@@ -6,10 +6,4 @@
     "../complete-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
-
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
-  "compilerOptions": {
-    // Needed in order to make "source-map-support" work properly.
-    "sourceMap": true,
-  },
 }

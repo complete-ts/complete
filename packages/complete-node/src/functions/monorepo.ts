@@ -17,8 +17,8 @@ import {
 import { packageJSONHasScriptAsync } from "./packageJSON.js";
 
 /**
- * Helper function to copy a package's build output to the "node_modules" folder at the root of the
- * monorepo. This obviates the need for the monorepo to consume the actual npm package. (This is
+ * Helper function to copy a package's build output to the "node_modules" directory at the root of
+ * the monorepo. This obviates the need for the monorepo to consume the actual npm package. (This is
  * useful for ESLint plugins inside of a monorepo, for example.)
  *
  * This function assumes that the monorepo root is two directories above the provided package root.

@@ -10,7 +10,7 @@ import { fatalError } from "./utils.js";
 /**
  * Helper function to:
  *
- * - delete the "node_modules" folder
+ * - delete the "node_modules" directory
  * - delete any package manager lock files that exist
  * - reinstall the dependencies using the detected package manager
  *
@@ -18,11 +18,11 @@ import { fatalError } from "./utils.js";
  * If not found, this function will print an error message and exit.
  *
  * @param packageRoot The path to the directory that contains the "package.json" file and the
- *                    "node_modules" folder. If undefined is passed, the current working directory
- *                    will be used.
+ *                    "node_modules" directory. If undefined is passed, the current working
+ *                    directory will be used.
  * @returns Whether any dependencies were updated.
  */
-export function nukeDependencies(packageRoot: string | undefined): void {
+export function nukeDependencies(packageRoot?: string): void {
   if (packageRoot === undefined) {
     packageRoot = process.cwd(); // eslint-disable-line no-param-reassign
   }

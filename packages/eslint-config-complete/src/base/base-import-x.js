@@ -302,6 +302,8 @@ export const baseImportX = tseslint.config(
       "knip.config.ts",
       "prettier.config.js",
       "prettier.config.mjs",
+      "rollup.config.js",
+      "rollup.config.mjs",
       "typedoc.config.js",
       "typedoc.config.mjs",
       "vite.config.js",
