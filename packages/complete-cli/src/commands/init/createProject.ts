@@ -188,7 +188,11 @@ async function installNodeModules(
   );
   const $$ = $({ cwd: projectPath });
   /// const commandParts = command.split(" ");
+  console.log("GETTING HERE 1");
+  await $`${packageManager} install`;
+  console.log("GETTING HERE 2");
   await $$`${packageManager} install`;
+  console.log("GETTING HERE 3");
 }
 
 async function formatFiles(projectPath: string) {
