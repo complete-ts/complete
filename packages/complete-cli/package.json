@@ -42,6 +42,7 @@
     "yaml": "^2.7.0"
   },
   "devDependencies": {
+    "@types/klaw-sync": "^6.0.5",
     "@types/node": "^22.13.4",
     "@types/prompt": "^1.1.9",
     "complete-node": "^1.7.4",
