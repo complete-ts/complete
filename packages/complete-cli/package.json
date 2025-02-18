@@ -30,7 +30,8 @@
   "scripts": {
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
-    "start": "tsx ./src/main.ts"
+    "start": "tsx ./src/main.ts",
+    "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0",
