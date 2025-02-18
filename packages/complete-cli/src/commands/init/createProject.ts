@@ -187,8 +187,8 @@ async function installNodeModules(
     `Installing node modules with "${command}"... (This can take a long time.)`,
   );
   const $$ = $({ cwd: projectPath });
-  const commandParts = command.split(" ");
-  await $$`${commandParts}`;
+  /// const commandParts = command.split(" ");
+  await $$`${packageManager} install`;
 }
 
 async function formatFiles(projectPath: string) {
