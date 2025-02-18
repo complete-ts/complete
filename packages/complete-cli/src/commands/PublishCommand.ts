@@ -8,6 +8,8 @@ import {
   getPackageJSONField,
   getPackageJSONVersion,
   getPackageManagerInstallCommand,
+  getPackageManagerLockFileName,
+  getPackageManagersForProject,
   isFile,
   isGitRepository,
   isGitRepositoryClean,
@@ -17,8 +19,7 @@ import {
   writeFile,
 } from "complete-node";
 import path from "node:path";
-import { CWD } from "../constants.js";
-import { getPackageManagerUsedForExistingProject } from "../packageManager.js";
+import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 
 export class PublishCommand extends Command {
   static override paths = [["publish"], ["p"]];
@@ -105,6 +106,26 @@ function prePublish(
   if (!skipLint) {
     tryRunNPMScript("lint");
   }
+}
+
+function getPackageManagerUsedForExistingProject(): PackageManager {
+  const packageManagers = getPackageManagersForProject(CWD);
+  if (packageManagers.length > 1) {
+    const packageManagerLockFileNames = packageManagers
+      .map((packageManager) => getPackageManagerLockFileName(packageManager))
+      .map((packageManagerLockFileName) => `"${packageManagerLockFileName}"`)
+      .join(" & ");
+    fatalError(
+      `Multiple different kinds of package manager lock files were found (${packageManagerLockFileNames}). You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
+    );
+  }
+
+  const packageManager = packageManagers[0];
+  if (packageManager !== undefined) {
+    return packageManager;
+  }
+
+  return DEFAULT_PACKAGE_MANAGER;
 }
 
 function updateDependencies(

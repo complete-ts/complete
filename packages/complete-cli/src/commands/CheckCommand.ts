@@ -9,7 +9,6 @@ import {
   isFile,
   readFile,
   writeFile,
-  type PackageManager,
 } from "complete-node";
 import klawSync from "klaw-sync";
 import path from "node:path";
@@ -20,7 +19,6 @@ import {
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../constants.js";
-import { getPackageManagerUsedForExistingProject } from "../packageManager.js";
 import { getTruncatedText } from "./check/getTruncatedText.js";
 
 const URL_PREFIX =
@@ -44,8 +42,6 @@ export class CheckCommand extends Command {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   async execute(): Promise<void> {
-    const packageManager = getPackageManagerUsedForExistingProject();
-
     let oneOrMoreErrors = false;
     const ignore = this.ignore ?? "";
     const ignoreFileNames = ignore.split(",");
@@ -63,9 +59,7 @@ export class CheckCommand extends Command {
     }
 
     // Second, check dynamic files that require specific logic.
-    if (
-      checkIndividualFiles(ignoreFileNamesSet, packageManager, this.verbose)
-    ) {
+    if (checkIndividualFiles(ignoreFileNamesSet, this.verbose)) {
       oneOrMoreErrors = true;
     }
 
@@ -136,7 +130,6 @@ function checkTemplateDirectory(
 
 function checkIndividualFiles(
   ignoreFileNamesSet: ReadonlySet<string>,
-  packageManager: PackageManager,
   verbose: boolean,
 ) {
   let oneOrMoreErrors = false;

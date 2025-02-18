@@ -5,8 +5,8 @@ import { promptEnd, promptStart } from "../prompt.js";
 import { checkIfProjectPathExists } from "./init/checkIfProjectPathExists.js";
 import { createProject } from "./init/createProject.js";
 import { getAuthorName } from "./init/getAuthorName.js";
-import { getPackageManagerUsedForNewProject } from "./init/getPackageManagerUsedForNewProject.js";
 import { getProjectPath } from "./init/getProjectPath.js";
+import { getPackageManagerUsedForNewProject } from "./init/packageManager.js";
 import { vsCodeInit } from "./init/vsCodeInit.js";
 
 export class InitCommand extends Command {
