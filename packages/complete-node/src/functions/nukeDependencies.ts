@@ -3,6 +3,7 @@ import { $s } from "./execa.js";
 import { isFile, rm } from "./file.js";
 import {
   getPackageManagerForProject,
+  getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
 } from "./packageManager.js";
 import { fatalError } from "./utils.js";
@@ -50,6 +51,8 @@ export function nukeDependencies(packageRoot?: string): void {
   rm(packageManagerLockFilePath);
   console.log(`Removed: ${packageManagerLockFilePath}`);
 
-  console.log(`Running: ${packageManager} install`);
-  $s`${packageManager} install`;
+  const command = getPackageManagerInstallCommand(packageManager);
+  console.log(`Running: ${command}`);
+  const commandParts = command.split(" ");
+  $s`${commandParts}`;
 }

@@ -7,7 +7,10 @@
 import path from "node:path";
 import { $ } from "./execa.js";
 import { getFilePath } from "./file.js";
-import { getPackageManagerForProject } from "./packageManager.js";
+import {
+  getPackageManagerForProject,
+  getPackageManagerInstallCommand,
+} from "./packageManager.js";
 import { readFile } from "./readWrite.js";
 
 /**
@@ -42,7 +45,9 @@ export function updatePackageJSONDependencies(
       stdio: quiet ? "pipe" : "inherit",
     });
     const packageManager = getPackageManagerForProject(packageRoot);
-    $$.sync`${packageManager} install`;
+    const command = getPackageManagerInstallCommand(packageManager);
+    const commandParts = command.split(" ");
+    $$.sync`${commandParts}`;
   }
 
   return packageJSONChanged;

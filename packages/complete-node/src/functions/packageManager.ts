@@ -14,7 +14,7 @@ const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.npm]: "package-lock.json",
   [PackageManager.yarn]: "yarn.lock",
   [PackageManager.pnpm]: "pnpm-lock.yaml",
-  [PackageManager.bun]: "bun.lockb",
+  [PackageManager.bun]: "bun.lock",
 } as const satisfies Record<PackageManager, string>;
 
 const PACKAGE_MANAGER_EXEC_COMMANDS = {

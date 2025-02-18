@@ -8,6 +8,9 @@ const config = {
 
   workspaces: {
     "packages/*": {},
+    "packages/complete-cli": {
+      ignore: ["file-templates/**"],
+    },
     "packages/complete-node": {
       ignoreDependencies: ["npm-check-updates"],
     },

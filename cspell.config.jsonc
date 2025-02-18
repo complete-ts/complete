@@ -13,13 +13,16 @@
     "*.svg",
     ".git/**",
     ".yarn/**",
-    "bun.lockb",
+    "bun.lock",
     "dist/**",
     "LICENSE",
     "node_modules/**",
     "package-lock.json",
     "pnpm-lock.yaml",
     "yarn.lock",
+    // @template-customization-start
+    "Node.gitignore",
+    // @template-customization-end
   ],
   "words": [
     "adduser",
@@ -33,6 +36,7 @@
     "gulpfile",
     "isaacscript",
     "isnan",
+    "klaw",
     "nonconstructor",
     "nonoctal",
     "remarkrc",

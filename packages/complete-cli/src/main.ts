@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 import { Builtins, Cli } from "clipanion";
+import { CheckCommand } from "./commands/CheckCommand.js";
 import { InitCommand } from "./commands/InitCommand.js";
 import { NukeCommand } from "./commands/NukeCommand.js";
+import { PublishCommand } from "./commands/PublishCommand.js";
 import { UpdateCommand } from "./commands/UpdateCommand.js";
 import { PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
 import { validateNodeVersion } from "./validateNoteVersion.js";
 
-main();
+await main();
 
 async function main(): Promise<void> {
   validateNodeVersion();
@@ -20,10 +22,10 @@ async function main(): Promise<void> {
     binaryVersion: PROJECT_VERSION,
   });
 
-  // cli.register(CheckCommand);
+  cli.register(CheckCommand);
   cli.register(InitCommand);
   cli.register(NukeCommand);
-  // cli.register(PublishCommand);
+  cli.register(PublishCommand);
   cli.register(UpdateCommand);
 
   cli.register(Builtins.HelpCommand);

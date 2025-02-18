@@ -60,10 +60,6 @@ export class InitCommand extends Command {
     description: "Allow project names that are normally illegal.",
   });
 
-  verbose = Option.Boolean("-v,--verbose", false, {
-    description: "Enable verbose output.",
-  });
-
   static override usage = Command.Usage({
     description: "Initialize a new TypeScript project.",
   });

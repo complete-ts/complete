@@ -6,6 +6,7 @@ import {
   copyFileOrDirectory,
   getFileNamesInDirectory,
   getPackageManagerInstallCICommand,
+  getPackageManagerInstallCommand,
   isFile,
   makeDirectory,
   readFile,
@@ -17,8 +18,6 @@ import path from "node:path";
 import {
   ACTION_YML,
   ACTION_YML_TEMPLATE_PATH,
-  GITIGNORE_TEMPLATE_PATH,
-  README_MD,
   TEMPLATES_DYNAMIC_DIR,
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
@@ -115,7 +114,10 @@ function copyDynamicFiles(
 
   // `.gitignore`
   {
-    const templatePath = GITIGNORE_TEMPLATE_PATH;
+    const templatePath = path.join(
+      TEMPLATES_DYNAMIC_DIR,
+      "_gitignore", // Not named ".gitignore" to prevent npm from deleting it.
+    );
     const template = readFile(templatePath);
 
     // Prepend a header with the project name.
@@ -163,7 +165,7 @@ function copyDynamicFiles(
     const readmeMD = template
       .replaceAll("PROJECT-NAME", projectName)
       .replaceAll("PACKAGE-MANAGER-INSTALL-COMMAND", command);
-    const destinationPath = path.join(projectPath, README_MD);
+    const destinationPath = path.join(projectPath, "README.md");
     writeFile(destinationPath, readmeMD);
   }
 
@@ -180,11 +182,13 @@ async function installNodeModules(
     return;
   }
 
+  const command = getPackageManagerInstallCommand(packageManager);
   promptLog(
-    `Installing node modules with "${packageManager} install"... (This can take a long time.)`,
+    `Installing node modules with "${command}"... (This can take a long time.)`,
   );
   const $$ = $({ cwd: projectPath });
-  await $$`${packageManager} install`;
+  const commandParts = command.split(" ");
+  await $$`${commandParts}`;
 }
 
 async function formatFiles(projectPath: string) {
