@@ -4,7 +4,7 @@
  * @module
  */
 
-import { $q } from "./execa.js";
+import { $q } from "../execa.js";
 
 /**
  * Helper function to see if the compiled output that is checked-in to the Git repository is

@@ -4,7 +4,7 @@
  * @module
  */
 
-import { $q } from "./execa.js";
+import { $q } from "../execa.js";
 
 /**
  * Helper function to check if the npm CLI tool is logged in. This is useful to throw an error

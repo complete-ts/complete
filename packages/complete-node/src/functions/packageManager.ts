@@ -4,11 +4,12 @@
  * @module
  */
 
-import { assertDefined } from "complete-common";
+import { assertDefined, getEnumValues } from "complete-common";
 import path from "node:path";
-import { PACKAGE_MANAGER_VALUES } from "../cachedEnumValues.js";
 import { PackageManager } from "../enums/PackageManager.js";
 import { isFile } from "./file.js";
+
+const PACKAGE_MANAGER_VALUES = getEnumValues(PackageManager);
 
 const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.npm]: "package-lock.json",

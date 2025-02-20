@@ -98,6 +98,10 @@ const config: Config = {
     // We provide some keyboard shortcuts for easier navigation.
     "/js/hotkey.js",
   ],
+
+  future: {
+    experimental_faster: true,
+  },
 };
 
 export default config;
