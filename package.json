@@ -14,7 +14,7 @@
   "author": "Zamiell",
   "type": "module",
   "scripts": {
-    "postinstall": "tsx ./packages/eslint-plugin-complete/scripts/build.ts",
+    "postinstall": "prettier package.json --write && tsx ./packages/eslint-plugin-complete/scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "lint-all": "tsx ./scripts/lintAll.ts",
     "publish": "tsx ./scripts/publish.ts",
