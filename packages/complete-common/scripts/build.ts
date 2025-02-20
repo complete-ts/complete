@@ -1,6 +1,5 @@
 import { trimSuffix } from "complete-common";
 import {
-  $s,
   buildScript,
   copyFileOrDirectory,
   copyFileOrDirectoryAsync,
@@ -8,13 +7,14 @@ import {
   getMatchingFilePaths,
   replaceTextInFile,
 } from "complete-node";
+import { $ } from "execa";
 import os from "node:os";
 import path from "node:path";
 
 const OUTPUT_FILES = ["index.cjs", "index.mjs"] as const;
 
 await buildScript(async (packageRoot) => {
-  $s`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
+  await $`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
   fixBuggedReadonlyConstructors();
   buildDeclarations(packageRoot);
   await copyDeclarations(packageRoot);
@@ -57,7 +57,7 @@ function buildDeclarations(packageRoot: string) {
   }
 
   deleteFileOrDirectory(outDir);
-  $s`tsc --emitDeclarationOnly`;
+  $.sync`tsc --emitDeclarationOnly`;
 
   for (const fileName of OUTPUT_FILES) {
     const srcPath = path.join(tmpDir, fileName);

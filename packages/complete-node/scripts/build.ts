@@ -1,6 +1,5 @@
 import { trimSuffix } from "complete-common";
 import {
-  $s,
   buildScript,
   copyFileOrDirectory,
   copyFileOrDirectoryAsync,
@@ -10,13 +9,14 @@ import {
   readFileAsync,
   writeFileAsync,
 } from "complete-node";
+import { $ } from "execa";
 import os from "node:os";
 import path from "node:path";
 
 const OUTPUT_FILES = ["index.cjs", "index.mjs"] as const;
 
 await buildScript(async (packageRoot) => {
-  $s`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
+  await $`unbuild`; // We use the `unbuild` library to output both ESM and CJS.
   await buildDeclarations(packageRoot);
   await copyDeclarations(packageRoot);
 });
@@ -39,7 +39,7 @@ async function buildDeclarations(packageRoot: string) {
   }
 
   deleteFileOrDirectory(outDir);
-  $s`tsc --emitDeclarationOnly`;
+  await $`tsc --emitDeclarationOnly`;
   fixMonorepoPackageDistDirectory(packageRoot);
   await fixDeclarationMaps(outDir);
 

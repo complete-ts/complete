@@ -1,4 +1,5 @@
-import { $, getMonorepoPackageNames, lintScript } from "complete-node";
+import { getMonorepoPackageNames, lintScript } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 
 // This script runs the lint scripts for each individual package. It does not run the lint scripts

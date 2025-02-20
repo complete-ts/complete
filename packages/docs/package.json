@@ -59,6 +59,7 @@
     "@types/node": "^22.13.4",
     "complete-common": "^1.0.1",
     "complete-node": "^1.7.4",
+    "execa": "^9.5.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1"
   }

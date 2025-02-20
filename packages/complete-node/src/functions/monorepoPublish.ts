@@ -55,7 +55,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     exit(1);
   }
 
-  if (!isGitRepositoryClean(monorepoRoot)) {
+  const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
+  if (!isRepositoryCleanOnStart) {
     echo("Error: The Git repository must be clean before publishing.");
     exit(1);
   }
@@ -174,7 +175,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     await updatePackageJSONDependenciesMonorepoChildren(monorepoRoot);
   }
 
-  if (!isGitRepositoryClean(monorepoRoot)) {
+  const isRepositoryCleanOnFinish = await isGitRepositoryClean(monorepoRoot);
+  if (!isRepositoryCleanOnFinish) {
     const gitCommitMessage = "chore: updating dependencies";
     await $`git add --all`;
     await $`git commit --message ${gitCommitMessage}`;

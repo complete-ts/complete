@@ -1,5 +1,6 @@
 import { assertDefined } from "complete-common";
-import { $, echo, exit, lintScript, readFile } from "complete-node";
+import { echo, exit, lintScript, readFile } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";

@@ -89,7 +89,7 @@ export async function testScript(func: ScriptCallback): Promise<void> {
  * Helper function to create a script for a TypeScript project. You can pass any arbitrary logic you
  * want.
  *
- * This is intended to be used with the `$` and `$s` helper functions so that you can make a
+ * This is intended to be used with the `$` function from the "execa" library so that you can make a
  * TypeScript script in the style of a Bash script.
  *
  * Specifically, this helper function will:

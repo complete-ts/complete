@@ -54,5 +54,5 @@ export function nukeDependencies(packageRoot?: string): void {
   const command = getPackageManagerInstallCommand(packageManager);
   console.log(`Running: ${command}`);
   const commandParts = command.split(" ");
-  $.s`${commandParts}`;
+  $.sync`${commandParts}`;
 }

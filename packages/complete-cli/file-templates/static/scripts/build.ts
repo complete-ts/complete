@@ -1,5 +1,6 @@
-import { $s, buildScript } from "complete-node";
+import { buildScript } from "complete-node";
+import { $ } from "execa";
 
-await buildScript(() => {
-  $s`tsc`;
+await buildScript(async () => {
+  await $`tsc`;
 });

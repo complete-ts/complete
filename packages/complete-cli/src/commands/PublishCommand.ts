@@ -2,22 +2,21 @@ import { Command, Option } from "clipanion";
 import { isSemanticVersion } from "complete-common";
 import type { PackageManager } from "complete-node";
 import {
-  $,
-  $s,
   fatalError,
   getPackageJSONField,
   getPackageJSONVersion,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
-  isFile,
+  isFileAsync,
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
   readFile,
   updatePackageJSONDependencies,
-  writeFile,
+  writeFileAsync,
 } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 
@@ -45,39 +44,42 @@ export class PublishCommand extends Command {
     description: "Bump the version & publish a new release.",
   });
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async execute(): Promise<void> {
-    validate();
-    prePublish(
+    await validate();
+    await prePublish(
       this.versionBumpType,
       this.dryRun,
       this.skipLint,
       this.skipUpdate,
     );
-    publish(this.dryRun);
+    await publish(this.dryRun);
   }
 }
 
-function validate() {
-  if (!isGitRepository(CWD)) {
+async function validate() {
+  const isRepository = await isGitRepository(CWD);
+  if (!isRepository) {
     fatalError(
       "Failed to publish since the current working directory is not inside of a git repository.",
     );
   }
 
-  if (!isGitRepositoryClean(CWD)) {
+  const isRepositoryClean = await isGitRepositoryClean(CWD);
+  if (!isRepositoryClean) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
     );
   }
 
-  if (!isFile("package.json")) {
+  const packageJSONExists = await isFileAsync("package.json");
+  if (!packageJSONExists) {
     fatalError(
       'Failed to find the "package.json" file in the current working directory.',
     );
   }
 
-  if (!isLoggedInToNPM()) {
+  const isLoggedIn = await isLoggedInToNPM();
+  if (!isLoggedIn) {
     fatalError(
       'Failed to publish since you are not logged in to npm. Try doing "npm login".',
     );
@@ -88,7 +90,7 @@ function validate() {
  * Before uploading the project, we want to update dependencies, increment the version, and perform
  * some other steps.
  */
-function prePublish(
+async function prePublish(
   versionBumpType: string,
   dryRun: boolean,
   skipLint: boolean,
@@ -96,15 +98,15 @@ function prePublish(
 ) {
   const packageManager = getPackageManagerUsedForExistingProject();
 
-  $s`git pull --rebase`;
-  $s`git push`;
-  updateDependencies(skipUpdate, dryRun, packageManager);
-  incrementVersion(versionBumpType);
-  unsetDevelopmentConstants();
+  await $`git pull --rebase`;
+  await $`git push`;
+  await updateDependencies(skipUpdate, dryRun, packageManager);
+  await incrementVersion(versionBumpType);
+  await unsetDevelopmentConstants();
 
-  tryRunNPMScript("build");
+  await tryRunNPMScript("build");
   if (!skipLint) {
-    tryRunNPMScript("lint");
+    await tryRunNPMScript("lint");
   }
 }
 
@@ -128,7 +130,7 @@ function getPackageManagerUsedForExistingProject(): PackageManager {
   return DEFAULT_PACKAGE_MANAGER;
 }
 
-function updateDependencies(
+async function updateDependencies(
   skipUpdate: boolean,
   dryRun: boolean,
   packageManager: PackageManager,
@@ -142,23 +144,23 @@ function updateDependencies(
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     const commandParts = command.split(" ");
-    $s`${commandParts}`;
+    await $`${commandParts}`;
     if (!dryRun) {
-      gitCommitAllAndPush("chore: update dependencies");
+      await gitCommitAllAndPush("chore: update dependencies");
     }
   }
 }
 
-function gitCommitAllAndPush(message: string) {
-  $s`git add --all`;
-  $s`git commit --message ${message}`;
-  $s`git push`;
+async function gitCommitAllAndPush(message: string) {
+  await $`git add --all`;
+  await $`git commit --message ${message}`;
+  await $`git push`;
   console.log(
     `Committed and pushed to the git repository with a message of: ${message}`,
   );
 }
 
-function incrementVersion(versionBumpType: string) {
+async function incrementVersion(versionBumpType: string) {
   if (versionBumpType === "none") {
     return;
   }
@@ -184,12 +186,13 @@ function incrementVersion(versionBumpType: string) {
   // We always use `npm` here to avoid differences with the version command between package
   // managers. The "--no-git-tag-version" flag will prevent npm from both making a commit and adding
   // a tag.
-  $s`npm version ${versionBumpType} --no-git-tag-version`;
+  await $`npm version ${versionBumpType} --no-git-tag-version`;
 }
 
-function unsetDevelopmentConstants() {
+async function unsetDevelopmentConstants() {
   const constantsTSPath = path.join(CWD, "src", "constants.ts");
-  if (!isFile(constantsTSPath)) {
+  const constantsTSExists = await isFileAsync(constantsTSPath);
+  if (!constantsTSExists) {
     return;
   }
 
@@ -197,38 +200,38 @@ function unsetDevelopmentConstants() {
   const newConstantsTS = constantsTS
     .replace("const IS_DEV = true", "const IS_DEV = false")
     .replace("const DEBUG = true", "const DEBUG = false");
-  writeFile(constantsTSPath, newConstantsTS);
+  await writeFileAsync(constantsTSPath, newConstantsTS);
 }
 
-function tryRunNPMScript(scriptName: string) {
+async function tryRunNPMScript(scriptName: string) {
   console.log(`Running: ${scriptName}`);
 
   const $$ = $({
     reject: false,
   });
-  const { exitCode } = $$.sync`npm run ${scriptName}`;
+  const { exitCode } = await $$`npm run ${scriptName}`;
 
   if (exitCode !== 0) {
-    $s`git reset --hard`; // Revert the version changes.
+    await $`git reset --hard`; // Revert the version changes.
     fatalError(`Failed to run "${scriptName}".`);
   }
 }
 
-function publish(dryRun: boolean) {
+async function publish(dryRun: boolean) {
   const projectName = getPackageJSONField(undefined, "name");
   const version = getPackageJSONVersion(undefined);
 
   if (dryRun) {
-    $s`git reset --hard`; // Revert the version changes.
+    await $`git reset --hard`; // Revert the version changes.
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
-    gitCommitAllAndPush(releaseGitCommitMessage);
+    await gitCommitAllAndPush(releaseGitCommitMessage);
 
     // - The "--access=public" flag is only technically needed for the first publish (unless the
     //   package is a scoped package), but it is saved here for posterity.
     // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the
     //   "publish" script in the "package.json" file, causing an infinite loop.
-    $s`npm publish --access=public --ignore-scripts`;
+    await $`npm publish --access=public --ignore-scripts`;
   }
 
   const dryRunSuffix = dryRun ? " (dry-run)" : "";

@@ -1,4 +1,5 @@
-import { $, commandExists, getJSONC, isFile } from "complete-node";
+import { commandExists, getJSONC, isFile } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 import { getInputYesNo, promptError, promptLog } from "../../prompt.js";
 

@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { Command, Option } from "clipanion";
 import { ReadonlySet } from "complete-common";
 import {
-  $s,
   deleteFileOrDirectory,
   fatalError,
   isDirectory,
@@ -10,6 +9,7 @@ import {
   readFile,
   writeFile,
 } from "complete-node";
+import { $ } from "execa";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {
@@ -209,7 +209,7 @@ function compareTextFiles(
   writeFile(tempProjectFilePath, projectFileObject.text);
   writeFile(tempTemplateFilePath, templateFileObject.text);
 
-  $s`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
+  $.sync`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
 
   deleteFileOrDirectory(tempProjectFilePath);
   deleteFileOrDirectory(tempTemplateFilePath);

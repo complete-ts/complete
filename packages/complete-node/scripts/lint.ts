@@ -1,4 +1,5 @@
-import { $, lintScript } from "complete-node";
+import { lintScript } from "complete-node";
+import { $ } from "execa";
 
 await lintScript(async () => {
   await Promise.all([

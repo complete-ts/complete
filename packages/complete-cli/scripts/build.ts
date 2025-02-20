@@ -1,10 +1,7 @@
-import {
-  $s,
-  buildScript,
-  fixMonorepoPackageDistDirectory,
-} from "complete-node";
+import { buildScript, fixMonorepoPackageDistDirectory } from "complete-node";
+import { $ } from "execa";
 
-await buildScript((packageRoot) => {
-  $s`tsc`;
+await buildScript(async (packageRoot) => {
+  await $`tsc`;
   fixMonorepoPackageDistDirectory(packageRoot);
 });

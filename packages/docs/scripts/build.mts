@@ -1,7 +1,5 @@
 import { capitalizeFirstLetter, trimSuffix } from "complete-common";
 import {
-  $,
-  $s,
   buildScript,
   cp,
   deleteLineInFile,
@@ -15,6 +13,7 @@ import {
   rm,
   writeFile,
 } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 
 const CATEGORY_FILE_NAME = "_category_.yml";
@@ -72,7 +71,7 @@ await buildScript(async (packageRoot) => {
   const $$ = $({ cwd: repoRoot });
   await $$`prettier ./packages/docs/docs --write`;
 
-  $s`docusaurus build`;
+  await $`docusaurus build`;
 });
 
 async function runTypeDoc(repoRoot: string, packageName: string) {

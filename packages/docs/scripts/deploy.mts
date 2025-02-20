@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/core";
 import {
-  $,
   appendFile,
   cp,
   echo,
@@ -13,6 +12,7 @@ import {
   rm,
   sleep,
 } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 
 const DOCS_REPO_NAME = "complete-ts.github.io";
@@ -45,7 +45,8 @@ rm(DOCS_REPO);
 cp(BUILD_DIRECTORY_PATH, DOCS_REPO);
 mv(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
-if (isGitRepositoryClean(DOCS_REPO)) {
+const isRepositoryClean = await isGitRepositoryClean(DOCS_REPO);
+if (isRepositoryClean) {
   echo("There are no documentation website changes to deploy.");
   exit();
 }
@@ -54,7 +55,8 @@ if (isGitRepositoryClean(DOCS_REPO)) {
 // that another commit has been pushed in the meantime, in which case we should do nothing and wait
 // for the CI on that commit to finish.)
 // https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
-if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
+const isLatestCommitAtStart = await isGitRepositoryLatestCommit(REPO_ROOT);
+if (!isLatestCommitAtStart) {
   echo(
     "A more recent commit was found in the repository; skipping website deployment.",
   );
@@ -64,16 +66,16 @@ if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
 
 const $$ = $({ cwd: DOCS_REPO });
-$$.sync`git config --global user.email "github-actions@users.noreply.github.com"`;
-$$.sync`git config --global user.name "github-actions"`;
+await $$`git config --global user.email "github-actions@users.noreply.github.com"`;
+await $$`git config --global user.name "github-actions"`;
 // We overwrite the previous commit instead of adding a new one in order to keep the size of the
 // repository as small as possible. This speeds up deployment because with thousands of commits, it
 // takes a very long time to clone.
-$$.sync`git add --all`;
-$$.sync`git commit --message deploy --amend`;
-$$.sync`git push --force-with-lease`;
+await $$`git add --all`;
+await $$`git commit --message deploy --amend`;
+await $$`git push --force-with-lease`;
 
-const commitSHA1 = $$.sync`git rev-parse HEAD`.stdout;
+const { stdout: commitSHA1 } = await $$`git rev-parse HEAD`;
 if (commitSHA1 === "") {
   fatalError("Failed to parse the deployed website commit SHA1.");
 }
@@ -87,7 +89,9 @@ const octokit = new Octokit({
 let totalSeconds = 0;
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 while (true) {
-  if (!isGitRepositoryLatestCommit(REPO_ROOT)) {
+  // eslint-disable-next-line no-await-in-loop
+  const isLatestCommit = await isGitRepositoryLatestCommit(REPO_ROOT);
+  if (!isLatestCommit) {
     echo(
       "A more recent commit was found in the repository; skipping website scraping.",
     );
