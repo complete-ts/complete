@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { repeat } from "complete-common";
 import type { PackageManager } from "complete-node";
 import {
-  $,
   copyFileOrDirectory,
   getFileNamesInDirectory,
   getPackageManagerInstallCICommand,
@@ -14,6 +13,7 @@ import {
   updatePackageJSONDependencies,
   writeFile,
 } from "complete-node";
+import { $ } from "execa";
 import path from "node:path";
 import {
   ACTION_YML,
