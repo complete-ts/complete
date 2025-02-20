@@ -4,15 +4,15 @@
  * @module
  */
 
-import { $sq } from "./execa.js";
+import { $q } from "./execa.js";
 
 /**
  * Helper function to check if the npm CLI tool is logged in. This is useful to throw an error
  * before publishing.
  */
-export function isLoggedInToNPM(): boolean {
+export async function isLoggedInToNPM(): Promise<boolean> {
   try {
-    $sq`npm whoami`;
+    await $q`npm whoami`;
   } catch {
     return false;
   }

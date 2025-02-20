@@ -4,34 +4,38 @@
  * @module
  */
 
-import { $ } from "./execa.js";
+import { $ } from "execa";
 
 /** Helper function to determine whether the given path is inside of a Git repository. */
-export function isGitRepository(gitRepositoryPath: string): boolean {
+export async function isGitRepository(
+  gitRepositoryPath: string,
+): Promise<boolean> {
   const $$ = $({ cwd: gitRepositoryPath });
-  const returnBase = $$.sync`git rev-parse --is-inside-work-tree`;
-  return returnBase.exitCode === 0;
+  const result = await $$`git rev-parse --is-inside-work-tree`;
+  return result.exitCode === 0;
 }
 
 /**
  * Helper function to determine whether the given Git repository is "clean", meaning has no
  * unchanged files from the head.
  */
-export function isGitRepositoryClean(gitRepositoryPath: string): boolean {
+export async function isGitRepositoryClean(
+  gitRepositoryPath: string,
+): Promise<boolean> {
   const $$ = $({ cwd: gitRepositoryPath });
-  const gitStatus = $$.sync`git status --porcelain`.stdout;
+  const { stdout: gitStatus } = await $$`git status --porcelain`;
   return gitStatus === "";
 }
 
 /** Helper function to determine whether the given Git repository is up to date with the remote. */
-export function isGitRepositoryLatestCommit(
+export async function isGitRepositoryLatestCommit(
   gitRepositoryPath: string,
-): boolean {
+): Promise<boolean> {
   const $$ = $({ cwd: gitRepositoryPath });
-  $$.sync`git fetch`;
+  await $$`git fetch`;
 
-  const currentSHA1 = $$.sync`git rev-parse HEAD`.stdout;
-  const latestSHA1 = $$.sync`git rev-parse @{u}`.stdout;
+  const { stdout: currentSHA1 } = await $$`git rev-parse HEAD`;
+  const { stdout: latestSHA1 } = await $$`git rev-parse @{u}`;
 
   return currentSHA1 === latestSHA1;
 }

@@ -10,9 +10,9 @@ import {
   isEnumValue,
   isSemanticVersion,
 } from "complete-common";
+import { $ } from "execa";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { $, $o, $s, $sq } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
 import {
@@ -49,7 +49,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   const startTime = Date.now();
 
   // Validate that we are on the correct branch.
-  const branch = $o`git branch --show-current`;
+  const { stdout: branch } = await $`git branch --show-current`;
   if (branch !== "main") {
     echo("Error: You must be on the main branch before publishing.");
     exit(1);
@@ -61,8 +61,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   }
 
   // Validate that we can push and pull to the repository.
-  $s`git pull --quiet`;
-  $s`git push --quiet`;
+  await $`git pull --quiet`;
+  await $`git push --quiet`;
 
   if (!isLoggedInToNPM()) {
     fatalError(
@@ -123,23 +123,24 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
    *
    * Thus, we manually revert to doing a commit ourselves.
    */
+  // eslint-disable-next-line unicorn/prefer-ternary
   if (
     isEnumValue(versionBump, VersionBump) &&
     versionBump === VersionBump.dev
   ) {
-    $$.sync`npm version prerelease --preid=dev --commit-hooks=false`;
+    await $$`npm version prerelease --preid=dev --commit-hooks=false`;
   } else {
-    $$.sync`npm version ${versionBump} --commit-hooks=false`;
+    await $$`npm version ${versionBump} --commit-hooks=false`;
   }
 
   // Manually make a Git commit. (See above comment.)
   const packageJSONPath = path.join(packagePath, "package.json");
-  $sq`git add ${packageJSONPath}`;
+  await $`git add ${packageJSONPath}`;
   const newVersion = getPackageJSONVersion(packagePath);
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore(release): ${tag}`;
-  $sq`git commit --message ${commitMessage}`;
-  $sq`git tag ${tag}`;
+  await $`git commit --message ${commitMessage}`;
+  await $`git tag ${tag}`;
   // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
   // Upload the package to npm.
@@ -151,7 +152,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   //   package is a scoped package), but it is saved here for posterity.
   // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
   //   script in the "package.json" file, causing an infinite loop.
-  $$.sync`npm publish --access=public --ignore-scripts --tag=${npmTag}`;
+  await $$`npm publish --access=public --ignore-scripts --tag=${npmTag}`;
 
   const elapsedSeconds = getElapsedSeconds(startTime);
   const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
@@ -175,9 +176,9 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   if (!isGitRepositoryClean(monorepoRoot)) {
     const gitCommitMessage = "chore: updating dependencies";
-    $sq`git add --all`;
-    $sq`git commit --message ${gitCommitMessage}`;
+    await $`git add --all`;
+    await $`git commit --message ${gitCommitMessage}`;
   }
 
-  $sq`git push`;
+  await $`git push`;
 }

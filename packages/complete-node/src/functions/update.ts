@@ -4,8 +4,8 @@
  * @module
  */
 
+import { $ } from "execa";
 import path from "node:path";
-import { $ } from "./execa.js";
 import { getFilePath } from "./file.js";
 import {
   getPackageManagerForProject,

@@ -1,5 +1,5 @@
+import { $ } from "execa";
 import path from "node:path";
-import { $s } from "./execa.js";
 import { isFile, rm } from "./file.js";
 import {
   getPackageManagerForProject,
@@ -54,5 +54,5 @@ export function nukeDependencies(packageRoot?: string): void {
   const command = getPackageManagerInstallCommand(packageManager);
   console.log(`Running: ${command}`);
   const commandParts = command.split(" ");
-  $s`${commandParts}`;
+  $.s`${commandParts}`;
 }
