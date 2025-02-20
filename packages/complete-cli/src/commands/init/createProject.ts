@@ -189,9 +189,9 @@ async function installNodeModules(
   const $$ = $({ cwd: projectPath });
   /// const commandParts = command.split(" ");
   console.log("GETTING HERE 1");
-  await $`${packageManager} install`;
+  await $`echo lol1`;
   console.log("GETTING HERE 2");
-  await $$`${packageManager} install`;
+  await $$`echo lol2`;
   console.log("GETTING HERE 3");
 }
 
