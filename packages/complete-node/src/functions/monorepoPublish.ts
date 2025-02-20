@@ -65,7 +65,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   await $`git pull --quiet`;
   await $`git push --quiet`;
 
-  if (!isLoggedInToNPM()) {
+  const isLoggedIn = await isLoggedInToNPM();
+  if (!isLoggedIn) {
     fatalError(
       `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
     );
