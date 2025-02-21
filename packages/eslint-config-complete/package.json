@@ -51,7 +51,7 @@
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.13.4",
-    "complete-common": "^1.0.1",
+    "complete-common": "^1.1.0",
     "complete-node": "^1.7.4",
     "eslint-config-prettier": "^10.0.1",
     "execa": "^9.5.2",

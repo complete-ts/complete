@@ -58,7 +58,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@octokit/core": "^6.1.4",
     "@types/node": "^22.13.4",
-    "complete-common": "^1.0.1",
+    "complete-common": "^1.1.0",
     "complete-node": "^1.7.4",
     "execa": "^9.5.2",
     "typescript": "^5.7.3",
