@@ -30,3 +30,85 @@ export function objectFilter<K extends string | number | symbol, V>(
 
   return array;
 }
+
+/**
+ * Helper function to convert an object to a map.
+ *
+ * This is useful when you need to construct a type safe object with the `satisfies` operator, but
+ * then later on you need to query it in a way where you expect the return value to be T or
+ * undefined. In this situation, by converting the object to a map, you can avoid unsafe type
+ * assertions.
+ *
+ * Note that the converted map will only have string keys, due to the nature of JavaScript objects
+ * only having string keys under the hood.
+ *
+ * Also see the `objectToReadonlyMap` function.
+ */
+// eslint-disable-next-line complete/no-mutable-return
+export function objectToMap<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): Map<K, V> {
+  const map = new Map<K, V>();
+
+  for (const [key, value] of Object.entries(object)) {
+    map.set(key as K, value as V);
+  }
+
+  return map;
+}
+
+/**
+ * Helper function to convert an object to a read-only map.
+ *
+ * This is useful when you need to construct a type safe object with the `satisfies` operator, but
+ * then later on you need to query it in a way where you expect the return value to be T or
+ * undefined. In this situation, by converting the object to a map, you can avoid unsafe type
+ * assertions.
+ *
+ * Note that the converted map will only have string keys, due to the nature of JavaScript objects
+ * only having string keys under the hood.
+ *
+ * Also see the `objectToMap` function.
+ */
+export function objectToReadonlyMap<K extends string | number | symbol, V>(
+  object: Record<K, V>,
+): ReadonlyMap<K, V> {
+  return objectToMap(object);
+}
+
+/**
+ * Helper function to convert an object to a reverse map.
+ *
+ * Note that the converted map will only have string keys, due to the nature of JavaScript objects
+ * only having string keys under the hood.
+ *
+ * Also see the `objectToReverseReadonlyMap` function.
+ */
+// eslint-disable-next-line complete/no-mutable-return
+export function objectToReverseMap<
+  K extends string | number | symbol,
+  V extends string | number | symbol,
+>(object: Record<K, V>): Map<V, K> {
+  const map = new Map<V, K>();
+
+  for (const [key, value] of Object.entries(object)) {
+    map.set(value as V, key as K);
+  }
+
+  return map;
+}
+
+/**
+ * Helper function to convert an object to a reverse read-only map.
+ *
+ * Note that the converted map will only have string keys, due to the nature of JavaScript objects
+ * only having string keys under the hood.
+ *
+ * Also see the `objectToReverseMap` function.
+ */
+export function objectToReverseReadonlyMap<
+  K extends string | number | symbol,
+  V extends string | number | symbol,
+>(object: Record<K, V>): ReadonlyMap<V, K> {
+  return objectToReverseMap(object);
+}
