@@ -140,7 +140,7 @@ async function updateDependencies(
   }
 
   console.log('Updating dependencies in the "package.json" file...');
-  const hasNewDependencies = updatePackageJSONDependencies(undefined);
+  const hasNewDependencies = await updatePackageJSONDependencies(undefined);
   if (hasNewDependencies) {
     const command = getPackageManagerInstallCommand(packageManager);
     const commandParts = command.split(" ");

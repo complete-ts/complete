@@ -8,6 +8,7 @@ import {
   isCancel,
   log,
   outro,
+  spinner,
   text,
 } from "@clack/prompts";
 import chalk from "chalk";
@@ -64,6 +65,12 @@ export async function getInputString(
 
 export function promptLog(msg: string): void {
   log.step(msg); // Step is a hollow green diamond.
+}
+
+export function promptSpinnerStart(msg: string): ReturnType<typeof spinner> {
+  const s = spinner();
+  s.start(msg);
+  return s;
 }
 
 export function promptError(msg: string): never {

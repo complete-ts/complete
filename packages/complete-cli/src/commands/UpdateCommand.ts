@@ -9,9 +9,8 @@ export class UpdateCommand extends Command {
       'Invoke "npm-check-updates" to update the dependencies inside of the "package.json" file and then install them.',
   });
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async execute(): Promise<void> {
-    const hasNewDependencies = updatePackageJSONDependencies();
+    const hasNewDependencies = await updatePackageJSONDependencies();
     const msg = hasNewDependencies
       ? "Successfully installed new Node.js dependencies."
       : "There were no new dependency updates from npm.";

@@ -89,7 +89,7 @@ export async function updatePackageJSONDependenciesMonorepo(
 
   // First, update the main "package.json" at the root of the monorepo.
   const monorepoPackageJSONChanged =
-    updatePackageJSONDependencies(monorepoRoot);
+    await updatePackageJSONDependencies(monorepoRoot);
 
   // Second, check to see if child "package.json" dependencies are up to date.
   const zeroFilesChanged =

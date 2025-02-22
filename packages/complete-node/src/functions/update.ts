@@ -4,8 +4,10 @@
  * @module
  */
 
+import { isObject } from "complete-common";
 import { $ } from "execa";
 import path from "node:path";
+import ncu from "npm-check-updates";
 import { getFilePath } from "./file.js";
 import {
   getPackageManagerForProject,
@@ -25,19 +27,17 @@ import { readFile } from "./readWrite.js";
  * @param quiet Optional. Whether to suppress console output. Default is false.
  * @returns Whether the "package.json" file was updated.
  */
-export function updatePackageJSONDependencies(
+export async function updatePackageJSONDependencies(
   filePathOrDirPath?: string,
   installAfterUpdate = true,
   quiet = false,
-): boolean {
+): Promise<boolean> {
   const packageJSONPath = getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
 
-  const packageJSONChanged = runNPMCheckUpdates(
-    packageJSONPath,
-    packageRoot,
-    quiet,
-  );
+  const packageJSONChanged = await (quiet
+    ? runNPMCheckUpdatesQuiet(packageJSONPath)
+    : runNPMCheckUpdates(packageJSONPath, packageRoot));
 
   if (packageJSONChanged && installAfterUpdate) {
     const $$ = $({
@@ -54,16 +54,11 @@ export function updatePackageJSONDependencies(
 }
 
 /** @returns Whether the "package.json" file was changed by `npm-check-updates`. */
-function runNPMCheckUpdates(
+async function runNPMCheckUpdates(
   packageJSONPath: string,
   packageRoot: string,
-  quiet: boolean,
-): boolean {
-  const $$ = $({
-    cwd: packageRoot,
-    stdio: quiet ? "pipe" : "inherit",
-  });
-
+): Promise<boolean> {
+  const $$ = $({ cwd: packageRoot });
   const oldPackageJSONString = readFile(packageJSONPath);
 
   // We want to run the CLI command instead of invoking the API because it provides a progress meter
@@ -75,8 +70,25 @@ function runNPMCheckUpdates(
   //   "package.json" file, so we must explicitly specify it.
   // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
   //   that it should be a "locked" dependency and not upgraded.
-  $$.sync`npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+  await $$`npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
 
   const newPackageJSONString = readFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
+}
+
+/** @returns Whether the "package.json" file was changed by `npm-check-updates`. */
+async function runNPMCheckUpdatesQuiet(
+  packageJSONPath: string,
+): Promise<boolean> {
+  const upgradedPackages = await ncu.run({
+    upgrade: true,
+    packageFile: packageJSONPath,
+    filterVersion: "^*",
+  });
+
+  if (!isObject(upgradedPackages)) {
+    return false;
+  }
+
+  return Object.keys(upgradedPackages).length > 0;
 }

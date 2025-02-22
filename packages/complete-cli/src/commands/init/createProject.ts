@@ -22,7 +22,7 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
 import { initGitRepository } from "../../git.js";
-import { promptError, promptLog } from "../../prompt.js";
+import { promptError, promptLog, promptSpinnerStart } from "../../prompt.js";
 
 export async function createProject(
   projectName: string,
@@ -41,7 +41,7 @@ export async function createProject(
   copyDynamicFiles(projectName, authorName, projectPath, packageManager);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
-  const updated = updatePackageJSONDependencies(projectPath, false, true);
+  const updated = await updatePackageJSONDependencies(projectPath, false, true);
   if (!updated) {
     promptError(
       'Failed to update the dependencies in the "package.json" file.',
@@ -183,12 +183,13 @@ async function installNodeModules(
   }
 
   const command = getPackageManagerInstallCommand(packageManager);
-  promptLog(
+  const s = promptSpinnerStart(
     `Installing node modules with "${command}"... (This can take a long time.)`,
   );
   const $$ = $({ cwd: projectPath });
   const commandParts = command.split(" ");
   await $$`${commandParts}`;
+  s.stop("Installed.");
 }
 
 async function formatFiles(projectPath: string) {
