@@ -35,9 +35,10 @@ export async function updatePackageJSONDependencies(
   const packageJSONPath = getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
 
-  const packageJSONChanged = await (quiet
+  const packageJSONChangedPromise = quiet
     ? runNPMCheckUpdatesQuiet(packageJSONPath)
-    : runNPMCheckUpdates(packageJSONPath, packageRoot));
+    : runNPMCheckUpdates(packageJSONPath, packageRoot);
+  const packageJSONChanged = await packageJSONChangedPromise;
 
   if (packageJSONChanged && installAfterUpdate) {
     const $$ = $({
@@ -47,7 +48,7 @@ export async function updatePackageJSONDependencies(
     const packageManager = getPackageManagerForProject(packageRoot);
     const command = getPackageManagerInstallCommand(packageManager);
     const commandParts = command.split(" ");
-    $$.sync`${commandParts}`;
+    await $$`${commandParts}`;
   }
 
   return packageJSONChanged;
