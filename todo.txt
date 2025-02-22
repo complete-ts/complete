@@ -1,5 +1,6 @@
 short term:
 
+- add "    "complete-cli": "^0.0.1", " to package.json template
 - make command tool to populate non-existent template files - complete-init
 - // TODO: replace with complete-cli
 - // TODO: https://github.com/typescript-eslint/typescript-eslint/issues/10191

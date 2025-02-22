@@ -184,12 +184,18 @@ async function installNodeModules(
 
   const command = getPackageManagerInstallCommand(packageManager);
   const s = promptSpinnerStart(
-    `Installing node modules with "${command}"... (This can take a long time.)`,
+    `Installing the project dependencies with "${command}". (This can take a long time.)`,
   );
-  const $$ = $({ cwd: projectPath });
-  const commandParts = command.split(" ");
-  await $$`${commandParts}`;
-  s.stop("Installed.");
+
+  try {
+    const $$ = $({ cwd: projectPath });
+    const commandParts = command.split(" ");
+    await $$`${commandParts}`;
+    s.stop("Installed.");
+  } catch {
+    s.stop("Failed to install.");
+    promptError("Exiting.");
+  }
 }
 
 async function formatFiles(projectPath: string) {

@@ -68,7 +68,9 @@ export function promptLog(msg: string): void {
 }
 
 export function promptSpinnerStart(msg: string): ReturnType<typeof spinner> {
-  const s = spinner();
+  const s = spinner({
+    indicator: "timer",
+  });
   s.start(msg);
   return s;
 }
