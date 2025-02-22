@@ -37,18 +37,15 @@
     "@clack/prompts": "^0.10.0",
     "@types/klaw-sync": "^6.0.5",
     "@types/node": "^22.13.4",
-    "@types/prompt": "^1.1.9",
     "chalk": "^5.4.1",
     "clipanion": "^4.0.0-rc.4",
     "complete-common": "^1.1.0",
     "complete-node": "^2.1.0",
-    "eslint-plugin-sort-exports": "^0.9.1",
     "execa": "^9.5.2",
     "glob": "^11.0.1",
     "klaw-sync": "^6.0.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1",
-    "unbuild": "^3.3.1",
     "yaml": "^2.7.0"
   },
   "engines": {
