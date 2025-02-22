@@ -35,7 +35,7 @@
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "devDependencies": {
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "complete-node": "^2.1.0",
     "eslint-plugin-sort-exports": "^0.9.1",
     "execa": "^9.5.2",
