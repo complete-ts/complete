@@ -2,6 +2,9 @@
 // - "react" - Docusaurus requires v18.
 // - "react-dom" - Docusaurus requires v18.
 
-import { updatePackageJSONDependenciesMonorepo } from "complete-node";
+import { $ } from "execa";
 
-await updatePackageJSONDependenciesMonorepo();
+const $$ = $({ stdin: "inherit" });
+$.sync`npm-check-updates --help`;
+
+// await updatePackageJSONDependenciesMonorepo();
