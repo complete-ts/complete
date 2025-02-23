@@ -7,8 +7,11 @@
 import which from "which";
 import { $o } from "./execa.js";
 
-/** Helper function to check if a specific command exists on the system by attempting to resolve it with the "which" npm library. */
-export async function commandExists(commandName: string) {
+/**
+ * Helper function to check if a specific command exists on the system by attempting to resolve it
+ * with the "which" npm library.
+ */
+export async function commandExists(commandName: string): Promise<boolean> {
   try {
     await which(commandName);
   } catch {
