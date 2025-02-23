@@ -5,6 +5,10 @@ import WebpackShebangPlugin from "webpack-shebang-plugin";
 /** @type { import('webpack').Configuration } */
 const config = {
   entry: "./src/main.ts",
+  output: {
+    path: path.join(import.meta.dirname, "dist"),
+    filename: "main.cjs",
+  },
   mode: "production",
   target: "node",
   module: {
@@ -23,6 +27,7 @@ const config = {
     },
     plugins: [
       new TSConfigPathsWebpackPlugin({
+        // We cannot use a relative path here or else Knip will throw an error.
         configFile: path.join(
           import.meta.dirname,
           "..",

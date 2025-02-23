@@ -17,7 +17,7 @@
   "author": "Zamiell",
   "type": "module",
   "bin": {
-    "complete-cli": "./dist/main.js"
+    "complete-cli": "./dist/main.cjs"
   },
   "files": [
     "dist",
