@@ -40,7 +40,7 @@
     "chalk": "5.4.1",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "^1.1.1",
-    "complete-node": "3.0.0",
+    "complete-node": "^3.0.1",
     "glob": "11.0.1",
     "klaw-sync": "6.0.0",
     "typescript": "5.7.3",
