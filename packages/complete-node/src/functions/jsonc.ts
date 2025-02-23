@@ -6,7 +6,7 @@
  */
 
 import { isObject } from "complete-common";
-import JSONC from "jsonc-parser";
+import { parse } from "jsonc-parser";
 import { readFileAsync } from "./readWrite.js";
 
 /**
@@ -23,7 +23,7 @@ export async function getJSONC(
 
   let json: unknown;
   try {
-    json = JSONC.parse(fileContents);
+    json = parse(fileContents);
   } catch (error) {
     throw new Error(`Failed to parse "${filePath}" as JSONC: ${error}`);
   }

@@ -4,7 +4,7 @@
  * @module
  */
 
-import * as prettier from "prettier";
+import { format, resolveConfig } from "prettier";
 
 /**
  * Helper function to format a text string with Prettier.
@@ -17,9 +17,9 @@ export async function formatWithPrettier(
   language: "typescript" | "markdown",
   repoRoot: string,
 ): Promise<string> {
-  const prettierConfig = await prettier.resolveConfig(repoRoot);
+  const prettierConfig = await resolveConfig(repoRoot);
 
-  return await prettier.format(text, {
+  return await format(text, {
     parser: language,
     ...prettierConfig,
   });

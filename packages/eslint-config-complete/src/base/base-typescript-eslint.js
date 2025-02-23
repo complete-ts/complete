@@ -45,6 +45,9 @@ export const baseTypeScriptESLint = tseslint.config(
             "typedoc.config.js",
             "typedoc.config.cjs",
             "typedoc.config.mjs",
+            "webpack.config.js",
+            "webpack.config.cjs",
+            "webpack.config.mjs",
           ],
 
           // By default, the whitelisted files above will use the default TypeScript compiler

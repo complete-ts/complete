@@ -308,6 +308,8 @@ export const baseImportX = tseslint.config(
       "typedoc.config.mjs",
       "vite.config.js",
       "vite.config.mjs",
+      "webpack.config.js",
+      "webpack.config.mjs",
     ],
     rules: {
       "import-x/no-default-export": "off",

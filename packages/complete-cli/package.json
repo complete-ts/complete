@@ -43,10 +43,13 @@
     "complete-node": "^3.0.1",
     "glob": "11.0.1",
     "klaw-sync": "6.0.0",
+    "ts-loader": "9.5.2",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
     "typescript": "5.7.3",
     "typescript-eslint": "8.24.1",
     "webpack": "5.98.0",
     "webpack-cli": "6.0.1",
+    "webpack-shebang-plugin": "^1.1.8",
     "yaml": "2.7.0"
   },
   "engines": {
