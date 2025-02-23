@@ -19,6 +19,20 @@ import { readFile } from "./readWrite.js";
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
  * If there are any updates, the package manager used in the project will be automatically invoked.
  *
+ * If specific versions need to be kept back, they should be placed in a "package-metadata.json"
+ * next to the respective "package.json" file like this:
+ *
+ * ```json
+ * {
+ *   "dependencies": {
+ *     "react": {
+ *       "lock-version": true,
+ *       "reason": "Docusaurus does not support the latest version of React."
+ *     }
+ *   }
+ * }
+ * ```
+ *
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
