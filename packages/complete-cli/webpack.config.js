@@ -11,6 +11,7 @@ const config = {
   },
   mode: "production",
   target: "node",
+  devtool: "source-map",
   module: {
     rules: [
       {
