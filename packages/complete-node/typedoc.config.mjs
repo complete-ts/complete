@@ -8,5 +8,5 @@ export default {
 
   // TODO: https://github.com/TypeStrong/typedoc/issues/2863
   excludeExternals: true,
-  externalPattern: "./src/execa.ts",
+  externalPattern: "./src/functions/execa.ts",
 };
