@@ -1,3 +1,4 @@
+import path from "node:path";
 import TSConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
 import WebpackShebangPlugin from "webpack-shebang-plugin";
 
@@ -22,7 +23,12 @@ const config = {
     },
     plugins: [
       new TSConfigPathsWebpackPlugin({
-        configFile: "../../tsconfig.monorepo.json",
+        configFile: path.join(
+          import.meta.dirname,
+          "..",
+          "..",
+          "tsconfig.monorepo.json",
+        ),
       }),
     ],
   },
