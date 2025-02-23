@@ -10,10 +10,6 @@ const config = {
     "packages/*": {},
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
-      ignoreBinaries: ["gh"],
-    },
-    "packages/complete-node": {
-      ignoreDependencies: ["npm-check-updates"],
     },
     "packages/docs": {
       ignore: [
