@@ -147,8 +147,8 @@ function copyDynamicFiles(
     const template = readFile(templatePath);
 
     const packageJSON = template
-      .replaceAll("PROJECT_NAME", projectName)
-      .replaceAll("AUTHOR_NAME", authorName ?? "unknown");
+      .replaceAll("project-name", projectName)
+      .replaceAll("author-name", authorName ?? "unknown");
 
     const destinationPath = path.join(projectPath, "package.json");
     writeFile(destinationPath, packageJSON);

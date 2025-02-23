@@ -7,13 +7,10 @@ import { NukeCommand } from "./commands/NukeCommand.js";
 import { PublishCommand } from "./commands/PublishCommand.js";
 import { UpdateCommand } from "./commands/UpdateCommand.js";
 import { PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
-import { validateNodeVersion } from "./validateNoteVersion.js";
 
 await main();
 
 async function main(): Promise<void> {
-  validateNodeVersion();
-
   const [_node, _app, ...args] = process.argv;
 
   const cli = new Cli({

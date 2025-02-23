@@ -1,18 +1,18 @@
 {
-  "name": "PROJECT_NAME",
+  "name": "project-name",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "homepage": "https://github.com/AUTHOR_NAME/PROJECT_NAME",
+  "homepage": "https://github.com/author-name/project-name",
   "bugs": {
-    "url": "https://github.com/AUTHOR_NAME/PROJECT_NAME/issues"
+    "url": "https://github.com/author-name/project-name/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AUTHOR_NAME/PROJECT_NAME.git"
+    "url": "git+https://github.com/author-name/project-name.git"
   },
   "license": "GPL-3.0",
-  "author": "AUTHOR_NAME",
+  "author": "author-name",
   "type": "module",
   "files": [
     "dist",
@@ -29,9 +29,9 @@
     "update": "complete-cli update"
   },
   "devDependencies": {
-    "complete-cli": "^0.0.1",
-    "complete-lint": "^0.0.1",
-    "complete-node": "^0.0.1",
-    "typescript": "^0.0.1"
+    "complete-cli": "0.0.1",
+    "complete-lint": "0.0.1",
+    "complete-node": "0.0.1",
+    "typescript": "0.0.1"
   }
 }

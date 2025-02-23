@@ -35,25 +35,25 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "^4.0.1",
-    "confusing-browser-globals": "^1.0.11",
-    "eslint-import-resolver-typescript": "^3.8.3",
-    "eslint-plugin-complete": "^1.0.8",
-    "eslint-plugin-import-x": "^4.6.1",
-    "eslint-plugin-jsdoc": "^50.6.3",
-    "eslint-plugin-n": "^17.15.1",
-    "eslint-plugin-unicorn": "^57.0.0",
-    "typescript-eslint": "^8.24.1"
+    "@stylistic/eslint-plugin": "4.0.1",
+    "confusing-browser-globals": "1.0.11",
+    "eslint-import-resolver-typescript": "3.8.3",
+    "eslint-plugin-complete": "1.0.8",
+    "eslint-plugin-import-x": "4.6.1",
+    "eslint-plugin-jsdoc": "50.6.3",
+    "eslint-plugin-n": "17.15.1",
+    "eslint-plugin-unicorn": "57.0.0",
+    "typescript-eslint": "8.24.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "@types/confusing-browser-globals": "^1.0.3",
-    "@types/eslint-config-prettier": "^6.11.3",
-    "@types/node": "^22.13.5",
-    "complete-common": "^1.1.0",
-    "complete-node": "^3.0.0",
-    "eslint-config-prettier": "^10.0.1",
-    "extract-comments": "^1.1.0",
-    "typescript": "^5.7.3"
+    "@eslint/js": "9.21.0",
+    "@types/confusing-browser-globals": "1.0.3",
+    "@types/eslint-config-prettier": "6.11.3",
+    "@types/node": "22.13.5",
+    "complete-common": "1.1.0",
+    "complete-node": "3.0.0",
+    "eslint-config-prettier": "10.0.1",
+    "extract-comments": "1.1.0",
+    "typescript": "5.7.3"
   }
 }
