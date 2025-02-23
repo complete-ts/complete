@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { PackageManager, commandExists } from "complete-node";
+import { commandExists, PackageManager } from "complete-node";
 import { DEFAULT_PACKAGE_MANAGER } from "../../constants.js";
 import { promptError } from "../../prompt.js";
 
@@ -9,10 +9,10 @@ interface PackageManagerOptions {
   pnpm: boolean;
 }
 
-export function getPackageManagerUsedForNewProject(
+export async function getPackageManagerUsedForNewProject(
   options: PackageManagerOptions,
-): PackageManager {
-  const packageManagerFromOptions = getPackageManagerFromOptions(options);
+): Promise<PackageManager> {
+  const packageManagerFromOptions = await getPackageManagerFromOptions(options);
   if (packageManagerFromOptions !== undefined) {
     return packageManagerFromOptions;
   }
@@ -20,9 +20,9 @@ export function getPackageManagerUsedForNewProject(
   return DEFAULT_PACKAGE_MANAGER;
 }
 
-function getPackageManagerFromOptions(options: PackageManagerOptions) {
+async function getPackageManagerFromOptions(options: PackageManagerOptions) {
   if (options.npm) {
-    const npmExists = commandExists("npm");
+    const npmExists = await commandExists("npm");
     if (!npmExists) {
       promptError(
         `You specified the "--npm" option, but "${chalk.green(
@@ -35,7 +35,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.yarn) {
-    const yarnExists = commandExists("yarn");
+    const yarnExists = await commandExists("yarn");
     if (!yarnExists) {
       promptError(
         `You specified the "--yarn" option, but "${chalk.green(
@@ -48,7 +48,7 @@ function getPackageManagerFromOptions(options: PackageManagerOptions) {
   }
 
   if (options.pnpm) {
-    const pnpmExists = commandExists("pnpm");
+    const pnpmExists = await commandExists("pnpm");
     if (!pnpmExists) {
       promptError(
         `You specified the "--pnpm" option, but "${chalk.green(

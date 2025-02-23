@@ -67,7 +67,7 @@ export class InitCommand extends Command {
   async execute(): Promise<void> {
     promptStart();
 
-    const packageManager = getPackageManagerUsedForNewProject(this);
+    const packageManager = await getPackageManagerUsedForNewProject(this);
 
     // Prompt the end-user for some information (and validate it as we go).
     const { projectPath, createNewDir } = await getProjectPath(

@@ -4,8 +4,19 @@
  * @module
  */
 
-import commandExists from "command-exists";
-import { execSync } from "node:child_process";
+import which from "which";
+import { $o } from "./execa.js";
+
+/** Helper function to check if a specific command exists on the system by attempting to resolve it with the "which" npm library. */
+export async function commandExists(commandName: string) {
+  try {
+    await which(commandName);
+  } catch {
+    return false;
+  }
+
+  return true;
+}
 
 /**
  * Helper function to get the locally installed Python command. In most cases, this will be
@@ -16,18 +27,22 @@ import { execSync } from "node:child_process";
  *
  * @param fatal Whether to exit the program if Python is not found.
  */
-export function getPythonCommand(fatal: true): "python" | "python3";
-export function getPythonCommand(
+export async function getPythonCommand(
+  fatal: true,
+): Promise<"python" | "python3">;
+export async function getPythonCommand(
   fatal: false,
-): "python" | "python3" | undefined;
-export function getPythonCommand(
+): Promise<"python" | "python3" | undefined>;
+export async function getPythonCommand(
   fatal: boolean,
-): "python" | "python3" | undefined {
-  if (commandExists.sync("python3") && doesCommandWork("python3")) {
+): Promise<"python" | "python3" | undefined> {
+  const python3Works = await doesCommandWork("python3");
+  if (python3Works) {
     return "python3";
   }
 
-  if (commandExists.sync("python") && doesCommandWork("python")) {
+  const pythonWorks = await doesCommandWork("python");
+  if (pythonWorks) {
     return "python";
   }
 
@@ -49,9 +64,9 @@ export function getPythonCommand(
  * this shortcut from Settings > Manage App Execution Aliases.
  * ```
  */
-function doesCommandWork(command: string): boolean {
+async function doesCommandWork(command: string): Promise<boolean> {
   try {
-    const output = execSync(`${command} --version`, { encoding: "utf8" });
+    const output = await $o`${command} --version`;
     return !output.includes("was not found");
   } catch {
     return false;
