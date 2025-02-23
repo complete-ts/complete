@@ -2,6 +2,7 @@ import { Command, Option } from "clipanion";
 import { isSemanticVersion } from "complete-common";
 import type { PackageManager } from "complete-node";
 import {
+  $,
   fatalError,
   getPackageJSONField,
   getPackageJSONVersion,
@@ -16,7 +17,6 @@ import {
   updatePackageJSONDependencies,
   writeFileAsync,
 } from "complete-node";
-import { $ } from "execa";
 import path from "node:path";
 import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 

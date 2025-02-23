@@ -1,5 +1,6 @@
 import { capitalizeFirstLetter, trimSuffix } from "complete-common";
 import {
+  $,
   buildScript,
   cp,
   deleteLineInFile,
@@ -13,7 +14,6 @@ import {
   rm,
   writeFile,
 } from "complete-node";
-import { $ } from "execa";
 import path from "node:path";
 
 const CATEGORY_FILE_NAME = "_category_.yml";

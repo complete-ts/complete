@@ -10,9 +10,9 @@ import {
   isEnumValue,
   isSemanticVersion,
 } from "complete-common";
-import { $ } from "execa";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
+import { $, $o } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
 import {
@@ -49,8 +49,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   const startTime = Date.now();
 
   // Validate that we are on the correct branch.
-  const { stdout: branch } = await $`git branch --show-current`;
-  if (branch !== "main") {
+  const branchName = await $o`git branch --show-current`;
+  if (branchName !== "main") {
     echo("Error: You must be on the main branch before publishing.");
     exit(1);
   }

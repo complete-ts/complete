@@ -4,7 +4,7 @@
  * @module
  */
 
-import { $ } from "execa";
+import { $, $q } from "./execa.js";
 
 /** Helper function to determine whether the given path is inside of a Git repository. */
 export async function isGitRepository(
@@ -22,16 +22,16 @@ export async function isGitRepository(
 export async function isGitRepositoryClean(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $({ cwd: gitRepositoryPath });
-  const { stdout: gitStatus } = await $$`git status --porcelain`;
-  return gitStatus === "";
+  const $$ = $q({ cwd: gitRepositoryPath });
+  const { stdout: gitStatusOutput } = await $$`git status --porcelain`;
+  return gitStatusOutput === "";
 }
 
 /** Helper function to determine whether the given Git repository is up to date with the remote. */
 export async function isGitRepositoryLatestCommit(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $({ cwd: gitRepositoryPath });
+  const $$ = $q({ cwd: gitRepositoryPath });
   await $$`git fetch`;
 
   const { stdout: currentSHA1 } = await $$`git rev-parse HEAD`;

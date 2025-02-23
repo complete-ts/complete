@@ -5,8 +5,7 @@
 
 // @template-customization-end
 
-import { lintMonorepoPackageJSONs, lintScript } from "complete-node";
-import { $ } from "execa";
+import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
 await lintScript(async () => {
   await Promise.all([

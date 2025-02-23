@@ -4,7 +4,7 @@
  * @module
  */
 
-import { $q } from "../execa.js";
+import { $o, $q } from "./execa.js";
 
 /**
  * Helper function to see if the compiled output that is checked-in to the Git repository is
@@ -18,9 +18,8 @@ import { $q } from "../execa.js";
 export async function checkCompiledOutputInRepo(): Promise<void> {
   await $q`npm run build`;
 
-  const gitStatusResult = await $q`git status --porcelain`;
-  const gitStatus = gitStatusResult.stdout;
-  const gitDirty = gitStatus === "";
+  const gitStatusOutput = await $o`git status --porcelain`;
+  const gitDirty = gitStatusOutput === "";
 
   if (gitDirty) {
     process.exit(1);

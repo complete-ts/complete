@@ -1,5 +1,4 @@
-import { echo, exit, lintScript, readFile } from "complete-node";
-import { $ } from "execa";
+import { $, echo, exit, lintScript, readFile } from "complete-node";
 import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 

@@ -1,5 +1,4 @@
-import { buildScript, fixMonorepoPackageDistDirectory } from "complete-node";
-import { $ } from "execa";
+import { $, buildScript, fixMonorepoPackageDistDirectory } from "complete-node";
 
 await buildScript(async (packageRoot) => {
   await $`tsc`;

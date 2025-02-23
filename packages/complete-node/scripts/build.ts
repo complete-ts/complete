@@ -1,5 +1,6 @@
 import { trimSuffix } from "complete-common";
 import {
+  $,
   buildScript,
   copyFileOrDirectory,
   copyFileOrDirectoryAsync,
@@ -9,7 +10,6 @@ import {
   readFileAsync,
   writeFileAsync,
 } from "complete-node";
-import { $ } from "execa";
 import os from "node:os";
 import path from "node:path";
 

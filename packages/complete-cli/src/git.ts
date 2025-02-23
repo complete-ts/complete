@@ -1,6 +1,5 @@
 import chalk from "chalk";
-import { commandExists, isFile, readFile } from "complete-node";
-import { $ } from "execa";
+import { $, commandExists, isFile, readFile } from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME, PROJECT_VERSION } from "./constants.js";

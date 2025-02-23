@@ -2,6 +2,7 @@ import chalk from "chalk";
 import { Command, Option } from "clipanion";
 import { ReadonlySet } from "complete-common";
 import {
+  $,
   deleteFileOrDirectory,
   fatalError,
   isDirectory,
@@ -9,7 +10,6 @@ import {
   readFile,
   writeFile,
 } from "complete-node";
-import { $ } from "execa";
 import klawSync from "klaw-sync";
 import path from "node:path";
 import {

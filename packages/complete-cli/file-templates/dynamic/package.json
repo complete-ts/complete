@@ -32,7 +32,6 @@
     "complete-cli": "^0.0.1",
     "complete-lint": "^0.0.1",
     "complete-node": "^0.0.1",
-    "execa": "^0.0.1",
     "typescript": "^0.0.1"
   }
 }

@@ -1,5 +1,6 @@
 import { Octokit } from "@octokit/core";
 import {
+  $q,
   appendFile,
   cp,
   echo,
@@ -12,7 +13,6 @@ import {
   rm,
   sleep,
 } from "complete-node";
-import { $ } from "execa";
 import path from "node:path";
 
 const DOCS_REPO_NAME = "complete-ts.github.io";
@@ -65,17 +65,17 @@ if (!isLatestCommitAtStart) {
 
 echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
 
-const $$ = $({ cwd: DOCS_REPO });
-await $$`git config --global user.email "github-actions@users.noreply.github.com"`;
-await $$`git config --global user.name "github-actions"`;
+const $$q = $q({ cwd: DOCS_REPO });
+await $$q`git config --global user.email "github-actions@users.noreply.github.com"`;
+await $$q`git config --global user.name "github-actions"`;
 // We overwrite the previous commit instead of adding a new one in order to keep the size of the
 // repository as small as possible. This speeds up deployment because with thousands of commits, it
 // takes a very long time to clone.
-await $$`git add --all`;
-await $$`git commit --message deploy --amend`;
-await $$`git push --force-with-lease`;
+await $$q`git add --all`;
+await $$q`git commit --message deploy --amend`;
+await $$q`git push --force-with-lease`;
 
-const { stdout: commitSHA1 } = await $$`git rev-parse HEAD`;
+const { stdout: commitSHA1 } = await $$q`git rev-parse HEAD`;
 if (commitSHA1 === "") {
   fatalError("Failed to parse the deployed website commit SHA1.");
 }

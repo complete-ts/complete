@@ -1,5 +1,4 @@
-import { buildScript, copyToMonorepoNodeModules } from "complete-node";
-import { $ } from "execa";
+import { $, buildScript, copyToMonorepoNodeModules } from "complete-node";
 
 await buildScript(async (packageRoot) => {
   await $`tsc`;

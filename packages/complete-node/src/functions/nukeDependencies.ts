@@ -1,5 +1,5 @@
-import { $ } from "execa";
 import path from "node:path";
+import { $ } from "./execa.js";
 import { isFile, rm } from "./file.js";
 import {
   getPackageManagerForProject,

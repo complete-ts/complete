@@ -5,9 +5,9 @@
  */
 
 import { isObject } from "complete-common";
-import { $ } from "execa";
 import path from "node:path";
 import ncu from "npm-check-updates";
+import { $ } from "./execa.js";
 import { getFilePath } from "./file.js";
 import {
   getPackageManagerForProject,
