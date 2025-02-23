@@ -22,7 +22,7 @@ import {
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { echo, exit } from "./scriptHelpers.js";
-import { fatalError, getArgs } from "./utils.js";
+import { getArgs } from "./utils.js";
 
 enum VersionBump {
   major = "major",
@@ -67,7 +67,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   const isLoggedIn = await isLoggedInToNPM();
   if (!isLoggedIn) {
-    fatalError(
+    throw new Error(
       `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
     );
   }

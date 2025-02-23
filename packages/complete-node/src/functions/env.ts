@@ -3,7 +3,6 @@ import path from "node:path";
 import type { z } from "zod";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { isFile } from "./file.js";
-import { fatalError } from "./utils.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
@@ -36,7 +35,7 @@ export function getEnv<
   const envPath = path.join(packageRoot, ".env");
 
   if (!isFile(envPath)) {
-    fatalError(
+    throw new Error(
       `The "${envPath}" file does not exist. Copy the ".env.example" file to a ".env" file at the root of the repository and re-run this program.`,
     );
   }

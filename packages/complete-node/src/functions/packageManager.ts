@@ -7,7 +7,7 @@
 import { assertDefined, getEnumValues } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
-import { isFile } from "./file.js";
+import { isFileAsync } from "./file.js";
 
 const PACKAGE_MANAGER_VALUES = getEnumValues(PackageManager);
 
@@ -17,6 +17,10 @@ const PACKAGE_MANAGER_TO_LOCK_FILE_NAME = {
   [PackageManager.pnpm]: "pnpm-lock.yaml",
   [PackageManager.bun]: "bun.lock",
 } as const satisfies Record<PackageManager, string>;
+
+const PACKAGE_MANAGER_LOCK_FILE_NAMES: readonly string[] = Object.values(
+  PACKAGE_MANAGER_TO_LOCK_FILE_NAME,
+);
 
 const PACKAGE_MANAGER_EXEC_COMMANDS = {
   [PackageManager.npm]: "npx",
@@ -97,16 +101,16 @@ export function getPackageManagerExecCommand(
 }
 
 /**
- * Helper function to look at the lock files in a given directory in order to detect the package
+ * Helper function to look at the lock files in a given directory in order to infer the package
  * manager being used for the project.
  *
  * Since 2 or more different kinds of lock files can exist, this will throw an error if 0 lock files
  * are found or if 2 or more lock files are found.
  */
-export function getPackageManagerForProject(
+export async function getPackageManagerForProject(
   packageRoot: string,
-): PackageManager {
-  const packageManagers = getPackageManagersForProject(packageRoot);
+): Promise<PackageManager> {
+  const packageManagers = await getPackageManagersForProject(packageRoot);
   if (packageManagers.length > 1) {
     throw new Error(
       `${
@@ -156,7 +160,7 @@ export function getPackageManagerLockFileName(
 
 /** Helper function to get an array containing every package manager lock file name. */
 export function getPackageManagerLockFileNames(): readonly string[] {
-  return Object.values(PACKAGE_MANAGER_TO_LOCK_FILE_NAME);
+  return PACKAGE_MANAGER_LOCK_FILE_NAMES;
 }
 
 /**
@@ -166,18 +170,28 @@ export function getPackageManagerLockFileNames(): readonly string[] {
  * Since 2 or more different kinds of lock files can exist, this will return an array containing all
  * of the package managers found. If no lock files were found, this will return an empty array.
  */
-export function getPackageManagersForProject(
+export async function getPackageManagersForProject(
   packageDir: string,
-): readonly PackageManager[] {
-  const packageManagersFound: PackageManager[] = [];
-
-  for (const packageManager of PACKAGE_MANAGER_VALUES) {
-    const lockFileName = getPackageManagerLockFileName(packageManager);
+): Promise<readonly PackageManager[]> {
+  const fileCheckPromises = PACKAGE_MANAGER_VALUES.map((packageManager) => {
+    const lockFileName = PACKAGE_MANAGER_TO_LOCK_FILE_NAME[packageManager];
     const lockFilePath = path.join(packageDir, lockFileName);
-    if (isFile(lockFilePath)) {
-      packageManagersFound.push(packageManager);
-    }
-  }
+    const lockFileExistsPromise = isFileAsync(lockFilePath);
 
-  return packageManagersFound;
+    return {
+      packageManager,
+      lockFileExistsPromise,
+    };
+  });
+
+  const fileChecks = await Promise.all(
+    fileCheckPromises.map(async (check) => ({
+      packageManager: check.packageManager,
+      lockFileExists: await check.lockFileExistsPromise,
+    })),
+  );
+
+  return fileChecks
+    .filter((check) => check.lockFileExists)
+    .map((check) => check.packageManager);
 }

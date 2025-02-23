@@ -96,7 +96,7 @@ async function prePublish(
   skipLint: boolean,
   skipUpdate: boolean,
 ) {
-  const packageManager = getPackageManagerUsedForExistingProject();
+  const packageManager = await getPackageManagerUsedForExistingProject();
 
   await $`git pull --rebase`;
   await $`git push`;
@@ -110,8 +110,8 @@ async function prePublish(
   }
 }
 
-function getPackageManagerUsedForExistingProject(): PackageManager {
-  const packageManagers = getPackageManagersForProject(CWD);
+async function getPackageManagerUsedForExistingProject(): Promise<PackageManager> {
+  const packageManagers = await getPackageManagersForProject(CWD);
   if (packageManagers.length > 1) {
     const packageManagerLockFileNames = packageManagers
       .map((packageManager) => getPackageManagerLockFileName(packageManager))

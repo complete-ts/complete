@@ -60,7 +60,7 @@ export async function updatePackageJSONDependencies(
       stdout: quiet ? "pipe" : "inherit",
       stderr: quiet ? "pipe" : "inherit",
     });
-    const packageManager = getPackageManagerForProject(packageRoot);
+    const packageManager = await getPackageManagerForProject(packageRoot);
     const command = getPackageManagerInstallCommand(packageManager);
     const commandParts = command.split(" ");
     await $$`${commandParts}`;

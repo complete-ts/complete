@@ -1,12 +1,11 @@
 import path from "node:path";
 import { $ } from "./execa.js";
-import { isFile, rm } from "./file.js";
+import { isFileAsync, rm } from "./file.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
 } from "./packageManager.js";
-import { fatalError } from "./utils.js";
 
 /**
  * Helper function to:
@@ -23,14 +22,15 @@ import { fatalError } from "./utils.js";
  *                    directory will be used.
  * @returns Whether any dependencies were updated.
  */
-export function nukeDependencies(packageRoot?: string): void {
+export async function nukeDependencies(packageRoot?: string): Promise<void> {
   if (packageRoot === undefined) {
     packageRoot = process.cwd(); // eslint-disable-line no-param-reassign
   }
 
   const packageJSONPath = path.join(packageRoot, "package.json");
-  if (!isFile(packageJSONPath)) {
-    fatalError(
+  const packageJSONExists = await isFileAsync(packageJSONPath);
+  if (!packageJSONExists) {
+    throw new Error(
       `Failed to find the "package.json" file at the package root: ${packageRoot}`,
     );
   }
@@ -40,7 +40,7 @@ export function nukeDependencies(packageRoot?: string): void {
   rm(nodeModulesPath);
   console.log(`Removed: ${nodeModulesPath}`);
 
-  const packageManager = getPackageManagerForProject(packageRoot);
+  const packageManager = await getPackageManagerForProject(packageRoot);
   const packageManagerLockFileName =
     getPackageManagerLockFileName(packageManager);
   const packageManagerLockFilePath = path.join(
