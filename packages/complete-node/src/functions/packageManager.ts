@@ -180,18 +180,18 @@ export async function getPackageManagersForProject(
 
     return {
       packageManager,
-      lockFileExistsPromise,
+      existsPromise: lockFileExistsPromise,
     };
   });
 
   const fileChecks = await Promise.all(
     fileCheckPromises.map(async (check) => ({
       packageManager: check.packageManager,
-      lockFileExists: await check.lockFileExistsPromise,
+      exists: await check.existsPromise,
     })),
   );
 
   return fileChecks
-    .filter((check) => check.lockFileExists)
+    .filter((check) => check.exists)
     .map((check) => check.packageManager);
 }

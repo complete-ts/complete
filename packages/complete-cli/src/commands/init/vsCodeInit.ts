@@ -14,7 +14,7 @@ export async function vsCodeInit(
   vscode: boolean,
   yes: boolean,
 ): Promise<void> {
-  const VSCodeCommand = getVSCodeCommand();
+  const VSCodeCommand = await getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     promptLog(
       'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
@@ -26,8 +26,26 @@ export async function vsCodeInit(
   await promptVSCode(projectPath, VSCodeCommand, vscode, yes);
 }
 
-function getVSCodeCommand(): string | undefined {
-  return VS_CODE_COMMANDS.find((command) => commandExists(command));
+async function getVSCodeCommand(): Promise<
+  (typeof VS_CODE_COMMANDS)[number] | undefined
+> {
+  const commandCheckPromises = VS_CODE_COMMANDS.map((command) => ({
+    command,
+    existsPromise: commandExists(command),
+  }));
+
+  const commandChecks = await Promise.all(
+    commandCheckPromises.map(async (check) => ({
+      command: check.command,
+      exists: await check.existsPromise,
+    })),
+  );
+
+  const existingCommands = commandChecks
+    .filter((check) => check.exists)
+    .map((check) => check.command);
+
+  return existingCommands[0];
 }
 
 async function installVSCodeExtensions(
@@ -41,14 +59,16 @@ async function installVSCodeExtensions(
     return;
   }
 
-  const extensions = getExtensionsFromJSON(projectPath);
+  const extensions = await getExtensionsFromJSON(projectPath);
   for (const extensionName of extensions) {
     // eslint-disable-next-line no-await-in-loop
     await $`${vsCodeCommand} --install-extension ${extensionName}`;
   }
 }
 
-function getExtensionsFromJSON(projectPath: string): readonly string[] {
+async function getExtensionsFromJSON(
+  projectPath: string,
+): Promise<readonly string[]> {
   const extensionsJSONPath = path.join(
     projectPath,
     ".vscode",
@@ -59,7 +79,7 @@ function getExtensionsFromJSON(projectPath: string): readonly string[] {
     return [];
   }
 
-  const extensionsJSON = getJSONC(extensionsJSONPath);
+  const extensionsJSON = await getJSONC(extensionsJSONPath);
 
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {

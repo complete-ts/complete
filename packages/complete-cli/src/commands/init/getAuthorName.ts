@@ -2,7 +2,7 @@ import { getGitHubUsername } from "../../git.js";
 import { getInputString, promptError, promptLog } from "../../prompt.js";
 
 export async function getAuthorName(): Promise<string | undefined> {
-  const gitHubUsername = getGitHubUsername();
+  const gitHubUsername = await getGitHubUsername();
   if (gitHubUsername !== undefined) {
     return gitHubUsername;
   }

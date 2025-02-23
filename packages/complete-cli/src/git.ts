@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $, commandExists, isFile, readFile } from "complete-node";
+import { $, commandExists, isFileAsync, readFileAsync } from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
@@ -10,8 +10,9 @@ import { getInputString, getInputYesNo, promptLog } from "./prompt.js";
  * If the GitHub CLI is installed, we can derive the user's GitHub username from their YAML
  * configuration.
  */
-export function getGitHubUsername(): string | undefined {
-  if (!commandExists("gh")) {
+export async function getGitHubUsername(): Promise<string | undefined> {
+  const ghExists = await commandExists("gh");
+  if (!ghExists) {
     return undefined;
   }
 
@@ -20,11 +21,12 @@ export function getGitHubUsername(): string | undefined {
     return undefined;
   }
 
-  if (!isFile(githubCLIHostsPath)) {
+  const hostsPathExists = await isFileAsync(githubCLIHostsPath);
+  if (!hostsPathExists) {
     return undefined;
   }
 
-  const configYAMLRaw = readFile(githubCLIHostsPath);
+  const configYAMLRaw = await readFileAsync(githubCLIHostsPath);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];
@@ -70,14 +72,15 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   // We do not need to prompt the user if they do not have Git installed.
-  if (!commandExists("git")) {
+  const gitExists = await commandExists("git");
+  if (!gitExists) {
     promptLog(
       'Git does not seem to be installed. (The "git" command is not in the path.) Skipping Git-related things.',
     );
     return undefined;
   }
 
-  const gitHubUsername = getGitHubUsername();
+  const gitHubUsername = await getGitHubUsername();
   if (gitHubUsername !== undefined) {
     const { exitCode } = await $`gh repo view ${projectName}`;
     const gitHubRepoExists = exitCode === 0;
@@ -152,7 +155,8 @@ export async function initGitRepository(
   projectPath: string,
   gitRemoteURL: string | undefined,
 ): Promise<void> {
-  if (!commandExists("git")) {
+  const gitExists = await commandExists("git");
+  if (!gitExists) {
     return;
   }
 

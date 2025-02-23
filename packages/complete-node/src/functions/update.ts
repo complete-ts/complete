@@ -8,12 +8,14 @@ import { isObject } from "complete-common";
 import path from "node:path";
 import ncu from "npm-check-updates";
 import { $ } from "./execa.js";
-import { getFilePath } from "./file.js";
+import { getFilePath, isFileAsync } from "./file.js";
+import { getJSONC } from "./jsonc.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
 } from "./packageManager.js";
-import { readFile } from "./readWrite.js";
+
+const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
 /**
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
@@ -48,10 +50,13 @@ export async function updatePackageJSONDependencies(
 ): Promise<boolean> {
   const packageJSONPath = getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
+  const packagesToIgnore = await getPackagesToIgnore(packageRoot);
 
-  const packageJSONChangedPromise = quiet
-    ? runNPMCheckUpdatesQuiet(packageJSONPath)
-    : runNPMCheckUpdates(packageJSONPath, packageRoot);
+  const packageJSONChangedPromise = runNPMCheckUpdates(
+    packageJSONPath,
+    packagesToIgnore,
+    quiet,
+  );
   const packageJSONChanged = await packageJSONChangedPromise;
 
   if (packageJSONChanged && installAfterUpdate) {
@@ -69,38 +74,71 @@ export async function updatePackageJSONDependencies(
   return packageJSONChanged;
 }
 
-/** @returns Whether the "package.json" file was changed by `npm-check-updates`. */
-async function runNPMCheckUpdates(
-  packageJSONPath: string,
+/**
+ * Determine if we should skip the dependencies that are specified in the "package-metadata.json"
+ * file.
+ */
+async function getPackagesToIgnore(
   packageRoot: string,
-): Promise<boolean> {
-  const $$ = $({ cwd: packageRoot });
-  const oldPackageJSONString = readFile(packageJSONPath);
+): Promise<readonly string[]> {
+  const packagesToIgnore: string[] = [];
 
-  // We want to run the CLI command instead of invoking the API because it provides a progress meter
-  // and pretty diff.
+  const metadataPath = path.join(packageRoot, "package-metadata.json");
+  const metadataExists = await isFileAsync(metadataPath);
+  if (metadataExists) {
+    const metadata = await getJSONC(metadataPath);
+    for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
+      const dependenciesArray = metadata[dependencyType];
+      if (!isObject(dependenciesArray)) {
+        continue;
+      }
 
-  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
-  //   displays what is upgradeable).
-  // - "--packageFile" is necessary because the current working directory may not contain the
-  //   "package.json" file, so we must explicitly specify it.
-  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
-  //   that it should be a "locked" dependency and not upgraded.
-  await $$`npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ^*`;
+      for (const [key, value] of Object.entries(dependenciesArray)) {
+        if (!isObject(value)) {
+          continue;
+        }
 
-  const newPackageJSONString = readFile(packageJSONPath);
-  return oldPackageJSONString !== newPackageJSONString;
+        const { lockVersion } = value;
+        if (lockVersion !== "true") {
+          continue;
+        }
+
+        const { reason } = value;
+        if (typeof reason === "string") {
+          console.log(
+            `Skipping update of ${dependencyType} of "${key}" because: ${reason}`,
+          );
+        }
+
+        packagesToIgnore.push(key);
+      }
+    }
+  }
+
+  return packagesToIgnore;
 }
 
 /** @returns Whether the "package.json" file was changed by `npm-check-updates`. */
-async function runNPMCheckUpdatesQuiet(
+async function runNPMCheckUpdates(
   packageJSONPath: string,
+  packagesToIgnore: readonly string[],
+  quiet: boolean,
 ): Promise<boolean> {
-  const upgradedPackages = await ncu.run({
-    upgrade: true,
-    packageFile: packageJSONPath,
-    filterVersion: "^*",
-  });
+  const upgradedPackages = await ncu.run(
+    {
+      upgrade: true,
+      packageFile: packageJSONPath,
+      // TODO: Remove the below type assertion when this pull request is merged:
+      // https://github.com/raineorshine/npm-check-updates/pull/1498
+      filterVersion: packagesToIgnore as string[],
+    },
+    {
+      // By default, invoking `npm-check-updates` through the API will not produce any console
+      // output. Setting "cli" to true will re-enable the console output, which is nice because it
+      // tells the end-user exactly which packages were updated.
+      cli: !quiet,
+    },
+  );
 
   if (!isObject(upgradedPackages)) {
     return false;

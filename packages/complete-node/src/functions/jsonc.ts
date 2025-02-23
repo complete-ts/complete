@@ -7,7 +7,7 @@
 
 import { isObject } from "complete-common";
 import JSONC from "jsonc-parser";
-import { readFile } from "./readWrite.js";
+import { readFileAsync } from "./readWrite.js";
 
 /**
  * Helper function to parse a file as
@@ -16,8 +16,10 @@ import { readFile } from "./readWrite.js";
  * This expects the file to contain an object (i.e. `{}`). This will print an error message and exit
  * the program if any errors occur.
  */
-export function getJSONC(filePath: string): Record<string, unknown> {
-  const fileContents = readFile(filePath);
+export async function getJSONC(
+  filePath: string,
+): Promise<Record<string, unknown>> {
+  const fileContents = await readFileAsync(filePath);
 
   let json: unknown;
   try {

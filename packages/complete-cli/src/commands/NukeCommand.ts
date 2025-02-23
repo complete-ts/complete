@@ -9,9 +9,8 @@ export class NukeCommand extends Command {
       'Delete the "node_modules" directory and the package lock file, then reinstall the dependencies for the project.',
   });
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async execute(): Promise<void> {
-    nukeDependencies();
+    await nukeDependencies();
     console.log("Successfully reinstalled dependencies from npm.");
   }
 }
