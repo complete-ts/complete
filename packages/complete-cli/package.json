@@ -21,7 +21,6 @@
   },
   "files": [
     "dist",
-    "dist/*.map",
     "file-templates",
     "src",
     "LICENSE",
