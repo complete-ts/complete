@@ -7,11 +7,11 @@ import {
   fatalError,
   isDirectory,
   isFileAsync,
-  readFile,
   readFileAsync,
   writeFileAsync,
 } from "complete-node";
 import klawSync from "klaw-sync";
+import os from "node:os";
 import path from "node:path";
 import {
   ACTION_YML,
@@ -203,8 +203,8 @@ async function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = readFile(templateFilePath);
-    const originalProjectFile = readFile(projectFilePath);
+    const originalTemplateFile = await readFileAsync(templateFilePath);
+    const originalProjectFile = await readFileAsync(projectFilePath);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);
@@ -220,8 +220,9 @@ async function compareTextFiles(
     console.log();
   }
 
-  const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
-  const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
+  const tempDir = os.tmpdir();
+  const tempProjectFilePath = path.join(tempDir, "tempProjectFile.txt");
+  const tempTemplateFilePath = path.join(tempDir, "tempTemplateFile.txt");
 
   await writeFileAsync(tempProjectFilePath, projectFileObject.text);
   await writeFileAsync(tempTemplateFilePath, templateFileObject.text);
