@@ -9,7 +9,7 @@ const config = {
     path: path.join(import.meta.dirname, "dist"),
     filename: "main.cjs",
   },
-  mode: "production",
+  mode: "development",
   target: "node",
   devtool: "source-map",
   module: {

@@ -48,30 +48,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   const startTime = Date.now();
 
-  // Validate that we are on the correct branch.
-  const branchName = await $o`git branch --show-current`;
-  if (branchName !== "main") {
-    echo("Error: You must be on the main branch before publishing.");
-    exit(1);
-  }
-
-  const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
-  if (!isRepositoryCleanOnStart) {
-    echo("Error: The Git repository must be clean before publishing.");
-    exit(1);
-  }
-
-  // Validate that we can push and pull to the repository.
-  await $`git pull --quiet`;
-  await $`git push --quiet`;
-
-  const isLoggedIn = await isLoggedInToNPM();
-  if (!isLoggedIn) {
-    throw new Error(
-      `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
-    );
-  }
-
+  // Validate command-line arguments
   const args = getArgs();
 
   const packageName = args[0];
@@ -98,6 +75,31 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   ) {
     echo(`Error: The following version bump is not valid: ${versionBump}`);
     exit(1);
+  }
+
+  // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
+  // polluting the main branch.)
+  const branchName = await $o`git branch --show-current`;
+  if (branchName !== "main" && versionBump !== VersionBump.dev) {
+    echo("Error: You must be on the main branch before publishing.");
+    exit(1);
+  }
+
+  const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
+  if (!isRepositoryCleanOnStart) {
+    echo("Error: The Git repository must be clean before publishing.");
+    exit(1);
+  }
+
+  // Validate that we can push and pull to the repository.
+  await $`git pull --quiet`;
+  await $`git push --quiet`;
+
+  const isLoggedIn = await isLoggedInToNPM();
+  if (!isLoggedIn) {
+    throw new Error(
+      `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
+    );
   }
 
   const $$ = $({ cwd: packagePath });
