@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { repeat } from "complete-common";
 import type { PackageManager } from "complete-node";
 import {
-  $,
+  $q,
   copyFileOrDirectory,
   getFileNamesInDirectory,
   getPackageManagerInstallCICommand,
@@ -188,9 +188,9 @@ async function installNodeModules(
   );
 
   try {
-    const $$ = $({ cwd: projectPath });
+    const $$q = $q({ cwd: projectPath });
     const commandParts = command.split(" ");
-    await $$`${commandParts}`;
+    await $$q`${commandParts}`;
     s.stop("Installed.");
   } catch {
     s.stop("Failed to install.");
@@ -199,6 +199,6 @@ async function installNodeModules(
 }
 
 async function formatFiles(projectPath: string) {
-  const $$ = $({ cwd: projectPath });
-  await $$`prettier --write ${projectPath}`;
+  const $$q = $q({ cwd: projectPath });
+  await $$q`prettier --write ${projectPath}`;
 }

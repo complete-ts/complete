@@ -1,4 +1,4 @@
-import { $, commandExists, getJSONC, isFile } from "complete-node";
+import { $, $q, commandExists, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { getInputYesNo, promptError, promptLog } from "../../prompt.js";
 
@@ -60,10 +60,11 @@ async function installVSCodeExtensions(
   }
 
   const extensions = await getExtensionsFromJSON(projectPath);
-  for (const extensionName of extensions) {
-    // eslint-disable-next-line no-await-in-loop
-    await $`${vsCodeCommand} --install-extension ${extensionName}`;
-  }
+  await Promise.all(
+    extensions.map(
+      (extension) => $q`${vsCodeCommand} --install-extension ${extension}`,
+    ),
+  );
 }
 
 async function getExtensionsFromJSON(
