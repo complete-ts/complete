@@ -6,4 +6,8 @@
     "../complete-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
+
+  "compilerOptions": {
+    "sourceMap": true,
+  },
 }

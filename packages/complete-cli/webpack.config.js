@@ -16,7 +16,14 @@ const config = {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        use: {
+          loader: "ts-loader",
+          options: {
+            compilerOptions: {
+              sourceMap: true,
+            },
+          },
+        },
         exclude: /node_modules/,
       },
     ],
