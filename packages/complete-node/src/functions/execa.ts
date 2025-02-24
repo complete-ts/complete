@@ -42,7 +42,7 @@ export async function $o(
  * will not be passed to the console.
  *
  * This is a wrapper around the `$` function from `execa`. (The quiet behavior is how the vanilla
- * version of the "$" function works, so this is just a wrapper with no additional modifications.)
+ * version of the `$` function works, so this is just a wrapper with no additional modifications.)
  */
 // If we re-export the function, then it will no longer have our JSDoc comment above.
 // eslint-disable-next-line unicorn/prefer-export-from
