@@ -3,12 +3,13 @@ import { Command, Option } from "clipanion";
 import { ReadonlySet } from "complete-common";
 import {
   $,
-  deleteFileOrDirectory,
+  deleteFileOrDirectoryAsync,
   fatalError,
   isDirectory,
-  isFile,
+  isFileAsync,
   readFile,
-  writeFile,
+  readFileAsync,
+  writeFileAsync,
 } from "complete-node";
 import klawSync from "klaw-sync";
 import path from "node:path";
@@ -40,7 +41,6 @@ export class CheckCommand extends Command {
       "Check the template files of the current TypeScript project to see if they are up to date.",
   });
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async execute(): Promise<void> {
     let oneOrMoreErrors = false;
     const ignore = this.ignore ?? "";
@@ -48,18 +48,21 @@ export class CheckCommand extends Command {
     const ignoreFileNamesSet = new ReadonlySet(ignoreFileNames);
 
     // First, check the static files.
-    if (
-      checkTemplateDirectory(
-        TEMPLATES_STATIC_DIR,
-        ignoreFileNamesSet,
-        this.verbose,
-      )
-    ) {
+    const staticTemplatesValid = await checkTemplateDirectory(
+      TEMPLATES_STATIC_DIR,
+      ignoreFileNamesSet,
+      this.verbose,
+    );
+    if (!staticTemplatesValid) {
       oneOrMoreErrors = true;
     }
 
     // Second, check dynamic files that require specific logic.
-    if (checkIndividualFiles(ignoreFileNamesSet, this.verbose)) {
+    const dynamicFilesValid = await checkDynamicFiles(
+      ignoreFileNamesSet,
+      this.verbose,
+    );
+    if (!dynamicFilesValid) {
       oneOrMoreErrors = true;
     }
 
@@ -69,11 +72,12 @@ export class CheckCommand extends Command {
   }
 }
 
-function checkTemplateDirectory(
+/** @returns Whether the directory was valid. */
+async function checkTemplateDirectory(
   templateDirectory: string,
   ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
-): boolean {
+): Promise<boolean> {
   let oneOrMoreErrors = false;
 
   for (const klawItem of klawSync(templateDirectory)) {
@@ -120,15 +124,22 @@ function checkTemplateDirectory(
       continue;
     }
 
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
+    // eslint-disable-next-line no-await-in-loop
+    const fileValid = await compareTextFiles(
+      projectFilePath,
+      templateFilePath,
+      verbose,
+    );
+    if (!fileValid) {
       oneOrMoreErrors = true;
     }
   }
 
-  return oneOrMoreErrors;
+  return !oneOrMoreErrors;
 }
 
-function checkIndividualFiles(
+/** @returns Whether the dynamic files were valid. */
+async function checkDynamicFiles(
   ignoreFileNamesSet: ReadonlySet<string>,
   verbose: boolean,
 ) {
@@ -141,34 +152,40 @@ function checkIndividualFiles(
       templateFilePath,
     );
     const projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    if (!compareTextFiles(projectFilePath, templateFilePath, verbose)) {
+    const fileValid = await compareTextFiles(
+      projectFilePath,
+      templateFilePath,
+      verbose,
+    );
+    if (!fileValid) {
       oneOrMoreErrors = true;
     }
   }
 
-  return oneOrMoreErrors;
+  return !oneOrMoreErrors;
 }
 
 /** @returns Whether the project file is valid in reference to the template file. */
-function compareTextFiles(
+async function compareTextFiles(
   projectFilePath: string,
   templateFilePath: string,
   verbose: boolean,
-): boolean {
-  if (!isFile(projectFilePath)) {
+): Promise<boolean> {
+  const fileExists = await isFileAsync(projectFilePath);
+  if (!fileExists) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
     printTemplateLocation(templateFilePath);
 
     return false;
   }
 
-  const projectFileObject = getTruncatedFileText(
+  const projectFileObject = await getTruncatedFileText(
     projectFilePath,
     new Set(),
     new Set(),
   );
 
-  const templateFileObject = getTruncatedFileText(
+  const templateFileObject = await getTruncatedFileText(
     templateFilePath,
     projectFileObject.ignoreLines,
     projectFileObject.linesBeforeIgnore,
@@ -206,24 +223,24 @@ function compareTextFiles(
   const tempProjectFilePath = path.join(CWD, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(CWD, "tempTemplateFile.txt");
 
-  writeFile(tempProjectFilePath, projectFileObject.text);
-  writeFile(tempTemplateFilePath, templateFileObject.text);
+  await writeFileAsync(tempProjectFilePath, projectFileObject.text);
+  await writeFileAsync(tempTemplateFilePath, templateFileObject.text);
 
-  $.sync`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
+  await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
 
-  deleteFileOrDirectory(tempProjectFilePath);
-  deleteFileOrDirectory(tempTemplateFilePath);
+  await deleteFileOrDirectoryAsync(tempProjectFilePath);
+  await deleteFileOrDirectoryAsync(tempTemplateFilePath);
 
   return false;
 }
 
-function getTruncatedFileText(
+async function getTruncatedFileText(
   filePath: string,
   ignoreLines: ReadonlySet<string>,
   linesBeforeIgnore: ReadonlySet<string>,
 ) {
   const fileName = path.basename(filePath);
-  const fileContents = readFile(filePath);
+  const fileContents = await readFileAsync(filePath);
 
   return getTruncatedText(
     fileName,
