@@ -81,6 +81,36 @@ export function deleteFileOrDirectory(...filePaths: readonly string[]): void {
 }
 
 /**
+ * Helper function to asynchronously delete a file or directory. If a path to a directory is
+ * specified, the directory will be recursively deleted. If the path does not exist, this function
+ * will be a no-op.
+ *
+ * This will throw an error if the file cannot be deleted.
+ *
+ * This function is variadic, meaning that you can pass as many file paths as you want to delete.
+ */
+export async function deleteFileOrDirectoryAsync(
+  ...filePaths: readonly string[]
+): Promise<void> {
+  await Promise.all(
+    filePaths.map(async (filePath) => {
+      // Deleting files that do not exist will throw an error, so we need to explicitly check for
+      // that.
+      try {
+        await fsPromises.rm(filePath, {
+          recursive: true,
+        });
+      } catch (error) {
+        // Deleting files that do not exit should be a no-op. ("ENOENT" means "Error NO ENTry".)
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+          throw error;
+        }
+      }
+    }),
+  );
+}
+
+/**
  * Helper function to synchronously check if a file exists.
  *
  * This will throw an error if there is an error when checking the file path.
