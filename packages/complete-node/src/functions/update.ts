@@ -6,7 +6,7 @@
 
 import { isObject } from "complete-common";
 import path from "node:path";
-import ncu from "npm-check-updates";
+import { run } from "npm-check-updates";
 import { $ } from "./execa.js";
 import { getFilePath, isFileAsync } from "./file.js";
 import { getJSONC } from "./jsonc.js";
@@ -124,7 +124,7 @@ async function runNPMCheckUpdates(
   packagesToIgnore: readonly string[],
   quiet: boolean,
 ): Promise<boolean> {
-  const upgradedPackages = await ncu.run(
+  const upgradedPackages = await run(
     {
       upgrade: true,
       packageFile: packageJSONPath,
