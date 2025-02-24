@@ -62,7 +62,8 @@ async function installVSCodeExtensions(
   const extensions = await getExtensionsFromJSON(projectPath);
   await Promise.all(
     extensions.map(
-      (extension) => $q`${vsCodeCommand} --install-extension ${extension}`,
+      async (extension) =>
+        await $q`${vsCodeCommand} --install-extension ${extension}`,
     ),
   );
 }
