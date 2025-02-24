@@ -1,4 +1,5 @@
 // We build the project with webpack to avoid run-time errors relating to dependencies not existing.
+// (This is only needed during development when rapid testing is required.)
 
 import path from "node:path";
 import TSConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
