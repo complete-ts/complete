@@ -51,11 +51,9 @@
     "typedoc-plugin-markdown": "4.4.2"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "3.7.0",
     "@docusaurus/module-type-aliases": "3.7.0",
     "@docusaurus/tsconfig": "3.7.0",
     "@docusaurus/types": "3.7.0",
-    "@eslint/eslintrc": "3.3.0",
     "@octokit/core": "6.1.4",
     "@types/node": "22.13.5",
     "complete-common": "^1.1.1",

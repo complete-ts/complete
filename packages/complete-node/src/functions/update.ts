@@ -124,6 +124,10 @@ async function runNPMCheckUpdates(
   packagesToIgnore: readonly string[],
   quiet: boolean,
 ): Promise<boolean> {
+  // Running npm-check-updates in CLI mode throws run-time errors unless certain steps are taken
+  // beforehand.
+  /// TODO
+
   const upgradedPackages = await run(
     {
       upgrade: true,
