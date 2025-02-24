@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Builtins, Cli } from "clipanion";
-import { install } from "source-map-support";
 import { CheckCommand } from "./commands/CheckCommand.js";
 import { InitCommand } from "./commands/InitCommand.js";
 import { NukeCommand } from "./commands/NukeCommand.js";
@@ -12,8 +11,6 @@ import { PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
 await main();
 
 async function main(): Promise<void> {
-  install();
-
   const [_node, _app, ...args] = process.argv;
 
   const cli = new Cli({

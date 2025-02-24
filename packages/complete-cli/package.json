@@ -33,26 +33,26 @@
     "start": "tsx ./src/main.ts",
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
-  "devDependencies": {
+  "dependencies": {
     "@clack/prompts": "0.10.0",
-    "@types/klaw-sync": "6.0.5",
-    "@types/node": "22.13.5",
-    "@types/source-map-support": "^0.5.10",
     "chalk": "5.4.1",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "^1.1.1",
     "complete-node": "^3.0.1",
-    "glob": "11.0.1",
     "klaw-sync": "6.0.0",
-    "source-map-support": "^0.5.21",
+    "yaml": "2.7.0"
+  },
+  "devDependencies": {
+    "@types/klaw-sync": "6.0.5",
+    "@types/node": "22.13.5",
+    "glob": "11.0.1",
     "ts-loader": "9.5.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
     "typescript": "5.7.3",
     "typescript-eslint": "8.24.1",
     "webpack": "5.98.0",
     "webpack-cli": "6.0.1",
-    "webpack-shebang-plugin": "^1.1.8",
-    "yaml": "2.7.0"
+    "webpack-shebang-plugin": "^1.1.8"
   },
   "engines": {
     "node": ">= 20.11.0"

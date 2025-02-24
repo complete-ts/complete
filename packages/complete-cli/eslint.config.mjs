@@ -18,7 +18,7 @@ export default tseslint.config(
 
       // Since we bundle all of the dependencies into a single file, we prevent npm from downloading
       // the dependencies by moving them all to the "devDependencies" field in the "package.json".
-      "import-x/no-extraneous-dependencies": "off",
+      /// "import-x/no-extraneous-dependencies": "off",
     },
   },
 

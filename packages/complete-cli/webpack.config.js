@@ -1,3 +1,5 @@
+// We build the project with webpack to avoid run-time errors relating to dependencies not existing.
+
 import path from "node:path";
 import TSConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
 import WebpackShebangPlugin from "webpack-shebang-plugin";
@@ -9,21 +11,14 @@ const config = {
     path: path.join(import.meta.dirname, "dist"),
     filename: "main.cjs",
   },
+  // Building with "production" creates run-time errors related to the ArkType helper functions.
   mode: "development",
   target: "node",
-  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: {
-          loader: "ts-loader",
-          options: {
-            compilerOptions: {
-              sourceMap: true,
-            },
-          },
-        },
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
