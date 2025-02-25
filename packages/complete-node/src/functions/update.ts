@@ -79,37 +79,45 @@ export async function updatePackageJSONDependencies(
 async function getPackagesToIgnore(
   packageRoot: string,
 ): Promise<readonly string[]> {
-  const packagesToIgnore: string[] = [];
-
   const metadataPath = path.join(packageRoot, "package-metadata.json");
   const metadataExists = await isFileAsync(metadataPath);
-  if (metadataExists) {
-    const metadata = await getJSONC(metadataPath);
-    for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
-      const dependenciesArray = metadata[dependencyType];
-      if (!isObject(dependenciesArray)) {
+  if (!metadataExists) {
+    return [];
+  }
+
+  console.log(
+    'A "package-metadata.json" was found; looking for dependencies to ignore.',
+  );
+  const metadata = await getJSONC(metadataPath);
+
+  const packagesToIgnore: string[] = [];
+
+  for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
+    const dependenciesArray = metadata[dependencyType];
+    if (!isObject(dependenciesArray)) {
+      continue;
+    }
+
+    for (const [dependencyName, dependencyObject] of Object.entries(
+      dependenciesArray,
+    )) {
+      if (!isObject(dependencyObject)) {
         continue;
       }
 
-      for (const [key, value] of Object.entries(dependenciesArray)) {
-        if (!isObject(value)) {
-          continue;
-        }
-
-        const { lockVersion } = value;
-        if (lockVersion !== "true") {
-          continue;
-        }
-
-        const { reason } = value;
-        if (typeof reason === "string") {
-          console.log(
-            `Skipping update of ${dependencyType} of "${key}" because: ${reason}`,
-          );
-        }
-
-        packagesToIgnore.push(key);
+      const lockVersion = dependencyObject["lock-version"];
+      if (lockVersion !== "true") {
+        continue;
       }
+
+      const { reason } = dependencyObject;
+      if (typeof reason === "string") {
+        console.log(
+          `Skipping update of ${dependencyType} of "${dependencyName}" because: ${reason}`,
+        );
+      }
+
+      packagesToIgnore.push(dependencyName);
     }
   }
 
