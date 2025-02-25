@@ -557,9 +557,7 @@ export async function packageJSONHasScriptAsync(
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
  * @param dependencyName The name of the dependency to update.
- * @param version The new value for the dependency field. Note that most of the time, the version
- *                should have a "^" character prefix to indicate that patch updates should
- *                automatically be downloaded by the package manager.
+ * @param version The new value for the dependency field.
  * @param dependencyType Optional. The specific dependencies field to update. Defaults to
  *                       "dependencies".
  */
@@ -594,9 +592,7 @@ export function setPackageJSONDependency(
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
  * @param dependencyName The name of the dependency to update.
- * @param version The new value for the dependency field. Note that most of the time, the version
- *                should have a "^" character prefix to indicate that patch updates should
- *                automatically be downloaded by the package manager.
+ * @param version The new value for the dependency field.
  * @param dependencyType Optional. The specific dependencies field to update. Defaults to
  *                       "dependencies".
  */

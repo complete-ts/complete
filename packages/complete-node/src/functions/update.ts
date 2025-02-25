@@ -134,13 +134,10 @@ async function runNPMCheckUpdates(
 
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
-  // - "--packageFile" is necessary because the current working directory may not contain the
-  //   "package.json" file, so we must explicitly specify it.
-  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
-  //   that it should be a "locked" dependency and not upgraded.
+  // - "--reject" is only necessary if we need to specify dependencies that should not be upgraded.
   await (packagesToIgnore.length === 0
-    ? $$`npm-check-updates --upgrade --packageFile ${packageJSONPath}`
-    : $$`npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ${packagesToIgnore.join(",")}`);
+    ? $$`npm-check-updates --upgrade`
+    : $$`npm-check-updates --upgrade --reject ${packagesToIgnore.join(",")}`);
 
   const newPackageJSONString = await readFileAsync(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
