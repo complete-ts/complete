@@ -5,7 +5,7 @@
  */
 
 import type { ReadonlyRecord } from "complete-common";
-import { assertDefined, isObject, trimPrefix } from "complete-common";
+import { assertDefined, isObject } from "complete-common";
 import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { isFileAsync } from "./file.js";
@@ -206,14 +206,12 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
             );
           }
 
-          const depVersionTrimmed = trimPrefix(depVersion, "^");
-          if (depVersionTrimmed !== correctVersion) {
+          if (depVersion !== correctVersion) {
             valid = false;
 
-            const correctVersionWithPrefix = `^${correctVersion}`;
             if (dryRun) {
               console.log(
-                `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersionWithPrefix}`,
+                `A dependency is out of date in "${childPackageName}": ${depName} - ${depVersion} --> ${correctVersion}`,
               );
             } else {
               addPendingUpdate(
@@ -222,7 +220,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
                 childPackageJSON,
                 depType,
                 depName,
-                correctVersionWithPrefix,
+                correctVersion,
               );
             }
           }
