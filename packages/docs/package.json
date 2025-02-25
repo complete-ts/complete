@@ -47,7 +47,7 @@
     "prism-react-renderer": "2.4.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "typedoc": "0.27.8",
+    "typedoc": "0.27.9",
     "typedoc-plugin-markdown": "4.4.2"
   },
   "devDependencies": {
@@ -59,6 +59,6 @@
     "complete-common": "^1.1.1",
     "complete-node": "^3.1.0",
     "typescript": "5.7.3",
-    "typescript-eslint": "8.24.1"
+    "typescript-eslint": "8.25.0"
   }
 }

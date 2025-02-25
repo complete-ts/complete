@@ -14,6 +14,7 @@ import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
 } from "./packageManager.js";
+import { readFileAsync } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
@@ -52,12 +53,9 @@ export async function updatePackageJSONDependencies(
   const packageRoot = path.dirname(packageJSONPath);
   const packagesToIgnore = await getPackagesToIgnore(packageRoot);
 
-  const packageJSONChangedPromise = runNPMCheckUpdates(
-    packageJSONPath,
-    packagesToIgnore,
-    quiet,
-  );
-  const packageJSONChanged = await packageJSONChangedPromise;
+  const packageJSONChanged = await (quiet
+    ? runNPMCheckUpdatesQuiet(packageJSONPath, packagesToIgnore)
+    : runNPMCheckUpdates(packageJSONPath, packagesToIgnore, packageRoot));
 
   if (packageJSONChanged && installAfterUpdate) {
     const $$ = $({
@@ -118,27 +116,51 @@ async function getPackagesToIgnore(
   return packagesToIgnore;
 }
 
-/** @returns Whether the "package.json" file was changed by `npm-check-updates`. */
+/**
+ * It is impossible to invoke `npm-check-updates` programmatically and get the useful CLI output:
+ * https://github.com/raineorshine/npm-check-updates/issues/1499
+ *
+ * Thus, we have to invoke it using a shell.
+ *
+ * @returns Whether the "package.json" file was changed by `npm-check-updates`.
+ */
 async function runNPMCheckUpdates(
   packageJSONPath: string,
   packagesToIgnore: readonly string[],
-  quiet: boolean,
+  packageRoot: string,
 ): Promise<boolean> {
-  const upgradedPackages = await run(
-    {
-      upgrade: true,
-      packageFile: packageJSONPath,
-      // TODO: Remove the below type assertion when this pull request is merged:
-      // https://github.com/raineorshine/npm-check-updates/pull/1498
-      filterVersion: packagesToIgnore as string[],
-    },
-    {
-      // By default, invoking `npm-check-updates` through the API will not produce any console
-      // output. Setting "cli" to true will re-enable the console output, which is nice because it
-      // tells the end-user exactly which packages were updated.
-      cli: !quiet,
-    },
-  );
+  const $$ = $({ cwd: packageRoot });
+  const oldPackageJSONString = await readFileAsync(packageJSONPath);
+
+  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
+  //   displays what is upgradeable).
+  // - "--packageFile" is necessary because the current working directory may not contain the
+  //   "package.json" file, so we must explicitly specify it.
+  // - "--filterVersion" is necessary because if a dependency does not have a "^" prefix, we assume
+  //   that it should be a "locked" dependency and not upgraded.
+  await (packagesToIgnore.length === 0
+    ? $$`npm-check-updates --upgrade --packageFile ${packageJSONPath}`
+    : $$`npm-check-updates --upgrade --packageFile ${packageJSONPath} --filterVersion ${packagesToIgnore.join(",")}`);
+
+  const newPackageJSONString = await readFileAsync(packageJSONPath);
+  return oldPackageJSONString !== newPackageJSONString;
+}
+
+/**
+ * Unlike the `runNPMCheckUpdates` function, we can safely run it through TypeScript when no CLI
+ * output is required.
+ *
+ * @returns Whether the "package.json" file was changed by `npm-check-updates`.
+ */
+async function runNPMCheckUpdatesQuiet(
+  packageJSONPath: string,
+  packagesToIgnore: readonly string[],
+): Promise<boolean> {
+  const upgradedPackages = await run({
+    upgrade: true,
+    packageFile: packageJSONPath,
+    filterVersion: packagesToIgnore,
+  });
 
   if (!isObject(upgradedPackages)) {
     return false;
