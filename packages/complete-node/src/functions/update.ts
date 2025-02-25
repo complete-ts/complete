@@ -93,23 +93,22 @@ async function getPackagesToIgnore(
   const packagesToIgnore: string[] = [];
 
   for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
-    const dependenciesArray = metadata[dependencyType];
-    if (!isObject(dependenciesArray)) {
+    const dependenciesObject = metadata[dependencyType];
+    if (!isObject(dependenciesObject)) {
       continue;
     }
 
     for (const [dependencyName, dependencyObject] of Object.entries(
-      dependenciesArray,
+      dependenciesObject,
     )) {
       if (!isObject(dependencyObject)) {
         continue;
       }
 
       const lockVersion = dependencyObject["lock-version"];
-      if (lockVersion !== "true") {
+      if (lockVersion !== true) {
         continue;
       }
-
       const { reason } = dependencyObject;
       if (typeof reason === "string") {
         console.log(
