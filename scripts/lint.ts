@@ -35,7 +35,7 @@ await lintScript(async () => {
 
     // Check for template updates.
     // @template-ignore-next-line
-    $`complete-cli check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,LICENSE,tsconfig.json`,
+    $`tsx ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,tsconfig.json`,
 
     // @template-customization-start
 

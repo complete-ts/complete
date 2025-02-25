@@ -227,7 +227,11 @@ async function compareTextFiles(
   await writeFileAsync(tempProjectFilePath, projectFileObject.text);
   await writeFileAsync(tempTemplateFilePath, templateFileObject.text);
 
-  await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
+  try {
+    await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
+  } catch {
+    // `diff` will exit with a non-zero code if the files are different, which is expected.
+  }
 
   await deleteFileOrDirectoryAsync(tempProjectFilePath);
   await deleteFileOrDirectoryAsync(tempTemplateFilePath);
