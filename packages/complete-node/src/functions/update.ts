@@ -109,6 +109,7 @@ async function getPackagesToIgnore(
       if (lockVersion !== true) {
         continue;
       }
+
       const { reason } = dependencyObject;
       if (typeof reason === "string") {
         console.log(
