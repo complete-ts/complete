@@ -110,10 +110,10 @@ async function getPackagesToIgnore(
         continue;
       }
 
-      const { reason } = dependencyObject;
-      if (typeof reason === "string") {
+      const lockReason = dependencyObject["lock-reason"];
+      if (typeof lockReason === "string") {
         console.log(
-          `Skipping update of ${dependencyType} of "${dependencyName}" because: ${reason}`,
+          `Skipping update of ${dependencyType} of "${dependencyName}" because: ${lockReason}`,
         );
       }
 
