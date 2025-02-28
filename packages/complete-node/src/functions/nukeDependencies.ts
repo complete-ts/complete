@@ -12,7 +12,8 @@ import {
  *
  * - delete the "node_modules" directory
  * - delete any package manager lock files that exist
- * - reinstall the dependencies using the detected package manager
+ * - reinstall the dependencies using the detected package manager (defaulting to npm if there was
+ *   no detected package manager)
  *
  * This will attempt to validate that the directory is correct by looking for a "package.json" file.
  * If not found, this function will print an error message and exit.

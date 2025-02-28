@@ -4,7 +4,7 @@
  * @module
  */
 
-import { assertDefined, getEnumValues } from "complete-common";
+import { getEnumValues } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { isFileAsync } from "./file.js";
@@ -105,7 +105,9 @@ export function getPackageManagerExecCommand(
  * manager being used for the project.
  *
  * Since 2 or more different kinds of lock files can exist, this will throw an error if 0 lock files
- * are found or if 2 or more lock files are found.
+ * are found.
+ *
+ * Defaults to `PackageManager.npm` if no lock files are found.
  */
 export async function getPackageManagerForProject(
   packageRoot: string,
@@ -120,12 +122,7 @@ export async function getPackageManagerForProject(
   }
 
   const packageManager = packageManagers[0];
-  assertDefined(
-    packageManager,
-    `No package manager lock files exist at "${packageRoot}". You should install dependencies using the package manager of your choice so that this program can correctly detect your package manager.`,
-  );
-
-  return packageManager;
+  return packageManager ?? PackageManager.npm;
 }
 
 /**
