@@ -304,6 +304,8 @@ export const baseImportX = tseslint.config(
       "prettier.config.mjs",
       "rollup.config.js",
       "rollup.config.mjs",
+      "sidebars.js", // Docusaurus config file
+      "sidebars.ts", // Docusaurus config file
       "typedoc.config.js",
       "typedoc.config.mjs",
       "vite.config.js",
