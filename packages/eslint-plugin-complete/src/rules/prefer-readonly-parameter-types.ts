@@ -119,6 +119,23 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           | TSESTree.TSFunctionType
           | TSESTree.TSMethodSignature,
       ): void {
+        // Early return in the special case of a map method. (This would result in an unfixable lint
+        // error.)
+        if (
+          node.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+          node.type === AST_NODE_TYPES.FunctionExpression
+        ) {
+          const { parent } = node;
+          if (
+            parent.type === AST_NODE_TYPES.CallExpression &&
+            parent.callee.type === AST_NODE_TYPES.MemberExpression &&
+            parent.callee.property.type === AST_NODE_TYPES.Identifier &&
+            parent.callee.property.name === "map"
+          ) {
+            return;
+          }
+        }
+
         for (const param of node.params) {
           if (
             checkParameterProperties === false &&

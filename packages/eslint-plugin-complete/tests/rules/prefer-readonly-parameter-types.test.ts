@@ -42,6 +42,11 @@ interface Foo {
 function foo(arg: Foo | string[]) {}
         `,
       },
+      {
+        code: `
+[].map((value, index, array) => value);
+        `,
+      },
     ],
 
     invalid: [
