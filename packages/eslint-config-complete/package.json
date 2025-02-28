@@ -35,7 +35,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "4.0.1",
+    "@stylistic/eslint-plugin": "4.1.0",
     "confusing-browser-globals": "1.0.11",
     "eslint-import-resolver-typescript": "3.8.3",
     "eslint-plugin-complete": "1.0.10",
@@ -52,7 +52,7 @@
     "@types/node": "22.13.5",
     "complete-common": "1.1.2",
     "complete-node": "3.1.6",
-    "eslint-config-prettier": "10.0.1",
+    "eslint-config-prettier": "10.0.2",
     "extract-comments": "1.1.0",
     "typescript": "5.7.3"
   }

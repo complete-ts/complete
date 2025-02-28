@@ -41,6 +41,6 @@
     "glob": "11.0.1",
     "typescript": "5.7.3",
     "typescript-eslint": "8.25.0",
-    "unbuild": "3.3.1"
+    "unbuild": "3.5.0"
   }
 }
