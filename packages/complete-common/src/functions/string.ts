@@ -199,9 +199,9 @@ export function parseSemanticVersion(versionString: string):
   const patchVersion = parseIntSafe(patch);
 
   if (
-    majorVersion === undefined ||
-    minorVersion === undefined ||
-    patchVersion === undefined
+    majorVersion === undefined
+    || minorVersion === undefined
+    || patchVersion === undefined
   ) {
     return undefined;
   }

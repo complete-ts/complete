@@ -136,9 +136,9 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
 function canFitOnSingleJSDocLine(text: string, effectiveMaxLength: number) {
   const textLines = text.split("\n");
   return (
-    textLines.length === 1 &&
-    text.length + EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE <=
-      effectiveMaxLength
+    textLines.length === 1
+    && text.length + EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE
+      <= effectiveMaxLength
   );
 }
 

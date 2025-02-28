@@ -77,9 +77,9 @@ export const strictArrayMethods = createRule({
         const returnType = callSignature.getReturnType();
         const returnTypeName = getTypeName(returnType);
         if (
-          returnTypeName !== "boolean" &&
-          returnTypeName !== "true" &&
-          returnTypeName !== "false"
+          returnTypeName !== "boolean"
+          && returnTypeName !== "true"
+          && returnTypeName !== "false"
         ) {
           return false;
         }
@@ -91,8 +91,8 @@ export const strictArrayMethods = createRule({
     return {
       CallExpression(node) {
         if (
-          isArrayMethodInvocationWithBooleanFunction(node) &&
-          !firstArgumentHasBooleanReturnType(node)
+          isArrayMethodInvocationWithBooleanFunction(node)
+          && !firstArgumentHasBooleanReturnType(node)
         ) {
           context.report({
             loc: node.loc,

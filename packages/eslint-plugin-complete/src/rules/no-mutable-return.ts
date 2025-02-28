@@ -70,9 +70,9 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
 
   // Handle unwrapping promises.
   if (
-    typeName === "Promise" &&
-    isTypeReferenceType(type) &&
-    type.typeArguments !== undefined
+    typeName === "Promise"
+    && isTypeReferenceType(type)
+    && type.typeArguments !== undefined
   ) {
     const typeArgument = type.typeArguments[0];
     if (typeArgument !== undefined) {

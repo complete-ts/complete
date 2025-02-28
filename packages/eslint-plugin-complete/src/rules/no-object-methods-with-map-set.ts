@@ -68,8 +68,8 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
         // Second, check if the object is `Object`.
         const { object } = callee;
         if (
-          object.type !== AST_NODE_TYPES.Identifier ||
-          object.name !== "Object"
+          object.type !== AST_NODE_TYPES.Identifier
+          || object.name !== "Object"
         ) {
           return;
         }
@@ -77,8 +77,8 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
         // Third, check if this is one of the problem methods.
         const { property } = callee;
         if (
-          property.type !== AST_NODE_TYPES.Identifier ||
-          !PROBLEM_METHODS.has(property.name)
+          property.type !== AST_NODE_TYPES.Identifier
+          || !PROBLEM_METHODS.has(property.name)
         ) {
           return;
         }

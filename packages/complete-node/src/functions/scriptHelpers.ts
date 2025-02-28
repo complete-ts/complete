@@ -114,12 +114,12 @@ export async function script(
 ): Promise<void> {
   const args = getArgs();
   const quiet =
-    args.includes("quiet") ||
-    args.includes("--quiet") ||
-    args.includes("-q") ||
-    args.includes("silent") ||
-    args.includes("--silent") ||
-    args.includes("-s");
+    args.includes("quiet")
+    || args.includes("--quiet")
+    || args.includes("-q")
+    || args.includes("silent")
+    || args.includes("--silent")
+    || args.includes("-s");
 
   const fromDir = dirOfCaller(upStackBy);
   const packageRoot = findPackageRoot(fromDir);

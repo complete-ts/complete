@@ -172,11 +172,11 @@ async function incrementVersion(versionBumpType: string) {
   }
 
   if (
-    versionBumpType !== "major" &&
-    versionBumpType !== "minor" &&
-    versionBumpType !== "patch" &&
-    versionBumpType !== "dev" &&
-    !isSemanticVersion(versionBumpType)
+    versionBumpType !== "major"
+    && versionBumpType !== "minor"
+    && versionBumpType !== "patch"
+    && versionBumpType !== "dev"
+    && !isSemanticVersion(versionBumpType)
   ) {
     fatalError(
       'The version must be one of "major", "minor", "patch", "dev", "none", or a specific semantic version like "1.2.3".',

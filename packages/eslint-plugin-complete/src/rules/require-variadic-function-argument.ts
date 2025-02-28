@@ -45,8 +45,8 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
         }
 
         if (
-          isHardCodedException(node) ||
-          hasJSDocExceptionTag(checker, declaration)
+          isHardCodedException(node)
+          || hasJSDocExceptionTag(checker, declaration)
         ) {
           return;
         }
@@ -58,8 +58,8 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
           }
 
           if (
-            ts.isRestParameter(parameter) &&
-            node.arguments[i] === undefined
+            ts.isRestParameter(parameter)
+            && node.arguments[i] === undefined
           ) {
             context.report({
               loc: node.loc,
@@ -97,9 +97,9 @@ function isConsoleOrWindowOrLoggerFunction(
   }
 
   return (
-    object.name === "console" ||
-    object.name === "window" ||
-    object.name === "logger"
+    object.name === "console"
+    || object.name === "window"
+    || object.name === "logger"
   );
 }
 

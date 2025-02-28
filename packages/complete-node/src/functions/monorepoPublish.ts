@@ -70,8 +70,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   }
 
   if (
-    !isEnumValue(versionBump, VersionBump) &&
-    !isSemanticVersion(versionBump)
+    !isEnumValue(versionBump, VersionBump)
+    && !isSemanticVersion(versionBump)
   ) {
     echo(`Error: The following version bump is not valid: ${versionBump}`);
     exit(1);
@@ -130,8 +130,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
    */
   // eslint-disable-next-line unicorn/prefer-ternary
   if (
-    isEnumValue(versionBump, VersionBump) &&
-    versionBump === VersionBump.dev
+    isEnumValue(versionBump, VersionBump)
+    && versionBump === VersionBump.dev
   ) {
     await $$`npm version prerelease --preid=dev --commit-hooks=false`;
   } else {

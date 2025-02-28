@@ -29,27 +29,27 @@ export function isEnumBlockLabel(text: string): boolean {
 
   return (
     // e.g. CollectibleType.SAD_ONION
-    /^\w+\.\w+$/.test(text) ||
+    /^\w+\.\w+$/.test(text)
     // e.g. CollectibleType.SAD_ONION (1)
-    /^\w+\.\w+ \(\d+\)$/.test(text) ||
+    || /^\w+\.\w+ \(\d+\)$/.test(text)
     // e.g. CacheFlag.FIRE_DELAY (1 << 1)
-    /^\w+\.\w+ \(\d+ << \d+\)$/.test(text) ||
+    || /^\w+\.\w+ \(\d+ << \d+\)$/.test(text)
     // e.g. 1
-    /^\d+$/.test(text) ||
+    || /^\d+$/.test(text)
     // e.g. 1.0
-    /^\d+\.\d+$/.test(text) ||
+    || /^\d+\.\d+$/.test(text)
     // e.g. 1 << 1
-    /^\d+ << \d+$/.test(text) ||
+    || /^\d+ << \d+$/.test(text)
     // e.g. 1, 2, 3, 4, 5
-    /^\d+, \d+$/.test(text) ||
-    /^\d+, \d+, \d+$/.test(text) ||
-    /^(?:\d+, ){3}\d+$/.test(text) ||
-    /^(?:\d+, ){4}\d+$/.test(text) ||
+    || /^\d+, \d+$/.test(text)
+    || /^\d+, \d+, \d+$/.test(text)
+    || /^(?:\d+, ){3}\d+$/.test(text)
+    || /^(?:\d+, ){4}\d+$/.test(text)
     // e.g. 1.0, 2.0, 3.0, 4.0, 5.0
-    /^\d+\.\d+, \d+\.\d+$/.test(text) ||
-    /^(?:\d+\.\d+, ){2}\d+\.\d+$/.test(text) ||
-    /^(?:\d+\.\d+, ){3}\d+\.\d+$/.test(text) ||
-    /^(?:\d+\.\d+, ){4}\d+\.\d+$/.test(text)
+    || /^\d+\.\d+, \d+\.\d+$/.test(text)
+    || /^(?:\d+\.\d+, ){2}\d+\.\d+$/.test(text)
+    || /^(?:\d+\.\d+, ){3}\d+\.\d+$/.test(text)
+    || /^(?:\d+\.\d+, ){4}\d+\.\d+$/.test(text)
   );
 }
 
@@ -70,15 +70,15 @@ export function isSpecialComment(text: string): boolean {
   text = text.trim();
 
   return (
-    text.startsWith("eslint-") ||
-    text.startsWith("prettier-") ||
-    text.startsWith("cspell:") ||
-    text.startsWith("ts-prune-") || // e.g. ts-prune-ignore-next
-    text.startsWith("@ts-") ||
-    text.startsWith("@template-") || // e.g. @template-customization-start (complete-cli directives)
-    text.startsWith("TODO:") ||
-    text.startsWith("FIXME:") ||
-    text === "TODO" ||
-    text === "FIXME"
+    text.startsWith("eslint-")
+    || text.startsWith("prettier-")
+    || text.startsWith("cspell:")
+    || text.startsWith("ts-prune-") // e.g. ts-prune-ignore-next
+    || text.startsWith("@ts-")
+    || text.startsWith("@template-") // e.g. @template-customization-start (complete-cli directives)
+    || text.startsWith("TODO:")
+    || text.startsWith("FIXME:")
+    || text === "TODO"
+    || text === "FIXME"
   );
 }

@@ -121,9 +121,9 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 );
 
 if (
-  ESLintPluginJSDoc.configs["recommended"] === undefined ||
-  !("rules" in ESLintPluginJSDoc.configs["recommended"]) ||
-  !isObject(ESLintPluginJSDoc.configs["recommended"].rules)
+  ESLintPluginJSDoc.configs["recommended"] === undefined
+  || !("rules" in ESLintPluginJSDoc.configs["recommended"])
+  || !isObject(ESLintPluginJSDoc.configs["recommended"].rules)
 ) {
   throw new Error(
     'Failed to find the "rules" property in the following plugin: eslint-plugin-jsdoc',
@@ -532,8 +532,8 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   // -----------------------------------------------------------------------------------------------
 
   if (
-    TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
+    TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName)
+    && !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
   ) {
     parentConfigs.push("@typescript-eslint/recommended-type-checked");
   }
@@ -543,23 +543,23 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
   }
 
   if (
-    TYPESCRIPT_ESLINT_RULES_SET["strict-type-checked"].has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName)
+    TYPESCRIPT_ESLINT_RULES_SET["strict-type-checked"].has(ruleName)
+    && !TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)
+    && !TYPESCRIPT_ESLINT_RULES_SET["recommended-type-checked"].has(ruleName)
   ) {
     parentConfigs.push("@typescript-eslint/strict-type-checked");
   }
 
   if (
-    TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
+    TYPESCRIPT_ESLINT_RULES_SET.strict.has(ruleName)
+    && !TYPESCRIPT_ESLINT_RULES_SET.recommended.has(ruleName)
   ) {
     parentConfigs.push("@typescript-eslint/strict");
   }
 
   if (
-    TYPESCRIPT_ESLINT_RULES_SET["stylistic-type-checked"].has(ruleName) &&
-    !TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)
+    TYPESCRIPT_ESLINT_RULES_SET["stylistic-type-checked"].has(ruleName)
+    && !TYPESCRIPT_ESLINT_RULES_SET.stylistic.has(ruleName)
   ) {
     parentConfigs.push("@typescript-eslint/stylistic-type-checked");
   }

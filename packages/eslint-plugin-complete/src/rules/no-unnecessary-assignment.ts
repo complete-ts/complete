@@ -137,8 +137,8 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       const type = checker.getTypeAtLocation(tsNode);
       const types = unionTypeParts(type);
       return (
-        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null)) &&
-        !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
+        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
+        && !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
       );
     }
 
@@ -151,8 +151,8 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       const type = checker.getTypeAtLocation(tsNode);
       const types = unionTypeParts(type);
       return (
-        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined)) &&
-        !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
+        types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
+        && !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
       );
     }
 
@@ -179,9 +179,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         if (node.operator === "=") {
           checkEqualSign(node);
         } else if (
-          USELESS_ASSIGNMENT_OPERATORS_WITH_ZERO.has(node.operator) &&
-          isNumber(node.left) &&
-          isLiteralZero(node.right)
+          USELESS_ASSIGNMENT_OPERATORS_WITH_ZERO.has(node.operator)
+          && isNumber(node.left)
+          && isLiteralZero(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -191,9 +191,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
             },
           });
         } else if (
-          node.operator === "+=" &&
-          isString(node.left) &&
-          isLiteralEmptyString(node.right)
+          node.operator === "+="
+          && isString(node.left)
+          && isLiteralEmptyString(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -204,9 +204,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
 
       BinaryExpression(node) {
         if (
-          USELESS_OPERATORS_WITH_ZERO.has(node.operator) &&
-          ((isNumber(node.left) && isLiteralZero(node.right)) ||
-            (isNumber(node.right) && isLiteralZero(node.left)))
+          USELESS_OPERATORS_WITH_ZERO.has(node.operator)
+          && ((isNumber(node.left) && isLiteralZero(node.right))
+            || (isNumber(node.right) && isLiteralZero(node.left)))
         ) {
           context.report({
             loc: node.loc,
@@ -219,9 +219,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
 
         // Plus is the only operator valid for strings.
         if (
-          node.operator === "+" &&
-          ((isString(node.left) && isLiteralEmptyString(node.right)) ||
-            (isString(node.right) && isLiteralEmptyString(node.left)))
+          node.operator === "+"
+          && ((isString(node.left) && isLiteralEmptyString(node.right))
+            || (isString(node.right) && isLiteralEmptyString(node.left)))
         ) {
           context.report({
             loc: node.loc,
@@ -233,16 +233,16 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       LogicalExpression(node) {
         const { parent } = node;
         if (
-          parent.type !== AST_NODE_TYPES.AssignmentExpression &&
-          parent.type !== AST_NODE_TYPES.VariableDeclarator
+          parent.type !== AST_NODE_TYPES.AssignmentExpression
+          && parent.type !== AST_NODE_TYPES.VariableDeclarator
         ) {
           return;
         }
 
         if (
-          node.operator === "||" &&
-          isBoolean(node.left) &&
-          isFalse(node.right)
+          node.operator === "||"
+          && isBoolean(node.left)
+          && isFalse(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -254,9 +254,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         }
 
         if (
-          node.operator === "&&" &&
-          isBoolean(node.left) &&
-          isTrue(node.right)
+          node.operator === "&&"
+          && isBoolean(node.left)
+          && isTrue(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -268,9 +268,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         }
 
         if (
-          node.operator === "||" &&
-          isNumber(node.left) &&
-          isZero(node.right)
+          node.operator === "||"
+          && isNumber(node.left)
+          && isZero(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -282,9 +282,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         }
 
         if (
-          node.operator === "||" &&
-          isString(node.left) &&
-          isEmptyString(node.right)
+          node.operator === "||"
+          && isString(node.left)
+          && isEmptyString(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -296,9 +296,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         }
 
         if (
-          node.operator === "??" &&
-          hasNullAndNotUndefined(node.left) &&
-          isNull(node.right)
+          node.operator === "??"
+          && hasNullAndNotUndefined(node.left)
+          && isNull(node.right)
         ) {
           context.report({
             loc: node.loc,
@@ -310,9 +310,9 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         }
 
         if (
-          node.operator === "??" &&
-          hasUndefinedAndNotNull(node.left) &&
-          isUndefined(node.right)
+          node.operator === "??"
+          && hasUndefinedAndNotNull(node.left)
+          && isUndefined(node.right)
         ) {
           context.report({
             loc: node.loc,
