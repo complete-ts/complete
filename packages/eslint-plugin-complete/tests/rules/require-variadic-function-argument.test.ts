@@ -203,6 +203,21 @@ foo();
   `,
 });
 
+valid.push({
+  name: "Logger methods",
+  code: `
+class Foo {
+  info(...args: unknown[]) {}
+  warn(...args: unknown[]) {}
+  error(...args: unknown[]) {}
+}
+const foo = new Foo();
+foo.info();
+foo.warn();
+foo.error();
+  `,
+});
+
 ruleTester.run(
   "require-variadic-function-argument",
   requireVariadicFunctionArgument,

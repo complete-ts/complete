@@ -8,6 +8,15 @@ export type MessageIds = "noArgument";
 
 const JSDOC_EXCEPTION_TAG = "allowEmptyVariadic";
 
+const LOGGER_METHOD_NAMES: ReadonlySet<string> = new Set([
+  "trace",
+  "debug",
+  "info",
+  "warn",
+  "error",
+  "fatal",
+]);
+
 export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
   name: "require-variadic-function-argument",
   meta: {
@@ -74,8 +83,26 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
 
 function isHardCodedException(node: TSESTree.CallExpression): boolean {
   const { callee } = node;
+  const methodName = getMethodName(callee) ?? "unknown";
 
-  return isConsoleOrWindowOrLoggerFunction(callee) || isTimeoutFunction(callee);
+  return (
+    isConsoleOrWindowOrLoggerFunction(callee)
+    || isTimeoutFunction(callee)
+    || LOGGER_METHOD_NAMES.has(methodName)
+  );
+}
+
+function getMethodName(node: TSESTree.Expression): string | undefined {
+  if (node.type !== AST_NODE_TYPES.MemberExpression) {
+    return undefined;
+  }
+
+  const { property } = node;
+  if (property.type !== AST_NODE_TYPES.Identifier) {
+    return undefined;
+  }
+
+  return property.name;
 }
 
 /**
