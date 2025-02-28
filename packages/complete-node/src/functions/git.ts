@@ -4,13 +4,13 @@
  * @module
  */
 
-import { $, $q } from "./execa.js";
+import { $q } from "./execa.js";
 
 /** Helper function to determine whether the given path is inside of a Git repository. */
 export async function isGitRepository(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $({ cwd: gitRepositoryPath });
+  const $$ = $q({ cwd: gitRepositoryPath });
   const result = await $$`git rev-parse --is-inside-work-tree`;
   return result.exitCode === 0;
 }

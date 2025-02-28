@@ -26,6 +26,7 @@ async function main(): Promise<void> {
   cli.register(UpdateCommand);
 
   cli.register(Builtins.HelpCommand);
+  cli.register(Builtins.VersionCommand);
 
   await cli.runExit(args);
 }
