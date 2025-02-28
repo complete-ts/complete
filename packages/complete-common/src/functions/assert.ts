@@ -6,18 +6,15 @@
 
 import { isObject } from "./types.js";
 
-const TYPES_TO_VALIDATION_FUNCTIONS = {
-  string: (val: unknown): val is string => typeof val === "string",
-  number: (val: unknown): val is number => typeof val === "number",
-  boolean: (val: unknown): val is boolean => typeof val === "boolean",
-  object: (val: unknown): val is object =>
-    val !== null && typeof val === "object",
-  array: (val: unknown): val is unknown[] => Array.isArray(val),
-  null: (val: unknown): val is null => val === null,
-  undefined: (val: unknown): val is undefined => val === undefined,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  function: (val: unknown): val is Function => typeof val === "function",
-} as const;
+/** Helper function to throw an error if the provided value is not a boolean. */
+export function assertBoolean(
+  value: unknown,
+  msg: string,
+): asserts value is boolean {
+  if (typeof value !== "boolean") {
+    throw new TypeError(msg);
+  }
+}
 
 /**
  * Helper function to throw an error if the provided value is equal to `undefined`.
@@ -55,6 +52,16 @@ export function assertNotNull<T>(
   }
 }
 
+/** Helper function to throw an error if the provided value is not a number. */
+export function assertNumber(
+  value: unknown,
+  msg: string,
+): asserts value is number {
+  if (typeof value !== "number") {
+    throw new TypeError(msg);
+  }
+}
+
 /**
  * Helper function to throw an error if the provided value is not an object (i.e. a TypeScript
  * record).
@@ -73,14 +80,12 @@ export function assertObject(
   }
 }
 
-/** Helper function to throw an error if the provided value is not of the provided type. */
-export function assertType(
+/** Helper function to throw an error if the provided value is not a string. */
+export function assertString(
   value: unknown,
-  type: keyof typeof TYPES_TO_VALIDATION_FUNCTIONS,
   msg: string,
-): asserts value is unknown {
-  const validationFunction = TYPES_TO_VALIDATION_FUNCTIONS[type];
-  if (!validationFunction(value)) {
+): asserts value is string {
+  if (typeof value !== "string") {
     throw new TypeError(msg);
   }
 }
