@@ -6,6 +6,16 @@
 
 import { isObject } from "./types.js";
 
+/** Helper function to throw an error if the provided value is not an array. */
+export function assertArray(
+  value: unknown,
+  msg: string,
+): asserts value is unknown[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
+}
+
 /** Helper function to throw an error if the provided value is not a boolean. */
 export function assertBoolean(
   value: unknown,
