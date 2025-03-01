@@ -12,6 +12,7 @@
     ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
     // @template-customization-start
     "_gitattributes": "properties",
+    "post-merge": "shellscript",
     // @template-customization-end
   },
 
