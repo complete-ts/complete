@@ -128,15 +128,11 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
    *
    * Thus, we manually revert to doing a commit ourselves.
    */
-  // eslint-disable-next-line unicorn/prefer-ternary
-  if (
-    isEnumValue(versionBump, VersionBump)
-    && versionBump === VersionBump.dev
-  ) {
-    await $$`npm version prerelease --preid=dev --commit-hooks=false`;
-  } else {
-    await $$`npm version ${versionBump} --commit-hooks=false`;
-  }
+  const isDev =
+    isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
+  await (isDev
+    ? $$`npm version prerelease --preid=dev --commit-hooks=false`
+    : $$`npm version ${versionBump} --commit-hooks=false`);
 
   // Manually make a Git commit. (See above comment.)
   const packageJSONPath = path.join(packagePath, "package.json");
@@ -149,10 +145,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
   // Upload the package to npm.
-  const npmTag =
-    isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev
-      ? "next"
-      : "latest";
+  const npmTag = isDev ? "next" : "latest";
   // - The "--access=public" flag is only technically needed for the first publish (unless the
   //   package is a scoped package), but it is saved here for posterity.
   // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
