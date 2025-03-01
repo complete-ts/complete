@@ -161,11 +161,10 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   const elapsedSeconds = getElapsedSeconds(startTime);
   const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
-  const version = getPackageJSONVersion(packagePath);
   console.log(
     `Successfully published package "${chalk.green(
       packageName,
-    )}" version "${chalk.green(version)}" in ${elapsedSeconds} ${secondsText}.`,
+    )}" version "${chalk.green(newVersion)}" in ${elapsedSeconds} ${secondsText}.`,
   );
 
   if (updateMonorepo) {
