@@ -4,8 +4,7 @@ import type { PackageManager } from "complete-node";
 import {
   $,
   fatalError,
-  getPackageJSONField,
-  getPackageJSONVersion,
+  getPackageJSONFieldsMandatory,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
@@ -218,8 +217,11 @@ async function tryRunNPMScript(scriptName: string) {
 }
 
 async function publish(dryRun: boolean) {
-  const projectName = getPackageJSONField(undefined, "name");
-  const version = getPackageJSONVersion(undefined);
+  const { name, version } = await getPackageJSONFieldsMandatory(
+    undefined,
+    "name",
+    "version",
+  );
 
   if (dryRun) {
     await $`git reset --hard`; // Revert the version changes.
@@ -236,7 +238,7 @@ async function publish(dryRun: boolean) {
 
   const dryRunSuffix = dryRun ? " (dry-run)" : "";
   console.log(
-    `Published ${projectName} version ${version} successfully${dryRunSuffix}.`,
+    `Published ${name} version ${version} successfully${dryRunSuffix}.`,
   );
 }
 

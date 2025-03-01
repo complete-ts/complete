@@ -14,7 +14,7 @@ import {
   isFileAsync,
   moveFile,
 } from "./file.js";
-import { packageJSONHasScriptAsync } from "./packageJSON.js";
+import { packageJSONHasScript } from "./packageJSON.js";
 
 /**
  * Helper function to copy a package's build output to the "node_modules" directory at the root of
@@ -95,7 +95,7 @@ export async function getMonorepoPackageNames(
     );
     const exists = await isFileAsync(packageJSONPath);
     return exists
-      ? await packageJSONHasScriptAsync(packageJSONPath, scriptName)
+      ? await packageJSONHasScript(packageJSONPath, scriptName)
       : false;
   });
 

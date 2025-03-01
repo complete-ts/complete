@@ -1,10 +1,12 @@
 import chalk from "chalk";
-import { repeat } from "complete-common";
+import { assertObject, repeat } from "complete-common";
 import type { PackageManager } from "complete-node";
 import {
   $q,
   copyFileOrDirectory,
+  formatWithPrettier,
   getFileNamesInDirectory,
+  getPackageJSON,
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
   isFile,
@@ -13,6 +15,7 @@ import {
   renameFile,
   updatePackageJSONDependencies,
   writeFile,
+  writeFileAsync,
 } from "complete-node";
 import path from "node:path";
 import {
@@ -23,6 +26,7 @@ import {
 } from "../../constants.js";
 import { initGitRepository } from "../../git.js";
 import { promptError, promptLog, promptSpinnerStart } from "../../prompt.js";
+import { LOCKED_DEPENDENCIES } from "./lockedDependencies.js";
 
 export async function createProject(
   projectName: string,
@@ -46,6 +50,39 @@ export async function createProject(
     promptError(
       'Failed to update the dependencies in the "package.json" file.',
     );
+  }
+
+  // There may be one or more dependencies that should not be updated to the latest version.
+  if (LOCKED_DEPENDENCIES.length > 0) {
+    // Revert the versions in the "package.json" file.
+    const packageJSONPath = path.join(projectPath, "package.json");
+    const packageJSON = await getPackageJSON(packageJSONPath);
+    const { devDependencies } = packageJSON;
+    assertObject(
+      devDependencies,
+      'The "devDependencies" in the "package.json" file was not an object.',
+    );
+    for (const { name, version } of LOCKED_DEPENDENCIES) {
+      devDependencies[name] = version;
+    }
+    const packageJSONText = JSON.stringify(packageJSON);
+    await formatWithPrettier(packageJSONText, "json", projectPath);
+    await writeFileAsync(packageJSONPath, packageJSONText);
+
+    // Create a "package-metadata.json" file.
+    const packageMetadata = {
+      devDependencies: {} as Record<string, unknown>,
+    };
+    for (const { name, reason } of LOCKED_DEPENDENCIES) {
+      packageMetadata.devDependencies[name] = {
+        "lock-version": true,
+        "lock-reason": reason,
+      };
+    }
+    const packageMetadataText = JSON.stringify(packageMetadata);
+    await formatWithPrettier(packageMetadataText, "json", projectPath);
+    const packageMetadataPath = path.join(projectPath, "package-metadata.json");
+    await writeFileAsync(packageMetadataPath, packageMetadataText);
   }
 
   await installNodeModules(projectPath, skipInstall, packageManager);

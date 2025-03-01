@@ -10,7 +10,7 @@ import path from "node:path";
 import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { isFileAsync } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
-import { getPackageJSONAsync } from "./packageJSON.js";
+import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
 import { writeFileAsync } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
@@ -120,18 +120,11 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   dryRun = false,
 ): Promise<boolean> {
   // First, get and validate the root monorepo "package.json" file.
-  const monorepoPackageJSON = await getPackageJSONAsync(monorepoRoot);
-
-  const monorepoDependencies = monorepoPackageJSON["dependencies"];
+  const monorepoDependencies = await getPackageJSONDependencies(monorepoRoot);
   assertDefined(
     monorepoDependencies,
     `The "${monorepoRoot}/package.json" file does not have a "dependencies" field.`,
   );
-  if (!isObject(monorepoDependencies)) {
-    throw new Error(
-      `The "${monorepoRoot}/package.json" has a "dependencies" field that is not an object.`,
-    );
-  }
 
   // Second, get the child "package.json" files.
   const monorepoPackageNames = await getMonorepoPackageNames(monorepoRoot);
@@ -275,25 +268,23 @@ async function getMonorepoChildPackageJSONMap(
   monorepoRoot: string,
   monorepoPackageNames: readonly string[],
 ): Promise<ReadonlyMap<string, ReadonlyRecord<string, unknown>>> {
-  const promises = monorepoPackageNames.map(async (monorepoPackageName) => {
-    const childPackagePath = path.join(
-      monorepoRoot,
-      "packages",
-      monorepoPackageName,
-    );
+  const childPackageJSONs = await Promise.all(
+    monorepoPackageNames.map(async (monorepoPackageName) => {
+      const childPackagePath = path.join(
+        monorepoRoot,
+        "packages",
+        monorepoPackageName,
+      );
 
-    const childPackageJSONPath = path.join(childPackagePath, "package.json");
-    const childPackageJSONExists = await isFileAsync(childPackageJSONPath);
-    if (!childPackageJSONExists) {
-      return undefined;
-    }
+      const childPackageJSONPath = path.join(childPackagePath, "package.json");
+      const childPackageJSONExists = await isFileAsync(childPackageJSONPath);
+      if (!childPackageJSONExists) {
+        return undefined;
+      }
 
-    const childPackageJSON = await getPackageJSONAsync(childPackagePath);
-
-    return childPackageJSON;
-  });
-
-  const childPackageJSONs = await Promise.all(promises);
+      return await getPackageJSON(childPackagePath);
+    }),
+  );
 
   const childPackageJSONsMap = new Map<
     string,

@@ -25,6 +25,12 @@ const array: number[] = [1, 2, 3] as const;
       `,
         errors: [{ messageId: "annotatedConstAssertion" }],
       },
+      {
+        code: `
+const array: number[] = [1, 2, 3] as const satisfies number[];
+      `,
+        errors: [{ messageId: "annotatedConstAssertion" }],
+      },
     ],
   },
 );

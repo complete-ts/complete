@@ -12,7 +12,7 @@ export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 export const HOME_DIR = os.homedir();
 
 const packageRoot = findPackageRoot();
-const { name, version } = getPackageJSONFieldsMandatory(
+const { name, version } = await getPackageJSONFieldsMandatory(
   packageRoot,
   "name",
   "version",

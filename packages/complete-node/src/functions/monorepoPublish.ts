@@ -107,7 +107,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   // Before bumping the version, check to see if this package builds and lints and tests (so that we
   // can avoid unnecessary version bumps).
-  const scripts = getPackageJSONScripts(packagePath);
+  const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
     const promises: Array<Promise<unknown>> = [];
 
@@ -141,7 +141,7 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   // Manually make a Git commit. (See above comment.)
   const packageJSONPath = path.join(packagePath, "package.json");
   await $`git add ${packageJSONPath}`;
-  const newVersion = getPackageJSONVersion(packagePath);
+  const newVersion = await getPackageJSONVersion(packagePath);
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore(release): ${tag}`;
   await $`git commit --message ${commitMessage}`;
