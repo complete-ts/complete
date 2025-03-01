@@ -4,10 +4,6 @@ import tseslint from "typescript-eslint";
 /**
  * This ESLint config only contains rules from `eslint-plugin-unicorn`:
  * https://github.com/sindresorhus/eslint-plugin-unicorn
- *
- * Rules are separated into categories:
- * 1) Normal rules
- * 2) Deprecated rules
  */
 export const baseUnicorn = tseslint.config({
   plugins: {
@@ -17,8 +13,8 @@ export const baseUnicorn = tseslint.config({
   rules: {
     "unicorn/better-regex": "warn",
     "unicorn/catch-error-name": "warn",
-    "unicorn/consistent-assert": "warn",
-    "unicorn/consistent-date-clone": "warn",
+    /// "unicorn/consistent-assert": "warn", // In v57
+    /// "unicorn/consistent-date-clone": "warn", // In v57
 
     /** Disabled because it has too many false positives. */
     "unicorn/consistent-destructuring": "off",
@@ -45,7 +41,7 @@ export const baseUnicorn = tseslint.config({
      */
     "unicorn/no-abusive-eslint-disable": "off",
 
-    "unicorn/no-accessor-recursion": "warn",
+    /// "unicorn/no-accessor-recursion": "warn", // In v57
     "unicorn/no-anonymous-default-export": "warn",
 
     /** Disabled since it is not helpful when using TypeScript. */
@@ -63,7 +59,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/no-for-loop": "warn",
     "unicorn/no-hex-escape": "warn",
     "unicorn/no-instanceof-array": "warn",
-    "unicorn/no-instanceof-builtins": "warn",
+    /// "unicorn/no-instanceof-builtins": "warn", // In v57
     "unicorn/no-invalid-fetch-options": "warn",
     "unicorn/no-invalid-remove-event-listener": "warn",
 
@@ -78,7 +74,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/no-nested-ternary": "off", // eslint-config-prettier
     "unicorn/no-new-array": "warn",
     "unicorn/no-new-buffer": "warn",
-    "unicorn/no-named-default": "warn",
+    /// "unicorn/no-named-default": "warn", // In v57
     "unicorn/no-null": "warn",
     "unicorn/no-object-as-default-parameter": "warn",
 
@@ -189,5 +185,60 @@ export const baseUnicorn = tseslint.config({
 
     "unicorn/text-encoding-identifier-case": "warn",
     "unicorn/throw-new-error": "warn",
+
+    // --------------------------------
+    // Deprecated rules; remove in v57.
+    // --------------------------------
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/import-index": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/no-array-instanceof": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/no-fn-reference-in-iterator": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/no-reduce": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/no-unsafe-regex": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-dataset": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-event-key": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-exponentiation-operator": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-flat-map": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-node-append": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-node-remove": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-object-has-own": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-replace-all": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-starts-ends-with": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-text-content": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/prefer-trim-start-end": "off",
+
+    /** Disabled because this rule is deprecated. */
+    "unicorn/regex-shorthand": "off",
   },
 });
