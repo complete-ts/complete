@@ -54,35 +54,8 @@ export async function createProject(
 
   // There may be one or more dependencies that should not be updated to the latest version.
   if (LOCKED_DEPENDENCIES.length > 0) {
-    // Revert the versions in the "package.json" file.
-    const packageJSONPath = path.join(projectPath, "package.json");
-    const packageJSON = await getPackageJSON(packageJSONPath);
-    const { devDependencies } = packageJSON;
-    assertObject(
-      devDependencies,
-      'The "devDependencies" in the "package.json" file was not an object.',
-    );
-    for (const { name, version } of LOCKED_DEPENDENCIES) {
-      devDependencies[name] = version;
-    }
-    const packageJSONText = JSON.stringify(packageJSON);
-    await formatWithPrettier(packageJSONText, "json", projectPath);
-    await writeFileAsync(packageJSONPath, packageJSONText);
-
-    // Create a "package-metadata.json" file.
-    const packageMetadata = {
-      devDependencies: {} as Record<string, unknown>,
-    };
-    for (const { name, reason } of LOCKED_DEPENDENCIES) {
-      packageMetadata.devDependencies[name] = {
-        "lock-version": true,
-        "lock-reason": reason,
-      };
-    }
-    const packageMetadataText = JSON.stringify(packageMetadata);
-    await formatWithPrettier(packageMetadataText, "json", projectPath);
-    const packageMetadataPath = path.join(projectPath, "package-metadata.json");
-    await writeFileAsync(packageMetadataPath, packageMetadataText);
+    await revertVersionsInPackageJSON(projectPath);
+    await createPackageMetadataJSON(projectPath);
   }
 
   await installNodeModules(projectPath, skipInstall, packageManager);
@@ -208,6 +181,38 @@ function copyDynamicFiles(
 
   const srcPath = path.join(projectPath, "src");
   makeDirectory(srcPath);
+}
+
+async function revertVersionsInPackageJSON(projectPath: string) {
+  const packageJSONPath = path.join(projectPath, "package.json");
+  const packageJSON = await getPackageJSON(packageJSONPath);
+  const { devDependencies } = packageJSON;
+  assertObject(
+    devDependencies,
+    'The "devDependencies" in the "package.json" file was not an object.',
+  );
+  for (const { name, version } of LOCKED_DEPENDENCIES) {
+    devDependencies[name] = version;
+  }
+  const packageJSONText = JSON.stringify(packageJSON);
+  await formatWithPrettier(packageJSONText, "json", projectPath);
+  await writeFileAsync(packageJSONPath, packageJSONText);
+}
+
+async function createPackageMetadataJSON(projectPath: string) {
+  const packageMetadata = {
+    devDependencies: {} as Record<string, unknown>,
+  };
+  for (const { name, reason } of LOCKED_DEPENDENCIES) {
+    packageMetadata.devDependencies[name] = {
+      "lock-version": true,
+      "lock-reason": reason,
+    };
+  }
+  const packageMetadataText = JSON.stringify(packageMetadata);
+  await formatWithPrettier(packageMetadataText, "json", projectPath);
+  const packageMetadataPath = path.join(projectPath, "package-metadata.json");
+  await writeFileAsync(packageMetadataPath, packageMetadataText);
 }
 
 async function installNodeModules(
