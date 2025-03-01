@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $, commandExists, isFileAsync, readFileAsync } from "complete-node";
+import { $q, commandExists, isFileAsync, readFileAsync } from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
@@ -81,70 +81,64 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   const gitHubUsername = await getGitHubUsername();
-  if (gitHubUsername !== undefined) {
-    const { exitCode } = await $`gh repo view ${projectName}`;
-    const gitHubRepoExists = exitCode === 0;
-    const url = `https://github.com/${gitHubUsername}/${projectName}`;
+  if (gitHubUsername === undefined) {
+    const gitRemoteURL =
+      await getInputString(`Paste in the remote Git URL for your project.
+For example, if you have an SSH key, it would be something like:
+${chalk.green("git@github.com:Alice/green-candle.git")}
+If you do not have an SSH key, it would be something like:
+${chalk.green("https://github.com/Alice/green-candle.git")}
+If you do not want to initialize a Git repository for this project, press enter to skip.
+`);
 
-    if (gitHubRepoExists) {
-      promptLog(
-        `Detected an existing GitHub repository at: ${chalk.green(url)}`,
-      );
-      const guessedRemoteURL = getGitRemoteURL(projectName, gitHubUsername);
+    return gitRemoteURL === "" ? undefined : gitRemoteURL;
+  }
 
-      if (yes) {
-        promptLog(
-          `Using a Git remote URL of: ${chalk.green(guessedRemoteURL)}`,
-        );
-        return guessedRemoteURL;
-      }
+  const { exitCode } = await $q`gh repo view ${projectName}`;
+  const gitHubRepoExists = exitCode === 0;
+  const url = `https://github.com/${gitHubUsername}/${projectName}`;
 
-      const shouldUseGuessedURL = await getInputYesNo(
-        `Do you want to use a Git remote URL of: ${chalk.green(
-          guessedRemoteURL,
-        )}`,
-      );
-      if (shouldUseGuessedURL) {
-        return guessedRemoteURL;
-      }
-
-      // Assume that since they do not want to connect this project to the existing GitHub
-      // repository, they do not want to initialize a remote Git URL at all.
-      return undefined;
-    }
+  if (gitHubRepoExists) {
+    promptLog(`Detected an existing GitHub repository at: ${chalk.green(url)}`);
+    const guessedRemoteURL = getGitRemoteURL(projectName, gitHubUsername);
 
     if (yes) {
-      await $`gh repo create ${projectName} --public`;
-      promptLog(`Created a new GitHub repository at: ${chalk.green(url)}`);
-      return getGitRemoteURL(projectName, gitHubUsername);
+      promptLog(`Using a Git remote URL of: ${chalk.green(guessedRemoteURL)}`);
+      return guessedRemoteURL;
     }
 
-    const createNewGitHubRepo = await getInputYesNo(
-      `Would you like to create a new GitHub repository at: ${chalk.green(
-        url,
+    const shouldUseGuessedURL = await getInputYesNo(
+      `Do you want to use a Git remote URL of: ${chalk.green(
+        guessedRemoteURL,
       )}`,
     );
-    if (createNewGitHubRepo) {
-      await $`gh repo create ${projectName} --public`;
-      promptLog("Successfully created a new GitHub repository.");
-      return getGitRemoteURL(projectName, gitHubUsername);
+    if (shouldUseGuessedURL) {
+      return guessedRemoteURL;
     }
 
-    // Assume that since they do not want to create a new GitHub repository, they do not want to
-    // initialize a remote Git URL at all.
+    // Assume that since they do not want to connect this project to the existing GitHub
+    // repository, they do not want to initialize a remote Git URL at all.
     return undefined;
   }
 
-  const gitRemoteURL =
-    await getInputString(`Paste in the remote Git URL for your project.
-For example, if you have an SSH key, it would be something like:
-${chalk.green("git@github.com:Alice/green-candle.git")}
-If you don't have an SSH key, it would be something like:
-${chalk.green("https://github.com/Alice/green-candle.git")}
-If you don't want to initialize a Git repository for this project, press enter to skip.
-`);
+  if (yes) {
+    await $`gh repo create ${projectName} --public`;
+    promptLog(`Created a new GitHub repository at: ${chalk.green(url)}`);
+    return getGitRemoteURL(projectName, gitHubUsername);
+  }
 
-  return gitRemoteURL === "" ? undefined : gitRemoteURL;
+  const createNewGitHubRepo = await getInputYesNo(
+    `Would you like to create a new GitHub repository at: ${chalk.green(url)}`,
+  );
+  if (createNewGitHubRepo) {
+    await $`gh repo create ${projectName} --public`;
+    promptLog("Successfully created a new GitHub repository.");
+    return getGitRemoteURL(projectName, gitHubUsername);
+  }
+
+  // Assume that since they do not want to create a new GitHub repository, they do not want to
+  // initialize a remote Git URL at all.
+  return undefined;
 }
 
 function getGitRemoteURL(projectName: string, gitHubUsername: string) {
