@@ -164,7 +164,7 @@ async function runNPMCheckUpdatesQuiet(
   const upgradedPackages = await run({
     upgrade: true,
     packageFile: packageJSONPath,
-    filterVersion: packagesToIgnore,
+    reject: packagesToIgnore,
   });
 
   if (!isObject(upgradedPackages)) {
