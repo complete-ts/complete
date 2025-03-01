@@ -1,6 +1,6 @@
 {
   "name": "complete-cli",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "A command line tool for bootstrapping TypeScript projects.",
   "keywords": [
     "typescript"
