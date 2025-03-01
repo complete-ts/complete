@@ -33,7 +33,8 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 /**
  * Helper function to:
  *
- * - Check if all of the dependencies in the monorepo "package.json" files are up to date.
+ * - Check if all of the dependencies in the monorepo children "package.json" files are up to date.
+ * - Check if all of the dependencies in the monorepo children "package.json" files are non-exact.
  * - Check if any dependencies in the monorepo root "package.json" are unused.
  *
  * This is intended to be called in a monorepo lint script. It will exit the program with an error
@@ -157,6 +158,12 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
         if (typeof depVersion !== "string") {
           throw new TypeError(
             `Failed to parse the value of the dependency of: ${childPackageName} --> ${depName}`,
+          );
+        }
+
+        if (depVersion.startsWith("^")) {
+          throw new Error(
+            `A dependency is non-exact in "${childPackageName}": ${depName} - ${depVersion}`,
           );
         }
 
