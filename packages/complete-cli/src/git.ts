@@ -116,13 +116,13 @@ If you do not want to initialize a Git repository for this project, press enter 
       return guessedRemoteURL;
     }
 
-    // Assume that since they do not want to connect this project to the existing GitHub
-    // repository, they do not want to initialize a remote Git URL at all.
+    // Assume that since they do not want to connect this project to the existing GitHub repository,
+    // they do not want to initialize a remote Git URL at all.
     return undefined;
   }
 
   if (yes) {
-    await $`gh repo create ${projectName} --public`;
+    await $q`gh repo create ${projectName} --public`;
     promptLog(`Created a new GitHub repository at: ${chalk.green(url)}`);
     return getGitRemoteURL(projectName, gitHubUsername);
   }
@@ -131,7 +131,7 @@ If you do not want to initialize a Git repository for this project, press enter 
     `Would you like to create a new GitHub repository at: ${chalk.green(url)}`,
   );
   if (createNewGitHubRepo) {
-    await $`gh repo create ${projectName} --public`;
+    await $q`gh repo create ${projectName} --public`;
     promptLog("Successfully created a new GitHub repository.");
     return getGitRemoteURL(projectName, gitHubUsername);
   }
@@ -158,7 +158,7 @@ export async function initGitRepository(
     return;
   }
 
-  const $$ = $({ cwd: projectPath });
+  const $$ = $q({ cwd: projectPath });
 
   await $$`git init --initial-branch main`;
   await $$`git remote add origin ${gitRemoteURL}`;
@@ -173,8 +173,8 @@ export async function initGitRepository(
 }
 
 async function isGitNameAndEmailConfigured(): Promise<boolean> {
-  const { exitCode: nameExitCode } = await $`git config --global user.name`;
-  const { exitCode: emailExitCode } = await $`git config --global user.email`;
+  const { exitCode: nameExitCode } = await $q`git config --global user.name`;
+  const { exitCode: emailExitCode } = await $q`git config --global user.email`;
 
   return nameExitCode === 0 && emailExitCode === 0;
 }
