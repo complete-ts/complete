@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "eslint-plugin-unicorn": {
+      "lock-version": true,
+      "lock-reason": "https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2561"
+    },
     "typescript": {
       "lock-version": true,
       "lock-reason": "https://github.com/typescript-eslint/typescript-eslint/issues/10884"
