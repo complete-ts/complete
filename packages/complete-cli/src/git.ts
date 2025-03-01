@@ -94,11 +94,16 @@ If you do not want to initialize a Git repository for this project, press enter 
     return gitRemoteURL === "" ? undefined : gitRemoteURL;
   }
 
-  const { exitCode } = await $q`gh repo view ${projectName}`;
-  const gitHubRepoExists = exitCode === 0;
   const url = `https://github.com/${gitHubUsername}/${projectName}`;
 
-  if (gitHubRepoExists) {
+  let gitHubRepositoryExists = true;
+  try {
+    await $q`gh repo view ${projectName}`;
+  } catch {
+    gitHubRepositoryExists = false;
+  }
+
+  if (gitHubRepositoryExists) {
     promptLog(`Detected an existing GitHub repository at: ${chalk.green(url)}`);
     const guessedRemoteURL = getGitRemoteURL(projectName, gitHubUsername);
 
