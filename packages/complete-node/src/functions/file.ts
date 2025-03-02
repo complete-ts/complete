@@ -224,21 +224,24 @@ function getDirectoryEntryFileNames(
  *                          file. If undefined is passed, the current working directory will be
  *                          used.
  */
-export function getFilePath(
+export async function getFilePath(
   fileName: string,
   filePathOrDirPath: string | undefined,
-): string {
+): Promise<string> {
   if (filePathOrDirPath === undefined) {
     filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
   }
 
-  if (isFile(filePathOrDirPath)) {
+  const file = await isFileAsync(filePathOrDirPath);
+  if (file) {
     return filePathOrDirPath;
   }
 
-  if (isDirectory(filePathOrDirPath)) {
+  const directory = await isDirectoryAsync(filePathOrDirPath);
+  if (directory) {
     const filePath = path.join(filePathOrDirPath, fileName);
-    if (isFile(filePath)) {
+    const fileInDirectory = await isFileAsync(filePath);
+    if (fileInDirectory) {
       return filePath;
     }
 

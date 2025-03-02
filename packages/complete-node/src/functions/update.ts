@@ -49,7 +49,7 @@ export async function updatePackageJSONDependencies(
   installAfterUpdate = true,
   quiet = false,
 ): Promise<boolean> {
-  const packageJSONPath = getFilePath("package.json", filePathOrDirPath);
+  const packageJSONPath = await getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
   const packagesToIgnore = await getPackagesToIgnore(packageRoot);
 
