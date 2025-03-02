@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "eslint-plugin-n": {
+      "lock-version": true,
+      "lock-reason": "TODO"
+    },
     "typescript": {
       "lock-version": true,
       "lock-reason": "https://github.com/typescript-eslint/typescript-eslint/issues/10884"
