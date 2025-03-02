@@ -8,13 +8,31 @@ import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 
 /**
- * Helper function to synchronously append data to a file.
+ * Helper function to synchronously append data to a file. If the file does not exist, it will be
+ * automatically created.
  *
  * This will throw an error if the file cannot be appended to.
  */
 export function appendFile(filePath: string, data: string): void {
   try {
     fs.appendFileSync(filePath, data);
+  } catch (error) {
+    throw new Error(`Failed to append to the "${filePath}" file: ${error}`);
+  }
+}
+
+/**
+ * Helper function to asynchronously append data to a file. If the file does not exist, it will be
+ * automatically created.
+ *
+ * This will throw an error if the file cannot be appended to.
+ */
+export async function appendFileAsync(
+  filePath: string,
+  data: string,
+): Promise<void> {
+  try {
+    await fsPromises.appendFile(filePath, data);
   } catch (error) {
     throw new Error(`Failed to append to the "${filePath}" file: ${error}`);
   }

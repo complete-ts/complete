@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/core";
 import {
   $q,
-  appendFile,
+  appendFileAsync,
   cp,
   echo,
   exit,
@@ -138,4 +138,4 @@ while (true) {
   totalSeconds += SECONDS_TO_SLEEP;
 }
 
-appendFile(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");
+await appendFileAsync(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");
