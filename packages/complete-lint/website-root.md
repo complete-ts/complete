@@ -175,6 +175,9 @@ await lintScript(async () => {
 
     // Check for unused words in the CSpell configuration file.
     $`cspell-check-unused-words`,
+
+    // Check for template updates.
+    $`complete-cli check`,
   ]);
 });
 ```
