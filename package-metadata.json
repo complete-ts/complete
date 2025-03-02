@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "eslint-plugin-unicorn": {
+    "eslint-plugin-n": {
       "lock-version": true,
-      "lock-reason": "https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2561"
+      "lock-reason": "TODO"
     },
     "typescript": {
       "lock-version": true,
