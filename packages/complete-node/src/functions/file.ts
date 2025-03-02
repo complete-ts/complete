@@ -256,49 +256,6 @@ export async function getFilePath(
 }
 
 /**
- * Helper function to asynchronously get the path to file, given either a file path, a directory
- * path, or `undefined`.
- *
- * This will throw an error if the file cannot be found.
- *
- * @param fileName The name of the file to find.
- * @param filePathOrDirPath Either the path to a file or the path to a directory which contains the
- *                          file. If undefined is passed, the current working directory will be
- *                          used.
- */
-export async function getFilePathAsync(
-  fileName: string,
-  filePathOrDirPath: string | undefined,
-): Promise<string> {
-  if (filePathOrDirPath === undefined) {
-    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
-  }
-
-  const file = await isFileAsync(filePathOrDirPath);
-  const directory = await isDirectoryAsync(filePathOrDirPath);
-
-  if (file) {
-    return filePathOrDirPath;
-  }
-
-  if (directory) {
-    const filePath = path.join(filePathOrDirPath, fileName);
-    const filePathIsFile = await isFileAsync(filePath);
-    if (filePathIsFile) {
-      return filePath;
-    }
-
-    throw new Error(
-      `Failed to find a "${fileName}" file at the following directory: ${filePathOrDirPath}`,
-    );
-  }
-
-  throw new Error(
-    `Failed to find a "${fileName}" file at the following path: ${filePathOrDirPath}`,
-  );
-}
-
-/**
  * Helper function to synchronously get the file names inside of a directory.
  *
  * This will throw an error if there is an error when checking the directory.

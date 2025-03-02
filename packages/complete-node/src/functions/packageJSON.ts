@@ -8,7 +8,7 @@
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject } from "complete-common";
 import type { DependencyType } from "../types/DependencyType.js";
-import { getFilePathAsync } from "./file.js";
+import { getFilePath } from "./file.js";
 import { readFileAsync } from "./readWrite.js";
 
 const PACKAGE_JSON = "package.json";
@@ -24,7 +24,7 @@ const PACKAGE_JSON = "package.json";
 export async function getPackageJSON(
   filePathOrDirPath: string | undefined,
 ): Promise<Record<string, unknown>> {
-  const filePath = await getFilePathAsync(PACKAGE_JSON, filePathOrDirPath);
+  const filePath = await getFilePath(PACKAGE_JSON, filePathOrDirPath);
   const packageJSONContents = await readFileAsync(filePath);
   const packageJSON = JSON.parse(packageJSONContents) as unknown;
   if (!isObject(packageJSON)) {
