@@ -6,7 +6,7 @@ export class UpdateCommand extends Command {
 
   static override usage = Command.Usage({
     description:
-      'Invoke "npm-check-updates" to update the dependencies inside of the "package.json" file and then install them.',
+      'Invokes "npm-check-updates" to update the dependencies inside of the "package.json" file and then installs them.',
   });
 
   async execute(): Promise<void> {

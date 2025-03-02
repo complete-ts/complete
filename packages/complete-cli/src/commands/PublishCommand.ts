@@ -40,7 +40,7 @@ export class PublishCommand extends Command {
   });
 
   static override usage = Command.Usage({
-    description: "Bump the version & publish a new release.",
+    description: "Bumps the version & publishes a new release.",
   });
 
   async execute(): Promise<void> {

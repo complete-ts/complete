@@ -38,7 +38,7 @@ export class CheckCommand extends Command {
 
   static override usage = Command.Usage({
     description:
-      "Check the template files of the current TypeScript project to see if they are up to date.",
+      "Checks the current project for out-of-date files that came from the initial bootstrap.",
   });
 
   async execute(): Promise<void> {

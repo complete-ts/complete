@@ -6,7 +6,7 @@ export class NukeCommand extends Command {
 
   static override usage = Command.Usage({
     description:
-      'Delete the "node_modules" directory and the package lock file, then reinstall the dependencies for the project.',
+      'Deletes the "node_modules" directory and the package lock file, then reinstalls the dependencies for the project.',
   });
 
   async execute(): Promise<void> {

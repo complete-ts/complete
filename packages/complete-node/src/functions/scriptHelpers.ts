@@ -52,6 +52,9 @@ export async function lintScript(func: ScriptCallback): Promise<void> {
  *
  * await lintScript(standardLintFunction);
  * ```
+ *
+ * See [the official docs](/complete-lint#step-5---create-a-lint-script) for what specific checks
+ * are performed.
  */
 // This function must match the documentation in "complete-lint".
 export async function standardLintFunction(): Promise<void> {
