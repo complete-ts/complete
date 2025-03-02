@@ -2,7 +2,7 @@
   "dependencies": {
     "eslint-plugin-n": {
       "lock-version": true,
-      "lock-reason": "TODO"
+      "lock-reason": "https://github.com/eslint-community/eslint-plugin-n/issues/413"
     },
     "typescript": {
       "lock-version": true,
