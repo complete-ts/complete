@@ -34,7 +34,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@arktype/fs": "0.42.0",
+    "@arktype/fs": "0.43.2",
     "chalk": "5.4.1",
     "complete-common": "1.3.0",
     "diff": "7.0.0",
