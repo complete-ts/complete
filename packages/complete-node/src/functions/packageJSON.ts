@@ -147,7 +147,7 @@ export async function getPackageJSONFieldMandatory(
     | ReadonlyRecord<string, unknown>
     | undefined,
   fieldName: string,
-): Promise<string | undefined> {
+): Promise<string> {
   const field = await getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
   assertDefined(
     field,
