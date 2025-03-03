@@ -131,6 +131,32 @@ export async function getPackageJSONField(
 }
 
 /**
+ * Helper function to asynchronously get an arbitrary string field from a "package.json" file. This
+ * will throw an error if the "package.json" file cannot be found or the field does not exist or if
+ * the field is not a string.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param fieldName The name of the field to retrieve.
+ */
+export async function getPackageJSONFieldMandatory(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  fieldName: string,
+): Promise<string | undefined> {
+  const field = await getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
+  assertDefined(
+    field,
+    `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+  );
+  return field;
+}
+
+/**
  * Helper function to asynchronously get N arbitrary string fields from a "package.json" file. This
  * will throw an error if the "package.json" file cannot be found or any of the fields do not exist
  * or any of the fields are not strings.
