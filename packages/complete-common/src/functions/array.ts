@@ -101,7 +101,7 @@ export function arrayRemoveInPlace<T>(
 
 /** Helper function to remove all of the elements in an array in-place. */
 // eslint-disable-next-line complete/prefer-readonly-parameter-types
-export function emptyArray<T>(array: T[]): void {
+export function emptyArray(array: unknown[]): void {
   array.splice(0, array.length);
 }
 
@@ -171,8 +171,8 @@ export function getRandomArrayElement<T>(
  * @param exceptions Optional. An array of indexes that will be skipped over when getting the random
  *                   index. Default is an empty array.
  */
-export function getRandomArrayIndex<T>(
-  array: readonly T[],
+export function getRandomArrayIndex(
+  array: readonly unknown[],
   exceptions: readonly number[] = [],
 ): number {
   if (array.length === 0) {
