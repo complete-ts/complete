@@ -35,12 +35,12 @@
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "devDependencies": {
-    "@types/node": "22.13.8",
+    "@types/node": "22.13.9",
     "complete-node": "5.1.1",
     "eslint-plugin-sort-exports": "0.9.1",
     "glob": "11.0.1",
-    "typescript": "5.7.3",
-    "typescript-eslint": "8.25.0",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.26.0",
     "unbuild": "3.5.0"
   }
 }
