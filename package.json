@@ -22,7 +22,7 @@
     "update": "tsx ./scripts/update.ts"
   },
   "dependencies": {
-    "@arktype/fs": "0.43.3",
+    "@arktype/fs": "0.44.0",
     "@babel/core": "7.26.9",
     "@babel/preset-env": "7.26.9",
     "@babel/preset-typescript": "7.26.0",
