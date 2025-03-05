@@ -24,7 +24,7 @@ npm install complete-lint --save-dev
 
 (It should be a development dependency because it is only used to lint your code before compilation/deployment.)
 
-Note that if you use [pnpm](https://pnpm.io/), you cannot use `complete-lint`, since pnpm does not handle transitive dependencies properly.
+Note that if you use the [pnpm](https://pnpm.io/) package manager, you must use the [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) option, since pnpm does not handle transitive dependencies by default.
 
 ### Step 2 - Create `eslint.config.mjs`
 

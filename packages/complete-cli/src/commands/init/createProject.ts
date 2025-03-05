@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { assertObject, repeat } from "complete-common";
-import type { PackageManager } from "complete-node";
 import {
   $q,
   copyFileOrDirectory,
@@ -11,6 +10,7 @@ import {
   getPackageManagerInstallCommand,
   isFile,
   makeDirectory,
+  PackageManager,
   readFile,
   renameFile,
   updatePackageJSONDependencies,
@@ -43,6 +43,7 @@ export async function createProject(
 
   copyStaticFiles(projectPath);
   copyDynamicFiles(projectName, authorName, projectPath, packageManager);
+  copyPackageManagerSpecificFiles(projectPath, packageManager);
 
   // There is no package manager lock files yet, so we have to pass "false" to this function.
   const updated = await updatePackageJSONDependencies(projectPath, false, true);
@@ -178,9 +179,21 @@ function copyDynamicFiles(
     const destinationPath = path.join(projectPath, "README.md");
     writeFile(destinationPath, readmeMD);
   }
+}
 
-  const srcPath = path.join(projectPath, "src");
-  makeDirectory(srcPath);
+function copyPackageManagerSpecificFiles(
+  projectPath: string,
+  packageManager: PackageManager,
+) {
+  if (packageManager === PackageManager.pnpm) {
+    // `pnpm` requires the `shamefully-hoist` option to be enabled for "complete-lint" to work
+    // correctly.
+    const npmrc = `save-exact=true
+shamefully-hoist=true
+`;
+    const npmrcPath = path.join(projectPath, ".npmrc");
+    writeFile(npmrcPath, npmrc);
+  }
 }
 
 async function revertVersionsInPackageJSON(projectPath: string) {
