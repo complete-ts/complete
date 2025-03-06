@@ -4,6 +4,8 @@
  * @module
  */
 
+import type { TranspiledEnum } from "./enums.js";
+import { isEnumValue } from "./enums.js";
 import { isObject } from "./types.js";
 
 /** Helper function to throw an error if the provided value is not an array. */
@@ -40,6 +42,27 @@ export function assertDefined<T>(
       ]
 ): asserts value is Exclude<T, undefined> {
   if (value === undefined) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided value is not contained within an enum.
+ *
+ * @param value The value to check.
+ * @param transpiledEnum The enum to check against.
+ * @param msg The error message to throw if the check fails.
+ * @param set Optional. A set that contains all of the values of an enum. If provided, this function
+ *            will check for existence using the set (instead of the enum itself). Using a set
+ *            should be more performant for enums with around 52 or more elements.
+ */
+export function assertEnumValue<T extends TranspiledEnum>(
+  value: number | string,
+  transpiledEnum: T,
+  msg: string,
+  set?: ReadonlySet<string | number>,
+): asserts value is T[keyof T] {
+  if (!isEnumValue(value, transpiledEnum, set)) {
     throw new TypeError(msg);
   }
 }

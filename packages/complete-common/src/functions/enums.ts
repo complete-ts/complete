@@ -4,7 +4,7 @@
  * @module
  */
 
-type TranspiledEnum = Record<string, string | number>;
+export type TranspiledEnum = Record<string, string | number>;
 
 /**
  * Helper function to get the entries of an enum.
