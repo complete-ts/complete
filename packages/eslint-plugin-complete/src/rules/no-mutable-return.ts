@@ -1,4 +1,7 @@
-import { isTypeReferenceType } from "@typescript-eslint/type-utils";
+import {
+  isPromiseLike,
+  isTypeReferenceType,
+} from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
@@ -41,7 +44,9 @@ export const noMutableReturn = createRule<Options, MessageIds>({
       const signatures = type.getCallSignatures();
       for (const signature of signatures) {
         const returnType = signature.getReturnType();
-        for (const t of unionTypeParts(returnType)) {
+        const realReturnType = getRealType(parserServices.program, returnType);
+
+        for (const t of unionTypeParts(realReturnType)) {
           const messageId = getErrorMessageId(t);
           if (messageId !== undefined) {
             context.report({
@@ -62,22 +67,26 @@ export const noMutableReturn = createRule<Options, MessageIds>({
   },
 });
 
-function getErrorMessageId(type: ts.Type): MessageIds | undefined {
-  const typeName = getTypeName(type);
-  if (typeName === undefined) {
-    return undefined;
-  }
-
-  // Handle unwrapping promises.
+/** If the type is a `Promise`, this will unwrap it. */
+function getRealType(program: ts.Program, type: ts.Type) {
   if (
-    typeName === "Promise"
+    isPromiseLike(program, type)
     && isTypeReferenceType(type)
     && type.typeArguments !== undefined
   ) {
     const typeArgument = type.typeArguments[0];
     if (typeArgument !== undefined) {
-      return getErrorMessageId(typeArgument);
+      return typeArgument;
     }
+  }
+
+  return type;
+}
+
+function getErrorMessageId(type: ts.Type): MessageIds | undefined {
+  const typeName = getTypeName(type);
+  if (typeName === undefined) {
+    return undefined;
   }
 
   // This would be "ReadonlyMap" if it was the read-only version.

@@ -90,6 +90,14 @@ function getArray(): number[] | readonly string[] {
     },
     {
       code: `
+function getArray(): string[] | undefined {
+  return [];
+}
+      `,
+      errors: [{ messageId: "mutableArray" }],
+    },
+    {
+      code: `
 function getArray<T>(): Array<T> {
   return [];
 }
@@ -115,6 +123,14 @@ function getSet(): Set<string> {
     {
       code: `
 async function getArray(): Promise<string[]> {
+  return [];
+}
+      `,
+      errors: [{ messageId: "mutableArray" }],
+    },
+    {
+      code: `
+async function getArray(): Promise<string[] | undefined> {
   return [];
 }
       `,
