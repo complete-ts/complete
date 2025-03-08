@@ -13,7 +13,7 @@
     "declaration": true,
     "declarationMap": true,
 
-    // Needed since this library uses the `String.replaceAll` method.
+    // Needed since this library uses the `String.replaceAll` method. (The default is ES5.)
     "target": "ES2021",
   },
 }
