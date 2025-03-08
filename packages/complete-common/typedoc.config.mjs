@@ -16,7 +16,6 @@ export default {
     "ImmutableSet",
     "ReadonlyMapConstructor",
     "ReadonlySetConstructor",
-    "TranspiledEnum",
     "TupleEntry",
     "TupleKey",
   ],

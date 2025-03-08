@@ -24,6 +24,7 @@ export type * from "./types/ObjectValues.js";
 export * from "./types/ReadonlyMap.js";
 export type * from "./types/ReadonlyRecord.js";
 export * from "./types/ReadonlySet.js";
+export type * from "./types/TranspiledEnum.js";
 export type * from "./types/Tuple.js";
 export type * from "./types/WidenLiteral.js";
 export type * from "./types/Writeable.js";

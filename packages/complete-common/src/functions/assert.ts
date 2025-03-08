@@ -4,7 +4,7 @@
  * @module
  */
 
-import type { TranspiledEnum } from "./enums.js";
+import type { TranspiledEnum } from "../types/TranspiledEnum.js";
 import { isEnumValue } from "./enums.js";
 import { isObject } from "./types.js";
 

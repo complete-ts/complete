@@ -4,7 +4,7 @@
  * @module
  */
 
-export type TranspiledEnum = Record<string, string | number>;
+import type { TranspiledEnum } from "../types/TranspiledEnum.js";
 
 /**
  * Helper function to get the entries of an enum.
