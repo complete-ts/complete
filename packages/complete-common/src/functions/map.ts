@@ -14,11 +14,10 @@
  * If you want to perform a filter and a map at the same time on an array, use the `filterMap`
  * helper function instead.
  */
-// eslint-disable-next-line complete/no-mutable-return
 export function mapFilter<K, V>(
   map: ReadonlyMap<K, V>,
   predicate: (value: V) => boolean,
-): V[] {
+): readonly V[] {
   const array: V[] = [];
 
   for (const value of map.values()) {
@@ -36,13 +35,17 @@ export function mapFilter<K, V>(
  * maps.
  *
  * This is efficient such that it avoids converting the map values into an array.
+ *
+ * @param map The map to search through.
+ * @param predicate Function that tests each value for a condition.
+ * @returns The first value that satisfies the predicate, or undefined if no values satisfy.
  */
 export function mapFind<K, V>(
   map: ReadonlyMap<K, V>,
-  predicate: (value: V) => boolean,
+  predicate: (value: V, key: K, map: ReadonlyMap<K, V>) => boolean,
 ): V | undefined {
-  for (const value of map.values()) {
-    const match = predicate(value);
+  for (const [key, value] of map) {
+    const match = predicate(value, key, map);
     if (match) {
       return value;
     }

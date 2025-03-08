@@ -28,8 +28,9 @@ export function addSetsToSet<T>(
  *
  * This function is variadic, meaning that you can specify N sets.
  */
-// eslint-disable-next-line complete/no-mutable-return
-export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
+export function combineSets<T>(
+  ...sets: ReadonlyArray<ReadonlySet<T>>
+): ReadonlySet<T> {
   const newSet = new Set<T>();
   for (const set of sets) {
     for (const value of set) {
@@ -41,8 +42,7 @@ export function combineSets<T>(...sets: ReadonlyArray<ReadonlySet<T>>): Set<T> {
 }
 
 /** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
-// eslint-disable-next-line complete/no-mutable-return
-export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
+export function copySet<T>(oldSet: ReadonlySet<T>): ReadonlySet<T> {
   const newSet = new Set<T>();
   for (const value of oldSet) {
     newSet.add(value);
@@ -51,26 +51,10 @@ export function copySet<T>(oldSet: ReadonlySet<T>): Set<T> {
   return newSet;
 }
 
-/**
- * Helper function to convert the keys of an object to a read-only set.
- *
- * Also see the `objectKeysToSet` function.
- */
-export function objectKeysToReadonlySet<K extends string | number | symbol, V>(
-  object: Record<K, V>,
-): ReadonlySet<K> {
-  return objectKeysToSet(object);
-}
-
-/**
- * Helper function to convert the keys of an object to a set.
- *
- * Also see the `objectKeysToReadonlySet` function.
- */
-// eslint-disable-next-line complete/no-mutable-return
+/** Helper function to convert the keys of an object to a set. */
 export function objectKeysToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
-): Set<K> {
+): ReadonlySet<K> {
   const set = new Set<K>();
 
   for (const key of Object.keys(object)) {
@@ -80,27 +64,10 @@ export function objectKeysToSet<K extends string | number | symbol, V>(
   return set;
 }
 
-/**
- * Helper function to convert the values of an object to a read-only set.
- *
- * Also see the `objectValuesToSet` function.
- */
-export function objectValuesToReadonlySet<
-  K extends string | number | symbol,
-  V,
->(object: Record<K, V>): ReadonlySet<V> {
-  return objectValuesToSet(object);
-}
-
-/**
- * Helper function to convert the values of an object to a set.
- *
- * Also see the `objectValuesToReadonlySet` function.
- */
-// eslint-disable-next-line complete/no-mutable-return
+/** Helper function to convert the values of an object to a set. */
 export function objectValuesToSet<K extends string | number | symbol, V>(
   object: Record<K, V>,
-): Set<V> {
+): ReadonlySet<V> {
   const set = new Set<V>();
 
   for (const key of Object.values(object)) {

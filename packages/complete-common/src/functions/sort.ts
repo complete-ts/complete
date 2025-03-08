@@ -11,8 +11,9 @@
  * From:
  * https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-array-of-string-in-javascript
  */
-// eslint-disable-next-line complete/no-mutable-return
-export function sortCaseInsensitive(array: readonly string[]): string[] {
+export function sortCaseInsensitive(
+  array: readonly string[],
+): readonly string[] {
   const newArray = [...array];
   newArray.sort((a, b) =>
     a.localeCompare(b, undefined, {

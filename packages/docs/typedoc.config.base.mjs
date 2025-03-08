@@ -58,9 +58,8 @@ export function getTypeDocConfig(packageDirectoryPath) {
  * This function parses the "index.ts" file to find all of the individual exports.
  *
  * @param {string} packageDirectoryPath
- * @returns {string[]}
+ * @returns {readonly string[]}
  */
-// eslint-disable-next-line complete/no-mutable-return
 function getEntryPoints(packageDirectoryPath) {
   // We want one entry point for each export source file, which will correspond to one Markdown file
   // for each source file.
