@@ -23,7 +23,3 @@ waiting on replies:
 
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157
-
-- wait for next version of TypeDoc: 0.27.0
-  https://github.com/TypeStrong/typedoc/issues/2718#event-14441964839
-  https://discord.com/channels/508357248330760243/829307039447515176/1289228144808558645
