@@ -14,7 +14,7 @@ import { format, resolveConfig } from "prettier";
  */
 export async function formatWithPrettier(
   text: string,
-  language: "json" | "markdown" | "typescript",
+  language: string,
   repoRoot: string,
 ): Promise<string> {
   const prettierConfig = await resolveConfig(repoRoot);
