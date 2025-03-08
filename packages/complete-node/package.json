@@ -34,7 +34,7 @@
     "lint": "tsx ./scripts/lint.ts"
   },
   "dependencies": {
-    "@arktype/fs": "0.44.0",
+    "@arktype/fs": "0.44.5",
     "chalk": "5.4.1",
     "complete-common": "1.4.0",
     "diff": "7.0.0",
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/diff": "7.0.1",
-    "@types/node": "22.13.9",
+    "@types/node": "22.13.10",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "typescript": "5.8.2",

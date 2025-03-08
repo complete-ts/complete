@@ -46,13 +46,13 @@
     "typescript-eslint": "8.26.0"
   },
   "devDependencies": {
-    "@eslint/js": "9.21.0",
+    "@eslint/js": "9.22.0",
     "@types/confusing-browser-globals": "1.0.3",
     "@types/eslint-config-prettier": "6.11.3",
-    "@types/node": "22.13.9",
+    "@types/node": "22.13.10",
     "complete-common": "1.4.0",
     "complete-node": "5.1.1",
-    "eslint-config-prettier": "10.0.2",
+    "eslint-config-prettier": "10.1.1",
     "extract-comments": "1.1.0",
     "typescript": "5.8.2"
   }
