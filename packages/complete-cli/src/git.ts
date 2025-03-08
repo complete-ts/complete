@@ -163,17 +163,17 @@ export async function initGitRepository(
     return;
   }
 
-  const $$ = $q({ cwd: projectPath });
+  const $$q = $q({ cwd: projectPath });
 
-  await $$`git init --initial-branch main`;
-  await $$`git remote add origin ${gitRemoteURL}`;
+  await $$q`git init --initial-branch main`;
+  await $$q`git remote add origin ${gitRemoteURL}`;
 
   const gitNameAndEmailConfigured = await isGitNameAndEmailConfigured();
   if (gitNameAndEmailConfigured) {
-    await $$`git add --all`;
+    await $$q`git add --all`;
     const commitMessage = `chore: add files from ${PROJECT_NAME} ${PROJECT_VERSION} template`;
-    await $$`git commit --message ${commitMessage}`;
-    await $$`git push --set-upstream origin main`;
+    await $$q`git commit --message ${commitMessage}`;
+    await $$q`git push --set-upstream origin main`;
   }
 }
 

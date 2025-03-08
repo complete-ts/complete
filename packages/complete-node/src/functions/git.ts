@@ -10,8 +10,8 @@ import { $q } from "./execa.js";
 export async function isGitRepository(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $q({ cwd: gitRepositoryPath });
-  const result = await $$`git rev-parse --is-inside-work-tree`;
+  const $$q = $q({ cwd: gitRepositoryPath });
+  const result = await $$q`git rev-parse --is-inside-work-tree`;
   return result.exitCode === 0;
 }
 
@@ -22,8 +22,8 @@ export async function isGitRepository(
 export async function isGitRepositoryClean(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $q({ cwd: gitRepositoryPath });
-  const { stdout: gitStatusOutput } = await $$`git status --porcelain`;
+  const $$q = $q({ cwd: gitRepositoryPath });
+  const { stdout: gitStatusOutput } = await $$q`git status --porcelain`;
   return gitStatusOutput === "";
 }
 
@@ -31,11 +31,11 @@ export async function isGitRepositoryClean(
 export async function isGitRepositoryLatestCommit(
   gitRepositoryPath: string,
 ): Promise<boolean> {
-  const $$ = $q({ cwd: gitRepositoryPath });
-  await $$`git fetch`;
+  const $$q = $q({ cwd: gitRepositoryPath });
+  await $$q`git fetch`;
 
-  const { stdout: currentSHA1 } = await $$`git rev-parse HEAD`;
-  const { stdout: latestSHA1 } = await $$`git rev-parse @{u}`;
+  const { stdout: currentSHA1 } = await $$q`git rev-parse HEAD`;
+  const { stdout: latestSHA1 } = await $$q`git rev-parse @{u}`;
 
   return currentSHA1 === latestSHA1;
 }
