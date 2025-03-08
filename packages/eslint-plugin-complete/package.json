@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-complete",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "An ESLint plugin that contains useful rules.",
   "keywords": [
     "eslint",
