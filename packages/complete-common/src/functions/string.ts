@@ -126,7 +126,7 @@ export function isSemanticVersion(versionString: string): boolean {
   return match !== null;
 }
 
-/** Helper function to convert a string from kebab-case to camel-case. */
+/** Helper function to convert a string from kebab-case to camelCase. */
 export function kebabCaseToCamelCase(string: string): string {
   return string.replaceAll(/-./g, (match) => {
     const firstLetterOfWord = match[1];
@@ -134,6 +134,12 @@ export function kebabCaseToCamelCase(string: string): string {
       ? ""
       : firstLetterOfWord.toUpperCase();
   });
+}
+
+/** Helper function to convert a string from kebab-case to PascalCase. */
+export function kebabCaseToPascalCase(string: string): string {
+  const camelCase = kebabCaseToCamelCase(string);
+  return capitalizeFirstLetter(camelCase);
 }
 
 /**
