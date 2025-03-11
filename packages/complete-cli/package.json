@@ -34,7 +34,7 @@
     "test": "glob \"./src/**/*.test.ts\" --cmd=\"node --import tsx --test --test-reporter spec\""
   },
   "dependencies": {
-    "@clack/prompts": "0.10.0",
+    "@zamiell/clack-prompts": "0.10.2",
     "chalk": "5.4.1",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.1.0",

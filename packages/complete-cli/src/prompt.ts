@@ -10,7 +10,7 @@ import {
   outro,
   spinner,
   text,
-} from "@clack/prompts";
+} from "@zamiell/clack-prompts";
 import chalk from "chalk";
 import { PROJECT_NAME } from "./constants.js";
 
