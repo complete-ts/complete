@@ -3,7 +3,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
     // We do not have to put the "baseUrl" option here because the correct value will be
     // automatically inferred by TypeScript.

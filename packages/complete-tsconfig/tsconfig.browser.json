@@ -1,7 +1,7 @@
 // This is a TypeScript configuration intended to be used by TypeScript programs used in a browser
 // environment.
 {
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
     // "lib" specifies a set of bundled library declaration files that describe the target run-time
     // environment. Browser environments need "DOM". Additionally, we include "ES2021" because that

@@ -10,7 +10,7 @@
     "@docusaurus/tsconfig",
   ],
 
-  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
     // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
     "lib": ["DOM", "ES2021"],
