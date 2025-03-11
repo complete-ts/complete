@@ -25,6 +25,7 @@
     "README.md",
     "tsconfig.base.json",
     "tsconfig.browser.json",
+    "tsconfig.bun.json",
     "tsconfig.node.json"
   ],
   "dependencies": {

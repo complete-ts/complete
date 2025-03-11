@@ -1,0 +1,13 @@
+// This is a TypeScript configuration intended to be used by TypeScript programs used in a Bun
+// environment:
+// https://bun.sh/docs/typescript#suggested-compileroptions
+// Note that in order to keep the configuration as minimal as possible, the only flags that are
+// enabled are the ones necessary to prevent compilation errors.
+{
+  // https://www.typescriptlang.org/tsconfig/
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+  },
+}
