@@ -55,8 +55,10 @@ export async function getInputString(
     process.exit(1);
   }
 
-  const trimmedInput = input.trim();
-  if (trimmedInput === "") {
+  // The "text" return type is bugged: "input" is equal to "undefined" if the user did not enter any
+  // input.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (input === undefined || input.trim() === "") {
     promptError("You must enter a non-empty value.");
   }
 
