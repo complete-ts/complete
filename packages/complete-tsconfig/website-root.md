@@ -10,7 +10,8 @@ These are shared TypeScript configuration files that are intended to be used in 
 
 - [tsconfig.base.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json) - A config meant to be used by all TypeScript projects.
 - [tsconfig.browser.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.browser.json) - A config meant for projects running in the browser.
-- [tsconfig.node.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json) - A config meant for projects running in Node.js.
+- [tsconfig.bun.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.bun.json) - A config meant for projects running in a [Bun](https://bun.sh/) environment.
+- [tsconfig.node.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json) - A config meant for projects running in a [Node.js](https://nodejs.org/en) environment.
 
 ## Install
 
