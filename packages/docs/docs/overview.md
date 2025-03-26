@@ -6,6 +6,7 @@ Complete is a collection of packages to make working with [TypeScript](https://w
 
 | Name                                              | Description                                                | Version                                                                                                                         |
 | ------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [complete-cli](/complete-cli)                     | A CLI tool to help you bootstrap a new TypeScript project. | [![npm version](https://img.shields.io/npm/v/complete-cli.svg)](https://www.npmjs.com/package/complete-cli)                     |
 | [complete-common](/complete-common)               | Helper functions for TypeScript projects.                  | [![npm version](https://img.shields.io/npm/v/complete-common.svg)](https://www.npmjs.com/package/complete-common)               |
 | [complete-lint](/complete-lint)                   | A linting dependency meta-package for TypeScript projects. | [![npm version](https://img.shields.io/npm/v/complete-lint.svg)](https://www.npmjs.com/package/complete-lint)                   |
 | [complete-node](/complete-node)                   | Helper functions for Node.js projects.                     | [![npm version](https://img.shields.io/npm/v/complete-node.svg)](https://www.npmjs.com/package/complete-node)                   |
