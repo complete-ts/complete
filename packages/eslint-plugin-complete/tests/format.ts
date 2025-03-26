@@ -7,9 +7,7 @@ export function testFormatText(
   expectedFormattedText?: string,
   trim = true,
 ): void {
-  if (expectedFormattedText === undefined) {
-    expectedFormattedText = text;
-  }
+  expectedFormattedText ??= text;
 
   if (trim) {
     text = text.trim();

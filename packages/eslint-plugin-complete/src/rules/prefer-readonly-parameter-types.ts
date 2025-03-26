@@ -90,9 +90,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
   ) {
     const services = getParserServices(context);
 
-    if (allow === undefined) {
-      allow = [];
-    }
+    allow ??= [];
 
     allow.push("ReadonlyMap", "ReadonlySet");
 

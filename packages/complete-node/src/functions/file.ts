@@ -228,9 +228,7 @@ export async function getFilePath(
   fileName: string,
   filePathOrDirPath: string | undefined,
 ): Promise<string> {
-  if (filePathOrDirPath === undefined) {
-    filePathOrDirPath = process.cwd(); // eslint-disable-line no-param-reassign
-  }
+  filePathOrDirPath ??= process.cwd(); // eslint-disable-line no-param-reassign
 
   const file = await isFileAsync(filePathOrDirPath);
   if (file) {

@@ -24,9 +24,7 @@ import {
  * @returns Whether any dependencies were updated.
  */
 export async function nukeDependencies(packageRoot?: string): Promise<void> {
-  if (packageRoot === undefined) {
-    packageRoot = process.cwd(); // eslint-disable-line no-param-reassign
-  }
+  packageRoot ??= process.cwd(); // eslint-disable-line no-param-reassign
 
   const packageJSONPath = path.join(packageRoot, "package.json");
   const packageJSONExists = await isFileAsync(packageJSONPath);
