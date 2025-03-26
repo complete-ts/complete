@@ -4,8 +4,8 @@
  * @module
  */
 
-import type { WidenLiteral } from "../index.js";
 import { ReadonlySet } from "../types/ReadonlySet.js";
+import type { WidenLiteral } from "../types/WidenLiteral.js";
 import { assertDefined } from "./assert.js";
 import { getRandomInt } from "./random.js";
 
