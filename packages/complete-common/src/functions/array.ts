@@ -15,7 +15,7 @@ import { getRandomInt } from "./random.js";
  */
 export function arrayCopyTwoDimensional<T>(
   array: ReadonlyArray<readonly T[]>,
-): readonly T[][] {
+): ReadonlyArray<readonly T[]> {
   const copiedArray: T[][] = [];
 
   for (const subArray of array) {
