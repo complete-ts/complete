@@ -53,7 +53,7 @@
     "@babel/preset-env": "7.26.9",
     "@babel/preset-typescript": "7.27.0",
     "@types/jest": "29.5.14",
-    "@types/node": "22.13.13",
+    "@types/node": "22.13.14",
     "@typescript-eslint/rule-tester": "8.28.0",
     "@typescript-eslint/types": "8.28.0",
     "complete-common": "2.1.0",

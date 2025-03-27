@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "eslint-plugin-n": {
-      "lock-version": true,
-      "lock-reason": "https://github.com/eslint-community/eslint-plugin-n/issues/413"
-    }
-  }
-}
