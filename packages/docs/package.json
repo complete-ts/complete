@@ -45,20 +45,20 @@
     "@heroicons/react": "2.2.0",
     "@mdx-js/react": "3.1.0",
     "prism-react-renderer": "2.4.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "typedoc": "0.28.1",
-    "typedoc-plugin-markdown": "4.6.0"
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "typedoc": "0.28.2",
+    "typedoc-plugin-markdown": "4.6.2"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.7.0",
     "@docusaurus/tsconfig": "3.7.0",
     "@docusaurus/types": "3.7.0",
-    "@octokit/core": "6.1.4",
-    "@types/node": "22.13.14",
+    "@octokit/core": "6.1.5",
+    "@types/node": "22.14.0",
     "complete-common": "2.1.0",
     "complete-node": "5.1.2",
-    "typescript": "5.8.2",
-    "typescript-eslint": "8.28.0"
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.29.1"
   }
 }

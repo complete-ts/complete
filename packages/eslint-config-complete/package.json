@@ -37,23 +37,23 @@
   "dependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
     "confusing-browser-globals": "1.0.11",
-    "eslint-import-resolver-typescript": "4.2.5",
+    "eslint-import-resolver-typescript": "4.3.2",
     "eslint-plugin-complete": "1.0.13",
-    "eslint-plugin-import-x": "4.9.3",
+    "eslint-plugin-import-x": "4.10.2",
     "eslint-plugin-jsdoc": "50.6.9",
     "eslint-plugin-n": "17.17.0",
     "eslint-plugin-unicorn": "58.0.0",
-    "typescript-eslint": "8.28.0"
+    "typescript-eslint": "8.29.1"
   },
   "devDependencies": {
-    "@eslint/js": "9.23.0",
+    "@eslint/js": "9.24.0",
     "@types/confusing-browser-globals": "1.0.3",
     "@types/eslint-config-prettier": "6.11.3",
-    "@types/node": "22.13.14",
+    "@types/node": "22.14.0",
     "complete-common": "2.1.0",
     "complete-node": "5.1.2",
-    "eslint-config-prettier": "10.1.1",
+    "eslint-config-prettier": "10.1.2",
     "extract-comments": "1.1.0",
-    "typescript": "5.8.2"
+    "typescript": "5.8.3"
   }
 }
