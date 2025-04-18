@@ -259,6 +259,8 @@ async function formatFiles(
 ) {
   const $$q = $q({ cwd: projectPath });
 
+  // Execa does not work properly with Bun in this context. Invoking `bunx` directly fixes the
+  // problem.
   await (packageManager === PackageManager.bun
     ? $$q`bunx prettier --write .`
     : $$q`prettier --write .`);
