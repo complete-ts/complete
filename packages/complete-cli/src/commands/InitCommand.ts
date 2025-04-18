@@ -47,6 +47,10 @@ export class InitCommand extends Command {
     description: "Use pnpm as the package manager.",
   });
 
+  bun = Option.Boolean("--bun", false, {
+    description: "Use bun as the package manager.",
+  });
+
   skipGit = Option.Boolean("--skip-git", false, {
     description: "Do not initialize Git.",
   });
