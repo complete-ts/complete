@@ -255,5 +255,5 @@ async function installNodeModules(
 
 async function formatFiles(projectPath: string) {
   const $$q = $q({ cwd: projectPath });
-  await $$q`prettier --write ${projectPath}`;
+  await $$q`prettier --write .`;
 }
