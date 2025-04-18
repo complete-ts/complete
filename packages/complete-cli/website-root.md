@@ -86,6 +86,12 @@ This contains a list of files that should not be added to a Git repository, if p
 
 If you have a private file that you do not want to be committed to the repository, you can edit this file and add it.
 
+### .npmrc
+
+This contains good defaults for the `npm` command. It will only be installed if your package manager is `npm`.
+
+(`pnpm` also uses settings from this file by default, so it will also be installed if your package manager is `pnpm`.)
+
 ### [`.prettierignore`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/.prettierignore)
 
 This contains a list of files that should not be automatically formatted by [Prettier](https://prettier.io/). It contains a lot of good defaults to prevent common Prettier pitfalls.

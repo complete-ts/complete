@@ -185,14 +185,33 @@ function copyPackageManagerSpecificFiles(
   projectPath: string,
   packageManager: PackageManager,
 ) {
-  if (packageManager === PackageManager.pnpm) {
+  switch (packageManager) {
+    case PackageManager.npm: {
+      const npmrc = "save-exact=true\n";
+      const npmrcPath = path.join(projectPath, ".npmrc");
+      writeFile(npmrcPath, npmrc);
+      break;
+    }
+
     // `pnpm` requires the `shamefully-hoist` option to be enabled for "complete-lint" to work
     // correctly.
-    const npmrc = `save-exact=true
-shamefully-hoist=true
-`;
-    const npmrcPath = path.join(projectPath, ".npmrc");
-    writeFile(npmrcPath, npmrc);
+    case PackageManager.pnpm: {
+      const npmrc = "save-exact=true\nshamefully-hoist=true\n";
+      const npmrcPath = path.join(projectPath, ".npmrc");
+      writeFile(npmrcPath, npmrc);
+      break;
+    }
+
+    case PackageManager.yarn: {
+      break;
+    }
+
+    case PackageManager.bun: {
+      const bunfig = "[install]\nexact = true\n";
+      const bunfigPath = path.join(projectPath, "bunfig.toml");
+      writeFile(bunfigPath, bunfig);
+      break;
+    }
   }
 }
 
