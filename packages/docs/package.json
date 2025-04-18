@@ -55,10 +55,10 @@
     "@docusaurus/tsconfig": "3.7.0",
     "@docusaurus/types": "3.7.0",
     "@octokit/core": "6.1.5",
-    "@types/node": "22.14.0",
+    "@types/node": "22.14.1",
     "complete-common": "2.1.0",
     "complete-node": "5.1.2",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.29.1"
+    "typescript-eslint": "8.30.1"
   }
 }
