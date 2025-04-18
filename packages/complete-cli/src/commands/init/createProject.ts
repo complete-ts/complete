@@ -60,7 +60,7 @@ export async function createProject(
   }
 
   await installNodeModules(projectPath, skipInstall, packageManager);
-  await formatFiles(projectPath);
+  await formatFiles(projectPath, packageManager);
 
   // Only make the initial commit once all of the files have been copied and formatted.
   await initGitRepository(projectPath, gitRemoteURL);
@@ -253,7 +253,13 @@ async function installNodeModules(
   }
 }
 
-async function formatFiles(projectPath: string) {
+async function formatFiles(
+  projectPath: string,
+  packageManager: PackageManager,
+) {
   const $$q = $q({ cwd: projectPath });
-  await $$q`prettier --write .`;
+
+  await (packageManager === PackageManager.bun
+    ? $$q`bunx prettier --write .`
+    : $$q`prettier --write .`);
 }
