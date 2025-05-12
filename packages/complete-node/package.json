@@ -36,7 +36,7 @@
   "dependencies": {
     "@arktype/fs": "0.46.0",
     "chalk": "5.4.1",
-    "complete-common": "2.1.0",
+    "complete-common": "2.2.0",
     "diff": "7.0.0",
     "dotenv": "16.5.0",
     "execa": "9.5.2",
