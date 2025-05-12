@@ -15,11 +15,7 @@ const DIACRITIC_REGEX = /\p{Diacritic}/u;
 const EMOJI_REGEX = /(\p{Extended_Pictographic}|\p{Emoji_Component})/u;
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
-
-/** From: https://github.com/expandjs/expandjs/blob/master/lib/kebabCaseRegex.js */
-const KEBAB_CASE_REGEX =
-  /^([a-z](?!\d)|\d(?![a-z]))+(-?([a-z](?!\d)|\d(?![a-z])))*$|^$/;
-
+const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$|^$/;
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
 const WHITESPACE_REGEX = /\s/g;
 
