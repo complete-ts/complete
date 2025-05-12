@@ -109,6 +109,10 @@ export function isFirstLetterCapitalized(string: string): boolean {
 
 /** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
 export function isKebabCase(string: string): boolean {
+  if (string === "") {
+    return false;
+  }
+
   return KEBAB_CASE_REGEX.test(string);
 }
 
