@@ -26,18 +26,18 @@
   ],
   "dependencies": {
     "@prettier/plugin-xml": "3.4.1",
-    "@types/node": "22.14.1",
+    "@types/node": "22.15.17",
     "complete-tsconfig": "1.2.0",
-    "cspell": "8.19.2",
+    "cspell": "9.0.1",
     "cspell-check-unused-words": "1.5.2",
-    "eslint": "9.25.1",
+    "eslint": "9.26.0",
     "eslint-config-complete": "1.6.6",
     "eslint-import-resolver-typescript": "4.3.4",
-    "knip": "5.50.5",
+    "knip": "5.55.1",
     "prettier": "3.5.3",
     "prettier-plugin-organize-imports": "4.1.0",
-    "prettier-plugin-packagejson": "2.5.10",
-    "tsx": "4.19.3"
+    "prettier-plugin-packagejson": "2.5.12",
+    "tsx": "4.19.4"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"
