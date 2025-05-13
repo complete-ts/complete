@@ -316,6 +316,7 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/no-unnecessary-type-arguments": "warn",
       "@typescript-eslint/no-unnecessary-type-assertion": "warn",
       "@typescript-eslint/no-unnecessary-type-constraint": "warn",
+      "@typescript-eslint/no-unnecessary-type-conversion": "warn",
       "@typescript-eslint/no-unnecessary-type-parameters": "warn",
       "@typescript-eslint/no-unsafe-argument": "warn",
       "@typescript-eslint/no-unsafe-assignment": "warn",
