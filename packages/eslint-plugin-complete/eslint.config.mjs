@@ -10,32 +10,19 @@ export default tseslint.config(
 
   {
     rules: {
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * This is a common pattern in the testing files.
-       */
+      /** This is a common pattern in the testing files. */
       "unicorn/no-array-push-push": "off",
 
-      /**
-       * Defined at: base-unicorn.js
-       *
-       * The ESLint API uses `null`.
-       */
+      /** The ESLint API uses `null`. */
       "unicorn/no-null": "off",
 
-      /**
-       * Defined at: base-eslint.js
-       *
-       * Some rules use bitwise operators to deal with TypeScript bit flags.
-       */
+      /** This rule conflicts with this plugin's testing style. */
+      "unicorn/prefer-single-call": "off",
+
+      /** Some rules use bitwise operators to deal with TypeScript bit flags. */
       "no-bitwise": "off",
 
-      /**
-       * Defined at: base-eslint.js
-       *
-       * We commonly trim the incoming text.
-       */
+      /** We commonly trim the incoming text. */
       "no-param-reassign": "off",
     },
   },
