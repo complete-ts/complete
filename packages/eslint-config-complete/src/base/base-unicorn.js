@@ -92,6 +92,9 @@ export const baseUnicorn = tseslint.config({
     "unicorn/no-this-assignment": "off",
 
     "unicorn/no-typeof-undefined": "warn",
+    "unicorn/no-unnecessary-array-flat-depth": "warn",
+    "unicorn/no-unnecessary-array-splice-count": "warn",
+    "unicorn/no-unnecessary-slice-end": "warn",
     "unicorn/no-unnecessary-await": "warn",
     "unicorn/no-unnecessary-polyfills": "warn",
     "unicorn/no-unreadable-array-destructuring": "warn",
@@ -127,6 +130,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/prefer-event-target": "warn",
     "unicorn/prefer-export-from": "warn",
     "unicorn/prefer-global-this": "warn",
+    "unicorn/prefer-import-meta-properties": "warn",
     "unicorn/prefer-includes": "warn",
 
     /** Disabled because the rule is not compatible with TypeScript. */
@@ -151,6 +155,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/prefer-regexp-test": "warn",
     "unicorn/prefer-set-has": "warn",
     "unicorn/prefer-set-size": "warn",
+    "unicorn/prefer-single-call": "warn",
     "unicorn/prefer-spread": "warn",
     "unicorn/prefer-string-raw": "warn",
     "unicorn/prefer-string-replace-all": "warn",
