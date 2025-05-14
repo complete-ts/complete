@@ -22,7 +22,7 @@ export default tseslint.config(
       /** Some rules use bitwise operators to deal with TypeScript bit flags. */
       "no-bitwise": "off",
 
-      /** We commonly trim the incoming text. */
+      /** We commonly trim incoming text. */
       "no-param-reassign": "off",
     },
   },
