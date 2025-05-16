@@ -25,12 +25,10 @@ import { isFile } from "./file.js";
  * Under the hood, this uses the `dotenv` library to get the environment variables from the ".env"
  * file.
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getEnv<
-  A extends z.ZodRawShape,
-  B extends z.UnknownKeysParam,
-  C extends z.ZodTypeAny,
->(envSchema: z.ZodObject<A, B, C>) {
+// We use `z.infer<T>` instead of `z.objectOutputType<A, C, B>` to avoid the following error: Type
+// instantiation is excessively deep and possibly infinite.ts(2589)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getEnv<T extends z.ZodObject<any>>(envSchema: T): z.infer<T> {
   const fromDir = dirOfCaller();
   const packageRoot = findPackageRoot(fromDir);
   const envPath = path.join(packageRoot, ".env");
