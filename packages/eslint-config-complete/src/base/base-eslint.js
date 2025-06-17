@@ -61,6 +61,7 @@ const POSSIBLE_PROBLEMS = {
   "no-sparse-arrays": "warn",
   "no-template-curly-in-string": "warn",
   "no-this-before-super": "off", // @typescript-eslint/eslint-recommended`
+  "no-unassigned-vars": "warn",
   "no-undef": "off", // @typescript-eslint/eslint-recommended
   "no-unexpected-multiline": "off", // eslint-config-prettier
   "no-unmodified-loop-condition": "warn",
