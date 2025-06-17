@@ -78,7 +78,12 @@ export const baseN = tseslint.config({
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/no-sync": "off",
 
-    "n/no-top-level-await": "warn",
+    /**
+     * Disabled since modern ESM projects that are written in TypeScript do not generally have to
+     * worry about interop with `require`.
+     */
+    "n/no-top-level-await": "off",
+
     "n/no-unpublished-bin": "warn",
 
     /** Superseded by the `import-x/no-extraneous-dependencies` rule. */
