@@ -104,25 +104,31 @@ export function getPackageManagerExecCommand(
  * Helper function to look at the lock files in a given directory in order to infer the package
  * manager being used for the project.
  *
- * Since 2 or more different kinds of lock files can exist, this will throw an error if 0 lock files
- * are found.
- *
  * Defaults to `PackageManager.npm` if no lock files are found.
+ *
+ * @throws If two or more lock files were found.
  */
 export async function getPackageManagerForProject(
   packageRoot: string,
 ): Promise<PackageManager> {
   const packageManagers = await getPackageManagersForProject(packageRoot);
-  if (packageManagers.length > 1) {
-    throw new Error(
-      `${
-        packageManagers.length
-      } different package manager lock files exist at "${packageRoot}". You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
-    );
-  }
 
-  const packageManager = packageManagers[0];
-  return packageManager ?? PackageManager.npm;
+  switch (packageManagers.length) {
+    case 0: {
+      return PackageManager.npm;
+    }
+
+    case 1: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return packageManagers[0]!;
+    }
+
+    default: {
+      throw new Error(
+        `${packageManagers.length} different package manager lock files exist at "${packageRoot}". You should delete the ones that you are not using so that this program can correctly detect your package manager.`,
+      );
+    }
+  }
 }
 
 /**
