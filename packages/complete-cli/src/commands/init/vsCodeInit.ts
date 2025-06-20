@@ -106,7 +106,7 @@ async function promptVSCode(
   VSCodeCommand: string,
   vscode: boolean,
   yes: boolean,
-): Promise<void> {
+) {
   if (vscode) {
     // They supplied the "--vscode" command-line flag, so there is no need to prompt the user.
     await openVSCode(projectPath, VSCodeCommand);

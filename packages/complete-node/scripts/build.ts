@@ -67,7 +67,7 @@ async function buildDeclarations(packageRoot: string) {
  * {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"]
  * ```
  */
-async function fixDeclarationMaps(outDir: string): Promise<void> {
+async function fixDeclarationMaps(outDir: string) {
   const extension = ".d.ts.map";
   const matchFunc = (filePath: string) => filePath.endsWith(extension);
   const filePaths = await getMatchingFilePaths(outDir, matchFunc);
