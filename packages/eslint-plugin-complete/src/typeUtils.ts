@@ -1,6 +1,10 @@
 // Some of the functions are copy-pasted here from the `typescript-eslint` repository and slightly
 // modified.
 
+import {
+  isPromiseLike,
+  isTypeReferenceType,
+} from "@typescript-eslint/type-utils";
 import ts from "typescript";
 
 /** Gets all of the type flags in a type, iterating through unions automatically. */
@@ -10,6 +14,22 @@ function getTypeFlags(type: ts.Type): number | ts.TypeFlags {
     flags |= t.flags;
   }
   return flags;
+}
+
+/** If the type is a `Promise`, this will unwrap it. */
+export function getRealType(program: ts.Program, type: ts.Type): ts.Type {
+  if (
+    isPromiseLike(program, type)
+    && isTypeReferenceType(type)
+    && type.typeArguments !== undefined
+  ) {
+    const typeArgument = type.typeArguments[0];
+    if (typeArgument !== undefined) {
+      return typeArgument;
+    }
+  }
+
+  return type;
 }
 
 export function getTypeName(type: ts.Type): string | undefined {
@@ -67,6 +87,10 @@ export function isTypeArrayTupleTypeOrUnionOfArrayTupleTypes(
 
 export function isAny(type: ts.Type): boolean {
   return isTypeFlagSet(type, ts.TypeFlags.Any);
+}
+
+export function isVoid(type: ts.Type): boolean {
+  return isTypeFlagSet(type, ts.TypeFlags.Void);
 }
 
 /** Returns all types of a union type or an array containing `type` itself if it's no union type. */

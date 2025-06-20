@@ -1,11 +1,7 @@
-import {
-  isPromiseLike,
-  isTypeReferenceType,
-} from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
-import { getTypeName, unionTypeParts } from "../typeUtils.js";
+import { getRealType, getTypeName, unionTypeParts } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 type Options = [];
@@ -66,22 +62,6 @@ export const noMutableReturn = createRule<Options, MessageIds>({
     };
   },
 });
-
-/** If the type is a `Promise`, this will unwrap it. */
-function getRealType(program: ts.Program, type: ts.Type) {
-  if (
-    isPromiseLike(program, type)
-    && isTypeReferenceType(type)
-    && type.typeArguments !== undefined
-  ) {
-    const typeArgument = type.typeArguments[0];
-    if (typeArgument !== undefined) {
-      return typeArgument;
-    }
-  }
-
-  return type;
-}
 
 function getErrorMessageId(type: ts.Type): MessageIds | undefined {
   const typeName = getTypeName(type);

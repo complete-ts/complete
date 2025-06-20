@@ -20,5 +20,14 @@ function foo(): void {}
 function foo() {}
       `,
     },
+    {
+      code: `
+async function foo(): Promise<void> {}
+      `,
+      errors: [{ messageId: "voidReturnType" }],
+      output: `
+async function foo() {}
+      `,
+    },
   ],
 });

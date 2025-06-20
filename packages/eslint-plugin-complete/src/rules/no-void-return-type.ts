@@ -1,4 +1,6 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import type ts from "typescript";
+import { getRealType, getTypeName, isVoid } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 export const noVoidReturnType = createRule({
@@ -8,7 +10,7 @@ export const noVoidReturnType = createRule({
     docs: {
       description: "Disallows `void` return types on non-exported functions",
       recommended: true,
-      requiresTypeChecking: false,
+      requiresTypeChecking: true,
     },
     schema: [],
     messages: {
@@ -19,6 +21,9 @@ export const noVoidReturnType = createRule({
   },
   defaultOptions: [],
   create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
+    const checker = parserServices.program.getTypeChecker();
+
     return {
       FunctionDeclaration(node) {
         // Exported functions are exempt from this rule.
@@ -36,20 +41,28 @@ export const noVoidReturnType = createRule({
         if (returnType === undefined) {
           return;
         }
-
         const { typeAnnotation } = returnType;
-        if (typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword) {
-          return;
-        }
 
-        context.report({
-          loc: typeAnnotation.loc,
-          messageId: "voidReturnType",
-          fix(fixer) {
-            return fixer.remove(returnType);
-          },
-        });
+        const tsNode = parserServices.esTreeNodeToTSNodeMap.get(typeAnnotation);
+        const type = checker.getTypeAtLocation(tsNode);
+
+        if (isVoidOrPromiseVoid(parserServices.program, type)) {
+          context.report({
+            loc: typeAnnotation.loc,
+            messageId: "voidReturnType",
+            fix(fixer) {
+              return fixer.remove(returnType);
+            },
+          });
+        }
       },
     };
   },
 });
+
+function isVoidOrPromiseVoid(program: ts.Program, type: ts.Type): boolean {
+  const realType = getRealType(program, type);
+  console.log("realType:", getTypeName(realType));
+  console.log("isVoid:", isVoid(realType));
+  return isVoid(realType);
+}
