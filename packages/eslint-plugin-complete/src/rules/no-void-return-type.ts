@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
-import { getRealType, getTypeName, isVoid } from "../typeUtils.js";
+import { getRealType, isVoid } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 export const noVoidReturnType = createRule({
@@ -62,7 +62,5 @@ export const noVoidReturnType = createRule({
 
 function isVoidOrPromiseVoid(program: ts.Program, type: ts.Type): boolean {
   const realType = getRealType(program, type);
-  console.log("realType:", getTypeName(realType));
-  console.log("isVoid:", isVoid(realType));
   return isVoid(realType);
 }
