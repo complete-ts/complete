@@ -104,18 +104,16 @@ export function getPackageManagerExecCommand(
  * Helper function to look at the lock files in a given directory in order to infer the package
  * manager being used for the project.
  *
- * Defaults to `PackageManager.npm` if no lock files are found.
- *
  * @throws If two or more lock files were found.
  */
 export async function getPackageManagerForProject(
   packageRoot: string,
-): Promise<PackageManager> {
+): Promise<PackageManager | undefined> {
   const packageManagers = await getPackageManagersForProject(packageRoot);
 
   switch (packageManagers.length) {
     case 0: {
-      return PackageManager.npm;
+      return undefined;
     }
 
     case 1: {

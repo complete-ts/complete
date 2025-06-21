@@ -6,6 +6,7 @@
 
 import { isObject } from "complete-common";
 import path from "node:path";
+import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
 import { getFilePath, isFileAsync } from "./file.js";
 import { getJSONC } from "./jsonc.js";
@@ -62,7 +63,8 @@ export async function updatePackageJSONDependencies(
       stdout: quiet ? "pipe" : "inherit",
       stderr: quiet ? "pipe" : "inherit",
     });
-    const packageManager = await getPackageManagerForProject(packageRoot);
+    const packageManager =
+      (await getPackageManagerForProject(packageRoot)) ?? PackageManager.npm;
     const command = getPackageManagerInstallCommand(packageManager);
     const commandParts = command.split(" ");
     await $$`${commandParts}`;

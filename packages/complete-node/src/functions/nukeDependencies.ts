@@ -1,4 +1,5 @@
 import path from "node:path";
+import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
 import { isFileAsync, rm } from "./file.js";
 import {
@@ -39,7 +40,8 @@ export async function nukeDependencies(packageRoot?: string): Promise<void> {
   rm(nodeModulesPath);
   console.log(`Removed: ${nodeModulesPath}`);
 
-  const packageManager = await getPackageManagerForProject(packageRoot);
+  const packageManager =
+    (await getPackageManagerForProject(packageRoot)) ?? PackageManager.npm;
   const packageManagerLockFileName =
     getPackageManagerLockFileName(packageManager);
   const packageManagerLockFilePath = path.join(
