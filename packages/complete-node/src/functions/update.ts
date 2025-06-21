@@ -6,7 +6,6 @@
 
 import { isObject } from "complete-common";
 import path from "node:path";
-import { run } from "npm-check-updates";
 import { $ } from "./execa.js";
 import { getFilePath, isFileAsync } from "./file.js";
 import { getJSONC } from "./jsonc.js";
@@ -161,7 +160,10 @@ async function runNPMCheckUpdatesQuiet(
   packageJSONPath: string,
   packagesToIgnore: readonly string[],
 ): Promise<boolean> {
-  const upgradedPackages = await run({
+  // We need to perform a dynamic import for "npm-check-updates" since the module has side effects:
+  // https://github.com/raineorshine/npm-check-updates/issues/1524
+  const npmCheckUpdates = await import("npm-check-updates");
+  const upgradedPackages = await npmCheckUpdates.run({
     upgrade: true,
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
