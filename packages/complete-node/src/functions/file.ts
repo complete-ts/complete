@@ -401,6 +401,26 @@ export function makeDirectory(directoryPath: string): void {
   }
 }
 
+/**
+ * Helper function to asynchronously make a new directory. Will recursively make as many
+ * subdirectories as needed.
+ *
+ * If the recursive behavior is not desired, then use `fs.mkdir` directly.
+ *
+ * This will throw an error if the directory cannot be created.
+ */
+export async function makeDirectoryAsync(directoryPath: string): Promise<void> {
+  try {
+    await fs.promises.mkdir(directoryPath, {
+      recursive: true,
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to delete file or directory "${directoryPath}": ${error}`,
+    );
+  }
+}
+
 /** Alias for the `makeDirectory` function. Intended to be used in scripts. */
 export function mkdir(directoryPath: string): void {
   makeDirectory(directoryPath);
