@@ -57,7 +57,7 @@
     "@typescript-eslint/rule-tester": "8.34.1",
     "@typescript-eslint/types": "8.34.1",
     "complete-common": "2.2.0",
-    "complete-node": "5.1.6",
+    "complete-node": "5.2.0",
     "jest": "30.0.2",
     "prettier": "3.5.3",
     "typescript": "5.8.3"
