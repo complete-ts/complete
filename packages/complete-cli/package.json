@@ -38,7 +38,7 @@
     "chalk": "5.4.1",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.2.0",
-    "complete-node": "5.2.1",
+    "complete-node": "6.0.0",
     "klaw-sync": "7.0.0",
     "yaml": "2.8.0"
   },
