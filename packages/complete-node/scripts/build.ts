@@ -40,7 +40,7 @@ async function buildDeclarations(packageRoot: string) {
 
   deleteFileOrDirectory(outDir);
   await $`tsc --emitDeclarationOnly`;
-  fixMonorepoPackageDistDirectory(packageRoot);
+  await fixMonorepoPackageDistDirectory(packageRoot);
   await fixDeclarationMaps(outDir);
 
   for (const fileName of OUTPUT_FILES) {

@@ -1,3 +1,4 @@
+export * from "./enums/JavaScriptRuntime.js";
 export * from "./enums/PackageManager.js";
 export * from "./functions/base64.js";
 export * from "./functions/build.js";
