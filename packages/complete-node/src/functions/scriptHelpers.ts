@@ -6,7 +6,8 @@
 
 /* eslint-disable sort-exports/sort-exports */
 
-import { getElapsedSeconds } from "complete-common";
+import { getElapsedSeconds, isObject } from "complete-common";
+import { ExecaError, ExecaSyncError } from "execa";
 import path from "node:path";
 import { $ } from "./execa.js";
 import { rm } from "./file.js";
@@ -132,7 +133,26 @@ export async function script(
   process.chdir(packageRoot);
 
   const startTime = Date.now();
-  await func(packageRoot);
+
+  // We use a try-catch block to remove the JavaScript stack trace for the purposes of emulating a
+  // Bash script. (But we only want to remove it for shell commands.)
+  try {
+    await func(packageRoot);
+  } catch (error) {
+    if (
+      error instanceof ExecaError
+      || error instanceof ExecaSyncError
+      || (isObject(error) && error.constructor.name === "ShellError")
+    ) {
+      console.error(
+        `The following command exited with a code of ${error.exitCode}: ${error.command}`,
+      );
+      const exitCode = typeof error.exitCode === "number" ? error.exitCode : 1;
+      process.exit(exitCode);
+    } else {
+      throw error;
+    }
+  }
 
   if (!quiet && verb !== undefined) {
     const packageName = path.basename(packageRoot);
