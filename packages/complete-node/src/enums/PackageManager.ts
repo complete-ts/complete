@@ -1,4 +1,4 @@
-/** The package manages for Node.js. */
+/** The package manager for a JavaScript/TypeScript project. */
 export enum PackageManager {
   /**
    * The default package manager for Node.js.

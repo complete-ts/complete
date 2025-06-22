@@ -1,3 +1,4 @@
+/** The JavaScript/TypeScript runtime, such as Node.js. */
 export enum JavaScriptRuntime {
   /** @see https://nodejs.org/ */
   node = "node",
