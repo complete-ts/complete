@@ -456,8 +456,8 @@ export function moveFile(srcPath: string, dstPath: string): void {
  *
  * This will throw an error if the file cannot be moved.
  *
- * (This is simply an alias for the `renameFileAsync` function, since the Node.js API uses the same thing
- * for both operations.)
+ * (This is simply an alias for the `renameFileAsync` function, since the Node.js API uses the same
+ * thing for both operations.)
  */
 export async function moveFileAsync(
   srcPath: string,

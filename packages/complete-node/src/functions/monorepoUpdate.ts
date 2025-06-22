@@ -48,9 +48,7 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 export async function lintMonorepoPackageJSONs(
   monorepoRoot?: string,
 ): Promise<void> {
-  if (monorepoRoot === undefined) {
-    monorepoRoot = await getPackageRoot(2); // eslint-disable-line no-param-reassign
-  }
+  monorepoRoot ??= await getPackageRoot(2); // eslint-disable-line no-param-reassign
 
   const valid = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
@@ -82,9 +80,7 @@ export async function lintMonorepoPackageJSONs(
 export async function updatePackageJSONDependenciesMonorepo(
   monorepoRoot?: string,
 ): Promise<boolean> {
-  if (monorepoRoot === undefined) {
-    monorepoRoot = await getPackageRoot(2); // eslint-disable-line no-param-reassign
-  }
+  monorepoRoot ??= await getPackageRoot(2); // eslint-disable-line no-param-reassign
 
   // First, update the main "package.json" at the root of the monorepo.
   const monorepoPackageJSONChanged =
