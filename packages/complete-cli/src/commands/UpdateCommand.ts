@@ -12,8 +12,8 @@ export class UpdateCommand extends Command {
   async execute(): Promise<void> {
     const hasNewDependencies = await updatePackageJSONDependencies();
     const msg = hasNewDependencies
-      ? "Successfully installed new Node.js dependencies."
-      : "There were no new dependency updates from npm.";
+      ? "Successfully installed new dependencies."
+      : "There were no new dependency updates.";
     console.log(msg);
   }
 }

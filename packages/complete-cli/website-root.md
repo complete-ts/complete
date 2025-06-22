@@ -136,7 +136,7 @@ This is [the idiomatic name for a license file on GitHub](https://docs.github.co
 
 ### `node_modules`
 
-This directory contains the Node.js dependencies for the project that were specified in the "package.json" file. By default, this will be TypeScript, ESLint, Prettier, and so on.
+This directory contains the dependencies for the project that were specified in the "package.json" file. By default, this will be TypeScript, ESLint, Prettier, and so on.
 
 More info:
 
