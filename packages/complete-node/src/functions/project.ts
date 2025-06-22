@@ -37,10 +37,14 @@ export async function getPackageRoot(upStackBy = 1): Promise<string> {
     "Failed to get the stack frame of the calling function.",
   );
 
-  const callingFileURL = stackFrame.getFileName();
-  const callingFiledPath = fileURLToPath(callingFileURL);
+  const callingFileName = stackFrame.getFileName();
 
-  const cwd = path.dirname(callingFiledPath);
+  // On Node.js, this will be a file URL. On Bun, this will be a normal path.
+  const callingFilePath = callingFileName.startsWith("file://")
+    ? fileURLToPath(callingFileName)
+    : callingFileName;
+
+  const cwd = path.dirname(callingFilePath);
   const projectRoot = await packageDirectory({ cwd });
   assertDefined(
     projectRoot,
