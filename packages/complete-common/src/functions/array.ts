@@ -194,6 +194,18 @@ export function includes<T, TupleElement extends WidenLiteral<T>>(
   return widenedArray.includes(searchElement);
 }
 
+/**
+ * Similar to the `Array.includes` method, but accepts a variadic amount of search elements.
+ *
+ * @returns True if any of the elements are found, false otherwise.
+ */
+export function includesAny<T>(
+  array: readonly T[],
+  ...searchElements: readonly T[]
+): boolean {
+  return searchElements.some((element) => array.includes(element));
+}
+
 /** A wrapper around `Array.isArray` that narrows to `unknown[]` instead of `any[]`. */
 export function isArray(arg: unknown): arg is unknown[] {
   return Array.isArray(arg);
