@@ -8,9 +8,9 @@
 
 import { getElapsedSeconds } from "complete-common";
 import path from "node:path";
-import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $ } from "./execa.js";
 import { rm } from "./file.js";
+import { getPackageRoot } from "./project.js";
 import { getArgs } from "./utils.js";
 
 /**
@@ -95,20 +95,20 @@ export async function testScript(func: ScriptCallback): Promise<void> {
  * Helper function to create a script for a TypeScript project. You can pass any arbitrary logic you
  * want.
  *
- * This is intended to be used with the `$` function from the "execa" library so that you can make a
- * TypeScript script in the style of a Bash script.
+ * This is intended to be used with the `$` function from either `execa` or `Bun` so that you can
+ * make a TypeScript script in the style of a Bash script.
+ *
+ * (This function will work in both the Node.js and Bun runtimes.)
  *
  * Specifically, this helper function will:
  *
- * 1. Change the working directory to the package root (i.e. the place where the nearest
- *    "package.json" file is).
- * 2. Run the provided logic.
+ * 1. Change the working directory to where the nearest "package.json" file is.
+ * 2. Run the provided function.
  * 3. Print a success message with the total amount of seconds taken (if a verb was provided and
  *    there is not a quiet/silent flag).
  *
  * @param func The function that contains the build logic for the particular script. This is passed
- *             the path to the package root and other metadata about the project. (See the
- *             `ScriptCallbackData` interface.)
+ *             the path to the package root. (See the `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
  * @param upStackBy Optional. The number of functions to rewind in the calling stack before
  *                  attempting to find the closest "package.json" file. Default is 1.
@@ -127,8 +127,7 @@ export async function script(
     || args.includes("--silent")
     || args.includes("-s");
 
-  const fromDir = dirOfCaller(upStackBy);
-  const packageRoot = findPackageRoot(fromDir);
+  const packageRoot = await getPackageRoot(upStackBy + 1);
 
   process.chdir(packageRoot);
 

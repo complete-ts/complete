@@ -42,12 +42,15 @@
     "execa": "9.6.0",
     "jsonc-parser": "3.3.1",
     "npm-check-updates": "18.0.1",
+    "package-directory": "8.1.0",
     "prettier": "3.5.3",
+    "stack-trace": "1.0.0-pre2",
     "which": "5.0.0",
     "zod": "3.25.67"
   },
   "devDependencies": {
     "@types/node": "24.0.3",
+    "@types/stack-trace": "0.0.33",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "typescript": "5.8.3",

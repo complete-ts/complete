@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import path from "node:path";
 import type { z } from "zod";
-import { dirOfCaller, findPackageRoot } from "./arkType.js";
-import { isFile } from "./file.js";
+import { isFileAsync } from "./file.js";
+import { getPackageRoot } from "./project.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
@@ -28,12 +28,14 @@ import { isFile } from "./file.js";
 // We use `z.infer<T>` instead of `z.objectOutputType<A, C, B>` to avoid the following error: Type
 // instantiation is excessively deep and possibly infinite.ts(2589)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getEnv<T extends z.ZodObject<any>>(envSchema: T): z.infer<T> {
-  const fromDir = dirOfCaller();
-  const packageRoot = findPackageRoot(fromDir);
+export async function getEnv<T extends z.ZodObject<any>>(
+  envSchema: T,
+): Promise<z.infer<T>> {
+  const packageRoot = await getPackageRoot(2);
   const envPath = path.join(packageRoot, ".env");
 
-  if (!isFile(envPath)) {
+  const envExists = await isFileAsync(envPath);
+  if (!envExists) {
     throw new Error(
       `The "${envPath}" file does not exist. Copy the ".env.example" file to a ".env" file at the root of the repository and re-run this program.`,
     );

@@ -11,7 +11,6 @@ import {
   isSemanticVersion,
 } from "complete-common";
 import path from "node:path";
-import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { $, $o } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
@@ -21,6 +20,7 @@ import {
 } from "./monorepoUpdate.js";
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
+import { getPackageRoot } from "./project.js";
 import { echo, exit } from "./scriptHelpers.js";
 import { getArgs } from "./utils.js";
 
@@ -41,8 +41,7 @@ enum VersionBump {
  *                       completed. Defaults to true.
  */
 export async function monorepoPublish(updateMonorepo = true): Promise<void> {
-  const fromDir = dirOfCaller();
-  const monorepoRoot = findPackageRoot(fromDir);
+  const monorepoRoot = await getPackageRoot(2);
 
   process.chdir(monorepoRoot);
 

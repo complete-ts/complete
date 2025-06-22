@@ -6,13 +6,12 @@
 
 import path from "node:path";
 import {
-  copyFileOrDirectory,
-  deleteFileOrDirectory,
+  copyFileOrDirectoryAsync,
+  deleteFileOrDirectoryAsync,
   getFileNamesInDirectoryAsync,
-  isDirectory,
   isDirectoryAsync,
   isFileAsync,
-  moveFile,
+  moveFileAsync,
 } from "./file.js";
 import { packageJSONHasScript } from "./packageJSON.js";
 
@@ -23,20 +22,23 @@ import { packageJSONHasScript } from "./packageJSON.js";
  *
  * This function assumes that the monorepo root is two directories above the provided package root.
  */
-export function copyToMonorepoNodeModules(packageRoot: string): void {
+export async function copyToMonorepoNodeModules(
+  packageRoot: string,
+): Promise<void> {
   const monorepoRoot = path.join(packageRoot, "..", "..");
   const packageName = path.basename(packageRoot);
   const monorepoNodeModulesPath = path.join(monorepoRoot, "node_modules");
 
-  if (!isDirectory(monorepoNodeModulesPath)) {
+  const nodeModulesExists = await isDirectoryAsync(monorepoNodeModulesPath);
+  if (!nodeModulesExists) {
     throw new Error(
       `Failed to find the monorepo "node_modules" directory at: ${monorepoNodeModulesPath}`,
     );
   }
 
   const destinationPath = path.join(monorepoNodeModulesPath, packageName);
-  deleteFileOrDirectory(destinationPath);
-  copyFileOrDirectory(packageRoot, destinationPath);
+  await deleteFileOrDirectoryAsync(destinationPath);
+  await copyFileOrDirectoryAsync(packageRoot, destinationPath);
 }
 
 /**
@@ -47,15 +49,17 @@ export function copyToMonorepoNodeModules(packageRoot: string): void {
  *
  * This function will assume an "outDir" of "dist".
  */
-export function fixMonorepoPackageDistDirectory(packageRoot: string): void {
+export async function fixMonorepoPackageDistDirectory(
+  packageRoot: string,
+): Promise<void> {
   const projectName = path.basename(packageRoot);
   const outDir = path.join(packageRoot, "dist");
   const realOutDir = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
-  deleteFileOrDirectory(tempPath);
-  moveFile(realOutDir, tempPath);
-  deleteFileOrDirectory(outDir);
-  moveFile(tempPath, outDir);
+  await deleteFileOrDirectoryAsync(tempPath);
+  await moveFileAsync(realOutDir, tempPath);
+  await deleteFileOrDirectoryAsync(outDir);
+  await moveFileAsync(tempPath, outDir);
 }
 
 /**

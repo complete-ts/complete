@@ -1,5 +1,4 @@
 export * from "./enums/PackageManager.js";
-export * from "./functions/arkType.js";
 export * from "./functions/base64.js";
 export * from "./functions/build.js";
 export * from "./functions/commands.js";
@@ -16,7 +15,9 @@ export * from "./functions/npm.js";
 export * from "./functions/nukeDependencies.js";
 export * from "./functions/packageJSON.js";
 export * from "./functions/packageManager.js";
+export * from "./functions/project.js";
 export * from "./functions/readWrite.js";
+export * from "./functions/runtime.js";
 export * from "./functions/scriptHelpers.js";
 export * from "./functions/string.js";
 export * from "./functions/update.js";

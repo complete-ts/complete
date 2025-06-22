@@ -451,6 +451,21 @@ export function moveFile(srcPath: string, dstPath: string): void {
   renameFile(srcPath, dstPath);
 }
 
+/**
+ * Helper function to asynchronously move a file.
+ *
+ * This will throw an error if the file cannot be moved.
+ *
+ * (This is simply an alias for the `renameFileAsync` function, since the Node.js API uses the same thing
+ * for both operations.)
+ */
+export async function moveFileAsync(
+  srcPath: string,
+  dstPath: string,
+): Promise<void> {
+  await renameFileAsync(srcPath, dstPath);
+}
+
 /** Alias for the `moveFile` function. Intended to be used in scripts. */
 export function mv(srcPath: string, dstPath: string): void {
   moveFile(srcPath, dstPath);
@@ -464,6 +479,22 @@ export function mv(srcPath: string, dstPath: string): void {
 export function renameFile(srcPath: string, dstPath: string): void {
   try {
     fs.renameSync(srcPath, dstPath);
+  } catch (error) {
+    throw new Error(`Failed to rename "${srcPath}" to "${dstPath}": ${error}`);
+  }
+}
+
+/**
+ * Helper function to asynchronously rename a file.
+ *
+ * This will throw an error if the file cannot be renamed.
+ */
+export async function renameFileAsync(
+  srcPath: string,
+  dstPath: string,
+): Promise<void> {
+  try {
+    await fs.promises.rename(srcPath, dstPath);
   } catch (error) {
     throw new Error(`Failed to rename "${srcPath}" to "${dstPath}": ${error}`);
   }

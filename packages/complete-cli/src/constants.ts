@@ -1,6 +1,6 @@
 import {
-  findPackageRoot,
   getPackageJSONFieldsMandatory,
+  getPackageRoot,
   PackageManager,
 } from "complete-node";
 import os from "node:os";
@@ -11,7 +11,7 @@ export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 
 export const HOME_DIR = os.homedir();
 
-const packageRoot = findPackageRoot();
+const packageRoot = await getPackageRoot();
 const { name, version } = await getPackageJSONFieldsMandatory(
   packageRoot,
   "name",
@@ -22,8 +22,6 @@ export const PROJECT_NAME = name;
 export const PROJECT_VERSION = version;
 
 export const DEFAULT_PACKAGE_MANAGER = PackageManager.npm;
-
-// ---------
 
 const TEMPLATES_DIR = path.join(packageRoot, "file-templates");
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");

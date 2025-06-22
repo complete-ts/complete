@@ -7,10 +7,10 @@
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject } from "complete-common";
 import path from "node:path";
-import { dirOfCaller, findPackageRoot } from "./arkType.js";
 import { isFileAsync } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
 import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
+import { getPackageRoot } from "./project.js";
 import { writeFileAsync } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
@@ -49,8 +49,7 @@ export async function lintMonorepoPackageJSONs(
   monorepoRoot?: string,
 ): Promise<void> {
   if (monorepoRoot === undefined) {
-    const fromDir = dirOfCaller();
-    monorepoRoot = findPackageRoot(fromDir); // eslint-disable-line no-param-reassign
+    monorepoRoot = await getPackageRoot(2); // eslint-disable-line no-param-reassign
   }
 
   const valid = await updatePackageJSONDependenciesMonorepoChildren(
@@ -84,8 +83,7 @@ export async function updatePackageJSONDependenciesMonorepo(
   monorepoRoot?: string,
 ): Promise<boolean> {
   if (monorepoRoot === undefined) {
-    const fromDir = dirOfCaller();
-    monorepoRoot = findPackageRoot(fromDir); // eslint-disable-line no-param-reassign
+    monorepoRoot = await getPackageRoot(2); // eslint-disable-line no-param-reassign
   }
 
   // First, update the main "package.json" at the root of the monorepo.
