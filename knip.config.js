@@ -11,6 +11,9 @@ const config = {
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
     },
+    "packages/complete-node": {
+      ignoreBinaries: ["complete-cli"],
+    },
     "packages/docs": {
       ignore: [
         "docusaurus.config.ts",
