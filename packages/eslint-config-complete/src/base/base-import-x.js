@@ -44,7 +44,7 @@ const HELPFUL_WARNINGS = {
         "**/protractor.conf.js", // protractor config
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config
-        "**/.eslintrc.{js,cjs,mjs,ts,cts,mts}", // eslint config // Modified for extra file extensions.
+        "**/.eslintrc.js", // eslint config
 
         "**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
         "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
@@ -293,7 +293,11 @@ export const baseImportX = tseslint.config(
       "docusaurus.config.js",
       "docusaurus.config.ts",
       "eslint.config.js",
+      "eslint.config.cjs",
       "eslint.config.mjs",
+      "eslint.config.ts",
+      "eslint.config.cts",
+      "eslint.config.mts",
       "jest.config.js",
       "jest.config.mjs",
       "knip.js",
@@ -315,6 +319,29 @@ export const baseImportX = tseslint.config(
     ],
     rules: {
       "import-x/no-default-export": "off",
+    },
+  },
+
+  // ESLint configuration files that use "complete-lint" have a false positive with
+  // "import-x/no-extraneous-dependencies".
+  {
+    files: [
+      "eslint.config.js",
+      "eslint.config.cjs",
+      "eslint.config.mjs",
+      "eslint.config.ts",
+      "eslint.config.cts",
+      "eslint.config.mts",
+    ],
+    rules: {
+      "import-x/no-extraneous-dependencies": [
+        "warn",
+        {
+          devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
+          optionalDependencies: false,
+          whitelist: ["eslint-config-complete", "typescript-eslint"],
+        },
+      ],
     },
   },
 );
