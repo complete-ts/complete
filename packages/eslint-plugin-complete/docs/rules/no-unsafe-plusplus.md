@@ -10,7 +10,7 @@ This rule is meant to be used in conjunction with this [`prefer-plusplus`](prefe
 
 ```ts
 // Bad
-foo++, foo++, foo++;
+(foo++, foo++, foo++);
 for (foo++; ; ) {}
 for (; foo++; ) {}
 foo++ + foo++;
@@ -19,7 +19,7 @@ array[foo++];
 // Good
 foo++;
 void foo++;
-foo++, foo++, 0;
+(foo++, foo++, 0);
 for (; ; foo++) {}
 ```
 
