@@ -28,68 +28,32 @@ export type ScriptCallback = (
  *
  * For more information, see the documentation for the `script` helper function.
  */
-export async function buildScript(func: ScriptCallback): Promise<void> {
-  const buildFunc: ScriptCallback = async (packageRoot) => {
+export async function buildScript(
+  func: ScriptCallback,
+  packageRoot?: string,
+): Promise<void> {
+  const buildFunc: ScriptCallback = async (packageRootParam) => {
     rm("dist");
-    await func(packageRoot);
+    await func(packageRootParam);
   };
 
-  await script(buildFunc, "built", 2);
+  await script(buildFunc, "built", 2, packageRoot);
 }
 
 /** See the documentation for the `script` helper function. */
-export async function lintScript(func: ScriptCallback): Promise<void> {
-  await script(func, "linted", 2);
-}
-
-/**
- * Use this function with the `lintScript` helper function if you want to just use the standard
- * linting checks for a TypeScript project without any project-specific customization.
- *
- * For example:
- *
- * ```ts
- * import { lintScript, standardLintFunction } from "complete-node";
- *
- * await lintScript(standardLintFunction);
- * ```
- *
- * See [the official docs](/complete-lint#step-5---create-a-lint-script) for what specific checks
- * are performed.
- */
-// This function must match the documentation in "complete-lint".
-export async function standardLintFunction(): Promise<void> {
-  await Promise.all([
-    // Use TypeScript to type-check the code.
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-
-    // Use ESLint to lint the TypeScript code.
-    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 .`,
-
-    // Use Prettier to check formatting.
-    // - "--log-level=warn" makes it only output errors.
-    $`prettier --log-level=warn --check .`,
-
-    // Use Knip to check for unused files, exports, and dependencies.
-    $`knip --no-progress`,
-
-    // Use CSpell to spell check every file.
-    // - "--no-progress" and "--no-summary" make it only output errors.
-    $`cspell --no-progress --no-summary .`,
-
-    // Check for unused words in the CSpell configuration file.
-    $`cspell-check-unused-words`,
-
-    // Check for template updates.
-    $`complete-cli check`,
-  ]);
+export async function lintScript(
+  func: ScriptCallback,
+  packageRoot?: string,
+): Promise<void> {
+  await script(func, "linted", 2, packageRoot);
 }
 
 /** See the documentation for the `script` helper function. */
-export async function testScript(func: ScriptCallback): Promise<void> {
-  await script(func, "tested", 2);
+export async function testScript(
+  func: ScriptCallback,
+  packageRoot?: string,
+): Promise<void> {
+  await script(func, "tested", 2, packageRoot);
 }
 
 /**
@@ -113,11 +77,16 @@ export async function testScript(func: ScriptCallback): Promise<void> {
  * @param verb Optional. The verb for when the script completes. For example, "built".
  * @param upStackBy Optional. The number of functions to rewind in the calling stack before
  *                  attempting to find the closest "package.json" file. Default is 1.
+ * @param packageRoot Optional. The directory path of the package root. In most cases, this does not
+ *                    need to be specified and will be automatically inferred based on the directory
+ *                    of the file of the calling function. If specified, the `upStackBy` parameter
+ *                    will not be used.
  */
 export async function script(
   func: ScriptCallback,
   verb?: string,
   upStackBy = 1,
+  packageRoot?: string,
 ): Promise<void> {
   const args = getArgs();
   const quiet = includesAny(
@@ -130,7 +99,7 @@ export async function script(
     "-s",
   );
 
-  const packageRoot = await getPackageRoot(upStackBy + 1);
+  packageRoot ??= await getPackageRoot(upStackBy + 1); // eslint-disable-line no-param-reassign
 
   process.chdir(packageRoot);
 
@@ -179,6 +148,51 @@ export function printSuccess(
   console.log(
     `Successfully ${verb} ${noun} in ${elapsedSeconds} ${secondsText}.`,
   );
+}
+
+/**
+ * Use this function with the `lintScript` helper function if you want to just use the standard
+ * linting checks for a TypeScript project without any project-specific customization.
+ *
+ * For example:
+ *
+ * ```ts
+ * import { lintScript, standardLintFunction } from "complete-node";
+ *
+ * await lintScript(standardLintFunction);
+ * ```
+ *
+ * See [the official docs](/complete-lint#step-5---create-a-lint-script) for what specific checks
+ * are performed.
+ */
+// This function must match the documentation in "complete-lint".
+export async function standardLintFunction(): Promise<void> {
+  await Promise.all([
+    // Use TypeScript to type-check the code.
+    $`tsc --noEmit`,
+    $`tsc --noEmit --project ./scripts/tsconfig.json`,
+
+    // Use ESLint to lint the TypeScript code.
+    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+    $`eslint --max-warnings 0 .`,
+
+    // Use Prettier to check formatting.
+    // - "--log-level=warn" makes it only output errors.
+    $`prettier --log-level=warn --check .`,
+
+    // Use Knip to check for unused files, exports, and dependencies.
+    $`knip --no-progress`,
+
+    // Use CSpell to spell check every file.
+    // - "--no-progress" and "--no-summary" make it only output errors.
+    $`cspell --no-progress --no-summary .`,
+
+    // Check for unused words in the CSpell configuration file.
+    $`cspell-check-unused-words`,
+
+    // Check for template updates.
+    $`complete-cli check`,
+  ]);
 }
 
 /**
