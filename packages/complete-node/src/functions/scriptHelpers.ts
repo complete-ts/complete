@@ -6,7 +6,7 @@
 
 /* eslint-disable sort-exports/sort-exports */
 
-import { getElapsedSeconds, isObject } from "complete-common";
+import { getElapsedSeconds, includesAny, isObject } from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
 import path from "node:path";
 import { $ } from "./execa.js";
@@ -120,13 +120,15 @@ export async function script(
   upStackBy = 1,
 ): Promise<void> {
   const args = getArgs();
-  const quiet =
-    args.includes("quiet")
-    || args.includes("--quiet")
-    || args.includes("-q")
-    || args.includes("silent")
-    || args.includes("--silent")
-    || args.includes("-s");
+  const quiet = includesAny(
+    args,
+    "quiet",
+    "--quiet",
+    "-q",
+    "silent",
+    "--silent",
+    "-s",
+  );
 
   const packageRoot = await getPackageRoot(upStackBy + 1);
 
