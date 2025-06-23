@@ -59,7 +59,7 @@
     "complete-common": "2.3.0",
     "complete-node": "7.0.2",
     "jest": "30.0.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "typescript": "5.8.3"
   },
   "peerDependencies": {

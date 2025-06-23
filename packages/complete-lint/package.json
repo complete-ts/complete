@@ -31,10 +31,10 @@
     "cspell": "9.1.1",
     "cspell-check-unused-words": "1.5.3",
     "eslint": "9.29.0",
-    "eslint-config-complete": "1.6.6",
+    "eslint-config-complete": "1.7.0",
     "eslint-import-resolver-typescript": "4.4.3",
     "knip": "5.61.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "prettier-plugin-organize-imports": "4.1.0",
     "prettier-plugin-packagejson": "2.5.15",
     "tsx": "4.20.3"
