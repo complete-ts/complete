@@ -38,18 +38,18 @@
     "chalk": "5.4.1",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.3.0",
-    "complete-node": "7.1.0",
+    "complete-node": "7.2.0",
     "klaw-sync": "7.0.0",
     "yaml": "2.8.0"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "24.0.3",
+    "@types/node": "24.0.4",
     "glob": "11.0.3",
     "ts-loader": "9.5.2",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.34.1",
+    "typescript-eslint": "8.35.0",
     "webpack": "5.99.9",
     "webpack-cli": "6.0.1",
     "webpack-shebang-plugin": "1.1.8"
