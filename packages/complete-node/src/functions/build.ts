@@ -4,7 +4,11 @@
  * @module
  */
 
-import { $o, $q } from "./execa.js";
+import path from "node:path";
+import { $, $o, $q } from "./execa.js";
+import { isFileAsync } from "./file.js";
+import { getPackageJSON } from "./packageJSON.js";
+import { getPackageRoot } from "./project.js";
 
 /**
  * Helper function to see if the compiled output that is checked-in to the Git repository is
@@ -24,4 +28,41 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
   if (gitDirty) {
     process.exit(1);
   }
+}
+
+/**
+ * Helper function to compile a TypeScript project to a single file using Bun.
+ *
+ * This function invokes `bun build` with the following flags:
+ *
+ * - `--compile`
+ * - `--target=bun-linux-x64`
+ * - `--minify`
+ * - `--sourcemap`
+ * - `--outfile=[name]`
+ *
+ * This function assumes that the entrypoint is located at "./src/main.ts".
+ *
+ * @see https://bun.sh/docs/bundler/executables
+ */
+export async function compileToSingleFileWithBun(): Promise<void> {
+  const projectRoot = await getPackageRoot(2);
+  const packageJSONPath = path.join(projectRoot, "package.json");
+  const packageJSON = await getPackageJSON(packageJSONPath);
+  const { name } = packageJSON;
+
+  if (typeof name !== "string" || name === "") {
+    throw new Error(
+      `Failed to find the "name" field in the "package.json" file located at: ${packageJSONPath}`,
+    );
+  }
+
+  const entryPointPath = path.join(projectRoot, "src", "main.ts");
+  const entryPointExists = await isFileAsync(entryPointPath);
+  if (!entryPointExists) {
+    throw new Error(`Failed to find the entrypoint at: ${entryPointPath}`);
+  }
+
+  // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
+  await $`bun build --compile --target=bun-linux-x64 --minify --sourcemap --outfile=${name} ${entryPointPath}`;
 }
