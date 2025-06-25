@@ -6,6 +6,7 @@
 
 import path from "node:path";
 import { $, $o, $q } from "./execa.js";
+import { isFileAsync } from "./file.js";
 import { getPackageJSON } from "./packageJSON.js";
 import { getPackageRoot } from "./project.js";
 
@@ -55,6 +56,12 @@ export async function compileToSingleFileWithBun(): Promise<void> {
     );
   }
 
+  const entryPointPath = path.join(projectRoot, "src", "main.ts");
+  const entryPointExists = await isFileAsync(entryPointPath);
+  if (!entryPointExists) {
+    throw new Error(`Failed to find the entrypoint at: ${entryPointPath}`);
+  }
+
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
-  await $`bun build --compile --target=bun-linux-x64 --minify --sourcemap ./src/main.ts --outfile ${name} --define:process.env.APP_VERSION=${version}`;
+  await $`bun build --compile --target=bun-linux-x64 --minify --sourcemap ${entryPointPath} --outfile ${name} --define:process.env.APP_NAME=${name} --define:process.env.APP_VERSION=${version}`;
 }
