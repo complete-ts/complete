@@ -36,7 +36,7 @@
     "knip": "5.61.2",
     "prettier": "3.6.1",
     "prettier-plugin-organize-imports": "4.1.0",
-    "prettier-plugin-packagejson": "2.5.15",
+    "prettier-plugin-packagejson": "2.5.16",
     "tsx": "4.20.3"
   },
   "peerDependencies": {

@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@arktype/fs": "0.46.0",
-    "@babel/core": "7.27.4",
+    "@babel/core": "7.27.7",
     "@babel/preset-env": "7.27.2",
     "@babel/preset-typescript": "7.27.1",
     "@docusaurus/core": "3.8.1",
@@ -78,7 +78,7 @@
     "package-directory": "8.1.0",
     "prettier": "3.6.1",
     "prettier-plugin-organize-imports": "4.1.0",
-    "prettier-plugin-packagejson": "2.5.15",
+    "prettier-plugin-packagejson": "2.5.16",
     "prism-react-renderer": "2.4.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
