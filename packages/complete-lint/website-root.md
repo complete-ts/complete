@@ -241,7 +241,6 @@ jobs:
 
 These are the specific packages that `complete-lint` provides:
 
-- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml) - Allows Prettier to format XML files, which are common in some kinds of projects.
 - [`@types/node`](https://www.npmjs.com/package/@types/node) - The types for the Node.js runtime. This is included since it is expected that you will be linting your project with a TypeScript script.
 - [`complete-tsconfig`](/complete-tsconfig) - A collection of TypeScript configuration files that allow for maximum safety.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.

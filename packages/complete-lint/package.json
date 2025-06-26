@@ -25,7 +25,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@prettier/plugin-xml": "3.4.1",
     "@types/node": "24.0.4",
     "complete-tsconfig": "1.3.0",
     "cspell": "9.1.2",

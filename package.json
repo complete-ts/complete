@@ -36,7 +36,6 @@
     "@heroicons/react": "2.2.0",
     "@mdx-js/react": "3.1.0",
     "@octokit/core": "7.0.2",
-    "@prettier/plugin-xml": "3.4.1",
     "@stylistic/eslint-plugin": "5.0.0",
     "@tsconfig/node-lts": "22.0.2",
     "@tsconfig/strictest": "2.0.5",
