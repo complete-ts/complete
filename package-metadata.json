@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "eslint-plugin-import-x": {
+      "lock-version": true,
+      "reason": "https://github.com/un-ts/eslint-plugin-import-x/issues/397"
+    }
+  }
+}
