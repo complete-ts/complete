@@ -212,6 +212,8 @@ const STYLE_GUIDE = {
    * exports).
    */
   "import-x/prefer-default-export": "off",
+
+  "import-x/prefer-namespace-import": "warn",
 };
 
 /**
