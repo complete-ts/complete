@@ -15,7 +15,7 @@ const DIACRITIC_REGEX = /\p{Diacritic}/u;
 const EMOJI_REGEX = /(\p{Extended_Pictographic}|\p{Emoji_Component})/u;
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
-const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$|^$/;
+const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
 const WHITESPACE_REGEX = /\s/g;
 
@@ -107,12 +107,12 @@ export function isFirstLetterCapitalized(string: string): boolean {
   return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
 }
 
-/** Kebab case is the naming style of using all lowercase and hyphens, like "foo-bar". */
+/**
+ * "kebab-case" is the naming style of using all lowercase and hyphens, like "foo-bar".
+ *
+ * An empty string is not considered to be kebab-case.
+ */
 export function isKebabCase(string: string): boolean {
-  if (string === "") {
-    return false;
-  }
-
   return KEBAB_CASE_REGEX.test(string);
 }
 
