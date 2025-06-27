@@ -9,7 +9,7 @@ import type { Dirent } from "node:fs";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { writeFile } from "./readWrite.js";
+import { writeFile, writeFileAsync } from "./readWrite.js";
 
 /**
  * Helper function to synchronously copy a file or directory. If a path to a directory is specified,
@@ -560,5 +560,32 @@ export function touch(filePath: string): void {
     }
   } else {
     writeFile(filePath, "");
+  }
+}
+
+/**
+ * Helper function to asynchronously write 0 bytes to a file, similar to the `touch` command.
+ *
+ * This will throw an error if the file cannot be written to.
+ */
+export async function touchAsync(filePath: string): Promise<void> {
+  const directoryExists = await isDirectoryAsync(filePath);
+  if (directoryExists) {
+    throw new Error(
+      `Failed to touch the "${filePath}" file since it was a directory.`,
+    );
+  }
+
+  const fileExists = await isFileAsync(filePath);
+  if (fileExists) {
+    try {
+      await fs.promises.access(filePath);
+      const now = new Date();
+      await fs.promises.utimes(filePath, now, now);
+    } catch (error) {
+      throw new Error(`Failed to touch the "${filePath}" file: ${error}`);
+    }
+  } else {
+    await writeFileAsync(filePath, "");
   }
 }
