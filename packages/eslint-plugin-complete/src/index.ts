@@ -27,7 +27,7 @@ export default plugin;
  * We parse the package JSON manually since importing JSON files directly in Node is experimental.
  */
 function getPackageJSONNameAndVersion() {
-  const packageRoot = path.join(import.meta.dirname, "..");
+  const packageRoot = path.resolve(import.meta.dirname, "..");
   const packageJSONPath = path.join(packageRoot, "package.json");
   let packageJSON: unknown;
   try {

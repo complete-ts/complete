@@ -30,7 +30,7 @@ import tseslint from "typescript-eslint";
 
 const FAIL_ON_MISSING_RULES = true as boolean;
 
-const PACKAGE_ROOT = path.join(import.meta.dirname, "..");
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 const PACKAGE_NAME = path.basename(PACKAGE_ROOT);
 const BASE_CONFIGS_PATH = path.join(PACKAGE_ROOT, "src", "base");
 const README_PATH = path.join(PACKAGE_ROOT, "website-root.md");

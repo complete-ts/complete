@@ -32,7 +32,7 @@ const config = {
     plugins: [
       new TSConfigPathsWebpackPlugin({
         // We cannot use a relative path here or else Knip will throw an error.
-        configFile: path.join(
+        configFile: path.resolve(
           import.meta.dirname,
           "..",
           "..",

@@ -25,7 +25,7 @@ import { packageJSONHasScript } from "./packageJSON.js";
 export async function copyToMonorepoNodeModules(
   packageRoot: string,
 ): Promise<void> {
-  const monorepoRoot = path.join(packageRoot, "..", "..");
+  const monorepoRoot = path.resolve(packageRoot, "..", "..");
   const packageName = path.basename(packageRoot);
   const monorepoNodeModulesPath = path.join(monorepoRoot, "node_modules");
 

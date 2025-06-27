@@ -19,7 +19,7 @@ import path from "node:path";
 const CATEGORY_FILE_NAME = "_category_.yml";
 
 await buildScript(async (packageRoot) => {
-  const repoRoot = path.join(packageRoot, "..", "..");
+  const repoRoot = path.resolve(packageRoot, "..", "..");
 
   // Get rid of all previous build output.
   const docsDir = path.join(packageRoot, "docs");
@@ -79,7 +79,7 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
   const $$ = $({ cwd: packagePath });
   await $$`npm run docs`;
 
-  const docsOutputPath = path.join(
+  const docsOutputPath = path.resolve(
     packagePath,
     "..",
     "docs",

@@ -101,7 +101,7 @@ async function checkTemplateDirectory(
     let projectFilePath = path.join(CWD, relativeTemplateFilePath);
     switch (templateFileName) {
       case "_cspell.config.jsonc": {
-        projectFilePath = path.join(
+        projectFilePath = path.resolve(
           projectFilePath,
           "..",
           "cspell.config.jsonc",
@@ -110,7 +110,7 @@ async function checkTemplateDirectory(
       }
 
       case "_gitattributes": {
-        projectFilePath = path.join(projectFilePath, "..", ".gitattributes");
+        projectFilePath = path.resolve(projectFilePath, "..", ".gitattributes");
         break;
       }
 
