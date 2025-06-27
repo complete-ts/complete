@@ -213,8 +213,7 @@ const STYLE_GUIDE = {
    */
   "import-x/prefer-default-export": "off",
 
-  // TODO: https://github.com/un-ts/eslint-plugin-import-x/issues/397
-  /// "import-x/prefer-namespace-import": "warn",
+  "import-x/prefer-namespace-import": "warn",
 };
 
 /**
