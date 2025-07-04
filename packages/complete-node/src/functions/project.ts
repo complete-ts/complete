@@ -39,7 +39,6 @@ export async function getPackageRoot(upStackBy = 1): Promise<string> {
 
   /** On Node.js, this will be a file URL. On Bun, this will be a normal path. */
   const callingFileName = stackFrame.getFileName();
-
   const callingFilePath = callingFileName.startsWith("file://")
     ? fileURLToPath(callingFileName)
     : callingFileName;
