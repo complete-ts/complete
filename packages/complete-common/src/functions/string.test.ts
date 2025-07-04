@@ -1,6 +1,12 @@
 import { equal } from "node:assert";
 import test, { describe } from "node:test";
-import { hasDiacritic, hasEmoji, isKebabCase } from "./string.js";
+import {
+  hasDiacritic,
+  hasEmoji,
+  isKebabCase,
+  trimPrefix,
+  trimSuffix,
+} from "./string.js";
 
 describe("hasEmoji", () => {
   test("should return true for string with emoji", () => {
@@ -104,4 +110,22 @@ describe("isKebabCase", () => {
   test("should return false for an empty string", () => {
     equal(isKebabCase(""), false);
   });
+});
+
+describe("trimPrefix", () => {
+  test(() => {
+    equal(trimPrefix("foo", ""), "foo");
+    equal(trimPrefix("foo", "f"), "oo");
+    equal(trimPrefix("foo", "fo"), "o");
+    equal(trimPrefix("foo", "foo"), "");
+    equal(trimPrefix("foo", "foo1"), "foo");
+  });
+});
+
+describe("trimSuffix", () => {
+  equal(trimSuffix("foo", ""), "foo");
+  equal(trimSuffix("foo", "o"), "fo");
+  equal(trimSuffix("foo", "oo"), "f");
+  equal(trimSuffix("foo", "foo"), "");
+  equal(trimSuffix("foo", "1foo"), "foo");
 });
