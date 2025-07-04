@@ -254,7 +254,7 @@ export async function getFilePath(
 }
 
 /**
- * Helper function to synchronously get the file names inside of a directory.
+ * Helper function to synchronously get the file paths inside of a directory.
  *
  * This will throw an error if there is an error when checking the directory.
  *
@@ -270,7 +270,7 @@ export function getFilePathsInDirectory(
 }
 
 /**
- * Helper function to asynchronously get the file names inside of a directory.
+ * Helper function to asynchronously get the file paths inside of a directory.
  *
  * This will throw an error if there is an error when checking the directory.
  *
