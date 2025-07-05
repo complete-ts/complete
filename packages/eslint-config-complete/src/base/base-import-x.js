@@ -324,8 +324,6 @@ export const baseImportX = tseslint.config(
     },
   },
 
-  // ESLint configuration files that use "complete-lint" have a false positive with
-  // "import-x/no-extraneous-dependencies".
   {
     files: [
       "eslint.config.js",
@@ -336,6 +334,8 @@ export const baseImportX = tseslint.config(
       "eslint.config.mts",
     ],
     rules: {
+      // ESLint configuration files that use "complete-lint" have a false positive with
+      // "import-x/no-extraneous-dependencies".
       "import-x/no-extraneous-dependencies": [
         "warn",
         {
@@ -344,6 +344,10 @@ export const baseImportX = tseslint.config(
           whitelist: ["eslint-config-complete", "typescript-eslint"],
         },
       ],
+
+      // ESLint configuration files in monorepos often intentionally import from the "packages"
+      // subdirectory, because the config files are JavaScript so they cannot use tsconfig-paths.
+      "import-x/no-relative-packages": "off",
     },
   },
 );

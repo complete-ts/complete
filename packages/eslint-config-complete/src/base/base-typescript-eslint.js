@@ -546,10 +546,28 @@ export const baseTypeScriptESLint = tseslint.config(
     },
   },
 
+  // We want to be allowed to import from the "src" directory in script files that are located in a
+  // separate "scripts" directory.
+  {
+    files: ["**/scripts/**"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": "off",
+    },
+  },
+
   // We want to be allowed to import from the "src" directory in test files that are located in a
   // separate "tests" directory.
   {
     files: ["**/tests/**"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": "off",
+    },
+  },
+
+  // ESLint configs in monorepos often intentionally import from the "src" subdirectory (because the
+  // config files are JavaScript so they cannot use tsconfig-paths).
+  {
+    files: ["eslint.config.mjs"],
     rules: {
       "@typescript-eslint/no-restricted-imports": "off",
     },
