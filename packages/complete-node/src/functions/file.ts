@@ -5,8 +5,9 @@
  */
 
 import { trimSuffix } from "complete-common";
+import { createHash } from "node:crypto";
 import type { Dirent } from "node:fs";
-import fs from "node:fs";
+import fs, { createReadStream } from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { writeFile, writeFileAsync } from "./readWrite.js";
@@ -275,7 +276,6 @@ export function getFilePathsInDirectory(
  * This will throw an error if there is an error when checking the directory.
  *
  * @param directoryPath The path to the directory.
- *
  * @param filter Optional. If specified, will only return this type of file.
  */
 export async function getFilePathsInDirectoryAsync(
@@ -284,6 +284,22 @@ export async function getFilePathsInDirectoryAsync(
 ): Promise<readonly string[]> {
   const fileNames = await getFileNamesInDirectoryAsync(directoryPath, filter);
   return fileNames.map((fileName) => path.join(directoryPath, fileName));
+}
+
+/** Helper function to get the SHA1 hash of a file. */
+export async function getFileSHA1(filePath: string): Promise<string> {
+  return await new Promise((resolve, reject) => {
+    const hash = createHash("sha1");
+    const stream = createReadStream(filePath);
+
+    stream.on("data", (data) => hash.update(data));
+    stream.on("end", () => {
+      resolve(hash.digest("hex"));
+    });
+    stream.on("error", (error) => {
+      reject(error);
+    });
+  });
 }
 
 /**
