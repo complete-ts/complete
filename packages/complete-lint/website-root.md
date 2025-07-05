@@ -290,4 +290,4 @@ With `complete-lint`, the philosophy is that we want to enable as many lint rule
 
 ### Using Prettier & ESLint Together
 
-In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `complete-lint`, you should be running both Prettier and ESLint on save. (More info on that is below.)
+In order to avoid running two different tools, we could use [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) to run Prettier as an ESLint rule. However, doing this [is not recommended by Prettier](https://prettier.io/docs/en/integrating-with-linters.html). Thus, in order to use `complete-lint`, you should be running both Prettier and ESLint on save. (More info on that is [located above](#step-4---editor-integration).)
