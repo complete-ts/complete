@@ -39,23 +39,6 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(...completeConfigBase);
 ```
 
-If you have a monorepo, you might also want to load the monorepo config:
-
-```js
-// @ts-check
-
-import {
-  completeConfigBase,
-  completeConfigMonorepo,
-} from "eslint-config-complete";
-import tseslint from "typescript-eslint";
-
-export default tseslint.config(
-  ...completeConfigBase,
-  ...completeConfigMonorepo,
-);
-```
-
 ## Why Do I Need To Use ESLint?
 
 If you are reading this page, you are likely a user of [TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript is great because it saves you an enormous amount of time. The hours spent troubleshooting run-time errors caused from small typos have become a thing of the past. Good riddance!
