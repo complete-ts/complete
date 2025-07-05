@@ -2,13 +2,11 @@
 
 import tseslint from "typescript-eslint";
 import { completeConfigBase } from "../eslint-config-complete/src/base.js";
-import { completeConfigMonorepo } from "../eslint-config-complete/src/monorepo.js";
 // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
 import ESLintPluginSortExports from "eslint-plugin-sort-exports";
 
 export default tseslint.config(
   ...completeConfigBase,
-  ...completeConfigMonorepo,
 
   {
     plugins: {
