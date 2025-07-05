@@ -1,6 +1,6 @@
 short term:
 
-- n/a
+- if bun is package manager, should use bun instead of node in tsconfig
 
 ----------------------------------------------------------------------------------------------------
 
