@@ -80,8 +80,22 @@ export function formatText(
     const previousLineWasEnumBlockLabel =
       previousLine !== undefined && isEnumBlockLabel(previousLine);
 
+    const nextLine = lines[i + 1];
+    const nextLineIsJSDocTag =
+      nextLine !== undefined && nextLine.trim().startsWith("@");
+
     // Handle blank lines.
     if (lineIsBlank) {
+      // If we are between JSDoc tags, skip this blank line entirely.
+      if (
+        encounteredJSDocTags
+        && insideList !== undefined
+        && insideList.kind === ListKind.JSDocTag
+        && nextLineIsJSDocTag
+      ) {
+        continue;
+      }
+
       // Append the partial line that we were building, if any.
       [formattedLine, formattedText] = appendLineToText(
         formattedLine,
@@ -131,7 +145,6 @@ export function formatText(
 
       // Enforce newlines after the end of code blocks. (But not inside of an example code block,
       // because there should not be newlines between tags.)
-      const nextLine = lines[i + 1];
       const nextLineIsBlank = nextLine === undefined || nextLine.trim() === "";
       if (
         hasCodeBlock

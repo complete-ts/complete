@@ -715,6 +715,50 @@ invalid.push({
   `,
 });
 
+invalid.push({
+  name: "Space between @param lines",
+  code: `
+/**
+ * Here is my function.
+ *
+ * @param foo This is foo.
+ *
+ * @param bar This is bar.
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * Here is my function.
+ *
+ * @param foo This is foo.
+ * @param bar This is bar.
+ */
+  `,
+});
+
+invalid.push({
+  name: "Space between @param and @return",
+  code: `
+/**
+ * Here is my function.
+ *
+ * @param foo This is foo.
+ *
+ * @return Something.
+ */
+  `,
+  errors: [{ messageId: "incorrectlyFormatted" }],
+  output: `
+/**
+ * Here is my function.
+ *
+ * @param foo This is foo.
+ * @return Something.
+ */
+  `,
+});
+
 ruleTester.run("format-jsdoc-comments", formatJSDocComments, {
   valid,
   invalid,
