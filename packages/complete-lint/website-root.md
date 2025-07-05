@@ -278,7 +278,7 @@ In JavaScript and TypeScript land, there isn't an official code formatting stand
 
 [Prettier](https://prettier.io/) is an auto-formatter for JavaScript/TypeScript. First released in 2017, it has become widespread and is probably considered to be the industry standard in 2023. Prettier works by completely rebuilding your code from scratch using the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree), which allows it to make better transformations than other tools.
 
-In `complete-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off with [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier).
+In `complete-lint`, we choose we choose the Prettier style for code formatting, since it is the most popular TypeScript style. Any ESLint rules that conflict with Prettier are turned off.
 
 Prettier handles almost everything, but the `complete-lint` linting config also has a few formatting-related rules turned on, like [`complete/format-jsdoc-comments`](/eslint-plugin-complete/rules/format-jsdoc-comments) (since Prettier does not format comments).
 
