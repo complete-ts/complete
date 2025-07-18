@@ -57,7 +57,7 @@ export async function getEnv<T extends z.ZodObject<any>>(
   const result = envSchema.safeParse(process.env);
   if (!result.success) {
     console.error(`Failed to parse the file: ${envPath}`);
-    throw new Error(result.error.toString());
+    throw result.error;
   }
 
   return result.data;
