@@ -116,6 +116,11 @@ export function isKebabCase(string: string): boolean {
   return KEBAB_CASE_REGEX.test(string);
 }
 
+/** Helper function to test if a string contains only lowercase ASCII letters (a through z). */
+export function isLowerCase(string: string): boolean {
+  return /^[a-z]*$/.test(string);
+}
+
 /**
  * Helper function to check if a given string is a valid Semantic Version.
  *
@@ -124,6 +129,11 @@ export function isKebabCase(string: string): boolean {
 export function isSemanticVersion(versionString: string): boolean {
   const match = versionString.match(SEMANTIC_VERSION_REGEX);
   return match !== null;
+}
+
+/** Helper function to test if a string contains only uppercase ASCII letters (A through Z). */
+export function isUpperCase(string: string): boolean {
+  return /^[A-Z]*$/.test(string);
 }
 
 /** Helper function to convert a string from kebab-case to camelCase. */
