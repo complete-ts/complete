@@ -18,6 +18,8 @@ const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
 const WHITESPACE_REGEX = /\s/g;
+const UPPERCASE_REGEX = /^[A-Z]*$/;
+const LOWERCASE_REGEX = /^[a-z]*$/;
 
 /** Helper function to capitalize the first letter of a string. */
 export function capitalizeFirstLetter(string: string): string {
@@ -118,7 +120,7 @@ export function isKebabCase(string: string): boolean {
 
 /** Helper function to test if a string contains only lowercase ASCII letters (a through z). */
 export function isLowerCase(string: string): boolean {
-  return /^[a-z]*$/.test(string);
+  return LOWERCASE_REGEX.test(string);
 }
 
 /**
@@ -133,7 +135,7 @@ export function isSemanticVersion(versionString: string): boolean {
 
 /** Helper function to test if a string contains only uppercase ASCII letters (A through Z). */
 export function isUpperCase(string: string): boolean {
-  return /^[A-Z]*$/.test(string);
+  return UPPERCASE_REGEX.test(string);
 }
 
 /** Helper function to convert a string from kebab-case to camelCase. */
