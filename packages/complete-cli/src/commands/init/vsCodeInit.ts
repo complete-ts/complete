@@ -26,26 +26,16 @@ export async function vsCodeInit(
   await promptVSCode(projectPath, VSCodeCommand, vscode, yes);
 }
 
-async function getVSCodeCommand(): Promise<
-  (typeof VS_CODE_COMMANDS)[number] | undefined
-> {
-  const commandCheckPromises = VS_CODE_COMMANDS.map((command) => ({
-    command,
-    existsPromise: commandExists(command),
-  }));
+async function getVSCodeCommand(): Promise<string | undefined> {
+  for (const command of VS_CODE_COMMANDS) {
+    // eslint-disable-next-line no-await-in-loop
+    const exists = await commandExists(command);
+    if (exists) {
+      return command;
+    }
+  }
 
-  const commandChecks = await Promise.all(
-    commandCheckPromises.map(async (check) => ({
-      command: check.command,
-      exists: await check.existsPromise,
-    })),
-  );
-
-  const existingCommands = commandChecks
-    .filter((check) => check.exists)
-    .map((check) => check.command);
-
-  return existingCommands[0];
+  return undefined;
 }
 
 async function installVSCodeExtensions(

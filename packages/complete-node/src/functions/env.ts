@@ -16,7 +16,7 @@ import { getPackageRoot } from "./project.js";
  *   DOMAIN: z.string().min(1).default("localhost"),
  * });
  *
- * export const env = getEnv(envSchema);
+ * export const env = await getEnv(envSchema);
  * ```
  *
  * This function contains logic to convert empty strings to `undefined` so that Zod default values
