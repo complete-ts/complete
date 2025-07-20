@@ -17,6 +17,7 @@ import { $ as dollarSignFunc } from "execa";
  *
  * @see https://github.com/sindresorhus/execa/blob/main/docs/scripts.md
  * @see https://nodejs.org/api/child_process.html#child_process_options_stdio
+ * @allowEmptyVariadic
  */
 export const $ = dollarSignFunc({
   stdout: "inherit",
