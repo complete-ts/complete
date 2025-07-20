@@ -30,7 +30,7 @@ export const baseStylistic = tseslint.config({
       "double",
       {
         avoidEscape: true,
-        allowTemplateLiterals: false,
+        allowTemplateLiterals: "never",
       },
     ],
 

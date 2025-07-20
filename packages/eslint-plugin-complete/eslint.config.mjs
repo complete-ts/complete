@@ -8,12 +8,6 @@ export default tseslint.config(
 
   {
     rules: {
-      /** This is a common pattern in the testing files. */
-      "unicorn/no-array-push-push": "off",
-
-      /** The ESLint API uses `null`. */
-      "unicorn/no-null": "off",
-
       /** This rule conflicts with this plugin's testing style. */
       "unicorn/prefer-single-call": "off",
 

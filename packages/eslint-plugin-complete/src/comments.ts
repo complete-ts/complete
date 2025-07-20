@@ -16,10 +16,10 @@ export function isCommentOnOwnLine(
 
   const previousToken = sourceCode.getTokenBefore(comment);
   const previousTokenEndLine =
-    previousToken === null ? null : previousToken.loc.end.line;
+    previousToken === null ? undefined : previousToken.loc.end.line;
   const nextToken = sourceCode.getTokenAfter(comment);
   const nextTokenStartLine =
-    nextToken === null ? null : nextToken.loc.start.line;
+    nextToken === null ? undefined : nextToken.loc.start.line;
 
   return startLine !== previousTokenEndLine && endLine !== nextTokenStartLine;
 }

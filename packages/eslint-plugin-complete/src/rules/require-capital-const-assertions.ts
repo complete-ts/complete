@@ -75,17 +75,14 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
             loc: node.loc,
             messageId: "noConstAssertion",
             fix: (fixer) => {
-              // If this variable isn't being assigned to anything, then there is nothing we can
+              // If this variable is not being assigned to anything, then there is nothing we can
               // fix.
-              if (declaration.init === null) {
-                return null;
-              }
-
-              if (declaration.init.type === AST_NODE_TYPES.TSAsExpression) {
-                return null;
-              }
-
-              if (AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)) {
+              if (
+                declaration.init === null
+                || declaration.init.type === AST_NODE_TYPES.TSAsExpression
+                || AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)
+              ) {
+                // eslint-disable-next-line unicorn/no-null
                 return null;
               }
 
