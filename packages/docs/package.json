@@ -48,14 +48,14 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "typedoc": "0.28.7",
-    "typedoc-plugin-markdown": "4.7.0"
+    "typedoc-plugin-markdown": "4.7.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@octokit/core": "7.0.3",
-    "@types/node": "24.0.14",
+    "@types/node": "24.0.15",
     "complete-common": "2.4.0",
     "complete-node": "7.4.0",
     "typescript": "5.8.3",
