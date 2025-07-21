@@ -67,6 +67,39 @@ export function arrayRemove<T>(
 }
 
 /**
+ * Removes all of the specified element(s) from the array. If the specified element(s) are not found
+ * in the array, this function will do nothing.
+ *
+ * This function is variadic, meaning that you can specify N arguments to remove N elements.
+ *
+ * If there is more than one matching element in the array, this function will remove every matching
+ * element. If you want to only remove the first matching element, use the `arrayRemoveInPlace`
+ * function instead.
+ *
+ * @returns True if one or more elements were removed, false otherwise.
+ */
+export function arrayRemoveAllInPlace<T>(
+  // eslint-disable-next-line complete/prefer-readonly-parameter-types
+  array: T[],
+  ...elementsToRemove: readonly T[]
+): boolean {
+  let removedOneOrMoreElements = false;
+
+  for (const element of elementsToRemove) {
+    let index: number;
+    do {
+      index = array.indexOf(element);
+      if (index > -1) {
+        removedOneOrMoreElements = true;
+        array.splice(index, 1);
+      }
+    } while (index > -1);
+  }
+
+  return removedOneOrMoreElements;
+}
+
+/**
  * Removes the specified element(s) from the array. If the specified element(s) are not found in the
  * array, this function will do nothing.
  *
