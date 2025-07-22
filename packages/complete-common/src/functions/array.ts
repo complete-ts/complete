@@ -48,6 +48,8 @@ export function arrayEquals<T>(
  * array. If the specified element(s) are not found in the array, it will simply return a shallow
  * copy of the array.
  *
+ * If there is more than one matching element in the array, this function will remove all of them.
+ *
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  */
 export function arrayRemove<T>(
@@ -106,8 +108,7 @@ export function arrayRemoveAllInPlace<T>(
  * This function is variadic, meaning that you can specify N arguments to remove N elements.
  *
  * If there is more than one matching element in the array, this function will only remove the first
- * matching element. If you want to remove all of the elements, use the `arrayRemoveAllInPlace`
- * function instead.
+ * one. If you want to remove all of the elements, use the `arrayRemoveAllInPlace` function instead.
  *
  * @returns The removed elements. This will be an empty array if no elements were removed.
  */
