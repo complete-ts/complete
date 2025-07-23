@@ -86,7 +86,13 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/consistent-generic-constructors": "warn",
       "@typescript-eslint/consistent-indexed-object-style": "warn",
 
-      /** Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. */
+      /**
+       * Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. (The
+       * compiler flag does not technically handle all cases that the rule does. However, in most
+       * cases, it will result in duplicate error messages being thrown, so we disable it.
+       * Additionally, more coverage of this nature is also provided by the
+       * `complete/strict-void-functions` rule.)
+       */
       "@typescript-eslint/consistent-return": "off",
 
       "@typescript-eslint/consistent-type-assertions": "warn",
