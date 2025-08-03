@@ -48,6 +48,10 @@ export function getArgs(): readonly string[] {
  * This is similar to the `__name__ == "__main__"` pattern from the Python programming language.
  */
 export function isMain(): boolean {
-  const { filePath } = getCallingFunction();
+  const { name, filePath } = getCallingFunction();
+  console.log("name:", name);
+  console.log("filePath:", filePath);
+  console.log("process.argv[1]:", process.argv[1]);
+
   return process.argv[1] === filePath;
 }
