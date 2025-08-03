@@ -18,7 +18,10 @@ import { isBunRuntime } from "./runtime.js";
  * @throws If the calling function cannot be determined.
  */
 export function getCallingFunction(upStackBy = 1): {
+  /** The name of the calling function. */
   name: string;
+
+  /** The full file path to the file that contains the calling function. */
   filePath: string;
 } {
   const stackFrames = getStackFrames();

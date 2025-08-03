@@ -167,7 +167,11 @@ await lintScript(async () => {
     $`prettier --log-level=warn --check .`,
 
     // Use Knip to check for unused files, exports, and dependencies.
-    $`knip --no-progress`,
+    // - "--no-progress" - Don’t show dynamic progress updates. Progress is automatically disabled
+    //   in CI environments.
+    // - "--treat-config-hints-as-errors" - Exit with non-zero code (1) if there are any
+    //   configuration hints.
+    $`knip --no-progress --treat-config-hints-as-errors`,
 
     // Use CSpell to spell check every file.
     // - "--no-progress" and "--no-summary" make it only output errors.
