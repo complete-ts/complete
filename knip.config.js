@@ -26,7 +26,6 @@ const config = {
     },
     "packages/eslint-config-complete": {
       ignore: ["scripts/extract-comments.d.ts"],
-      ignoreDependencies: ["eslint-import-resolver-typescript"],
     },
     "packages/eslint-plugin-complete": {
       ignore: [
