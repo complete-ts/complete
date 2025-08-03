@@ -5,10 +5,8 @@
  */
 
 import chalk from "chalk";
-import { assertDefined } from "complete-common";
 import { diffLines } from "diff";
-import { fileURLToPath } from "node:url";
-import { get as getStackFrames } from "stack-trace";
+import { getCallingFunction } from "./stack.js";
 
 /**
  * Helper function to print the differences between two strings. Similar to the `diff` Unix program.
@@ -50,20 +48,6 @@ export function getArgs(): readonly string[] {
  * This is similar to the `__name__ == "__main__"` pattern from the Python programming language.
  */
 export function isMain(): boolean {
-  const stackFrames = getStackFrames();
-
-  /**
-   * - The 1st stack frame is from this function.
-   * - The 2nd stack frame is from the calling function.
-   */
-  const stackFrame = stackFrames[1];
-  assertDefined(
-    stackFrame,
-    "Failed to get the stack frame of the calling function.",
-  );
-
-  const callingFileURL = stackFrame.getFileName();
-  const callingFiledPath = fileURLToPath(callingFileURL);
-
-  return process.argv[1] === callingFiledPath;
+  const { filePath } = getCallingFunction();
+  return process.argv[1] === filePath;
 }

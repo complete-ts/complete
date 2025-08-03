@@ -1,9 +1,13 @@
+/**
+ * Helper functions relating to JavaScript/TypeScript projects.
+ *
+ * @module
+ */
+
 import { assertDefined } from "complete-common";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { packageDirectory } from "package-directory";
-import { get as getStackFrames } from "stack-trace";
-import { isBunRuntime } from "./runtime.js";
+import { getCallingFunction } from "./stack.js";
 
 /**
  * Helper function to get the directory of the closest "package.json" file, starting from the file
@@ -14,36 +18,9 @@ import { isBunRuntime } from "./runtime.js";
  * @throws If the calling function cannot be determined or if a "package.json" file cannot be found.
  */
 export async function getPackageRoot(upStackBy = 1): Promise<string> {
-  const stackFrames = getStackFrames();
+  const { filePath } = getCallingFunction(upStackBy + 1);
 
-  /**
-   * - The 1st stack frame is from this function.
-   * - The 2nd stack frame is from the calling function.
-   */
-  const targetStackFrame = upStackBy + 1;
-
-  /**
-   * Even though Bun is supposed to emulate the Node.js API, there are twice as many stack frames
-   * for some reason.
-   */
-  const adjustedStackFrame = isBunRuntime()
-    ? targetStackFrame * 2
-    : targetStackFrame;
-
-  const index = adjustedStackFrame - 1;
-  const stackFrame = stackFrames[index];
-  assertDefined(
-    stackFrame,
-    "Failed to get the stack frame of the calling function.",
-  );
-
-  /** On Node.js, this will be a file URL. On Bun, this will be a normal path. */
-  const callingFileName = stackFrame.getFileName();
-  const callingFilePath = callingFileName.startsWith("file://")
-    ? fileURLToPath(callingFileName)
-    : callingFileName;
-
-  const cwd = path.dirname(callingFilePath);
+  const cwd = path.dirname(filePath);
   const projectRoot = await packageDirectory({ cwd });
   assertDefined(
     projectRoot,

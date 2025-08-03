@@ -31,7 +31,8 @@
   "scripts": {
     "build": "tsx ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "tsx ./scripts/lint.ts"
+    "lint": "tsx ./scripts/lint.ts",
+    "test": "tsx --test"
   },
   "dependencies": {
     "@arktype/fs": "0.46.0",

@@ -20,6 +20,7 @@ export * from "./functions/project.js";
 export * from "./functions/readWrite.js";
 export * from "./functions/runtime.js";
 export * from "./functions/scriptHelpers.js";
+export * from "./functions/stack.js";
 export * from "./functions/string.js";
 export * from "./functions/update.js";
 export * from "./functions/utils.js";

@@ -1,3 +1,9 @@
+/**
+ * Helper functions relating to JavaScript runtimes.
+ *
+ * @module
+ */
+
 import { isObject } from "complete-common";
 import { JavaScriptRuntime } from "../enums/JavaScriptRuntime.js";
 
