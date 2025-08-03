@@ -51,6 +51,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/no-array-method-this-argument": "warn",
     "unicorn/no-array-push-push": "warn",
     "unicorn/no-array-reduce": "warn",
+    "unicorn/no-array-reverse": "warn",
     "unicorn/no-await-expression-member": "warn",
     "unicorn/no-await-in-promise-methods": "warn",
     "unicorn/no-console-spaces": "warn",
@@ -100,6 +101,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/no-unreadable-array-destructuring": "warn",
     "unicorn/no-unreadable-iife": "warn",
     "unicorn/no-unused-properties": "warn",
+    "unicorn/no-useless-error-capture-stack-trace": "warn",
     "unicorn/no-useless-fallback-in-spread": "warn",
     "unicorn/no-useless-length-check": "warn",
     "unicorn/no-useless-promise-resolve-reject": "warn",
@@ -120,6 +122,7 @@ export const baseUnicorn = tseslint.config({
     "unicorn/prefer-array-some": "warn",
     "unicorn/prefer-at": "warn",
     "unicorn/prefer-blob-reading-methods": "warn",
+    "unicorn/prefer-class-fields": "warn",
     "unicorn/prefer-code-point": "warn",
     "unicorn/prefer-date-now": "warn",
     "unicorn/prefer-default-parameters": "warn",
@@ -173,6 +176,7 @@ export const baseUnicorn = tseslint.config({
 
     "unicorn/relative-url-style": "warn",
     "unicorn/require-array-join-separator": "warn",
+    "unicorn/require-module-specifiers": "warn",
     "unicorn/require-number-to-fixed-digits-argument": "warn",
 
     /** Disabled since it is not recommended by the plugin authors. */
