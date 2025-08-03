@@ -18,7 +18,7 @@ import { getCallingFunction } from "./stack.js";
  * @throws If the calling function cannot be determined or if a "package.json" file cannot be found.
  */
 export async function getPackageRoot(upStackBy = 1): Promise<string> {
-  const { filePath } = getCallingFunction(upStackBy + 1);
+  const { filePath } = getCallingFunction(upStackBy);
 
   const cwd = path.dirname(filePath);
   const projectRoot = await packageDirectory({ cwd });

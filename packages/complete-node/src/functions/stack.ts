@@ -14,8 +14,7 @@ import { isBunRuntime } from "./runtime.js";
  *
  * This function handles both Node.js and Bun. (Bun implements the v8 stack trace API differently.)
  *
- * @param upStackBy Optional. The number of functions to rewind in the calling stack before
- *                  attempting to find the closest "package.json" file. Default is 1.
+ * @param upStackBy Optional. The number of functions to rewind in the calling stack. Default is 1.
  * @throws If the calling function cannot be determined.
  */
 export function getCallingFunction(upStackBy = 1): {
