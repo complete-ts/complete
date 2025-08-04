@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "typescript": {
-      "lock-version": true,
-      "lock-reason": "https://github.com/typescript-eslint/typescript-eslint/issues/11389"
-    }
-  }
-}
