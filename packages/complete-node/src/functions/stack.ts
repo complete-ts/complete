@@ -1,13 +1,12 @@
-import { assertDefined } from "complete-common";
-import { fileURLToPath } from "node:url";
-import { get as getStackFrames } from "stack-trace";
-import { isBunRuntime } from "./runtime.js";
-
 /**
  * Helper functions relating to rewinding the call stack.
  *
  * @module
  */
+
+import { assertDefined } from "complete-common";
+import { fileURLToPath } from "node:url";
+import { get as getStackFrames } from "stack-trace";
 
 /**
  * Helper function to get the name and file path of the calling function.
@@ -31,17 +30,9 @@ export function getCallingFunction(upStackBy = 1): {
    * - The 2nd stack frame is from the function that invoked `getCallingFilePath`.
    * - The 3rd stack frame is from the function that called that function.
    */
-  const targetStackFrame = upStackBy + 2;
+  const stackFrameIndex = upStackBy + 2;
 
-  /**
-   * Even though Bun is supposed to emulate the Node.js API, there are twice as many stack frames
-   * for some reason.
-   */
-  const adjustedStackFrame = isBunRuntime()
-    ? targetStackFrame * 2
-    : targetStackFrame;
-
-  const index = adjustedStackFrame - 1;
+  const index = stackFrameIndex - 1;
   const stackFrame = stackFrames[index];
   assertDefined(
     stackFrame,

@@ -46,12 +46,11 @@ export function getArgs(): readonly string[] {
  * false if the current file was imported from somewhere else.
  *
  * This is similar to the `__name__ == "__main__"` pattern from the Python programming language.
+ *
+ * Under the hood, this checks to see if the file path of the calling function is equal to
+ * `process.argv[1]`.
  */
 export function isMain(): boolean {
-  const { name, filePath } = getCallingFunction();
-  console.log("name:", name);
-  console.log("filePath:", filePath);
-  console.log("process.argv[1]:", process.argv[1]);
-
-  return process.argv[1] === filePath;
+  const { filePath } = getCallingFunction();
+  return filePath === process.argv[1];
 }
