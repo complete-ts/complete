@@ -35,16 +35,16 @@
   },
   "dependencies": {
     "@zamiell/clack-prompts": "0.10.2",
-    "chalk": "5.4.1",
+    "chalk": "5.5.0",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.5.0",
-    "complete-node": "7.4.4-dev.1",
+    "complete-node": "7.4.4",
     "klaw-sync": "7.0.0",
     "yaml": "2.8.0"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "24.1.0",
+    "@types/node": "24.2.0",
     "ts-loader": "9.5.2",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.8.3",

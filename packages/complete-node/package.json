@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@arktype/fs": "0.46.0",
-    "chalk": "5.4.1",
+    "chalk": "5.5.0",
     "complete-common": "2.5.0",
     "diff": "8.0.2",
     "dotenv": "17.2.1",
@@ -50,7 +50,7 @@
     "zod": "4.0.14"
   },
   "devDependencies": {
-    "@types/node": "24.1.0",
+    "@types/node": "24.2.0",
     "@types/stack-trace": "0.0.33",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
