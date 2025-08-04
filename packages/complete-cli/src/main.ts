@@ -3,6 +3,7 @@
 import { Builtins, Cli } from "clipanion";
 import { CheckCommand } from "./commands/CheckCommand.js";
 import { InitCommand } from "./commands/InitCommand.js";
+import { MetadataCommand } from "./commands/MetadataCommand.js";
 import { NukeCommand } from "./commands/NukeCommand.js";
 import { PublishCommand } from "./commands/PublishCommand.js";
 import { UpdateCommand } from "./commands/UpdateCommand.js";
@@ -21,6 +22,7 @@ async function main() {
 
   cli.register(CheckCommand);
   cli.register(InitCommand);
+  cli.register(MetadataCommand);
   cli.register(NukeCommand);
   cli.register(PublishCommand);
   cli.register(UpdateCommand);
