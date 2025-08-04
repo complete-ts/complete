@@ -16,7 +16,7 @@ export class MetadataCommand extends Command {
 
   static override usage = Command.Usage({
     description:
-      'Creates a "package-metadata.json" file to document locked dependencies.',
+      'Creates a "package-metadata.json" file to document locked dependencies. (The "update" command will respect the contents of this file.)',
   });
 
   async execute(): Promise<void> {

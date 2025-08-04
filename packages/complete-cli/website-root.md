@@ -16,6 +16,10 @@ Initializes a new TypeScript project. For a list of all the files that we includ
 
 (This is the main command that most people will use this tool for.)
 
+### `metadata`
+
+Creates a [`package-metadata.json`](#package-metadatajson) file to document locked dependencies. (The "update" command will respect the contents of this file.)
+
 ### `nuke`
 
 Deletes the "node_modules" directory and the package lock file, then reinstalls the dependencies for the project.
