@@ -1,5 +1,11 @@
 import { Command, Option } from "clipanion";
-import { getPackageRoot, writeFileAsync } from "complete-node";
+import { assertObject, isObject } from "complete-common";
+import {
+  getFilePath,
+  isFileAsync,
+  readFileAsync,
+  writeFileAsync,
+} from "complete-node";
 import path from "node:path";
 
 export class MetadataCommand extends Command {
@@ -20,20 +26,44 @@ export class MetadataCommand extends Command {
   });
 
   async execute(): Promise<void> {
-    const packageMetadata = {
-      dependencies: {} as Record<string, unknown>,
-    };
+    const packageJSONPath = await getFilePath("package.json", undefined);
+    const packageRoot = path.dirname(packageJSONPath);
+    const packageMetadataPath = path.join(packageRoot, "package-metadata.json");
+    const packageMetadataExists = await isFileAsync(packageMetadataPath);
 
-    packageMetadata.dependencies[this.dependencyName] = {
+    let packageMetadata: Record<string, unknown>;
+    if (packageMetadataExists) {
+      const packageMetadataContents = await readFileAsync(packageMetadataPath);
+      const packageMetadataUnknown = JSON.parse(
+        packageMetadataContents,
+      ) as unknown;
+      assertObject(
+        packageMetadataUnknown,
+        `Failed to parse the metadata file at: ${packageMetadataPath}`,
+      );
+      packageMetadata = packageMetadataUnknown;
+    } else {
+      packageMetadata = {};
+    }
+
+    let dependencies: Record<string, unknown>;
+    if (isObject(packageMetadata["dependencies"])) {
+      // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+      dependencies = packageMetadata["dependencies"];
+    } else {
+      dependencies = {};
+      packageMetadata["dependencies"] = dependencies;
+    }
+
+    dependencies[this.dependencyName] = {
       "lock-version": true,
       "lock-reason": this.reason ?? "",
     };
 
-    const packageRoot = await getPackageRoot();
-    const packageMetadataPath = path.join(packageRoot, "package-metadata.json");
     const packageMetadataJSON = JSON.stringify(packageMetadata, undefined, 2);
     await writeFileAsync(packageMetadataPath, packageMetadataJSON);
 
-    console.log(`Successfully created: ${packageMetadataPath}`);
+    const verb = packageMetadataExists ? "modified" : "created";
+    console.log(`Successfully ${verb}: ${packageMetadataPath}`);
   }
 }

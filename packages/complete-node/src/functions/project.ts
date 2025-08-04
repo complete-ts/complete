@@ -24,7 +24,7 @@ export async function getPackageRoot(upStackBy = 1): Promise<string> {
   const projectRoot = await packageDirectory({ cwd });
   assertDefined(
     projectRoot,
-    `Failed to get the closest "package.json" file starting in: ${cwd}`,
+    `Failed to get the closest "package.json" file starting from: ${cwd}`,
   );
 
   return projectRoot;
