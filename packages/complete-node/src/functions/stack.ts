@@ -14,9 +14,13 @@ import { get as getStackFrames } from "stack-trace";
  * This function handles both Node.js and Bun. (Bun implements the v8 stack trace API differently.)
  *
  * @param upStackBy Optional. The number of functions to rewind in the calling stack. Default is 1.
+ * @param verbose Optional. Shows all of the stack frames. Default is false.
  * @throws If the calling function cannot be determined.
  */
-export function getCallingFunction(upStackBy = 1): {
+export function getCallingFunction(
+  upStackBy = 1,
+  verbose = false,
+): {
   /** The name of the calling function. */
   name: string;
 
@@ -24,6 +28,16 @@ export function getCallingFunction(upStackBy = 1): {
   filePath: string;
 } {
   const stackFrames = getStackFrames();
+
+  if (verbose) {
+    for (const [i, stackFrame] of stackFrames.entries()) {
+      const functionName = stackFrame.getFunctionName();
+      const fileName = stackFrame.getFileName();
+      console.log(
+        `i: ${i}, functionName: ${functionName}, fileName: ${fileName}`,
+      );
+    }
+  }
 
   /**
    * - The 1st stack frame is from this function.
@@ -33,10 +47,14 @@ export function getCallingFunction(upStackBy = 1): {
   const stackFrameIndex = upStackBy + 2;
 
   const index = stackFrameIndex - 1;
+  if (verbose) {
+    console.log(`Using a stack frame index of: ${index}`);
+  }
+
   const stackFrame = stackFrames[index];
   assertDefined(
     stackFrame,
-    "Failed to get the stack frame of the calling function.",
+    `Failed to get the stack frame of the calling function at index: ${index}`,
   );
 
   const name = stackFrame.getFunctionName();

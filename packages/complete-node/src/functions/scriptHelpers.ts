@@ -98,10 +98,24 @@ export async function script(
     "--silent",
     "-s",
   );
+  const verbose = includesAny(args, "verbose", "--verbose", "-v");
 
-  packageRoot ??= await getPackageRoot(upStackBy + 1); // eslint-disable-line no-param-reassign
+  if (packageRoot === undefined) {
+    const newUpStackBy = upStackBy + 1;
+    if (verbose) {
+      console.log(
+        `Attempting to find the package root with an "upStackBy" of: ${newUpStackBy}`,
+      );
+    }
+    packageRoot = await getPackageRoot(newUpStackBy); // eslint-disable-line no-param-reassign
+  }
 
   process.chdir(packageRoot);
+  if (verbose) {
+    console.log(
+      `Changed the working directory to the package root at: ${packageRoot}`,
+    );
+  }
 
   const startTime = Date.now();
 
