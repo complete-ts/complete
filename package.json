@@ -93,7 +93,7 @@
     "webpack-cli": "6.0.1",
     "webpack-shebang-plugin": "1.1.8",
     "which": "5.0.0",
-    "yaml": "2.8.0",
+    "yaml": "2.8.1",
     "zod": "4.0.14"
   },
   "devDependencies": {
