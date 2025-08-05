@@ -107,7 +107,7 @@ export async function script(
         `Attempting to find the package root with an "upStackBy" of: ${newUpStackBy}`,
       );
     }
-    packageRoot = await getPackageRoot(newUpStackBy); // eslint-disable-line no-param-reassign
+    packageRoot = await getPackageRoot(newUpStackBy, verbose); // eslint-disable-line no-param-reassign
   }
 
   process.chdir(packageRoot);
