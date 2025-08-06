@@ -62,7 +62,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-jsdoc": "52.0.2",
+    "eslint-plugin-jsdoc": "52.0.3",
     "eslint-plugin-n": "17.21.3",
     "eslint-plugin-sort-exports": "0.9.1",
     "eslint-plugin-unicorn": "60.0.0",
@@ -94,7 +94,7 @@
     "webpack-shebang-plugin": "1.1.8",
     "which": "5.0.0",
     "yaml": "2.8.1",
-    "zod": "4.0.14"
+    "zod": "4.0.15"
   },
   "devDependencies": {
     "git-pull-run": "1.6.2",
