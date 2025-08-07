@@ -91,20 +91,20 @@ export async function getDirectorySHA1(directoryPath: string): Promise<string> {
 }
 
 /**
- * Helper function to asynchronously get the file names inside of a directory. (If the full path is
- * required, you must manually join the file name with the path to the directory.)
- *
- * This will not work recursively.
+ * Helper function to asynchronously get the file names or file paths inside of a directory.
  *
  * @throws If there is an error when checking the directory.
  * @param directoryPath The path to the directory.
  * @param filter Optional. If specified, will only return this type of file.
  * @param recursive Optional. If true, will include files in all subdirectories. Default is false.
+ * @param paths Optional. If true, will return the full file paths instead of just the file names.
+ *              Default is false.
  */
 export async function getFileNamesInDirectory(
   directoryPath: string,
   filter?: "files" | "directories",
   recursive = false,
+  paths = false,
 ): Promise<readonly string[]> {
   let fileEntries: Dirent[];
   try {
@@ -141,7 +141,9 @@ export async function getFileNamesInDirectory(
     }
   }
 
-  return filteredFileEntries.map((file) => file.name);
+  return paths
+    ? filteredFileEntries.map((file) => path.join(file.parentPath, file.name))
+    : filteredFileEntries.map((file) => file.name);
 }
 
 /**
@@ -196,12 +198,7 @@ export async function getFilePathsInDirectory(
   filter?: "files" | "directories",
   recursive = false,
 ): Promise<readonly string[]> {
-  const fileNames = await getFileNamesInDirectory(
-    directoryPath,
-    filter,
-    recursive,
-  );
-  return fileNames.map((fileName) => path.join(directoryPath, fileName));
+  return await getFileNamesInDirectory(directoryPath, filter, recursive, true);
 }
 
 /** Helper function to get the SHA1 hash of a file. */

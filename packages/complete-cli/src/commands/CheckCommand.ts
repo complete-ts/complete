@@ -84,8 +84,8 @@ async function checkTemplateDirectory(
     const templateFilePath = klawItem.path;
 
     // eslint-disable-next-line no-await-in-loop
-    const directory = await isDirectory(templateFilePath);
-    if (directory) {
+    const templateExists = await isDirectory(templateFilePath);
+    if (templateExists) {
       continue;
     }
 
