@@ -8,13 +8,13 @@ import { isObject } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
-import { getFilePath, isFileAsync } from "./file.js";
+import { getFilePath, isFile } from "./file.js";
 import { getJSONC } from "./jsonc.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
 } from "./packageManager.js";
-import { readFileAsync } from "./readWrite.js";
+import { readTextFile } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
@@ -81,7 +81,7 @@ async function getPackagesToIgnore(
   packageRoot: string,
 ): Promise<readonly string[]> {
   const metadataPath = path.join(packageRoot, "package-metadata.json");
-  const metadataExists = await isFileAsync(metadataPath);
+  const metadataExists = await isFile(metadataPath);
   if (!metadataExists) {
     return [];
   }
@@ -139,7 +139,7 @@ async function runNPMCheckUpdates(
   packageRoot: string,
 ): Promise<boolean> {
   const $$ = $({ cwd: packageRoot });
-  const oldPackageJSONString = await readFileAsync(packageJSONPath);
+  const oldPackageJSONString = await readTextFile(packageJSONPath);
 
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
@@ -148,7 +148,7 @@ async function runNPMCheckUpdates(
     ? $$`npm-check-updates --upgrade`
     : $$`npm-check-updates --upgrade --reject ${packagesToIgnore.join(",")}`);
 
-  const newPackageJSONString = await readFileAsync(packageJSONPath);
+  const newPackageJSONString = await readTextFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
 }
 

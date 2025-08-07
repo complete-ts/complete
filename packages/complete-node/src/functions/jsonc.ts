@@ -7,7 +7,7 @@
 
 import { isObject } from "complete-common";
 import { parse } from "jsonc-parser";
-import { readFileAsync } from "./readWrite.js";
+import { readTextFile } from "./readWrite.js";
 
 /**
  * Helper function to parse a file as
@@ -19,7 +19,7 @@ import { readFileAsync } from "./readWrite.js";
 export async function getJSONC(
   filePath: string,
 ): Promise<Record<string, unknown>> {
-  const fileContents = await readFileAsync(filePath);
+  const fileContents = await readTextFile(filePath);
 
   let json: unknown;
   try {

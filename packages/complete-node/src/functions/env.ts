@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "node:path";
 import type { z } from "zod";
-import { isFileAsync } from "./file.js";
+import { isFile } from "./file.js";
 import { getPackageRoot } from "./project.js";
 
 /**
@@ -34,7 +34,7 @@ export async function getEnv<T extends z.ZodObject<any>>(
   const packageRoot = await getPackageRoot(2);
   const envPath = path.join(packageRoot, ".env");
 
-  const envExists = await isFileAsync(envPath);
+  const envExists = await isFile(envPath);
   if (!envExists) {
     throw new Error(
       `The "${envPath}" file does not exist. Copy the ".env.example" file to a ".env" file at the root of the repository and re-run this program.`,

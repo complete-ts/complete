@@ -4,14 +4,14 @@
  * @module
  */
 
+import fs from "node:fs/promises";
 import path from "node:path";
 import {
-  copyFileOrDirectoryAsync,
-  deleteFileOrDirectoryAsync,
-  getFileNamesInDirectoryAsync,
-  isDirectoryAsync,
-  isFileAsync,
-  moveFileAsync,
+  copyFileOrDirectory,
+  deleteFileOrDirectory,
+  getFileNamesInDirectory,
+  isDirectory,
+  isFile,
 } from "./file.js";
 import { packageJSONHasScript } from "./packageJSON.js";
 
@@ -29,7 +29,7 @@ export async function copyToMonorepoNodeModules(
   const packageName = path.basename(packageRoot);
   const monorepoNodeModulesPath = path.join(monorepoRoot, "node_modules");
 
-  const nodeModulesExists = await isDirectoryAsync(monorepoNodeModulesPath);
+  const nodeModulesExists = await isDirectory(monorepoNodeModulesPath);
   if (!nodeModulesExists) {
     throw new Error(
       `Failed to find the monorepo "node_modules" directory at: ${monorepoNodeModulesPath}`,
@@ -37,8 +37,8 @@ export async function copyToMonorepoNodeModules(
   }
 
   const destinationPath = path.join(monorepoNodeModulesPath, packageName);
-  await deleteFileOrDirectoryAsync(destinationPath);
-  await copyFileOrDirectoryAsync(packageRoot, destinationPath);
+  await deleteFileOrDirectory(destinationPath);
+  await copyFileOrDirectory(packageRoot, destinationPath);
 }
 
 /**
@@ -56,10 +56,10 @@ export async function fixMonorepoPackageDistDirectory(
   const outDir = path.join(packageRoot, "dist");
   const realOutDir = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
-  await deleteFileOrDirectoryAsync(tempPath);
-  await moveFileAsync(realOutDir, tempPath);
-  await deleteFileOrDirectoryAsync(outDir);
-  await moveFileAsync(tempPath, outDir);
+  await deleteFileOrDirectory(tempPath);
+  await fs.rename(realOutDir, tempPath);
+  await deleteFileOrDirectory(outDir);
+  await fs.rename(tempPath, outDir);
 }
 
 /**
@@ -75,14 +75,14 @@ export async function getMonorepoPackageNames(
   scriptName?: string,
 ): Promise<readonly string[]> {
   const packagesPath = path.join(monorepoRoot, "packages");
-  const packagesPathExists = await isDirectoryAsync(packagesPath);
+  const packagesPathExists = await isDirectory(packagesPath);
   if (!packagesPathExists) {
     throw new Error(
       `Failed to find the monorepo packages directory at: ${packagesPath}`,
     );
   }
 
-  const directoryNames = await getFileNamesInDirectoryAsync(
+  const directoryNames = await getFileNamesInDirectory(
     packagesPath,
     "directories",
   );
@@ -97,7 +97,7 @@ export async function getMonorepoPackageNames(
       directoryName,
       "package.json",
     );
-    const exists = await isFileAsync(packageJSONPath);
+    const exists = await isFile(packageJSONPath);
     return exists
       ? await packageJSONHasScript(packageJSONPath, scriptName)
       : false;

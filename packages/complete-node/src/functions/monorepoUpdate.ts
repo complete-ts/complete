@@ -6,12 +6,12 @@
 
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, isObject } from "complete-common";
+import fs from "node:fs/promises";
 import path from "node:path";
-import { isFileAsync } from "./file.js";
+import { isFile } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
 import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
 import { getPackageRoot } from "./project.js";
-import { writeFileAsync } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
 type DepType = "dependencies" | "devDependencies" | "peerDependencies";
@@ -255,7 +255,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
       );
 
       const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
-      const promise = writeFileAsync(childPackageJSONPath, packageJSONString);
+      const promise = fs.writeFile(childPackageJSONPath, packageJSONString);
       promises.push(promise);
     }
 
@@ -278,7 +278,7 @@ async function getMonorepoChildPackageJSONMap(
       );
 
       const childPackageJSONPath = path.join(childPackagePath, "package.json");
-      const childPackageJSONExists = await isFileAsync(childPackageJSONPath);
+      const childPackageJSONExists = await isFile(childPackageJSONPath);
       if (!childPackageJSONExists) {
         return undefined;
       }

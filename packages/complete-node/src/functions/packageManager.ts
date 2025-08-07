@@ -7,7 +7,7 @@
 import { getEnumValues } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
-import { isFileAsync } from "./file.js";
+import { isFile } from "./file.js";
 
 const PACKAGE_MANAGER_VALUES = getEnumValues(PackageManager);
 
@@ -174,25 +174,20 @@ export function getPackageManagerLockFileNames(): readonly string[] {
 export async function getPackageManagersForProject(
   packageDir: string,
 ): Promise<readonly PackageManager[]> {
-  const fileCheckPromises = PACKAGE_MANAGER_VALUES.map((packageManager) => {
-    const lockFileName = PACKAGE_MANAGER_TO_LOCK_FILE_NAME[packageManager];
-    const lockFilePath = path.join(packageDir, lockFileName);
-    const lockFileExistsPromise = isFileAsync(lockFilePath);
-
-    return {
-      packageManager,
-      existsPromise: lockFileExistsPromise,
-    };
-  });
-
   const fileChecks = await Promise.all(
-    fileCheckPromises.map(async (check) => ({
-      packageManager: check.packageManager,
-      exists: await check.existsPromise,
-    })),
+    PACKAGE_MANAGER_VALUES.map(async (packageManager) => {
+      const lockFileName = PACKAGE_MANAGER_TO_LOCK_FILE_NAME[packageManager];
+      const lockFilePath = path.join(packageDir, lockFileName);
+      const lockFileExists = await isFile(lockFilePath);
+
+      return {
+        packageManager,
+        lockFileExists,
+      };
+    }),
   );
 
   return fileChecks
-    .filter((check) => check.exists)
+    .filter((check) => check.lockFileExists)
     .map((check) => check.packageManager);
 }

@@ -6,7 +6,7 @@
 
 import path from "node:path";
 import { $, $o, $q } from "./execa.js";
-import { isFileAsync } from "./file.js";
+import { isFile } from "./file.js";
 import { getPackageJSON } from "./packageJSON.js";
 import { getPackageRoot } from "./project.js";
 
@@ -58,7 +58,7 @@ export async function compileToSingleFileWithBun(): Promise<void> {
   }
 
   const entryPointPath = path.join(projectRoot, "src", "main.ts");
-  const entryPointExists = await isFileAsync(entryPointPath);
+  const entryPointExists = await isFile(entryPointPath);
   if (!entryPointExists) {
     throw new Error(`Failed to find the entrypoint at: ${entryPointPath}`);
   }
