@@ -4,16 +4,19 @@
  * @module
  */
 
+import { assertDefined } from "complete-common";
 import fs from "node:fs/promises";
 import path from "node:path";
 import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
   getFileNamesInDirectory,
+  getFilePathsInDirectory,
   isDirectory,
   isFile,
 } from "./file.js";
 import { packageJSONHasScript } from "./packageJSON.js";
+import { readTextFile } from "./readWrite.js";
 
 /**
  * Helper function to copy a package's build output to the "node_modules" directory at the root of
@@ -47,7 +50,7 @@ export async function copyToMonorepoNodeModules(
  * should not be include other monorepo dependencies inside of it, all of the output needs to be
  * deleted except for the actual package output.
  *
- * This function will assume an "outDir" of "dist".
+ * This function assumes an "outDir" of "dist".
  */
 export async function fixMonorepoPackageDistDirectory(
   packageRoot: string,
@@ -60,6 +63,44 @@ export async function fixMonorepoPackageDistDirectory(
   await fs.rename(realOutDir, tempPath);
   await deleteFileOrDirectory(outDir);
   await fs.rename(tempPath, outDir);
+
+  /**
+   * After moving the declaration map files to a different directory, the relative path to the "src"
+   * directory will be broken.
+   *
+   * For example:
+   *
+   * ```json
+   * {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/index.ts"]
+   * ```
+   *
+   * Needs to be rewritten to:
+   *
+   * ```json
+   * {"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"]
+   * ```
+   */
+  const extension = ".d.ts.map";
+  const filePaths = await getFilePathsInDirectory(outDir, "files", true);
+  const filePathsWithExtension = filePaths.filter((filePath) =>
+    filePath.endsWith(extension),
+  );
+  const filesContents = await Promise.all(
+    filePathsWithExtension.map(
+      async (filePath) => await readTextFile(filePath),
+    ),
+  );
+  await Promise.all(
+    filePathsWithExtension.map(async (filePath, i) => {
+      const fileContents = filesContents[i];
+      assertDefined(
+        fileContents,
+        `Failed to get the file contents at index: ${i}`,
+      );
+      const newFileContents = fileContents.replaceAll("../../src/", "src/");
+      await fs.writeFile(filePath, newFileContents);
+    }),
+  );
 }
 
 /**
