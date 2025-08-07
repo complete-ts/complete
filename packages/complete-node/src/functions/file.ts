@@ -71,6 +71,8 @@ export async function deleteFileOrDirectory(
 /**
  * Helper function to get a SHA1 hash for every file in a directory. (This function correctly
  * handles nested subdirectories.)
+ *
+ * This is useful to see if the contents of a directory have changed in any way.
  */
 export async function getDirectorySHA1(directoryPath: string): Promise<string> {
   const filePaths = await getFilePathsInDirectory(directoryPath, "files", true);
