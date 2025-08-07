@@ -377,6 +377,18 @@ export async function isFileAsync(filePath: string): Promise<boolean> {
   }
 }
 
+/**
+ * Helper function to see if a directory is the root directory of the file system.
+ *
+ * Under the hood, this uses `path.normalize` and `path.dirname`.
+ */
+export function isFileSystemRootDirectory(directoryPath: string): boolean {
+  const normalizedPath = path.normalize(directoryPath);
+  const parentPath = path.dirname(normalizedPath);
+
+  return normalizedPath === parentPath;
+}
+
 /** Helper function to synchronously check if the provided path exists and is a symbolic link. */
 export function isLink(filePath: string): boolean {
   try {
