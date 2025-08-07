@@ -131,6 +131,35 @@ export function fileOrDirectoryExists(filePath: string): boolean {
 }
 
 /**
+ * Helper function to get a SHA1 hash for every file in a directory. (This function correctly
+ * handles nested subdirectories.)
+ */
+export async function getDirectorySHA1(directoryPath: string): Promise<string> {
+  const entries = await fsPromises.readdir(directoryPath, {
+    withFileTypes: true,
+    recursive: true,
+  });
+  const fileEntries = entries.filter((entry) => entry.isFile());
+
+  const fileInfos = await Promise.all(
+    fileEntries.map(async (entry) => {
+      const filePath = path.join(entry.parentPath, entry.name);
+      return {
+        filePath,
+        hash: await getFileSHA1(filePath),
+      };
+    }),
+  );
+
+  // Ensure that the ordering is deterministic.
+  const sortedFileInfos = fileInfos.sort((a, b) =>
+    a.filePath.localeCompare(b.filePath),
+  );
+
+  return JSON.stringify(sortedFileInfos);
+}
+
+/**
  * Helper function to synchronously get the file names inside of a directory. (If the full path is
  * required, use the `getFilePathsInDirectory` helper function instead.)
  *
@@ -146,33 +175,6 @@ export function getFileNamesInDirectory(
   let fileEntries: Dirent[];
   try {
     fileEntries = fs.readdirSync(directoryPath, {
-      withFileTypes: true,
-    });
-  } catch (error) {
-    throw new Error(
-      `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
-    );
-  }
-
-  return getDirectoryEntryFileNames(fileEntries, filter);
-}
-
-/**
- * Helper function to asynchronously get the file names inside of a directory. (If the full path is
- * required, you must manually join the file name with the path to the directory.)
- *
- * This will throw an error if there is an error when checking the directory.
- *
- * @param directoryPath The path to the directory.
- * @param filter Optional. If specified, will only return this type of file.
- */
-export async function getFileNamesInDirectoryAsync(
-  directoryPath: string,
-  filter?: "files" | "directories",
-): Promise<readonly string[]> {
-  let fileEntries: Dirent[];
-  try {
-    fileEntries = await fsPromises.readdir(directoryPath, {
       withFileTypes: true,
     });
   } catch (error) {
@@ -212,6 +214,33 @@ function getDirectoryEntryFileNames(
   }
 
   return filteredFileEntries.map((file) => file.name);
+}
+
+/**
+ * Helper function to asynchronously get the file names inside of a directory. (If the full path is
+ * required, you must manually join the file name with the path to the directory.)
+ *
+ * This will throw an error if there is an error when checking the directory.
+ *
+ * @param directoryPath The path to the directory.
+ * @param filter Optional. If specified, will only return this type of file.
+ */
+export async function getFileNamesInDirectoryAsync(
+  directoryPath: string,
+  filter?: "files" | "directories",
+): Promise<readonly string[]> {
+  let fileEntries: Dirent[];
+  try {
+    fileEntries = await fsPromises.readdir(directoryPath, {
+      withFileTypes: true,
+    });
+  } catch (error) {
+    throw new Error(
+      `Failed to get the file names in the "${directoryPath}" directory: ${error}`,
+    );
+  }
+
+  return getDirectoryEntryFileNames(fileEntries, filter);
 }
 
 /**
