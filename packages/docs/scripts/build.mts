@@ -2,18 +2,18 @@ import { capitalizeFirstLetter, trimSuffix } from "complete-common";
 import {
   $,
   buildScript,
-  cp,
+  copyFileOrDirectory,
+  deleteFileOrDirectory,
   deleteLineInFile,
   getFileNamesInDirectory,
   getMonorepoPackageNames,
   isDirectory,
   isFile,
   prependFile,
-  readFile,
+  readTextFile,
   replaceTextInFile,
-  rm,
-  writeFile,
 } from "complete-node";
+import fs from "node:fs/promises";
 import path from "node:path";
 
 const CATEGORY_FILE_NAME = "_category_.yml";
@@ -23,27 +23,30 @@ await buildScript(async (packageRoot) => {
 
   // Get rid of all previous build output.
   const docsDir = path.join(packageRoot, "docs");
-  rm(docsDir);
+  await deleteFileOrDirectory(docsDir);
 
   // Copy the main "Overview" page.
   const srcOverviewPath = path.join(packageRoot, "overview.md");
   const dstOverviewPath = path.join(docsDir, "overview.md");
-  cp(srcOverviewPath, dstOverviewPath);
+  await copyFileOrDirectory(srcOverviewPath, dstOverviewPath);
 
   // Copy all of the "website-root.md" files to match the package names.
   const monorepoPackageNames = await getMonorepoPackageNames(repoRoot);
-  for (const packageName of monorepoPackageNames) {
-    const srcPath = path.join(
-      repoRoot,
-      "packages",
-      packageName,
-      "website-root.md",
-    );
-    if (isFile(srcPath)) {
-      const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
-      cp(srcPath, dstPath);
-    }
-  }
+  await Promise.all(
+    monorepoPackageNames.map(async (packageName) => {
+      const srcPath = path.join(
+        repoRoot,
+        "packages",
+        packageName,
+        "website-root.md",
+      );
+      const fileExists = await isFile(srcPath);
+      if (fileExists) {
+        const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
+        await copyFileOrDirectory(srcPath, dstPath);
+      }
+    }),
+  );
 
   // Run TypeDoc on the packages that provide library code.
   await runTypeDoc(repoRoot, "complete-common");
@@ -61,9 +64,9 @@ await buildScript(async (packageRoot) => {
     "docs",
     "eslint-plugin-complete",
   );
-  cp(srcPluginPath, dstPluginPath);
+  await copyFileOrDirectory(srcPluginPath, dstPluginPath);
   const templatePath = path.join(dstPluginPath, "template.md");
-  rm(templatePath);
+  await deleteFileOrDirectory(templatePath);
 
   // Format the TypeDoc output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
@@ -89,38 +92,44 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
 
   // TypeDoc generates an index file, which we do not need.
   const readmePath = path.join(docsOutputPath, "README.md");
-  rm(readmePath);
+  await deleteFileOrDirectory(readmePath);
 
-  for (const subdirectory of ["enums", "functions", "types"]) {
-    const directoryPath = path.join(docsOutputPath, subdirectory);
-    if (!isDirectory(directoryPath)) {
-      continue;
-    }
+  await Promise.all(
+    ["enums", "functions", "types"].map(async (subdirectory) => {
+      const directoryPath = path.join(docsOutputPath, subdirectory);
+      const directoryExists = await isDirectory(directoryPath);
+      if (!directoryExists) {
+        return;
+      }
 
-    // We want to remove the superfluous prefix in the title.
-    const fileNames = getFileNamesInDirectory(directoryPath);
-    for (const fileName of fileNames) {
-      const filePath = path.join(directoryPath, fileName);
-      const newTitle = getMarkdownTitle(fileName, filePath);
+      // We want to remove the superfluous prefix in the title.
+      const fileNames = await getFileNamesInDirectory(directoryPath);
+      await Promise.all(
+        fileNames.map(async (fileName) => {
+          const filePath = path.join(directoryPath, fileName);
+          const newTitle = await getMarkdownTitle(fileName, filePath);
 
-      deleteLineInFile(filePath, 1); // e.g. # DependencyType
-      prependFile(
-        filePath,
-        `---
+          await deleteLineInFile(filePath, 1); // e.g. # DependencyType
+          await prependFile(
+            filePath,
+            `---
 title: ${newTitle}
 ---
 `,
+          );
+        }),
       );
-    }
 
-    // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
-    addCategoryFile(directoryPath);
-  }
+      // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
+      await addCategoryFile(directoryPath);
+    }),
+  );
 
   // Capitalize the "constants.md" file.
   const constantsPath = path.join(docsOutputPath, "constants.md");
-  if (isFile(constantsPath)) {
-    replaceTextInFile(constantsPath, "# constants", "# Constants");
+  const constantsExists = await isFile(constantsPath);
+  if (constantsExists) {
+    await replaceTextInFile(constantsPath, "# constants", "# Constants");
   }
 }
 
@@ -128,7 +137,10 @@ title: ${newTitle}
  * By default, the title will have a superfluous prefix, like "# types/DependencyType". Remove the
  * prefix and also handle some special edge-cases.
  */
-function getMarkdownTitle(fileName: string, filePath: string): string {
+async function getMarkdownTitle(
+  fileName: string,
+  filePath: string,
+): Promise<string> {
   switch (fileName) {
     case "env.md": {
       return "Environment";
@@ -178,7 +190,7 @@ function getMarkdownTitle(fileName: string, filePath: string): string {
   const capitalizedFileName = capitalizeFirstLetter(fileName);
   const title = trimSuffix(capitalizedFileName, ".md");
 
-  const fileContents = readFile(filePath);
+  const fileContents = await readTextFile(filePath);
   if (fileContents.includes(`### ${title}`)) {
     // There is a header with a duplicate name, which means that any links to this header will be
     // ambiguous. This is not normally a problem, but Docusaurus will throw an error for this case,
@@ -213,10 +225,10 @@ function getMarkdownFileType(filePath: string): string {
   }
 }
 
-function addCategoryFile(directoryPath: string) {
+async function addCategoryFile(directoryPath: string) {
   const categoryFilePath = path.join(directoryPath, CATEGORY_FILE_NAME);
   const directoryName = path.basename(directoryPath);
   const label = capitalizeFirstLetter(directoryName);
   const fileContents = `label: ${label}\n`;
-  writeFile(categoryFilePath, fileContents);
+  await fs.writeFile(categoryFilePath, fileContents);
 }

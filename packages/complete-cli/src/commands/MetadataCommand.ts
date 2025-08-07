@@ -1,11 +1,7 @@
 import { Command, Option } from "clipanion";
 import { assertObject, isObject } from "complete-common";
-import {
-  getFilePath,
-  isFileAsync,
-  readFileAsync,
-  writeFileAsync,
-} from "complete-node";
+import { getFilePath, isFile, readTextFile } from "complete-node";
+import fs from "node:fs/promises";
 import path from "node:path";
 
 export class MetadataCommand extends Command {
@@ -29,11 +25,11 @@ export class MetadataCommand extends Command {
     const packageJSONPath = await getFilePath("package.json", undefined);
     const packageRoot = path.dirname(packageJSONPath);
     const packageMetadataPath = path.join(packageRoot, "package-metadata.json");
-    const packageMetadataExists = await isFileAsync(packageMetadataPath);
+    const packageMetadataExists = await isFile(packageMetadataPath);
 
     let packageMetadata: Record<string, unknown>;
     if (packageMetadataExists) {
-      const packageMetadataContents = await readFileAsync(packageMetadataPath);
+      const packageMetadataContents = await readTextFile(packageMetadataPath);
       const packageMetadataUnknown = JSON.parse(
         packageMetadataContents,
       ) as unknown;
@@ -61,7 +57,7 @@ export class MetadataCommand extends Command {
     };
 
     const packageMetadataJSON = JSON.stringify(packageMetadata, undefined, 2);
-    await writeFileAsync(packageMetadataPath, packageMetadataJSON);
+    await fs.writeFile(packageMetadataPath, packageMetadataJSON);
 
     const verb = packageMetadataExists ? "modified" : "created";
     console.log(`Successfully ${verb}: ${packageMetadataPath}`);

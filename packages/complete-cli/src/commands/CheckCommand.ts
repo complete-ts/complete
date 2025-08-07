@@ -3,14 +3,14 @@ import { Command, Option } from "clipanion";
 import { ReadonlySet } from "complete-common";
 import {
   $,
-  deleteFileOrDirectoryAsync,
+  deleteFileOrDirectory,
   fatalError,
   isDirectory,
-  isFileAsync,
-  readFileAsync,
-  writeFileAsync,
+  isFile,
+  readTextFile,
 } from "complete-node";
 import klawSync from "klaw-sync";
+import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import {
@@ -83,7 +83,9 @@ async function checkTemplateDirectory(
   for (const klawItem of klawSync(templateDirectory)) {
     const templateFilePath = klawItem.path;
 
-    if (isDirectory(templateFilePath)) {
+    // eslint-disable-next-line no-await-in-loop
+    const directory = await isDirectory(templateFilePath);
+    if (directory) {
       continue;
     }
 
@@ -171,7 +173,7 @@ async function compareTextFiles(
   templateFilePath: string,
   verbose: boolean,
 ): Promise<boolean> {
-  const fileExists = await isFileAsync(projectFilePath);
+  const fileExists = await isFile(projectFilePath);
   if (!fileExists) {
     console.log(`Failed to find the following file: ${projectFilePath}`);
     printTemplateLocation(templateFilePath);
@@ -203,8 +205,8 @@ async function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = await readFileAsync(templateFilePath);
-    const originalProjectFile = await readFileAsync(projectFilePath);
+    const originalTemplateFile = await readTextFile(templateFilePath);
+    const originalProjectFile = await readTextFile(projectFilePath);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);
@@ -224,8 +226,8 @@ async function compareTextFiles(
   const tempProjectFilePath = path.join(tempDir, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(tempDir, "tempTemplateFile.txt");
 
-  await writeFileAsync(tempProjectFilePath, projectFileObject.text);
-  await writeFileAsync(tempTemplateFilePath, templateFileObject.text);
+  await fs.writeFile(tempProjectFilePath, projectFileObject.text);
+  await fs.writeFile(tempTemplateFilePath, templateFileObject.text);
 
   try {
     await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
@@ -233,8 +235,8 @@ async function compareTextFiles(
     // `diff` will exit with a non-zero code if the files are different, which is expected.
   }
 
-  await deleteFileOrDirectoryAsync(tempProjectFilePath);
-  await deleteFileOrDirectoryAsync(tempTemplateFilePath);
+  await deleteFileOrDirectory(tempProjectFilePath);
+  await deleteFileOrDirectory(tempTemplateFilePath);
 
   return false;
 }
@@ -245,7 +247,7 @@ async function getTruncatedFileText(
   linesBeforeIgnore: ReadonlySet<string>,
 ) {
   const fileName = path.basename(filePath);
-  const fileContents = await readFileAsync(filePath);
+  const fileContents = await readTextFile(filePath);
 
   return getTruncatedText(
     fileName,

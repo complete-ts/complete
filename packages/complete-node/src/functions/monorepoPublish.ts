@@ -57,7 +57,8 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   }
 
   const packagePath = path.join(monorepoRoot, "packages", packageName);
-  if (!isDirectory(packagePath)) {
+  const directory = await isDirectory(packagePath);
+  if (!directory) {
     echo(`Error: The directory of "${packagePath}" does not exist.`);
     exit(1);
   }
@@ -108,16 +109,14 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
-    const promises: Array<Promise<unknown>> = [];
-
-    for (const scriptName of ["build", "lint", "test"]) {
-      const scriptCommand = scripts[scriptName];
-      if (typeof scriptCommand === "string") {
-        promises.push($$`npm run ${scriptName}`);
-      }
-    }
-
-    await Promise.all(promises);
+    await Promise.all(
+      ["build", "lint", "test"].map(async (scriptName) => {
+        const scriptCommand = scripts[scriptName];
+        if (typeof scriptCommand === "string") {
+          await $$`npm run ${scriptName}`;
+        }
+      }),
+    );
   }
 
   /**

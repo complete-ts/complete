@@ -8,14 +8,14 @@ import {
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
-  isFileAsync,
+  isFile,
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
-  readFile,
+  readTextFile,
   updatePackageJSONDependencies,
-  writeFileAsync,
 } from "complete-node";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 
@@ -70,7 +70,7 @@ async function validate() {
     );
   }
 
-  const packageJSONExists = await isFileAsync("package.json");
+  const packageJSONExists = await isFile("package.json");
   if (!packageJSONExists) {
     fatalError(
       'Failed to find the "package.json" file in the current working directory.',
@@ -190,16 +190,16 @@ async function incrementVersion(versionBumpType: string) {
 
 async function unsetDevelopmentConstants() {
   const constantsTSPath = path.join(CWD, "src", "constants.ts");
-  const constantsTSExists = await isFileAsync(constantsTSPath);
+  const constantsTSExists = await isFile(constantsTSPath);
   if (!constantsTSExists) {
     return;
   }
 
-  const constantsTS = readFile(constantsTSPath);
+  const constantsTS = await readTextFile(constantsTSPath);
   const newConstantsTS = constantsTS
     .replace("const IS_DEV = true", "const IS_DEV = false")
     .replace("const DEBUG = true", "const DEBUG = false");
-  await writeFileAsync(constantsTSPath, newConstantsTS);
+  await fs.writeFile(constantsTSPath, newConstantsTS);
 }
 
 async function tryRunNPMScript(scriptName: string) {

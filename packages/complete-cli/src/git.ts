@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { $q, commandExists, isFileAsync, readFileAsync } from "complete-node";
+import { $q, commandExists, isFile, readTextFile } from "complete-node";
 import path from "node:path";
 import yaml from "yaml";
 import { HOME_DIR, PROJECT_NAME, PROJECT_VERSION } from "./constants.js";
@@ -21,12 +21,12 @@ export async function getGitHubUsername(): Promise<string | undefined> {
     return undefined;
   }
 
-  const hostsPathExists = await isFileAsync(githubCLIHostsPath);
+  const hostsPathExists = await isFile(githubCLIHostsPath);
   if (!hostsPathExists) {
     return undefined;
   }
 
-  const configYAMLRaw = await readFileAsync(githubCLIHostsPath);
+  const configYAMLRaw = await readTextFile(githubCLIHostsPath);
   const configYAML = yaml.parse(configYAMLRaw) as GitHubCLIHostsYAML;
 
   const githubCom = configYAML["github.com"];

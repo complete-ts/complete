@@ -225,41 +225,41 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
 
   // Update the "package.json" files to fix the discrepancies that we found above.
   if (!dryRun) {
-    const promises: Array<Promise<unknown>> = [];
+    await Promise.all(
+      [...pendingPackageJSONUpdates.entries()].map(
+        async (packageJSONUpdate) => {
+          const [packageName, tuple] = packageJSONUpdate;
+          const [packageJSON, updatesArray] = tuple;
 
-    for (const [packageName, tuple] of pendingPackageJSONUpdates) {
-      const [packageJSON, updatesArray] = tuple;
+          for (const update of updatesArray) {
+            const { depType, depName, newVersion } = update;
+            const dependencies = packageJSON[depType];
+            if (!isObject(dependencies)) {
+              throw new Error(
+                `The "package.json" file for "${packageName}" does not have a valid field for: ${depType}`,
+              );
+            }
 
-      for (const update of updatesArray) {
-        const { depType, depName, newVersion } = update;
-        const dependencies = packageJSON[depType];
-        if (!isObject(dependencies)) {
-          throw new Error(
-            `The "package.json" file for "${packageName}" does not have a valid field for: ${depType}`,
+            const oldVersion = dependencies[depName];
+            dependencies[depName] = newVersion;
+
+            console.log(
+              `Updated "${packageName}": ${depName} - ${oldVersion} --> ${newVersion}`,
+            );
+          }
+
+          const childPackageJSONPath = path.join(
+            monorepoRoot,
+            "packages",
+            packageName,
+            "package.json",
           );
-        }
 
-        const oldVersion = dependencies[depName];
-        dependencies[depName] = newVersion;
-
-        console.log(
-          `Updated "${packageName}": ${depName} - ${oldVersion} --> ${newVersion}`,
-        );
-      }
-
-      const childPackageJSONPath = path.join(
-        monorepoRoot,
-        "packages",
-        packageName,
-        "package.json",
-      );
-
-      const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
-      const promise = fs.writeFile(childPackageJSONPath, packageJSONString);
-      promises.push(promise);
-    }
-
-    await Promise.all(promises);
+          const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
+          await fs.writeFile(childPackageJSONPath, packageJSONString);
+        },
+      ),
+    );
   }
 
   return valid;

@@ -1,24 +1,28 @@
 import chalk from "chalk";
-import {
-  deleteFileOrDirectory,
-  fileOrDirectoryExists,
-  isDirectory,
-} from "complete-node";
+import { deleteFileOrDirectory, isDirectory, isFile } from "complete-node";
 import { CWD } from "../../constants.js";
 import { getInputYesNo, promptEnd, promptLog } from "../../prompt.js";
 
+/** @throws If the project path is not a file or a directory. */
 export async function checkIfProjectPathExists(
   projectPath: string,
   yes: boolean,
 ): Promise<void> {
-  if (projectPath === CWD || !fileOrDirectoryExists(projectPath)) {
+  if (projectPath === CWD) {
     return;
   }
 
-  const fileType = isDirectory(projectPath) ? "directory" : "file";
+  const file = await isFile(projectPath);
+  const directory = await isDirectory(projectPath);
+  if (!file && !directory) {
+    throw new Error(
+      `Failed to detect if the path was a file or a directory: ${projectPath}`,
+    );
+  }
+  const fileType = file ? "file" : "directory";
 
   if (yes) {
-    deleteFileOrDirectory(projectPath);
+    await deleteFileOrDirectory(projectPath);
     promptLog(`Deleted ${fileType}: ${chalk.green(projectPath)}`);
     return;
   }
@@ -32,5 +36,5 @@ export async function checkIfProjectPathExists(
     promptEnd("Ok then. Goodbye.");
   }
 
-  deleteFileOrDirectory(projectPath);
+  await deleteFileOrDirectory(projectPath);
 }

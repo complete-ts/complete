@@ -3,13 +3,12 @@ import {
   $,
   buildScript,
   copyFileOrDirectory,
-  copyFileOrDirectoryAsync,
   deleteFileOrDirectory,
   fixMonorepoPackageDistDirectory,
-  getMatchingFilePaths,
-  readFileAsync,
-  writeFileAsync,
+  getFilePathsInDirectory,
+  readTextFile,
 } from "complete-node";
+import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
@@ -34,11 +33,13 @@ async function buildDeclarations(packageRoot: string) {
   for (const fileName of OUTPUT_FILES) {
     const srcPath = path.join(outDir, fileName);
     const dstPath = path.join(tmpDir, fileName);
-    copyFileOrDirectory(srcPath, dstPath);
-    deleteFileOrDirectory(srcPath);
+    // eslint-disable-next-line no-await-in-loop
+    await copyFileOrDirectory(srcPath, dstPath);
+    // eslint-disable-next-line no-await-in-loop
+    await deleteFileOrDirectory(srcPath);
   }
 
-  deleteFileOrDirectory(outDir);
+  await deleteFileOrDirectory(outDir);
   await $`tsc --emitDeclarationOnly`;
   await fixMonorepoPackageDistDirectory(packageRoot);
   await fixDeclarationMaps(outDir);
@@ -46,8 +47,10 @@ async function buildDeclarations(packageRoot: string) {
   for (const fileName of OUTPUT_FILES) {
     const srcPath = path.join(tmpDir, fileName);
     const dstPath = path.join(outDir, fileName);
-    copyFileOrDirectory(srcPath, dstPath);
-    deleteFileOrDirectory(srcPath);
+    // eslint-disable-next-line no-await-in-loop
+    await copyFileOrDirectory(srcPath, dstPath);
+    // eslint-disable-next-line no-await-in-loop
+    await deleteFileOrDirectory(srcPath);
   }
 }
 
@@ -69,36 +72,42 @@ async function buildDeclarations(packageRoot: string) {
  */
 async function fixDeclarationMaps(outDir: string) {
   const extension = ".d.ts.map";
-  const matchFunc = (filePath: string) => filePath.endsWith(extension);
-  const filePaths = await getMatchingFilePaths(outDir, matchFunc);
-  const filesContents = await Promise.all(
-    filePaths.map(async (filePath) => await readFileAsync(filePath)),
+  const filePaths = await getFilePathsInDirectory(outDir, "files", true);
+  const filePathsWithExtension = filePaths.filter((filePath) =>
+    filePath.endsWith(extension),
   );
-  const promises = filePaths.map(async (filePath, i) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const fileContents = filesContents[i]!;
-    const newFileContents = fileContents.replaceAll("../../src/", "src/");
-    await writeFileAsync(filePath, newFileContents);
-  });
-  await Promise.all(promises);
+  const filesContents = await Promise.all(
+    filePathsWithExtension.map(
+      async (filePath) => await readTextFile(filePath),
+    ),
+  );
+  await Promise.all(
+    filePaths.map(async (filePath, i) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const fileContents = filesContents[i]!;
+      const newFileContents = fileContents.replaceAll("../../src/", "src/");
+      await fs.writeFile(filePath, newFileContents);
+    }),
+  );
 }
 
 /** By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files. */
 async function copyDeclarations(packageRoot: string) {
   const outDir = path.join(packageRoot, "dist");
-  const extension = ".d.ts";
-  const matchFunc = (filePath: string) => filePath.endsWith(extension);
-  const filePaths = await getMatchingFilePaths(outDir, matchFunc);
+  const filePaths = await getFilePathsInDirectory(outDir, "files", true);
+  const declarationFilePaths = filePaths.filter((filePath) =>
+    filePath.endsWith(".d.ts"),
+  );
 
-  const promises: Array<Promise<void>> = [];
-  for (const filePath of filePaths) {
-    for (const newExtension of [".d.cts", ".d.mts"]) {
-      const newPath = trimSuffix(filePath, ".d.ts") + newExtension;
-      const promise = copyFileOrDirectoryAsync(filePath, newPath);
-      promises.push(promise);
-    }
-  }
-  await Promise.all(promises);
+  await Promise.all(
+    declarationFilePaths.map(async (filePath) => {
+      for (const newExtension of [".d.cts", ".d.mts"]) {
+        const newPath = trimSuffix(filePath, ".d.ts") + newExtension;
+        // eslint-disable-next-line no-await-in-loop
+        await copyFileOrDirectory(filePath, newPath);
+      }
+    }),
+  );
 
   // We do not need to create "index.d.cts.map" or "index.d.mts.map" files, because all of the
   // copied declaration files point to "index.d.ts.map".
