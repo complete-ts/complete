@@ -19,6 +19,7 @@ async function getPackageManagerFromOptions(
 ) {
   for (const packageManager of PACKAGE_MANAGERS) {
     if (options[packageManager]) {
+      // Only one package manager flag will be specified at a time.
       // eslint-disable-next-line no-await-in-loop
       const exists = await commandExists(packageManager);
       if (!exists) {

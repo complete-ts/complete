@@ -91,16 +91,16 @@ async function copyTemplateDirectoryWithoutOverwriting(
   projectPath: string,
 ) {
   const fileNames = await getFileNamesInDirectory(templateDirPath);
-  for (const fileName of fileNames) {
-    const templateFilePath = path.join(templateDirPath, fileName);
-    const destinationFilePath = path.join(projectPath, fileName);
-    // eslint-disable-next-line no-await-in-loop
-    const file = await isFile(destinationFilePath);
-    if (!file) {
-      // eslint-disable-next-line no-await-in-loop
-      await copyFileOrDirectory(templateFilePath, destinationFilePath);
-    }
-  }
+  await Promise.all(
+    fileNames.map(async (fileName) => {
+      const templateFilePath = path.join(templateDirPath, fileName);
+      const destinationFilePath = path.join(projectPath, fileName);
+      const file = await isFile(destinationFilePath);
+      if (!file) {
+        await copyFileOrDirectory(templateFilePath, destinationFilePath);
+      }
+    }),
+  );
 }
 
 /** Copy files that need to have text replaced inside of them. */

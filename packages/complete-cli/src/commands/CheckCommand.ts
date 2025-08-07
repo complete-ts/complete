@@ -80,7 +80,9 @@ async function checkTemplateDirectory(
 ): Promise<boolean> {
   let oneOrMoreErrors = false;
 
-  for (const klawItem of klawSync(templateDirectory)) {
+  // We use `klawSync` instead of `klaw` so that the output will be deterministic.
+  const klawItems = klawSync(templateDirectory);
+  for (const klawItem of klawItems) {
     const templateFilePath = klawItem.path;
 
     // eslint-disable-next-line no-await-in-loop

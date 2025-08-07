@@ -28,6 +28,8 @@ export async function vsCodeInit(
 
 async function getVSCodeCommand(): Promise<string | undefined> {
   for (const command of VS_CODE_COMMANDS) {
+    // We want to only check for one command at a time, since it is unlikely that the special VSCode
+    // commands will exist.
     // eslint-disable-next-line no-await-in-loop
     const exists = await commandExists(command);
     if (exists) {
@@ -67,7 +69,8 @@ async function getExtensionsFromJSON(
     "extensions.json",
   );
 
-  if (!isFile(extensionsJSONPath)) {
+  const extensionsJSONExists = await isFile(extensionsJSONPath);
+  if (!extensionsJSONExists) {
     return [];
   }
 
