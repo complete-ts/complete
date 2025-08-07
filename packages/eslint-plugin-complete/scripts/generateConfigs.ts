@@ -1,7 +1,7 @@
 // This generates the files in the "src/configs" directory.
 
 import type { TSESLint } from "@typescript-eslint/utils";
-import { writeFile } from "complete-node";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import type { RuleDefinition } from "./utils.js";
@@ -91,7 +91,7 @@ async function writeConfig(
 
   const fileName = `${name}.ts`;
   const filePath = path.join(CONFIGS_DIRECTORY_PATH, fileName);
-  writeFile(filePath, content);
+  await fs.writeFile(filePath, content);
 }
 
 /** Reduces records to key/value pairs. */

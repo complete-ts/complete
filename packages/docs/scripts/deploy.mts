@@ -3,8 +3,6 @@ import {
   $q,
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  echo,
-  exit,
   fatalError,
   getArgs,
   isGitRepositoryClean,
@@ -46,8 +44,8 @@ await fs.rename(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
 const isRepositoryClean = await isGitRepositoryClean(DOCS_REPO);
 if (isRepositoryClean) {
-  echo("There are no documentation website changes to deploy.");
-  exit();
+  console.log("There are no documentation website changes to deploy.");
+  process.exit();
 }
 
 // Ensure that the checked out version of this repository is the latest version. (It is possible
@@ -56,13 +54,15 @@ if (isRepositoryClean) {
 // https://stackoverflow.com/questions/3258243/check-if-pull-needed-in-git
 const isLatestCommitAtStart = await isGitRepositoryLatestCommit(REPO_ROOT);
 if (!isLatestCommitAtStart) {
-  echo(
+  console.log(
     "A more recent commit was found in the repository; skipping website deployment.",
   );
-  exit();
+  process.exit();
 }
 
-echo(`Deploying changes to the documentation website: ${DOCS_REPO_NAME}`);
+console.log(
+  `Deploying changes to the documentation website: ${DOCS_REPO_NAME}`,
+);
 
 const $$q = $q({ cwd: DOCS_REPO });
 await $$q`git config --global user.email "github-actions@users.noreply.github.com"`;
@@ -91,10 +91,10 @@ while (true) {
   // eslint-disable-next-line no-await-in-loop
   const isLatestCommit = await isGitRepositoryLatestCommit(REPO_ROOT);
   if (!isLatestCommit) {
-    echo(
+    console.log(
       "A more recent commit was found in the repository; skipping website scraping.",
     );
-    exit(0);
+    process.exit();
   }
 
   /**
@@ -124,13 +124,13 @@ while (true) {
   }
 
   if (status === "built" && commit === commitSHA1) {
-    echo(
+    console.log(
       `The latest version of the site is now deployed. (It took ${totalSeconds} seconds.)`,
     );
     break;
   }
 
-  echo(
+  console.log(
     `The latest version of the site (${commitSHA1}) has not yet been deployed to GitHub Pages. (The GitHub page status is "${status}" and the GitHub page commit is "${commit}".) Sleeping for ${SECONDS_TO_SLEEP} seconds. (${totalSeconds} seconds have passed so far in total.)`,
   );
   await sleep(SECONDS_TO_SLEEP); // eslint-disable-line no-await-in-loop

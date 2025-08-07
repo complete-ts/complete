@@ -1,4 +1,4 @@
-import { echo, isMain } from "complete-node";
+import { isMain } from "complete-node";
 import { generateConfigs } from "./generateConfigs.js";
 import { generateReadme } from "./generateReadme.js";
 import { generateRules } from "./generateRules.js";
@@ -11,21 +11,21 @@ export async function generateAll(quiet = false): Promise<void> {
   // Generating rules must come before configs and readme because it builds the "rules.ts" file
   // (which is parsed later on).
   if (!quiet) {
-    echo("Generating rules...");
+    console.log("Generating rules...");
   }
   await generateRules();
 
   if (!quiet) {
-    echo("Generating configs...");
+    console.log("Generating configs...");
   }
   await generateConfigs();
 
   if (!quiet) {
-    echo("Generating readme...");
+    console.log("Generating readme...");
   }
   await generateReadme();
 
   if (!quiet) {
-    echo("Success!");
+    console.log("Success!");
   }
 }

@@ -21,7 +21,6 @@ import {
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { getPackageRoot } from "./project.js";
-import { echo, exit } from "./scriptHelpers.js";
 import { getArgs } from "./utils.js";
 
 enum VersionBump {
@@ -52,29 +51,33 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
 
   const packageName = args[0];
   if (packageName === undefined || packageName === "") {
-    echo("Error: The package name is required as an argument.");
-    exit(1);
+    console.error("Error: The package name is required as an argument.");
+    process.exit(1);
   }
 
   const packagePath = path.join(monorepoRoot, "packages", packageName);
   const directory = await isDirectory(packagePath);
   if (!directory) {
-    echo(`Error: The directory of "${packagePath}" does not exist.`);
-    exit(1);
+    console.error(`Error: The directory of "${packagePath}" does not exist.`);
+    process.exit(1);
   }
 
   const versionBump = args[1];
   if (versionBump === undefined || versionBump === "") {
-    echo("Error: The type of version bump is required as an argument.");
-    exit(1);
+    console.error(
+      "Error: The type of version bump is required as an argument.",
+    );
+    process.exit(1);
   }
 
   if (
     !isEnumValue(versionBump, VersionBump)
     && !isSemanticVersion(versionBump)
   ) {
-    echo(`Error: The following version bump is not valid: ${versionBump}`);
-    exit(1);
+    console.error(
+      `Error: The following version bump is not valid: ${versionBump}`,
+    );
+    process.exit(1);
   }
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
@@ -82,14 +85,14 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
   const branchName = await $o`git branch --show-current`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (branchName !== "main" && versionBump !== VersionBump.dev) {
-    echo("Error: You must be on the main branch before publishing.");
-    exit(1);
+    console.error("Error: You must be on the main branch before publishing.");
+    process.exit(1);
   }
 
   const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
   if (!isRepositoryCleanOnStart) {
-    echo("Error: The Git repository must be clean before publishing.");
-    exit(1);
+    console.error("Error: The Git repository must be clean before publishing.");
+    process.exit(1);
   }
 
   // Validate that we can push and pull to the repository.

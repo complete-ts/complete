@@ -10,10 +10,8 @@ import {
   kebabCaseToCamelCase,
 } from "complete-common";
 import {
-  echo,
-  exit,
   isMain,
-  readFile,
+  readTextFile,
   setMarkdownContentInsideHTMLMarker,
 } from "complete-node";
 import type { Linter } from "eslint";
@@ -282,7 +280,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
   );
 
   if (!quiet) {
-    echo(`Successfully filled: ${README_PATH}`);
+    console.log(`Successfully filled: ${README_PATH}`);
   }
 }
 
@@ -335,7 +333,8 @@ async function getMarkdownRuleSection(
     const rule = baseRules[ruleName];
     assertDefined(rule, `Failed to find base rule: ${ruleName}`);
 
-    const baseConfigText = readFile(baseConfigPath);
+    // eslint-disable-next-line no-await-in-loop
+    const baseConfigText = await readTextFile(baseConfigPath);
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
@@ -388,7 +387,7 @@ function auditBaseConfigRules(
   }
 
   if (FAIL_ON_MISSING_RULES && !allValid) {
-    exit(1);
+    process.exit(1);
   }
 }
 

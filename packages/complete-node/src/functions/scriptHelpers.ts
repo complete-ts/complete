@@ -10,7 +10,7 @@ import { getElapsedSeconds, includesAny, isObject } from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
 import path from "node:path";
 import { $ } from "./execa.js";
-import { rm } from "./file.js";
+import { deleteFileOrDirectory } from "./file.js";
 import { getPackageRoot } from "./project.js";
 import { getArgs } from "./utils.js";
 
@@ -33,7 +33,7 @@ export async function buildScript(
   packageRoot?: string,
 ): Promise<void> {
   const buildFunc: ScriptCallback = async (packageRootParam) => {
-    rm("dist");
+    await deleteFileOrDirectory("dist");
     await func(packageRootParam);
   };
 

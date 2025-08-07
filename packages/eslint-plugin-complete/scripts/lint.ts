@@ -1,5 +1,5 @@
 import { assertDefined } from "complete-common";
-import { $, echo, exit, lintScript, readFile } from "complete-node";
+import { $, lintScript, readTextFile } from "complete-node";
 import path from "node:path";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
@@ -30,29 +30,37 @@ await lintScript(async () => {
 
 async function checkGenerateChangedFiles() {
   const fileContentsMap = new Map<string, string>();
-  for (const filePath of FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT) {
-    const fileContents = readFile(filePath);
-    fileContentsMap.set(filePath, fileContents);
-  }
+
+  await Promise.all(
+    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
+      const fileContents = await readTextFile(filePath);
+      fileContentsMap.set(filePath, fileContents);
+    }),
+  );
 
   await generateAll(true);
 
-  let changed = false;
-  for (const filePath of FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT) {
-    const newFileContents = readFile(filePath);
-    const oldFileContents = fileContentsMap.get(filePath);
-    assertDefined(
-      oldFileContents,
-      `Failed to get the old file contents for path: ${filePath}`,
-    );
-    if (oldFileContents !== newFileContents) {
-      changed = true;
-      echo(`The "generate.ts" script changed the following file: ${filePath}`);
-    }
-  }
+  const changedFiles = await Promise.all(
+    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
+      const newFileContents = await readTextFile(filePath);
+      const oldFileContents = fileContentsMap.get(filePath);
+      assertDefined(
+        oldFileContents,
+        `Failed to get the old file contents for path: ${filePath}`,
+      );
+      if (oldFileContents !== newFileContents) {
+        console.log(
+          `The "generate.ts" script changed the following file: ${filePath}`,
+        );
+        return true;
+      }
 
-  if (changed) {
-    echo('Run "npm run generate" and commit the changes.');
-    exit(1);
+      return false;
+    }),
+  );
+
+  if (changedFiles.includes(true)) {
+    console.log('Run "npm run generate" and commit the changes.');
+    process.exit(1);
   }
 }
