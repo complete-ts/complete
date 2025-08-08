@@ -1,5 +1,3 @@
-// The URL for this file is at:
-// https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "tsconfig.json strict",
