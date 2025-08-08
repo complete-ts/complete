@@ -4,7 +4,7 @@
  * @module
  */
 
-import { isObject } from "complete-common";
+import { assertObject, isObject } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
@@ -90,6 +90,7 @@ async function getPackagesToIgnore(
     'A "package-metadata.json" was found; looking for dependencies to ignore.',
   );
   const metadata = await getJSONC(metadataPath);
+  assertObject(metadata, `The "${metadataPath}" file was not an object.`);
 
   const packagesToIgnore: string[] = [];
 
