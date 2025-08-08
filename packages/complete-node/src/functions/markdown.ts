@@ -4,8 +4,7 @@
  * @module
  */
 
-import fs from "node:fs/promises";
-import { readTextFile } from "./readWrite.js";
+import { readFile, writeFile } from "./readWrite.js";
 import { formatWithPrettier, setContentInsideHTMLMarker } from "./string.js";
 
 /**
@@ -20,7 +19,7 @@ export async function setMarkdownContentInsideHTMLMarker(
   markerName: string,
   repoRoot: string,
 ): Promise<void> {
-  const originalFileText = await readTextFile(filePath);
+  const originalFileText = await readFile(filePath);
   const modifiedFileText = setContentInsideHTMLMarker(
     originalFileText,
     text,
@@ -37,5 +36,5 @@ export async function setMarkdownContentInsideHTMLMarker(
     return;
   }
 
-  await fs.writeFile(filePath, formattedModifiedFileText);
+  await writeFile(filePath, formattedModifiedFileText);
 }

@@ -1,6 +1,5 @@
 import { isKebabCase, trimSuffix } from "complete-common";
-import { readTextFile } from "complete-node";
-import fs from "node:fs/promises";
+import { readFile, writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.js";
 import { generateAll } from "./generate.js";
@@ -55,14 +54,14 @@ async function createRule() {
 }
 
 async function createDocFile(ruleName: string, description: string) {
-  const templateMDContent = await readTextFile(TEMPLATE_MD_PATH);
+  const templateMDContent = await readFile(TEMPLATE_MD_PATH);
   const content = replaceTemplateText(templateMDContent, ruleName, description);
   const ruleMDPath = path.join(DOCS_PATH, "rules", `${ruleName}.md`);
-  await fs.writeFile(ruleMDPath, content);
+  await writeFile(ruleMDPath, content);
 }
 
 async function createSourceFile(ruleName: string, description: string) {
-  const templateSourceContent = await readTextFile(TEMPLATE_SRC_PATH);
+  const templateSourceContent = await readFile(TEMPLATE_SRC_PATH);
   const content = replaceTemplateText(
     templateSourceContent,
     ruleName,
@@ -70,11 +69,11 @@ async function createSourceFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleSourcePath = path.join(SRC_PATH, "rules", `${ruleName}.ts`);
-  await fs.writeFile(ruleSourcePath, contentWithoutComments);
+  await writeFile(ruleSourcePath, contentWithoutComments);
 }
 
 async function createTestFile(ruleName: string, description: string) {
-  const templateTestContent = await readTextFile(TEMPLATE_TEST_PATH);
+  const templateTestContent = await readFile(TEMPLATE_TEST_PATH);
   const content = replaceTemplateText(
     templateTestContent,
     ruleName,
@@ -82,7 +81,7 @@ async function createTestFile(ruleName: string, description: string) {
   );
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleTestPath = path.join(TESTS_PATH, "rules", `${ruleName}.test.ts`);
-  await fs.writeFile(ruleTestPath, contentWithoutComments);
+  await writeFile(ruleTestPath, contentWithoutComments);
 }
 
 function replaceTemplateText(

@@ -12,10 +12,10 @@ import {
   isGitRepository,
   isGitRepositoryClean,
   isLoggedInToNPM,
-  readTextFile,
+  readFile,
   updatePackageJSONDependencies,
+  writeFile,
 } from "complete-node";
-import fs from "node:fs/promises";
 import path from "node:path";
 import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 
@@ -195,11 +195,11 @@ async function unsetDevelopmentConstants() {
     return;
   }
 
-  const constantsTS = await readTextFile(constantsTSPath);
+  const constantsTS = await readFile(constantsTSPath);
   const newConstantsTS = constantsTS
     .replace("const IS_DEV = true", "const IS_DEV = false")
     .replace("const DEBUG = true", "const DEBUG = false");
-  await fs.writeFile(constantsTSPath, newConstantsTS);
+  await writeFile(constantsTSPath, newConstantsTS);
 }
 
 async function tryRunNPMScript(scriptName: string) {

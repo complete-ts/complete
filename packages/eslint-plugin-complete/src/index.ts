@@ -34,7 +34,9 @@ function getPackageJSONNameAndVersion() {
     const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
     packageJSON = JSON.parse(packageJSONString);
   } catch (error) {
-    throw new Error(`Failed to read the "${packageJSONPath}" file: ${error}`);
+    throw new Error(`Failed to read the file: ${packageJSONPath}`, {
+      cause: error,
+    });
   }
 
   if (!isObject(packageJSON)) {

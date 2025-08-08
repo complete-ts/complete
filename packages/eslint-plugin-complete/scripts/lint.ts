@@ -1,5 +1,5 @@
 import { assertDefined } from "complete-common";
-import { $, lintScript, readTextFile } from "complete-node";
+import { $, lintScript, readFile } from "complete-node";
 import path from "node:path";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
@@ -33,7 +33,7 @@ async function checkGenerateChangedFiles() {
 
   await Promise.all(
     FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
-      const fileContents = await readTextFile(filePath);
+      const fileContents = await readFile(filePath);
       fileContentsMap.set(filePath, fileContents);
     }),
   );
@@ -42,7 +42,7 @@ async function checkGenerateChangedFiles() {
 
   const changedFiles = await Promise.all(
     FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
-      const newFileContents = await readTextFile(filePath);
+      const newFileContents = await readFile(filePath);
       const oldFileContents = fileContentsMap.get(filePath);
       assertDefined(
         oldFileContents,

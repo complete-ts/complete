@@ -11,10 +11,11 @@ import {
   isFile,
   makeDirectory,
   PackageManager,
-  readTextFile,
+  readFile,
+  renameFileOrDirectory,
   updatePackageJSONDependencies,
+  writeFile,
 } from "complete-node";
-import fs from "node:fs/promises";
 import path from "node:path";
 import {
   ACTION_YML,
@@ -77,13 +78,13 @@ async function copyStaticFiles(projectPath: string) {
   // be committed to git.)
   const gitAttributesPath = path.join(projectPath, "_gitattributes");
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
-  await fs.rename(gitAttributesPath, correctGitAttributesPath);
+  await renameFileOrDirectory(gitAttributesPath, correctGitAttributesPath);
 
   // Rename "_cspell.config.jsonc" to "cspell.config.jsonc". (If it is kept as
   // "cspell.config.jsonc", then local spell checking will fail.)
   const cSpellConfigPath = path.join(projectPath, "_cspell.config.jsonc");
   const correctCSpellConfigPath = path.join(projectPath, "cspell.config.jsonc");
-  await fs.rename(cSpellConfigPath, correctCSpellConfigPath);
+  await renameFileOrDirectory(cSpellConfigPath, correctCSpellConfigPath);
 }
 
 async function copyTemplateDirectoryWithoutOverwriting(
@@ -114,7 +115,7 @@ async function copyDynamicFiles(
   {
     const fileName = ACTION_YML;
     const templatePath = ACTION_YML_TEMPLATE_PATH;
-    const template = await readTextFile(templatePath);
+    const template = await readFile(templatePath);
 
     const installCommand = getPackageManagerInstallCICommand(packageManager);
     const actionYML = template
@@ -124,7 +125,7 @@ async function copyDynamicFiles(
     const setupPath = path.join(projectPath, ".github", "workflows", "setup");
     await makeDirectory(setupPath);
     const destinationPath = path.join(setupPath, fileName);
-    await fs.writeFile(destinationPath, actionYML);
+    await writeFile(destinationPath, actionYML);
   }
 
   // `.gitignore`
@@ -133,7 +134,7 @@ async function copyDynamicFiles(
       TEMPLATES_DYNAMIC_DIR,
       "_gitignore", // Not named ".gitignore" to prevent npm from deleting it.
     );
-    const template = await readTextFile(templatePath);
+    const template = await readFile(templatePath);
 
     // Prepend a header with the project name.
     let separatorLine = "# ";
@@ -146,33 +147,33 @@ async function copyDynamicFiles(
       TEMPLATES_DYNAMIC_DIR,
       "Node.gitignore",
     );
-    const nodeGitIgnore = await readTextFile(nodeGitIgnorePath);
+    const nodeGitIgnore = await readFile(nodeGitIgnorePath);
 
     // eslint-disable-next-line prefer-template
     const gitignore = gitIgnoreHeader + template + "\n" + nodeGitIgnore;
 
     // We need to replace the underscore with a period.
     const destinationPath = path.join(projectPath, ".gitignore");
-    await fs.writeFile(destinationPath, gitignore);
+    await writeFile(destinationPath, gitignore);
   }
 
   // `package.json`
   {
     const templatePath = path.join(TEMPLATES_DYNAMIC_DIR, "package.json");
-    const template = await readTextFile(templatePath);
+    const template = await readFile(templatePath);
 
     const packageJSON = template
       .replaceAll("project-name", projectName)
       .replaceAll("author-name", authorName ?? "unknown");
 
     const destinationPath = path.join(projectPath, "package.json");
-    await fs.writeFile(destinationPath, packageJSON);
+    await writeFile(destinationPath, packageJSON);
   }
 
   // `README.md`
   {
     const templatePath = path.join(TEMPLATES_DYNAMIC_DIR, "README.md");
-    const template = await readTextFile(templatePath);
+    const template = await readFile(templatePath);
 
     // "PROJECT-NAME" must be hyphenated, as using an underscore will break Prettier for some
     // reason.
@@ -181,7 +182,7 @@ async function copyDynamicFiles(
       .replaceAll("PROJECT-NAME", projectName)
       .replaceAll("PACKAGE-MANAGER-INSTALL-COMMAND", command);
     const destinationPath = path.join(projectPath, "README.md");
-    await fs.writeFile(destinationPath, readmeMD);
+    await writeFile(destinationPath, readmeMD);
   }
 }
 
@@ -193,7 +194,7 @@ async function copyPackageManagerSpecificFiles(
     case PackageManager.npm: {
       const npmrc = "save-exact=true\n";
       const npmrcPath = path.join(projectPath, ".npmrc");
-      await fs.writeFile(npmrcPath, npmrc);
+      await writeFile(npmrcPath, npmrc);
       break;
     }
 
@@ -202,7 +203,7 @@ async function copyPackageManagerSpecificFiles(
     case PackageManager.pnpm: {
       const npmrc = "save-exact=true\nshamefully-hoist=true\n";
       const npmrcPath = path.join(projectPath, ".npmrc");
-      await fs.writeFile(npmrcPath, npmrc);
+      await writeFile(npmrcPath, npmrc);
       break;
     }
 
@@ -213,7 +214,7 @@ async function copyPackageManagerSpecificFiles(
     case PackageManager.bun: {
       const bunfig = "[install]\nexact = true\n";
       const bunfigPath = path.join(projectPath, "bunfig.toml");
-      await fs.writeFile(bunfigPath, bunfig);
+      await writeFile(bunfigPath, bunfig);
       break;
     }
   }
@@ -232,7 +233,7 @@ async function revertVersionsInPackageJSON(projectPath: string) {
   }
   const packageJSONText = JSON.stringify(packageJSON);
   await formatWithPrettier(packageJSONText, "json", projectPath);
-  await fs.writeFile(packageJSONPath, packageJSONText);
+  await writeFile(packageJSONPath, packageJSONText);
 }
 
 async function createPackageMetadataJSON(projectPath: string) {
@@ -248,7 +249,7 @@ async function createPackageMetadataJSON(projectPath: string) {
   const packageMetadataText = JSON.stringify(packageMetadata);
   await formatWithPrettier(packageMetadataText, "json", projectPath);
   const packageMetadataPath = path.join(projectPath, "package-metadata.json");
-  await fs.writeFile(packageMetadataPath, packageMetadataText);
+  await writeFile(packageMetadataPath, packageMetadataText);
 }
 
 async function installNodeModules(

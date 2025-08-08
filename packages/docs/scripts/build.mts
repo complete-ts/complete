@@ -10,10 +10,10 @@ import {
   isDirectory,
   isFile,
   prependFile,
-  readTextFile,
+  readFile,
   replaceTextInFile,
+  writeFile,
 } from "complete-node";
-import fs from "node:fs/promises";
 import path from "node:path";
 
 const CATEGORY_FILE_NAME = "_category_.yml";
@@ -190,7 +190,7 @@ async function getMarkdownTitle(
   const capitalizedFileName = capitalizeFirstLetter(fileName);
   const title = trimSuffix(capitalizedFileName, ".md");
 
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
   if (fileContents.includes(`### ${title}`)) {
     // There is a header with a duplicate name, which means that any links to this header will be
     // ambiguous. This is not normally a problem, but Docusaurus will throw an error for this case,
@@ -230,5 +230,5 @@ async function addCategoryFile(directoryPath: string) {
   const directoryName = path.basename(directoryPath);
   const label = capitalizeFirstLetter(directoryName);
   const fileContents = `label: ${label}\n`;
-  await fs.writeFile(categoryFilePath, fileContents);
+  await writeFile(categoryFilePath, fileContents);
 }

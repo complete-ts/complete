@@ -1,7 +1,6 @@
 import { Command, Option } from "clipanion";
 import { assertObject, isObject } from "complete-common";
-import { getFilePath, isFile, readTextFile } from "complete-node";
-import fs from "node:fs/promises";
+import { getFilePath, isFile, readFile, writeFile } from "complete-node";
 import path from "node:path";
 
 export class MetadataCommand extends Command {
@@ -29,7 +28,7 @@ export class MetadataCommand extends Command {
 
     let packageMetadata: Record<string, unknown>;
     if (packageMetadataExists) {
-      const packageMetadataContents = await readTextFile(packageMetadataPath);
+      const packageMetadataContents = await readFile(packageMetadataPath);
       const packageMetadataUnknown = JSON.parse(
         packageMetadataContents,
       ) as unknown;
@@ -57,7 +56,7 @@ export class MetadataCommand extends Command {
     };
 
     const packageMetadataJSON = JSON.stringify(packageMetadata, undefined, 2);
-    await fs.writeFile(packageMetadataPath, packageMetadataJSON);
+    await writeFile(packageMetadataPath, packageMetadataJSON);
 
     const verb = packageMetadataExists ? "modified" : "created";
     console.log(`Successfully ${verb}: ${packageMetadataPath}`);

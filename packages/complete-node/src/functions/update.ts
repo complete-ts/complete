@@ -14,7 +14,7 @@ import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
 } from "./packageManager.js";
-import { readTextFile } from "./readWrite.js";
+import { readFile } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 
@@ -139,7 +139,7 @@ async function runNPMCheckUpdates(
   packageRoot: string,
 ): Promise<boolean> {
   const $$ = $({ cwd: packageRoot });
-  const oldPackageJSONString = await readTextFile(packageJSONPath);
+  const oldPackageJSONString = await readFile(packageJSONPath);
 
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
@@ -148,7 +148,7 @@ async function runNPMCheckUpdates(
     ? $$`npm-check-updates --upgrade`
     : $$`npm-check-updates --upgrade --reject ${packagesToIgnore.join(",")}`);
 
-  const newPackageJSONString = await readTextFile(packageJSONPath);
+  const newPackageJSONString = await readFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
 }
 

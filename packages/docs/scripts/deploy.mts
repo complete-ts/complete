@@ -1,15 +1,16 @@
 import { Octokit } from "@octokit/core";
 import {
   $q,
+  appendFile,
   copyFileOrDirectory,
   deleteFileOrDirectory,
   fatalError,
   getArgs,
   isGitRepositoryClean,
   isGitRepositoryLatestCommit,
+  moveFileOrDirectory,
   sleep,
 } from "complete-node";
-import fs from "node:fs/promises";
 import path from "node:path";
 
 const DOCS_REPO_NAME = "complete-ts.github.io";
@@ -37,10 +38,10 @@ if (gitHubToken === undefined || gitHubToken === "") {
 
 // The website repository will be already cloned at this point by the previous GitHub action,
 // including switching to the "gh-pages" branch. See "ci.yml" for more information.
-await fs.rename(DOCS_REPO_GIT, DOCS_REPO_GIT_BACKUP);
+await moveFileOrDirectory(DOCS_REPO_GIT, DOCS_REPO_GIT_BACKUP);
 await deleteFileOrDirectory(DOCS_REPO);
 await copyFileOrDirectory(BUILD_DIRECTORY_PATH, DOCS_REPO);
-await fs.rename(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
+await moveFileOrDirectory(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
 const isRepositoryClean = await isGitRepositoryClean(DOCS_REPO);
 if (isRepositoryClean) {
@@ -137,4 +138,4 @@ while (true) {
   totalSeconds += SECONDS_TO_SLEEP;
 }
 
-await fs.appendFile(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");
+await appendFile(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");

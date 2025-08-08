@@ -7,10 +7,10 @@ import {
   fatalError,
   isDirectory,
   isFile,
-  readTextFile,
+  readFile,
+  writeFile,
 } from "complete-node";
 import klawSync from "klaw-sync";
-import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import {
@@ -207,8 +207,8 @@ async function compareTextFiles(
   printTemplateLocation(templateFilePath);
 
   if (verbose) {
-    const originalTemplateFile = await readTextFile(templateFilePath);
-    const originalProjectFile = await readTextFile(projectFilePath);
+    const originalTemplateFile = await readFile(templateFilePath);
+    const originalProjectFile = await readFile(projectFilePath);
 
     console.log("--- Original template file: ---\n");
     console.log(originalTemplateFile);
@@ -228,8 +228,8 @@ async function compareTextFiles(
   const tempProjectFilePath = path.join(tempDir, "tempProjectFile.txt");
   const tempTemplateFilePath = path.join(tempDir, "tempTemplateFile.txt");
 
-  await fs.writeFile(tempProjectFilePath, projectFileObject.text);
-  await fs.writeFile(tempTemplateFilePath, templateFileObject.text);
+  await writeFile(tempProjectFilePath, projectFileObject.text);
+  await writeFile(tempTemplateFilePath, templateFileObject.text);
 
   try {
     await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
@@ -249,7 +249,7 @@ async function getTruncatedFileText(
   linesBeforeIgnore: ReadonlySet<string>,
 ) {
   const fileName = path.basename(filePath);
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
 
   return getTruncatedText(
     fileName,

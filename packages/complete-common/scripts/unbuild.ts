@@ -6,9 +6,9 @@ import {
   fixMonorepoPackageDistDirectory,
   getFilePathsInDirectory,
   isFile,
+  moveFileOrDirectory,
   replaceTextInFile,
 } from "complete-node";
-import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
@@ -65,7 +65,7 @@ async function buildDeclarations(packageRoot: string) {
     javaScriptFileNames.map(async (fileName) => {
       const srcPath = path.join(outDir, fileName);
       const dstPath = path.join(tmpDir, fileName);
-      await fs.rename(srcPath, dstPath);
+      await moveFileOrDirectory(srcPath, dstPath);
     }),
   );
 
@@ -82,7 +82,7 @@ async function buildDeclarations(packageRoot: string) {
     javaScriptFileNames.map(async (fileName) => {
       const srcPath = path.join(tmpDir, fileName);
       const dstPath = path.join(outDir, fileName);
-      await fs.rename(srcPath, dstPath);
+      await moveFileOrDirectory(srcPath, dstPath);
     }),
   );
 }

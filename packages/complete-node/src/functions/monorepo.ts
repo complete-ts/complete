@@ -5,7 +5,6 @@
  */
 
 import { assertDefined } from "complete-common";
-import fs from "node:fs/promises";
 import path from "node:path";
 import {
   copyFileOrDirectory,
@@ -14,9 +13,10 @@ import {
   getFilePathsInDirectory,
   isDirectory,
   isFile,
+  moveFileOrDirectory,
 } from "./file.js";
 import { packageJSONHasScript } from "./packageJSON.js";
-import { readTextFile } from "./readWrite.js";
+import { readFile, writeFile } from "./readWrite.js";
 
 /**
  * Helper function to copy a package's build output to the "node_modules" directory at the root of
@@ -60,9 +60,9 @@ export async function fixMonorepoPackageDistDirectory(
   const realOutDir = path.join(outDir, projectName, "src");
   const tempPath = path.join(packageRoot, projectName);
   await deleteFileOrDirectory(tempPath);
-  await fs.rename(realOutDir, tempPath);
+  await moveFileOrDirectory(realOutDir, tempPath);
   await deleteFileOrDirectory(outDir);
-  await fs.rename(tempPath, outDir);
+  await moveFileOrDirectory(tempPath, outDir);
 
   /**
    * After moving the declaration map files to a different directory, the relative path to the "src"
@@ -86,9 +86,7 @@ export async function fixMonorepoPackageDistDirectory(
     filePath.endsWith(extension),
   );
   const filesContents = await Promise.all(
-    filePathsWithExtension.map(
-      async (filePath) => await readTextFile(filePath),
-    ),
+    filePathsWithExtension.map(async (filePath) => await readFile(filePath)),
   );
   await Promise.all(
     filePathsWithExtension.map(async (filePath, i) => {
@@ -98,7 +96,7 @@ export async function fixMonorepoPackageDistDirectory(
         `Failed to get the file contents at index: ${i}`,
       );
       const newFileContents = fileContents.replaceAll("../../src/", "src/");
-      await fs.writeFile(filePath, newFileContents);
+      await writeFile(filePath, newFileContents);
     }),
   );
 }

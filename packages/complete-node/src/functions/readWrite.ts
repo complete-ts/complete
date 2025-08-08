@@ -7,17 +7,36 @@
 import fs from "node:fs/promises";
 
 /**
+ * Helper function to asynchronously append data to a file. If the file does not exist, it will be
+ * automatically created.
+ *
+ * @throws If the file cannot be appended to.
+ */
+export async function appendFile(
+  filePath: string,
+  data: string,
+): Promise<void> {
+  try {
+    await fs.appendFile(filePath, data);
+  } catch (error) {
+    throw new Error(`Failed to append to the file: ${filePath}`, {
+      cause: error,
+    });
+  }
+}
+
+/**
  * Helper function to delete a specific line in a text file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * @throws If the line number does not exist in the text file.
+ * @throws If the line number does not exist in the text file or the file cannot be written to.
  */
 export async function deleteLineInFile(
   filePath: string,
   lineNumber: number,
 ): Promise<void> {
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
   const lines = fileContents.split("\n");
   const index = lineNumber - 1;
 
@@ -29,39 +48,51 @@ export async function deleteLineInFile(
 
   lines.splice(index, 1);
   const newFileContents = lines.join("\n");
-  await fs.writeFile(filePath, newFileContents);
+  await writeFile(filePath, newFileContents);
 }
 
-/** Helper function to synchronously prepend data to a file. */
+/**
+ * Helper function to synchronously prepend data to a file.
+ *
+ * @throws IF the file cannot be written to.
+ */
 export async function prependFile(
   filePath: string,
   data: string,
 ): Promise<void> {
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
   const newFileContents = data + fileContents;
-  await fs.writeFile(filePath, newFileContents);
+  await writeFile(filePath, newFileContents);
 }
 
 /**
- * Helper function to asynchronously read a text file.
+ * Helper function to asynchronously read a file.
  *
- * This assumes that the file uses an encoding of "utf8".
+ * This assumes that the file is a text file and uses an encoding of "utf8".
  */
-export async function readTextFile(filePath: string): Promise<string> {
-  return await fs.readFile(filePath, "utf8");
+export async function readFile(filePath: string): Promise<string> {
+  try {
+    return await fs.readFile(filePath, "utf8");
+  } catch (error) {
+    throw new Error(`Failed to read file: ${filePath}`, {
+      cause: error,
+    });
+  }
 }
 
 /**
  * Helper function to replace a specific line in a text file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
+ *
+ * @throws If the line number does not exist in the text file or the file cannot be written to.
  */
 export async function replaceLineInFile(
   filePath: string,
   lineNumber: number,
   newLine: string,
 ): Promise<void> {
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
   const lines = fileContents.split("\n");
   const index = lineNumber - 1;
   const oldLine = lines[index];
@@ -73,20 +104,37 @@ export async function replaceLineInFile(
 
   lines[index] = newLine;
   const newFileContents = lines.join("\n");
-  await fs.writeFile(filePath, newFileContents);
+  await writeFile(filePath, newFileContents);
 }
 
 /**
  * Helper function to asynchronously replace text in a file.
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
+ *
+ * @throws If the file cannot be written to.
  */
 export async function replaceTextInFile(
   filePath: string,
   searchValue: string | RegExp,
   replaceValue: string,
 ): Promise<void> {
-  const fileContents = await readTextFile(filePath);
+  const fileContents = await readFile(filePath);
   const newFileContents = fileContents.replaceAll(searchValue, replaceValue);
-  await fs.writeFile(filePath, newFileContents);
+  await writeFile(filePath, newFileContents);
+}
+
+/**
+ * Helper function to asynchronously write data to a file.
+ *
+ * @throws If the file cannot be written to.
+ */
+export async function writeFile(filePath: string, data: string): Promise<void> {
+  try {
+    await fs.writeFile(filePath, data);
+  } catch (error) {
+    throw new Error(`Failed to write to the file: ${filePath}`, {
+      cause: error,
+    });
+  }
 }

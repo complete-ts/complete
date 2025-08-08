@@ -1,7 +1,6 @@
 // Generates the "src/rules.ts" file.
 
-import { getFileNamesInDirectory } from "complete-node";
-import fs from "node:fs/promises";
+import { getFileNamesInDirectory, writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import {
@@ -21,7 +20,7 @@ export async function generateRules(): Promise<void> {
   const combined = comment + code;
   const content = await formatWithPrettier(combined, "typescript");
 
-  await fs.writeFile(RULES_TS_PATH, content);
+  await writeFile(RULES_TS_PATH, content);
 }
 
 async function getRuleNames(): Promise<readonly string[]> {
