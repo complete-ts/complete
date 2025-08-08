@@ -32,7 +32,7 @@
     "@docusaurus/preset-classic": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
-    "@eslint/js": "9.32.0",
+    "@eslint/js": "9.33.0",
     "@heroicons/react": "2.2.0",
     "@mdx-js/react": "3.1.0",
     "@octokit/core": "7.0.3",
@@ -58,7 +58,7 @@
     "cspell-check-unused-words": "1.5.3",
     "diff": "8.0.2",
     "dotenv": "17.2.1",
-    "eslint": "9.32.0",
+    "eslint": "9.33.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import-x": "4.16.1",
@@ -94,7 +94,7 @@
     "webpack-shebang-plugin": "1.1.8",
     "which": "5.0.0",
     "yaml": "2.8.1",
-    "zod": "4.0.15"
+    "zod": "4.0.16"
   },
   "devDependencies": {
     "git-pull-run": "1.6.2",
