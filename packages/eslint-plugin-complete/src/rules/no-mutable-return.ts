@@ -46,7 +46,7 @@ export const noMutableReturn = createRule<Options, MessageIds>({
           const messageId = getErrorMessageId(t);
           if (messageId !== undefined) {
             context.report({
-              loc: node.loc,
+              loc: getLoc(node),
               messageId,
             });
           }
@@ -85,4 +85,31 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
   }
 
   return undefined;
+}
+
+/** If that does not exist, If that does not exist, target the entire function. */
+function getLoc(
+  node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression,
+): TSESTree.SourceLocation {
+  // First, target the function return type.
+  const { returnType } = node;
+  if (returnType !== undefined) {
+    // The return type location starts at the colon instead of at the type, which looks strange.
+    // Thus, we fix this by manually adding 2 to account for the ": ".
+    return {
+      start: {
+        line: returnType.loc.start.line,
+        column: returnType.loc.start.column + 2,
+      },
+      end: returnType.loc.end,
+    };
+  }
+
+  // Second, target the function name.
+  if (node.id !== null) {
+    return node.id.loc;
+  }
+
+  // Fall back to highlighting the whole function.
+  return node.loc;
 }
