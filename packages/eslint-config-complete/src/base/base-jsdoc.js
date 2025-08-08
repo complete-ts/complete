@@ -241,11 +241,7 @@ export const baseJSDoc = tseslint.config(
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields-check": "off",
 
-      /**
-       * Disabled because it is not very useful. In most cases, a function will only have `@param`
-       * and `@return` tags, making sorting unnecessary.
-       */
-      "jsdoc/sort-tags": "off",
+      "jsdoc/sort-tags": "warn",
 
       /** Superseded by the `complete/format-jsdoc-comments` rule. */
       "jsdoc/tag-lines": "off",

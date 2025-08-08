@@ -1,4 +1,4 @@
-import { $, diff, lintScript, readTextFile } from "complete-node";
+import { $, diff, lintScript, readFile } from "complete-node";
 import path from "node:path";
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
@@ -21,7 +21,7 @@ await lintScript(async () => {
 });
 
 async function checkGitIgnoreUpdates() {
-  const localGitIgnore = await readTextFile(LOCAL_GITIGNORE_PATH);
+  const localGitIgnore = await readFile(LOCAL_GITIGNORE_PATH);
 
   const response = await fetch(GITIGNORE_URL);
   const remoteGitIgnore = await response.text();

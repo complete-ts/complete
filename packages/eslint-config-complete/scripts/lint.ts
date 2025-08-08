@@ -1,4 +1,4 @@
-import { $, lintScript, readTextFile } from "complete-node";
+import { $, lintScript, readFile } from "complete-node";
 import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 
@@ -13,11 +13,11 @@ await lintScript(async (packageRoot) => {
 
 async function checkDocs(packageRoot: string) {
   const readmePath = path.join(packageRoot, "website-root.md");
-  const oldFileContents = await readTextFile(readmePath);
+  const oldFileContents = await readFile(readmePath);
 
   await setReadmeRules(true);
 
-  const newFileContents = await readTextFile(readmePath);
+  const newFileContents = await readFile(readmePath);
   if (oldFileContents !== newFileContents) {
     console.log(
       `The "docs.ts" script changed the following file: ${readmePath}`,

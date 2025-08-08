@@ -11,7 +11,7 @@ import {
 } from "complete-common";
 import {
   isMain,
-  readTextFile,
+  readFile,
   setMarkdownContentInsideHTMLMarker,
 } from "complete-node";
 import type { Linter } from "eslint";
@@ -334,7 +334,7 @@ async function getMarkdownRuleSection(
     assertDefined(rule, `Failed to find base rule: ${ruleName}`);
 
     // eslint-disable-next-line no-await-in-loop
-    const baseConfigText = await readTextFile(baseConfigPath);
+    const baseConfigText = await readFile(baseConfigPath);
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
