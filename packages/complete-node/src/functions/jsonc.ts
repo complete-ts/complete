@@ -13,8 +13,7 @@ import { readFile } from "./readWrite.js";
  * Helper function to parse a file as
  * [JSONC](https://code.visualstudio.com/docs/languages/json#_json-with-comments).
  *
- * This expects the file to contain an object (i.e. `{}`). This will print an error message and exit
- * the program if any errors occur.
+ * @throws If the file could not be parsed or if the parsed file was not an object.
  */
 export async function getJSONC(
   filePath: string,
