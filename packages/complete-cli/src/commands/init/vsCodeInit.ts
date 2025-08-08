@@ -1,3 +1,4 @@
+import { assertObject } from "complete-common";
 import { $, $q, commandExists, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { getInputYesNo, promptError, promptLog } from "../../prompt.js";
@@ -75,6 +76,10 @@ async function getExtensionsFromJSON(
   }
 
   const extensionsJSON = await getJSONC(extensionsJSONPath);
+  assertObject(
+    extensionsJSON,
+    `The "${extensionsJSONPath}" file is not an object.`,
+  );
 
   const { recommendations } = extensionsJSON;
   if (!Array.isArray(recommendations)) {
