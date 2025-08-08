@@ -41,13 +41,13 @@ export async function getPackageJSON(
  * "peerDependencies" field from a "package.json" file. If the corresponding field does not exist,
  * `undefined` will be returned.
  *
- * @throws If the "package.json" file cannot be found or is otherwise invalid.
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
  * @param dependencyType Optional. The specific dependencies field to get. Defaults to
  *                       "dependencies".
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
  */
 export async function getPackageJSONDependencies(
   filePathOrDirPathOrRecord:
@@ -87,12 +87,12 @@ export async function getPackageJSONDependencies(
  * Helper function to asynchronously get an arbitrary string field from a "package.json" file. If
  * the field does not exist, `undefined` will be returned.
  *
- * @throws If the "package.json" file cannot be found or the field is not a string.
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
  * @param fieldName The name of the field to retrieve.
+ * @throws If the "package.json" file cannot be found or the field is not a string.
  */
 export async function getPackageJSONField(
   filePathOrDirPathOrRecord:
@@ -193,11 +193,11 @@ export async function getPackageJSONFieldsMandatory<T extends string>(
  * Helper function to asynchronously get the "scripts" field from a "package.json" file. If the
  * field does not exist, `undefined` will be returned.
  *
- * @throws If the "package.json" file cannot be found or is otherwise invalid.
  * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
  */
 export async function getPackageJSONScripts(
   filePathOrDirPathOrRecord:

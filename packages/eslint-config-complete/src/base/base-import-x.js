@@ -2,8 +2,8 @@ import ESLintPluginImportX from "eslint-plugin-import-x";
 import tseslint from "typescript-eslint";
 
 /**
- * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#helpful-warnings
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#helpful-warnings
  */
 const HELPFUL_WARNINGS = {
   "import-x/export": "warn",
@@ -80,8 +80,8 @@ const HELPFUL_WARNINGS = {
 };
 
 /**
- * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#module-systems
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#module-systems
  */
 const MODULE_SYSTEMS = {
   "import-x/no-amd": "warn",
@@ -96,8 +96,8 @@ const MODULE_SYSTEMS = {
 };
 
 /**
- * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#static-analysis
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#static-analysis
  */
 const STATIC_ANALYSIS = {
   /**
@@ -148,8 +148,8 @@ const STATIC_ANALYSIS = {
 };
 
 /**
- * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#style-guide
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#style-guide
  */
 const STYLE_GUIDE = {
   "import-x/consistent-type-specifier-style": "warn",

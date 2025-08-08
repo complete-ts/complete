@@ -15,9 +15,9 @@ import { $ as dollarSignFunc } from "execa";
  * resulting in it being passed through to the console. (By default, the "$" function only inherits
  * the stdin.) This emulates the default behavior of a Bash script.
  *
+ * @allowEmptyVariadic
  * @see https://github.com/sindresorhus/execa/blob/main/docs/scripts.md
  * @see https://nodejs.org/api/child_process.html#child_process_options_stdio
- * @allowEmptyVariadic
  */
 export const $ = dollarSignFunc({
   stdout: "inherit",

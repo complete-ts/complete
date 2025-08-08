@@ -2,8 +2,8 @@ import confusingBrowserGlobals from "confusing-browser-globals";
 import tseslint from "typescript-eslint";
 
 /**
- * @see https://eslint.org/docs/latest/rules/#possible-problems
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://eslint.org/docs/latest/rules/#possible-problems
  */
 const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
@@ -91,8 +91,8 @@ const POSSIBLE_PROBLEMS = {
 };
 
 /**
- * @see https://eslint.org/docs/latest/rules/#suggestions
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://eslint.org/docs/latest/rules/#suggestions
  */
 const SUGGESTIONS = {
   "accessor-pairs": "warn",
@@ -608,8 +608,8 @@ const SUGGESTIONS = {
 };
 
 /**
- * @see https://eslint.org/docs/latest/rules/#suggestions
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
+ * @see https://eslint.org/docs/latest/rules/#suggestions
  */
 const LAYOUT_AND_FORMATTING = {
   "unicode-bom": "warn",
