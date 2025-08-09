@@ -1,6 +1,7 @@
 short term:
 
 - if bun is package manager, should use bun instead of node in tsconfig
+- fix tags not getting pushed
 
 ----------------------------------------------------------------------------------------------------
 

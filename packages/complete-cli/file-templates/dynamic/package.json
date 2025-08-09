@@ -1,8 +1,7 @@
 {
   "name": "project-name",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "A TypeScript project.",
   "homepage": "https://github.com/author-name/project-name",
   "bugs": {
     "url": "https://github.com/author-name/project-name/issues"
@@ -15,10 +14,7 @@
   "author": "author-name",
   "type": "module",
   "files": [
-    "dist",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "dist"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",
