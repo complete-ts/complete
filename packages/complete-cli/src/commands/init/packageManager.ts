@@ -1,7 +1,12 @@
 import chalk from "chalk";
 import type { ReadonlyRecord } from "complete-common";
-import { getEnumValues } from "complete-common";
-import { commandExists, PackageManager } from "complete-node";
+import { assertDefined, getEnumValues } from "complete-common";
+import {
+  commandExists,
+  getJavaScriptRuntime,
+  JavaScriptRuntime,
+  PackageManager,
+} from "complete-node";
 import { DEFAULT_PACKAGE_MANAGER } from "../../constants.js";
 import { promptError } from "../../prompt.js";
 
@@ -10,8 +15,21 @@ const PACKAGE_MANAGERS = getEnumValues(PackageManager);
 export async function getPackageManagerUsedForNewProject(
   options: ReadonlyRecord<PackageManager, boolean>,
 ): Promise<PackageManager> {
+  // If the package manager was explicitly specified in the options, use that.
   const packageManagerFromOptions = await getPackageManagerFromOptions(options);
-  return packageManagerFromOptions ?? DEFAULT_PACKAGE_MANAGER;
+  if (packageManagerFromOptions !== undefined) {
+    return packageManagerFromOptions;
+  }
+
+  // If `bun` or `bunx` was used to launch this program, assume that they also want to use the Bun
+  // package manager.
+  const javaScriptRuntime = getJavaScriptRuntime();
+  assertDefined(javaScriptRuntime, "Failed to get the JavaScript runtime.");
+  if (javaScriptRuntime === JavaScriptRuntime.bun) {
+    return PackageManager.bun;
+  }
+
+  return DEFAULT_PACKAGE_MANAGER;
 }
 
 async function getPackageManagerFromOptions(
