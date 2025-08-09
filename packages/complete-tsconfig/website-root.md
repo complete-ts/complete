@@ -29,7 +29,7 @@ If you do not want to use the `complete-lint` meta-package, then you can install
 npm install complete-tsconfig --save
 ```
 
-Note that if you use these configs with `pnpm`, you must also install `@tsconfig/strictest`, since pnpm does not properly handle transitive dependencies. (You also must also install `@tsconfig/node-lts` if you are using the Node.js config.)
+Note that if you use the [pnpm](https://pnpm.io/) package manager, you must use the [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) option, since pnpm does not handle transitive dependencies by default. (Alternatively, you could [manually install the dependencies](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/package.json).)
 
 ## Usage
 
