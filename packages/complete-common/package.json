@@ -2,7 +2,6 @@
   "name": "complete-common",
   "version": "2.5.0",
   "description": "Helper functions for TypeScript projects.",
-  "keywords": [],
   "homepage": "https://complete-ts.github.io/",
   "bugs": {
     "url": "https://github.com/complete-ts/complete/issues"
@@ -23,10 +22,7 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "src",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "src"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",

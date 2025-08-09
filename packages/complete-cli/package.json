@@ -22,10 +22,7 @@
   "files": [
     "dist",
     "file-templates",
-    "src",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "src"
   ],
   "scripts": {
     "build": "tsx ./scripts/build.ts",

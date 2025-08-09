@@ -20,6 +20,7 @@ import ESLintPluginComplete from "eslint-plugin-complete";
 import ESLintPluginImportX from "eslint-plugin-import-x";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
+import ESLintPluginPackageJSON from "eslint-plugin-package-json";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import path from "node:path";
@@ -140,6 +141,10 @@ const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginN.configs.recommended.rules),
 );
 
+const PACKAGE_JSON_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(ESLintPluginPackageJSON.configs.recommended.rules),
+);
+
 assertDefined(
   ESLintPluginUnicorn.configs.recommended.rules,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-unicorn",
@@ -172,6 +177,7 @@ type ParentConfig =
   | "import-x/recommended"
   | "jsdoc/recommended"
   | "n/recommended"
+  | "package-json/recommended"
   | "unicorn/recommended"
   | "complete/recommended"
   | "eslint-config-prettier";
@@ -199,6 +205,8 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js",
   "n/recommended":
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js",
+  "package-json/recommended":
+    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/src/plugin.ts",
   "unicorn/recommended":
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
   "complete/recommended":
@@ -254,6 +262,14 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "https://github.com/eslint-community/eslint-plugin-n",
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginN,
+  );
+
+  rulesTable += await getMarkdownRuleSection(
+    "package-json",
+    getPluginHeaderTitle("package-json"),
+    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json",
+    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/docs/rules/__RULE_NAME__.md",
+    ESLintPluginPackageJSON,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -579,6 +595,10 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
 
   if (N_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("n/recommended");
+  }
+
+  if (PACKAGE_JSON_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("package-json/recommended");
   }
 
   if (UNICORN_RECOMMENDED_RULES_SET.has(ruleName)) {

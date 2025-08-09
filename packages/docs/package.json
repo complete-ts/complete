@@ -2,7 +2,6 @@
   "name": "docs",
   "private": true,
   "description": "The website for the complete monorepo.",
-  "keywords": [],
   "homepage": "https://complete-ts.github.io/",
   "bugs": {
     "url": "https://github.com/complete-ts/complete/issues"
