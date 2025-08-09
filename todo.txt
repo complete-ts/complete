@@ -1,7 +1,6 @@
 short term:
 
 - if bun is package manager, should use bun instead of node in tsconfig
-- use `error-stack-parser` instead of `stack-trace`
 
 ----------------------------------------------------------------------------------------------------
 

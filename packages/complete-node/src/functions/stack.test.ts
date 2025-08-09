@@ -4,9 +4,9 @@ import test, { describe } from "node:test";
 import { getCallingFunction } from "./stack.js";
 
 describe("getCallingFunction", () => {
-  test("default", () => {
-    const { name, filePath } = getCallingFunction();
-    equal(name, "runInAsyncScope");
+  test("0 parent functions", () => {
+    const { functionName, filePath } = getCallingFunction();
+    equal(functionName, "Test.runInAsyncScope");
     equal(filePath, "node:async_hooks");
   });
 
@@ -17,8 +17,8 @@ describe("getCallingFunction", () => {
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     function bar() {
-      const { name, filePath } = getCallingFunction();
-      equal(name, "foo");
+      const { functionName, filePath } = getCallingFunction();
+      equal(functionName, "foo");
       const fileName = path.basename(filePath);
       equal(fileName, "stack.test.ts");
     }
@@ -37,8 +37,8 @@ describe("getCallingFunction", () => {
 
     // eslint-disable-next-line unicorn/consistent-function-scoping
     function baz() {
-      const { name, filePath } = getCallingFunction(2);
-      equal(name, "foo");
+      const { functionName, filePath } = getCallingFunction(2);
+      equal(functionName, "foo");
       const fileName = path.basename(filePath);
       equal(fileName, "stack.test.ts");
     }
