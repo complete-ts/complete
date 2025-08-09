@@ -215,6 +215,34 @@ async function copyPackageManagerSpecificFiles(
       const bunfig = "[install]\nexact = true\n";
       const bunfigPath = path.join(projectPath, "bunfig.toml");
       await writeFile(bunfigPath, bunfig);
+
+      // Additionally, we assume that if they are using the Bun package manager, they also want to
+      // use the Bun runtime. First, replace "complete-tsconfig/tsconfig.node.json" with
+      // "complete-tsconfig/tsconfig.bun.json".
+      const tsConfigJSONPath = path.join(projectPath, "tsconfig.json");
+      const tsConfigJSONScriptsPath = path.join(
+        projectPath,
+        "scripts",
+        "tsconfig.json",
+      );
+      const filePathsToReplaceNodeWithBun = [
+        tsConfigJSONPath,
+        tsConfigJSONScriptsPath,
+      ];
+      await Promise.all(
+        filePathsToReplaceNodeWithBun.map(async (filePath) => {
+          const fileContents = await readFile(filePath);
+          const newFileContents = fileContents.replaceAll("node", "bun");
+          await writeFile(filePath, newFileContents);
+        }),
+      );
+
+      // Second, replace "tsx" with "bun run".
+      const packageJSONPath = path.join(projectPath, "package.json");
+      const fileContents = await readFile(packageJSONPath);
+      const newFileContents = fileContents.replaceAll("tsx", "bun run");
+      await writeFile(packageJSONPath, newFileContents);
+
       break;
     }
   }
