@@ -179,5 +179,6 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     await $`git commit --message ${gitCommitMessage}`;
   }
 
-  await $`git push`;
+  // The "--follow-tags" flag is needed because by default, tags are not pushed.
+  await $`git push --follow-tags`;
 }
