@@ -4,6 +4,7 @@ import { baseESLint } from "./base/base-eslint.js";
 import { baseImportX } from "./base/base-import-x.js";
 import { baseJSDoc } from "./base/base-jsdoc.js";
 import { baseN } from "./base/base-n.js";
+import { basePackageJSON } from "./base/base-package-json.js";
 import { baseStylistic } from "./base/base-stylistic.js";
 import { baseTypeScriptESLint } from "./base/base-typescript-eslint.js";
 import { baseUnicorn } from "./base/base-unicorn.js";
@@ -21,6 +22,7 @@ export const completeConfigBase = tseslint.config(
   ...baseImportX,
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
+  ...basePackageJSON,
   ...baseUnicorn,
   ...baseComplete,
 

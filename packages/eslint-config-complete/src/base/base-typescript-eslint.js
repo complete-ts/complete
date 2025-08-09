@@ -520,6 +520,10 @@ export const baseTypeScriptESLint = tseslint.config(
       "@typescript-eslint/unified-signatures": "warn",
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "warn",
     },
+
+    // Having TypeScript rules apply to ".json" files will throw an error about needing type
+    // information.
+    ignores: ["*.json"],
   },
 
   // Enable linting on TypeScript file extensions.

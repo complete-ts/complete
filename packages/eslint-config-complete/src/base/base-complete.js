@@ -53,6 +53,10 @@ export const baseComplete = tseslint.config(
       "complete/strict-undefined-functions": "warn",
       "complete/strict-void-functions": "warn",
     },
+
+    // Having TypeScript rules apply to ".json" files will throw an error about needing type
+    // information.
+    ignores: ["*.json"],
   },
 
   {
