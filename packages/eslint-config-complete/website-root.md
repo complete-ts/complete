@@ -39,6 +39,13 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(...completeConfigBase);
 ```
 
+## Configs
+
+This package exports two configs:
+
+- `completeConfigBase` - The general-purpose config that people should use for TypeScript projects.
+- `completeConfigESLintPlugin` - Enables extra rules for ESLint plugins from [`eslint-plugin-eslint-plugin`](https://github.com/eslint-community/eslint-plugin-eslint-plugin).
+
 ## Why Do I Need To Use ESLint?
 
 If you are reading this page, you are likely a user of [TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript is great because it saves you an enormous amount of time. The hours spent troubleshooting run-time errors caused from small typos have become a thing of the past. Good riddance!
