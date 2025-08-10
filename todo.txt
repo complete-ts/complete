@@ -1,5 +1,8 @@
 short term:
 
+- investigate:
+  - lint rules from xo
+
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
   try using: https://github.com/bmish/eslint-doc-generator
   (it might not work because it does not support ESLint 9 and does not look well maintained)
