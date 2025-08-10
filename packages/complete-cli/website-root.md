@@ -68,7 +68,7 @@ Additionally, it includes a Discord failure notification. If you do not use Disc
 - Click on the "Create Webhook" button.
 - Click on the box for the new webhook that was created.
 - Change the name to "GitHub".
-- Change the image to: https://raw.githubusercontent.com/complete-ts/complete/main/misc/github.png
+- Change the image to [the GitHub icon](https://raw.githubusercontent.com/complete-ts/complete/main/misc/github.png).
 - Click on the "Save Changes" button at the bottom.
 - Click on the "Copy Webhook URL" button.
 - Go to the main page for your repository on GitHub.
