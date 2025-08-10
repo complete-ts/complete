@@ -55,6 +55,7 @@
     "@typescript-eslint/types": "8.39.0",
     "complete-common": "2.5.0",
     "complete-node": "9.0.1",
+    "eslint-plugin-eslint-plugin": "7.0.0",
     "jest": "30.0.5",
     "prettier": "3.6.2",
     "typescript": "5.9.2"

@@ -58,6 +58,8 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
           },
           onlyRecordsArraysMapsSet: {
             type: "boolean",
+            description:
+              "Makes the rule only examine a function parameter if it is a record, an array, a tuple, a map, or a set.",
           },
         },
       },

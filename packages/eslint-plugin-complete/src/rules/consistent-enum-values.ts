@@ -22,6 +22,8 @@ export const consistentEnumValues = createRule({
         // Ignore computed enums; those are intended to be checked with the
         // `@typescript-eslint/prefer-enum-initializers` rule.
         const { initializer } = node;
+        // There are too many `Expression` sub-types to check for, so just check for the property.
+        // eslint-disable-next-line eslint-plugin/no-property-in-node
         if (initializer === undefined || !("value" in initializer)) {
           return;
         }
@@ -34,6 +36,8 @@ export const consistentEnumValues = createRule({
         }
 
         const { id } = node;
+        // There are too many `Expression` sub-types to check for, so just check for the property.
+        // eslint-disable-next-line eslint-plugin/no-property-in-node
         if (!("name" in id)) {
           return;
         }

@@ -32,11 +32,15 @@ export const formatLineComments = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "whitespace",
     schema: [
       {
         type: "object",
         properties: {
-          maxLength: { type: "number" },
+          maxLength: {
+            type: "number",
+            description: "Maximum number of characters for a line.",
+          },
         },
         additionalProperties: false,
       },
@@ -44,7 +48,6 @@ export const formatLineComments = createRule<Options, MessageIds>({
     messages: {
       incorrectlyFormatted: "Comment is not formatted correctly.",
     },
-    fixable: "whitespace",
   },
   defaultOptions: [
     {

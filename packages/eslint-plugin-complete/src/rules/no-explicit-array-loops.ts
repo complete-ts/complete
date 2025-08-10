@@ -17,12 +17,12 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: true,
     },
+    fixable: "code",
     schema: [],
     messages: {
       noExplicitArray:
         'Explicit iteration over arrays is disallowed. (Get rid of the "Object.values()".)',
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

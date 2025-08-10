@@ -38,7 +38,7 @@ export const strictEnums = createRule<Options, MessageIds>({
     messages: {
       incorrectIncrement: "You cannot increment or decrement an enum type.",
       mismatchedAssignment:
-        "The type of the enum assignment does not match the declared enum type of the variable.",
+        "The type of the enum assignment does not match the declared enum type of the variable.\nAssignmentType: {{ assignmentType }}\nDeclaredType: {{ declaredType }}",
       mismatchedFunctionArgument:
         "The {{ ordinal }} argument in the function call does not match the declared enum type of the function signature.\nArgument: {{ type1 }}\nParameter: {{ type2 }}",
     },
@@ -424,6 +424,10 @@ export const strictEnums = createRule<Options, MessageIds>({
           context.report({
             node,
             messageId: "mismatchedAssignment",
+            data: {
+              assignmentType: getTypeName(checker, rightType),
+              declaredType: getTypeName(checker, leftType),
+            },
           });
         }
       },

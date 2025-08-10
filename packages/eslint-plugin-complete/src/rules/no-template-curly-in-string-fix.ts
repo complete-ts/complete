@@ -17,11 +17,11 @@ export const noTemplateCurlyInStringFix = createRule({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "code",
     schema: [],
     messages: {
       unexpectedTemplateExpression: "Unexpected template string expression.",
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

@@ -15,12 +15,12 @@ export const preferPlusplus = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "code",
     schema: [],
     messages: {
       plusPlus: 'Use "++" instead, as it is more concise and easier to read.',
       minusMinus: 'Use "--" instead, as it is more concise and easier to read.',
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

@@ -32,12 +32,12 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "code",
     schema: [],
     messages: {
       noConstAssertion:
         "Variables with capital letters that assign an object or array must use const assertions.",
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

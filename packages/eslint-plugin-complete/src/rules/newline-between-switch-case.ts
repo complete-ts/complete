@@ -16,11 +16,11 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "whitespace",
     schema: [],
     messages: {
       noNewline: "Newline required between switch cases.",
     },
-    fixable: "whitespace",
   },
   defaultOptions: [],
   create(context) {

@@ -12,12 +12,12 @@ export const noVoidReturnType = createRule({
       recommended: true,
       requiresTypeChecking: true,
     },
+    fixable: "code",
     schema: [],
     messages: {
       voidReturnType:
         "Non-exported functions cannot have a `void` return type. Remove the `void` keyword.",
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

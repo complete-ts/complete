@@ -14,6 +14,7 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: true,
     },
+    fixable: "code",
     schema: [],
     messages: {
       noExplicitMap:
@@ -21,7 +22,6 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
       noExplicitSet:
         'Explicit iteration over sets is disallowed. (Get rid of the ".values()".)',
     },
-    fixable: "code",
   },
   defaultOptions: [],
   create(context) {

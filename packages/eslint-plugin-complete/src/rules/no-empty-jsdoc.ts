@@ -10,11 +10,11 @@ export const noEmptyJSDoc = createRule({
       recommended: true,
       requiresTypeChecking: false,
     },
+    fixable: "code",
     schema: [],
     messages: {
       isEmpty: "Empty JSDoc comments are not allowed.",
     },
-    fixable: "code",
   },
   defaultOptions: [],
 
