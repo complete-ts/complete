@@ -35,20 +35,32 @@ export const jsdocCodeBlockLanguage = createRule({
 
       // We only want to match the opening backticks of a code block.
       let insideCodeBlock = false;
-      for (const line of lines) {
+      for (const [i, line] of lines.entries()) {
         if (line.includes("```")) {
           insideCodeBlock = !insideCodeBlock;
         }
 
+        // Ignore the second "```" that closes a code block.
         if (!insideCodeBlock) {
           continue;
         }
 
         if (line.endsWith("```")) {
+          const nextLine = comment.loc.start.line + i + 1;
+
+          const start = {
+            line: nextLine,
+            column: line.indexOf("```") + " * ".length,
+          };
+          const end = {
+            line: nextLine + 1,
+            column: 0,
+          };
+
           context.report({
             loc: {
-              start: comment.loc.start,
-              end: comment.loc.end,
+              start,
+              end,
             },
             messageId: "noLanguage",
           });
