@@ -62,7 +62,7 @@ const FOO = [1, 2, 3];
 const FOO = [1, 2, 3] as const;
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

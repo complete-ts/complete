@@ -42,7 +42,7 @@ The rule tries to be as smart as possible. For example, it won't complain about 
 
 You can open a GitHub issue if you find a situation where this rule should be smarter.
 
-## Options and Defaults
+## Options
 
 ```json
 {

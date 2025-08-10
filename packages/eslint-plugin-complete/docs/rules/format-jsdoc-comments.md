@@ -75,7 +75,7 @@ For example:
 /* This is a single-line comment. This is a single-line comment. This is a single-line comment. This is a single-line comment. */
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

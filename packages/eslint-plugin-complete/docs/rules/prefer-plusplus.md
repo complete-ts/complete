@@ -28,7 +28,7 @@ i += 1;
 i++;
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

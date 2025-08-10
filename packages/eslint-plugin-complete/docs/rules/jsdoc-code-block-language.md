@@ -30,7 +30,7 @@ function foo() {}
 function foo() {}
 ````
 
-## Options and Defaults
+## Options
 
 ```json
 {

@@ -59,7 +59,7 @@ const MY_OBJECT: Readonly<Foo> = {
 };
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

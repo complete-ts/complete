@@ -16,7 +16,7 @@ const array: number[] = [1, 2, 3] as const;
 const array = [1, 2, 3] as const;
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

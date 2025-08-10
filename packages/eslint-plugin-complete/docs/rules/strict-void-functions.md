@@ -23,7 +23,7 @@ function foo(): undefined {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

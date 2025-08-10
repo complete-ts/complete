@@ -16,7 +16,7 @@ if (foo === "") {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

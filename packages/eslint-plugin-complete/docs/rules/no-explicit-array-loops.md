@@ -24,7 +24,7 @@ for (const element of myArray.values()) {
 
 Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
 
-## Options and Defaults
+## Options
 
 ```json
 {
