@@ -11,6 +11,7 @@
   "files.associations": {
     ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
     // @template-customization-start
+    ".markdownlintignore": "ignore",
     "_gitattributes": "properties",
     "post-merge": "shellscript",
     // @template-customization-end

@@ -99,6 +99,7 @@
   },
   "devDependencies": {
     "git-pull-run": "1.6.2",
-    "husky": "9.1.7"
+    "husky": "9.1.7",
+    "markdownlint-cli": "0.45.0"
   }
 }
