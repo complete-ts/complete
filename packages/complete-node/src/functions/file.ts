@@ -308,7 +308,7 @@ export function isSubdirectoryOf(
 
 /**
  * Helper function to asynchronously make a new directory. By default, it will recursively make as
- * many subdirectories as needed.
+ * many subdirectories as needed. If the directory already exists, this function will be a no-op.
  *
  * @param directoryPath The path to the directory to create.
  * @param recursive Optional. Default is true.
@@ -331,7 +331,7 @@ export async function makeDirectory(
 
 /**
  * Helper function to asynchronously make a new directory. By default, it will recursively make as
- * many subdirectories as needed.
+ * many subdirectories as needed. If the directory already exists, this function will be a no-op.
  *
  * This is an alias for the `makeDirectory` function. (It is intended to be used in scripts.)
  *
