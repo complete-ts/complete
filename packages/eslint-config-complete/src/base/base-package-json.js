@@ -98,6 +98,8 @@ export const basePackageJSON = tseslint.config({
     "package-json/valid-dependencies": "warn",
     "package-json/valid-description": "warn",
     "package-json/valid-devDependencies": "warn",
+    "package-json/valid-directories": "warn",
+    "package-json/valid-exports": "warn",
     "package-json/valid-license": "warn",
 
     /** Disabled since the rule is deprecated. */
