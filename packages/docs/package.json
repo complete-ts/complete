@@ -42,22 +42,22 @@
     "@docusaurus/faster": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
     "@heroicons/react": "2.2.0",
-    "@mdx-js/react": "3.1.0",
+    "@mdx-js/react": "3.1.1",
     "prism-react-renderer": "2.4.1",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "typedoc": "0.28.9",
-    "typedoc-plugin-markdown": "4.8.0"
+    "typedoc": "0.28.11",
+    "typedoc-plugin-markdown": "4.8.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@octokit/core": "7.0.3",
-    "@types/node": "24.2.1",
+    "@types/node": "24.3.0",
     "complete-common": "2.5.0",
-    "complete-node": "9.0.1",
+    "complete-node": "9.0.2",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.39.0"
+    "typescript-eslint": "8.41.0"
   }
 }
