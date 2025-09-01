@@ -30,17 +30,20 @@ export function getCallingFunction(
   const error = new Error();
   const stackFrames = errorStackParser.parse(error);
 
-  if (verbose) {
-    for (const [i, stackFrame] of stackFrames.entries()) {
-      const fileName = stackFrame.getFileName();
-      const functionName = stackFrame.getFunctionName();
-      const lineNumber = stackFrame.getLineNumber();
-      const columnNumber = stackFrame.getColumnNumber();
+  const stackLines: string[] = [];
+  for (const [i, stackFrame] of stackFrames.entries()) {
+    const fileName = stackFrame.getFileName();
+    const functionName = stackFrame.getFunctionName();
+    const lineNumber = stackFrame.getLineNumber();
+    const columnNumber = stackFrame.getColumnNumber();
 
-      console.log(
-        `i: ${i}, fileName: ${fileName}, functionName: ${functionName}, line: ${lineNumber}:${columnNumber}`,
-      );
-    }
+    stackLines.push(
+      `i: ${i}, fileName: ${fileName}, functionName: ${functionName}, line: ${lineNumber}:${columnNumber}`,
+    );
+  }
+
+  if (verbose) {
+    console.log(stackLines.join("\n"));
   }
 
   // - The 1st stack frame is from this function.
@@ -56,20 +59,20 @@ export function getCallingFunction(
   const stackFrame = stackFrames[index];
   assertDefined(
     stackFrame,
-    `Failed to get the stack frame of the calling function at index: ${index}`,
+    `Failed to get the stack frame of the calling function at index: ${index}\n\n${stackLines.join("\n")}`,
   );
 
   const functionName = stackFrame.getFunctionName();
   assertDefined(
     functionName,
-    `Failed to get the function name from the stack frame of: ${stackFrameIndex}`,
+    `Failed to get the function name from the stack frame of: ${stackFrameIndex}\n\n${stackLines.join("\n")}`,
   );
 
   // Even though the method says `getFileName`, it will return a full file path.
   const filePath = stackFrame.getFileName();
   assertDefined(
     filePath,
-    `Failed to get the file path from the stack frame of: ${stackFrameIndex}`,
+    `Failed to get the file path from the stack frame of: ${stackFrameIndex}\n\n${stackLines.join("\n")}`,
   );
 
   return {
