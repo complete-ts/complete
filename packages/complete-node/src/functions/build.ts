@@ -43,11 +43,25 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  *
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
+ * @param packageRoot Optional. The path to the root of the package. If not specified, it will be
+ *                    automatically determined based on the file path of the calling function.
+ * @param verbose Optional. Shows all of the stack frames. Default is false.
  * @see https://bun.sh/docs/bundler/executables
  */
-export async function compileToSingleFileWithBun(): Promise<void> {
-  const projectRoot = await getPackageRoot(2);
-  const packageJSONPath = path.join(projectRoot, "package.json");
+export async function compileToSingleFileWithBun(
+  packageRoot?: string,
+  verbose = false,
+): Promise<void> {
+  packageRoot ??= await getPackageRoot(2, verbose); // eslint-disable-line no-param-reassign
+
+  const packageJSONPath = path.join(packageRoot, "package.json");
+  const packageJSONExists = await isFile(packageJSONPath);
+  if (!packageJSONExists) {
+    throw new Error(
+      `Failed to find the project "package.json" file at: ${packageJSONPath}`,
+    );
+  }
+
   const packageJSON = await getPackageJSON(packageJSONPath);
   const { name } = packageJSON;
 
@@ -57,7 +71,7 @@ export async function compileToSingleFileWithBun(): Promise<void> {
     );
   }
 
-  const entryPointPath = path.join(projectRoot, "src", "main.ts");
+  const entryPointPath = path.join(packageRoot, "src", "main.ts");
   const entryPointExists = await isFile(entryPointPath);
   if (!entryPointExists) {
     throw new Error(`Failed to find the entrypoint at: ${entryPointPath}`);
