@@ -20,8 +20,11 @@ export function getCallingFunction(
   upStackBy = 1,
   verbose = false,
 ): {
-  /** The name of the calling function. */
-  functionName: string;
+  /**
+   * The name of the calling function. Anonymous functions will be equal to "<anonymous>" in the
+   * Node.js runtime and equal to undefined in the Bun runtime.
+   */
+  functionName: string | undefined;
 
   /** The full file path to the file that contains the calling function. */
   filePath: string;
@@ -63,10 +66,6 @@ export function getCallingFunction(
   );
 
   const functionName = stackFrame.getFunctionName();
-  assertDefined(
-    functionName,
-    `Failed to get the function name from the stack frame of: ${stackFrameIndex}\n\n${stackLines.join("\n")}`,
-  );
 
   // Even though the method says `getFileName`, it will return a full file path.
   const filePath = stackFrame.getFileName();
