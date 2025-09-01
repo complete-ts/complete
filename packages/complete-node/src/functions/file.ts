@@ -231,7 +231,8 @@ export async function getFilePath(
  * Helper function to asynchronously get the file paths inside of a directory.
  *
  * @param directoryPath The path to the directory.
- * @param filter Optional. If specified, will only return this type of file.
+ * @param filter Optional. If specified, will only return this type of file. Defaults to returning
+ *               both files and directories.
  * @param recursive Optional. If true, will include files in all subdirectories. Default is false.
  * @throws If there is an error when checking the directory.
  */
