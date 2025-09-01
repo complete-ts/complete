@@ -49,8 +49,10 @@ export function getArgs(): readonly string[] {
  *
  * Under the hood, this checks to see if the file path of the calling function is equal to
  * `process.argv[1]`.
+ *
+ * @param verbose Optional. Shows all of the stack frames. Default is false.
  */
-export function isMain(): boolean {
-  const { filePath } = getCallingFunction();
+export function isMain(verbose = false): boolean {
+  const { filePath } = getCallingFunction(undefined, verbose);
   return filePath === process.argv[1];
 }
