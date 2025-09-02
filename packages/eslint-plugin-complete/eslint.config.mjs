@@ -1,10 +1,10 @@
 // @ts-check
 
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 import { completeConfigBase } from "../eslint-config-complete/src/base.js";
 import { completeConfigESLintPlugin } from "../eslint-config-complete/src/eslint-plugin.js";
 
-export default tseslint.config(
+export default defineConfig(
   ...completeConfigBase,
   ...completeConfigESLintPlugin,
 

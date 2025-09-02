@@ -8,7 +8,7 @@ import { defineConfig } from "eslint/config";
 export const baseComplete = defineConfig(
   {
     plugins: {
-      // Copy the fix from `eslint-plugin-package-json` for complete.
+      // TODO: Copy the fix from `eslint-plugin-package-json` for complete.
       // @ts-expect-error https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
       complete: ESLintPluginComplete,
     },

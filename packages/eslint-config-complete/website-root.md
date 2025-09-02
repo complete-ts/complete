@@ -34,9 +34,9 @@ Here's an example "eslint.config.mjs" file that loads the base config:
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config(...completeConfigBase);
+export default defineConfig(...completeConfigBase);
 ```
 
 ## Configs

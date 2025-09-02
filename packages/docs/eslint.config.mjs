@@ -1,7 +1,7 @@
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 import { completeConfigBase } from "../eslint-config-complete/src/base.js";
 
-export default tseslint.config(
+export default defineConfig(
   ...completeConfigBase,
 
   {
