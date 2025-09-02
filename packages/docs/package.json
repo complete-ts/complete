@@ -56,8 +56,8 @@
     "@octokit/core": "7.0.3",
     "@types/node": "24.3.0",
     "complete-common": "2.5.0",
-    "complete-node": "9.2.0",
+    "complete-node": "9.2.1",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.41.0"
+    "typescript-eslint": "8.42.0"
   }
 }
