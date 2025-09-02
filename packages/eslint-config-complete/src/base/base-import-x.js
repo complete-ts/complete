@@ -335,14 +335,16 @@ export const baseImportX = defineConfig(
       "eslint.config.mts",
     ],
     rules: {
-      // ESLint configuration files that use "complete-lint" have a false positive with
-      // "import-x/no-extraneous-dependencies".
+      // TypeScript projects that use "complete-lint" have a false positive when importing
+      // "defineConfig" from "eslint/config", because "eslint" is a transitive dependency in
+      // "complete-lint". Similarly, importing "completeConfigBase" from "eslint-config-complete"
+      // fails, because "eslint-config-complete" is a transitive dependency in "complete-lint".
       "import-x/no-extraneous-dependencies": [
         "warn",
         {
           devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
           optionalDependencies: false,
-          whitelist: ["eslint/config", "eslint-config-complete"],
+          whitelist: ["eslint", "eslint-config-complete"],
         },
       ],
 
