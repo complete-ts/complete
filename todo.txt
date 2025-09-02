@@ -1,5 +1,8 @@
 short term:
 
+- don't release complete-lint until complete plugin can be used with defineConfig:
+  https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
+
 - investigate:
   - lint rules from xo
 
