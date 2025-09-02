@@ -1,6 +1,7 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
 import ESLintJS from "@eslint/js";
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
 import {
   assertDefined,
@@ -21,7 +22,6 @@ import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
 import ESLintPluginPackageJSON from "eslint-plugin-package-json";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
-import { defineConfig } from "eslint/config";
 import extractComments from "extract-comments";
 import path from "node:path";
 import url from "node:url";
@@ -88,8 +88,10 @@ const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
 
 function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
   const configNameCamelCase = kebabCaseToCamelCase(configName);
-  const configKey = configNameCamelCase as keyof typeof defineConfig;
-  const configArray = defineConfig[configKey] as Linter.Config[] | undefined;
+  const configKey = configNameCamelCase as keyof typeof tseslint.configs;
+  const configArray = tseslint.configs[configKey] as
+    | FlatConfig.Config[]
+    | undefined;
   assertDefined(
     configArray,
     `Failed to parse the "typescript-eslint/${configName}" config.`,
