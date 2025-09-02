@@ -6,6 +6,8 @@
 
 import { assertDefined } from "complete-common";
 import errorStackParser from "error-stack-parser";
+import { JavaScriptRuntime } from "../enums/JavaScriptRuntime.js";
+import { getJavaScriptRuntime } from "./runtime.js";
 
 /**
  * Helper function to get the name and file path of the calling function.
@@ -20,10 +22,7 @@ export function getCallingFunction(
   upStackBy = 1,
   verbose = false,
 ): {
-  /**
-   * The name of the calling function. Anonymous functions will be equal to "<anonymous>" in the
-   * Node.js runtime and equal to undefined in the Bun runtime.
-   */
+  /** The name of the calling function. Can be undefined on the Bun runtime in certain contexts. */
   functionName: string | undefined;
 
   /** The full file path to the file that contains the calling function. */
@@ -31,7 +30,8 @@ export function getCallingFunction(
 } {
   // eslint-disable-next-line unicorn/error-message
   const error = new Error();
-  const stackFrames = errorStackParser.parse(error);
+  const stackFramesVanilla = errorStackParser.parse(error);
+  const stackFrames = fixBunStackFrames(stackFramesVanilla);
 
   const stackLines: string[] = [];
   for (const [i, stackFrame] of stackFrames.entries()) {
@@ -78,4 +78,40 @@ export function getCallingFunction(
     functionName,
     filePath,
   };
+}
+
+/**
+ * Bun will randomly duplicate stack frames.Thus, we assume that if a function repeats, it is a
+ * bugged duplicate. This will fail on recursive functions, but I do not see a better solution.
+ *
+ * @see https://github.com/oven-sh/bun/issues/22339
+ */
+function fixBunStackFrames(
+  stackFrames: readonly errorStackParser.StackFrame[],
+): readonly StackFrame[] {
+  // We only have to handle this issue if the runtime is Bun.
+  const javaScriptRuntime = getJavaScriptRuntime();
+  if (javaScriptRuntime !== JavaScriptRuntime.bun) {
+    return stackFrames;
+  }
+
+  const fixedStackFrames: errorStackParser.StackFrame[] = [];
+
+  let fileName: string | undefined;
+  let functionName: string | undefined;
+  for (const stackFrame of stackFrames) {
+    const newFileName = stackFrame.getFileName();
+    const newFunctionName = stackFrame.getFunctionName();
+
+    if (newFileName === fileName && newFunctionName === functionName) {
+      continue;
+    }
+
+    fileName = newFileName;
+    functionName = newFunctionName;
+
+    fixedStackFrames.push(stackFrame);
+  }
+
+  return fixedStackFrames;
 }
