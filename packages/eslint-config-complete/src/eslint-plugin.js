@@ -1,5 +1,5 @@
 import ESLintPluginESLintPlugin from "eslint-plugin-eslint-plugin";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config is meant to be used as a base for all TypeScript projects.
@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
  * Rule modifications are split out into different files for better organization (based on the
  * originating plugin) .
  */
-export const completeConfigESLintPlugin = tseslint.config({
+export const completeConfigESLintPlugin = defineConfig({
   plugins: {
     "eslint-plugin": ESLintPluginESLintPlugin,
   },

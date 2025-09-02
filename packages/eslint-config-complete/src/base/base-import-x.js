@@ -1,5 +1,5 @@
 import ESLintPluginImportX from "eslint-plugin-import-x";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
@@ -241,9 +241,10 @@ const ALL_EXTENSIONS = [
  * 3) Static analysis
  * 4) Style guide
  */
-export const baseImportX = tseslint.config(
+export const baseImportX = defineConfig(
   {
     plugins: {
+      // @ts-expect-error https://github.com/un-ts/eslint-plugin-import-x/issues/421
       "import-x": ESLintPluginImportX,
     },
 
@@ -334,14 +335,16 @@ export const baseImportX = tseslint.config(
       "eslint.config.mts",
     ],
     rules: {
-      // ESLint configuration files that use "complete-lint" have a false positive with
-      // "import-x/no-extraneous-dependencies".
+      // TypeScript projects that use "complete-lint" have a false positive when importing
+      // "defineConfig" from "eslint/config", because "eslint" is a transitive dependency in
+      // "complete-lint". Similarly, importing "completeConfigBase" from "eslint-config-complete"
+      // fails, because "eslint-config-complete" is a transitive dependency in "complete-lint".
       "import-x/no-extraneous-dependencies": [
         "warn",
         {
           devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
           optionalDependencies: false,
-          whitelist: ["eslint-config-complete", "typescript-eslint"],
+          whitelist: ["eslint", "eslint-config-complete"],
         },
       ],
 

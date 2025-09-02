@@ -1,13 +1,14 @@
 import ESLintPluginPackageJSON from "eslint-plugin-package-json";
+import { defineConfig } from "eslint/config";
 import * as parserJsonc from "jsonc-eslint-parser";
-import tseslint from "typescript-eslint";
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-package-json`:
  * https://github.com/JoshuaKGoldberg/eslint-plugin-package-json
  */
-export const basePackageJSON = tseslint.config({
+export const basePackageJSON = defineConfig({
   plugins: {
+    // @ts-expect-error https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
     "package-json": ESLintPluginPackageJSON,
   },
 

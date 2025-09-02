@@ -32,9 +32,9 @@ If you are using [`eslint-config-complete`](/eslint-config-complete), then this 
 // @ts-check
 
 import ESLintPluginComplete from "eslint-plugin-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config(
+export default defineConfig(
   {
     plugins: {
       complete: ESLintPluginComplete,
@@ -51,9 +51,9 @@ Alternative, you can omit the recommended config and just enable the specific ru
 // @ts-check
 
 import ESLintPluginComplete from "eslint-plugin-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config({
+export default defineConfig({
   plugins: {
     complete: ESLintPluginComplete,
   },

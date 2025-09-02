@@ -1,10 +1,11 @@
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 /**
  * This ESLint config only contains rules from `@typescript-eslint/eslint-plugin`:
  * https://typescript-eslint.io/rules/
  */
-export const baseTypeScriptESLint = tseslint.config(
+export const baseTypeScriptESLint = defineConfig(
   {
     plugins: {
       "@typescript-eslint": tseslint.plugin,

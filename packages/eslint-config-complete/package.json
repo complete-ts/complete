@@ -55,5 +55,8 @@
     "eslint-config-prettier": "10.1.8",
     "extract-comments": "1.1.0",
     "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "eslint": ">= 9.0.0"
   }
 }
