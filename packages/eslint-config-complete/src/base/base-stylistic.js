@@ -1,11 +1,11 @@
 import ESLintPluginStylistic from "@stylistic/eslint-plugin";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config only contains rules from `@stylistic/eslint-plugin`:
  * https://eslint.style/
  */
-export const baseStylistic = tseslint.config({
+export const baseStylistic = defineConfig({
   plugins: {
     "@stylistic": ESLintPluginStylistic,
   },

@@ -1,12 +1,12 @@
 import ESLintPluginN from "eslint-plugin-n";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-n`:
  * https://github.com/eslint-community/eslint-plugin-n
  * (This is a forked version of `eslint-plugin-node`.)
  */
-export const baseN = tseslint.config({
+export const baseN = defineConfig({
   plugins: {
     n: ESLintPluginN,
   },

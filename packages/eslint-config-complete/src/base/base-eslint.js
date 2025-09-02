@@ -1,5 +1,5 @@
 import confusingBrowserGlobals from "confusing-browser-globals";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
@@ -624,7 +624,7 @@ const LAYOUT_AND_FORMATTING = {
  * 2) Suggestions
  * 3) Layout & Formatting
  */
-export const baseESLint = tseslint.config({
+export const baseESLint = defineConfig({
   rules: {
     ...POSSIBLE_PROBLEMS,
     ...SUGGESTIONS,

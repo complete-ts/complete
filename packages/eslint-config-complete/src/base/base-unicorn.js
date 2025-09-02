@@ -1,11 +1,11 @@
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-unicorn`:
  * https://github.com/sindresorhus/eslint-plugin-unicorn
  */
-export const baseUnicorn = tseslint.config({
+export const baseUnicorn = defineConfig({
   plugins: {
     unicorn: ESLintPluginUnicorn,
   },

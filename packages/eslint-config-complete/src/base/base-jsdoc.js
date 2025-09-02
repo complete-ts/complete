@@ -1,11 +1,11 @@
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-jsdoc`:
  * https://github.com/gajus/eslint-plugin-jsdoc
  */
-export const baseJSDoc = tseslint.config(
+export const baseJSDoc = defineConfig(
   {
     plugins: {
       jsdoc: ESLintPluginJSDoc,

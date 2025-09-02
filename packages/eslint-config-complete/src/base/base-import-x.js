@@ -1,5 +1,5 @@
 import ESLintPluginImportX from "eslint-plugin-import-x";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
@@ -241,9 +241,10 @@ const ALL_EXTENSIONS = [
  * 3) Static analysis
  * 4) Style guide
  */
-export const baseImportX = tseslint.config(
+export const baseImportX = defineConfig(
   {
     plugins: {
+      // @ts-expect-error https://github.com/un-ts/eslint-plugin-import-x/issues/421
       "import-x": ESLintPluginImportX,
     },
 
@@ -341,7 +342,7 @@ export const baseImportX = tseslint.config(
         {
           devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
           optionalDependencies: false,
-          whitelist: ["eslint-config-complete", "typescript-eslint"],
+          whitelist: ["eslint/config", "eslint-config-complete"],
         },
       ],
 

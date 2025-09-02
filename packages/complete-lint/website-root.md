@@ -37,7 +37,7 @@ Create a `eslint.config.mjs` file in the root of your repository:
 // @ts-check
 
 import { completeConfigBase } from "eslint-config-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 export default tseslint.config(
   // We use "eslint-config-complete" as the config base:

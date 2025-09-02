@@ -1,4 +1,4 @@
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 import { baseComplete } from "./base/base-complete.js";
 import { baseESLint } from "./base/base-eslint.js";
 import { baseImportX } from "./base/base-import-x.js";
@@ -15,7 +15,7 @@ import { baseUnicorn } from "./base/base-unicorn.js";
  * Rule modifications are split out into different files for better organization (based on the
  * originating plugin) .
  */
-export const completeConfigBase = tseslint.config(
+export const completeConfigBase = defineConfig(
   ...baseESLint,
   ...baseTypeScriptESLint,
   ...baseStylistic,

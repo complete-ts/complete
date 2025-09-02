@@ -1,13 +1,15 @@
 import ESLintPluginComplete from "eslint-plugin-complete";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 /**
  * This ESLint config only contains rules from `eslint-plugin-complete`:
  * https://complete-ts.github.io/eslint-plugin-complete
  */
-export const baseComplete = tseslint.config(
+export const baseComplete = defineConfig(
   {
     plugins: {
+      // Copy the fix from `eslint-plugin-package-json` for complete.
+      // @ts-expect-error https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
       complete: ESLintPluginComplete,
     },
 
