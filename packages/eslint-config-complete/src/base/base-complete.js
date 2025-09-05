@@ -8,8 +8,8 @@ import { defineConfig } from "eslint/config";
 export const baseComplete = defineConfig(
   {
     plugins: {
-      // TODO: Copy the fix from `eslint-plugin-package-json` for complete.
-      // @ts-expect-error https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
+      // TODO: The `defineConfig` helper function is bugged.
+      // @ts-expect-error https://github.com/typescript-eslint/typescript-eslint/issues/11543
       complete: ESLintPluginComplete,
     },
 
