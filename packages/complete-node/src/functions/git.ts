@@ -6,6 +6,14 @@
 
 import { $q } from "./execa.js";
 
+/** Helper function to get the current branch for a Git repository. */
+export async function getGitBranch(gitRepositoryPath: string): Promise<string> {
+  const $$q = $q({ cwd: gitRepositoryPath });
+  const { stdout } = await $$q`git branch --show-current`;
+
+  return stdout;
+}
+
 /** Helper function to determine whether the given path is inside of a Git repository. */
 export async function isGitRepository(
   gitRepositoryPath: string,
