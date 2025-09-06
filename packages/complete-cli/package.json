@@ -35,13 +35,13 @@
     "chalk": "5.6.0",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.5.0",
-    "complete-node": "9.2.1",
+    "complete-node": "9.3.0",
     "klaw-sync": "7.0.0",
     "yaml": "2.8.1"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "24.3.0",
+    "@types/node": "24.3.1",
     "ts-loader": "9.5.4",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.9.2",
