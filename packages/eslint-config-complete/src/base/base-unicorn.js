@@ -41,6 +41,7 @@ export const baseUnicorn = defineConfig({
      */
     "unicorn/no-abusive-eslint-disable": "off",
 
+    "unicorn/no-array-sort": "warn",
     "unicorn/no-accessor-recursion": "warn",
     "unicorn/no-anonymous-default-export": "warn",
 
@@ -121,8 +122,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-array-index-of": "warn",
     "unicorn/prefer-array-some": "warn",
     "unicorn/prefer-at": "warn",
+    "unicorn/prefer-bigint-literals": "warn",
     "unicorn/prefer-blob-reading-methods": "warn",
     "unicorn/prefer-class-fields": "warn",
+    "unicorn/prefer-classlist-toggle": "warn",
     "unicorn/prefer-code-point": "warn",
     "unicorn/prefer-date-now": "warn",
     "unicorn/prefer-default-parameters": "warn",
@@ -176,6 +179,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/relative-url-style": "warn",
     "unicorn/require-array-join-separator": "warn",
+    "unicorn/require-module-attributes": "warn",
     "unicorn/require-module-specifiers": "warn",
     "unicorn/require-number-to-fixed-digits-argument": "warn",
 

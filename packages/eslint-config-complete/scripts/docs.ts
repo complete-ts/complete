@@ -344,7 +344,7 @@ async function getMarkdownRuleSection(
   const baseRules = rules as Record<string, Linter.RuleEntry>;
   auditBaseConfigRules(configName, upstreamImport, baseRules);
 
-  const alphabeticalRuleNames = Object.keys(baseRules).sort();
+  const alphabeticalRuleNames = Object.keys(baseRules).toSorted();
   for (const ruleName of alphabeticalRuleNames) {
     const rule = baseRules[ruleName];
     assertDefined(rule, `Failed to find base rule: ${ruleName}`);
