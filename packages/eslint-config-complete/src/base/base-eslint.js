@@ -574,6 +574,7 @@ const SUGGESTIONS = {
   "prefer-rest-params": "warn",
   "prefer-spread": "warn",
   "prefer-template": "warn",
+  "preserve-caught-error": "warn",
   radix: "warn",
 
   /** Superseded by the `@typescript-eslint/require-await` rule. */
