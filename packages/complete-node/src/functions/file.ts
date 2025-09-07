@@ -103,7 +103,7 @@ export async function getDirectoryHashSHA1(
   );
 
   // Ensure that the ordering is deterministic.
-  const sortedFileInfos = fileInfos.sort((a, b) =>
+  const sortedFileInfos = fileInfos.toSorted((a, b) =>
     a.filePath.localeCompare(b.filePath),
   );
 

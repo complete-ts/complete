@@ -372,7 +372,7 @@ describe("parseFloatSafe", () => {
     });
 
     test("bigint", () => {
-      const result = parseFloatSafe(BigInt(1) as unknown as string);
+      const result = parseFloatSafe(1n as unknown as string);
       strictEqual(result, undefined);
     });
 
@@ -693,7 +693,7 @@ describe("parseIntSafe", () => {
     });
 
     test("bigint", () => {
-      const result = parseIntSafe(BigInt(1) as unknown as string);
+      const result = parseIntSafe(1n as unknown as string);
       strictEqual(result, undefined);
     });
 
