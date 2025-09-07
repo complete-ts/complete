@@ -77,7 +77,7 @@ Each rule has emojis denoting:
 - :thought_balloon: - if it requires type information
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
-<!-- RULES_TABLE -->
+<!-- begin auto-generated rules list -->
 
 | Name                                                                                                                 | Description                                                                                                 | :white_check_mark: | :wrench: | :thought_balloon: |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ | -------- | ----------------- |
@@ -122,7 +122,7 @@ Each rule has emojis denoting:
 | [`complete/strict-undefined-functions`](eslint-plugin-complete/rules/strict-undefined-functions)                     | Disallows empty return statements in functions annotated as returning undefined                             | :white_check_mark: |          | :thought_balloon: |
 | [`complete/strict-void-functions`](eslint-plugin-complete/rules/strict-void-functions)                               | Disallows non-empty return statements in functions annotated as returning void                              | :white_check_mark: |          |                   |
 
-<!-- /RULES_TABLE -->
+<!-- end auto-generated rules list -->
 
 ## Automatic Fixing
 
