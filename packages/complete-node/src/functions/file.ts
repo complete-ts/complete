@@ -428,8 +428,8 @@ export async function renameFileExtensions(
 
 /**
  * Helper function to asynchronously rename a file. Since renames are not allowed across file system
- * boundaries, this will automatically handle that case by performing a copy and delete operation
- * instead.
+ * boundaries, this will automatically handle that special case by performing a copy and delete
+ * operation instead.
  *
  * @throws If the file cannot be renamed.
  */
