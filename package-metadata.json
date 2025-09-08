@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "eslint-plugin-jsdoc": {
-      "lock-version": true,
-      "lock-reason": "https://github.com/gajus/eslint-plugin-jsdoc/issues/1474"
-    }
-  }
-}
