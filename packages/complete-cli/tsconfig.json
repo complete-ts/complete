@@ -6,4 +6,10 @@
     "../complete-tsconfig/tsconfig.node.json",
     "../../tsconfig.monorepo.json",
   ],
+
+  // https://www.typescriptlang.org/tsconfig/
+  "compilerOptions": {
+    // Needed since we want source maps for run-time errors.
+    "sourceMap": true,
+  },
 }
