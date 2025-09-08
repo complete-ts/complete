@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/core";
+import { assertString } from "complete-common";
 import {
   $q,
   appendFile,
@@ -116,13 +117,14 @@ while (true) {
   const data = response.data as Record<string, unknown>;
   const { status, commit } = data;
 
-  if (typeof status !== "string") {
-    fatalError("Failed to parse the status from the GitHub API response.");
-  }
-
-  if (typeof commit !== "string") {
-    fatalError("Failed to parse the commit from the GitHub API response.");
-  }
+  assertString(
+    status,
+    `Failed to parse the "status" property from the GitHub API response since it was not a string: ${status}`,
+  );
+  assertString(
+    commit,
+    `Failed to parse the "commit" property from the GitHub API response since it was not a string: ${commit}`,
+  );
 
   if (status === "built" && commit === commitSHA1) {
     console.log(

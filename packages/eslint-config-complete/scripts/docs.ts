@@ -5,6 +5,7 @@ import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
 import {
   assertDefined,
+  assertString,
   isArray,
   isObject,
   kebabCaseToCamelCase,
@@ -510,11 +511,10 @@ function getRuleSeverity(ruleName: string, rule: Linter.RuleEntry): string {
 
   if (isArray(rule)) {
     const firstElement = rule[0];
-    if (typeof firstElement !== "string") {
-      throw new TypeError(
-        `Failed to parse the first element of rule: ${ruleName}`,
-      );
-    }
+    assertString(
+      firstElement,
+      `Failed to parse the first element of a rule as a string: ${ruleName}`,
+    );
 
     return firstElement;
   }
@@ -668,11 +668,10 @@ function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
     return false;
   }
 
-  if (typeof rule !== "string") {
-    throw new TypeError(
-      `Failed to parse rule in "@typescript-eslint/eslint-recommended": ${ruleName}`,
-    );
-  }
+  assertString(
+    rule,
+    `Failed to parse a rule as a string in "@typescript-eslint/eslint-recommended": ${ruleName}`,
+  );
 
   return rule === "off";
 }

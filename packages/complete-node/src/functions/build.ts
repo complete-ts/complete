@@ -4,6 +4,7 @@
  * @module
  */
 
+import { assertString } from "complete-common";
 import path from "node:path";
 import { $, $o, $q } from "./execa.js";
 import { isFile } from "./file.js";
@@ -65,9 +66,14 @@ export async function compileToSingleFileWithBun(
   const packageJSON = await getPackageJSON(packageJSONPath);
   const { name } = packageJSON;
 
-  if (typeof name !== "string" || name === "") {
+  assertString(
+    name,
+    `Failed to find the "name" field in the "package.json" file located at: ${packageJSONPath}`,
+  );
+
+  if (name === "") {
     throw new Error(
-      `Failed to find the "name" field in the "package.json" file located at: ${packageJSONPath}`,
+      `The "name" field was empty in the "package.json" file located at: ${packageJSONPath}`,
     );
   }
 

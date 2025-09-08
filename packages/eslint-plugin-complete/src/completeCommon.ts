@@ -13,6 +13,16 @@ export type ReadonlyRecord<K extends string | number | symbol, V> = Readonly<
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 
+/** Helper function to throw an error if the provided value is not a string. */
+export function assertString(
+  value: unknown,
+  msg: string,
+): asserts value is string {
+  if (typeof value !== "string") {
+    throw new TypeError(msg);
+  }
+}
+
 /**
  * Helper function to throw an error if the provided value is equal to `undefined`.
  *

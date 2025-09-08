@@ -6,12 +6,15 @@
  */
 
 import type { ReadonlyRecord } from "complete-common";
-import { assertDefined, isObject } from "complete-common";
+import {
+  assertDefined,
+  assertObject,
+  assertString,
+  isObject,
+} from "complete-common";
 import type { DependencyType } from "../types/DependencyType.js";
 import { getFilePath } from "./file.js";
 import { readFile } from "./readWrite.js";
-
-const PACKAGE_JSON = "package.json";
 
 /**
  * Helper function to asynchronously get a "package.json" file as an object. This will throw an
@@ -24,12 +27,12 @@ const PACKAGE_JSON = "package.json";
 export async function getPackageJSON(
   filePathOrDirPath: string | undefined,
 ): Promise<Record<string, unknown>> {
-  const filePath = await getFilePath(PACKAGE_JSON, filePathOrDirPath);
+  const filePath = await getFilePath("package.json", filePathOrDirPath);
   const packageJSONContents = await readFile(filePath);
   const packageJSON = JSON.parse(packageJSONContents) as unknown;
   if (!isObject(packageJSON)) {
     throw new Error(
-      `Failed to parse a "${PACKAGE_JSON}" file at the following path: ${filePath}`,
+      `Failed to parse a "package.json" file at the following path: ${filePath}`,
     );
   }
 
@@ -68,16 +71,19 @@ export async function getPackageJSONDependencies(
 
   if (!isObject(field)) {
     throw new Error(
-      `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file.`,
+      typeof filePathOrDirPathOrRecord === "string"
+        ? `Failed to parse the "${dependencyType}" field as an object in a "package.json" file: ${filePathOrDirPathOrRecord}`
+        : `Failed to parse the "${dependencyType}" field as an object in a "package.json" file.`,
     );
   }
 
   for (const [key, value] of Object.entries(field)) {
-    if (typeof value !== "string") {
-      throw new TypeError(
-        `Failed to parse the "${dependencyType}" field in a "${PACKAGE_JSON}" file since the "${key}" entry was not a string.`,
-      );
-    }
+    assertString(
+      value,
+      typeof filePathOrDirPathOrRecord === "string"
+        ? `Failed to parse the "${dependencyType}" --> "${key}" field as a string in a "package.json" file: ${filePathOrDirPathOrRecord}`
+        : `Failed to parse the "${dependencyType}" --> "${key}" field as a string in a "package.json" file.`,
+    );
   }
 
   return field as Record<string, string>;
@@ -113,18 +119,12 @@ export async function getPackageJSONField(
 
   // Assume that all fields are strings. For objects (like e.g. "dependencies"), other helper
   // functions should be used.
-  if (typeof field !== "string") {
-    if (typeof filePathOrDirPathOrRecord === "string") {
-      // eslint-disable-next-line unicorn/prefer-type-error
-      throw new Error(
-        `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
-      );
-    }
-
-    throw new Error(
-      `Failed to parse the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
-    );
-  }
+  assertString(
+    field,
+    typeof filePathOrDirPathOrRecord === "string"
+      ? `Failed to parse the "${fieldName}" field as a string in a "package.json" file: ${filePathOrDirPathOrRecord}`
+      : `Failed to parse the "${fieldName}" field as a string in a "package.json" file.`,
+  );
 
   return field;
 }
@@ -150,7 +150,9 @@ export async function getPackageJSONFieldMandatory(
   const field = await getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
   assertDefined(
     field,
-    `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+    typeof filePathOrDirPathOrRecord === "string"
+      ? `Failed to find the "${fieldName}" field in a "package.json" file: ${filePathOrDirPathOrRecord}`
+      : `Failed to find the "${fieldName}" field in a "package.json" file.`,
   );
   return field;
 }
@@ -180,7 +182,7 @@ export async function getPackageJSONFieldsMandatory<T extends string>(
     const field = await getPackageJSONField(packageJSON, fieldName);
     assertDefined(
       field,
-      `Failed to find the "${fieldName}" field in a "${PACKAGE_JSON}" file.`,
+      `Failed to find the "${fieldName}" field in a "package.json" file: ${filePathOrDirPath}`,
     );
 
     fields[fieldName] = field;
@@ -215,26 +217,20 @@ export async function getPackageJSONScripts(
     return undefined;
   }
 
-  if (!isObject(scripts)) {
-    if (typeof filePathOrDirPathOrRecord === "string") {
-      // eslint-disable-next-line unicorn/prefer-type-error
-      throw new Error(
-        `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
-      );
-    }
-
-    throw new Error(
-      `Failed to parse the "scripts" field in a "${PACKAGE_JSON}" file.`,
-    );
-  }
+  assertObject(
+    scripts,
+    typeof filePathOrDirPathOrRecord === "string"
+      ? `Failed to parse the "scripts" field as an object in a "package.json" file: ${filePathOrDirPathOrRecord}`
+      : 'Failed to parse the "scripts" field as an object in a "package.json" file.',
+  );
 
   for (const [key, value] of Object.entries(scripts)) {
-    if (typeof value !== "string") {
-      // eslint-disable-next-line unicorn/prefer-type-error
-      throw new Error(
-        `Failed to parse the "${key}" script in the "${PACKAGE_JSON}" file.`,
-      );
-    }
+    assertString(
+      value,
+      typeof filePathOrDirPathOrRecord === "string"
+        ? `Failed to parse the "scripts" --> "${key}" field as a string in a "package.json" file: ${filePathOrDirPathOrRecord}.`
+        : `Failed to parse the "scripts" --> "${key}" field as a string in a "package.json" file.`,
+    );
   }
 
   return scripts as Record<string, string>;
@@ -264,17 +260,12 @@ export async function getPackageJSONVersion(
     "version",
   );
 
-  if (version === undefined) {
-    if (typeof filePathOrDirPathOrRecord === "string") {
-      throw new TypeError(
-        `Failed to parse the "version" field in a "${PACKAGE_JSON}" file from: ${filePathOrDirPathOrRecord}`,
-      );
-    }
-
-    throw new TypeError(
-      `Failed to parse the "version" field in a "${PACKAGE_JSON}" file.`,
-    );
-  }
+  assertDefined(
+    version,
+    typeof filePathOrDirPathOrRecord === "string"
+      ? `Failed to find the "version" field in a "package.json" file: ${filePathOrDirPathOrRecord}`
+      : 'Failed to find the "version" field in a "package.json" file.',
+  );
 
   return version;
 }

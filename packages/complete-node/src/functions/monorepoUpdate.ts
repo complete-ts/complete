@@ -5,7 +5,7 @@
  */
 
 import type { ReadonlyRecord } from "complete-common";
-import { assertDefined, isObject } from "complete-common";
+import { assertDefined, assertString, isObject } from "complete-common";
 import path from "node:path";
 import { isFile } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
@@ -149,11 +149,10 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
       }
 
       for (const [depName, depVersion] of Object.entries(childDependencies)) {
-        if (typeof depVersion !== "string") {
-          throw new TypeError(
-            `Failed to parse the value of the dependency of: ${childPackageName} --> ${depName}`,
-          );
-        }
+        assertString(
+          depVersion,
+          `The child package dependency value of "${childPackageName} --> ${depName}" is not a string.`,
+        );
 
         if (depVersion.startsWith("^")) {
           throw new Error(
@@ -166,11 +165,10 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
           // This is not a monorepo package, so we have to look for the correct version in the root
           // monorepo "package.json" file.
           const monorepoVersion = monorepoDependencies[depName];
-          if (typeof monorepoVersion !== "string") {
-            throw new TypeError(
-              `Failed to find the monorepo dependency of "${depName}" for package "${childPackageName}".`,
-            );
-          }
+          assertString(
+            monorepoVersion,
+            `The monorepo package dependency of "${depName}" is not a string.`,
+          );
 
           if (depVersion !== monorepoVersion) {
             valid = false;
@@ -194,11 +192,10 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
           // This is a monorepo package, so we have to look for the correct version in the
           // individual package's "package.json" file.
           const correctVersion = otherPackageJSON["version"];
-          if (typeof correctVersion !== "string") {
-            throw new TypeError(
-              `Failed to parse the version for package: ${depName}`,
-            );
-          }
+          assertString(
+            correctVersion,
+            `The "version" property of the "${depName}" package is not a string.`,
+          );
 
           if (depVersion !== correctVersion) {
             valid = false;

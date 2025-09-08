@@ -2,7 +2,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import fs from "node:fs";
 import path from "node:path";
 import type { ReadonlyRecord } from "./completeCommon.js";
-import { isObject } from "./completeCommon.js";
+import { assertString, isObject } from "./completeCommon.js";
 import { configs } from "./configs.js";
 import { rules } from "./rules.js";
 
@@ -47,19 +47,17 @@ function getPackageJSONNameAndVersion() {
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const { name } = packageJSON;
-  if (typeof name !== "string") {
-    throw new TypeError(
-      'Failed to parse the "name" property of the "package.json" file.',
-    );
-  }
+  assertString(
+    name,
+    `Failed to parse the "name" property of the "package.json" file as a string: ${packageJSONPath}`,
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const { version } = packageJSON;
-  if (typeof version !== "string") {
-    throw new TypeError(
-      'Failed to parse the "version" property of the "package.json" file.',
-    );
-  }
+  assertString(
+    version,
+    `Failed to parse the "version" property of the "package.json" file as a string: ${packageJSONPath}`,
+  );
 
   return { name, version };
 }
@@ -67,14 +65,8 @@ function getPackageJSONNameAndVersion() {
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
 function addPluginToConfigs(
   configsToMutate: ReadonlyRecord<string, TSESLint.FlatConfig.Config[]>,
-  packageName: unknown,
+  packageName: string,
 ) {
-  if (typeof packageName !== "string") {
-    throw new TypeError(
-      'Failed to parse the plugin name from the "package.json" file.',
-    );
-  }
-
   const packageNameWords = packageName.split("-");
   const pluginName = packageNameWords.at(-1);
   if (pluginName === undefined || pluginName === "") {
