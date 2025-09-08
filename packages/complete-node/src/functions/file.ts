@@ -427,7 +427,9 @@ export async function renameFileExtensions(
 }
 
 /**
- * Helper function to asynchronously rename a file.
+ * Helper function to asynchronously rename a file. Since renames are not allowed across file system
+ * boundaries, this will automatically handle that case by performing a copy and delete operation
+ * instead.
  *
  * @throws If the file cannot be renamed.
  */
@@ -438,9 +440,24 @@ export async function renameFileOrDirectory(
   try {
     await fs.rename(srcPath, dstPath);
   } catch (error) {
-    throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, {
-      cause: error,
-    });
+    // https://stackoverflow.com/questions/43206198/what-does-the-exdev-cross-device-link-not-permitted-error-mean
+    if (error instanceof Error && "code" in error && error.code === "EXDEV") {
+      try {
+        await fs.copyFile(srcPath, dstPath);
+        await fs.unlink(srcPath);
+      } catch (copyError) {
+        throw new Error(
+          `Failed to rename "${srcPath}" to "${dstPath}" across a file system boundary.`,
+          {
+            cause: copyError,
+          },
+        );
+      }
+    } else {
+      throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, {
+        cause: error,
+      });
+    }
   }
 }
 
