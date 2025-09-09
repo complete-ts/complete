@@ -121,9 +121,10 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 );
 
 if (
-  ESLintPluginJSDoc.configs["recommended"] === undefined
-  || !("rules" in ESLintPluginJSDoc.configs["recommended"])
-  || !isObject(ESLintPluginJSDoc.configs["recommended"].rules)
+  !isObject(ESLintPluginJSDoc)
+  || !isObject(ESLintPluginJSDoc["configs"])
+  || !isObject(ESLintPluginJSDoc["configs"]["recommended"])
+  || !isObject(ESLintPluginJSDoc["configs"]["recommended"]["rules"])
 ) {
   throw new Error(
     'Failed to find the "rules" property in the following plugin: eslint-plugin-jsdoc',
@@ -131,7 +132,7 @@ if (
 }
 
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginJSDoc.configs["recommended"].rules),
+  Object.keys(ESLintPluginJSDoc["configs"]["recommended"]["rules"]),
 );
 
 assertDefined(
