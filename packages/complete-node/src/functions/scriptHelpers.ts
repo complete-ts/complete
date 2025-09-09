@@ -168,7 +168,7 @@ export function printSuccess(
  * ```ts
  * import { lintScript, standardLintFunction } from "complete-node";
  *
- * await lintScript(standardLintFunction);
+ * await lintScript(import.meta.dirname, standardLintFunction);
  * ```
  *
  * See [the official docs](/complete-lint#step-5---create-a-lint-script) for what specific checks

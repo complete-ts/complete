@@ -7,7 +7,7 @@
 
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
-await lintScript(async (packageRoot) => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,

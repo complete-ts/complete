@@ -152,7 +152,7 @@ At this point, we should be able to see squiggly lines when errors happen, makin
 ```ts
 import { $, lintScript } from "complete-node";
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async () => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
@@ -191,7 +191,7 @@ Or, if you want to abstract this away, you can simplify the script by using a he
 ```ts
 import { lintScript, standardLintFunction } from "complete-node";
 
-await lintScript(standardLintFunction);
+await lintScript(import.meta.dirname, standardLintFunction);
 ```
 
 Additionally, you can also optionally put the script in your "package.json" file:
