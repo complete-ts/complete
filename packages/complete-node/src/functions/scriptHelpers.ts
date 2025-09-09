@@ -101,13 +101,12 @@ export async function script(
   const verbose = includesAny(args, "verbose", "--verbose", "-v");
 
   if (packageRoot === undefined) {
-    const newUpStackBy = upStackBy + 1;
     if (verbose) {
       console.log(
-        `Attempting to find the package root with an "upStackBy" of: ${newUpStackBy}`,
+        `Attempting to find the package root with an "upStackBy" of: ${upStackBy}`,
       );
     }
-    packageRoot = await getPackageRoot(newUpStackBy, verbose); // eslint-disable-line no-param-reassign
+    packageRoot = await getPackageRoot(upStackBy, verbose); // eslint-disable-line no-param-reassign
   }
 
   process.chdir(packageRoot);
