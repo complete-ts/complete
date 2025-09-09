@@ -9,6 +9,7 @@
 
   "compilerOptions": {
     // Needed since this is a library.
+    // (Source maps are not needed since this package is written in JavaScript.)
     "declaration": true,
     "declarationMap": true,
   },
