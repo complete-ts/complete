@@ -6,7 +6,6 @@
 
 import chalk from "chalk";
 import { diffLines } from "diff";
-import { getCallingFunction } from "./stack.js";
 
 /**
  * Helper function to print the differences between two strings. Similar to the `diff` Unix program.
@@ -50,9 +49,8 @@ export function getArgs(): readonly string[] {
  * Under the hood, this checks to see if the file path of the calling function is equal to
  * `process.argv[1]`.
  *
- * @param verbose Optional. Shows all of the stack frames. Default is false.
+ * @param importMetaFilename The value of `import.meta.filename`.
  */
-export function isMain(verbose = false): boolean {
-  const { filePath } = getCallingFunction(undefined, verbose);
-  return filePath === process.argv[1];
+export function isMain(importMetaFilename: string): boolean {
+  return importMetaFilename === process.argv[1];
 }

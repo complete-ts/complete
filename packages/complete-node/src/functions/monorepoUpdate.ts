@@ -48,7 +48,8 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 export async function lintMonorepoPackageJSONs(
   monorepoRoot?: string,
 ): Promise<void> {
-  monorepoRoot ??= await getPackageRoot(2); // eslint-disable-line no-param-reassign
+  monorepoRoot ??= await getPackageRoot(2, true); // eslint-disable-line no-param-reassign
+  console.log("XXX monorepoRoot:", monorepoRoot);
 
   const valid = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
