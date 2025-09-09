@@ -1,5 +1,5 @@
 import { deepStrictEqual, strictEqual } from "node:assert";
-import test, { describe } from "node:test";
+import { describe, test } from "node:test";
 import { assertDefined, assertNotNull } from "./assert.js";
 import { eRange, iRange, parseFloatSafe, parseIntSafe } from "./utils.js";
 
