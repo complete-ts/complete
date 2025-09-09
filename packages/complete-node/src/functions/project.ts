@@ -22,7 +22,7 @@ export async function getPackageRoot(
   upStackBy = 1,
   verbose = false,
 ): Promise<string> {
-  const { filePath } = getCallingFunction(upStackBy, verbose);
+  const { filePath } = getCallingFunction(upStackBy + 1, verbose);
 
   const cwd = path.dirname(filePath);
   const projectRoot = await packageDirectory({ cwd });
