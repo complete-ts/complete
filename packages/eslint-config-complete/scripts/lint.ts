@@ -2,7 +2,7 @@ import { $, lintScript, readFile } from "complete-node";
 import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 
-await lintScript(async (packageRoot) => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   await Promise.all([
     $`tsc --noEmit`,
     $`tsc --noEmit --project ./scripts/tsconfig.json`,

@@ -18,7 +18,7 @@ import path from "node:path";
 
 const CATEGORY_FILE_NAME = "_category_.yml";
 
-await buildScript(async (packageRoot) => {
+await buildScript(import.meta.dirname, async (packageRoot) => {
   const repoRoot = path.resolve(packageRoot, "..", "..");
 
   // Get rid of all previous build output.

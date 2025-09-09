@@ -1,6 +1,6 @@
 import { $, buildScript, fixMonorepoPackageDistDirectory } from "complete-node";
 
-await buildScript(async (packageRoot) => {
+await buildScript(import.meta.dirname, async (packageRoot) => {
   await $`tsc`;
   await fixMonorepoPackageDistDirectory(packageRoot);
 

@@ -1,22 +1,15 @@
-// @template-customization-start
-
 // This script lints the monorepo. It does not run the lint scripts for each individual package. For
 // that, use the "lintAll.ts" script.
 
-// @template-customization-end
-
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
-    // @template-ignore-next-line
-    /// $`tsc --noEmit --project ./scripts/tsconfig.json`,
 
     // Use ESLint to lint the TypeScript code.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    // @template-ignore-next-line
     $`eslint --max-warnings 0 scripts *.js *.mjs`, // We have to exclude the packages directory.
 
     // Use Prettier to check formatting.
@@ -38,16 +31,11 @@ await lintScript(async () => {
     $`cspell-check-unused-words`,
 
     // Check for template updates.
-    // @template-ignore-next-line
-    $`tsx ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,tsconfig.json`,
-
-    // @template-customization-start
+    $`tsx ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json`,
 
     // Check to see if the child "package.json" files are up to date.
-    lintMonorepoPackageJSONs(),
+    lintMonorepoPackageJSONs(packageRoot),
 
     $`markdownlint .`,
-
-    // @template-customization-end
   ]);
 });

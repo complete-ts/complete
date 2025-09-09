@@ -219,7 +219,7 @@ const PARENT_CONFIG_LINKS = {
 
 // -------------------------------------------------------------------------------------------------
 
-if (isMain()) {
+if (isMain(import.meta.dirname)) {
   await setReadmeRules(false);
 }
 

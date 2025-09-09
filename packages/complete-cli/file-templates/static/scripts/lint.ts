@@ -1,6 +1,6 @@
 import { $, lintScript } from "complete-node";
 
-await lintScript(async () => {
+await lintScript(import.meta.dirname, async () => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,

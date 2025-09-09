@@ -9,7 +9,6 @@ import path from "node:path";
 import { $, $o, $q } from "./execa.js";
 import { isFile } from "./file.js";
 import { getPackageJSON } from "./packageJSON.js";
-import { getPackageRoot } from "./project.js";
 
 /**
  * Helper function to see if the compiled output that is checked-in to the Git repository is
@@ -44,17 +43,12 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  *
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
- * @param packageRoot Optional. The path to the root of the package. If not specified, it will be
- *                    automatically determined based on the file path of the calling function.
- * @param verbose Optional. Shows all of the stack frames. Default is false.
+ * @param packageRoot The path to the root of the package.
  * @see https://bun.sh/docs/bundler/executables
  */
 export async function compileToSingleFileWithBun(
-  packageRoot?: string,
-  verbose = false,
+  packageRoot: string,
 ): Promise<void> {
-  packageRoot ??= await getPackageRoot(2, verbose); // eslint-disable-line no-param-reassign
-
   const packageJSONPath = path.join(packageRoot, "package.json");
   const packageJSONExists = await isFile(packageJSONPath);
   if (!packageJSONExists) {
