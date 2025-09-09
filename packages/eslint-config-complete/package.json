@@ -51,7 +51,7 @@
     "@types/eslint-config-prettier": "6.11.3",
     "@types/node": "24.3.1",
     "complete-common": "2.5.0",
-    "complete-node": "9.3.2",
+    "complete-node": "9.3.3",
     "eslint-config-prettier": "10.1.8",
     "extract-comments": "1.1.0",
     "typescript": "5.9.2"
