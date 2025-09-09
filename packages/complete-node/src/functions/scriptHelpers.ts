@@ -6,12 +6,17 @@
 
 /* eslint-disable sort-exports/sort-exports */
 
-import { getElapsedSeconds, includesAny, isObject } from "complete-common";
+import {
+  assertDefined,
+  getElapsedSeconds,
+  includesAny,
+  isObject,
+} from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
 import path from "node:path";
+import { packageDirectory } from "package-directory";
 import { $ } from "./execa.js";
 import { deleteFileOrDirectory } from "./file.js";
-import { getPackageRoot } from "./project.js";
 import { getArgs } from "./utils.js";
 
 /**
@@ -29,31 +34,31 @@ export type ScriptCallback = (
  * For more information, see the documentation for the `script` helper function.
  */
 export async function buildScript(
+  importMetaDirname: string,
   func: ScriptCallback,
-  packageRoot?: string,
 ): Promise<void> {
-  const buildFunc: ScriptCallback = async (packageRootParam) => {
+  const buildFunc: ScriptCallback = async (packageRoot) => {
     await deleteFileOrDirectory("dist");
-    await func(packageRootParam);
+    await func(packageRoot);
   };
 
-  await script(buildFunc, "built", 2, packageRoot);
+  await script(importMetaDirname, buildFunc, "built");
 }
 
 /** See the documentation for the `script` helper function. */
 export async function lintScript(
+  importMetaDirname: string,
   func: ScriptCallback,
-  packageRoot?: string,
 ): Promise<void> {
-  await script(func, "linted", 2, packageRoot);
+  await script(importMetaDirname, func, "linted");
 }
 
 /** See the documentation for the `script` helper function. */
 export async function testScript(
+  importMetaDirname: string,
   func: ScriptCallback,
-  packageRoot?: string,
 ): Promise<void> {
-  await script(func, "tested", 2, packageRoot);
+  await script(importMetaDirname, func, "tested");
 }
 
 /**
@@ -72,21 +77,15 @@ export async function testScript(
  * 3. Print a success message with the total amount of seconds taken (if a verb was provided and
  *    there is not a quiet/silent flag).
  *
+ * @param importMetaDirname The value of `import.meta.dirname`.
  * @param func The function that contains the build logic for the particular script. This is passed
  *             the path to the package root. (See the `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
- * @param upStackBy Optional. The number of functions to rewind in the calling stack before
- *                  attempting to find the closest "package.json" file. Default is 1.
- * @param packageRoot Optional. The directory path of the package root. In most cases, this does not
- *                    need to be specified and will be automatically inferred based on the directory
- *                    of the file of the calling function. If specified, the `upStackBy` parameter
- *                    will not be used.
  */
 export async function script(
+  importMetaDirname: string,
   func: ScriptCallback,
   verb?: string,
-  upStackBy = 1,
-  packageRoot?: string,
 ): Promise<void> {
   const args = getArgs();
   const quiet = includesAny(
@@ -100,14 +99,11 @@ export async function script(
   );
   const verbose = includesAny(args, "verbose", "--verbose", "-v");
 
-  if (packageRoot === undefined) {
-    if (verbose) {
-      console.log(
-        `Attempting to find the package root with an "upStackBy" of: ${upStackBy}`,
-      );
-    }
-    packageRoot = await getPackageRoot(upStackBy, verbose); // eslint-disable-line no-param-reassign
-  }
+  const packageRoot = await packageDirectory({ cwd: importMetaDirname });
+  assertDefined(
+    packageRoot,
+    `Failed to find the package root from the directory of: ${packageRoot}`,
+  );
 
   process.chdir(packageRoot);
   if (verbose) {

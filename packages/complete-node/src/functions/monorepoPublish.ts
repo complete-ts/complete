@@ -6,11 +6,13 @@
 
 import chalk from "chalk";
 import {
+  assertDefined,
   getElapsedSeconds,
   isEnumValue,
   isSemanticVersion,
 } from "complete-common";
 import path from "node:path";
+import { packageDirectory } from "package-directory";
 import { $, $o } from "./execa.js";
 import { isDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
@@ -20,7 +22,6 @@ import {
 } from "./monorepoUpdate.js";
 import { isLoggedInToNPM } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
-import { getPackageRoot } from "./project.js";
 import { getArgs } from "./utils.js";
 
 enum VersionBump {
@@ -36,20 +37,27 @@ enum VersionBump {
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
+ * @param importMetaDirname The value of `import.meta.dirname`.
  * @param updateMonorepo Optional. Attempt to update the monorepo dependencies after the publish is
  *                       completed. Defaults to true.
  */
-export async function monorepoPublish(updateMonorepo = true): Promise<void> {
-  const monorepoRoot = await getPackageRoot(2);
+export async function monorepoPublish(
+  importMetaDirname: string,
+  updateMonorepo = true,
+): Promise<void> {
+  const monorepoRoot = await packageDirectory({ cwd: importMetaDirname });
+  assertDefined(
+    monorepoRoot,
+    `Failed to find the package root from the directory of: ${monorepoRoot}`,
+  );
 
   process.chdir(monorepoRoot);
-
   const startTime = Date.now();
 
   // Validate command-line arguments
   const args = getArgs();
+  const [packageName, versionBump] = args;
 
-  const packageName = args[0];
   if (packageName === undefined || packageName === "") {
     console.error("Error: The package name is required as an argument.");
     process.exit(1);
@@ -62,7 +70,6 @@ export async function monorepoPublish(updateMonorepo = true): Promise<void> {
     process.exit(1);
   }
 
-  const versionBump = args[1];
   if (versionBump === undefined || versionBump === "") {
     console.error(
       "Error: The type of version bump is required as an argument.",

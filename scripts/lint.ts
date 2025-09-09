@@ -7,7 +7,7 @@
 
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 
-await lintScript(async () => {
+await lintScript(async (packageRoot) => {
   await Promise.all([
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
@@ -44,7 +44,7 @@ await lintScript(async () => {
     // @template-customization-start
 
     // Check to see if the child "package.json" files are up to date.
-    lintMonorepoPackageJSONs(),
+    lintMonorepoPackageJSONs(packageRoot),
 
     $`markdownlint .`,
 

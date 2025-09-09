@@ -52,5 +52,6 @@ export function getArgs(): readonly string[] {
  * @param importMetaFilename The value of `import.meta.filename`.
  */
 export function isMain(importMetaFilename: string): boolean {
+  // `import.meta.filename` does not have a "file:" prefix, so we can compare it directly.
   return importMetaFilename === process.argv[1];
 }

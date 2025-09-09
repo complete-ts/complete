@@ -1,8 +1,9 @@
+import { assertDefined } from "complete-common";
 import dotenv from "dotenv";
 import path from "node:path";
+import { packageDirectory } from "package-directory";
 import type { z } from "zod";
 import { isFile } from "./file.js";
-import { getPackageRoot } from "./project.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
@@ -16,7 +17,7 @@ import { getPackageRoot } from "./project.js";
  *   DOMAIN: z.string().min(1).default("localhost"),
  * });
  *
- * export const env = await getEnv(envSchema);
+ * export const env = await getEnv(import.meta.dirname, envSchema);
  * ```
  *
  * This function contains logic to convert empty strings to `undefined` so that Zod default values
@@ -24,16 +25,24 @@ import { getPackageRoot } from "./project.js";
  *
  * Under the hood, this uses the `dotenv` library to get the environment variables from the ".env"
  * file.
+ *
+ * @param importMetaDirname The value of `import.meta.dirname`.
+ * @param envSchema The Zod schema to use.
  */
 // We use `z.infer<T>` instead of `z.objectOutputType<A, C, B>` to avoid the following error: Type
 // instantiation is excessively deep and possibly infinite.ts(2589)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getEnv<T extends z.ZodObject<any>>(
+  importMetaDirname: string,
   envSchema: T,
 ): Promise<z.infer<T>> {
-  const packageRoot = await getPackageRoot(2);
-  const envPath = path.join(packageRoot, ".env");
+  const packageRoot = await packageDirectory({ cwd: importMetaDirname });
+  assertDefined(
+    packageRoot,
+    `Failed to find the package root from the directory of: ${packageRoot}`,
+  );
 
+  const envPath = path.join(packageRoot, ".env");
   const envExists = await isFile(envPath);
   if (!envExists) {
     throw new Error(

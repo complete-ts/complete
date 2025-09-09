@@ -7,10 +7,10 @@
 import type { ReadonlyRecord } from "complete-common";
 import { assertDefined, assertString, isObject } from "complete-common";
 import path from "node:path";
+import { packageDirectory } from "package-directory";
 import { isFile } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
 import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
-import { getPackageRoot } from "./project.js";
 import { writeFile } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
@@ -42,15 +42,10 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  *
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
- *
- * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
  */
 export async function lintMonorepoPackageJSONs(
-  monorepoRoot?: string,
+  monorepoRoot: string,
 ): Promise<void> {
-  monorepoRoot ??= await getPackageRoot(2, true); // eslint-disable-line no-param-reassign
-  console.log("XXX monorepoRoot:", monorepoRoot);
-
   const valid = await updatePackageJSONDependenciesMonorepoChildren(
     monorepoRoot,
     true,
@@ -75,13 +70,17 @@ export async function lintMonorepoPackageJSONs(
  * If you need to check to see if the monorepo dependencies are up to date in a lint script, then
  * use the `lintMonorepoPackageJSONs` function instead.
  *
- * @param monorepoRoot Optional. If specified, automatic monorepo root detection will be skipped.
+ * @param importMetaDirname The value of `import.meta.dirname`.
  * @returns Whether any "package.json" files were changed.
  */
 export async function updatePackageJSONDependenciesMonorepo(
-  monorepoRoot?: string,
+  importMetaDirname: string,
 ): Promise<boolean> {
-  monorepoRoot ??= await getPackageRoot(2); // eslint-disable-line no-param-reassign
+  const monorepoRoot = await packageDirectory({ cwd: importMetaDirname });
+  assertDefined(
+    monorepoRoot,
+    `Failed to find the package root from the directory of: ${monorepoRoot}`,
+  );
 
   // First, update the main "package.json" at the root of the monorepo.
   const monorepoPackageJSONChanged =
