@@ -120,19 +120,13 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginImportX.configs.recommended.rules),
 );
 
-if (
-  !isObject(ESLintPluginJSDoc)
-  || !isObject(ESLintPluginJSDoc["configs"])
-  || !isObject(ESLintPluginJSDoc["configs"]["recommended"])
-  || !isObject(ESLintPluginJSDoc["configs"]["recommended"]["rules"])
-) {
-  throw new Error(
-    'Failed to find the "rules" property in the following plugin: eslint-plugin-jsdoc',
-  );
-}
+assertDefined(
+  ESLintPluginJSDoc.configs["flat/recommended"].rules,
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-jsdoc",
+);
 
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginJSDoc["configs"]["recommended"]["rules"]),
+  Object.keys(ESLintPluginJSDoc.configs["flat/recommended"].rules),
 );
 
 assertDefined(
