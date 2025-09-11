@@ -37,7 +37,7 @@ export const completeConfigBase = defineConfig(
   {
     // By default, ESLint ignores "**/node_modules/" and ".git/":
     // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
-    // We also ignore want to ignore:
+    // We also want to ignore:
     // - The "dist" directory, since it is the idiomatic place for compiled output in TypeScript.
     // - Minified JavaScript files.
     ignores: ["**/dist/", "*.min.js"],
