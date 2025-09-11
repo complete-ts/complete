@@ -48,7 +48,11 @@ export const basePackageJSON = defineConfig({
     /** Disabled since not all projects have `dependencies`. */
     "package-json/require-dependencies": "off",
 
-    "package-json/require-description": "warn",
+    /**
+     * Disabled since it is only needed for public npm packages, which is too specific for this
+     * config. (It is superfluous as long as a "README.md" file exists.)
+     */
+    "package-json/require-description": "off",
 
     /** Disabled since not all projects have `devDependencies`. */
     "package-json/require-devDependencies": "off",
