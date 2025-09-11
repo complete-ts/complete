@@ -1,23 +1,10 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import { kebabCaseToCamelCase } from "complete-common";
-import { format, resolveConfig } from "prettier";
-import { PLUGIN_NAME, REPO_ROOT } from "./constants.js";
+import { PLUGIN_NAME } from "./constants.js";
 
 export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
 
 const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
-
-export async function formatWithPrettier(
-  text: string,
-  language: "typescript" | "markdown",
-): Promise<string> {
-  const prettierConfig = await resolveConfig(REPO_ROOT);
-
-  return await format(text, {
-    parser: language,
-    ...prettierConfig,
-  });
-}
 
 export async function getRuleEntries(): Promise<
   ReadonlyArray<[string, RuleDefinition]>
