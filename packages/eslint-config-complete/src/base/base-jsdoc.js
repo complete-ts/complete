@@ -252,6 +252,8 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/text-escaping": "off",
 
+      "jsdoc/type-formatting": "warn",
+
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/valid-types": "off",
     },

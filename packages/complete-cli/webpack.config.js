@@ -5,7 +5,7 @@ import path from "node:path";
 import TSConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
 import WebpackShebangPlugin from "webpack-shebang-plugin";
 
-/** @type { import('webpack').Configuration } */
+/** @type {import('webpack').Configuration} */
 const config = {
   entry: "./src/main.ts",
   output: {
