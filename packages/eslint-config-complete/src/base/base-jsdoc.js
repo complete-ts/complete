@@ -171,6 +171,10 @@ export const baseJSDoc = defineConfig(
       /** Disabled since it is overboard for every function to have a JSDoc comment. */
       "jsdoc/require-jsdoc": "off",
 
+      "jsdoc/require-next-type": "warn",
+      "jsdoc/require-throws-type": "warn",
+      "jsdoc/require-yields-type": "warn",
+
       /** Configured to only apply when there are one or more parameters. */
       "jsdoc/require-param": [
         "warn",
