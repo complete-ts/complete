@@ -70,7 +70,8 @@ export async function lintMonorepoPackageJSONs(
  * If you need to check to see if the monorepo dependencies are up to date in a lint script, then
  * use the `lintMonorepoPackageJSONs` function instead.
  *
- * @param importMetaDirname The value of `import.meta.dirname`.
+ * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
+ *                          package root).
  * @returns Whether any "package.json" files were changed.
  */
 export async function updatePackageJSONDependenciesMonorepo(

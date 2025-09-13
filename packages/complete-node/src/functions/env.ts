@@ -2,40 +2,24 @@ import { assertDefined } from "complete-common";
 import dotenv from "dotenv";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
-import type { z } from "zod";
 import { isFile } from "./file.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
- * project's "package.json" file (i.e. at the root of the project repository).
+ * project's "package.json" file (i.e. at the root of the project repository) and inject them into
+ * the `process.env` object.
  *
- * You must provide the Zod schema of the ".env" file. The contents of the file will be parsed and
- * validated with Zod. For example:
- *
- * ```ts
- * const envSchema = z.object({
- *   DOMAIN: z.string().min(1).default("localhost"),
- * });
- *
- * export const env = await getEnv(import.meta.dirname, envSchema);
- * ```
- *
- * This function contains logic to convert empty strings to `undefined` so that Zod default values
- * can work correctly.
+ * Typically, once you have used this function, you would validate the `process.env` object with a
+ * Zod schema. This function contains logic to convert environment variables that are empty strings
+ * to `undefined` so that Zod default values can work correctly.
  *
  * Under the hood, this uses the `dotenv` library to get the environment variables from the ".env"
  * file.
  *
- * @param importMetaDirname The value of `import.meta.dirname`.
- * @param envSchema The Zod schema to use.
+ * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
+ *                          package root).
  */
-// We use `z.infer<T>` instead of `z.objectOutputType<A, C, B>` to avoid the following error: Type
-// instantiation is excessively deep and possibly infinite.ts(2589)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getEnv<T extends z.ZodObject<any>>(
-  importMetaDirname: string,
-  envSchema: T,
-): Promise<z.infer<T>> {
+export async function getEnv(importMetaDirname: string): Promise<void> {
   const packageRoot = await packageDirectory({ cwd: importMetaDirname });
   assertDefined(
     packageRoot,
@@ -66,12 +50,4 @@ export async function getEnv<T extends z.ZodObject<any>>(
       delete process.env[key]; // eslint-disable-line @typescript-eslint/no-dynamic-delete
     }
   }
-
-  const result = envSchema.safeParse(process.env);
-  if (!result.success) {
-    console.error(`Failed to parse the file: ${envPath}`);
-    throw result.error;
-  }
-
-  return result.data;
 }

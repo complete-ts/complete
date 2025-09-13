@@ -37,7 +37,8 @@ enum VersionBump {
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
- * @param importMetaDirname The value of `import.meta.dirname`.
+ * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
+ *                          package root).
  * @param updateMonorepo Optional. Attempt to update the monorepo dependencies after the publish is
  *                       completed. Defaults to true.
  */

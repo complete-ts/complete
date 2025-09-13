@@ -77,7 +77,8 @@ export async function testScript(
  * 3. Print a success message with the total amount of seconds taken (if a verb was provided and
  *    there is not a quiet/silent flag).
  *
- * @param importMetaDirname The value of `import.meta.dirname`.
+ * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
+ *                          package root).
  * @param func The function that contains the build logic for the particular script. This is passed
  *             the path to the package root. (See the `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
