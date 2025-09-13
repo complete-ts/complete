@@ -172,7 +172,13 @@ export const baseJSDoc = defineConfig(
       "jsdoc/require-jsdoc": "off",
 
       "jsdoc/require-next-type": "warn",
-      "jsdoc/require-throws-type": "warn",
+
+      /**
+       * Disabled since in most cases, the type of a thrown error will simply be `Error`, making the
+       * annotation superfluous.
+       */
+      "jsdoc/require-throws-type": "off",
+
       "jsdoc/require-yields-type": "warn",
 
       /** Configured to only apply when there are one or more parameters. */

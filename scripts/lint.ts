@@ -1,5 +1,5 @@
 // This script lints the monorepo. It does not run the lint scripts for each individual package. For
-// that, use the "lintAll.ts" script.
+// that, use the "lint-all.ts" script.
 
 import { $, lintMonorepoPackageJSONs, lintScript } from "complete-node";
 

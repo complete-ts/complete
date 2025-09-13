@@ -16,7 +16,7 @@
   "scripts": {
     "postinstall": "tsx ./packages/eslint-plugin-complete/scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
-    "lint-all": "tsx ./scripts/lintAll.ts",
+    "lint-all": "tsx ./scripts/lint-all.ts",
     "prepare": "husky",
     "publish": "tsx ./scripts/publish.ts",
     "update": "tsx ./scripts/update.ts"
@@ -64,7 +64,7 @@
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-eslint-plugin": "7.0.0",
     "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-jsdoc": "57.0.0",
+    "eslint-plugin-jsdoc": "57.0.2",
     "eslint-plugin-n": "17.21.3",
     "eslint-plugin-package-json": "0.56.2",
     "eslint-plugin-sort-exports": "0.9.1",
