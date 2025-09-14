@@ -1,14 +1,24 @@
 import chalk from "chalk";
-import { deleteFileOrDirectory, isDirectory, isFile } from "complete-node";
+import {
+  deleteFileOrDirectory,
+  exists,
+  isDirectory,
+  isFile,
+} from "complete-node";
 import { CWD } from "../../constants.js";
 import { getInputYesNo, promptEnd, promptLog } from "../../prompt.js";
 
-/** @throws If the project path is not a file or a directory. */
+/** @throws If the project path exists and is not a file or a directory. */
 export async function checkIfProjectPathExists(
   projectPath: string,
   yes: boolean,
 ): Promise<void> {
   if (projectPath === CWD) {
+    return;
+  }
+
+  const projectPathExists = await exists(projectPath);
+  if (!projectPathExists) {
     return;
   }
 
