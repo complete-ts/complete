@@ -13,16 +13,6 @@ export type ReadonlyRecord<K extends string | number | symbol, V> = Readonly<
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 
-/** Helper function to throw an error if the provided value is not a string. */
-export function assertString(
-  value: unknown,
-  msg: string,
-): asserts value is string {
-  if (typeof value !== "string") {
-    throw new TypeError(msg);
-  }
-}
-
 /**
  * Helper function to throw an error if the provided value is equal to `undefined`.
  *
@@ -59,22 +49,6 @@ export function capitalizeFirstLetter(string: string): string {
  */
 export function isFirstLetterCapitalized(string: string): boolean {
   return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
-}
-
-/**
- * Helper function to narrow an unknown value to an object (i.e. a TypeScript record).
- *
- * Under the hood, this checks for `typeof variable === "object"`, `variable !== null`, and
- * `!Array.isArray(variable)`.
- */
-export function isObject(
-  variable: unknown,
-): variable is Record<string, unknown> {
-  return (
-    typeof variable === "object"
-    && variable !== null
-    && !Array.isArray(variable)
-  );
 }
 
 /**
