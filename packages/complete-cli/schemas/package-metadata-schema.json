@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "package-metadata.json",
+  "description": "JSON schema for the package-metadata.json file used by complete-cli.",
+  "definitions": {
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "An explanation of why the dependency is needed."
+        },
+        "lock-version": {
+          "type": "boolean",
+          "description": "If this dependency should not be updated to the latest version on npm."
+        },
+        "lock-reason": {
+          "type": "string",
+          "description": "If this dependency is locked, then an explanation of why it cannot be updated to the latest version on npm."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The JSON schema to use."
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/dependencies"
+      }
+    },
+    "devDependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/dependencies"
+      }
+    },
+    "peerDependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/dependencies"
+      }
+    }
+  },
+  "additionalProperties": false
+}
