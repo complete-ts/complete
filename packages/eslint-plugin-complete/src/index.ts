@@ -1,12 +1,10 @@
 import type { TSESLint } from "@typescript-eslint/utils";
-import fs from "node:fs";
-import path from "node:path";
+import packageJSON from "../package.json" with { type: "json" };
 import type { ReadonlyRecord } from "./completeCommon.js";
-import { assertString, isObject } from "./completeCommon.js";
 import { configs } from "./configs.js";
 import { rules } from "./rules.js";
 
-const { name, version } = getPackageJSONNameAndVersion();
+const { name, version } = packageJSON;
 
 const plugin = {
   meta: {
@@ -22,45 +20,6 @@ addPluginToConfigs(configs, name);
 // ESLint plugins must provide a default export by design.
 // eslint-disable-next-line
 export default plugin;
-
-/**
- * We parse the package JSON manually since importing JSON files directly in Node is experimental.
- */
-function getPackageJSONNameAndVersion() {
-  const packageRoot = path.resolve(import.meta.dirname, "..");
-  const packageJSONPath = path.join(packageRoot, "package.json");
-  let packageJSON: unknown;
-  try {
-    const packageJSONString = fs.readFileSync(packageJSONPath, "utf8");
-    packageJSON = JSON.parse(packageJSONString);
-  } catch (error) {
-    throw new Error(`Failed to read the file: ${packageJSONPath}`, {
-      cause: error,
-    });
-  }
-
-  if (!isObject(packageJSON)) {
-    throw new Error(
-      `Failed to parse the "${packageJSONPath}" file since it was not an object.`,
-    );
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { name } = packageJSON;
-  assertString(
-    name,
-    `Failed to parse the "name" property of the "package.json" file as a string: ${packageJSONPath}`,
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { version } = packageJSON;
-  assertString(
-    version,
-    `Failed to parse the "version" property of the "package.json" file as a string: ${packageJSONPath}`,
-  );
-
-  return { name, version };
-}
 
 /** @see https://eslint.org/docs/latest/extend/plugins#configs-in-plugins */
 function addPluginToConfigs(
