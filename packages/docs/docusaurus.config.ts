@@ -16,7 +16,7 @@ const config: Config = {
   organizationName: "complete-ts",
   projectName: "complete-ts.github.io",
 
-  onBrokenAnchors: "warn", // TODO: change back to "throw"
+  onBrokenAnchors: "warn", // TODO: https://github.com/typedoc2md/typedoc-plugin-markdown/issues/843
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
