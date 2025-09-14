@@ -38,7 +38,10 @@ export class MetadataCommand extends Command {
       );
       packageMetadata = packageMetadataUnknown;
     } else {
-      packageMetadata = {};
+      packageMetadata = {
+        "@schema":
+          "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/package-metadata-schema.json",
+      };
     }
 
     let dependencies: Record<string, unknown>;
