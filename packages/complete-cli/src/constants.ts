@@ -1,6 +1,7 @@
-import { getPackageJSONFieldsMandatory, PackageManager } from "complete-node";
+import { PackageManager } from "complete-node";
 import os from "node:os";
 import path from "node:path";
+import packageJSON from "../package.json" with { type: "json" };
 
 export const CWD = process.cwd();
 export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
@@ -8,11 +9,7 @@ export const CURRENT_DIRECTORY_NAME = path.basename(CWD);
 export const HOME_DIR = os.homedir();
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
-const { name, version } = await getPackageJSONFieldsMandatory(
-  PACKAGE_ROOT,
-  "name",
-  "version",
-);
+const { name, version } = packageJSON;
 
 export const PROJECT_NAME = name;
 export const PROJECT_VERSION = version;
