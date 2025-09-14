@@ -83,6 +83,19 @@ export async function deleteFileOrDirectory(
 }
 
 /**
+ * Helper function to see if the given file path exists. This will work with files, directories,
+ * links, and so on.
+ */
+export async function exists(filePath: string): Promise<boolean> {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Helper function to get a SHA1 hash for every file in a directory. (This function correctly
  * handles nested subdirectories.)
  *
@@ -259,16 +272,6 @@ export async function isFile(filePath: string): Promise<boolean> {
   try {
     const stats = await fs.stat(filePath);
     return stats.isFile();
-  } catch {
-    return false;
-  }
-}
-
-/** Helper function to synchronously check if a file exists. */
-export async function isFileOrDirectory(filePath: string): Promise<boolean> {
-  try {
-    await fs.access(filePath);
-    return true;
   } catch {
     return false;
   }
@@ -491,18 +494,16 @@ export async function touch(filePath: string): Promise<void> {
   }
 
   const file = await isFile(filePath);
-  if (file) {
-    const now = new Date();
-
-    try {
-      await fs.access(filePath);
-      await fs.utimes(filePath, now, now);
-    } catch (error) {
-      throw new Error(`Failed to touch file: ${filePath}`, { cause: error });
-    }
-
+  if (!file) {
+    await writeFile(filePath, "");
     return;
   }
 
-  await writeFile(filePath, "");
+  try {
+    await fs.access(filePath);
+    const now = new Date();
+    await fs.utimes(filePath, now, now);
+  } catch (error) {
+    throw new Error(`Failed to touch file: ${filePath}`, { cause: error });
+  }
 }
