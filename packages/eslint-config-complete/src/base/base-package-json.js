@@ -59,7 +59,7 @@ export const basePackageJSON = defineConfig({
      * Disabled since not all public npm packages may need additional keywords beyond what is
      * already in their description.
      */
-    "package-json/require-keywords": "warn",
+    "package-json/require-keywords": "off",
 
     "package-json/require-name": "warn",
 
