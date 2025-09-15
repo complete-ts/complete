@@ -21,6 +21,13 @@ export const basePackageJSON = defineConfig({
     },
   },
 
+  settings: {
+    packageJson: {
+      // https://github.com/JoshuaKGoldberg/eslint-plugin-package-json?tab=readme-ov-file#enforceforprivate
+      enforceForPrivate: false,
+    },
+  },
+
   rules: {
     "package-json/no-empty-fields": "warn",
     "package-json/no-redundant-files": "warn",
@@ -29,18 +36,8 @@ export const basePackageJSON = defineConfig({
     "package-json/order-properties": "off",
 
     "package-json/repository-shorthand": "warn",
-
-    /**
-     * Disabled since it is only needed for public npm packages, which is too specific for this
-     * config.
-     */
-    "package-json/require-author": "off",
-
-    /**
-     * Disabled since it is only needed for public npm packages, which is too specific for this
-     * config.
-     */
-    "package-json/require-bugs": "off",
+    "package-json/require-author": "warn",
+    "package-json/require-bugs": "warn",
 
     /** Disabled since most projects do not use `bundleDependencies`. */
     "package-json/require-bundleDependencies": "off",
@@ -48,11 +45,7 @@ export const basePackageJSON = defineConfig({
     /** Disabled since not all projects have `dependencies`. */
     "package-json/require-dependencies": "off",
 
-    /**
-     * Disabled since it is only needed for public npm packages, which is too specific for this
-     * config. (It is superfluous as long as a "README.md" file exists.)
-     */
-    "package-json/require-description": "off",
+    "package-json/require-description": "warn",
 
     /** Disabled since not all projects have `devDependencies`. */
     "package-json/require-devDependencies": "off",
@@ -60,18 +53,8 @@ export const basePackageJSON = defineConfig({
     /** Disabled since not all projects have engine version constraints. */
     "package-json/require-engines": "off",
 
-    /**
-     * Disabled since it is only needed for public npm packages, which is too specific for this
-     * config.
-     */
-    "package-json/require-files": "off",
-
-    /**
-     * Disabled since it is only needed for public npm packages, which is too specific for this
-     * config.
-     */
-    "package-json/require-keywords": "off",
-
+    "package-json/require-files": "warn",
+    "package-json/require-keywords": "warn",
     "package-json/require-name": "warn",
 
     /** Disabled since not all projects have `optionalDependencies`. */
@@ -85,8 +68,7 @@ export const basePackageJSON = defineConfig({
     /** Disabled since this is only needed for libraries. */
     "package-json/require-types": "off",
 
-    /** Disabled since some private packages may not use versioning. */
-    "package-json/require-version": "off",
+    "package-json/require-version": "warn",
 
     /** Disabled since this is supposed to be a project-specific rule. */
     "package-json/restrict-dependency-ranges": "off",
