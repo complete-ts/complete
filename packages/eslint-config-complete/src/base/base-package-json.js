@@ -54,7 +54,13 @@ export const basePackageJSON = defineConfig({
     "package-json/require-engines": "off",
 
     "package-json/require-files": "warn",
-    "package-json/require-keywords": "warn",
+
+    /**
+     * Disabled since not all public npm packages may need additional keywords beyond what is
+     * already in their description.
+     */
+    "package-json/require-keywords": "off",
+
     "package-json/require-name": "warn",
 
     /** Disabled since not all projects have `optionalDependencies`. */
