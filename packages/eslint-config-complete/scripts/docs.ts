@@ -21,7 +21,6 @@ import ESLintPluginComplete from "eslint-plugin-complete";
 import ESLintPluginImportX from "eslint-plugin-import-x";
 import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
 import ESLintPluginN from "eslint-plugin-n";
-import ESLintPluginPackageJSON from "eslint-plugin-package-json";
 import ESLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import path from "node:path";
@@ -135,10 +134,6 @@ assertDefined(
 );
 const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(ESLintPluginN.configs.recommended.rules),
-);
-
-const PACKAGE_JSON_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginPackageJSON.configs.recommended.rules),
 );
 
 assertDefined(
@@ -258,14 +253,6 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "https://github.com/eslint-community/eslint-plugin-n",
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
     ESLintPluginN,
-  );
-
-  rulesTable += await getMarkdownRuleSection(
-    "package-json",
-    getPluginHeaderTitle("package-json"),
-    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json",
-    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/docs/rules/__RULE_NAME__.md",
-    ESLintPluginPackageJSON,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -590,10 +577,6 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
 
   if (N_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("n/recommended");
-  }
-
-  if (PACKAGE_JSON_RECOMMENDED_RULES_SET.has(ruleName)) {
-    parentConfigs.push("package-json/recommended");
   }
 
   if (UNICORN_RECOMMENDED_RULES_SET.has(ruleName)) {

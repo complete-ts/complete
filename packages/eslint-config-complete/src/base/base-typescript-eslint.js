@@ -522,9 +522,10 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "warn",
     },
 
-    // Having TypeScript rules apply to ".json" files will throw an error about needing type
-    // information.
-    ignores: ["*.json"],
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["*.json", "*.jsonc"],
   },
 
   // Enable linting on TypeScript file extensions.
