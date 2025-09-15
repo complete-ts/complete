@@ -13,4 +13,6 @@ await lintScript(import.meta.dirname, async (packageRoot) => {
       await $$`npm run lint`;
     }),
   );
+
+  console.log("Successfully linted all monorepo packages.");
 });
