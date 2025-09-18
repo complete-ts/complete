@@ -148,6 +148,8 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
+      "jsdoc/reject-any-type": "warn",
+      "jsdoc/reject-function-type": "warn",
       "jsdoc/require-asterisk-prefix": "warn",
 
       /** Disabled because it is overboard for every function to have a description. */
@@ -171,7 +173,9 @@ export const baseJSDoc = defineConfig(
       /** Disabled since it is overboard for every function to have a JSDoc comment. */
       "jsdoc/require-jsdoc": "off",
 
+      "jsdoc/require-next-description": "warn",
       "jsdoc/require-next-type": "warn",
+      "jsdoc/require-throws-description": "warn",
 
       /**
        * Disabled since in most cases, the type of a thrown error will simply be `Error`, making the
@@ -179,6 +183,7 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/require-throws-type": "off",
 
+      "jsdoc/require-yields-description": "warn",
       "jsdoc/require-yields-type": "warn",
 
       /** Configured to only apply when there are one or more parameters. */
