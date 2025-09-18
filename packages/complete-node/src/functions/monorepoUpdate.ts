@@ -152,7 +152,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
       for (const [depName, depVersion] of Object.entries(childDependencies)) {
         assertString(
           depVersion,
-          `The child package dependency value of "${childPackageName} --> ${depName}" is not a string.`,
+          `The child package dependency value of "${childPackageName} --> ${depName}" is not a string: ${depVersion}`,
         );
 
         if (depVersion.startsWith("^")) {
@@ -161,15 +161,22 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
           );
         }
 
+        // Skip checking packages on the local file system.
+        if (depVersion.startsWith("file:")) {
+          continue;
+        }
+
         const otherPackageJSON = childPackageJSONMap.get(depName);
         if (otherPackageJSON === undefined) {
           // This is not a monorepo package, so we have to look for the correct version in the root
           // monorepo "package.json" file.
           const monorepoVersion = monorepoDependencies[depName];
-          assertString(
-            monorepoVersion,
-            `The monorepo package dependency of "${depName}" is not a string.`,
-          );
+
+          if (monorepoVersion === undefined) {
+            throw new Error(
+              `The monorepo package dependency of "${depName}" does not exist.`,
+            );
+          }
 
           if (depVersion !== monorepoVersion) {
             valid = false;
@@ -195,7 +202,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
           const correctVersion = otherPackageJSON["version"];
           assertString(
             correctVersion,
-            `The "version" property of the "${depName}" package is not a string.`,
+            `The "version" property of the "${depName}" package is not a string: ${correctVersion}`,
           );
 
           if (depVersion !== correctVersion) {
