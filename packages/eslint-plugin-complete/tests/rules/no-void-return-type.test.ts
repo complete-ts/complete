@@ -8,6 +8,16 @@ ruleTester.run("no-void-return-type", noVoidReturnType, {
 function foo() {}
       `,
     },
+    {
+      code: `
+function foo(): boolean {}
+      `,
+    },
+    {
+      code: `
+function foo(arg: unknown): asserts arg is boolean {}
+      `,
+    },
   ],
 
   invalid: [

@@ -43,6 +43,11 @@ export const noVoidReturnType = createRule({
         }
         const { typeAnnotation } = returnType;
 
+        // Whitelist "asserts foo is bar" functions.
+        if (typeAnnotation.type === AST_NODE_TYPES.TSTypePredicate) {
+          return;
+        }
+
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(typeAnnotation);
         const type = checker.getTypeAtLocation(tsNode);
 
