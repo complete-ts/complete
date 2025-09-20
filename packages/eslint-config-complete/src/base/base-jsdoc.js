@@ -256,6 +256,9 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields-check": "off",
 
+      /** Disabled since it is expected to be configured with project-specific keywords. */
+      "jsdoc/required-tags": "off",
+
       "jsdoc/sort-tags": "warn",
 
       /** Superseded by the `complete/format-jsdoc-comments` rule. */
