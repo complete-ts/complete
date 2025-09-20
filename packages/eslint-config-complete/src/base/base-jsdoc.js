@@ -244,6 +244,9 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-returns-type": "off",
 
+      /** Disabled since it is expected to be configured with project-specific keywords. */
+      "jsdoc/require-tags": "off",
+
       /** Disabled because it is overboard to document every generic type variable. */
       "jsdoc/require-template": "off",
 
@@ -255,9 +258,6 @@ export const baseJSDoc = defineConfig(
 
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields-check": "off",
-
-      /** Disabled since it is expected to be configured with project-specific keywords. */
-      "jsdoc/required-tags": "off",
 
       "jsdoc/sort-tags": "warn",
 

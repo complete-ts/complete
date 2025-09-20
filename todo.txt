@@ -1,7 +1,8 @@
 short term:
 
-- don't release complete-lint until complete plugin can be used with defineConfig:
+- remove @ts-expect error on ESLint plugins when this issue is resolved
   https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
+  (have to do isaacscript project too)
 
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
   try using: https://github.com/bmish/eslint-doc-generator
