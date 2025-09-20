@@ -54,7 +54,7 @@ for (const value of mySet.values()) {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

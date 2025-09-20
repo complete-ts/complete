@@ -28,7 +28,7 @@ for (const key of Object.keys(object)) {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

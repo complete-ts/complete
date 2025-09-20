@@ -10,7 +10,7 @@ Requires complete sentences for multi-line leading line comments.
 // Good
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

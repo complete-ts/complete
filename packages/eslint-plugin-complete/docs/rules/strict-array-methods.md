@@ -30,7 +30,7 @@ const filteredNumbers = numbers.filter((element) => {
 });
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

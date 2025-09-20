@@ -18,7 +18,7 @@ for (const value of mySet) {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

@@ -22,7 +22,7 @@ const myArray = [];
 const myArray: string[] = [];
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

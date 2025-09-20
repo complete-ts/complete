@@ -127,7 +127,7 @@ const FRUIT_PRICES = {
 } as const satisfies Record<Fruit, number>;
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

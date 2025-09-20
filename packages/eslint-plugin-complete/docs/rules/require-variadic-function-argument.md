@@ -42,7 +42,7 @@ For example, something like the following:
 function getCars(...carTypes: CarType[]) {}
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

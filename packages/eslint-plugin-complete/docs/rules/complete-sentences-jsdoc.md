@@ -69,7 +69,7 @@ For more information on why you should use this rule, see the [comment formattin
 
 The rule tries to be as smart as possible. You can open a GitHub issue if you find a situation where this rule should be smarter.
 
-## Options and Defaults
+## Options
 
 ```json
 {

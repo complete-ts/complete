@@ -42,7 +42,7 @@ function getSet(): ReadonlySet<string>[] {
 }
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

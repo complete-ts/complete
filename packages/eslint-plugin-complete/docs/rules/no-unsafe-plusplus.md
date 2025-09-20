@@ -23,7 +23,7 @@ void foo++;
 for (; ; foo++) {}
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

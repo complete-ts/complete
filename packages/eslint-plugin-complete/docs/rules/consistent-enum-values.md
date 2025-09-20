@@ -46,7 +46,7 @@ Unfortunately, this feature results in numeric values instead of string values. 
 
 The next simplest and easiest-to-maintain solution is to simply copy the values of the the enum exactly. Thus, this lint rule enforces this style.
 
-## Options and Defaults
+## Options
 
 ```json
 {

@@ -12,7 +12,7 @@ type MyTuple = [arg1: string, number];
 type MyTuple = [arg1: string, arg2: number];
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

@@ -14,7 +14,7 @@ let foo;
 let foo: string;
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {

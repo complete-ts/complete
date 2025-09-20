@@ -16,7 +16,7 @@ Disallows empty line comments (and automatically removes them).
 // This is an non-empty comment. Empty comments are indicative of a mistake.
 ```
 
-## Options and Defaults
+## Options
 
 ```json
 {
