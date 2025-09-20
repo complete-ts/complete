@@ -1,6 +1,6 @@
 # `prefer-postfix-plusplus`
 
-Require `i++` instead of `++i` (and `i--` instead of `--i`).
+Require `i++` instead of `++i` and `i--` instead of `--i`.
 
 ## Rule Details
 

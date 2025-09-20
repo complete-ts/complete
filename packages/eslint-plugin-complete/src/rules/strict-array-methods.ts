@@ -18,7 +18,8 @@ export const strictArrayMethods = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Requires boolean return types on array method functions",
+      description:
+        "Requires boolean return types on some specific array methods",
       recommended: true,
       requiresTypeChecking: true,
     },
