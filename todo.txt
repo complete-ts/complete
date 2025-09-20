@@ -1,7 +1,8 @@
 short term:
 
 - remove @ts-expect error on ESLint plugins when this issue is resolved
-  https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/issues/1242
+  https://github.com/typescript-eslint/typescript-eslint/issues/11543
+  (also remove github issue link from docs)
   (have to do isaacscript project too)
 
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)

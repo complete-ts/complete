@@ -45,7 +45,7 @@ export default defineConfig(
 );
 ```
 
-Alternative, you can omit the recommended config and just enable the specific rules that you need:
+Alternatively, you can omit the recommended config and just enable the specific rules that you need:
 
 ```ts
 // @ts-check
@@ -63,6 +63,8 @@ export default defineConfig({
   },
 });
 ```
+
+Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to [bugs in the upstream package](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
 
 ## Configs
 

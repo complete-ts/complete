@@ -41,6 +41,6 @@ This rule was originally created by webstrand in the TypeScript Discord. <!-- cs
 
 ## Resources
 
-- [How to use this rule](../..)
+- [How to use this rule](https://complete-ts.github.io/eslint-plugin-complete)
 - [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/no-unsafe-plusplus.ts)
 - [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/no-unsafe-plusplus.test.ts)
