@@ -1,4 +1,4 @@
-# `require-variadic-function-argument`
+# require-variadic-function-argument
 
 Requires that variadic functions must be supplied with at least one argument.
 

@@ -1,4 +1,4 @@
-# `require-break`
+# require-break
 
 Requires that each non-fallthrough case of a switch statement has a `break` statement.
 

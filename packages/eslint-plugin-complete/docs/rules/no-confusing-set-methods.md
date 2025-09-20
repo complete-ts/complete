@@ -1,4 +1,4 @@
-# `no-confusing-set-methods`
+# no-confusing-set-methods
 
 Disallows the `Set.keys` and the `Set.entries` methods.
 

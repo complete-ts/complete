@@ -1,4 +1,4 @@
-# `no-template-curly-in-string-fix`
+# no-template-curly-in-string-fix
 
 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
 

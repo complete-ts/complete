@@ -1,4 +1,4 @@
-# `no-explicit-array-loops`
+# no-explicit-array-loops
 
 Disallows explicit iteration for arrays.
 

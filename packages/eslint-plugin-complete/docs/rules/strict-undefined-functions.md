@@ -1,4 +1,4 @@
-# `strict-undefined-functions`
+# strict-undefined-functions
 
 Disallows empty return statements in functions annotated as returning undefined.
 

@@ -1,4 +1,4 @@
-# `no-unsafe-plusplus`
+# no-unsafe-plusplus
 
 Disallow unsafe and confusing uses of the `++` and `--` operators.
 

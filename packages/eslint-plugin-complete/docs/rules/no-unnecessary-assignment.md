@@ -1,4 +1,4 @@
-# `no-unnecessary-assignment`
+# no-unnecessary-assignment
 
 Disallows useless assignments.
 

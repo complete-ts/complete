@@ -1,4 +1,4 @@
-# `no-empty-jsdoc`
+# no-empty-jsdoc
 
 Disallows empty JSDoc comments (and automatically removes them).
 

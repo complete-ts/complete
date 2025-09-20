@@ -1,4 +1,4 @@
-# `prefer-readonly-parameter-types`
+# prefer-readonly-parameter-types
 
 Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
 

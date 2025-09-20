@@ -1,4 +1,4 @@
-# `prefer-plusplus`
+# prefer-plusplus
 
 Require `++` or `--` operators instead of assignment operators where applicable.
 

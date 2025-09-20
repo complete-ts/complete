@@ -1,4 +1,4 @@
-# `no-useless-return`
+# no-useless-return
 
 Disallows redundant return statements.
 

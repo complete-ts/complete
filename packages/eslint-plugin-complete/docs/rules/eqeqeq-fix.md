@@ -1,4 +1,4 @@
-# `eqeqeq-fix`
+# eqeqeq-fix
 
 Requires the use of `===` and `!==` (and automatically fixes).
 

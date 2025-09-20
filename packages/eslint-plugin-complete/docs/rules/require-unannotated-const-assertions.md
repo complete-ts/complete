@@ -1,4 +1,4 @@
-# `require-unannotated-const-assertions`
+# require-unannotated-const-assertions
 
 Disallows explicit type annotations for variables that have a [const assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions).
 

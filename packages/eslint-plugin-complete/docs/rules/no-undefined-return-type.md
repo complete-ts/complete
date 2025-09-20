@@ -1,4 +1,4 @@
-# `no-undefined-return-type`
+# no-undefined-return-type
 
 Disallows `undefined` return types on functions.
 

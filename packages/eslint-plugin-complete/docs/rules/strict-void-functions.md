@@ -1,4 +1,4 @@
-# `strict-void-functions`
+# strict-void-functions
 
 Disallows non-empty return statements in functions annotated as returning void.
 

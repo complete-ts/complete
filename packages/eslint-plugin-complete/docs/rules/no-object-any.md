@@ -1,4 +1,4 @@
-# `no-object-any`
+# no-object-any
 
 Disallows declaring objects and arrays that do not have a type.
 

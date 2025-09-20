@@ -1,4 +1,4 @@
-# `no-number-enums`
+# no-number-enums
 
 Disallows number enums.
 

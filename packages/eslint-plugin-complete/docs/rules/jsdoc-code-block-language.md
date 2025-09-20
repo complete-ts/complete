@@ -1,4 +1,4 @@
-# `jsdoc-code-block-language`
+# jsdoc-code-block-language
 
 Requires a language specification for every JSDoc code block.
 

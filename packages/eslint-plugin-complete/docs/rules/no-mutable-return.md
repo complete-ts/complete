@@ -1,4 +1,4 @@
-# `no-mutable-return`
+# no-mutable-return
 
 Disallows returning mutable arrays, maps, and sets from functions.
 

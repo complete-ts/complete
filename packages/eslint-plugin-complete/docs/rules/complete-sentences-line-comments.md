@@ -1,4 +1,4 @@
-# `complete-sentences-line-comments`
+# complete-sentences-line-comments
 
 Requires complete sentences for multi-line leading line comments.
 

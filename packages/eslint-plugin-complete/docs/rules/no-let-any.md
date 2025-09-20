@@ -1,4 +1,4 @@
-# `no-let-any`
+# no-let-any
 
 Disallows declaring variables with let that do not have a type.
 

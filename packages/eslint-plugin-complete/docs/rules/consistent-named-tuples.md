@@ -1,4 +1,4 @@
-# `consistent-named-tuples`
+# consistent-named-tuples
 
 Requires that if one or more tuple elements are named, all of them are named.
 

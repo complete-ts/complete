@@ -1,4 +1,4 @@
-# `format-jsdoc-comments`
+# format-jsdoc-comments
 
 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
 

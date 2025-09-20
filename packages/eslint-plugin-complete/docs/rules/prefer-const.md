@@ -1,4 +1,4 @@
-# `prefer-const`
+# prefer-const
 
 Requires `const` declarations for variables that are never reassigned after declared.
 

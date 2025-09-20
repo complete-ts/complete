@@ -1,4 +1,4 @@
-# `no-void-return-type`
+# no-void-return-type
 
 Disallows `void` return types on non-exported functions.
 

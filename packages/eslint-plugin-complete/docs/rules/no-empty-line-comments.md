@@ -1,4 +1,4 @@
-# `no-empty-line-comments`
+# no-empty-line-comments
 
 Disallows empty line comments (and automatically removes them).
 

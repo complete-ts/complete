@@ -1,4 +1,4 @@
-# `complete-sentences-jsdoc`
+# complete-sentences-jsdoc
 
 Requires complete sentences for JSDoc comments.
 

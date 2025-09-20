@@ -1,4 +1,4 @@
-# `strict-array-methods`
+# strict-array-methods
 
 Requires boolean return types on some specific array methods.
 

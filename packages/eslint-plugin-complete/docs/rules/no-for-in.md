@@ -1,4 +1,4 @@
-# `no-for-in`
+# no-for-in
 
 Disallows "for x in y" statements.
 

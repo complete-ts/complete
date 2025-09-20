@@ -1,4 +1,4 @@
-# `no-object-methods-with-map-set`
+# no-object-methods-with-map-set
 
 Disallows using the `Object.entries`, `Object.keys`, and `Object.values` methods with maps and sets, since doing this is virtually always a bug.
 

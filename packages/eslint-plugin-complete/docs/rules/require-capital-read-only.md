@@ -1,4 +1,4 @@
-# `require-capital-read-only`
+# require-capital-read-only
 
 Requires maps/sets/arrays with a capital letter to be read-only.
 

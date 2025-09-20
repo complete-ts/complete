@@ -1,4 +1,4 @@
-# `newline-between-switch-case`
+# newline-between-switch-case
 
 Requires newlines between switch cases. Having newlines between each case can make code easier to read, as it better delineates each block.
 

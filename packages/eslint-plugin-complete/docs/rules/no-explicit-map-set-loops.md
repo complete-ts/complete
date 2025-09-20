@@ -1,4 +1,4 @@
-# `no-explicit-map-set-loops`
+# no-explicit-map-set-loops
 
 Disallows explicit iteration for maps and sets.
 

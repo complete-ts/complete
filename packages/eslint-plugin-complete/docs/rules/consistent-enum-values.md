@@ -1,4 +1,4 @@
-# `consistent-enum-values`
+# consistent-enum-values
 
 Requires that all enum values exactly match the enum name, like this:
 

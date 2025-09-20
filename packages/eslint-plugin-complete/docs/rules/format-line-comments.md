@@ -1,4 +1,4 @@
-# `format-line-comments`
+# format-line-comments
 
 Disallows `//` comments longer than N characters and multi-line comments that can be merged together.
 
