@@ -44,7 +44,7 @@ export default defineConfig(...completeConfigBase);
 This package exports two configs:
 
 - `completeConfigBase` - The general-purpose config that people should use for TypeScript projects.
-- `completeConfigESLintPlugin` - Enables extra rules for ESLint plugins from [`eslint-plugin-eslint-plugin`](https://github.com/eslint-community/eslint-plugin-eslint-plugin).
+- `completeConfigESLintPlugin` - Enables extra rules for custom ESLint plugins from [`eslint-plugin-eslint-plugin`](https://github.com/eslint-community/eslint-plugin-eslint-plugin). (This should only be used in custom ESLint plugins.)
 
 ## Why Do I Need To Use ESLint?
 
