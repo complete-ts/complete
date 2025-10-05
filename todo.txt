@@ -16,11 +16,10 @@ long term:
 - use `eslint-plugin-eslint-plugin`
 
 - enable "import-x/no-rename-default" rule once this PR is accepted:
-  https://github.com/un-ts/eslint-plugin-import-x/pull/157
+  https://github.com/un-ts/eslint-plugin-import-x/pull/157 (fix: false positive with no-rename-default)
 
 - lint projects:
   - `T extends Foo[]` --> `T extends readonly Foo[]`
-  - https://github.com/typescript-eslint/typescript-eslint/issues/1804 (in-progress)
-  - https://github.com/typescript-eslint/typescript-eslint/issues/8079
-  - https://github.com/typescript-eslint/typescript-eslint/pull/10265 (in-progress)
-  - add TSESLint docs note about "only" in tests
+  - https://github.com/typescript-eslint/typescript-eslint/pull/10913 (PR from Brad)
+  - https://github.com/typescript-eslint/typescript-eslint/issues/8079 (Enhancement: [no-unnecessary-condition] report on logical operators when the RHS value is redundant)
+  - https://github.com/typescript-eslint/typescript-eslint/pull/11679 (docs: add note about "only: true")
