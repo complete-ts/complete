@@ -13,8 +13,6 @@ short term:
 
 long term:
 
-- use `eslint-plugin-eslint-plugin`
-
 - enable "import-x/no-rename-default" rule once this PR is accepted:
   https://github.com/un-ts/eslint-plugin-import-x/pull/157 (fix: false positive with no-rename-default)
 
