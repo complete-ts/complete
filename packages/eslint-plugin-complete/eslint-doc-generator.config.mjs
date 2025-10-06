@@ -1,5 +1,5 @@
 import path from "node:path";
-import * as prettier from "prettier";
+import { format, resolveConfig } from "prettier";
 
 /** @type {import("eslint-doc-generator").GenerateOptions} */
 const config = {
@@ -16,8 +16,15 @@ const config = {
   // and TSESLint: https://github.com/bmish/eslint-doc-generator/issues/347
   ruleDocTitleFormat: "name",
 
-  postprocess(content, pathToFile) {
-    return getNewContent(content, pathToFile);
+  async postprocess(content, pathToFile) {
+    const newContent = getNewContent(content, pathToFile);
+    const cwd = process.cwd();
+    const prettierConfig = await resolveConfig(cwd);
+
+    return await format(newContent, {
+      parser: "markdown",
+      ...prettierConfig,
+    });
   },
 };
 
