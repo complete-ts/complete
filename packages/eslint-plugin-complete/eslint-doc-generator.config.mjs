@@ -6,14 +6,13 @@ const config = {
   // Defaults to "README.md".
   pathRuleList: "website-root.md",
 
-  // Defaults to "[deprecated, configs, fixableAndHasSuggestions, requiresTypeChecking]". We want to
+  // Defaults to "[configs, deprecated, fixableAndHasSuggestions, requiresTypeChecking]". We want to
   // enable every option except for "type", since that contains superfluous information.
   ruleDocNotices: [
     "configs",
     "deprecated",
     "description",
-    "fixable",
-    "hasSuggestions",
+    "fixableAndHasSuggestions",
     "options",
     "requiresTypeChecking",
   ],
