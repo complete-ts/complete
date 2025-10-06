@@ -1,4 +1,4 @@
-/** @type {import('eslint-doc-generator').GenerateOptions} */
+/** @type {import("eslint-doc-generator").GenerateOptions} */
 const config = {
   // Defaults to "desc-parens-prefix-name", but we want to match the format established by ESLint
   // and TSESLint: https://github.com/bmish/eslint-doc-generator/issues/347
