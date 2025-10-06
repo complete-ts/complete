@@ -16,15 +16,19 @@ const config = {
   ruleDocTitleFormat: "name",
 
   postprocess(content, pathToFile) {
-    if (pathToFile.includes(`${path.sep}website-root.md`)) {
-      return getContentWithFixedDocusaurusLinks(content);
-    }
-
-    return getContentWithResourcesSection(content, pathToFile);
+    return getNewContent(content, pathToFile);
   },
 };
 
 export default config;
+
+function getNewContent(content, pathToFile) {
+  if (pathToFile.includes(`${path.sep}website-root.md`)) {
+    return getContentWithFixedDocusaurusLinks(content);
+  }
+
+  return getContentWithResourcesSection(content, pathToFile);
+}
 
 /**
  * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with
