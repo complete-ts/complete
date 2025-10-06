@@ -1,4 +1,5 @@
 import path from "node:path";
+import * as prettier from "prettier";
 
 /** @type {import("eslint-doc-generator").GenerateOptions} */
 const config = {
