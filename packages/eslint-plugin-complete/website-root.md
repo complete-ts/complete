@@ -134,6 +134,8 @@ In a similar way to Prettier, this ESLint plugin contains several rules that are
 
 For example, if you use [VSCode](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
 
+<!-- We cannot use "jsonc" as the language below because Docusaurus will not display the colors properly. -->
+
 ```json
 {
   // Automatically run the formatter when certain files are saved.
