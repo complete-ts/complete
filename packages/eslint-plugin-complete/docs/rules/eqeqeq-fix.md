@@ -1,5 +1,7 @@
 # eqeqeq-fix
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires the use of `===` and `!==` (and automatically fixes).
 
 <!-- end auto-generated rule header -->

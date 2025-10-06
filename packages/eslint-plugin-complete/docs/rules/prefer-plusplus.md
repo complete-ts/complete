@@ -1,5 +1,7 @@
 # prefer-plusplus
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Require `++` or `--` operators instead of assignment operators where applicable.
 
 <!-- end auto-generated rule header -->

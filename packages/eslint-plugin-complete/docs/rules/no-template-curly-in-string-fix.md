@@ -1,5 +1,7 @@
 # no-template-curly-in-string-fix
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
 
 <!-- end auto-generated rule header -->

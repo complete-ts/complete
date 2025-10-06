@@ -1,5 +1,7 @@
 # no-string-length-0
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows checking for empty strings via the length method in favor of direct comparison to an empty string.
 
 <!-- end auto-generated rule header -->

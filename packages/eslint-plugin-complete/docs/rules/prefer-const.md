@@ -1,5 +1,7 @@
 # prefer-const
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires `const` declarations for variables that are never reassigned after declared (with no auto-fixer).
 
 <!-- end auto-generated rule header -->

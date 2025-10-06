@@ -1,5 +1,7 @@
 # newline-between-switch-case
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires newlines between switch cases.
 
 <!-- end auto-generated rule header -->

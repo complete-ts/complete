@@ -1,5 +1,7 @@
 # strict-array-methods
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires boolean return types on some specific array methods.
 
 <!-- end auto-generated rule header -->

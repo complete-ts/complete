@@ -1,5 +1,7 @@
 # no-mutable-return
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows returning mutable arrays, maps, and sets from functions.
 
 <!-- end auto-generated rule header -->

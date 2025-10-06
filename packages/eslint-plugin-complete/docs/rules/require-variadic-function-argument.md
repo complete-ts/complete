@@ -1,5 +1,7 @@
 # require-variadic-function-argument
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires that variadic functions must be supplied with at least one argument.
 
 <!-- end auto-generated rule header -->

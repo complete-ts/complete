@@ -1,5 +1,7 @@
 # no-void-return-type
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows `void` return types on non-exported functions.
 
 <!-- end auto-generated rule header -->

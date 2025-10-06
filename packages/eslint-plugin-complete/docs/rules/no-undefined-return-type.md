@@ -1,5 +1,7 @@
 # no-undefined-return-type
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows `undefined` return types on functions.
 
 <!-- end auto-generated rule header -->

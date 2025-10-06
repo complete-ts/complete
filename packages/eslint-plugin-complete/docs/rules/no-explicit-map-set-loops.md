@@ -1,5 +1,7 @@
 # no-explicit-map-set-loops
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows explicit iteration for maps and sets.
 
 <!-- end auto-generated rule header -->

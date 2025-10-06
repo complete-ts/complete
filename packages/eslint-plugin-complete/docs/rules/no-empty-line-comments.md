@@ -1,5 +1,7 @@
 # no-empty-line-comments
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows empty line comments (and automatically removes them).
 
 <!-- end auto-generated rule header -->

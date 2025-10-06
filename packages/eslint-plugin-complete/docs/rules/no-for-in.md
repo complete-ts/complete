@@ -1,5 +1,7 @@
 # no-for-in
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows "for x in y" statements.
 
 <!-- end auto-generated rule header -->

@@ -1,5 +1,7 @@
 # consistent-enum-values
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires consistent enum values.
 
 <!-- end auto-generated rule header -->

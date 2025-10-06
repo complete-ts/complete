@@ -1,5 +1,7 @@
 # no-object-methods-with-map-set
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows using object methods with maps and sets.
 
 <!-- end auto-generated rule header -->

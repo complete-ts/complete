@@ -1,5 +1,7 @@
 # no-object-any
 
+🚫 This rule is _disabled_ in the ✅ `recommended` config.
+
 Disallows declaring objects and arrays that do not have a type.
 
 <!-- end auto-generated rule header -->

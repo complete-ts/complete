@@ -1,5 +1,7 @@
 # no-unsafe-plusplus
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows unsafe and confusing uses of the `++` and `--` operators.
 
 <!-- end auto-generated rule header -->

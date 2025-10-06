@@ -1,5 +1,7 @@
 # strict-undefined-functions
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows empty return statements in functions annotated as returning undefined.
 
 <!-- end auto-generated rule header -->

@@ -1,5 +1,7 @@
 # format-jsdoc-comments
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
 
 <!-- end auto-generated rule header -->

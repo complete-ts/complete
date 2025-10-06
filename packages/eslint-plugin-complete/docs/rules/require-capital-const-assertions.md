@@ -1,5 +1,7 @@
 # require-capital-const-assertions
 
+🚫 This rule is _disabled_ in the ✅ `recommended` config.
+
 Requires a capital letter for named objects and arrays that have a const assertion.
 
 <!-- end auto-generated rule header -->

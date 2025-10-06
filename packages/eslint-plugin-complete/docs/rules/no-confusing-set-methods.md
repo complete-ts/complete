@@ -1,5 +1,7 @@
 # no-confusing-set-methods
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows confusing methods for sets.
 
 <!-- end auto-generated rule header -->

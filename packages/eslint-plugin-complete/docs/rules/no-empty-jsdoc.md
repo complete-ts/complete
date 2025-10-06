@@ -1,5 +1,7 @@
 # no-empty-jsdoc
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows empty JSDoc comments (and automatically removes them).
 
 <!-- end auto-generated rule header -->

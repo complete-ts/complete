@@ -1,5 +1,7 @@
 # no-let-any
 
+🚫 This rule is _disabled_ in the ✅ `recommended` config.
+
 Disallows declaring variables with let that do not have a type.
 
 <!-- end auto-generated rule header -->

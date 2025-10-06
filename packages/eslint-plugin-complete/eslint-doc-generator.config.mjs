@@ -7,7 +7,7 @@ const config = {
   pathRuleList: "website-root.md",
 
   // Defaults to "[deprecated, configs, fixableAndHasSuggestions, requiresTypeChecking]".
-  ruleDocNotices: ["description"],
+  ruleDocNotices: ["configs", "deprecated", "description"],
 
   // Defaults to true. See: https://github.com/bmish/eslint-doc-generator/issues/806
   ruleDocSectionOptions: false,

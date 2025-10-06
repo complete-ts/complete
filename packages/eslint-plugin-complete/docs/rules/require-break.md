@@ -1,5 +1,7 @@
 # require-break
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Requires that each non-fallthrough case of a switch statement has a `break` statement.
 
 <!-- end auto-generated rule header -->

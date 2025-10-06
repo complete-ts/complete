@@ -1,5 +1,7 @@
 # strict-enums
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows the usage of unsafe enum patterns.
 
 <!-- end auto-generated rule header -->

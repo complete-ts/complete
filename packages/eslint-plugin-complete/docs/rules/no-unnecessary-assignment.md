@@ -1,5 +1,7 @@
 # no-unnecessary-assignment
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows useless assignments.
 
 <!-- end auto-generated rule header -->

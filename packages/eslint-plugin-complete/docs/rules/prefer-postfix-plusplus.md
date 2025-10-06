@@ -1,5 +1,7 @@
 # prefer-postfix-plusplus
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Require `i++` instead of `++i` and `i--` instead of `--i`.
 
 <!-- end auto-generated rule header -->

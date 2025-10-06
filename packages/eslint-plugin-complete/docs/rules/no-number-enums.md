@@ -1,5 +1,7 @@
 # no-number-enums
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 Disallows number enums.
 
 <!-- end auto-generated rule header -->

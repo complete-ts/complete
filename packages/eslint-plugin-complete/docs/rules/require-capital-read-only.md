@@ -1,5 +1,7 @@
 # require-capital-read-only
 
+🚫 This rule is _disabled_ in the ✅ `recommended` config.
+
 Requires maps/sets/arrays with a capital letter to be read-only.
 
 <!-- end auto-generated rule header -->
