@@ -1,10 +1,8 @@
 import { getTypeDocConfig } from "../docs/typedoc.config.base.mjs"; // eslint-disable-line import-x/no-relative-packages
 
-const config = getTypeDocConfig(import.meta.dirname);
-
 /** @type {import("typedoc").TypeDocOptions} */
-export default {
-  ...config,
+const config = {
+  ...getTypeDocConfig(import.meta.dirname),
 
   // TypeDoc complains about the re-exported dollar sign function from "execa".
   intentionallyNotDocumented: [
@@ -12,3 +10,5 @@ export default {
     "functions/execa.$.__type.stderr",
   ],
 };
+
+export default config;

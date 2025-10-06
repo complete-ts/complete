@@ -5,15 +5,14 @@ import path from "node:path";
 import TSConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
 import WebpackShebangPlugin from "webpack-shebang-plugin";
 
-/** @type {import('webpack').Configuration} */
+/** @import { Configuration } from 'webpack' */
 const config = {
   entry: "./src/main.ts",
   output: {
     path: path.join(import.meta.dirname, "dist"),
     filename: "main.cjs",
   },
-  // Building with "production" creates run-time errors related to the ArkType helper functions.
-  mode: "development",
+  mode: "production",
   target: "node",
   module: {
     rules: [

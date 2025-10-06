@@ -46,7 +46,7 @@
     "zod": "4.1.11"
   },
   "devDependencies": {
-    "@types/node": "24.6.2",
+    "@types/node": "24.7.0",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "typescript": "5.9.3",

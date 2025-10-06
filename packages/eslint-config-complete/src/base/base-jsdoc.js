@@ -149,7 +149,12 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
-      "jsdoc/prefer-import-tag": "warn",
+      /**
+       * Disabled since it is not idiomatic in the ecosystem to do this, especially in configuration
+       * files like "prettier.config.mjs".
+       */
+      "jsdoc/prefer-import-tag": "off",
+
       "jsdoc/reject-any-type": "warn",
       "jsdoc/reject-function-type": "warn",
       "jsdoc/require-asterisk-prefix": "warn",
@@ -273,7 +278,17 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/text-escaping": "off",
 
-      "jsdoc/type-formatting": "warn",
+      /**
+       * TODO: Delete the options from the rule when the defaults change.
+       *
+       * @see https://github.com/gajus/eslint-plugin-jsdoc/issues/1556
+       */
+      "jsdoc/type-formatting": [
+        "warn",
+        {
+          stringQuotes: "double",
+        },
+      ],
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/valid-types": "off",

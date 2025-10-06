@@ -87,15 +87,14 @@ function splitOnSpecialText(text: string): readonly string[] {
   );
   text = text.replaceAll(/@example[\S\s]*/gm, "");
 
-  // Remove see tag blocks. A see tag might be followed by another tag, so first look for that
-  // situation. Then, handle the situation where the see tag is the final tag. (This is copy-pasted
-  // from the code that handles example tags above.)
+  // Remove import tag blocks. An import tag contains code, so it is not expected to be a complete
+  // sentence. (This is copy-pasted from the code that handles example tags above.)
   text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
-    /@see[\S\s]*?@/gm,
+    /@import[\S\s]*?@/gm,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replaceAll(/@see[\S\s]*/gm, "");
+  text = text.replaceAll(/@import[\S\s]*/gm, "");
 
   // Replace the link tags with the link text. Note that if we replace them with a sentence
   // separator instead, then the following sentence would fail: Get the name of a peripheral wrapped

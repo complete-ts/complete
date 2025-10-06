@@ -556,16 +556,6 @@ valid.push({
 });
 
 valid.push({
-  name: "Comment with JSDoc see tag",
-  code: `
-/**
- * @see peripheral This event is fired whenever a
- * new peripheral is attached.
- */
-  `,
-});
-
-valid.push({
   name: "Comment with JSDoc Markdown header at the beginning",
   code: `
 /**
