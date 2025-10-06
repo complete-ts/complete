@@ -27,13 +27,17 @@ const config = {
 export default config;
 
 /**
- * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with "rules/complete-sentences-jsdoc"
+ * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with
+ * "eslint-plugin-complete/rules/complete-sentences-jsdoc".
  *
  * @param content {string}
  * @returns {string}
  */
 function getContentWithFixedDocusaurusLinks(content) {
-  return content.replaceAll(/docs\/(rules\/[^)]+)\.md/g, "$1");
+  return content.replaceAll(
+    /docs\/(rules\/[^)]+)\.md/g,
+    "eslint-plugin-complete/$1",
+  );
 }
 
 /**
