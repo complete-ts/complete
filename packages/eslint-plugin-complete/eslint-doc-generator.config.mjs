@@ -16,6 +16,10 @@ const config = {
   ruleDocTitleFormat: "name",
 
   postprocess(content, pathToFile) {
+    if (pathToFile.includes(`${path.sep}website-root.md`)) {
+      return getContentWithFixedDocusaurusLinks(content);
+    }
+
     return getContentWithResourcesSection(content, pathToFile);
   },
 };
@@ -23,19 +27,23 @@ const config = {
 export default config;
 
 /**
+ * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with "rules/complete-sentences-jsdoc"
+ *
+ * @param content {string}
+ * @returns {string}
+ */
+function getContentWithFixedDocusaurusLinks(content) {
+  return content.replaceAll(/docs\/(rules\/[^)]+)\.md/g, "$1");
+}
+
+/**
  * Add a "Resources" section as the final section.
  *
  * @param content {string}
  * @param pathToFile {string}
+ * @returns {string}
  */
 function getContentWithResourcesSection(content, pathToFile) {
-  if (
-    !pathToFile.includes(`${path.sep}rules${path.sep}`)
-    || !pathToFile.endsWith(".md")
-  ) {
-    return content;
-  }
-
   const ruleName = pathToFile.split(path.sep).pop().replace(".md", "");
 
   const resourcesSection = `## Resources

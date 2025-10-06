@@ -18,7 +18,6 @@ const config: Config = {
 
   onBrokenAnchors: "throw",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
 
   i18n: {
@@ -88,10 +87,15 @@ const config: Config = {
   // Added fields from vanilla
   // -------------------------
 
-  // Needed so that the following text works properly: `1 << -1 (0)`
-  // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
   markdown: {
+    // Needed so that the following text works properly: `1 << -1 (0)`
+    // https://github.com/tgreyuk/typedoc-plugin-markdown/issues/502
     format: "detect",
+
+    hooks: {
+      onBrokenMarkdownLinks: "throw",
+      onBrokenMarkdownImages: "throw",
+    },
   },
 
   scripts: [

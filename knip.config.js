@@ -29,6 +29,7 @@ const config = {
     },
     "packages/eslint-plugin-complete": {
       ignore: [
+        "eslint-doc-generator.config.mjs",
         "src/template.ts",
         "tests/template.ts",
         "tests/fixtures/file.ts",
