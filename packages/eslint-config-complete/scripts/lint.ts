@@ -1,15 +1,16 @@
-import { $, lintScript, readFile } from "complete-node";
+import { lintCommands, readFile } from "complete-node";
 import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 
-await lintScript(import.meta.dirname, async (packageRoot) => {
-  await Promise.all([
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-    $`eslint --max-warnings 0 .`,
-    checkDocs(packageRoot),
-  ]);
-});
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
+
+await lintCommands(import.meta.dirname, [
+  "tsc --noEmit",
+  "tsc --noEmit --project ./scripts/tsconfig.json",
+  "eslint --max-warnings 0 .",
+  // eslint-disable-next-line unicorn/prefer-top-level-await
+  ["checkDocs", checkDocs(PACKAGE_ROOT)],
+]);
 
 async function checkDocs(packageRoot: string) {
   const readmePath = path.join(packageRoot, "website-root.md");

@@ -76,6 +76,7 @@
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
     "knip": "5.64.2",
+    "listr2": "9.0.4",
     "npm-check-updates": "19.0.0",
     "package-directory": "8.1.0",
     "prettier": "3.6.2",

@@ -150,48 +150,46 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 At this point, we should be able to see squiggly lines when errors happen, making for a nice editor experience. However, there might be errors in files that are not currently open in our editor. Thus, we might want to run a command to check the entire repository for errors. Since we use several different tools, we need to run several different commands to invoke each tool. One way to accomplish this is to create a `./scripts/lint.ts` file that runs all the tools in parallel:
 
 ```ts
-import { $, lintScript } from "complete-node";
+import { lintCommands } from "complete-node";
 
-await lintScript(import.meta.dirname, async () => {
-  await Promise.all([
-    // Use TypeScript to type-check the code.
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
+await lintCommands(import.meta.dirname, [
+  // Use TypeScript to type-check the code.
+  "tsc --noEmit",
+  "tsc --noEmit --project ./scripts/tsconfig.json",
 
-    // Use ESLint to lint the TypeScript code.
-    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 .`,
+  // Use ESLint to lint the TypeScript code.
+  // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+  "eslint --max-warnings 0 .",
 
-    // Use Prettier to check formatting.
-    // - "--log-level=warn" makes it only output errors.
-    $`prettier --log-level=warn --check .`,
+  // Use Prettier to check formatting.
+  // - "--log-level=warn" makes it only output errors.
+  "prettier --log-level=warn --check .",
 
-    // Use Knip to check for unused files, exports, and dependencies.
-    // - "--no-progress" - Don’t show dynamic progress updates. Progress is automatically disabled
-    //   in CI environments.
-    // - "--treat-config-hints-as-errors" - Exit with non-zero code (1) if there are any
-    //   configuration hints.
-    $`knip --no-progress --treat-config-hints-as-errors`,
+  // Use Knip to check for unused files, exports, and dependencies.
+  // - "--no-progress" - Don’t show dynamic progress updates. Progress is automatically disabled
+  //   in CI environments.
+  // - "--treat-config-hints-as-errors" - Exit with non-zero code (1) if there are any
+  //   configuration hints.
+  "knip --no-progress --treat-config-hints-as-errors",
 
-    // Use CSpell to spell check every file.
-    // - "--no-progress" and "--no-summary" make it only output errors.
-    $`cspell --no-progress --no-summary .`,
+  // Use CSpell to spell check every file.
+  // - "--no-progress" and "--no-summary" make it only output errors.
+  "cspell --no-progress --no-summary",
 
-    // Check for unused words in the CSpell configuration file.
-    $`cspell-check-unused-words`,
+  // Check for unused words in the CSpell configuration file.
+  "cspell-check-unused-words",
 
-    // Check for template updates.
-    $`complete-cli check`,
-  ]);
-});
+  // Check for template updates.
+  "complete-cli check",
+]);
 ```
 
-Or, if you want to abstract this away, you can simplify the script by using a helper function:
+Alternatively, if you want a cleaner lint script, you can omit providing the array, and the `lintCommands` function will run all of the previously mentioned tools by default:
 
 ```ts
-import { lintScript, standardLintFunction } from "complete-node";
+import { lintCommands } from "complete-node";
 
-await lintScript(import.meta.dirname, standardLintFunction);
+await lintCommands(import.meta.dirname);
 ```
 
 Additionally, you can also optionally put the script in your "package.json" file:
