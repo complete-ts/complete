@@ -72,12 +72,6 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 
 ## Rules
 
-Each rule has emojis denoting:
-
-- :white_check_mark: - if it belongs to the `recommended` configuration
-- :wrench: - if some problems reported by the rule are automatically fixable by the `--fix` [command line option](https://eslint.org/docs/latest/user-guide/command-line-interface#fixing-problems)
-- :thought_balloon: - if it requires type information
-
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
 <!-- begin auto-generated rules list -->
 
