@@ -45,14 +45,6 @@ switch (foo) {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/newline-between-switch-case": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

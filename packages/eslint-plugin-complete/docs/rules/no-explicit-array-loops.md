@@ -28,14 +28,6 @@ Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare becaus
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-explicit-array-loops": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

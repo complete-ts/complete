@@ -26,14 +26,6 @@ const myArray: string[] = [];
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-object-any": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

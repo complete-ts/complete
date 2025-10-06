@@ -40,14 +40,6 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-template-curly-in-string-fix": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

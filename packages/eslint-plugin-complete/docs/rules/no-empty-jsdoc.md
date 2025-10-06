@@ -34,14 +34,6 @@ Disallows empty JSDoc comments (and automatically removes them).
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-empty-jsdoc": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

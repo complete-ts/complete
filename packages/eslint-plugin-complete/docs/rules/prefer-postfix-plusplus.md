@@ -24,14 +24,6 @@ foo--;
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/prefer-postfix-plusplus": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

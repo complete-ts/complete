@@ -32,14 +32,6 @@ for (const key of Object.keys(object)) {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-for-in": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

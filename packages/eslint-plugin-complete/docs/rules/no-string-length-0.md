@@ -22,14 +22,6 @@ if (foo === "") {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-string-length-0": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

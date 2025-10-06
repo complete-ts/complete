@@ -18,14 +18,6 @@ let foo: string;
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-let-any": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

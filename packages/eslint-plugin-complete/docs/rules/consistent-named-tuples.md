@@ -16,14 +16,6 @@ type MyTuple = [arg1: string, arg2: number];
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/consistent-named-tuples": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

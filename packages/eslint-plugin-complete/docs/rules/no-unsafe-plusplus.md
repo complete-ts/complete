@@ -27,14 +27,6 @@ for (; ; foo++) {}
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-unsafe-plusplus": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Credits

@@ -60,14 +60,6 @@ for (const value of mySet.values()) {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-object-methods-with-map-set": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

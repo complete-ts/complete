@@ -36,14 +36,6 @@ const filteredNumbers = numbers.filter((element) => {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/strict-array-methods": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

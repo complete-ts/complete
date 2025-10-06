@@ -66,14 +66,6 @@ const FOO = [1, 2, 3] as const;
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/require-capital-const-assertions": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

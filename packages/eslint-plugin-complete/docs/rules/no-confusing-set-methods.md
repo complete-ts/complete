@@ -22,14 +22,6 @@ for (const value of mySet) {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-confusing-set-methods": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

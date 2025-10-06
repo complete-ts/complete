@@ -133,14 +133,6 @@ const FRUIT_PRICES = {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/strict-enums": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

@@ -24,14 +24,6 @@ function foo() {}
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-void-return-type": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

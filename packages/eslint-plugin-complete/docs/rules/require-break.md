@@ -43,14 +43,6 @@ switch (foo) {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/require-break": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

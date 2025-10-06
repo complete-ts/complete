@@ -52,14 +52,6 @@ The next simplest and easiest-to-maintain solution is to simply copy the values 
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/consistent-enum-values": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

@@ -72,14 +72,6 @@ The rule tries to be as smart as possible. You can open a GitHub issue if you fi
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/complete-sentences-jsdoc": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

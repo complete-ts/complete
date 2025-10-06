@@ -25,14 +25,6 @@ function foo(): undefined {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/strict-undefined-functions": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

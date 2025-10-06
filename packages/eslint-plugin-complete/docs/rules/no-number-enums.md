@@ -30,14 +30,6 @@ Obviously, there are [some cases where number enums are superior](strict-enums.m
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-number-enums": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

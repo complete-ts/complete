@@ -28,14 +28,6 @@ Note that if you use the `recommended` config that comes with this plugin, then 
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-useless-return": "error"
-  }
-}
-```
-
 This rule is not configurable. (All of the unsafe options from the original have been removed.)
 
 ## Resources

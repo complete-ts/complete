@@ -48,14 +48,6 @@ Note that while "<<" is technically a useless operator when combined with 0, thi
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-unnecessary-assignment": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

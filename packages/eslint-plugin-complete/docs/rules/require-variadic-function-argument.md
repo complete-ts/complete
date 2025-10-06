@@ -46,14 +46,6 @@ function getCars(...carTypes: CarType[]) {}
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/require-variadic-function-argument": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

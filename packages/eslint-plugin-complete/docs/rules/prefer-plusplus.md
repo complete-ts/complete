@@ -32,14 +32,6 @@ i++;
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/prefer-plusplus": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

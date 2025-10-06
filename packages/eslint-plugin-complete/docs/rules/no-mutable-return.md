@@ -46,14 +46,6 @@ function getSet(): ReadonlySet<string>[] {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-mutable-return": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

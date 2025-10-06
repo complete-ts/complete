@@ -63,14 +63,6 @@ const MY_OBJECT: Readonly<Foo> = {
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/require-capital-read-only": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

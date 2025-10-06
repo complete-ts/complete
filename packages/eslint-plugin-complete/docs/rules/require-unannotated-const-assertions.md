@@ -20,14 +20,6 @@ const array = [1, 2, 3] as const;
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/require-unannotated-const-assertions": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

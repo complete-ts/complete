@@ -20,14 +20,6 @@ Disallows empty line comments (and automatically removes them).
 
 ## Options
 
-```json
-{
-  "rules": {
-    "complete/no-empty-line-comments": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources
