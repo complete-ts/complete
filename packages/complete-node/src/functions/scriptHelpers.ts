@@ -13,11 +13,44 @@ import {
   isObject,
 } from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
+import { Listr } from "listr2";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
-import { $ } from "./execa.js";
+import { $q } from "./execa.js";
 import { deleteFileOrDirectory } from "./file.js";
 import { getArgs } from "./utils.js";
+
+/** This should match what is listed in the "complete-lint/website-root.md" file. */
+const DEFAULT_LINT_COMMANDS = [
+  // Use TypeScript to type-check the code.
+  "tsc --noEmit",
+  "tsc --noEmit --project ./scripts/tsconfig.json",
+
+  // Use ESLint to lint the TypeScript code.
+  // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
+  "eslint --max-warnings 0 .",
+
+  // Use Prettier to check formatting.
+  // - "--log-level=warn" makes it only output errors.
+  "prettier --log-level=warn --check .",
+
+  // Use Knip to check for unused files, exports, and dependencies.
+  // - "--no-progress" - Don’t show dynamic progress updates. Progress is automatically disabled in
+  //   CI environments.
+  // - "--treat-config-hints-as-errors" - Exit with non-zero code (1) if there are any configuration
+  //   hints.
+  "knip --no-progress --treat-config-hints-as-errors",
+
+  // Use CSpell to spell check every file.
+  // - "--no-progress" and "--no-summary" make it only output errors.
+  "cspell --no-progress --no-summary",
+
+  // Check for unused words in the CSpell configuration file.
+  "cspell-check-unused-words",
+
+  // Check for template updates.
+  "complete-cli check",
+] as const;
 
 /**
  * The type of the function passed to the `script` helper function. (And the related helper
@@ -51,14 +84,6 @@ export async function lintScript(
   func: ScriptCallback,
 ): Promise<void> {
   await script(importMetaDirname, func, "linted");
-}
-
-/** See the documentation for the `script` helper function. */
-export async function testScript(
-  importMetaDirname: string,
-  func: ScriptCallback,
-): Promise<void> {
-  await script(importMetaDirname, func, "tested");
 }
 
 /**
@@ -142,6 +167,71 @@ export async function script(
 }
 
 /**
+ * Helper function to run a series of concurrent lint commands. Nice console output will be shown
+ * with the "listr2" library.
+ *
+ * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
+ *                          package root).
+ * @param commands Optional. The commands or functions to run. Defaults to the standard tools that
+ *                 are listed in the documentation for `complete-lint`:
+ * https://complete-ts.github.io/complete-lint#step-5---create-a-lint-script
+ * @param quiet Optional. If true, will not print the time taken. Defaults to false.
+ */
+export async function lintCommands(
+  importMetaDirname: string,
+  commands: ReadonlyArray<
+    string | [name: string, promise: Promise<unknown>]
+  > = DEFAULT_LINT_COMMANDS,
+  quiet = false,
+): Promise<void> {
+  const startTime = Date.now();
+
+  const packageRoot = await packageDirectory({ cwd: importMetaDirname });
+  assertDefined(
+    packageRoot,
+    `Failed to find the package root from the directory of: ${packageRoot}`,
+  );
+
+  const tasks = commands.map((command) => {
+    // Handle normal commands.
+    if (typeof command === "string") {
+      return {
+        title: command,
+        task: async () => {
+          const [cmd, ...args] = command.split(" ");
+          if (cmd === undefined) {
+            throw new Error(`Invalid command: ${command}`);
+          }
+
+          return await $q(cmd, args, {
+            cwd: packageRoot,
+          });
+        },
+      };
+    }
+
+    // Handle promises.
+    return {
+      title: command[0],
+      task: async () => await command[1],
+    };
+  });
+
+  const listr = new Listr<unknown>(tasks, {
+    concurrent: true,
+    exitOnError: false,
+  });
+
+  await listr.run();
+
+  if (!quiet) {
+    console.log();
+    const packageName = path.basename(packageRoot);
+    printSuccess(startTime, "linted", packageName);
+  }
+}
+
+/**
  * Helper function to print a success message with the number of elapsed seconds.
  *
  * @param startTime The start time in milliseconds (as recorded by the `Date.now` method).
@@ -158,55 +248,6 @@ export function printSuccess(
   console.log(
     `Successfully ${verb} ${noun} in ${elapsedSeconds} ${secondsText}.`,
   );
-}
-
-/**
- * Use this function with the `lintScript` helper function if you want to just use the standard
- * linting checks for a TypeScript project without any project-specific customization.
- *
- * For example:
- *
- * ```ts
- * import { lintScript, standardLintFunction } from "complete-node";
- *
- * await lintScript(import.meta.dirname, standardLintFunction);
- * ```
- *
- * See [the official docs](/complete-lint#step-5---create-a-lint-script) for what specific checks
- * are performed.
- */
-// This function must match the documentation in "complete-lint".
-export async function standardLintFunction(): Promise<void> {
-  await Promise.all([
-    // Use TypeScript to type-check the code.
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-
-    // Use ESLint to lint the TypeScript code.
-    // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 .`,
-
-    // Use Prettier to check formatting.
-    // - "--log-level=warn" makes it only output errors.
-    $`prettier --log-level=warn --check .`,
-
-    // Use Knip to check for unused files, exports, and dependencies.
-    // - "--no-progress" - Don’t show dynamic progress updates. Progress is automatically disabled
-    //   in CI environments.
-    // - "--treat-config-hints-as-errors" - Exit with non-zero code (1) if there are any
-    //   configuration hints.
-    $`knip --no-progress --treat-config-hints-as-errors`,
-
-    // Use CSpell to spell check every file.
-    // - "--no-progress" and "--no-summary" make it only output errors.
-    $`cspell --no-progress --no-summary .`,
-
-    // Check for unused words in the CSpell configuration file.
-    $`cspell-check-unused-words`,
-
-    // Check for template updates.
-    $`complete-cli check`,
-  ]);
 }
 
 /**

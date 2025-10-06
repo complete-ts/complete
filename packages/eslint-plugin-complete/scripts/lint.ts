@@ -1,7 +1,7 @@
 import { assertDefined } from "complete-common";
 import {
-  $,
   getFilePathsInDirectory,
+  lintCommands,
   lintScript,
   readFile,
 } from "complete-node";
@@ -11,8 +11,8 @@ import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
 import { RULES_TS_PATH } from "./generateRules.js";
 
-const docsRulesPath = path.join(PACKAGE_ROOT, "docs", "rules");
-const docsRulesFilePaths = await getFilePathsInDirectory(docsRulesPath);
+const DOCS_RULES_PATHS = path.join(PACKAGE_ROOT, "docs", "rules");
+const DOCS_RULES_FILE_PATHS = await getFilePathsInDirectory(DOCS_RULES_PATHS);
 
 const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   // From "generateRules.mts":
@@ -21,16 +21,20 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   path.join(CONFIGS_DIRECTORY_PATH, "recommended.ts"),
   // From: "generateReadme.mts":
   path.join(PACKAGE_ROOT, "website-root.md"),
-  ...docsRulesFilePaths,
+  ...DOCS_RULES_FILE_PATHS,
 ] as const;
 
 await lintScript(import.meta.dirname, async () => {
-  await Promise.all([
-    $`tsc --noEmit`,
-    $`tsc --noEmit --project ./scripts/tsconfig.json`,
-    $`tsc --noEmit --project ./tests/tsconfig.json`,
-    $`eslint --max-warnings 0 .`,
-  ]);
+  await lintCommands(
+    import.meta.dirname,
+    [
+      "tsc --noEmit",
+      "tsc --noEmit --project ./scripts/tsconfig.json",
+      "tsc --noEmit --project ./tests/tsconfig.json",
+      "eslint --max-warnings 0 .",
+    ],
+    true,
+  );
 
   // We cannot do generation at the same time as the other linting because it changes the
   // compilation output, creating a race condition.
