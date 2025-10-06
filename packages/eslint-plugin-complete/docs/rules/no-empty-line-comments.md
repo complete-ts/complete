@@ -2,6 +2,8 @@
 
 Disallows empty line comments (and automatically removes them).
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts

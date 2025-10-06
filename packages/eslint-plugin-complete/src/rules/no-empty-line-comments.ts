@@ -6,7 +6,8 @@ export const noEmptyLineComments = createRule({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows empty line comments",
+      description:
+        "Disallows empty line comments (and automatically removes them)",
       recommended: true,
       requiresTypeChecking: false,
     },

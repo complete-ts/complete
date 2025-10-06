@@ -2,6 +2,8 @@
 
 Requires boolean return types on some specific array methods.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 This rule targets the following Array methods:

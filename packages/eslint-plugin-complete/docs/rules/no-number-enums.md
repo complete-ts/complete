@@ -2,6 +2,8 @@
 
 Disallows number enums.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 The TypeScript compiler has looser checks for number enums than it does for string enums. For this reason, the TypeScript ecosystem has preferred string enums over number enums.

@@ -1,6 +1,10 @@
 # no-string-length-0
 
-Disallows checking for empty strings via the length method in favor of direct comparison to an empty string, since the latter is shorter and easier to read.
+Disallows checking for empty strings via the length method in favor of direct comparison to an empty string.
+
+<!-- end auto-generated rule header -->
+
+This is helpful since the latter is shorter and easier to read.
 
 ## Rule Details
 

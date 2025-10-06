@@ -1,6 +1,8 @@
 # no-useless-return
 
-Disallows redundant return statements.
+Disallows redundant return statements (with no auto-fixer).
+
+<!-- end auto-generated rule header -->
 
 This is the exact same thing as the ESLint [`no-useless-return`](https://eslint.org/docs/latest/rules/no-useless-return) rule, except the auto-fixer is disabled.
 

@@ -2,6 +2,8 @@
 
 Requires maps/sets/arrays with a capital letter to be read-only.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 In TypeScript:

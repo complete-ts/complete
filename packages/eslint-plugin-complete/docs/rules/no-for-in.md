@@ -2,6 +2,8 @@
 
 Disallows "for x in y" statements.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 "for in" loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop or instead.

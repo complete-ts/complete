@@ -2,6 +2,8 @@
 
 Requires a language specification for every JSDoc code block.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 This rule is the same thing as the [`markdownlint`](https://github.com/DavidAnson/markdownlint) rule [MD040](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md#md040): fenced code blocks should have a language specified. The only difference is that this is for JSDoc comments instead of Markdown.

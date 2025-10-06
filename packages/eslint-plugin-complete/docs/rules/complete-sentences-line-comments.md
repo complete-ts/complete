@@ -2,6 +2,8 @@
 
 Requires complete sentences for multi-line leading line comments.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts

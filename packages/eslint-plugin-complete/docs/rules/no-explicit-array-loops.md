@@ -2,6 +2,8 @@
 
 Disallows explicit iteration for arrays.
 
+<!-- end auto-generated rule header -->
+
 In this case, "explicit iteration" means using the `values` method (or `Object.values`) in a for loop. Forbidding this can make code easier to read.
 
 Also see the [`no-explicit-map-set-loops`](no-explicit-map-set-loops.md) rule.

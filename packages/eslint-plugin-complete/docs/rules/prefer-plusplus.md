@@ -2,6 +2,8 @@
 
 Require `++` or `--` operators instead of assignment operators where applicable.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 The [`operator-assignment`](https://eslint.org/docs/latest/rules/operator-assignment) ESLint rule converts `x = x + 1` to `x += 1`. This is a fantastic rule because it makes code more concise and easier to read. (Technically, the code would be more confusing for people who don't know what the "+=" operator does, but this is not an issue in most cases.)

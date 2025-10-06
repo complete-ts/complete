@@ -2,6 +2,8 @@
 
 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
 
+<!-- end auto-generated rule header -->
+
 Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run `eslint --fix` on save.
 
 Also see the [`format-line-comments`](format-line-comments.md) rule.

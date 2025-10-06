@@ -2,6 +2,8 @@
 
 Disallows `void` return types on non-exported functions.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 Most of the time, programmers do not bother typing `void` after the functions that they write, since this return type is implied by default. Adding the `void` annotation to every function would clutter the code.

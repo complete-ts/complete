@@ -2,6 +2,8 @@
 
 Disallows useless assignments.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 Sometimes, refactoring can lead to assignment statements that were once useful but are now redundant. This rule helps you clean up the dead code in a similar way that the [`@typescript-eslint/no-unnecessary-condition`](https://typescript-eslint.io/rules/no-unnecessary-condition/) rule does.

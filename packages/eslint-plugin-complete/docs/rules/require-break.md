@@ -2,6 +2,8 @@
 
 Requires that each non-fallthrough case of a switch statement has a `break` statement.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 The [`no-fallthrough`](https://eslint.org/docs/latest/rules/no-fallthrough) core ESLint rule helps to ensure that switch statements do not accidentally "fall through", which is a common mistake. It does this by ensuring that you put a break statement (or a `return`/`throw`) in every non-empty switch case.

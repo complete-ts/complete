@@ -2,6 +2,8 @@
 
 Disallows `undefined` return types on functions.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 A function that only returns `undefined` is confusing and likely to be a mistake, since a function that returns nothing should have a return type of `void`.

@@ -1,6 +1,10 @@
 # consistent-enum-values
 
-Requires that all enum values exactly match the enum name, like this:
+Requires consistent enum values.
+
+<!-- end auto-generated rule header -->
+
+Specifically, it requires that all enum values exactly match the enum name, like this:
 
 ```ts
 enum Foo {

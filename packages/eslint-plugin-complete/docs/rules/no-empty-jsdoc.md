@@ -2,6 +2,8 @@
 
 Disallows empty JSDoc comments (and automatically removes them).
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts
