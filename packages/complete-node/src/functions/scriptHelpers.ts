@@ -225,8 +225,9 @@ export async function lintCommands(
   await listr.run();
 
   if (!quiet) {
+    console.log();
     const packageName = path.basename(packageRoot);
-    printSuccess(startTime, "lint", packageName);
+    printSuccess(startTime, "linted", packageName);
   }
 }
 
