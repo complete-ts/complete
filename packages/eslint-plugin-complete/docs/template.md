@@ -12,14 +12,6 @@ RULE_DESCRIPTION.
 
 ## Options
 
-```json
-{
-  "rules": {
-    "PLUGIN_NAME/RULE_NAME": "error"
-  }
-}
-```
-
 This rule is not configurable.
 
 ## Resources

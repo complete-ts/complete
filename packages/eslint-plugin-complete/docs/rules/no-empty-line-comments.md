@@ -2,6 +2,8 @@
 
 Disallows empty line comments (and automatically removes them).
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts
@@ -17,14 +19,6 @@ Disallows empty line comments (and automatically removes them).
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-empty-line-comments": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

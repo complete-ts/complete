@@ -2,6 +2,8 @@
 
 Disallows number enums.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 The TypeScript compiler has looser checks for number enums than it does for string enums. For this reason, the TypeScript ecosystem has preferred string enums over number enums.
@@ -27,14 +29,6 @@ For pure TypeScript programs, the actual value of enums should never matter. Thu
 Obviously, there are [some cases where number enums are superior](strict-enums.md#number-enums-vs-string-enums). If you are in a codebase that needs to use number enums, then you should disable this rule and make sure that you use the [`strict-enums`](strict-enums.md) rule, which makes working with number enums about as safe as string enums.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-number-enums": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

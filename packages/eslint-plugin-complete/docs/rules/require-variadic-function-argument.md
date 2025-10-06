@@ -2,6 +2,8 @@
 
 Requires that variadic functions must be supplied with at least one argument.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 [Variadic functions](https://en.wikipedia.org/wiki/Variadic_function) are functions that take a variable amount of arguments. However, as far as the TypeScript compiler is concerned, passing no arguments at all to a variadic function is legal. But doing this is usually a bug. For example:
@@ -43,14 +45,6 @@ function getCars(...carTypes: CarType[]) {}
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/require-variadic-function-argument": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

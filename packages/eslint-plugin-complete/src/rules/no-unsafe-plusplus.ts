@@ -7,7 +7,7 @@ export const noUnsafePlusplus = createRule({
     type: "problem",
     docs: {
       description:
-        'Disallow unsafe and confusing uses of the "++" and "--" operators',
+        "Disallows unsafe and confusing uses of the `++` and `--` operators",
       recommended: true,
       requiresTypeChecking: true,
     },

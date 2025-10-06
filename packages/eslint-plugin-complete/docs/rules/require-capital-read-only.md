@@ -2,6 +2,8 @@
 
 Requires maps/sets/arrays with a capital letter to be read-only.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 In TypeScript:
@@ -60,14 +62,6 @@ const MY_OBJECT: Readonly<Foo> = {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/require-capital-read-only": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

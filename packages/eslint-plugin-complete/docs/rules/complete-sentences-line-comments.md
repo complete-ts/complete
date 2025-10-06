@@ -2,6 +2,8 @@
 
 Requires complete sentences for multi-line leading line comments.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts
@@ -11,14 +13,6 @@ Requires complete sentences for multi-line leading line comments.
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/complete-sentences-line-comments": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

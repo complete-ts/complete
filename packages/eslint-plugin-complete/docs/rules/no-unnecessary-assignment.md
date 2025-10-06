@@ -2,6 +2,8 @@
 
 Disallows useless assignments.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 Sometimes, refactoring can lead to assignment statements that were once useful but are now redundant. This rule helps you clean up the dead code in a similar way that the [`@typescript-eslint/no-unnecessary-condition`](https://typescript-eslint.io/rules/no-unnecessary-condition/) rule does.
@@ -45,14 +47,6 @@ const bar = foo ?? undefined;
 Note that while "<<" is technically a useless operator when combined with 0, this rule will not report on it so that bit flag enums will not cause false positives.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-unnecessary-assignment": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

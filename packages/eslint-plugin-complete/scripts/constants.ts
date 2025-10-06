@@ -1,7 +1,7 @@
 import path from "node:path";
 
 export const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
-export const PACKAGE_NAME = path.basename(PACKAGE_ROOT);
+const PACKAGE_NAME = path.basename(PACKAGE_ROOT);
 
 export const PLUGIN_NAME = (() => {
   const packageNameWords = PACKAGE_NAME.split("-");

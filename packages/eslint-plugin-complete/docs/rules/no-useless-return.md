@@ -1,6 +1,8 @@
 # no-useless-return
 
-Disallows redundant return statements.
+Disallows redundant return statements (with no auto-fixer).
+
+<!-- end auto-generated rule header -->
 
 This is the exact same thing as the ESLint [`no-useless-return`](https://eslint.org/docs/latest/rules/no-useless-return) rule, except the auto-fixer is disabled.
 
@@ -25,14 +27,6 @@ Otherwise, the two rules will conflict with each other.
 Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-useless-return": "error"
-  }
-}
-```
 
 This rule is not configurable. (All of the unsafe options from the original have been removed.)
 

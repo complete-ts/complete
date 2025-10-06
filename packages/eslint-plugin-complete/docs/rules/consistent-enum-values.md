@@ -1,6 +1,10 @@
 # consistent-enum-values
 
-Requires that all enum values exactly match the enum name, like this:
+Requires consistent enum values.
+
+<!-- end auto-generated rule header -->
+
+Specifically, it requires that all enum values exactly match the enum name, like this:
 
 ```ts
 enum Foo {
@@ -47,14 +51,6 @@ Unfortunately, this feature results in numeric values instead of string values. 
 The next simplest and easiest-to-maintain solution is to simply copy the values of the the enum exactly. Thus, this lint rule enforces this style.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/consistent-enum-values": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

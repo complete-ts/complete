@@ -2,6 +2,8 @@
 
 Disallows explicit iteration for arrays.
 
+<!-- end auto-generated rule header -->
+
 In this case, "explicit iteration" means using the `values` method (or `Object.values`) in a for loop. Forbidding this can make code easier to read.
 
 Also see the [`no-explicit-map-set-loops`](no-explicit-map-set-loops.md) rule.
@@ -25,14 +27,6 @@ for (const element of myArray.values()) {
 Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-explicit-array-loops": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

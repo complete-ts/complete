@@ -1,6 +1,10 @@
 # no-object-methods-with-map-set
 
-Disallows using the `Object.entries`, `Object.keys`, and `Object.values` methods with maps and sets, since doing this is virtually always a bug.
+Disallows using object methods with maps and sets.
+
+<!-- end auto-generated rule header -->
+
+Specifically, it disallows `Object.entries`, `Object.keys`, and `Object.values`, since doing this is virtually always a bug.
 
 ## Rule Details
 
@@ -55,14 +59,6 @@ for (const value of mySet.values()) {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-object-methods-with-map-set": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

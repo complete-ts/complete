@@ -1,6 +1,10 @@
 # strict-enums
 
-Disallows the usage of unsafe enum patterns. Designed to be used in addition to [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison).
+Disallows the usage of unsafe enum patterns.
+
+<!-- end auto-generated rule header -->
+
+This rule is designed to be used in addition to [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison).
 
 ## Rule Details
 
@@ -128,14 +132,6 @@ const FRUIT_PRICES = {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/strict-enums": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

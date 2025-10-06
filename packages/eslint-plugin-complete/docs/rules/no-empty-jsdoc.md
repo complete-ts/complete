@@ -2,6 +2,8 @@
 
 Disallows empty JSDoc comments (and automatically removes them).
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts
@@ -31,14 +33,6 @@ Disallows empty JSDoc comments (and automatically removes them).
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-empty-jsdoc": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

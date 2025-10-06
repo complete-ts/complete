@@ -36,14 +36,15 @@
   "scripts": {
     "build": "tsx ./scripts/build.ts",
     "create-rule": "tsx ./scripts/createRule.ts",
+    "docs": "eslint-doc-generator",
     "generate": "tsx ./scripts/generate.ts",
     "lint": "tsx ./scripts/lint.ts",
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.45.0",
-    "@typescript-eslint/utils": "8.45.0",
-    "typescript-eslint": "8.45.0"
+    "@typescript-eslint/type-utils": "8.46.0",
+    "@typescript-eslint/utils": "8.46.0",
+    "typescript-eslint": "8.46.0"
   },
   "devDependencies": {
     "@babel/core": "7.28.4",
@@ -51,10 +52,11 @@
     "@babel/preset-typescript": "7.27.1",
     "@types/jest": "30.0.0",
     "@types/node": "24.7.0",
-    "@typescript-eslint/rule-tester": "8.45.0",
-    "@typescript-eslint/types": "8.45.0",
+    "@typescript-eslint/rule-tester": "8.46.0",
+    "@typescript-eslint/types": "8.46.0",
     "complete-common": "2.5.0",
     "complete-node": "12.0.1",
+    "eslint-doc-generator": "2.3.0",
     "jest": "30.2.0",
     "prettier": "3.6.2",
     "typescript": "5.9.3"

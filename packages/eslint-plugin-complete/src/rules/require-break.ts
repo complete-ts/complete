@@ -13,7 +13,7 @@ export const requireBreak = createRule<Options, MessageIds>({
     type: "layout",
     docs: {
       description:
-        "Requires that each case of a switch statement has a `break` statement",
+        "Requires that each non-fallthrough case of a switch statement has a `break` statement",
       recommended: true,
       requiresTypeChecking: false,
     },

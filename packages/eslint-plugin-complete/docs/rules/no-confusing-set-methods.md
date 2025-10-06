@@ -1,8 +1,10 @@
 # no-confusing-set-methods
 
-Disallows the `Set.keys` and the `Set.entries` methods.
+Disallows confusing methods for sets.
 
-These methods serve no purpose and should instead be replaced with the `Set.values` method (or implicit iteration if the set is being used inside of a for loop).
+<!-- end auto-generated rule header -->
+
+Specifically, this disallows the `Set.keys` and the `Set.entries` methods. These methods serve no purpose and should instead be replaced with the `Set.values` method (or implicit iteration if the set is being used inside of a for loop).
 
 ## Rule Details
 
@@ -19,14 +21,6 @@ for (const value of mySet) {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-confusing-set-methods": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

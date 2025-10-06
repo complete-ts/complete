@@ -1,6 +1,10 @@
 # newline-between-switch-case
 
-Requires newlines between switch cases. Having newlines between each case can make code easier to read, as it better delineates each block.
+Requires newlines between switch cases.
+
+<!-- end auto-generated rule header -->
+
+Having newlines between each case can make code easier to read, as it better delineates each block.
 
 Based on [this rule](https://github.com/lukeapage/eslint-plugin-switch-case/blob/master/docs/rules/newline-between-switch-case.md).
 
@@ -40,14 +44,6 @@ switch (foo) {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/newline-between-switch-case": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

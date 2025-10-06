@@ -2,6 +2,8 @@
 
 Requires the use of `===` and `!==` (and automatically fixes).
 
+<!-- end auto-generated rule header -->
+
 This is a replacement for the ESLint [`eqeqeq`](https://eslint.org/docs/latest/rules/eqeqeq) rule that includes the ability for `--fix` to work properly.
 
 ## Rule Details
@@ -39,14 +41,6 @@ Otherwise, the two rules will conflict with each other.
 Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/eqeqeq-fix": "error"
-  }
-}
-```
 
 This rule is not configurable. (All of the unsafe options from the original have been removed.)
 

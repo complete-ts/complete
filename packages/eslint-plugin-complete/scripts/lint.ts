@@ -1,10 +1,18 @@
 import { assertDefined } from "complete-common";
-import { $, lintScript, readFile } from "complete-node";
+import {
+  $,
+  getFilePathsInDirectory,
+  lintScript,
+  readFile,
+} from "complete-node";
 import path from "node:path";
+import { PACKAGE_ROOT } from "./constants.js";
 import { generateAll } from "./generate.js";
 import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
-import { README_MD_PATH } from "./generateReadme.js";
 import { RULES_TS_PATH } from "./generateRules.js";
+
+const docsRulesPath = path.join(PACKAGE_ROOT, "docs", "rules");
+const docsRulesFilePaths = await getFilePathsInDirectory(docsRulesPath);
 
 const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   // From "generateRules.mts":
@@ -12,7 +20,8 @@ const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
   // From "generateConfigs.mts":
   path.join(CONFIGS_DIRECTORY_PATH, "recommended.ts"),
   // From: "generateReadme.mts":
-  README_MD_PATH,
+  path.join(PACKAGE_ROOT, "website-root.md"),
+  ...docsRulesFilePaths,
 ] as const;
 
 await lintScript(import.meta.dirname, async () => {

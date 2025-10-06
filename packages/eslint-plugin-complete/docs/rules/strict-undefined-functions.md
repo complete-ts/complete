@@ -2,6 +2,8 @@
 
 Disallows empty return statements in functions annotated as returning undefined.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 `void` is different from `undefined` in that `undefined` is a value and `void` is the lack of any value. Thus, it is confusing if someone is returning nothing from a function that is annotated as returning `undefined`. In general, this is indication that either the return type of the function should be changed to `void` or that `undefined` should be explicitly returned.
@@ -22,14 +24,6 @@ function foo(): undefined {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/strict-undefined-functions": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

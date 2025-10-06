@@ -2,6 +2,8 @@
 
 Requires that if one or more tuple elements are named, all of them are named.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 ```ts
@@ -13,14 +15,6 @@ type MyTuple = [arg1: string, arg2: number];
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/consistent-named-tuples": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

@@ -1,6 +1,5 @@
-import { isMain } from "complete-node";
+import { $, isMain } from "complete-node";
 import { generateConfigs } from "./generateConfigs.js";
-import { generateReadme } from "./generateReadme.js";
 import { generateRules } from "./generateRules.js";
 
 if (isMain(import.meta.filename)) {
@@ -23,7 +22,7 @@ export async function generateAll(quiet = false): Promise<void> {
   if (!quiet) {
     console.log("Generating readme...");
   }
-  await generateReadme();
+  await $`eslint-doc-generator`;
 
   if (!quiet) {
     console.log("Success!");

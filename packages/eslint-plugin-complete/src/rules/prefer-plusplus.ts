@@ -11,7 +11,7 @@ export const preferPlusplus = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description:
-        'Require "++" or "--" operators instead of assignment operators where applicable',
+        "Require `++` or `--` operators instead of assignment operators where applicable",
       recommended: true,
       requiresTypeChecking: false,
     },

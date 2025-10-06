@@ -2,6 +2,8 @@
 
 Disallows declaring variables with let that do not have a type.
 
+<!-- end auto-generated rule header -->
+
 This is useful because the `noImplicitAny` TypeScript compiler flag does not always catch this pattern. If you want to purge all of the `any` from your codebase, you need this rule.
 
 ## Rule Details
@@ -15,14 +17,6 @@ let foo: string;
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-let-any": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

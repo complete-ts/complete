@@ -2,6 +2,8 @@
 
 Require `i++` instead of `++i` and `i--` instead of `--i`.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 Most of the time, the `++` operator is used inside of a for loop, which is pretty easy to understand. In this simple case, switching `i++` to `++i` does not functionally change the program in any way. However, this is not always the case. In some situations, changing `++i` to `i++` _does_ result in functionally different code. In these cases, it is usually done specifically by the programmer to take take advantage of the prefix functionality.
@@ -21,14 +23,6 @@ foo--;
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/prefer-postfix-plusplus": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

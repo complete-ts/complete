@@ -2,6 +2,8 @@
 
 Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
 
+<!-- end auto-generated rule header -->
+
 This is the same thing as the [`@typescript-eslint/prefer-readonly-parameter-types`](https://typescript-eslint.io/rules/prefer-readonly-parameter-types/) rule, with the follow changes:
 
 - The `allow` array is hard-coded to always contain `ReadonlyMap` and `ReadonlySet`.

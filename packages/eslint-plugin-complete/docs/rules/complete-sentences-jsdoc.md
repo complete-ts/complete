@@ -2,8 +2,9 @@
 
 Requires complete sentences for JSDoc comments.
 
-This rule is similar to the [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc#require-description-complete-sentence) rule, but it is smarter in that it will
-generate less false positives. (See the cases outlined below.)
+<!-- end auto-generated rule header -->
+
+This rule is similar to the [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc#require-description-complete-sentence) rule, but it is smarter in that it will generate less false positives. (See the cases outlined below.)
 
 For more information on why you should use this rule, see the [comment formatting discussion](../comments.md).
 
@@ -70,14 +71,6 @@ For more information on why you should use this rule, see the [comment formattin
 The rule tries to be as smart as possible. You can open a GitHub issue if you find a situation where this rule should be smarter.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/complete-sentences-jsdoc": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

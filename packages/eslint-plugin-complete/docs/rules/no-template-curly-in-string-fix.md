@@ -2,6 +2,8 @@
 
 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
 
+<!-- end auto-generated rule header -->
+
 This is a replacement for the ESLint [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string) rule that includes the ability for `--fix` to work properly.
 
 ## Rule Details
@@ -37,14 +39,6 @@ Otherwise, the two rules will conflict with each other.
 Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-template-curly-in-string-fix": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

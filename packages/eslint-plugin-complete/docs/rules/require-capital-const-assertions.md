@@ -1,6 +1,8 @@
 # require-capital-const-assertions
 
-Requires a capital letter for named objects and arrays that have a [const assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions).
+Requires a capital letter for named objects and arrays that have a const assertion.
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 
@@ -63,14 +65,6 @@ const FOO = [1, 2, 3] as const;
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/require-capital-const-assertions": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

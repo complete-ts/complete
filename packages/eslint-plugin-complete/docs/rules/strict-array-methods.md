@@ -2,6 +2,8 @@
 
 Requires boolean return types on some specific array methods.
 
+<!-- end auto-generated rule header -->
+
 ## Rule Details
 
 This rule targets the following Array methods:
@@ -33,14 +35,6 @@ const filteredNumbers = numbers.filter((element) => {
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/strict-array-methods": "error"
-  }
-}
-```
 
 This rule is not configurable.
 

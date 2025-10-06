@@ -1,6 +1,8 @@
 # no-unsafe-plusplus
 
-Disallow unsafe and confusing uses of the `++` and `--` operators.
+Disallows unsafe and confusing uses of the `++` and `--` operators.
+
+<!-- end auto-generated rule header -->
 
 ## Rule Details
 
@@ -24,14 +26,6 @@ for (; ; foo++) {}
 ```
 
 ## Options
-
-```json
-{
-  "rules": {
-    "complete/no-unsafe-plusplus": "error"
-  }
-}
-```
 
 This rule is not configurable.
 
