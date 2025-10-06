@@ -279,9 +279,7 @@ export const baseJSDoc = defineConfig(
       "jsdoc/text-escaping": "off",
 
       /**
-       * TODO: Delete the options from the rule when the defaults change.
-       *
-       * @see https://github.com/gajus/eslint-plugin-jsdoc/issues/1556
+       * TODO: Delete the options from the rule when [the defaults change](https://github.com/gajus/eslint-plugin-jsdoc/issues/1556).
        */
       "jsdoc/type-formatting": [
         "warn",
