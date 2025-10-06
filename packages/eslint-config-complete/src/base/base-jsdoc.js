@@ -89,6 +89,7 @@ export const baseJSDoc = defineConfig(
       "jsdoc/convert-to-jsdoc-comments": "off",
 
       "jsdoc/empty-tags": "warn",
+      "jsdoc/escape-inline-tags": "warn",
       "jsdoc/implements-on-classes": "warn",
 
       /** Disabled since you cannot configure it with a path to the correct "package.json" file. */
@@ -148,6 +149,7 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
+      "jsdoc/prefer-import-tag": "warn",
       "jsdoc/reject-any-type": "warn",
       "jsdoc/reject-function-type": "warn",
       "jsdoc/require-asterisk-prefix": "warn",
@@ -175,6 +177,7 @@ export const baseJSDoc = defineConfig(
 
       "jsdoc/require-next-description": "warn",
       "jsdoc/require-next-type": "warn",
+      "jsdoc/require-template-description": "warn",
       "jsdoc/require-throws-description": "warn",
 
       /**
