@@ -4,6 +4,8 @@
 
 Requires boolean return types on some specific array methods.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

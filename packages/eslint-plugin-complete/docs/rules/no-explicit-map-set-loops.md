@@ -4,6 +4,10 @@
 
 Disallows explicit iteration for maps and sets.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 In this case, "explicit iteration" means using a method like `entries` or `values` in a for loop, where omitting the method would result in equivalent code. Forbidding this can make code easier to read.

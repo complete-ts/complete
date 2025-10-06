@@ -4,6 +4,8 @@
 
 Disallows empty return statements in functions annotated as returning undefined.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

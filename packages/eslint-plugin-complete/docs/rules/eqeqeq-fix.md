@@ -4,6 +4,10 @@
 
 Requires the use of `===` and `!==` (and automatically fixes).
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+⚙️ This rule is configurable.
+
 <!-- end auto-generated rule header -->
 
 This is a replacement for the ESLint [`eqeqeq`](https://eslint.org/docs/latest/rules/eqeqeq) rule that includes the ability for `--fix` to work properly.

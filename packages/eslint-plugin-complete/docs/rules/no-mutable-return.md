@@ -4,6 +4,8 @@
 
 Disallows returning mutable arrays, maps, and sets from functions.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 Arrays, maps, and sets are mutable by default in TypeScript, unlike safer languages like Rust. In general, code is [much easier to reason about when data structures are immutable](https://stackoverflow.com/questions/441309/why-are-mutable-structs-evil). Thus, this lint rule helps ensure a stricter boundary between functions to make data flows easier to understand.

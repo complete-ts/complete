@@ -4,6 +4,8 @@
 
 Requires newlines between switch cases.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 <!-- end auto-generated rule header -->
 
 Having newlines between each case can make code easier to read, as it better delineates each block.

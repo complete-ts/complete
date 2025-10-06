@@ -4,6 +4,8 @@
 
 Disallows checking for empty strings via the length method in favor of direct comparison to an empty string.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 This is helpful since the latter is shorter and easier to read.

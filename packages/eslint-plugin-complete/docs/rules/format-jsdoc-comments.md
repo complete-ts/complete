@@ -4,6 +4,10 @@
 
 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+⚙️ This rule is configurable.
+
 <!-- end auto-generated rule header -->
 
 Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run `eslint --fix` on save.

@@ -4,6 +4,8 @@
 
 Requires `const` declarations for variables that are never reassigned after declared (with no auto-fixer).
 
+⚙️ This rule is configurable.
+
 <!-- end auto-generated rule header -->
 
 This is the exact same thing as the ESLint [`prefer-const`](https://eslint.org/docs/latest/rules/prefer-const) rule, except the auto-fixer is disabled.

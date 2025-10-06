@@ -4,6 +4,8 @@
 
 Disallows confusing methods for sets.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 Specifically, this disallows the `Set.keys` and the `Set.entries` methods. These methods serve no purpose and should instead be replaced with the `Set.values` method (or implicit iteration if the set is being used inside of a for loop).

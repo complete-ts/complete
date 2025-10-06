@@ -4,6 +4,8 @@
 
 Require `i++` instead of `++i` and `i--` instead of `--i`.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

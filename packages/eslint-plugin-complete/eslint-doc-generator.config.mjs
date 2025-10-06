@@ -6,8 +6,17 @@ const config = {
   // Defaults to "README.md".
   pathRuleList: "website-root.md",
 
-  // Defaults to "[deprecated, configs, fixableAndHasSuggestions, requiresTypeChecking]".
-  ruleDocNotices: ["configs", "deprecated", "description"],
+  // Defaults to "[deprecated, configs, fixableAndHasSuggestions, requiresTypeChecking]". We want to
+  // enable every option except for "type", since that contains superfluous information.
+  ruleDocNotices: [
+    "configs",
+    "deprecated",
+    "description",
+    "fixable",
+    "hasSuggestions",
+    "options",
+    "requiresTypeChecking",
+  ],
 
   // Defaults to true. See: https://github.com/bmish/eslint-doc-generator/issues/806
   ruleDocSectionOptions: false,

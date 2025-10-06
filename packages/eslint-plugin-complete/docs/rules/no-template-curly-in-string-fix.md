@@ -4,6 +4,8 @@
 
 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 <!-- end auto-generated rule header -->
 
 This is a replacement for the ESLint [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string) rule that includes the ability for `--fix` to work properly.

@@ -4,6 +4,8 @@
 
 Disallows the usage of unsafe enum patterns.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 This rule is designed to be used in addition to [`@typescript-eslint/no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison).

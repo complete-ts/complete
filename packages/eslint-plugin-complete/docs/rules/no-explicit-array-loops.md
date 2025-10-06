@@ -4,6 +4,10 @@
 
 Disallows explicit iteration for arrays.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 In this case, "explicit iteration" means using the `values` method (or `Object.values`) in a for loop. Forbidding this can make code easier to read.

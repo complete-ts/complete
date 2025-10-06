@@ -4,6 +4,8 @@
 
 Requires maps/sets/arrays with a capital letter to be read-only.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

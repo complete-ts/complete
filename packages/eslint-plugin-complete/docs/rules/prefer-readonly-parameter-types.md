@@ -4,6 +4,10 @@
 
 Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
 
+⚙️ This rule is configurable.
+
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 This is the same thing as the [`@typescript-eslint/prefer-readonly-parameter-types`](https://typescript-eslint.io/rules/prefer-readonly-parameter-types/) rule, with the follow changes:

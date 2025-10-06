@@ -4,6 +4,8 @@
 
 Disallows using object methods with maps and sets.
 
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+
 <!-- end auto-generated rule header -->
 
 Specifically, it disallows `Object.entries`, `Object.keys`, and `Object.values`, since doing this is virtually always a bug.
