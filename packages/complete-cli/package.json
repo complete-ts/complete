@@ -35,20 +35,20 @@
     "chalk": "5.6.2",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.5.0",
-    "complete-node": "12.0.1",
+    "complete-node": "12.1.0",
     "klaw-sync": "7.0.0",
     "source-map-support": "0.5.21",
     "yaml": "2.8.1"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "24.7.0",
+    "@types/node": "24.7.1",
     "@types/source-map-support": "0.5.10",
     "ts-loader": "9.5.4",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.46.0",
-    "webpack": "5.102.0",
+    "webpack": "5.102.1",
     "webpack-cli": "6.0.1",
     "webpack-shebang-plugin": "1.1.8"
   },
