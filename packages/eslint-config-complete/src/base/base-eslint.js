@@ -59,7 +59,10 @@ const POSSIBLE_PROBLEMS = {
   "no-self-compare": "warn",
   "no-setter-return": "off", // @typescript-eslint/eslint-recommended
   "no-sparse-arrays": "warn",
-  "no-template-curly-in-string": "warn",
+
+  /** Superseded by the `complete/eqeqeq-fix` rule (since we want auto-fix to work properly). */
+  "no-template-curly-in-string": "off",
+
   "no-this-before-super": "off", // @typescript-eslint/eslint-recommended`
   "no-unassigned-vars": "warn",
   "no-undef": "off", // @typescript-eslint/eslint-recommended
@@ -147,7 +150,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/dot-notation` rule. */
   "dot-notation": "off",
 
-  /** Superseded by the `complete/eqeqeq-fix` rule. */
+  /** Superseded by the `complete/eqeqeq-fix` rule (since we want auto-fix to work properly). */
   eqeqeq: "off",
 
   "func-name-matching": "warn",
