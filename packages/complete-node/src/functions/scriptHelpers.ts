@@ -86,6 +86,14 @@ export async function lintScript(
   await script(importMetaDirname, func, "linted");
 }
 
+/** See the documentation for the `script` helper function. */
+export async function testScript(
+  importMetaDirname: string,
+  func: ScriptCallback,
+): Promise<void> {
+  await script(importMetaDirname, func, "tested");
+}
+
 /**
  * Helper function to create a script for a TypeScript project. You can pass any arbitrary logic you
  * want.
