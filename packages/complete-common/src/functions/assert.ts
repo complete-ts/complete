@@ -68,6 +68,23 @@ export function assertEnumValue<T extends TranspiledEnum>(
 }
 
 /**
+ * Helper function to throw an error if the provided value is not an instance of the expected class.
+ *
+ * This is useful to have TypeScript narrow a value to a specific type in a concise way.
+ */
+export function assertIs<
+  T extends abstract new (...args: unknown[]) => unknown,
+>(
+  value: unknown,
+  constructor: T,
+  msg: string,
+): asserts value is InstanceType<T> {
+  if (!(value instanceof constructor)) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
  * Helper function to throw an error if the provided value is equal to `null`.
  *
  * This is useful to have TypeScript narrow a `T | null` value to `T` in a concise way.
