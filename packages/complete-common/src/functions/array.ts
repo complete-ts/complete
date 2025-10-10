@@ -241,8 +241,8 @@ export function includesAny<T>(
 }
 
 /** A wrapper around `Array.isArray` that narrows to `unknown[]` instead of `any[]`. */
-export function isArray(arg: unknown): arg is unknown[] {
-  return Array.isArray(arg);
+export function isArray(variable: unknown): variable is unknown[] {
+  return Array.isArray(variable);
 }
 
 /** Initializes an array with all elements containing the specified default value. */
