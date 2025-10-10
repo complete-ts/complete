@@ -278,15 +278,11 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/text-escaping": "off",
 
-      /**
-       * TODO: Delete the options from the rule when [the defaults change](https://github.com/gajus/eslint-plugin-jsdoc/issues/1556).
-       */
-      "jsdoc/type-formatting": [
-        "warn",
-        {
-          stringQuotes: "double",
-        },
-      ],
+      "jsdoc/ts-method-signature-style": "warn",
+      "jsdoc/ts-no-empty-object-type": "warn",
+      "jsdoc/ts-no-unnecessary-template-expression": "warn",
+      "jsdoc/ts-prefer-function-type": "warn",
+      "jsdoc/type-formatting": "warn",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/valid-types": "off",
