@@ -228,9 +228,14 @@ export async function lintCommands(
   const listr = new Listr<unknown>(tasks, {
     concurrent: true,
     exitOnError: false,
+    collectErrors: "minimal",
   });
 
   await listr.run();
+
+  if (listr.errors.length > 0) {
+    process.exit(1);
+  }
 
   if (!quiet) {
     console.log();
