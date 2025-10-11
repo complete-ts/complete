@@ -18,6 +18,51 @@ export function assertArray(
   }
 }
 
+/**
+ * Helper function to throw an error if the provided value is not an array with every element being
+ * a boolean.
+ */
+export function assertArrayBoolean(
+  value: unknown,
+  msg: string,
+): asserts value is unknown[] {
+  assertArray(value, msg);
+
+  if (value.some((element) => typeof element !== "boolean")) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided value is not an array with every element being
+ * a number.
+ */
+export function assertArrayNumber(
+  value: unknown,
+  msg: string,
+): asserts value is unknown[] {
+  assertArray(value, msg);
+
+  if (value.some((element) => typeof element !== "number")) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided value is not an array with every element being
+ * a string.
+ */
+export function assertArrayString(
+  value: unknown,
+  msg: string,
+): asserts value is unknown[] {
+  assertArray(value, msg);
+
+  if (value.some((element) => typeof element !== "string")) {
+    throw new TypeError(msg);
+  }
+}
+
 /** Helper function to throw an error if the provided value is not a boolean. */
 export function assertBoolean(
   value: unknown,

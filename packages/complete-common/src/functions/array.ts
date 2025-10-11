@@ -245,6 +245,33 @@ export function isArray(variable: unknown): variable is unknown[] {
   return Array.isArray(variable);
 }
 
+/** Helper function to check every value of an array to see if it is a boolean. */
+export function isArrayBoolean(variable: unknown): variable is boolean[] {
+  if (!isArray(variable)) {
+    return false;
+  }
+
+  return variable.every((element) => typeof element === "boolean");
+}
+
+/** Helper function to check every value of an array to see if it is a number. */
+export function isArrayNumber(variable: unknown): variable is number[] {
+  if (!isArray(variable)) {
+    return false;
+  }
+
+  return variable.every((element) => typeof element === "string");
+}
+
+/** Helper function to check every value of an array to see if it is a string. */
+export function isArrayString(variable: unknown): variable is string[] {
+  if (!isArray(variable)) {
+    return false;
+  }
+
+  return variable.every((element) => typeof element === "string");
+}
+
 /** Initializes an array with all elements containing the specified default value. */
 export function newArray<T>(length: number, value: T): readonly T[] {
   return Array.from({ length }, () => value);

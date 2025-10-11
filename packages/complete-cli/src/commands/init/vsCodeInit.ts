@@ -1,4 +1,4 @@
-import { assertObject } from "complete-common";
+import { assertObject, isArrayString } from "complete-common";
 import { $, $q, commandExists, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { getInputYesNo, promptError, promptLog } from "../../prompt.js";
@@ -82,21 +82,13 @@ async function getExtensionsFromJSON(
   );
 
   const { recommendations } = extensionsJSON;
-  if (!Array.isArray(recommendations)) {
+  if (!isArrayString(recommendations)) {
     promptError(
-      'The "recommendations" field in the "extensions.json" file is not an array.',
+      'The "recommendations" field in the "extensions.json" file is not an array of strings.',
     );
   }
 
-  for (const recommendation of recommendations) {
-    if (typeof recommendation !== "string") {
-      promptError(
-        'One of the entries in the "recommendations" field in the "extensions.json" file is not a string.',
-      );
-    }
-  }
-
-  return recommendations as string[];
+  return recommendations;
 }
 
 async function promptVSCode(
