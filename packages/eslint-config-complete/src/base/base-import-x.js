@@ -54,7 +54,7 @@ const HELPFUL_WARNINGS = {
         "**/prettier.config.{js,cjs,mjs,ts,cts,mts}",
         "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}",
         "**/typedoc.config.*.{js,cjs,mjs,ts,cts,mts}",
-        "**/vite.config.*.{js,cjs,mjs,ts,cts,mts}",
+        "**/vite.config.{js,cjs,mjs,ts,cts,mts}",
       ],
       optionalDependencies: false,
     },
