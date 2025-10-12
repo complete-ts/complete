@@ -50,6 +50,7 @@ const HELPFUL_WARNINGS = {
         "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
         "**/esbuild.config.{js,cjs,mjs,ts,cts,mts}",
         "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}",
         "**/eslint-doc-generator.config.{js,cjs,mjs,ts,cts,mts}",
         "**/prettier.config.{js,cjs,mjs,ts,cts,mts}",
         "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}",
@@ -302,6 +303,10 @@ export const baseImportX = defineConfig(
       "eslint.config.mjs",
       "eslint.config.ts",
       "eslint.config.mts",
+      "eslint.config.*.js",
+      "eslint.config.*.mjs",
+      "eslint.config.*.ts",
+      "eslint.config.*.mts",
       "eslint-doc-generator.config.js",
       "eslint-doc-generator.config.mjs",
       "jest.config.js",
