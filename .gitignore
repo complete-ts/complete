@@ -6,6 +6,9 @@
 .DS_Store
 thumbs.db
 
+# Agents
+.claude/settings.local.json
+
 # Docusaurus artifacts
 # https://github.com/facebook/docusaurus/blob/main/packages/create-docusaurus/templates/shared/gitignore
 build
