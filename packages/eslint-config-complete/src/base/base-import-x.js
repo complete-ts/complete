@@ -48,12 +48,13 @@ const HELPFUL_WARNINGS = {
 
         "**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
         "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
-        "**/esbuild.config.{js,cjs,mjs,ts,cts,mts}", // esbuild config
-        "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // ESLint config
-        "**/eslint-doc-generator.config.{js,cjs,mjs,ts,cts,mts}", // eslint-doc-generator config
-        "**/prettier.config.{js,cjs,mjs,ts,cts,mts}", // Prettier config
-        "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}", // TypeDoc config
-        "**/typedoc.config.*.{js,cjs,mjs,ts,cts,mts}", // TypeDoc config
+        "**/esbuild.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/eslint-doc-generator.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/prettier.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/typedoc.config.*.{js,cjs,mjs,ts,cts,mts}",
+        "**/vite.config.*.{js,cjs,mjs,ts,cts,mts}",
       ],
       optionalDependencies: false,
     },
