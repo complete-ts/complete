@@ -299,7 +299,7 @@ async function getMarkdownRuleSection(
   const baseConfigFileName = `base-${configName}.js`;
   const baseConfigPath = path.join(BASE_CONFIGS_PATH, baseConfigFileName);
   const baseConfigURL = url.pathToFileURL(baseConfigPath).toString();
-  const baseConfig = (await import(baseConfigURL)) as unknown;
+  const baseConfig: unknown = await import(baseConfigURL);
 
   if (!isObject(baseConfig)) {
     throw new Error(`Failed to parse the base config: ${baseConfigPath}`);

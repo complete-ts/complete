@@ -29,7 +29,7 @@ export async function getPackageJSON(
 ): Promise<Record<string, unknown>> {
   const filePath = await getFilePath("package.json", filePathOrDirPath);
   const packageJSONContents = await readFile(filePath);
-  const packageJSON = JSON.parse(packageJSONContents) as unknown;
+  const packageJSON: unknown = JSON.parse(packageJSONContents);
   if (!isObject(packageJSON)) {
     throw new Error(
       `Failed to parse a "package.json" file at the following path: ${filePath}`,

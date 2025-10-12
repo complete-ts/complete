@@ -29,9 +29,9 @@ export class MetadataCommand extends Command {
     let packageMetadata: Record<string, unknown>;
     if (packageMetadataExists) {
       const packageMetadataContents = await readFile(packageMetadataPath);
-      const packageMetadataUnknown = JSON.parse(
+      const packageMetadataUnknown: unknown = JSON.parse(
         packageMetadataContents,
-      ) as unknown;
+      );
       assertObject(
         packageMetadataUnknown,
         `Failed to parse the metadata file at: ${packageMetadataPath}`,
