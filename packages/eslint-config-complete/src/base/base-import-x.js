@@ -341,6 +341,12 @@ export const baseImportX = defineConfig(
       "eslint.config.ts",
       "eslint.config.cts",
       "eslint.config.mts",
+      "eslint.config.*.js",
+      "eslint.config.*.cjs",
+      "eslint.config.*.mjs",
+      "eslint.config.*.ts",
+      "eslint.config.*.cts",
+      "eslint.config.*.mts",
     ],
     rules: {
       // TypeScript projects that use "complete-lint" have a false positive when importing
@@ -350,7 +356,10 @@ export const baseImportX = defineConfig(
       "import-x/no-extraneous-dependencies": [
         "warn",
         {
-          devDependencies: ["**/eslint.config.{js,cjs,mjs,ts,cts,mts}"],
+          devDependencies: [
+            "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",
+            "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}",
+          ],
           optionalDependencies: false,
           whitelist: ["eslint", "eslint-config-complete"],
         },
