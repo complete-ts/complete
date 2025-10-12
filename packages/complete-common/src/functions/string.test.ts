@@ -9,14 +9,27 @@ import {
 } from "./string.js";
 
 describe("hasEmoji", () => {
-  test("should return true for string with emoji", () => {
+  test("should return true for string with normal emoji", () => {
     equal(hasEmoji("Hello 😃 World"), true);
-    equal(hasEmoji("This is a 🌟 test"), true);
+  });
+
+  test("should return true for string with keycap emoji", () => {
+    equal(hasEmoji("This is a keycap emoji: #️⃣"), true);
   });
 
   test("should return false for string without emoji", () => {
     equal(hasEmoji("Hello World"), false);
-    equal(hasEmoji("No emoji here!"), false);
+    equal(
+      hasEmoji(`
+# Some Markdown Title
+
+This page is for people who like [cake](https://en.wikipedia.org/wiki/Cake).
+
+- Run \`npm run cake\` to get cake.
+- Run \`npm run pie\` to get pie.
+      `),
+      false,
+    );
   });
 
   test("should handle empty string", () => {
@@ -123,9 +136,11 @@ describe("trimPrefix", () => {
 });
 
 describe("trimSuffix", () => {
-  equal(trimSuffix("foo", ""), "foo");
-  equal(trimSuffix("foo", "o"), "fo");
-  equal(trimSuffix("foo", "oo"), "f");
-  equal(trimSuffix("foo", "foo"), "");
-  equal(trimSuffix("foo", "1foo"), "foo");
+  test(() => {
+    equal(trimSuffix("foo", ""), "foo");
+    equal(trimSuffix("foo", "o"), "fo");
+    equal(trimSuffix("foo", "oo"), "f");
+    equal(trimSuffix("foo", "foo"), "");
+    equal(trimSuffix("foo", "1foo"), "foo");
+  });
 });

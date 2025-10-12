@@ -12,11 +12,10 @@ import { parseIntSafe } from "./utils.js";
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
 
 /**
- * This is what the Zod validator library uses.
- *
- * @see https://github.com/colinhacks/zod/blob/main/packages/zod/src/v4/core/regexes.ts#L53
+ * - We can't use `/\p{Emoji}/u` because it has a false positive on "#" characters.
+ * - We can't use `/\p{Extended_Pictographic}/u` because it has a false negative on keycap emojis.
  */
-const EMOJI_REGEX = /(\p{Extended_Pictographic}|\p{Emoji_Component})/u;
+const EMOJI_REGEX = /(\p{Extended_Pictographic}|[#*0-9]\uFE0F?\u20E3)/u;
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
