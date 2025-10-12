@@ -24,14 +24,6 @@ export const completeConfigBase = defineConfig(
   ...baseUnicorn,
   ...baseComplete,
 
-  // We prefer the official `reportUnusedDisableDirectives` linter option over the 3rd-party plugin
-  // of "eslint-plugin-eslint-comments".
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: "warn",
-    },
-  },
-
   {
     // By default, ESLint ignores "**/node_modules/" and ".git/":
     // https://eslint.org/docs/latest/use/configure/ignore#ignoring-files
