@@ -49,7 +49,7 @@
     "@types/confusing-browser-globals": "1.0.3",
     "@types/eslint-config-prettier": "6.11.3",
     "@types/node": "24.7.2",
-    "complete-common": "2.7.1",
+    "complete-common": "2.8.0",
     "complete-node": "12.2.1",
     "eslint-config-prettier": "10.1.8",
     "extract-comments": "1.1.0",

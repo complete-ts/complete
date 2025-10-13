@@ -75,7 +75,7 @@
     "jsonc-eslint-parser": "2.4.1",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
-    "knip": "5.64.3",
+    "knip": "5.65.0",
     "listr2": "9.0.4",
     "npm-check-updates": "19.0.0",
     "package-directory": "8.1.0",
