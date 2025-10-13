@@ -140,8 +140,7 @@ export function isLowerCase(string: string): boolean {
  * @see https://semver.org/
  */
 export function isSemanticVersion(versionString: string): boolean {
-  const match = versionString.match(SEMANTIC_VERSION_REGEX);
-  return match !== null;
+  return SEMANTIC_VERSION_REGEX.test(versionString);
 }
 
 /** Helper function to test if a string contains only uppercase ASCII letters (A through Z). */
