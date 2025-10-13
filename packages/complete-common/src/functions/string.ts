@@ -9,6 +9,9 @@ import { parseIntSafe } from "./utils.js";
 // When regular expressions are located at the root instead of inside the function, the functions
 // are tested to perform 11% faster.
 
+// eslint-disable-next-line no-control-regex
+const ASCII_REGEX = /^[\u0000-\u007F]*$/;
+
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
 
 /**
@@ -102,6 +105,11 @@ export function hasEmoji(string: string): boolean {
 /** From: https://stackoverflow.com/questions/1731190/check-if-a-string-has-white-space */
 export function hasWhitespace(string: string): boolean {
   return WHITESPACE_REGEX.test(string);
+}
+
+/** Helper function to determine if a string only contains ASCII characters. */
+export function isASCII(str: string): boolean {
+  return ASCII_REGEX.test(str);
 }
 
 /**
