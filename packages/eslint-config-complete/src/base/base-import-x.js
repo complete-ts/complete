@@ -31,31 +31,17 @@ const HELPFUL_WARNINGS = {
         "test.{js,jsx}", // repos with a single test file
         "test-*.{js,jsx}", // repos with multiple top-level test files
         "**/*{.,_}{test,spec}.{js,jsx}", // tests where the extension or filename suffix denotes that it is a test
-        "**/jest.config.{js,cjs,mjs,ts,cts,mts}", // jest config // Modified for extra file extensions.
-        "**/jest.setup.{js,cjs,mjs,ts,cts,mts}", // jest setup // Modified for extra file extensions.
-        "**/vue.config.js", // vue-cli config
-        "**/webpack.config.js", // webpack config
-        "**/webpack.config.*.js", // webpack config
-        "**/rollup.config.js", // rollup config
-        "**/rollup.config.*.js", // rollup config
         "**/gulpfile.js", // gulp config
         "**/gulpfile.*.js", // gulp config
         "**/Gruntfile{,.js}", // grunt config
         "**/protractor.conf.js", // protractor config
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config
-        "**/.eslintrc.js", // eslint config
 
         "**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
         "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
-        "**/esbuild.config.{js,cjs,mjs,ts,cts,mts}",
-        "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",
-        "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}",
-        "**/eslint-doc-generator.config.{js,cjs,mjs,ts,cts,mts}",
-        "**/prettier.config.{js,cjs,mjs,ts,cts,mts}",
-        "**/typedoc.config.{js,cjs,mjs,ts,cts,mts}",
-        "**/typedoc.config.*.{js,cjs,mjs,ts,cts,mts}",
-        "**/vite.config.{js,cjs,mjs,ts,cts,mts}",
+        "**/*.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
+        "**/*.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
       ],
       optionalDependencies: false,
     },
@@ -295,38 +281,10 @@ export const baseImportX = defineConfig(
   // Some configuration files must export a default object as a design limitation.
   {
     files: [
-      ".remarkrc.js",
-      ".remarkrc.mjs",
-      "docusaurus.config.js",
-      "docusaurus.config.ts",
-      "eslint.config.js",
-      "eslint.config.mjs",
-      "eslint.config.ts",
-      "eslint.config.mts",
-      "eslint.config.*.js",
-      "eslint.config.*.mjs",
-      "eslint.config.*.ts",
-      "eslint.config.*.mts",
-      "eslint-doc-generator.config.js",
-      "eslint-doc-generator.config.mjs",
-      "jest.config.js",
-      "jest.config.mjs",
-      "knip.js",
-      "knip.ts",
-      "knip.config.js",
-      "knip.config.ts",
-      "prettier.config.js",
-      "prettier.config.mjs",
-      "rollup.config.js",
-      "rollup.config.mjs",
+      "**/*.config.{js,mjs,ts,mts}", // Config files like "eslint.config.mjs"
+      "**/*.config.*.{js,mjs,ts,mts}", // Config files like "eslint.config.json.mjs"
       "sidebars.js", // Docusaurus config file
       "sidebars.ts", // Docusaurus config file
-      "typedoc.config.js",
-      "typedoc.config.mjs",
-      "vite.config.js",
-      "vite.config.mjs",
-      "webpack.config.js",
-      "webpack.config.mjs",
     ],
     rules: {
       "import-x/no-default-export": "off",
@@ -335,18 +293,8 @@ export const baseImportX = defineConfig(
 
   {
     files: [
-      "eslint.config.js",
-      "eslint.config.cjs",
-      "eslint.config.mjs",
-      "eslint.config.ts",
-      "eslint.config.cts",
-      "eslint.config.mts",
-      "eslint.config.*.js",
-      "eslint.config.*.cjs",
-      "eslint.config.*.mjs",
-      "eslint.config.*.ts",
-      "eslint.config.*.cts",
-      "eslint.config.*.mts",
+      "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
+      "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
     ],
     rules: {
       // TypeScript projects that use "complete-lint" have a false positive when importing
