@@ -12,8 +12,11 @@
     ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
   },
 
-  // We want to always use "lf" to be consistent with all platforms.
+  // Always use "lf" to be consistent with all platforms.
   "files.eol": "\n",
+
+  // Automatically insert a trailing newline when saving a file to match the POSIX standard.
+  "files.insertFinalNewline": true,
 
   // Automatically remove all trailing whitespace when saving a file.
   "files.trimTrailingWhitespace": true,
