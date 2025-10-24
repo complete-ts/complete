@@ -38,7 +38,7 @@
     "error-stack-parser": "2.1.4",
     "execa": "9.6.0",
     "jsonc-parser": "3.3.1",
-    "listr2": "9.0.4",
+    "listr2": "9.0.5",
     "npm-check-updates": "19.1.1",
     "package-directory": "8.1.0",
     "prettier": "3.6.2",
@@ -46,11 +46,11 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
-    "@types/node": "24.7.2",
+    "@types/node": "24.9.1",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.1",
+    "typescript-eslint": "8.46.2",
     "unbuild": "3.6.1"
   }
 }
