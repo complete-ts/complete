@@ -112,6 +112,18 @@ export function assertEnumValue<T extends TranspiledEnum>(
   }
 }
 
+/** Helper function to throw an error if the provided value is not an integer. */
+export function assertInteger(
+  value: unknown,
+  msg: string,
+): asserts value is number {
+  // `Number.isInteger` will correctly return false for non-number variables such as strings,
+  // booleans, and so on.
+  if (!Number.isInteger(value)) {
+    throw new TypeError(msg);
+  }
+}
+
 /**
  * Helper function to throw an error if the provided value is not an instance of the expected class.
  *
