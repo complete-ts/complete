@@ -51,8 +51,7 @@ export async function lintMonorepoPackageJSONs(
     true,
   );
   if (!valid) {
-    console.error('One or more child "package.json" files are out of sync.');
-    process.exit(1);
+    throw new Error('One or more child "package.json" files are out of sync.');
   }
 }
 

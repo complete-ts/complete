@@ -12,6 +12,10 @@
     // (Source maps are not needed since this package is written in JavaScript.)
     "declaration": true,
     "declarationMap": true,
+
+    // Needed since this library is written in JavaScript instead of TypeScript.
+    "allowJs": true,
+    "checkJs": true,
   },
 
   "include": ["./src/**/*.js"],

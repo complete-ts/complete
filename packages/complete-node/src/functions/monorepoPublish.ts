@@ -60,32 +60,26 @@ export async function monorepoPublish(
   const [packageName, versionBump] = args;
 
   if (packageName === undefined || packageName === "") {
-    console.error("Error: The package name is required as an argument.");
-    process.exit(1);
+    throw new Error("The package name is required as an argument.");
   }
 
   const packagePath = path.join(monorepoRoot, "packages", packageName);
   const directory = await isDirectory(packagePath);
   if (!directory) {
-    console.error(`Error: The directory of "${packagePath}" does not exist.`);
-    process.exit(1);
+    throw new Error(`The directory of "${packagePath}" does not exist.`);
   }
 
   if (versionBump === undefined || versionBump === "") {
-    console.error(
+    throw new Error(
       "Error: The type of version bump is required as an argument.",
     );
-    process.exit(1);
   }
 
   if (
     !isEnumValue(versionBump, VersionBump)
     && !isSemanticVersion(versionBump)
   ) {
-    console.error(
-      `Error: The following version bump is not valid: ${versionBump}`,
-    );
-    process.exit(1);
+    throw new Error(`The following version bump is not valid: ${versionBump}`);
   }
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
@@ -93,14 +87,12 @@ export async function monorepoPublish(
   const branchName = await $o`git branch --show-current`;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (branchName !== "main" && versionBump !== VersionBump.dev) {
-    console.error("Error: You must be on the main branch before publishing.");
-    process.exit(1);
+    throw new Error("You must be on the main branch before publishing.");
   }
 
   const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
   if (!isRepositoryCleanOnStart) {
-    console.error("Error: The Git repository must be clean before publishing.");
-    process.exit(1);
+    throw new Error("The Git repository must be clean before publishing.");
   }
 
   // Validate that we can push and pull to the repository.

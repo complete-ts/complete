@@ -20,13 +20,17 @@ import { getPackageJSON } from "./packageJSON.js";
  * order to ensure that the compiled output is always up to date.
  */
 export async function checkCompiledOutputInRepo(): Promise<void> {
-  await $q`npm run build`;
+  const command = "npm run build";
+  const commandParts = command.split(" ");
+  await $q`${commandParts}`;
 
   const gitStatusOutput = await $o`git status --porcelain`;
   const gitDirty = gitStatusOutput === "";
 
   if (gitDirty) {
-    process.exit(1);
+    throw new Error(
+      `The compiled output does not match the Git repository. Run: ${command}`,
+    );
   }
 }
 

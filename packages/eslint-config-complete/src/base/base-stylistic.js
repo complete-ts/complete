@@ -7,6 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseStylistic = defineConfig({
   plugins: {
+    // @ts-expect-error https://github.com/eslint-stylistic/eslint-stylistic/issues/1035
     "@stylistic": ESLintPluginStylistic,
   },
 

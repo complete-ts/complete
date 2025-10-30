@@ -9,6 +9,7 @@ import { defineConfig } from "eslint/config";
  */
 export const completeConfigESLintPlugin = defineConfig({
   plugins: {
+    // @ts-expect-error https://github.com/eslint-community/eslint-plugin-eslint-plugin/issues/564
     "eslint-plugin": ESLintPluginESLintPlugin,
   },
 

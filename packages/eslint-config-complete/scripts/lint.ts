@@ -20,10 +20,8 @@ async function checkDocs(packageRoot: string) {
 
   const newFileContents = await readFile(readmePath);
   if (oldFileContents !== newFileContents) {
-    console.log(
-      `The "docs.ts" script changed the following file: ${readmePath}`,
+    throw new Error(
+      `The "docs.ts" script changed the "${readmePath}" file. Run: "npm run docs`,
     );
-    console.log('Run: "npm run docs"');
-    process.exit(1);
   }
 }

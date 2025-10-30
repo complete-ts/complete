@@ -73,7 +73,6 @@ async function checkGenerateChangedFiles() {
   );
 
   if (changedFiles.includes(true)) {
-    console.log('Run "npm run generate" and commit the changes.');
-    process.exit(1);
+    throw new Error('Run "npm run generate" and commit the changes.');
   }
 }

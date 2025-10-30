@@ -386,7 +386,7 @@ function auditBaseConfigRules(
   }
 
   if (FAIL_ON_MISSING_RULES && !allValid) {
-    process.exit(1);
+    throw new Error("One or more rules were missing.");
   }
 }
 
