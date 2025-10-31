@@ -35,7 +35,7 @@
     "@eslint/js": "9.38.0",
     "@heroicons/react": "2.2.0",
     "@mdx-js/react": "3.1.1",
-    "@octokit/core": "7.0.5",
+    "@octokit/core": "7.0.6",
     "@stylistic/eslint-plugin": "5.5.0",
     "@tsconfig/node-lts": "22.0.2",
     "@tsconfig/strictest": "2.0.7",
