@@ -29,7 +29,7 @@
     "tsconfig.node.json"
   ],
   "dependencies": {
-    "@tsconfig/node-lts": "22.0.2",
-    "@tsconfig/strictest": "2.0.7"
+    "@tsconfig/node-lts": "22.0.3",
+    "@tsconfig/strictest": "2.0.8"
   }
 }
