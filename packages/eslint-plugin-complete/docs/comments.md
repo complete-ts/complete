@@ -91,7 +91,7 @@ In contrast to _trailing line comments_, _leading line comments_ are usually lon
 const foo = 100;
 ```
 
-This is a good start. But the problem with annotating this information with a line comment is that it doesn't get "attached" to the variable. For example, in VSCode, if we hover over the `foo` variable (either at the declaration or elsewhere in the code), we would see that it has a value of 100, but we wouldn't see what the comment is.
+This is a good start. But the problem with annotating this information with a line comment is that it doesn't get "attached" to the variable. For example, in Visual Studio Code, if we hover over the `foo` variable (either at the declaration or elsewhere in the code), we would see that it has a value of 100, but we wouldn't see what the comment is.
 
 To fix this problem, we can annotate the information as a JSDoc comment instead:
 
@@ -115,7 +115,7 @@ Subsequently, it makes sense to have a linting rule to ensure that all JSDoc com
 
 Many code projects have conventions to prevent lines from getting over a certain amount of characters. This kind of thing ensures that code is easy to read. It also is helpful to people with seeing disabilities, and for developers who prefer to open two files side by side.
 
-In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/docs/latest/rules/max-len) lint rule. This lint rule is often accompanied by an on-screen ruler inside of the IDE. Having the ruler on-screen is very nice, as it can accurately show when a line is over the limit. For example, to enable the ruler in VSCode:
+In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/docs/latest/rules/max-len) lint rule. This lint rule is often accompanied by an on-screen ruler inside of the IDE. Having the ruler on-screen is very nice, as it can accurately show when a line is over the limit. For example, to enable the ruler in Visual Studio Code:
 
 ```json
 {

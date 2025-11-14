@@ -54,8 +54,8 @@ export function* eRange(
 }
 
 /**
- * Helper function to get an array of integers with the specified range, inclusive on both ends.
- * (The "i" in the function name stands for inclusive.)
+ * Helper function to get an iterator of of integers with the specified range, inclusive on both
+ * ends. (The "i" in the function name stands for inclusive.)
  *
  * If the end is lower than the start, then an empty range will be returned.
  *

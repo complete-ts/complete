@@ -10,7 +10,7 @@ These are shared TypeScript configuration files that are intended to be used in 
 
 - [tsconfig.base.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.base.json) - A config meant to be used by all TypeScript projects.
 - [tsconfig.browser.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.browser.json) - A config meant for projects running in the browser.
-- [tsconfig.bun.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.bun.json) - A config meant for projects running in a [Bun](https://bun.sh/) environment.
+- [tsconfig.bun.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.bun.json) - A config meant for projects running in a [Bun](https://bun.com/) environment.
 - [tsconfig.node.json](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/tsconfig.node.json) - A config meant for projects running in a [Node.js](https://nodejs.org/en) environment.
 
 ## Install
@@ -56,7 +56,7 @@ Note that the [base config](https://github.com/complete-ts/complete/blob/main/pa
 
 ## Strict Schema
 
-By default, VSCode will automatically recognize TypeScript config files and apply a schema. However, this schema allows for additional properties in order to prevent throwing errors for tools/frameworks like [Angular](https://angular.dev/) that add [custom fields](https://angular.dev/reference/configs/angular-compiler-options).
+By default, Visual Studio Code will automatically recognize TypeScript config files and apply a schema. However, this schema allows for additional properties in order to prevent throwing errors for tools/frameworks like [Angular](https://angular.dev/) that add [custom fields](https://angular.dev/reference/configs/angular-compiler-options).
 
 However, the problem with this is that you might accidentally misspell a property (or e.g. accidentally add a compiler option to the root object). In these cases, you will not get a red squiggly line in your editor, making for a frustrating troubleshooting experience.
 

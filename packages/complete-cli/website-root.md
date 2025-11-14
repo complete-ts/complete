@@ -2,7 +2,32 @@
 
 [![npm version](https://img.shields.io/npm/v/complete-cli.svg)](https://www.npmjs.com/package/complete-cli)
 
-This package contains a CLI tool that helps you bootstrap [TypeScript](https://www.typescriptlang.org/) projects.
+`complete-cli` is a CLI tool that helps you bootstrap [TypeScript](https://www.typescriptlang.org/) projects.
+
+## Why Do I Need This?
+
+Setting up a brand new TypeScript project from scratch is a pain. You have to install a bunch of tools (like [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/)), add a bunch of configuration files, and so on.
+
+`complete-cli` automates all of this. Type `npx complete-cli@latest init my-awesome-project`, then open "main.ts" and start coding immediately.
+
+## What Does it Do Exactly?
+
+`complete-cli` is designed for people who use the following tools and want them in every project:
+
+- [Git](https://git-scm.com/)
+- [GitHub](https://github.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [TypeScript](https://www.typescriptlang.org/) (with [a very strict/comprehensive config](https://complete-ts.github.io/complete-tsconfig))
+- [ESLint](https://eslint.org/) (with a [very strict/comprehensive config](https://complete-ts.github.io/eslint-config-complete))
+- [Prettier](https://prettier.io/)
+- [CSpell](https://cspell.org/)
+- [Knip](https://knip.dev/)
+
+Obviously, for small projects, all of this stuff might not be needed. But in general, it feels good to have a standard set of tooling keeping you safe and clean.
+
+It is worth mentioning that any project like this brings some opinions along with it. While `complete-cli` tries to match the current best-practices in the TypeScript ecosystem, not everything may be exactly to your liking, and you may have to make some small tweaks.
+
+Below, we document [every file that `complete-cli` creates for you](#files).
 
 ## Commands
 
@@ -102,21 +127,21 @@ This contains a list of files that should not be automatically formatted by [Pre
 
 ### [`.vscode`](https://github.com/complete-ts/complete/tree/main/packages/complete-cli/file-templates/static/.vscode)
 
-This directory contains files related to [VSCode](https://code.visualstudio.com/), considered to be the best code editor for TypeScript. If you do not use VSCode, feel free to delete this directory.
+This directory contains files related to [Visual Studio Code](https://code.visualstudio.com/), considered to be the best code editor for TypeScript. If you do not use Visual Studio Code, feel free to delete this directory.
 
 ### [`.vscode/extensions.json`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/.vscode/extensions.json)
 
-This contains VSCode settings that will apply to anyone opening your project. It contains a lot of good defaults to prevent common VSCode pitfalls.
+This contains Visual Studio Code settings that will apply to anyone opening your project. It contains a lot of good defaults to prevent common Visual Studio Code pitfalls.
 
 ### [`.vscode/settings.json`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/.vscode/settings.json)
 
-This contains a list of VSCode extensions that are needed for the squiggly lines in the editor to work properly. If your project is opened by someone who does not have these extensions installed, a helpful popup will appear and recommend that they be installed.
+This contains a list of Visual Studio Code extensions that are needed for the squiggly lines in the editor to work properly. If your project is opened by someone who does not have these extensions installed, a helpful popup will appear and recommend that they be installed.
 
 ### [`cspell.config.jsonc`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/_cspell.config.jsonc)
 
 This is the configuration file for [CSpell](https://cspell.org/), a spell-checker for code. It contains a lot of good defaults to prevent common CSpell pitfalls.
 
-If VSCode incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". Then, the word will then be recorded in this file and the squiggly line will go away.
+If Visual Studio Code incorrectly reports that a file is misspelled, you can right-click on the word and say "Add Words to CSpell Configuration". Then, the word will then be recorded in this file and the squiggly line will go away.
 
 ### `dist`
 

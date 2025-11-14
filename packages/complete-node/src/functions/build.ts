@@ -48,7 +48,7 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
  * @param packageRoot The path to the root of the package.
- * @see https://bun.sh/docs/bundler/executables
+ * @see https://bun.com/docs/bundler/executables
  */
 export async function compileToSingleFileWithBun(
   packageRoot: string,

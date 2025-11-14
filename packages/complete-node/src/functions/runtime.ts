@@ -40,7 +40,7 @@ export function getJavaScriptRuntime(): JavaScriptRuntime | undefined {
 /**
  * Helper function to check if the current JavaScript runtime is Bun.
  *
- * @see https://bun.sh/
+ * @see https://bun.com/
  */
 export function isBunRuntime(): boolean {
   return getJavaScriptRuntime() === JavaScriptRuntime.bun;

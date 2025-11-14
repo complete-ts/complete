@@ -18,7 +18,7 @@ export async function vsCodeInit(
   const VSCodeCommand = await getVSCodeCommand();
   if (VSCodeCommand === undefined) {
     promptLog(
-      'VSCode does not seem to be installed. (The "code" command is not in the path.) Skipping VSCode-related things.',
+      'Visual Studio Code does not seem to be installed. (The "code" command is not in the path.) Skipping Visual Studio Code extension installation.',
     );
     return;
   }
@@ -29,8 +29,8 @@ export async function vsCodeInit(
 
 async function getVSCodeCommand(): Promise<string | undefined> {
   for (const command of VS_CODE_COMMANDS) {
-    // We want to only check for one command at a time, since it is unlikely that the special VSCode
-    // commands will exist.
+    // We want to only check for one command at a time, since it is unlikely that the special Visual
+    // Studio Code commands will exist.
     // eslint-disable-next-line no-await-in-loop
     const exists = await commandExists(command);
     if (exists) {
@@ -45,9 +45,9 @@ async function installVSCodeExtensions(
   projectPath: string,
   vsCodeCommand: string,
 ) {
-  // Installing extensions from inside WSL on Windows will result in the VSCode process never
-  // exiting for some reason. Thus, skip this step on Linux. (Linux users will probably be smart
-  // enough to install the extensions on their own.)
+  // Installing extensions from inside WSL on Windows will result in the Visual Studio Code process
+  // never exiting for some reason. Thus, skip this step on Linux. (Linux users will probably be
+  // smart enough to install the extensions on their own.)
   if (process.platform === "linux") {
     return;
   }
@@ -105,11 +105,11 @@ async function promptVSCode(
 
   if (yes) {
     // They supplied the "--yes" command-line flag, which implies that they want a silent install,
-    // so skip opening VSCode.
+    // so skip opening Visual Studio Code.
     return;
   }
 
-  // The VSCode command does not work properly inside WSL on Windows.
+  // The Visual Studio Code command does not work properly inside WSL on Windows.
   if (process.platform === "linux") {
     return;
   }

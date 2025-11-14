@@ -6,6 +6,6 @@ export enum JavaScriptRuntime {
   /** @see https://deno.com/ */
   deno = "deno",
 
-  /** @see https://bun.sh/ */
+  /** @see https://bun.com/ */
   bun = "bun",
 }

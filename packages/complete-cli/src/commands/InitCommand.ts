@@ -32,7 +32,7 @@ export class InitCommand extends Command {
   });
 
   vsCode = Option.Boolean("--vscode", false, {
-    description: "Open the project in VSCode after initialization.",
+    description: "Open the project in Visual Studio Code after initialization.",
   });
 
   npm = Option.Boolean("--npm", false, {

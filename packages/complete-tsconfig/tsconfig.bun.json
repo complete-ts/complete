@@ -1,6 +1,6 @@
 // This is a TypeScript configuration intended to be used by TypeScript programs used in a Bun
 // environment:
-// https://bun.sh/docs/typescript#suggested-compileroptions
+// https://bun.com/docs/typescript#suggested-compileroptions
 {
   // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {

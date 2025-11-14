@@ -39,6 +39,12 @@ import { defineConfig } from "eslint/config";
 export default defineConfig(...completeConfigBase);
 ```
 
+Note that since this config [turns on every rule as a warning](#warnings-over-errors), you must invoke ESLint with the `--max-warnings` flag like this:
+
+```sh
+eslint --max-warnings 0 .
+```
+
 ## Configs
 
 This package exports two configs:
@@ -79,7 +85,7 @@ This config also assumes that you are using [Prettier](https://prettier.io/) to 
 
 Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the `--fix` flag. So, by running `npx eslint --fix .` in the root of your project, you can take care of a lot of the warnings automatically.
 
-Additionally, we recommend that you [configure your IDE (i.e. VSCode) to automatically run `--fix` whenever you save a file](/complete-lint#step-4---editor-integration).
+Additionally, we recommend that you [configure your IDE (i.e. Visual Studio Code) to automatically run `--fix` whenever you save a file](/complete-lint#step-4---editor-integration).
 
 ## Dealing with False Positives
 
@@ -87,7 +93,7 @@ Your first reaction to having a bunch of yellow squiggly lines might be to disab
 
 Additionally, some ESLint rules are not about catching bugs, but are about code style and code consistency. If you find the new style to be foreign and weird, it can be tempting to ignore or disable the rule. But before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](/complete-lint#why-code-formatting-is-important)!
 
-With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a `// eslint-disable-next-line insert-rule-name-here` comment. And you can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to `Ctrl + .` by default.
+With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a `// eslint-disable-next-line insert-rule-name-here` comment. And you can automatically add the comment by selecting "Quick Fix" in Visual Studio Code, which is mapped to `Ctrl + .` by default.
 
 If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your `eslint.config.mjs` file: like this:
 
@@ -107,6 +113,18 @@ export default defineConfig(...completeConfigBase, {
 ```
 
 Some rules won't make sense for every project and that's okay!
+
+## Warnings over Errors
+
+This ESLint config intentionally sets every rule to "warn" instead of "error". If you are familiar with ESLint, this might sound unusual, so this is worth explaining.
+
+ESLint allows you to turn on rules as either "warn" or "error". In Visual Studio Code, "warn" rules will show up as a yellow squiggly and "error" rules will show up as a red squiggly. However, using "warn" is less common, because by default, ESLint will not fail on warnings. The idea here is that warnings are supposed to be used for slightly-bad things that you want to show up in the IDE, but not actually enforced in [CI](https://en.wikipedia.org/wiki/Continuous_integration). Since this is a weird middle-ground, using warnings is not common. Nowadays, developers expect one set of rules for both IDEs and CI. Thus, when you consume "recommended" ESLint configs, rules are almost always turned on with "error" so that ESLint will properly catch/enforce them.
+
+The consequence of all of this is that both TypeScript errors and ESLint errors show up in Visual Studio code as red squigglies, which is unfortunate. It is really nice for ESLint errors to show up as yellow instead of red, which allows you to easily distinguish between them. Red squigglies can be reserved for TypeScript errors, which are often critical bugs that will cause a run-time error. And yellow squigglies can be reserved for ESLint errors, which are more often code-quality issues that may not actually impact the functionality of the code.
+
+In order to achieve red squigglies and yellow squigglies, this ESLint config explicitly turns on every rule as "warn". Subsequently, it is expected that when you invoke ESLint in your lint scripts / CI, you invoke it with like `eslint --max-warnings 0 .` so that ESLint will return a non-zero exit code on one or more warnings.
+
+(Note that if Visual Studio Code allowed you to configure the color of errors from individual extensions, then setting rules to "warn" would be unnecessary and we could just instead add the appropriate line to the "settings.json" file of all of our projects. However, as of 2025, this is not currently possible.)
 
 ## Rule List
 

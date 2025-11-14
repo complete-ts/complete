@@ -13,6 +13,6 @@ export enum PackageManager {
   /** @see https://pnpm.io/ */
   pnpm = "pnpm",
 
-  /** @see https://bun.sh/ */
+  /** @see https://bun.com/ */
   bun = "bun",
 }

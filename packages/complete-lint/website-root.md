@@ -85,11 +85,11 @@ export default config;
 
 ### Step 4 - Editor Integration
 
-You will probably want to set up your code editor such that both ESLint and Prettier are automatically run every time the file is saved. Below, we show how to do that with [VSCode](https://code.visualstudio.com/), the most popular TypeScript editor / IDE. It is also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
+You will probably want to set up your code editor such that both ESLint and Prettier are automatically run every time the file is saved. Below, we show how to do that with [Visual Studio Code](https://code.visualstudio.com/), the most popular TypeScript editor / IDE. It is also possible to set this up in other editors such as [Webstorm](https://www.jetbrains.com/webstorm/) and [Neovim](https://neovim.io/), but we don't provide detailed instructions for that here.
 
 #### Extensions
 
-In order for the linter to work inside of VSCode, you will have to install the following extensions:
+In order for the linter to work inside of Visual Studio Code, you will have to install the following extensions:
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
@@ -106,7 +106,7 @@ Once installed, these extensions provide a nice dichotomy:
 
 #### `.vscode/settings.json`
 
-Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a file. You can tell VSCode to do this by adding the following to your project's `.vscode/settings.json` file:
+Furthermore, you will probably want Prettier and ESLint to be run automatically every time you save a file. You can tell Visual Studio Code to do this by adding the following to your project's `.vscode/settings.json` file:
 
 ```ts
 // These are Visual Studio Code settings that should apply to this particular repository.
@@ -127,7 +127,7 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
 
 (Create the ".vscode" directory and the "settings.json" file if they do not already exist.)
 
-You should also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project (and uses VSCode).
+You should also commit this file to your project's repository so that this behavior is automatically inherited by anyone who clones the project (and uses Visual Studio Code).
 
 #### `.vscode/extensions.json`
 
@@ -243,7 +243,7 @@ These are the specific packages that `complete-lint` provides:
 
 - [`@types/node`](https://www.npmjs.com/package/@types/node) - The types for the Node.js runtime. This is included since it is expected that you will be linting your project with a TypeScript script.
 - [`complete-tsconfig`](/complete-tsconfig) - A collection of TypeScript configuration files that allow for maximum safety.
-- [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker VSCode extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
+- [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.
 - [`eslint`](https://github.com/eslint/eslint) - The main linter engine for JavaScript/TypeScript, as explained above.
 - [`eslint-config-complete`](/eslint-config-complete) - Contains the master ESLint configuration.
