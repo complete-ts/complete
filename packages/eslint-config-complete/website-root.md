@@ -50,7 +50,7 @@ This package exports two configs:
 
 If you are reading this page, you are likely a user of [TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript is great because it saves you an enormous amount of time. The hours spent troubleshooting run-time errors caused from small typos have become a thing of the past. Good riddance!
 
-But there are many other code problems that do not have to do with types. In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables lots of good linting rules to catch even more bugs.
+But there are many other code problems that do not have to do with types. For example, ESLint can show you [when you forgot to use the `await` keyword](https://typescript-eslint.io/rules/require-await/). And it can help show you lines of code that [you think are doing something but are not really doing anything](https://typescript-eslint.io/rules/no-unused-expressions). In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables lots of good linting rules to catch even more bugs.
 
 ESLint rules can help catch bugs, but they can also help to make your codebase more consistent and adhere to best-practices within the TypeScript ecosystem. Remember that [code is read more often than it is written](https://skeptics.stackexchange.com/questions/48560/is-code-read-more-often-than-its-written). If you care about your code being the best that it can possibly be, then using ESLint is a must!
 
@@ -89,7 +89,24 @@ Additionally, some ESLint rules are not about catching bugs, but are about code 
 
 With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a `// eslint-disable-next-line insert-rule-name-here` comment. And you can automatically add the comment by selecting "Quick Fix" in VSCode, which is mapped to `Ctrl + .` by default.
 
-If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your `eslint.config.mjs` file. Some rules won't make sense for every project and that's okay!
+If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your `eslint.config.mjs` file: like this:
+
+```js
+// @ts-check
+
+import { completeConfigBase } from "eslint-config-complete";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig(...completeConfigBase, {
+  rules: {
+    // We intentionally use number enums to save bandwidth between the client and server. Number
+    // enums are almost always safe with the `complete/strict-enums` rule.
+    "@typescript-eslint/prefer-enum-initializers": "off",
+  },
+});
+```
+
+Some rules won't make sense for every project and that's okay!
 
 ## Rule List
 
