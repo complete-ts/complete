@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft-07/schema#",
   "title": "package-metadata.json",
   "description": "JSON schema for the package-metadata.json file used by complete-cli.",
   "definitions": {
