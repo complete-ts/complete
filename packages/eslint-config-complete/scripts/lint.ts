@@ -1,4 +1,4 @@
-import { lintCommands, readFile } from "complete-node";
+import { lintCommands, readFile, writeFile } from "complete-node";
 import path from "node:path";
 import { setReadmeRules } from "./docs.js";
 
@@ -20,6 +20,7 @@ async function checkDocs(packageRoot: string) {
 
   const newFileContents = await readFile(readmePath);
   if (oldFileContents !== newFileContents) {
+    await writeFile(readmePath, oldFileContents);
     throw new Error(
       `The "docs.ts" script changed the "${readmePath}" file. Run: "npm run docs`,
     );
