@@ -330,6 +330,8 @@ export const baseTypeScriptESLint = defineConfig(
         },
       ],
 
+      "@typescript-eslint/no-unused-private-class-members": "warn",
+
       /**
        * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things
        * that begin with an underscore, since this matches the behavior of the `--noUnusedLocals`
