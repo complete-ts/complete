@@ -59,7 +59,7 @@ export const baseComplete = defineConfig(
     // Rules that require type information will throw an error on ".json" files. (This is needed
     // when using `eslint-plugin-package-json`. Even though this config does not currently use the
     // plugin, we include it here defensively.)
-    ignores: ["*.json", "*.jsonc"],
+    ignores: ["**/*.json", "**/*.jsonc"],
   },
 
   {
