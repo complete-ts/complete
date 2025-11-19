@@ -4,7 +4,7 @@
   "description": "JSON schema for the TypeScript compiler's configuration file. Unlike the one that is built-in to Visual Studio Code, this one does not allow additional properties, which can prevent wasting time troubleshooting properties that are put in the wrong spot.",
   "allOf": [
     {
-      "$ref": "https://www.schemastore.org/tsconfig"
+      "$ref": "https://json.schemastore.org/tsconfig"
     }
   ],
   "properties": {
