@@ -14,7 +14,7 @@ const GITIGNORE_URL = `https://raw.githubusercontent.com/github/gitignore/master
 await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
-  "eslint --max-warnings 0 .",
+  "eslint .",
   // eslint-disable-next-line unicorn/prefer-top-level-await
   ["checkGitIgnoreUpdates", checkGitIgnoreUpdates()],
 ]);

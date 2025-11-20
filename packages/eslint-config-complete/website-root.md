@@ -39,12 +39,6 @@ import { defineConfig } from "eslint/config";
 export default defineConfig(...completeConfigBase);
 ```
 
-Note that since this config [turns on every rule as a warning](#warnings-over-errors), you must invoke ESLint with the `--max-warnings` flag like this:
-
-```sh
-eslint --max-warnings 0 .
-```
-
 ## Configs
 
 This package exports two configs:
@@ -114,17 +108,17 @@ export default defineConfig(...completeConfigBase, {
 
 Some rules won't make sense for every project and that's okay!
 
-## Warnings over Errors
+## Red Squigglies & Yellow Squigglies
 
-This ESLint config intentionally sets every rule to "warn" instead of "error". If you are familiar with ESLint, this might sound unusual, so this is worth explaining.
+The legendary Josh Goldberg has [an excellent blog explaining why using warnings in ESLint should be avoided](https://www.joshuakgoldberg.com/blog/if-i-wrote-a-linter-part-2-developer-experience/#only-errors). In fact, the ESLint ecosystem has standardized around not using warnings, so this config follows suit.
 
-ESLint allows you to turn on rules as either "warn" or "error". In Visual Studio Code, "warn" rules will show up as a yellow squiggly and "error" rules will show up as a red squiggly. However, using "warn" is less common, because by default, ESLint will not fail on warnings. The idea here is that warnings are supposed to be used for slightly-bad things that you want to show up in the IDE, but not actually enforced in [CI](https://en.wikipedia.org/wiki/Continuous_integration). Since this is a weird middle-ground, using warnings is not common. Nowadays, developers expect one set of rules for both IDEs and CI. Thus, when you consume "recommended" ESLint configs, rules are almost always turned on with "error" so that ESLint will properly catch/enforce them.
+Furthermore, we especially agree with Josh's opinion on squigglies: red squigglies should be reserved for TypeScript errors (which are often critical bugs that will cause a run-time error) and yellow squigglies should be reserved for ESLint errors (which are often code-quality issues).
 
-The consequence of all of this is that both TypeScript errors and ESLint errors show up in Visual Studio code as red squigglies, which is unfortunate. It is really nice for ESLint errors to show up as yellow instead of red, which allows you to easily distinguish between them. Red squigglies can be reserved for TypeScript errors, which are often critical bugs that will cause a run-time error. And yellow squigglies can be reserved for ESLint errors, which are more often code-quality issues that may not actually impact the functionality of the code.
+If you use Visual Studio Code, you can accomplish this with the following configuration:
 
-In order to achieve red squigglies and yellow squigglies, this ESLint config explicitly turns on every rule as "warn". Subsequently, it is expected that when you invoke ESLint in your lint scripts / CI, you invoke it with like `eslint --max-warnings 0 .` so that ESLint will return a non-zero exit code on one or more warnings.
-
-(Note that if Visual Studio Code allowed you to configure the color of errors from individual extensions, then setting rules to "warn" would be unnecessary and we could just instead add the appropriate line to the "settings.json" file of all of our projects. However, as of 2025, this is not currently possible.)
+```jsonc
+"eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+```
 
 ## Rule List
 

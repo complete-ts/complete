@@ -20,7 +20,7 @@ export default defineConfig(
     rules: {
       /** Not defined in the parent configs. */
       "sort-exports/sort-exports": [
-        "warn",
+        "error",
         {
           sortDir: "asc",
         },

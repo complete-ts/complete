@@ -33,7 +33,7 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/check-line-alignment": "off",
 
-      "jsdoc/check-param-names": "warn",
+      "jsdoc/check-param-names": "error",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/check-property-names": "off",
@@ -42,7 +42,7 @@ export const baseJSDoc = defineConfig(
       "jsdoc/check-syntax": "off",
 
       "jsdoc/check-tag-names": [
-        "warn",
+        "error",
         {
           definedTags: [
             // Ignore tags used by the TypeScript compiler:
@@ -75,12 +75,12 @@ export const baseJSDoc = defineConfig(
         },
       ],
 
-      "jsdoc/check-template-names": "warn",
+      "jsdoc/check-template-names": "error",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/check-types": "off",
 
-      "jsdoc/check-values": "warn",
+      "jsdoc/check-values": "error",
 
       /**
        * Disabled since it is idiomatic in the TypeScript ecosystem to use a mixture of both JSDoc
@@ -88,14 +88,14 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/convert-to-jsdoc-comments": "off",
 
-      "jsdoc/empty-tags": "warn",
-      "jsdoc/escape-inline-tags": "warn",
-      "jsdoc/implements-on-classes": "warn",
+      "jsdoc/empty-tags": "error",
+      "jsdoc/escape-inline-tags": "error",
+      "jsdoc/implements-on-classes": "error",
 
       /** Disabled since you cannot configure it with a path to the correct "package.json" file. */
       "jsdoc/imports-as-dependencies": "off",
 
-      "jsdoc/informative-docs": "warn",
+      "jsdoc/informative-docs": "error",
 
       /**
        * Disabled since it is [currently
@@ -140,7 +140,7 @@ export const baseJSDoc = defineConfig(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/no-types": [
-        "warn",
+        "error",
         {
           contexts: ["any"],
         },
@@ -155,9 +155,9 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/prefer-import-tag": "off",
 
-      "jsdoc/reject-any-type": "warn",
-      "jsdoc/reject-function-type": "warn",
-      "jsdoc/require-asterisk-prefix": "warn",
+      "jsdoc/reject-any-type": "error",
+      "jsdoc/reject-function-type": "error",
+      "jsdoc/require-asterisk-prefix": "error",
 
       /** Disabled because it is overboard for every function to have a description. */
       "jsdoc/require-description": "off",
@@ -175,15 +175,15 @@ export const baseJSDoc = defineConfig(
        * The `never` option is provided to make the rule match the format of the official TypeScript
        * codebase.
        */
-      "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
+      "jsdoc/require-hyphen-before-param-description": ["error", "never"],
 
       /** Disabled since it is overboard for every function to have a JSDoc comment. */
       "jsdoc/require-jsdoc": "off",
 
-      "jsdoc/require-next-description": "warn",
-      "jsdoc/require-next-type": "warn",
-      "jsdoc/require-template-description": "warn",
-      "jsdoc/require-throws-description": "warn",
+      "jsdoc/require-next-description": "error",
+      "jsdoc/require-next-type": "error",
+      "jsdoc/require-template-description": "error",
+      "jsdoc/require-throws-description": "error",
 
       /**
        * Disabled since in most cases, the type of a thrown error will simply be `Error`, making the
@@ -191,12 +191,12 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/require-throws-type": "off",
 
-      "jsdoc/require-yields-description": "warn",
-      "jsdoc/require-yields-type": "warn",
+      "jsdoc/require-yields-description": "error",
+      "jsdoc/require-yields-type": "error",
 
       /** Configured to only apply when there are one or more parameters. */
       "jsdoc/require-param": [
-        "warn",
+        "error",
         {
           contexts: [
             {
@@ -209,7 +209,7 @@ export const baseJSDoc = defineConfig(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-description": [
-        "warn",
+        "error",
         {
           contexts: ["any"],
         },
@@ -217,7 +217,7 @@ export const baseJSDoc = defineConfig(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-name": [
-        "warn",
+        "error",
         {
           contexts: ["any"],
         },
@@ -229,8 +229,8 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property": "off",
 
-      "jsdoc/require-property-description": "warn",
-      "jsdoc/require-property-name": "warn",
+      "jsdoc/require-property-description": "error",
+      "jsdoc/require-property-name": "error",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property-type": "off",
@@ -243,7 +243,7 @@ export const baseJSDoc = defineConfig(
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-returns-description": [
-        "warn",
+        "error",
         {
           contexts: ["any"],
         },
@@ -267,7 +267,7 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields-check": "off",
 
-      "jsdoc/sort-tags": "warn",
+      "jsdoc/sort-tags": "error",
 
       /** Superseded by the `complete/format-jsdoc-comments` rule. */
       "jsdoc/tag-lines": "off",
@@ -278,11 +278,11 @@ export const baseJSDoc = defineConfig(
        */
       "jsdoc/text-escaping": "off",
 
-      "jsdoc/ts-method-signature-style": "warn",
-      "jsdoc/ts-no-empty-object-type": "warn",
-      "jsdoc/ts-no-unnecessary-template-expression": "warn",
-      "jsdoc/ts-prefer-function-type": "warn",
-      "jsdoc/type-formatting": "warn",
+      "jsdoc/ts-method-signature-style": "error",
+      "jsdoc/ts-no-empty-object-type": "error",
+      "jsdoc/ts-no-unnecessary-template-expression": "error",
+      "jsdoc/ts-prefer-function-type": "error",
+      "jsdoc/type-formatting": "error",
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/valid-types": "off",

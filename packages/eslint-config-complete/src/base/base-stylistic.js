@@ -13,7 +13,7 @@ export const baseStylistic = defineConfig({
   rules: {
     /** This rule is not handled by Prettier, so we must use ESLint to enforce it. */
     "@stylistic/lines-between-class-members": [
-      "warn",
+      "error",
       "always",
       {
         exceptAfterSingleLine: true,
@@ -26,7 +26,7 @@ export const baseStylistic = defineConfig({
      * documentation](https://github.com/prettier/eslint-config-prettier#enforce-backticks).
      */
     "@stylistic/quotes": [
-      "warn",
+      "error",
       "double",
       {
         avoidEscape: true,
@@ -41,7 +41,7 @@ export const baseStylistic = defineConfig({
      * The `markers` option is provided to make this rule ignore lines that start with "///".
      */
     "@stylistic/spaced-comment": [
-      "warn",
+      "error",
       "always",
       {
         markers: ["/"],

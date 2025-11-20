@@ -31,7 +31,7 @@ await lintScript(import.meta.dirname, async () => {
       "tsc --noEmit",
       "tsc --noEmit --project ./scripts/tsconfig.json",
       "tsc --noEmit --project ./tests/tsconfig.json",
-      "eslint --max-warnings 0 .",
+      "eslint .",
     ],
     true,
   );

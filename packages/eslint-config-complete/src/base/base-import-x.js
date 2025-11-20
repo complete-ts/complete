@@ -6,7 +6,7 @@ import { defineConfig } from "eslint/config";
  * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#helpful-warnings
  */
 const HELPFUL_WARNINGS = {
-  "import-x/export": "warn",
+  "import-x/export": "error",
 
   /**
    * Superseded by the `deprecation/deprecation` rule. (That rule is better because it catches
@@ -14,11 +14,11 @@ const HELPFUL_WARNINGS = {
    */
   "import-x/no-deprecated": "off",
 
-  "import-x/no-empty-named-blocks": "warn",
+  "import-x/no-empty-named-blocks": "error",
 
   /** We add common patterns to the "devDependencies" array. */
   "import-x/no-extraneous-dependencies": [
-    "warn",
+    "error",
     {
       devDependencies: [
         // From:
@@ -47,8 +47,8 @@ const HELPFUL_WARNINGS = {
     },
   ],
 
-  "import-x/no-mutable-exports": "warn",
-  "import-x/no-named-as-default": "warn",
+  "import-x/no-mutable-exports": "error",
+  "import-x/no-named-as-default": "error",
 
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -74,9 +74,9 @@ const HELPFUL_WARNINGS = {
  * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#module-systems
  */
 const MODULE_SYSTEMS = {
-  "import-x/no-amd": "warn",
-  "import-x/no-commonjs": "warn",
-  "import-x/no-import-module-exports": "warn",
+  "import-x/no-amd": "error",
+  "import-x/no-commonjs": "error",
+  "import-x/no-import-module-exports": "error",
 
   /** Disabled because it is only used in specific environments (like the browser). */
   "import-x/no-nodejs-modules": "off",
@@ -108,14 +108,14 @@ const STATIC_ANALYSIS = {
    */
   "import-x/namespace": "off",
 
-  "import-x/no-absolute-path": "warn",
-  "import-x/no-cycle": "warn",
-  "import-x/no-dynamic-require": "warn",
+  "import-x/no-absolute-path": "error",
+  "import-x/no-cycle": "error",
+  "import-x/no-dynamic-require": "error",
 
   /** Disabled since a prescribed import pattern is not generalizable enough across projects. */
   "import-x/no-internal-modules": "off",
 
-  "import-x/no-relative-packages": "warn",
+  "import-x/no-relative-packages": "error",
 
   /**
    * Disabled since a forward import direction pattern is not generalizable enough across projects.
@@ -125,7 +125,7 @@ const STATIC_ANALYSIS = {
   /** Disabled since this rule should only contain a project-specific path restriction. */
   "import-x/no-restricted-paths": "off",
 
-  "import-x/no-self-import": "warn",
+  "import-x/no-self-import": "error",
 
   /**
    * Disabled because this is [already handled by the TypeScript
@@ -133,8 +133,8 @@ const STATIC_ANALYSIS = {
    */
   "import-x/no-unresolved": "off",
 
-  "import-x/no-useless-path-segments": "warn",
-  "import-x/no-webpack-loader-syntax": "warn",
+  "import-x/no-useless-path-segments": "error",
+  "import-x/no-webpack-loader-syntax": "error",
 };
 
 /**
@@ -142,7 +142,7 @@ const STATIC_ANALYSIS = {
  * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#style-guide
  */
 const STYLE_GUIDE = {
-  "import-x/consistent-type-specifier-style": "warn",
+  "import-x/consistent-type-specifier-style": "error",
 
   /** Disabled because it is only useful in environments that use webpack. */
   "import-x/dynamic-import-chunkname": "off",
@@ -153,7 +153,7 @@ const STYLE_GUIDE = {
   /** Disabled because this is already handled by the TypeScript compiler. */
   "import-x/extensions": "off",
 
-  "import-x/first": "warn",
+  "import-x/first": "error",
 
   /** Disabled because this style is not generally used. */
   "import-x/group-exports": "off",
@@ -164,7 +164,7 @@ const STYLE_GUIDE = {
   /** Disabled since it will trigger false positives in codebases that prefer smaller files. */
   "import-x/max-dependencies": "off",
 
-  "import-x/newline-after-import": "warn",
+  "import-x/newline-after-import": "error",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
@@ -176,10 +176,10 @@ const STYLE_GUIDE = {
    * The case against default exports is [laid out by Basarat Ali
    * Syed](https://basarat.gitbook.io/typescript/main-1/defaultisbad).
    */
-  "import-x/no-default-export": "warn",
+  "import-x/no-default-export": "error",
 
-  "import-x/no-duplicates": "warn",
-  "import-x/no-named-default": "warn",
+  "import-x/no-duplicates": "error",
+  "import-x/no-named-default": "error",
 
   /**
    * Disabled since we disallow default exports elsewhere in this config (in favor of named
@@ -192,7 +192,7 @@ const STYLE_GUIDE = {
    */
   "import-x/no-namespace": "off",
 
-  "import-x/no-unassigned-import": "warn",
+  "import-x/no-unassigned-import": "error",
 
   /** Disabled because this is automatically handled by `prettier-plugin-organize-imports`. */
   "import-x/order": "off",
@@ -203,7 +203,7 @@ const STYLE_GUIDE = {
    */
   "import-x/prefer-default-export": "off",
 
-  "import-x/prefer-namespace-import": "warn",
+  "import-x/prefer-namespace-import": "error",
 };
 
 /**
@@ -302,7 +302,7 @@ export const baseImportX = defineConfig(
       // "complete-lint". Similarly, importing "completeConfigBase" from "eslint-config-complete"
       // fails, because "eslint-config-complete" is a transitive dependency in "complete-lint".
       "import-x/no-extraneous-dependencies": [
-        "warn",
+        "error",
         {
           devDependencies: [
             "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",

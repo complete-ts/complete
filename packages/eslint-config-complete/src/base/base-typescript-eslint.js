@@ -40,26 +40,26 @@ export const baseTypeScriptESLint = defineConfig(
     },
 
     rules: {
-      "@typescript-eslint/adjacent-overload-signatures": "warn",
+      "@typescript-eslint/adjacent-overload-signatures": "error",
 
       /**
        * The default value is `array`. We choose `array-simple` because it makes complicated arrays
        * easier to understand. This is worth the cost of deviating from the base rule configuration.
        */
       "@typescript-eslint/array-type": [
-        "warn",
+        "error",
         {
           default: "array-simple",
         },
       ],
 
-      "@typescript-eslint/await-thenable": "warn",
-      "@typescript-eslint/ban-ts-comment": "warn",
-      "@typescript-eslint/ban-tslint-comment": "warn",
-      "@typescript-eslint/class-literal-property-style": "warn",
-      "@typescript-eslint/class-methods-use-this": "warn",
-      "@typescript-eslint/consistent-generic-constructors": "warn",
-      "@typescript-eslint/consistent-indexed-object-style": "warn",
+      "@typescript-eslint/await-thenable": "error",
+      "@typescript-eslint/ban-ts-comment": "error",
+      "@typescript-eslint/ban-tslint-comment": "error",
+      "@typescript-eslint/class-literal-property-style": "error",
+      "@typescript-eslint/class-methods-use-this": "error",
+      "@typescript-eslint/consistent-generic-constructors": "error",
+      "@typescript-eslint/consistent-indexed-object-style": "error",
 
       /**
        * Disabled since this is handled by the `noImplicitReturns` TypeScript compiler flag. (The
@@ -70,12 +70,12 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/consistent-return": "off",
 
-      "@typescript-eslint/consistent-type-assertions": "warn",
-      "@typescript-eslint/consistent-type-definitions": "warn",
-      "@typescript-eslint/consistent-type-exports": "warn",
-      "@typescript-eslint/consistent-type-imports": "warn",
-      "@typescript-eslint/default-param-last": "warn",
-      "@typescript-eslint/dot-notation": "warn",
+      "@typescript-eslint/consistent-type-assertions": "error",
+      "@typescript-eslint/consistent-type-definitions": "error",
+      "@typescript-eslint/consistent-type-exports": "error",
+      "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/default-param-last": "error",
+      "@typescript-eslint/dot-notation": "error",
 
       /**
        * Disabled since it would be to cumbersome to require return types for non-exported
@@ -90,7 +90,7 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/explicit-member-accessibility": "off",
 
-      "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "@typescript-eslint/explicit-module-boundary-types": "error",
 
       /**
        * Disabled since it is superfluous to require an `= undefined` during variable initialization
@@ -108,7 +108,7 @@ export const baseTypeScriptESLint = defineConfig(
       /** Disabled since prescribed class ordering is too project-specific. */
       "@typescript-eslint/member-ordering": "off",
 
-      "@typescript-eslint/method-signature-style": "warn",
+      "@typescript-eslint/method-signature-style": "error",
 
       /**
        * The options are [copied from
@@ -117,7 +117,7 @@ export const baseTypeScriptESLint = defineConfig(
        * being used.
        */
       "@typescript-eslint/naming-convention": [
-        "warn",
+        "error",
         // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
         // (23.10).
         {
@@ -141,12 +141,12 @@ export const baseTypeScriptESLint = defineConfig(
         },
       ],
 
-      "@typescript-eslint/no-array-constructor": "warn",
-      "@typescript-eslint/no-array-delete": "warn",
-      "@typescript-eslint/no-base-to-string": "warn",
-      "@typescript-eslint/no-confusing-non-null-assertion": "warn",
-      "@typescript-eslint/no-confusing-void-expression": "warn",
-      "@typescript-eslint/no-deprecated": "warn",
+      "@typescript-eslint/no-array-constructor": "error",
+      "@typescript-eslint/no-array-delete": "error",
+      "@typescript-eslint/no-base-to-string": "error",
+      "@typescript-eslint/no-confusing-non-null-assertion": "error",
+      "@typescript-eslint/no-confusing-void-expression": "error",
+      "@typescript-eslint/no-deprecated": "error",
 
       /**
        * Disabled since it is superfluous when using TypeScript according to [the ESLint
@@ -154,10 +154,10 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-dupe-class-members": "off",
 
-      "@typescript-eslint/no-duplicate-enum-values": "warn",
-      "@typescript-eslint/no-duplicate-type-constituents": "warn",
-      "@typescript-eslint/no-dynamic-delete": "warn",
-      "@typescript-eslint/no-empty-function": "warn",
+      "@typescript-eslint/no-duplicate-enum-values": "error",
+      "@typescript-eslint/no-duplicate-type-constituents": "error",
+      "@typescript-eslint/no-dynamic-delete": "error",
+      "@typescript-eslint/no-empty-function": "error",
 
       /**
        * The `allowSingleExtends` option is enabled to allow for the common pattern of using using
@@ -166,16 +166,16 @@ export const baseTypeScriptESLint = defineConfig(
        * verbose/confusing mouseover tooltips and TypeScript errors.)
        */
       "@typescript-eslint/no-empty-interface": [
-        "warn",
+        "error",
         {
           allowSingleExtends: true,
         },
       ],
 
-      "@typescript-eslint/no-empty-object-type": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-extra-non-null-assertion": "warn",
-      "@typescript-eslint/no-extraneous-class": "warn",
+      "@typescript-eslint/no-empty-object-type": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-extra-non-null-assertion": "error",
+      "@typescript-eslint/no-extraneous-class": "error",
 
       /**
        * - The `ignoreVoid` option is disabled to make the rule stricter.
@@ -183,41 +183,41 @@ export const baseTypeScriptESLint = defineConfig(
        *   promise that is not meant to be awaited.
        */
       "@typescript-eslint/no-floating-promises": [
-        "warn",
+        "error",
         {
           ignoreVoid: false,
         },
       ],
 
-      "@typescript-eslint/no-for-in-array": "warn",
-      "@typescript-eslint/no-implied-eval": "warn",
-      "@typescript-eslint/no-import-type-side-effects": "warn",
-      "@typescript-eslint/no-inferrable-types": "warn",
+      "@typescript-eslint/no-for-in-array": "error",
+      "@typescript-eslint/no-implied-eval": "error",
+      "@typescript-eslint/no-import-type-side-effects": "error",
+      "@typescript-eslint/no-inferrable-types": "error",
 
       /** The `capIsConstructor` option is disabled to make the rule stricter. */
       "@typescript-eslint/no-invalid-this": [
-        "warn",
+        "error",
         {
           capIsConstructor: false,
         },
       ],
 
-      "@typescript-eslint/no-invalid-void-type": "warn",
-      "@typescript-eslint/no-loop-func": "warn",
-      "@typescript-eslint/no-loss-of-precision": "warn",
+      "@typescript-eslint/no-invalid-void-type": "error",
+      "@typescript-eslint/no-loop-func": "error",
+      "@typescript-eslint/no-loss-of-precision": "error",
 
       /** Disabled since it results in too many false positives. */
       "@typescript-eslint/no-magic-numbers": "off",
 
-      "@typescript-eslint/no-meaningless-void-operator": "warn",
-      "@typescript-eslint/no-misused-new": "warn",
-      "@typescript-eslint/no-misused-promises": "warn",
-      "@typescript-eslint/no-misused-spread": "warn",
-      "@typescript-eslint/no-mixed-enums": "warn",
-      "@typescript-eslint/no-namespace": "warn",
-      "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "warn",
-      "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
-      "@typescript-eslint/no-non-null-assertion": "warn",
+      "@typescript-eslint/no-meaningless-void-operator": "error",
+      "@typescript-eslint/no-misused-new": "error",
+      "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/no-misused-spread": "error",
+      "@typescript-eslint/no-mixed-enums": "error",
+      "@typescript-eslint/no-namespace": "error",
+      "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+      "@typescript-eslint/no-non-null-assertion": "error",
 
       /**
        * Disabled since it is handled by the combination of the TypeScript compiler and the `no-var`
@@ -225,8 +225,8 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-redeclare": "off",
 
-      "@typescript-eslint/no-redundant-type-constituents": "warn",
-      "@typescript-eslint/no-require-imports": "warn",
+      "@typescript-eslint/no-redundant-type-constituents": "error",
+      "@typescript-eslint/no-require-imports": "error",
 
       /**
        * Configured to prevent importing with some common patterns that are almost always a mistake:
@@ -237,7 +237,7 @@ export const baseTypeScriptESLint = defineConfig(
        *   public API)
        */
       "@typescript-eslint/no-restricted-imports": [
-        "warn",
+        "error",
         {
           patterns: [
             // Some "src" directories have an "index.ts" file, which means that importing from the
@@ -286,30 +286,31 @@ export const baseTypeScriptESLint = defineConfig(
       /** Disabled since this rule is intended to be used for project-specific types. */
       "@typescript-eslint/no-restricted-types": "off",
 
-      "@typescript-eslint/no-shadow": "warn",
-      "@typescript-eslint/no-this-alias": "warn",
+      "@typescript-eslint/no-shadow": "error",
+      "@typescript-eslint/no-this-alias": "error",
 
       /** Disabled because this rule is deprecated. */
       "@typescript-eslint/no-type-alias": "off",
 
-      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
-      "@typescript-eslint/no-unnecessary-condition": "warn",
-      "@typescript-eslint/no-unnecessary-parameter-property-assignment": "warn",
-      "@typescript-eslint/no-unnecessary-qualifier": "warn",
-      "@typescript-eslint/no-unnecessary-template-expression": "warn",
-      "@typescript-eslint/no-unnecessary-type-arguments": "warn",
-      "@typescript-eslint/no-unnecessary-type-assertion": "warn",
-      "@typescript-eslint/no-unnecessary-type-constraint": "warn",
-      "@typescript-eslint/no-unnecessary-type-conversion": "warn",
-      "@typescript-eslint/no-unnecessary-type-parameters": "warn",
-      "@typescript-eslint/no-unsafe-argument": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/no-unsafe-declaration-merging": "warn",
-      "@typescript-eslint/no-unsafe-enum-comparison": "warn",
-      "@typescript-eslint/no-unsafe-function-type": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
-      "@typescript-eslint/no-unsafe-return": "warn",
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+      "@typescript-eslint/no-unnecessary-condition": "error",
+      "@typescript-eslint/no-unnecessary-parameter-property-assignment":
+        "error",
+      "@typescript-eslint/no-unnecessary-qualifier": "error",
+      "@typescript-eslint/no-unnecessary-template-expression": "error",
+      "@typescript-eslint/no-unnecessary-type-arguments": "error",
+      "@typescript-eslint/no-unnecessary-type-assertion": "error",
+      "@typescript-eslint/no-unnecessary-type-constraint": "error",
+      "@typescript-eslint/no-unnecessary-type-conversion": "error",
+      "@typescript-eslint/no-unnecessary-type-parameters": "error",
+      "@typescript-eslint/no-unsafe-argument": "error",
+      "@typescript-eslint/no-unsafe-assignment": "error",
+      "@typescript-eslint/no-unsafe-call": "error",
+      "@typescript-eslint/no-unsafe-declaration-merging": "error",
+      "@typescript-eslint/no-unsafe-enum-comparison": "error",
+      "@typescript-eslint/no-unsafe-function-type": "error",
+      "@typescript-eslint/no-unsafe-member-access": "error",
+      "@typescript-eslint/no-unsafe-return": "error",
 
       /**
        * Disabled because this rule causes too many false positives. The rule prevents a narrowing
@@ -317,20 +318,20 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-unsafe-type-assertion": "off",
 
-      "@typescript-eslint/no-unsafe-unary-minus": "warn",
+      "@typescript-eslint/no-unsafe-unary-minus": "error",
 
       /**
        * The `allowTaggedTemplates` option is enabled to allow the rule to work with libraries like
        * `execa`.
        */
       "@typescript-eslint/no-unused-expressions": [
-        "warn",
+        "error",
         {
           allowTaggedTemplates: true,
         },
       ],
 
-      "@typescript-eslint/no-unused-private-class-members": "warn",
+      "@typescript-eslint/no-unused-private-class-members": "error",
 
       /**
        * The `args` option is set to `all` make the rule stricter. Additionally, we ignore things
@@ -338,7 +339,7 @@ export const baseTypeScriptESLint = defineConfig(
        * TypeScript compiler flag.
        */
       "@typescript-eslint/no-unused-vars": [
-        "warn",
+        "error",
         {
           args: "all", // "after-used" is the default.
           argsIgnorePattern: "^_",
@@ -349,21 +350,21 @@ export const baseTypeScriptESLint = defineConfig(
       /** Disabled because it can prevent code from being structured sequentially. */
       "@typescript-eslint/no-use-before-define": "off",
 
-      "@typescript-eslint/no-useless-constructor": "warn",
-      "@typescript-eslint/no-useless-empty-export": "warn",
-      "@typescript-eslint/no-var-requires": "warn",
-      "@typescript-eslint/no-wrapper-object-types": "warn",
-      "@typescript-eslint/non-nullable-type-assertion-style": "warn",
-      "@typescript-eslint/only-throw-error": "warn",
-      "@typescript-eslint/parameter-properties": "warn",
-      "@typescript-eslint/prefer-as-const": "warn",
+      "@typescript-eslint/no-useless-constructor": "error",
+      "@typescript-eslint/no-useless-empty-export": "error",
+      "@typescript-eslint/no-var-requires": "error",
+      "@typescript-eslint/no-wrapper-object-types": "error",
+      "@typescript-eslint/non-nullable-type-assertion-style": "error",
+      "@typescript-eslint/only-throw-error": "error",
+      "@typescript-eslint/parameter-properties": "error",
+      "@typescript-eslint/prefer-as-const": "error",
 
       /**
        * Object destructuring is enforced but array destructuring is not. This matches usage in the
        * general TypeScript ecosystem.
        */
       "@typescript-eslint/prefer-destructuring": [
-        "warn",
+        "error",
         {
           VariableDeclarator: {
             array: false,
@@ -381,14 +382,14 @@ export const baseTypeScriptESLint = defineConfig(
         },
       ],
 
-      "@typescript-eslint/prefer-enum-initializers": "warn",
-      "@typescript-eslint/prefer-find": "warn",
-      "@typescript-eslint/prefer-for-of": "warn",
-      "@typescript-eslint/prefer-function-type": "warn",
-      "@typescript-eslint/prefer-includes": "warn",
-      "@typescript-eslint/prefer-literal-enum-member": "warn",
-      "@typescript-eslint/prefer-namespace-keyword": "warn",
-      "@typescript-eslint/prefer-nullish-coalescing": "warn",
+      "@typescript-eslint/prefer-enum-initializers": "error",
+      "@typescript-eslint/prefer-find": "error",
+      "@typescript-eslint/prefer-for-of": "error",
+      "@typescript-eslint/prefer-function-type": "error",
+      "@typescript-eslint/prefer-includes": "error",
+      "@typescript-eslint/prefer-literal-enum-member": "error",
+      "@typescript-eslint/prefer-namespace-keyword": "error",
+      "@typescript-eslint/prefer-nullish-coalescing": "error",
 
       /**
        * Disabled because it can modify the type of `boolean` declarations, which is [undesired in
@@ -399,33 +400,33 @@ export const baseTypeScriptESLint = defineConfig(
 
       /** The `allowEmptyReject` option is enabled since this is a common pattern. */
       "@typescript-eslint/prefer-promise-reject-errors": [
-        "warn",
+        "error",
         {
           allowEmptyReject: true,
         },
       ],
 
-      "@typescript-eslint/prefer-readonly": "warn",
+      "@typescript-eslint/prefer-readonly": "error",
 
       /** Superseded by the `complete/prefer-readonly-parameter-types` rule. */
       "@typescript-eslint/prefer-readonly-parameter-types": "off",
 
-      "@typescript-eslint/prefer-reduce-type-parameter": "warn",
+      "@typescript-eslint/prefer-reduce-type-parameter": "error",
 
       /** Disabled since using the `String.match` form might make code easier to read. */
       "@typescript-eslint/prefer-regexp-exec": "off",
 
-      "@typescript-eslint/prefer-return-this-type": "warn",
-      "@typescript-eslint/prefer-string-starts-ends-with": "warn",
-      "@typescript-eslint/prefer-ts-expect-error": "warn",
-      "@typescript-eslint/promise-function-async": "warn",
-      "@typescript-eslint/related-getter-setter-pairs": "warn",
-      "@typescript-eslint/require-array-sort-compare": "warn",
-      "@typescript-eslint/require-await": "warn",
+      "@typescript-eslint/prefer-return-this-type": "error",
+      "@typescript-eslint/prefer-string-starts-ends-with": "error",
+      "@typescript-eslint/prefer-ts-expect-error": "error",
+      "@typescript-eslint/promise-function-async": "error",
+      "@typescript-eslint/related-getter-setter-pairs": "error",
+      "@typescript-eslint/require-array-sort-compare": "error",
+      "@typescript-eslint/require-await": "error",
 
       /** The various "allow" options are disabled to make the rule stricter. */
       "@typescript-eslint/restrict-plus-operands": [
-        "warn",
+        "error",
         {
           allowAny: false,
           allowBoolean: false,
@@ -448,14 +449,14 @@ export const baseTypeScriptESLint = defineConfig(
        * reasons described in [this
        * issue](https://github.com/typescript-eslint/typescript-eslint/issues/10165#issuecomment-2525288217).
        */
-      "@typescript-eslint/return-await": ["warn", "always"],
+      "@typescript-eslint/return-await": ["error", "always"],
 
       /** Disabled since in it does not make sense to sort a union alphabetically in many cases. */
       "@typescript-eslint/sort-type-constituents": "off",
 
       /** The `allowString` and `allowNumber` options are disabled to make the rule stricter. */
       "@typescript-eslint/strict-boolean-expressions": [
-        "warn",
+        "error",
         {
           allowString: false,
           allowNumber: false,
@@ -476,7 +477,7 @@ export const baseTypeScriptESLint = defineConfig(
        * when `allowDefaultCaseForExhaustiveSwitch` is disabled.
        */
       "@typescript-eslint/switch-exhaustiveness-check": [
-        "warn",
+        "error",
         {
           allowDefaultCaseForExhaustiveSwitch: false,
           requireDefaultForNonUnion: true,
@@ -484,7 +485,7 @@ export const baseTypeScriptESLint = defineConfig(
         },
       ],
 
-      "@typescript-eslint/triple-slash-reference": "warn",
+      "@typescript-eslint/triple-slash-reference": "error",
 
       /**
        * Disabled since it is not recommended by the `typescript-eslint` team. (They recommend using
@@ -493,9 +494,9 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/typedef": "off",
 
-      "@typescript-eslint/unbound-method": "warn",
-      "@typescript-eslint/unified-signatures": "warn",
-      "@typescript-eslint/use-unknown-in-catch-callback-variable": "warn",
+      "@typescript-eslint/unbound-method": "error",
+      "@typescript-eslint/unified-signatures": "error",
+      "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
     },
 
     // Rules that require type information will throw an error on ".json" files. (This is needed

@@ -22,12 +22,12 @@ export const baseN = defineConfig({
      * This rule is helpful to automatically fix file extensions in import statements throughout an
      * entire codebase.
      */
-    "n/file-extension-in-import": ["warn", "always"],
+    "n/file-extension-in-import": ["error", "always"],
 
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/global-require": "off",
 
-    "n/handle-callback-err": "warn",
+    "n/handle-callback-err": "error",
 
     /**
      * Disabled since it does not work very well with TypeScript. (It needs project-specific
@@ -35,9 +35,9 @@ export const baseN = defineConfig({
      */
     "n/hashbang": "off", // cspell:disable-line
 
-    "n/no-callback-literal": "warn",
-    "n/no-deprecated-api": "warn",
-    "n/no-exports-assign": "warn",
+    "n/no-callback-literal": "error",
+    "n/no-deprecated-api": "error",
+    "n/no-exports-assign": "error",
 
     /** Disabled since it is handled by the TypeScript compiler. */
     "n/no-extraneous-import": "off",
@@ -57,8 +57,8 @@ export const baseN = defineConfig({
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/no-mixed-requires": "off",
 
-    "n/no-new-require": "warn",
-    "n/no-path-concat": "warn",
+    "n/no-new-require": "error",
+    "n/no-path-concat": "error",
 
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/no-process-env": "off",
@@ -84,7 +84,7 @@ export const baseN = defineConfig({
      */
     "n/no-top-level-await": "off",
 
-    "n/no-unpublished-bin": "warn",
+    "n/no-unpublished-bin": "error",
 
     /** Superseded by the `import-x/no-extraneous-dependencies` rule. */
     "n/no-unpublished-import": "off",
@@ -134,7 +134,7 @@ export const baseN = defineConfig({
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-promises/fs": "off",
 
-    "n/process-exit-as-throw": "warn",
+    "n/process-exit-as-throw": "error",
 
     /** Superseded by the `n/hashbang` rule. */
     "n/shebang": "off",
