@@ -1,6 +1,6 @@
 {
   "name": "complete-lint",
-  "version": "4.2.8",
+  "version": "5.0.0",
   "description": "A linting dependency meta-package for TypeScript projects.",
   "keywords": [
     "lint",
