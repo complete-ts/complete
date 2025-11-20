@@ -73,6 +73,7 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 ## Rules
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
+<!-- markdownlint-disable MD060 -->
 <!-- begin auto-generated rules list -->
 
 💼 Configurations enabled in.\
