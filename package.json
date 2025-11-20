@@ -36,7 +36,7 @@
     "@heroicons/react": "2.2.0",
     "@mdx-js/react": "3.1.1",
     "@octokit/core": "7.0.6",
-    "@stylistic/eslint-plugin": "5.6.0",
+    "@stylistic/eslint-plugin": "5.6.1",
     "@tsconfig/node-lts": "22.0.4",
     "@tsconfig/strictest": "2.0.8",
     "@types/confusing-browser-globals": "1.0.3",
@@ -64,7 +64,7 @@
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-eslint-plugin": "7.2.0",
     "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-jsdoc": "61.2.1",
+    "eslint-plugin-jsdoc": "61.3.0",
     "eslint-plugin-n": "17.23.1",
     "eslint-plugin-sort-exports": "0.9.1",
     "eslint-plugin-unicorn": "62.0.0",
@@ -74,7 +74,7 @@
     "jsonc-eslint-parser": "2.4.1",
     "jsonc-parser": "3.3.1",
     "klaw-sync": "7.0.0",
-    "knip": "5.70.0",
+    "knip": "5.70.1",
     "listr2": "9.0.5",
     "npm-check-updates": "19.1.2",
     "package-directory": "8.1.0",
@@ -103,6 +103,6 @@
   "devDependencies": {
     "git-pull-run": "1.6.2",
     "husky": "9.1.7",
-    "markdownlint-cli": "0.45.0"
+    "markdownlint-cli": "0.46.0"
   }
 }
