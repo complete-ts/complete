@@ -14,24 +14,24 @@ const POSSIBLE_PROBLEMS = {
     },
   ],
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2335)` & `ts(2377)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2335)` & `ts(2377)`). */
   "constructor-super": "off", // @typescript-eslint/eslint-recommended
 
   "for-direction": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2378)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2378)`). */
   "getter-return": "off", // @typescript-eslint/eslint-recommended
 
   "no-async-promise-executor": "error",
   "no-await-in-loop": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2629)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2629)`). */
   "no-class-assign": "error",
 
   "no-compare-neg-zero": "error",
   "no-cond-assign": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2588)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2588)`). */
   "no-const-assign": "off", // @typescript-eslint/eslint-recommended
 
   "no-constant-binary-expression": "error",
@@ -40,15 +40,15 @@ const POSSIBLE_PROBLEMS = {
   "no-control-regex": "error",
   "no-debugger": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2300)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2300)`). */
   "no-dupe-args": "off", // @typescript-eslint/eslint-recommended
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2393)` & `ts(2300)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2393)` & `ts(2300)`). */
   "no-dupe-class-members": "off", // @typescript-eslint/eslint-recommended
 
   "no-dupe-else-if": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(1117)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(1117)`). */
   "no-dupe-keys": "off", // @typescript-eslint/eslint-recommended
 
   "no-duplicate-case": "error",
@@ -61,10 +61,10 @@ const POSSIBLE_PROBLEMS = {
   "no-ex-assign": "error",
   "no-fallthrough": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2630)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2630)`). */
   "no-func-assign": "off", // @typescript-eslint/eslint-recommended
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2632)` & `ts(2540)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2632)` & `ts(2540)`). */
   "no-import-assign": "off", // @typescript-eslint/eslint-recommended
 
   "no-inner-declarations": "error",
@@ -76,10 +76,10 @@ const POSSIBLE_PROBLEMS = {
 
   "no-misleading-character-class": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(7009)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(7009)`). */
   "no-new-native-nonconstructor": "off", // @typescript-eslint/eslint-recommended
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2349)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2349)`). */
   "no-obj-calls": "off", // @typescript-eslint/eslint-recommended`
 
   "no-promise-executor-return": "error",
@@ -87,7 +87,7 @@ const POSSIBLE_PROBLEMS = {
   "no-self-assign": "error",
   "no-self-compare": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2408)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2408)`). */
   "no-setter-return": "off", // @typescript-eslint/eslint-recommended
 
   "no-sparse-arrays": "error",
@@ -95,24 +95,26 @@ const POSSIBLE_PROBLEMS = {
   /** Superseded by the `complete/eqeqeq-fix` rule (since we want auto-fix to work properly). */
   "no-template-curly-in-string": "off",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2376)` & `ts(17009)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2376)` & `ts(17009)`). */
   "no-this-before-super": "off", // @typescript-eslint/eslint-recommended`
 
   "no-unassigned-vars": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2304)` & `ts(2552)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2304)` & `ts(2552)`). */
   "no-undef": "off", // @typescript-eslint/eslint-recommended
 
   "no-unexpected-multiline": "off", // eslint-config-prettier
   "no-unmodified-loop-condition": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(7027)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(7027)`). */
   "no-unreachable": "off", // @typescript-eslint/eslint-recommended
 
   "no-unreachable-loop": "error",
   "no-unsafe-finally": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2365)` & `ts(2322)` & `ts(2358)`) */
+  /**
+   * Disabled since this is already enforced by TypeScript (`ts(2365)` & `ts(2322)` & `ts(2358)`).
+   */
   "no-unsafe-negation": "off", // @typescript-eslint/eslint-recommended
 
   "no-unsafe-optional-chaining": "error",
@@ -386,7 +388,7 @@ const SUGGESTIONS = {
 
   "no-proto": "error",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(2451)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(2451)`). */
   "no-redeclare": "off", // @typescript-eslint/eslint-recommended
 
   "no-regex-spaces": "error",
@@ -568,7 +570,7 @@ const SUGGESTIONS = {
   /** Superseded by the `unicorn/expiring-todo-comments` rule. */
   "no-warning-comments": "off",
 
-  /** Disabled since this is already enforced by TypeScript. (`ts(1101)` & `ts(2410)`) */
+  /** Disabled since this is already enforced by TypeScript (`ts(1101)` & `ts(2410)`). */
   "no-with": "off", // @typescript-eslint/eslint-recommended
 
   /** The `ignoreConstructors` option is disabled to make the rule stricter. */
