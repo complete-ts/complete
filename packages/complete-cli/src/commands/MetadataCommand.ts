@@ -58,7 +58,7 @@ export class MetadataCommand extends Command {
       "lock-reason": this.reason ?? "",
     };
 
-    const packageMetadataJSON = JSON.stringify(packageMetadata, undefined, 2);
+    const packageMetadataJSON = `${JSON.stringify(packageMetadata, undefined, 2)}\n`;
     await writeFile(packageMetadataPath, packageMetadataJSON);
 
     const verb = packageMetadataExists ? "modified" : "created";
