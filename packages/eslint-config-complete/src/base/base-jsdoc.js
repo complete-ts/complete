@@ -235,6 +235,8 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property-type": "off",
 
+      "jsdoc/require-rejects": "error",
+
       /** Disabled because it is overboard for every function to document every return value. */
       "jsdoc/require-returns": "off",
 
