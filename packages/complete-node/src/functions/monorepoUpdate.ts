@@ -42,6 +42,8 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  *
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
+ *
+ * @rejects If one or more child "package.json" files are out of sync.
  */
 export async function lintMonorepoPackageJSONs(
   monorepoRoot: string,
@@ -109,6 +111,7 @@ export async function updatePackageJSONDependenciesMonorepo(
  * @param monorepoRoot The full path to the monorepo root directory.
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
  * @returns Whether all of the "package.json" files were valid.
+ * @rejects If one or more monorepo dependencies are unused.
  */
 export async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,

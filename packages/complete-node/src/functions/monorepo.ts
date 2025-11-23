@@ -24,6 +24,8 @@ import { readFile, writeFile } from "./readWrite.js";
  * useful for ESLint plugins inside of a monorepo, for example.)
  *
  * This function assumes that the monorepo root is two directories above the provided package root.
+ *
+ * @rejects If copying fails.
  */
 export async function copyToMonorepoNodeModules(
   packageRoot: string,
@@ -108,6 +110,7 @@ export async function fixMonorepoPackageDistDirectory(
  * @param monorepoRoot The full path to the root of the monorepo.
  * @param scriptName Optional. If specified, the package names will be filtered to only include
  *                   those that include scripts with the given name.
+ * @rejects If the monorepo packages directory cannot be found.
  */
 export async function getMonorepoPackageNames(
   monorepoRoot: string,

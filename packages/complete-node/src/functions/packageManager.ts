@@ -104,7 +104,7 @@ export function getPackageManagerExecCommand(
  * Helper function to look at the lock files in a given directory in order to infer the package
  * manager being used for the project.
  *
- * @throws If two or more lock files were found.
+ * @rejects If two or more lock files were found.
  */
 export async function getPackageManagerForProject(
   packageRoot: string,

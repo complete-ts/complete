@@ -41,6 +41,7 @@ enum VersionBump {
  *                          package root).
  * @param updateMonorepo Optional. Attempt to update the monorepo dependencies after the publish is
  *                       completed. Defaults to true.
+ * @rejects If publishing fails.
  */
 export async function monorepoPublish(
   importMetaDirname: string,

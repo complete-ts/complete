@@ -8,7 +8,7 @@ import {
 import { CWD } from "../../constants.js";
 import { getInputYesNo, promptEnd, promptLog } from "../../prompt.js";
 
-/** @throws If the project path exists and is not a file or a directory. */
+/** @rejects If the project path exists and is not a file or a directory. */
 export async function checkIfProjectPathExists(
   projectPath: string,
   yes: boolean,

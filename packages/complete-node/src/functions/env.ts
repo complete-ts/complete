@@ -18,6 +18,7 @@ import { isFile } from "./file.js";
  *
  * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
  *                          package root).
+ * @rejects If the ".env" file cannot be found.
  */
 export async function getEnv(importMetaDirname: string): Promise<void> {
   const packageRoot = await packageDirectory({ cwd: importMetaDirname });
