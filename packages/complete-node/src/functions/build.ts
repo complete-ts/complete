@@ -19,7 +19,7 @@ import { getPackageJSON } from "./packageJSON.js";
  * in TypeScript. In these situations, this function should be run as part of the linting stage in
  * order to ensure that the compiled output is always up to date.
  *
- * @rejects If the compiled output is not up-to-date.
+ * @throws If the compiled output is not up-to-date.
  */
 export async function checkCompiledOutputInRepo(): Promise<void> {
   const command = "npm run build";
@@ -50,7 +50,7 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
  * @param packageRoot The path to the root of the package.
- * @rejects If the "package.json" file does not exist or cannot be parsed.
+ * @throws If the "package.json" file does not exist or cannot be parsed.
  * @see https://bun.com/docs/bundler/executables
  */
 export async function compileToSingleFileWithBun(

@@ -12,7 +12,7 @@ import { readFile } from "./readWrite.js";
  * Helper function to parse a file as
  * [JSONC](https://code.visualstudio.com/docs/languages/json#_json-with-comments).
  *
- * @rejects If the file could not be parsed.
+ * @throws If the file could not be parsed.
  */
 export async function getJSONC(filePath: string): Promise<unknown> {
   const fileContents = await readFile(filePath);

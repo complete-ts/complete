@@ -10,7 +10,7 @@ import fs from "node:fs/promises";
  * Helper function to asynchronously append data to a file. If the file does not exist, it will be
  * automatically created.
  *
- * @rejects If the file cannot be appended to.
+ * @throws If the file cannot be appended to.
  */
 export async function appendFile(
   filePath: string,
@@ -30,7 +30,7 @@ export async function appendFile(
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * @rejects If the line number does not exist in the text file or the file cannot be written to.
+ * @throws If the line number does not exist in the text file or the file cannot be written to.
  */
 export async function deleteLineInFile(
   filePath: string,
@@ -54,7 +54,7 @@ export async function deleteLineInFile(
 /**
  * Helper function to synchronously prepend data to a file.
  *
- * @rejects If the file cannot be written to.
+ * @throws If the file cannot be written to.
  */
 export async function prependFile(
   filePath: string,
@@ -70,7 +70,7 @@ export async function prependFile(
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * @rejects If the file cannot be read.
+ * @throws If the file cannot be read.
  */
 export async function readFile(filePath: string): Promise<string> {
   try {
@@ -87,7 +87,7 @@ export async function readFile(filePath: string): Promise<string> {
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * @rejects If the line number does not exist in the text file or the file cannot be written to.
+ * @throws If the line number does not exist in the text file or the file cannot be written to.
  */
 export async function replaceLineInFile(
   filePath: string,
@@ -114,7 +114,7 @@ export async function replaceLineInFile(
  *
  * This assumes that the file is a text file and uses an encoding of "utf8".
  *
- * @rejects If the file cannot be written to.
+ * @throws If the file cannot be written to.
  */
 export async function replaceTextInFile(
   filePath: string,
@@ -129,7 +129,7 @@ export async function replaceTextInFile(
 /**
  * Helper function to asynchronously write data to a file.
  *
- * @rejects If the file cannot be written to.
+ * @throws If the file cannot be written to.
  */
 export async function writeFile(filePath: string, data: string): Promise<void> {
   try {

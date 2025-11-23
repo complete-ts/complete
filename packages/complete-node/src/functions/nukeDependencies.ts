@@ -23,7 +23,7 @@ import {
  *                    "node_modules" directory. If undefined is passed, the current working
  *                    directory will be used.
  * @returns Whether any dependencies were updated.
- * @rejects If the "package.json" file cannot be found.
+ * @throws If the "package.json" file cannot be found.
  */
 export async function nukeDependencies(packageRoot?: string): Promise<void> {
   packageRoot ??= process.cwd(); // eslint-disable-line no-param-reassign

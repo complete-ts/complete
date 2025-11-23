@@ -112,6 +112,7 @@ export async function testScript(
  * @param func The function that contains the build logic for the particular script. This is passed
  *             the path to the package root. (See the `ScriptCallbackData` interface.)
  * @param verb Optional. The verb for when the script completes. For example, "built".
+ * @throws If the provided function fails.
  */
 export async function script(
   importMetaDirname: string,

@@ -17,7 +17,7 @@ import { writeFile } from "./readWrite.js";
  * Helper function to asynchronously copy a file or directory. If a path to a directory is
  * specified, the directory will be recursively copied.
  *
- * @rejects If the file cannot be copied.
+ * @throws If the file cannot be copied.
  */
 export async function copyFileOrDirectory(
   srcPath: string,
@@ -43,7 +43,7 @@ export async function copyFileOrDirectory(
  *
  * This is an alias for the `copyFileOrDirectory` function. (It is intended to be used in scripts.)
  *
- * @rejects If the file cannot be copied.
+ * @throws If the file cannot be copied.
  */
 export async function cp(srcPath: string, dstPath: string): Promise<void> {
   await copyFileOrDirectory(srcPath, dstPath);
@@ -56,7 +56,7 @@ export async function cp(srcPath: string, dstPath: string): Promise<void> {
  *
  * This function is variadic, meaning that you can pass as many file paths as you want to delete.
  *
- * @rejects If the file cannot be deleted.
+ * @throws If the file cannot be deleted.
  */
 export async function deleteFileOrDirectory(
   ...filePaths: readonly string[]
@@ -101,7 +101,7 @@ export async function exists(filePath: string): Promise<boolean> {
  *
  * This is useful to see if the contents of a directory have changed in any way.
  *
- * @rejects If there is an error when checking the directory.
+ * @throws If there is an error when checking the directory.
  */
 export async function getDirectoryHashSHA1(
   directoryPath: string,
@@ -126,7 +126,7 @@ export async function getDirectoryHashSHA1(
 /**
  * Helper function to get the SHA1 hash of a file.
  *
- * @rejects If there is an error when reading the file.
+ * @throws If there is an error when reading the file.
  */
 export async function getFileHashSHA1(filePath: string): Promise<string> {
   try {
@@ -150,7 +150,7 @@ export async function getFileHashSHA1(filePath: string): Promise<string> {
  * @param recursive Optional. If true, will include files in all subdirectories. Default is false.
  * @param paths Optional. If true, will return the full file paths instead of just the file names.
  *              Default is false.
- * @rejects If there is an error when checking the directory.
+ * @throws If there is an error when checking the directory.
  */
 export async function getFileNamesInDirectory(
   directoryPath: string,
@@ -209,7 +209,7 @@ export async function getFileNamesInDirectory(
  * @param filePathOrDirPath Either the path to a file or the path to a directory which contains the
  *                          file. If undefined is passed, the current working directory will be
  *                          used.
- * @rejects If the file cannot be found.
+ * @throws If the file cannot be found.
  */
 export async function getFilePath(
   fileName: string,
@@ -247,7 +247,7 @@ export async function getFilePath(
  * @param filter Optional. If specified, will only return this type of file. Defaults to returning
  *               both files and directories.
  * @param recursive Optional. If true, will include files in all subdirectories. Default is false.
- * @rejects If there is an error when checking the directory.
+ * @throws If there is an error when checking the directory.
  */
 export async function getFilePathsInDirectory(
   directoryPath: string,
@@ -316,7 +316,7 @@ export function isSubdirectoryOf(
  *
  * @param directoryPath The path to the directory to create.
  * @param recursive Optional. Default is true.
- * @rejects If the directory cannot be created.
+ * @throws If the directory cannot be created.
  */
 export async function makeDirectory(
   directoryPath: string,
@@ -341,7 +341,7 @@ export async function makeDirectory(
  *
  * @param directoryPath The path to the directory to create.
  * @param recursive Optional. Default is true.
- * @rejects If the directory cannot be created.
+ * @throws If the directory cannot be created.
  */
 export async function mkdir(
   directoryPath: string,
@@ -353,7 +353,7 @@ export async function mkdir(
 /**
  * Helper function to move all files from one directory to another one.
  *
- * @rejects If a file cannot be moved.
+ * @throws If a file cannot be moved.
  */
 export async function moveAllFilesInDirectory(
   srcDirectory: string,
@@ -375,7 +375,7 @@ export async function moveAllFilesInDirectory(
  * This is an alias for the `renameFileOrDirectory` function, since the Node.js API uses the same
  * thing for both operations.
  *
- * @rejects If the file cannot be moved.
+ * @throws If the file cannot be moved.
  */
 export async function moveFileOrDirectory(
   srcPath: string,
@@ -389,7 +389,7 @@ export async function moveFileOrDirectory(
  *
  * This is an alias for the `moveFileOrDirectory` function. (It is intended to be used in scripts.)
  *
- * @rejects If the file cannot be moved.
+ * @throws If the file cannot be moved.
  */
 export async function mv(srcPath: string, dstPath: string): Promise<void> {
   await moveFileOrDirectory(srcPath, dstPath);
@@ -402,7 +402,7 @@ export async function mv(srcPath: string, dstPath: string): Promise<void> {
  * @param directoryPath The path to the directory to crawl.
  * @param srcFileExtension The file extension to change from. Do not include a period in the string.
  * @param dstFileExtension The file extension to change to. Do not include a period in the string.
- * @rejects If a file cannot be renamed.
+ * @throws If a file cannot be renamed.
  */
 export async function renameFileExtensions(
   directoryPath: string,
@@ -434,7 +434,7 @@ export async function renameFileExtensions(
  * boundaries, this will automatically handle that special case by performing a copy and delete
  * operation instead.
  *
- * @rejects If the file cannot be renamed.
+ * @throws If the file cannot be renamed.
  */
 export async function renameFileOrDirectory(
   srcPath: string,
@@ -474,7 +474,7 @@ export async function renameFileOrDirectory(
  * This is an alias for the `deleteFileOrDirectory` function. (It is intended to be used in
  * scripts.)
  *
- * @rejects If the file cannot be deleted.
+ * @throws If the file cannot be deleted.
  */
 export async function rm(...filePaths: readonly string[]): Promise<void> {
   await deleteFileOrDirectory(...filePaths);
@@ -483,7 +483,7 @@ export async function rm(...filePaths: readonly string[]): Promise<void> {
 /**
  * Helper function to asynchronously write 0 bytes to a file, similar to the `touch` command.
  *
- * @rejects If the file cannot be touched.
+ * @throws If the file cannot be touched.
  */
 export async function touch(filePath: string): Promise<void> {
   const directory = await isDirectory(filePath);

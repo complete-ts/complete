@@ -22,7 +22,7 @@ import { readFile } from "./readWrite.js";
  * @param filePathOrDirPath Either the path to a "package.json" file or the path to a directory
  *                          which contains a "package.json" file. If undefined is passed, the
  *                          current working directory will be used.
- * @rejects If the "package.json" file cannot be found or is otherwise invalid.
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
  */
 export async function getPackageJSON(
   filePathOrDirPath: string | undefined,
@@ -50,7 +50,7 @@ export async function getPackageJSON(
  *                                 current working directory will be used.
  * @param dependencyType Optional. The specific dependencies field to get. Defaults to
  *                       "dependencies".
- * @rejects If the "package.json" file cannot be found or is otherwise invalid.
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
  */
 export async function getPackageJSONDependencies(
   filePathOrDirPathOrRecord:
@@ -98,7 +98,7 @@ export async function getPackageJSONDependencies(
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
  * @param fieldName The name of the field to retrieve.
- * @rejects If the "package.json" file cannot be found or the field is not a string.
+ * @throws If the "package.json" file cannot be found or the field is not a string.
  */
 export async function getPackageJSONField(
   filePathOrDirPathOrRecord:
@@ -199,7 +199,7 @@ export async function getPackageJSONFieldsMandatory<T extends string>(
  *                                 directory which contains a "package.json" file, or a parsed
  *                                 JavaScript object from a JSON file. If undefined is passed, the
  *                                 current working directory will be used.
- * @rejects If the "package.json" file cannot be found or is otherwise invalid.
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
  */
 export async function getPackageJSONScripts(
   filePathOrDirPathOrRecord:
