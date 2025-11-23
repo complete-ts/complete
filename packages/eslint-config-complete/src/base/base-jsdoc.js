@@ -47,7 +47,7 @@ export const baseJSDoc = defineConfig(
           definedTags: [
             // Ignore tags used by the TypeScript compiler:
             // https://www.typescriptlang.org/tsconfig#stripInternal
-            "internal", // Used by TypeScript
+            "internal",
 
             // Ignore tags used in TypeDoc:
             // https://typedoc.org/guides/doccomments/
@@ -235,7 +235,11 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property-type": "off",
 
-      "jsdoc/require-rejects": "error",
+      /**
+       * Disabled since the rule is [currently
+       * bugged](https://github.com/gajus/eslint-plugin-jsdoc/issues/1603).
+       */
+      "jsdoc/require-rejects": "off",
 
       /** Disabled because it is overboard for every function to document every return value. */
       "jsdoc/require-returns": "off",
