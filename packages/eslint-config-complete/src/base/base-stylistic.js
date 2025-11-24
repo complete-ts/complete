@@ -20,6 +20,12 @@ export const baseStylistic = defineConfig({
       },
     ],
 
+    /** Enforce a blank line between functions. (Prettier does not do this by default.) */
+    "@stylistic/padding-line-between-statements": [
+      "error",
+      { blankLine: "always", prev: "function", next: "function" },
+    ],
+
     /**
      * We forbid unnecessary backticks by using the options specified in [the
      * `eslint-config-prettier`
