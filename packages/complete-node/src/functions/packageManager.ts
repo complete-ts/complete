@@ -33,7 +33,7 @@ const PACKAGE_MANAGER_INSTALL_CI_COMMANDS = {
   [PackageManager.npm]: "npm ci",
   [PackageManager.yarn]: "yarn install --immutable",
   [PackageManager.pnpm]: "pnpm install --frozen-lockfile",
-  [PackageManager.bun]: "bun install --frozen-lockfile",
+  [PackageManager.bun]: "bun ci",
 } as const satisfies Record<PackageManager, string>;
 
 /**
