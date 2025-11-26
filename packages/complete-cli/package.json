@@ -35,7 +35,7 @@
     "chalk": "5.6.2",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.10.0",
-    "complete-node": "12.4.1",
+    "complete-node": "12.4.2",
     "klaw-sync": "7.0.0",
     "source-map-support": "0.5.21",
     "yaml": "2.8.1"
