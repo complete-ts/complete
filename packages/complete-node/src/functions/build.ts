@@ -50,11 +50,14 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
  * @param packageRoot The path to the root of the package.
+ * @param target Optional. The target binary format. Defaults to "bun-linux-x64". See:
+ * https://bun.com/docs/bundler/executables#supported-targets
  * @throws If the "package.json" file does not exist or cannot be parsed.
  * @see https://bun.com/docs/bundler/executables
  */
 export async function compileToSingleFileWithBun(
   packageRoot: string,
+  target = "bun-linux-x64",
 ): Promise<void> {
   const packageJSONPath = path.join(packageRoot, "package.json");
   const packageJSONExists = await isFile(packageJSONPath);
@@ -85,5 +88,5 @@ export async function compileToSingleFileWithBun(
   }
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
-  await $`bun build --compile --target=bun-linux-x64 --minify --sourcemap --outfile=${name} ${entryPointPath}`;
+  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${name} ${entryPointPath}`;
 }
