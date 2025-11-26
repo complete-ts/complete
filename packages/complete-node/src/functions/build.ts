@@ -42,10 +42,11 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  * This function invokes `bun build` with the following flags:
  *
  * - `--compile`
- * - `--target=bun-linux-x64`
+ * - `--target=bun-linux-x64` (customizable)
  * - `--minify`
  * - `--sourcemap`
  * - `--outfile=[name]`
+ * - `--outdir=dist`
  *
  * This function assumes that the entrypoint is located at "./src/main.ts".
  *
@@ -88,5 +89,5 @@ export async function compileToSingleFileWithBun(
   }
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
-  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${name} ${entryPointPath}`;
+  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${name} --outdir=dist ${entryPointPath}`;
 }
