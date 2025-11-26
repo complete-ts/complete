@@ -7,7 +7,7 @@ const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
-  "eslint .",
+  "eslint",
   // eslint-disable-next-line unicorn/prefer-top-level-await
   ["checkDocs", checkDocs(PACKAGE_ROOT)],
 ]);

@@ -27,7 +27,7 @@ const DEFAULT_LINT_COMMANDS = [
   "tsc --noEmit --project ./scripts/tsconfig.json",
 
   // Use ESLint to lint the TypeScript code.
-  "eslint .",
+  "eslint",
 
   // Use Prettier to check formatting.
   // - "--log-level=warn" makes it only output errors.
