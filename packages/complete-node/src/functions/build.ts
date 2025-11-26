@@ -87,5 +87,5 @@ export async function compileToSingleFileWithBun(
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
   const outfile = path.join(packageRoot, "dist", name);
-  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${outfile} --outdir=dist ${entryPointPath}`;
+  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${outfile} ${entryPointPath}`;
 }
