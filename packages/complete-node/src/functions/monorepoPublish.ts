@@ -7,6 +7,7 @@
 import chalk from "chalk";
 import {
   assertDefined,
+  assertStringNotEmpty,
   getElapsedSeconds,
   isEnumValue,
   isSemanticVersion,
@@ -60,9 +61,10 @@ export async function monorepoPublish(
   const args = getArgs();
   const [packageName, versionBump] = args;
 
-  if (packageName === undefined || packageName === "") {
-    throw new Error("The package name is required as an argument.");
-  }
+  assertStringNotEmpty(
+    packageName,
+    "The package name is required as an argument.",
+  );
 
   const packagePath = path.join(monorepoRoot, "packages", packageName);
   const directory = await isDirectory(packagePath);
@@ -70,11 +72,10 @@ export async function monorepoPublish(
     throw new Error(`The directory of "${packagePath}" does not exist.`);
   }
 
-  if (versionBump === undefined || versionBump === "") {
-    throw new Error(
-      "Error: The type of version bump is required as an argument.",
-    );
-  }
+  assertStringNotEmpty(
+    versionBump,
+    "Error: The type of version bump is required as an argument.",
+  );
 
   if (
     !isEnumValue(versionBump, VersionBump)

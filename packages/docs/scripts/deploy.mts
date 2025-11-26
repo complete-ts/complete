@@ -1,11 +1,10 @@
 import { Octokit } from "@octokit/core";
-import { assertString } from "complete-common";
+import { assertString, assertStringNotEmpty } from "complete-common";
 import {
   $q,
   appendFile,
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  fatalError,
   getArgs,
   isGitRepositoryClean,
   isGitRepositoryLatestCommit,
@@ -25,17 +24,19 @@ const SECONDS_TO_SLEEP = 10;
 
 // Validate environment variables.
 const GITHUB_OUTPUT_FILE = process.env["GITHUB_OUTPUT"];
-if (GITHUB_OUTPUT_FILE === undefined || GITHUB_OUTPUT_FILE === "") {
-  fatalError("Failed to read the environment variable: GITHUB_OUTPUT");
-}
+assertStringNotEmpty(
+  GITHUB_OUTPUT_FILE,
+  "Failed to read the environment variable: GITHUB_OUTPUT",
+);
 
 // Validate command-line arguments.
 const args = getArgs();
 
 const gitHubToken = args[0];
-if (gitHubToken === undefined || gitHubToken === "") {
-  fatalError("Error: The GitHub token is required as the first argument.");
-}
+assertStringNotEmpty(
+  gitHubToken,
+  "Error: The GitHub token is required as the first argument.",
+);
 
 // The website repository will be already cloned at this point by the previous GitHub action,
 // including switching to the "gh-pages" branch. See "ci.yml" for more information.
@@ -77,9 +78,10 @@ await $$q`git commit --message deploy --amend`;
 await $$q`git push --force-with-lease`;
 
 const { stdout: commitSHA1 } = await $$q`git rev-parse HEAD`;
-if (commitSHA1 === "") {
-  fatalError("Failed to parse the deployed website commit SHA1.");
-}
+assertStringNotEmpty(
+  commitSHA1,
+  "Failed to parse the deployed website commit SHA1.",
+);
 
 /** @see https://github.com/octokit/core.js */
 const octokit = new Octokit({

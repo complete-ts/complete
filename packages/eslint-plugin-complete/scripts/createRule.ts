@@ -1,4 +1,4 @@
-import { isKebabCase, trimSuffix } from "complete-common";
+import { assertStringNotEmpty, isKebabCase, trimSuffix } from "complete-common";
 import { readFile, writeFile } from "complete-node";
 import path from "node:path";
 import { PACKAGE_ROOT, PLUGIN_NAME } from "./constants.js";
@@ -20,18 +20,16 @@ async function createRule() {
   const args = process.argv.slice(2);
 
   const firstArg = args[0];
-  if (firstArg === undefined || firstArg === "") {
-    throw new Error(
-      'You must provide the rule name as the first argument. e.g. "strict-enums"',
-    );
-  }
+  assertStringNotEmpty(
+    firstArg,
+    'You must provide the rule name as the first argument. e.g. "strict-enums"',
+  );
 
   const secondArg = args[1];
-  if (secondArg === undefined || secondArg === "") {
-    throw new Error(
-      'You must provide the rule description as the second argument. e.g. "Disallows the usage of unsafe enum patterns"',
-    );
-  }
+  assertStringNotEmpty(
+    secondArg,
+    'You must provide the rule description as the second argument. e.g. "Disallows the usage of unsafe enum patterns"',
+  );
 
   const ruleName = firstArg;
   const descriptionRaw = secondArg;

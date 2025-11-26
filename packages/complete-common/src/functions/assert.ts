@@ -196,3 +196,15 @@ export function assertString(
     throw new TypeError(msg);
   }
 }
+
+/** Helper function to throw an error if the provided value is not a string or an empty string. */
+export function assertStringNotEmpty(
+  value: unknown,
+  msg: string,
+): asserts value is string {
+  assertString(value, msg);
+
+  if (value === "") {
+    throw new TypeError(msg);
+  }
+}
