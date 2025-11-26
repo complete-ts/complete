@@ -13,6 +13,25 @@ import path from "node:path";
 import { pipeline } from "node:stream/promises";
 import { writeFile } from "./readWrite.js";
 
+/** Helper function to throw an error if the provided path is not a directory. */
+export async function assertDirectory(
+  directoryPath: string,
+  msg: string,
+): Promise<void> {
+  const directoryExists = await isDirectory(directoryPath);
+  if (!directoryExists) {
+    throw new Error(msg);
+  }
+}
+
+/** Helper function to throw an error if the provided path is not a file. */
+export async function assertFile(filePath: string, msg: string): Promise<void> {
+  const fileExists = await isFile(filePath);
+  if (!fileExists) {
+    throw new Error(msg);
+  }
+}
+
 /**
  * Helper function to asynchronously copy a file or directory. If a path to a directory is
  * specified, the directory will be recursively copied.

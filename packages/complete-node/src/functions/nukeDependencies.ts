@@ -1,7 +1,7 @@
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
-import { deleteFileOrDirectory, isFile } from "./file.js";
+import { assertFile, deleteFileOrDirectory } from "./file.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
@@ -29,12 +29,10 @@ export async function nukeDependencies(packageRoot?: string): Promise<void> {
   packageRoot ??= process.cwd(); // eslint-disable-line no-param-reassign
 
   const packageJSONPath = path.join(packageRoot, "package.json");
-  const packageJSONExists = await isFile(packageJSONPath);
-  if (!packageJSONExists) {
-    throw new Error(
-      `Failed to find the "package.json" file at the package root: ${packageRoot}`,
-    );
-  }
+  await assertFile(
+    packageJSONPath,
+    `Failed to find the "package.json" file at the package root: ${packageRoot}`,
+  );
 
   const nodeModulesPath = path.join(packageRoot, "node_modules");
   console.log(`Removing: ${nodeModulesPath}`);

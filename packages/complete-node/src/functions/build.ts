@@ -7,7 +7,7 @@
 import { assertString } from "complete-common";
 import path from "node:path";
 import { $, $o, $q } from "./execa.js";
-import { isFile } from "./file.js";
+import { assertFile } from "./file.js";
 import { getPackageJSON } from "./packageJSON.js";
 
 /**
@@ -61,12 +61,10 @@ export async function compileToSingleFileWithBun(
   target = "bun-linux-x64",
 ): Promise<void> {
   const packageJSONPath = path.join(packageRoot, "package.json");
-  const packageJSONExists = await isFile(packageJSONPath);
-  if (!packageJSONExists) {
-    throw new Error(
-      `Failed to find the project "package.json" file at: ${packageJSONPath}`,
-    );
-  }
+  await assertFile(
+    packageJSONPath,
+    `Failed to find the project "package.json" file at: ${packageJSONPath}`,
+  );
 
   const packageJSON = await getPackageJSON(packageJSONPath);
   const { name } = packageJSON;
@@ -83,10 +81,10 @@ export async function compileToSingleFileWithBun(
   }
 
   const entryPointPath = path.join(packageRoot, "src", "main.ts");
-  const entryPointExists = await isFile(entryPointPath);
-  if (!entryPointExists) {
-    throw new Error(`Failed to find the entrypoint at: ${entryPointPath}`);
-  }
+  await assertFile(
+    entryPointPath,
+    `Failed to find the entrypoint at: ${entryPointPath}`,
+  );
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
   await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${name} --outdir=dist ${entryPointPath}`;

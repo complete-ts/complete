@@ -2,7 +2,7 @@ import { assertDefined } from "complete-common";
 import dotenv from "dotenv";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
-import { isFile } from "./file.js";
+import { assertFile } from "./file.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
@@ -28,12 +28,10 @@ export async function getEnv(importMetaDirname: string): Promise<void> {
   );
 
   const envPath = path.join(packageRoot, ".env");
-  const envExists = await isFile(envPath);
-  if (!envExists) {
-    throw new Error(
-      `The "${envPath}" file does not exist. Copy the ".env.example" file to a ".env" file at the root of the repository and re-run this program.`,
-    );
-  }
+  await assertFile(
+    envPath,
+    `The "${envPath}" file does not exist. Copy the ".env.example" file to a ".env" file at the root of the repository and re-run this program.`,
+  );
 
   dotenv.config({
     path: envPath,
