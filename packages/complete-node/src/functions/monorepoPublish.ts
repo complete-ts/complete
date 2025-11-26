@@ -15,7 +15,7 @@ import {
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { $, $o } from "./execa.js";
-import { isDirectory } from "./file.js";
+import { assertDirectory } from "./file.js";
 import { isGitRepositoryClean } from "./git.js";
 import {
   updatePackageJSONDependenciesMonorepo,
@@ -67,10 +67,10 @@ export async function monorepoPublish(
   );
 
   const packagePath = path.join(monorepoRoot, "packages", packageName);
-  const directory = await isDirectory(packagePath);
-  if (!directory) {
-    throw new Error(`The directory of "${packagePath}" does not exist.`);
-  }
+  await assertDirectory(
+    packagePath,
+    `The directory of "${packagePath}" does not exist.`,
+  );
 
   assertStringNotEmpty(
     versionBump,

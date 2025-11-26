@@ -7,11 +7,11 @@
 import { assertDefined } from "complete-common";
 import path from "node:path";
 import {
+  assertDirectory,
   copyFileOrDirectory,
   deleteFileOrDirectory,
   getFileNamesInDirectory,
   getFilePathsInDirectory,
-  isDirectory,
   isFile,
   moveFileOrDirectory,
 } from "./file.js";
@@ -34,12 +34,10 @@ export async function copyToMonorepoNodeModules(
   const packageName = path.basename(packageRoot);
   const monorepoNodeModulesPath = path.join(monorepoRoot, "node_modules");
 
-  const nodeModulesExists = await isDirectory(monorepoNodeModulesPath);
-  if (!nodeModulesExists) {
-    throw new Error(
-      `Failed to find the monorepo "node_modules" directory at: ${monorepoNodeModulesPath}`,
-    );
-  }
+  await assertDirectory(
+    monorepoNodeModulesPath,
+    `Failed to find the monorepo "node_modules" directory at: ${monorepoNodeModulesPath}`,
+  );
 
   const destinationPath = path.join(monorepoNodeModulesPath, packageName);
   await deleteFileOrDirectory(destinationPath);
@@ -117,12 +115,10 @@ export async function getMonorepoPackageNames(
   scriptName?: string,
 ): Promise<readonly string[]> {
   const packagesPath = path.join(monorepoRoot, "packages");
-  const packagesPathExists = await isDirectory(packagesPath);
-  if (!packagesPathExists) {
-    throw new Error(
-      `Failed to find the monorepo packages directory at: ${packagesPath}`,
-    );
-  }
+  await assertDirectory(
+    packagesPath,
+    `Failed to find the monorepo packages directory at: ${packagesPath}`,
+  );
 
   const directoryNames = await getFileNamesInDirectory(
     packagesPath,
