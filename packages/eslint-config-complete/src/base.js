@@ -15,6 +15,10 @@ import { baseUnicorn } from "./base/base-unicorn.js";
  * originating plugin) .
  */
 export const completeConfigBase = defineConfig(
+  // By default, ESLint will include ".js", ".cjs", and ".mjs" file extensions:
+  // https://eslint.org/docs/latest/use/configure/configuration-files#specifying-files-and-ignores
+  // TypeScript file extensions are enabled in the "base-typescript-eslint.js" file.
+
   ...baseESLint,
   ...baseTypeScriptESLint,
   ...baseStylistic,
