@@ -23,8 +23,6 @@ const HELPFUL_WARNINGS = {
       devDependencies: [
         // From:
         // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js
-        "test/**", // tape, common npm pattern
-        "tests/**", // also common npm pattern
         "spec/**", // mocha, rspec-like pattern
         "**/__tests__/**", // jest pattern
         "**/__mocks__/**", // jest pattern
@@ -38,8 +36,9 @@ const HELPFUL_WARNINGS = {
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config
 
-        "**/scripts/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "scripts" directory.
-        "**/tests/**/*.{js,cjs,mjs,ts,cts,mts}", // Files inside of a "tests" directory.
+        "**/scripts/**", // Files inside of a "scripts" directory.
+        "**/test/**", // Files inside of a "test" directory.
+        "**/tests/**", // Files inside of a "tests" directory.
         "**/*.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
         "**/*.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
       ],
