@@ -76,6 +76,8 @@ export async function compileToSingleFileWithBun(
     `Failed to find the "name" field in the "package.json" file located at: ${packageJSONPath}`,
   );
 
+  const outfile = path.join(packageRoot, "dist", name);
+
   const entryPointPath = path.join(packageRoot, "src", "main.ts");
   await assertFile(
     entryPointPath,
@@ -83,7 +85,7 @@ export async function compileToSingleFileWithBun(
   );
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
-  const outfile = path.join(packageRoot, "dist", name);
-  await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${outfile} ${entryPointPath}`;
-  // (See the above comment for the reasoning on not using "--minify".)
+  // This must be kept in since with the function documentation above.
+  await $`bun build --compile --target=${target} --sourcemap --outfile=${outfile} ${entryPointPath}`;
+  // (See above for why we do not use "--minify".)
 }
