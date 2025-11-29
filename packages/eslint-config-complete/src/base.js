@@ -1,5 +1,5 @@
+import ESLintPluginComplete from "eslint-plugin-complete";
 import { defineConfig } from "eslint/config";
-import { baseComplete } from "./base/base-complete.js";
 import { baseESLint } from "./base/base-eslint.js";
 import { baseImportX } from "./base/base-import-x.js";
 import { baseJSDoc } from "./base/base-jsdoc.js";
@@ -26,7 +26,10 @@ export const completeConfigBase = defineConfig(
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
   ...baseUnicorn,
-  ...baseComplete,
+
+  // TODO: The `defineConfig` helper function is bugged.
+  // @ts-expect-error https://github.com/typescript-eslint/typescript-eslint/issues/11543
+  ...ESLintPluginComplete.configs.recommended,
 
   {
     // By default, ESLint ignores "**/node_modules/" and ".git/":
