@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsx ./scripts/build.ts",
     "create-rule": "tsx ./scripts/createRule.ts",
-    "docs": "eslint-doc-generator",
+    "docs": "npm run build && eslint-doc-generator",
     "generate": "tsx ./scripts/generate.ts",
     "lint": "tsx ./scripts/lint.ts",
     "test": "jest"

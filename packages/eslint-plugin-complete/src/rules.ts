@@ -30,6 +30,7 @@ import { noUnsafePlusplus } from "./rules/no-unsafe-plusplus.js";
 import { noUselessReturn } from "./rules/no-useless-return.js";
 import { noVoidReturnType } from "./rules/no-void-return-type.js";
 import { preferConst } from "./rules/prefer-const.js";
+import { preferPathResolve } from "./rules/prefer-path-resolve.js";
 import { preferPlusplus } from "./rules/prefer-plusplus.js";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus.js";
 import { preferReadonlyParameterTypes } from "./rules/prefer-readonly-parameter-types.js";
@@ -72,6 +73,7 @@ export const rules = {
   "no-useless-return": noUselessReturn,
   "no-void-return-type": noVoidReturnType,
   "prefer-const": preferConst,
+  "prefer-path-resolve": preferPathResolve,
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,
   "prefer-readonly-parameter-types": preferReadonlyParameterTypes,

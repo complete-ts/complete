@@ -1,5 +1,5 @@
 /*
-import { RULE_NAME_CAMEL_CASE } from "../../src/rules/RULE_NAME";
+import { RULE_NAME_CAMEL_CASE } from "../../src/rules/RULE_NAME.js";
 import { ruleTester } from "../utils.js";
 
 ruleTester.run("RULE_NAME", RULE_NAME_CAMEL_CASE, {

@@ -22,7 +22,7 @@ export async function generateAll(quiet = false): Promise<void> {
   if (!quiet) {
     console.log("Generating readme...");
   }
-  await $`eslint-doc-generator`;
+  await $`npm run docs`;
 
   if (!quiet) {
     console.log("Success!");

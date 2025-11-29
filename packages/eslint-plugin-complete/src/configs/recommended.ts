@@ -36,6 +36,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/no-useless-return": "error",
       "complete/no-void-return-type": "error",
       "complete/prefer-const": "error",
+      "complete/prefer-path-resolve": "error",
       "complete/prefer-plusplus": "error",
       "complete/prefer-postfix-plusplus": "error",
       "complete/prefer-readonly-parameter-types": "error",
