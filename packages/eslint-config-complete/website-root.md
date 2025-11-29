@@ -125,7 +125,7 @@ If you use Visual Studio Code, you can accomplish this with the following config
 Below, we provide documentation for every rule that is disabled. (We take a blacklist approach rather than a whitelist approach.)
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run docs -->
-<!-- markdownlint-disable MD033 MD060 -->
+<!-- markdownlint-disable MD033 MD056 MD060 -->
 <!-- RULES_TABLE -->
 
 ### [Core ESLint Rules](https://eslint.org/docs/latest/rules/)
