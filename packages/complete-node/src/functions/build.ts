@@ -39,15 +39,18 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
 /**
  * Helper function to compile a TypeScript project to a single file using Bun.
  *
- * This function invokes `bun build` with the following flags:
+ * The following invocation is used:
  *
- * - `--compile`
- * - `--target=bun-linux-x64` (customizable)
- * - `--minify`
- * - `--sourcemap`
- * - `--outfile=dist/[package-name]`
+ * ```sh
+ * bun build --compile --target=${target} --sourcemap --outfile=${outfile} ${entryPointPath}
+ * ```
  *
- * This function assumes that the entrypoint is located at "src/main.ts".
+ * Note that:
+ *
+ * - The outfile is "dist/[package-name]".
+ * - The entrypoint is assumed to be "src/main.ts".
+ * - We do not use the "--minify" flag because it mangles the function names in stack traces. (The
+ *   size reduction from this flag is minor anyway.)
  *
  * @param packageRoot The path to the root of the package.
  * @param target Optional. The target binary format. Defaults to "bun-linux-x64". See:
@@ -82,4 +85,5 @@ export async function compileToSingleFileWithBun(
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
   const outfile = path.join(packageRoot, "dist", name);
   await $`bun build --compile --target=${target} --minify --sourcemap --outfile=${outfile} ${entryPointPath}`;
+  // (See the above comment for the reasoning on not using "--minify".)
 }
