@@ -27,6 +27,11 @@ const BASE_CONFIG = [
 
     // The "rules" property is populated below with all of the rules of this plugin.
     rules: {},
+
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["**/*.json", "**/*.jsonc"],
   },
 
   // Disable some core ESLint rules that conflict with the rules in this plugin.

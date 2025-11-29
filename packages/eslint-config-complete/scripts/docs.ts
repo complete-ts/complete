@@ -296,44 +296,64 @@ async function getMarkdownRuleSection(
 ): Promise<string> {
   let markdownOutput = getMarkdownHeader(headerTitle, pluginURL);
 
-  const baseConfigFileName = `base-${configName}.js`;
-  const baseConfigPath = path.join(BASE_CONFIGS_PATH, baseConfigFileName);
-  const baseConfigURL = url.pathToFileURL(baseConfigPath).toString();
-  const baseConfig: unknown = await import(baseConfigURL);
+  // The only config that we use an upstream config with is "eslint-plugin-complete" in order to
+  // avoid rule duplication.
+  let baseRules: Record<string, Linter.RuleEntry>;
+  let baseConfigFileName: string | undefined;
+  let baseConfigPath: string | undefined;
+  if (configName === "complete") {
+    baseRules = ESLintPluginComplete.rules as unknown as Record<
+      string,
+      Linter.RuleEntry
+    >;
+  } else {
+    baseConfigFileName = `base-${configName}.js`;
+    baseConfigPath = path.join(BASE_CONFIGS_PATH, baseConfigFileName);
+    const baseConfigURL = url.pathToFileURL(baseConfigPath).toString();
+    const baseConfig: unknown = await import(baseConfigURL);
 
-  if (!isObject(baseConfig)) {
-    throw new Error(`Failed to parse the base config: ${baseConfigPath}`);
+    if (!isObject(baseConfig)) {
+      throw new Error(`Failed to parse the base config: ${baseConfigPath}`);
+    }
+
+    const values = Object.values(baseConfig);
+    if (values.length !== 1) {
+      throw new Error(
+        `The "${baseConfigURL}" file has more than one export: ${values.length}`,
+      );
+    }
+
+    const firstExport = values[0];
+    if (!isArray(firstExport)) {
+      throw new Error(
+        `The first export was not an array from: ${baseConfigPath}`,
+      );
+    }
+
+    const firstConfig = firstExport[0];
+    if (!isObject(firstConfig)) {
+      throw new Error(
+        `The first config was not an object from: ${baseConfigPath}`,
+      );
+    }
+
+    const { rules } = firstConfig;
+    if (!isObject(rules)) {
+      throw new Error(`The rules was not an object from: ${baseConfigPath}`);
+    }
+
+    baseRules = rules as Record<string, Linter.RuleEntry>;
+    auditBaseConfigRules(configName, upstreamImport, baseRules);
   }
-
-  const firstExport = Object.values(baseConfig)[0];
-  if (!isArray(firstExport)) {
-    throw new Error(
-      `Failed to parse the base config first export: ${baseConfigPath}`,
-    );
-  }
-
-  const firstConfig = firstExport[0];
-  if (!isObject(firstConfig)) {
-    throw new Error(
-      `Failed to parse the base config first config: ${baseConfigPath}`,
-    );
-  }
-
-  const { rules } = firstConfig;
-  if (!isObject(rules)) {
-    throw new Error(`Failed to parse the base rules in: ${baseConfigPath}`);
-  }
-
-  const baseRules = rules as Record<string, Linter.RuleEntry>;
-  auditBaseConfigRules(configName, upstreamImport, baseRules);
 
   const alphabeticalRuleNames = Object.keys(baseRules).toSorted();
   for (const ruleName of alphabeticalRuleNames) {
     const rule = baseRules[ruleName];
     assertDefined(rule, `Failed to find base rule: ${ruleName}`);
 
-    // eslint-disable-next-line no-await-in-loop
-    const baseConfigText = await readFile(baseConfigPath);
+    const baseConfigText =
+      // eslint-disable-next-line no-await-in-loop
+      baseConfigPath === undefined ? undefined : await readFile(baseConfigPath);
 
     markdownOutput += getMarkdownTableRow(
       ruleName,
@@ -501,7 +521,9 @@ function getRuleSeverity(ruleName: string, rule: Linter.RuleEntry): string {
     return firstElement;
   }
 
-  throw new Error(`Failed to parse the type of rule: ${ruleName}`);
+  throw new Error(
+    `Failed to parse the type of rule "${ruleName}": ${typeof rule}`,
+  );
 }
 
 function getParentConfigsLinks(ruleName: string): string {
@@ -676,17 +698,24 @@ function getMarkdownTableRow(
   ruleName: string,
   rule: Linter.RuleEntry,
   ruleURL: string,
-  baseConfigText: string,
-  baseConfigFileName: string,
+  baseConfigText: string | undefined,
+  baseConfigFileName: string | undefined,
 ): string {
   const baseRuleName = trimCharactersUntilLastCharacter(ruleName, "/");
   const filledRuleURL = ruleURL.replace("__RULE_NAME__", baseRuleName);
   const ruleNameWithLink = `[\`${ruleName}\`](${filledRuleURL})`;
-  const enabled = getRuleEnabled(ruleName, rule);
+  const enabled =
+    baseConfigText === undefined ? true : getRuleEnabled(ruleName, rule);
   const enabledEmoji = enabled ? "✅" : "❌";
   const parentConfigsLinks = getParentConfigsLinks(ruleName);
-  const ruleComments = getRuleComments(ruleName, rule, baseConfigText);
-  const sourceFileLink = `[\`${baseConfigFileName}\`](https://github.com/complete-ts/complete/blob/main/packages/${PACKAGE_NAME}/src/base/${baseConfigFileName})`;
+  const ruleComments =
+    baseConfigText === undefined
+      ? ""
+      : getRuleComments(ruleName, rule, baseConfigText);
+  const sourceFileLink =
+    baseConfigFileName === undefined
+      ? ""
+      : `[\`${baseConfigFileName}\`](https://github.com/complete-ts/complete/blob/main/packages/${PACKAGE_NAME}/src/base/${baseConfigFileName})`;
 
   return `| ${ruleNameWithLink} | ${enabledEmoji} | ${parentConfigsLinks} | ${ruleComments} | ${sourceFileLink}\n`;
 }
