@@ -53,7 +53,8 @@ const BASE_CONFIG = [
     },
   },
 
-  // Disable some TypeScript-specific rules in JavaScript files.
+  // Disable some TypeScript-specific rules in JavaScript files. (For documentation purposes, these
+  // rules must be kept in sync with the `fixRulesTableForJavaScriptOnlyDisabledRules` function.)
   {
     files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
     rules: {

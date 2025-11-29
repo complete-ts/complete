@@ -24,6 +24,19 @@ const config = {
   // and TSESLint: https://github.com/bmish/eslint-doc-generator/issues/347
   ruleDocTitleFormat: "name",
 
+  // Hide the "configsOff" column, since it would be superfluous. (We enable every rule in the
+  // recommended config and do not disable any rules.)
+  ruleListColumns: [
+    "name",
+    "description",
+    "configsError",
+    "configsWarn",
+    "fixable",
+    "hasSuggestions",
+    "requiresTypeChecking",
+    "deprecated",
+  ],
+
   async postprocess(content, pathToFile) {
     const newContent = getNewContent(content, pathToFile);
     const cwd = process.cwd();
@@ -40,7 +53,10 @@ export default config;
 
 function getNewContent(content, pathToFile) {
   if (pathToFile.includes(`${path.sep}website-root.md`)) {
-    return getContentWithFixedDocusaurusLinks(content);
+    content = fixDocusaurusLinks(content);
+    content = fixRulesTableForJavaScriptOnlyDisabledRules(content);
+
+    return content;
   }
 
   return getContentWithResourcesSection(content, pathToFile);
@@ -53,11 +69,31 @@ function getNewContent(content, pathToFile) {
  * @param content {string}
  * @returns {string}
  */
-function getContentWithFixedDocusaurusLinks(content) {
+function fixDocusaurusLinks(content) {
   return content.replaceAll(
     /docs\/(rules\/[^)]+)\.md/g,
     "eslint-plugin-complete/$1",
   );
+}
+
+/** Work around this bug: https://github.com/bmish/eslint-doc-generator/issues/822 */
+function fixRulesTableForJavaScriptOnlyDisabledRules(content) {
+  const rulesToFix = [
+    "no-let-any",
+    "no-object-any",
+    "require-capital-const-assertions",
+    "require-capital-read-only",
+  ];
+
+  for (const ruleName of rulesToFix) {
+    const rulePattern = new RegExp(
+      String.raw`(\| \[${ruleName}\][^|]+\| [^|]+\|)(\s+)(\|)`,
+      "g",
+    );
+    content = content.replace(rulePattern, "$1 ✅  $3");
+  }
+
+  return content;
 }
 
 /**
