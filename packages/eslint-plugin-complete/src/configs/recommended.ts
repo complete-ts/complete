@@ -50,7 +50,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/strict-undefined-functions": "error",
       "complete/strict-void-functions": "error",
     },
-    ignores: ["**/*.json", "**/*.jsonc"],
+    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
   },
   {
     rules: {
