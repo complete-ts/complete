@@ -38,7 +38,7 @@
     "complete-node": "12.5.1",
     "klaw-sync": "7.0.0",
     "source-map-support": "0.5.21",
-    "yaml": "2.8.1"
+    "yaml": "2.8.2"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
