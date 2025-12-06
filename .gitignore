@@ -4,7 +4,7 @@
 
 # OS-specific artifacts
 .DS_Store
-thumbs.db
+Thumbs.db
 
 # Agents
 .claude/settings.local.json

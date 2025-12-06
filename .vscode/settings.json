@@ -13,6 +13,7 @@
     // @template-customization-start
     ".markdownlintignore": "ignore",
     "_gitattributes": "properties",
+    "_gitignore": "ignore",
     "post-merge": "shellscript",
     // @template-customization-end
   },
