@@ -24,14 +24,19 @@ export async function isGitRepository(
 }
 
 /**
- * Helper function to determine whether the given Git repository is "clean", meaning has no
- * unchanged files from the head.
+ * Helper function to determine whether the given directory inside of a Git repository is "clean",
+ * meaning has no unchanged files from the head.
+ *
+ * - If given the root of a Git repository, it will check the entire repository.
+ * - If given a subdirectory of a Git repository, it will check for only changes in that directory.
  */
 export async function isGitRepositoryClean(
-  gitRepositoryPath: string,
+  directoryPath: string,
 ): Promise<boolean> {
-  const $$q = $q({ cwd: gitRepositoryPath });
-  const { stdout: gitStatusOutput } = await $$q`git status --porcelain`;
+  const $$q = $q({ cwd: directoryPath });
+  /* eslint-disable-next-line complete/complete-sentences-line-comments */
+  // The "." argument restricts the status check to the current working directory.
+  const { stdout: gitStatusOutput } = await $$q`git status --porcelain .`;
   return gitStatusOutput === "";
 }
 
