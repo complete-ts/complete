@@ -455,3 +455,11 @@ This is some other normal text.
   `;
   testFormatText(text, formattedText);
 });
+
+test("Colon allows for newline", () => {
+  const text = `
+This is an example of an error:
+ERROR: 404 NOT FOUND
+  `;
+  testFormatText(text);
+});

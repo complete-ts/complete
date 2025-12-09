@@ -217,6 +217,7 @@ export function formatText(
       list !== undefined
       || lineHasURL
       || previousLineHadURL
+      || previousLineEndedInColon
       || hasExample
       || separatorLine
       || previousLineWasSeparatorLine
