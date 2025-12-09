@@ -6,7 +6,7 @@ import {
   copyFileOrDirectory,
   deleteFileOrDirectory,
   getArgs,
-  isGitRepositoryClean,
+  isGitDirectoryClean,
   isGitRepositoryLatestCommit,
   moveFileOrDirectory,
   sleep,
@@ -45,7 +45,7 @@ await deleteFileOrDirectory(DOCS_REPO);
 await copyFileOrDirectory(BUILD_DIRECTORY_PATH, DOCS_REPO);
 await moveFileOrDirectory(DOCS_REPO_GIT_BACKUP, DOCS_REPO_GIT);
 
-const isRepositoryClean = await isGitRepositoryClean(DOCS_REPO);
+const isRepositoryClean = await isGitDirectoryClean(DOCS_REPO);
 if (isRepositoryClean) {
   console.log("There are no documentation website changes to deploy.");
   process.exit();

@@ -9,8 +9,8 @@ import {
   getPackageManagerLockFileName,
   getPackageManagersForProject,
   isFile,
+  isGitDirectoryClean,
   isGitRepository,
-  isGitRepositoryClean,
   isLoggedInToNPM,
   readFile,
   updatePackageJSONDependencies,
@@ -63,7 +63,7 @@ async function validate() {
     );
   }
 
-  const isRepositoryClean = await isGitRepositoryClean(CWD);
+  const isRepositoryClean = await isGitDirectoryClean(CWD);
   if (!isRepositoryClean) {
     fatalError(
       "Failed to publish since the Git repository was dirty. Before publishing, you must push any current changes to git. (Version commits should not contain any code changes.)",
