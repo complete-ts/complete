@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx jest:*)",
+      "Bash(python3:*)",
+      "Bash(node -e:*)",
+      "Bash(node debug.js:*)",
+      "Bash(npm run build:*)",
+      "Bash(perl -i -pe:*)",
+      "Bash(node fix.js:*)",
+      "Bash(node:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

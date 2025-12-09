@@ -16,7 +16,7 @@ import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { $, $o } from "./execa.js";
 import { assertDirectory } from "./file.js";
-import { isGitRepositoryClean } from "./git.js";
+import { isGitDirectoryClean } from "./git.js";
 import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
@@ -92,7 +92,7 @@ export async function monorepoPublish(
     throw new Error("You must be on the main branch before publishing.");
   }
 
-  const isRepositoryCleanOnStart = await isGitRepositoryClean(monorepoRoot);
+  const isRepositoryCleanOnStart = await isGitDirectoryClean(monorepoRoot);
   if (!isRepositoryCleanOnStart) {
     throw new Error("The Git repository must be clean before publishing.");
   }
@@ -174,7 +174,7 @@ export async function monorepoPublish(
     await updatePackageJSONDependenciesMonorepoChildren(monorepoRoot);
   }
 
-  const isRepositoryCleanOnFinish = await isGitRepositoryClean(monorepoRoot);
+  const isRepositoryCleanOnFinish = await isGitDirectoryClean(monorepoRoot);
   if (!isRepositoryCleanOnFinish) {
     const gitCommitMessage = "chore: updating dependencies";
     await $`git add --all`;
