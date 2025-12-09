@@ -296,3 +296,15 @@ test("Question marks surrounded by brackets", () => {
   `;
   testIncompleteSentence(text, undefined);
 });
+
+test("period in single quotes", () => {
+  const text =
+    "The '.' argument restricts the status check to the current working directory.";
+  testIncompleteSentence(text, undefined);
+});
+
+test("period in double quotes", () => {
+  const text =
+    'The "." argument restricts the status check to the current working directory.';
+  testIncompleteSentence(text, undefined);
+});

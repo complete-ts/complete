@@ -120,6 +120,11 @@ function splitOnSpecialText(text: string): readonly string[] {
   // past blocks, so we manually insert a sentence separator.
   text = text.replaceAll("\n\n", `\n${SENTENCE_SEPARATOR_IDENTIFIER}\n`);
 
+  // Handle quoted periods.
+  // e.g. Please ignore the '.' character.
+  text = text.replaceAll(/'\.+'/g, "");
+  text = text.replaceAll(/"\.+"/g, "");
+
   // Handle quoted question marks.
   // e.g. This text contains "???" in the middle.
   text = text.replaceAll(/'\?+'/g, "");
