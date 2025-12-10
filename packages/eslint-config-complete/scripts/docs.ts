@@ -1,6 +1,6 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
-import ESLintJS from "@eslint/js";
+import esLintJS from "@eslint/js";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
 import {
@@ -16,12 +16,12 @@ import {
   setMarkdownContentInsideHTMLMarker,
 } from "complete-node";
 import type { Linter } from "eslint";
-import ESLintConfigPrettier from "eslint-config-prettier";
-import ESLintPluginComplete from "eslint-plugin-complete";
-import ESLintPluginImportX from "eslint-plugin-import-x";
-import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
-import ESLintPluginN from "eslint-plugin-n";
-import ESLintPluginUnicorn from "eslint-plugin-unicorn";
+import esLintConfigPrettier from "eslint-config-prettier";
+import esLintPluginComplete from "eslint-plugin-complete";
+import esLintPluginImportX from "eslint-plugin-import-x";
+import esLintPluginJSDoc from "eslint-plugin-jsdoc";
+import esLintPluginN from "eslint-plugin-n";
+import esLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import path from "node:path";
 import url from "node:url";
@@ -38,7 +38,7 @@ const README_PATH = path.join(PACKAGE_ROOT, "website-root.md");
 
 /** https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js */
 const ESLINT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintJS.configs.recommended.rules),
+  Object.keys(esLintJS.configs.recommended.rules),
 );
 
 /**
@@ -83,7 +83,7 @@ const TYPESCRIPT_ESLINT_RULES_SET = {
 
 /** https://github.com/prettier/eslint-config-prettier/blob/main/index.js */
 const ESLINT_CONFIG_PRETTIER_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintConfigPrettier.rules),
+  Object.keys(esLintConfigPrettier.rules),
 );
 
 function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
@@ -116,36 +116,36 @@ function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
 }
 
 const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginImportX.configs.recommended.rules),
+  Object.keys(esLintPluginImportX.configs.recommended.rules),
 );
 
 assertDefined(
-  ESLintPluginJSDoc.configs["flat/recommended"].rules,
+  esLintPluginJSDoc.configs["flat/recommended"].rules,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-jsdoc",
 );
 
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginJSDoc.configs["flat/recommended"].rules),
+  Object.keys(esLintPluginJSDoc.configs["flat/recommended"].rules),
 );
 
 assertDefined(
-  ESLintPluginN.configs.recommended.rules,
+  esLintPluginN.configs.recommended.rules,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-n",
 );
 const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginN.configs.recommended.rules),
+  Object.keys(esLintPluginN.configs.recommended.rules),
 );
 
 assertDefined(
-  ESLintPluginUnicorn.configs.recommended.rules,
+  esLintPluginUnicorn.configs.recommended.rules,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-unicorn",
 );
 const UNICORN_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
-  Object.keys(ESLintPluginUnicorn.configs.recommended.rules),
+  Object.keys(esLintPluginUnicorn.configs.recommended.rules),
 );
 
 const COMPLETE_RECOMMENDED_RULES =
-  ESLintPluginComplete.configs.recommended[0]?.rules;
+  esLintPluginComplete.configs.recommended[0]?.rules;
 assertDefined(
   COMPLETE_RECOMMENDED_RULES,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-complete",
@@ -220,7 +220,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "Core ESLint Rules",
     "https://eslint.org/docs/latest/rules/",
     "https://eslint.org/docs/latest/rules/__RULE_NAME__",
-    ESLintJS,
+    esLintJS,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -236,7 +236,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     getPluginHeaderTitle("import-x"),
     "https://github.com/un-ts/eslint-plugin-import-x",
     "https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/__RULE_NAME__.md",
-    ESLintPluginImportX,
+    esLintPluginImportX,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -244,7 +244,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     getPluginHeaderTitle("jsdoc"),
     "https://github.com/gajus/eslint-plugin-jsdoc",
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/__RULE_NAME__.md",
-    ESLintPluginJSDoc,
+    esLintPluginJSDoc,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -252,7 +252,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     getPluginHeaderTitle("n"),
     "https://github.com/eslint-community/eslint-plugin-n",
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
-    ESLintPluginN,
+    esLintPluginN,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -260,7 +260,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     getPluginHeaderTitle("unicorn"),
     "https://github.com/sindresorhus/eslint-plugin-unicorn",
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/__RULE_NAME__.md",
-    ESLintPluginUnicorn,
+    esLintPluginUnicorn,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -268,7 +268,7 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     getPluginHeaderTitle("complete"),
     "https://complete-ts.github.io/eslint-plugin-complete",
     "https://complete-ts.github.io/eslint-plugin-complete/rules/__RULE_NAME__",
-    ESLintPluginComplete,
+    esLintPluginComplete,
   );
 
   await setMarkdownContentInsideHTMLMarker(
@@ -302,7 +302,7 @@ async function getMarkdownRuleSection(
   let baseConfigFileName: string | undefined;
   let baseConfigPath: string | undefined;
   if (configName === "complete") {
-    baseRules = ESLintPluginComplete.rules as unknown as Record<
+    baseRules = esLintPluginComplete.rules as unknown as Record<
       string,
       Linter.RuleEntry
     >;
@@ -677,7 +677,7 @@ function isRuleHandledByTypeScriptCompiler(ruleName: string): boolean {
 }
 
 function isRuleHandledByPrettier(ruleName: string): boolean {
-  const rule = ESLintConfigPrettier.rules[ruleName];
+  const rule = esLintConfigPrettier.rules[ruleName];
 
   // In the config, some rules are disabled with 0 and some are disabled with "off".
   return rule === 0 || rule === "off";

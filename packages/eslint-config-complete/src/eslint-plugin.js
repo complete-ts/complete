@@ -1,4 +1,4 @@
-import ESLintPluginESLintPlugin from "eslint-plugin-eslint-plugin";
+import esLintPluginESLintPlugin from "eslint-plugin-eslint-plugin";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -9,7 +9,7 @@ import { defineConfig } from "eslint/config";
  */
 export const completeConfigESLintPlugin = defineConfig({
   plugins: {
-    "eslint-plugin": ESLintPluginESLintPlugin,
+    "eslint-plugin": esLintPluginESLintPlugin,
   },
 
   rules: {

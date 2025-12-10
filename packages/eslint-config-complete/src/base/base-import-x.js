@@ -1,4 +1,4 @@
-import ESLintPluginImportX from "eslint-plugin-import-x";
+import esLintPluginImportX from "eslint-plugin-import-x";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -234,7 +234,7 @@ export const baseImportX = defineConfig(
   {
     plugins: {
       // @ts-expect-error https://github.com/un-ts/eslint-plugin-import-x/issues/421
-      "import-x": ESLintPluginImportX,
+      "import-x": esLintPluginImportX,
     },
 
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin

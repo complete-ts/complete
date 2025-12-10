@@ -1,4 +1,4 @@
-import ESLintPluginStylistic from "@stylistic/eslint-plugin";
+import esLintPluginStylistic from "@stylistic/eslint-plugin";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseStylistic = defineConfig({
   plugins: {
-    "@stylistic": ESLintPluginStylistic,
+    "@stylistic": esLintPluginStylistic,
   },
 
   rules: {

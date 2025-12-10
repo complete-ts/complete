@@ -1,4 +1,4 @@
-import ESLintPluginJSDoc from "eslint-plugin-jsdoc";
+import esLintPluginJSDoc from "eslint-plugin-jsdoc";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -8,7 +8,7 @@ import { defineConfig } from "eslint/config";
 export const baseJSDoc = defineConfig(
   {
     plugins: {
-      jsdoc: ESLintPluginJSDoc,
+      jsdoc: esLintPluginJSDoc,
     },
 
     rules: {

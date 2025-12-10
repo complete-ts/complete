@@ -2,7 +2,7 @@
 
 import { completeConfigBase } from "../eslint-config-complete/src/base.js";
 // @ts-expect-error https://github.com/jrdrg/eslint-plugin-sort-exports/issues/44
-import ESLintPluginSortExports from "eslint-plugin-sort-exports";
+import esLintPluginSortExports from "eslint-plugin-sort-exports";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig(
@@ -11,7 +11,7 @@ export default defineConfig(
   {
     plugins: {
       /** The `sort-exports` rule is used in some specific files. */
-      "sort-exports": ESLintPluginSortExports,
+      "sort-exports": esLintPluginSortExports,
     },
   },
 

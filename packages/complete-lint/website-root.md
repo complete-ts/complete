@@ -92,7 +92,7 @@ You will probably want to set up your code editor such that both ESLint and Pret
 In order for the linter to work inside of Visual Studio Code, you will have to install the following extensions:
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=prettier.prettier-vscode)
 
 Additionally, you might also want to install the CSpell extension, which is extremely useful to spell check an entire codebase:
 
@@ -115,11 +115,11 @@ Furthermore, you will probably want Prettier and ESLint to be run automatically 
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "prettier.prettier-vscode",
     "editor.formatOnSave": true,
   },
   "[css][html][json][jsonc][markdown][postcss][yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "prettier.prettier-vscode",
     "editor.formatOnSave": true,
   },
 }
@@ -138,7 +138,7 @@ Optionally, you can also provide a hint to anyone cloning your repository that t
 // repository: https://go.microsoft.com/fwlink/?LinkId=827846
 {
   "recommendations": [
-    "esbenp.prettier-vscode", // The TypeScript formatter
+    "prettier.prettier-vscode", // The TypeScript formatter
     "dbaeumer.vscode-eslint", // The TypeScript linter
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on CSpell
   ],

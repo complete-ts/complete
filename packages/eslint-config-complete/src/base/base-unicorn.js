@@ -1,4 +1,4 @@
-import ESLintPluginUnicorn from "eslint-plugin-unicorn";
+import esLintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseUnicorn = defineConfig({
   plugins: {
-    unicorn: ESLintPluginUnicorn,
+    unicorn: esLintPluginUnicorn,
   },
 
   rules: {

@@ -31,18 +31,10 @@ If you are using [`eslint-config-complete`](/eslint-config-complete), then this 
 ```js
 // @ts-check
 
-import ESLintPluginComplete from "eslint-plugin-complete";
+import esLintPluginComplete from "eslint-plugin-complete";
 import { defineConfig } from "eslint/config";
 
-export default defineConfig(
-  {
-    plugins: {
-      complete: ESLintPluginComplete,
-    },
-  },
-
-  ...ESLintPluginComplete.configs.recommended,
-);
+export default defineConfig(...esLintPluginComplete.configs.recommended);
 ```
 
 Alternatively, you can omit the recommended config and just enable the specific rules that you need:
@@ -50,12 +42,12 @@ Alternatively, you can omit the recommended config and just enable the specific 
 ```ts
 // @ts-check
 
-import ESLintPluginComplete from "eslint-plugin-complete";
+import esLintPluginComplete from "eslint-plugin-complete";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig({
   plugins: {
-    complete: ESLintPluginComplete,
+    complete: esLintPluginComplete,
   },
 
   rules: {
@@ -64,7 +56,7 @@ export default defineConfig({
 });
 ```
 
-Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to [bugs in the upstream package](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
+Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to a [bug in the `typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
 
 ## Configs
 
@@ -133,7 +125,7 @@ You probably already use [Prettier](https://prettier.io/), which is helpful to a
 
 In a similar way to Prettier, this ESLint plugin contains several rules that are designed to automatically apply whenever you save the file (like the [`complete/format-jsdoc-comments`](eslint-plugin-complete/rules/format-jsdoc-comments) rule). These rules are "fixers", which are applied when ESLint is executed with the "--fix" flag. So, in the same way that you configure Prettier to run on save, you should also configure `eslint --fix` to run on save.
 
-For example, if you use [Visual Studio Code](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
+For example, if you use [Visual Studio Code](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=prettier.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
 
 <!-- We cannot use "jsonc" as the language below because Docusaurus will not display the colors properly. -->
 
@@ -144,7 +136,7 @@ For example, if you use [Visual Studio Code](https://code.visualstudio.com/), an
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "prettier.prettier-vscode",
     "editor.formatOnSave": true
   }
 }

@@ -1,4 +1,4 @@
-import ESLintPluginN from "eslint-plugin-n";
+import esLintPluginN from "eslint-plugin-n";
 import { defineConfig } from "eslint/config";
 
 /**
@@ -8,7 +8,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseN = defineConfig({
   plugins: {
-    n: ESLintPluginN,
+    n: esLintPluginN,
   },
 
   rules: {
