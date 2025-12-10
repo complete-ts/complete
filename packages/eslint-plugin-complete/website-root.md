@@ -56,7 +56,7 @@ export default defineConfig({
 });
 ```
 
-Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to a [bug in the `typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
+Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to a [bug in `typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
 
 ## Configs
 
