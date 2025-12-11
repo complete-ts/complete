@@ -54,8 +54,8 @@
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@octokit/core": "7.0.6",
-    "@types/node": "24.10.2",
-    "complete-common": "2.10.0",
+    "@types/node": "25.0.0",
+    "complete-common": "2.11.0",
     "complete-node": "13.0.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.49.0"
