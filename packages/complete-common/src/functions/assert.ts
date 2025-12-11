@@ -50,6 +50,21 @@ export function assertArrayNumber(
 
 /**
  * Helper function to throw an error if the provided value is not an array with every element being
+ * an object (i.e. a TypeScript record).
+ */
+export function assertArrayObject(
+  value: unknown,
+  msg: string,
+): asserts value is Array<Record<string, unknown>> {
+  assertArray(value, msg);
+
+  if (value.some((element) => !isObject(element))) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided value is not an array with every element being
  * a string.
  */
 export function assertArrayString(
