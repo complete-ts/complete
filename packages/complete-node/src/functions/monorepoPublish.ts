@@ -21,7 +21,7 @@ import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
-import { isLoggedInToNPM } from "./npm.js";
+import { setNPMAccessToken } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { getArgs } from "./utils.js";
 
@@ -101,12 +101,8 @@ export async function monorepoPublish(
   await $`git pull --quiet`;
   await $`git push --quiet`;
 
-  const isLoggedIn = await isLoggedInToNPM();
-  if (!isLoggedIn) {
-    throw new Error(
-      `You are not logged into npm. Please run: ${chalk.green("npm adduser")}`,
-    );
-  }
+  // Validate that we have an npm access token.
+  await setNPMAccessToken();
 
   const $$ = $({ cwd: packagePath });
 
