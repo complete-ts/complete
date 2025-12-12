@@ -35,14 +35,14 @@
     "chalk": "5.6.2",
     "clipanion": "4.0.0-rc.4",
     "complete-common": "2.11.0",
-    "complete-node": "13.0.0",
+    "complete-node": "15.0.0",
     "klaw-sync": "7.0.0",
     "source-map-support": "0.5.21",
     "yaml": "2.8.2"
   },
   "devDependencies": {
     "@types/klaw-sync": "6.0.5",
-    "@types/node": "25.0.0",
+    "@types/node": "25.0.1",
     "@types/source-map-support": "0.5.10",
     "ts-loader": "9.5.4",
     "tsconfig-paths-webpack-plugin": "4.2.0",
