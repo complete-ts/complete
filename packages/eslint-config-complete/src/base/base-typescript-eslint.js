@@ -351,6 +351,7 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/no-use-before-define": "off",
 
       "@typescript-eslint/no-useless-constructor": "error",
+      "@typescript-eslint/no-useless-default-assignment": "error",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/no-var-requires": "error",
       "@typescript-eslint/no-wrapper-object-types": "error",
