@@ -67,15 +67,36 @@
   // work similar to other compiled languages like Golang or Rust.
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
 
-  // Automatically run the formatter when certain files are saved.
-  "[javascript][typescript][javascriptreact][typescriptreact]": {
+  // Automatically run the formatter when certain files are saved. We intentionally do not group
+  // languages together because of this bug: https://github.com/microsoft/vscode/issues/168411
+  "[javascript]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "prettier.prettier-vscode",
     "editor.formatOnSave": true,
   },
-  // TODO: https://github.com/prettier/prettier-vscode/issues/3891
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.defaultFormatter": "prettier.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.defaultFormatter": "prettier.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.defaultFormatter": "prettier.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
   "[css]": {
     "editor.defaultFormatter": "prettier.prettier-vscode",
     "editor.formatOnSave": true,

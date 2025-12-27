@@ -12,7 +12,6 @@ export * from "./functions/markdown.js";
 export * from "./functions/monorepo.js";
 export * from "./functions/monorepoPublish.js";
 export * from "./functions/monorepoUpdate.js";
-export * from "./functions/npm.js";
 export * from "./functions/nukeDependencies.js";
 export * from "./functions/packageJSON.js";
 export * from "./functions/packageManager.js";

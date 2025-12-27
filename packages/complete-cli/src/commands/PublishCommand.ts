@@ -12,7 +12,6 @@ import {
   isGitDirectoryClean,
   isGitRepository,
   readFile,
-  setNPMAccessToken,
   updatePackageJSONDependencies,
   writeFile,
 } from "complete-node";
@@ -74,13 +73,6 @@ async function validate() {
   if (!packageJSONExists) {
     fatalError(
       'Failed to find the "package.json" file in the current working directory.',
-    );
-  }
-
-  const nodeAuthToken = process.env["NODE_AUTH_TOKEN"];
-  if (nodeAuthToken === undefined || nodeAuthToken === "") {
-    fatalError(
-      'Failed to find the "NODE_AUTH_TOKEN" environment variable. This must be equal to your npm access token.',
     );
   }
 }
@@ -228,10 +220,6 @@ async function publish(dryRun: boolean) {
   } else {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     await gitCommitAllAndPush(releaseGitCommitMessage);
-
-    // At this point, we have already validated that the "NODE_AUTH_TOKEN" environment variable
-    // exists.
-    await setNPMAccessToken();
 
     // - The "--access=public" flag is only technically needed for the first publish (unless the
     //   package is a scoped package), but it is saved here for posterity.

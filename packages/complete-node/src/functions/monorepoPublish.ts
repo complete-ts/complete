@@ -21,7 +21,6 @@ import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
-import { setNPMAccessToken } from "./npm.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { getArgs } from "./utils.js";
 
@@ -100,9 +99,6 @@ export async function monorepoPublish(
   // Validate that we can push and pull to the repository.
   await $`git pull --quiet`;
   await $`git push --quiet`;
-
-  // Validate that we have an npm access token.
-  await setNPMAccessToken();
 
   const $$ = $({ cwd: packagePath });
 
