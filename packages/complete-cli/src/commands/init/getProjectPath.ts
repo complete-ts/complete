@@ -100,7 +100,7 @@ function validateProjectName(projectName: string, forceName: boolean) {
 
   if (hasWhitespace(projectName)) {
     promptError(
-      'The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "green-candle")',
+      'The project name has whitespace in it, which is not allowed. Use kebab-case for your project name. (e.g. "some-repository")',
     );
   }
 

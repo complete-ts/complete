@@ -85,9 +85,9 @@ export async function promptGitHubRepoOrGitRemoteURL(
     const gitRemoteURL =
       await getInputString(`Paste in the remote Git URL for your project.
 For example, if you have an SSH key, it would be something like:
-${chalk.green("git@github.com:Alice/green-candle.git")}
+${chalk.green("git@github.com:Alice/some-repository.git")}
 If you do not have an SSH key, it would be something like:
-${chalk.green("https://github.com/Alice/green-candle.git")}
+${chalk.green("https://github.com/Alice/some-repository.git")}
 If you do not want to initialize a Git repository for this project, press enter to skip.
 `);
 
