@@ -80,7 +80,6 @@ export async function promptGitHubRepoOrGitRemoteURL(
     return undefined;
   }
 
-  const dummyDefaultValue = "__GIT_URL__";
   const gitHubUsername = await getGitHubUsername();
   if (gitHubUsername === undefined) {
     const gitRemoteURL = await getInputString(
@@ -90,10 +89,11 @@ ${chalk.green("git@github.com:Alice/some-repository.git")}
 If you do not have an SSH key, it would be something like:
 ${chalk.green("https://github.com/Alice/some-repository.git")}
 If you do not want to initialize a Git repository for this project, press enter to skip.`,
-      dummyDefaultValue,
+      undefined,
+      true,
     );
 
-    return gitRemoteURL === dummyDefaultValue ? undefined : gitRemoteURL;
+    return gitRemoteURL === "" ? undefined : gitRemoteURL;
   }
 
   const url = `https://github.com/${gitHubUsername}/${projectName}`;

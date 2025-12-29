@@ -44,6 +44,7 @@ export async function getInputYesNo(
 export async function getInputString(
   msg: string,
   defaultValue?: string,
+  allowEmpty = false,
 ): Promise<string> {
   const input = await text({
     message: msg,
@@ -58,11 +59,13 @@ export async function getInputString(
   // The "text" return type is bugged: "input" is equal to "undefined" if the user did not enter any
   // input.
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (input === undefined || input.trim() === "") {
+  const trimmedInput = input === undefined ? "" : input.trim();
+
+  if (!allowEmpty && trimmedInput === "") {
     promptError("You must enter a non-empty value.");
   }
 
-  return input.trim();
+  return trimmedInput;
 }
 
 export function promptLog(msg: string): void {
