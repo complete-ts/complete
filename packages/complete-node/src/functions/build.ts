@@ -53,14 +53,14 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
  *   size reduction from this flag is minor anyway.)
  *
  * @param packageRoot The path to the root of the package.
- * @param target Optional. The target binary format. Defaults to "bun-linux-x64". See:
+ * @param target Optional. The target binary format. Defaults to match the current system. See:
  * https://bun.com/docs/bundler/executables#supported-targets
  * @throws If the "package.json" file does not exist or cannot be parsed.
  * @see https://bun.com/docs/bundler/executables
  */
 export async function compileToSingleFileWithBun(
   packageRoot: string,
-  target = "bun-linux-x64",
+  target?: string,
 ): Promise<void> {
   const packageJSONPath = path.join(packageRoot, "package.json");
   await assertFile(
@@ -85,7 +85,9 @@ export async function compileToSingleFileWithBun(
   );
 
   // We invoke Bun with `execa` instead of the API to avoid this package depending on "@types/bun".
-  // This must be kept in since with the function documentation above.
-  await $`bun build --compile --target=${target} --sourcemap --outfile=${outfile} ${entryPointPath}`;
-  // (See above for why we do not use "--minify".)
+  // This must be kept in since with the function documentation above. (See above for why we do not
+  // use "--minify".)
+  await (target === undefined
+    ? $`bun build --compile --sourcemap --outfile=${outfile} ${entryPointPath}`
+    : $`bun build --compile --target=${target} --sourcemap --outfile=${outfile} ${entryPointPath}`);
 }
