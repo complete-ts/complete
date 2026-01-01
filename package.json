@@ -98,7 +98,7 @@
     "webpack-shebang-plugin": "1.1.8",
     "which": "6.0.0",
     "yaml": "2.8.2",
-    "zod": "4.2.1"
+    "zod": "4.3.4"
   },
   "devDependencies": {
     "git-pull-run": "1.6.2",
