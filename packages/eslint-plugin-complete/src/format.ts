@@ -259,9 +259,14 @@ export function formatText(
       }
     }
 
+    // Preserve leading whitespace for continuation lines (e.g., URLs after colons).
+    const leadingWhitespace = line.match(/^\s*/)?.[0] ?? "";
+    const shouldPreserveIndentation =
+      previousLineEndedInColon && leadingWhitespace !== "";
+
     const words = getWordsFromLine(line);
 
-    for (const word of words) {
+    for (const [wordIndex, word] of words.entries()) {
       // Words can be blank strings in certain cases. For example: "dog cat"
       if (word === "") {
         continue;
@@ -307,8 +312,10 @@ export function formatText(
       const atBeginningOfLine = formattedLine === "";
       const numLeadingSpaces = list === undefined ? 0 : list.numLeadingSpaces;
       const leadingSpaces = " ".repeat(numLeadingSpaces);
+      const preservedIndentation =
+        shouldPreserveIndentation && wordIndex === 0 ? leadingWhitespace : "";
       const textToAdd = atBeginningOfLine
-        ? `${leadingSpaces}${word}`
+        ? `${leadingSpaces}${preservedIndentation}${word}`
         : ` ${word}`;
       formattedLine += textToAdd;
     }

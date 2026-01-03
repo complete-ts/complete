@@ -33,6 +33,16 @@ valid.push({
   `,
 });
 
+valid.push({
+  name: "@param URLs must keep indents",
+  code: `
+/**
+ * @param foo See this URL:
+ *            https://www.google.com
+ */
+  `,
+});
+
 invalid.push({
   name: "Using a single-line comment with exactly 101 characters without any indent",
   code: `
