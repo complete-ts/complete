@@ -28,7 +28,7 @@
     "build": "tsx ./scripts/build.ts",
     "lint": "tsx ./scripts/lint.ts",
     "start": "tsx ./src/main.ts",
-    "test": "tsx --test"
+    "test": "tsx --test \"src/**/*.test.ts\""
   },
   "dependencies": {
     "@clack/prompts": "0.11.0",

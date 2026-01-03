@@ -28,7 +28,7 @@
     "build": "tsx ./scripts/build.ts",
     "docs": "typedoc",
     "lint": "tsx ./scripts/lint.ts",
-    "test": "tsx --test"
+    "test": "tsx --test \"src/**/*.test.ts\""
   },
   "devDependencies": {
     "@types/node": "25.0.3",
