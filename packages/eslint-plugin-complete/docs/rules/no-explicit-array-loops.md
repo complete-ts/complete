@@ -1,8 +1,8 @@
-# no-explicit-array-loops
+# complete/no-explicit-array-loops
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows explicit iteration for arrays.
+📝 Disallows explicit iteration for arrays.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

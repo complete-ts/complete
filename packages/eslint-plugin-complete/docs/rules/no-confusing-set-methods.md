@@ -1,8 +1,8 @@
-# no-confusing-set-methods
+# complete/no-confusing-set-methods
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows confusing methods for sets.
+📝 Disallows confusing methods for sets.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

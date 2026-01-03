@@ -1,8 +1,8 @@
-# no-explicit-map-set-loops
+# complete/no-explicit-map-set-loops
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows explicit iteration for maps and sets.
+📝 Disallows explicit iteration for maps and sets.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

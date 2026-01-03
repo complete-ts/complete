@@ -1,8 +1,8 @@
-# jsdoc-code-block-language
+# complete/jsdoc-code-block-language
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires a language specification for every JSDoc code block.
+📝 Requires a language specification for every JSDoc code block.
 
 <!-- end auto-generated rule header -->
 

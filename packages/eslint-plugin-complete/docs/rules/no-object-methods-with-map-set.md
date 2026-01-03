@@ -1,8 +1,8 @@
-# no-object-methods-with-map-set
+# complete/no-object-methods-with-map-set
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows using object methods with maps and sets.
+📝 Disallows using object methods with maps and sets.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

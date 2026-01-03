@@ -1,8 +1,8 @@
-# require-variadic-function-argument
+# complete/require-variadic-function-argument
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires that variadic functions must be supplied with at least one argument.
+📝 Requires that variadic functions must be supplied with at least one argument.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

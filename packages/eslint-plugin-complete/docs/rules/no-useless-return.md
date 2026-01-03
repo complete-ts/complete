@@ -1,8 +1,8 @@
-# no-useless-return
+# complete/no-useless-return
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows redundant return statements (with no auto-fixer).
+📝 Disallows redundant return statements (with no auto-fixer).
 
 <!-- end auto-generated rule header -->
 

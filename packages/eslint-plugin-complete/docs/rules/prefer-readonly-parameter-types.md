@@ -1,8 +1,8 @@
-# prefer-readonly-parameter-types
+# complete/prefer-readonly-parameter-types
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
+📝 Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
 
 ⚙️ This rule is configurable.
 

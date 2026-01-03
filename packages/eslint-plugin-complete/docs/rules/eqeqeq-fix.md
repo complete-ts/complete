@@ -1,8 +1,8 @@
-# eqeqeq-fix
+# complete/eqeqeq-fix
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires the use of `===` and `!==` (and automatically fixes).
+📝 Requires the use of `===` and `!==` (and automatically fixes).
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

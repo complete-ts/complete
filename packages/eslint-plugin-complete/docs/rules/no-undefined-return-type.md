@@ -1,8 +1,8 @@
-# no-undefined-return-type
+# complete/no-undefined-return-type
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows `undefined` return types on functions.
+📝 Disallows `undefined` return types on functions.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

@@ -1,8 +1,8 @@
-# complete-sentences-line-comments
+# complete/complete-sentences-line-comments
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires complete sentences for multi-line leading line comments.
+📝 Requires complete sentences for multi-line leading line comments.
 
 <!-- end auto-generated rule header -->
 

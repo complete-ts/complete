@@ -1,8 +1,8 @@
-# no-unnecessary-assignment
+# complete/no-unnecessary-assignment
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows useless assignments.
+📝 Disallows useless assignments.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

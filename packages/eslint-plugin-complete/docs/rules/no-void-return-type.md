@@ -1,8 +1,8 @@
-# no-void-return-type
+# complete/no-void-return-type
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows `void` return types on non-exported functions.
+📝 Disallows `void` return types on non-exported functions.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

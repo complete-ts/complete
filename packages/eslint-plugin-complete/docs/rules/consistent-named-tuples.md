@@ -1,8 +1,8 @@
-# consistent-named-tuples
+# complete/consistent-named-tuples
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires that if one or more tuple elements are named, all of them are named.
+📝 Requires that if one or more tuple elements are named, all of them are named.
 
 <!-- end auto-generated rule header -->
 

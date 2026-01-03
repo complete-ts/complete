@@ -1,8 +1,8 @@
-# prefer-path-resolve
+# complete/prefer-path-resolve
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows the path.join method with a parent directory segment.
+📝 Disallows the path.join method with a parent directory segment.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

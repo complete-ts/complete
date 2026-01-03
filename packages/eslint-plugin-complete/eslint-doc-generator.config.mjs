@@ -20,10 +20,6 @@ const config = {
   // Defaults to true. See: https://github.com/bmish/eslint-doc-generator/issues/806
   ruleDocSectionOptions: false,
 
-  // Defaults to "desc-parens-prefix-name", but we want to match the format established by ESLint
-  // and TSESLint: https://github.com/bmish/eslint-doc-generator/issues/347
-  ruleDocTitleFormat: "name",
-
   // Hide the "configsOff" column, since it would be superfluous. (We enable every rule in the
   // recommended config and do not disable any rules.)
   ruleListColumns: [

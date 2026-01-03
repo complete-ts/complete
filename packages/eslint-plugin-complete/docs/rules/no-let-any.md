@@ -1,8 +1,8 @@
-# no-let-any
+# complete/no-let-any
 
 🚫 This rule is _disabled_ in the ✅ `recommended` config.
 
-Disallows declaring variables with let that do not have a type.
+📝 Disallows declaring variables with let that do not have a type.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

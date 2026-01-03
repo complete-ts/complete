@@ -1,8 +1,8 @@
-# no-empty-line-comments
+# complete/no-empty-line-comments
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows empty line comments (and automatically removes them).
+📝 Disallows empty line comments (and automatically removes them).
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

@@ -1,8 +1,8 @@
-# no-mutable-return
+# complete/no-mutable-return
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows returning mutable arrays, maps, and sets from functions.
+📝 Disallows returning mutable arrays, maps, and sets from functions.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

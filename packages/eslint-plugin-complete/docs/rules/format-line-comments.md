@@ -1,8 +1,8 @@
-# format-line-comments
+# complete/format-line-comments
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows `//` comments longer than N characters and multi-line comments that can be merged together.
+📝 Disallows `//` comments longer than N characters and multi-line comments that can be merged together.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

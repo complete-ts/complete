@@ -1,8 +1,8 @@
-# strict-array-methods
+# complete/strict-array-methods
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires boolean return types on some specific array methods.
+📝 Requires boolean return types on some specific array methods.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

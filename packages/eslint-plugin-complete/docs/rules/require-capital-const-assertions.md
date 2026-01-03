@@ -1,8 +1,8 @@
-# require-capital-const-assertions
+# complete/require-capital-const-assertions
 
 🚫 This rule is _disabled_ in the ✅ `recommended` config.
 
-Requires a capital letter for named objects and arrays that have a const assertion.
+📝 Requires a capital letter for named objects and arrays that have a const assertion.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

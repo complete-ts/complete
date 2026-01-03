@@ -1,8 +1,8 @@
-# require-capital-read-only
+# complete/require-capital-read-only
 
 🚫 This rule is _disabled_ in the ✅ `recommended` config.
 
-Requires maps/sets/arrays with a capital letter to be read-only.
+📝 Requires maps/sets/arrays with a capital letter to be read-only.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

@@ -1,8 +1,8 @@
-# prefer-plusplus
+# complete/prefer-plusplus
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Require `++` or `--` operators instead of assignment operators where applicable.
+📝 Require `++` or `--` operators instead of assignment operators where applicable.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

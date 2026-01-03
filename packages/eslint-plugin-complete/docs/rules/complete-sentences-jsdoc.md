@@ -1,8 +1,8 @@
-# complete-sentences-jsdoc
+# complete/complete-sentences-jsdoc
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires complete sentences for JSDoc comments.
+📝 Requires complete sentences for JSDoc comments.
 
 <!-- end auto-generated rule header -->
 

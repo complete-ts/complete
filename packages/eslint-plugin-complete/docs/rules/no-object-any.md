@@ -1,8 +1,8 @@
-# no-object-any
+# complete/no-object-any
 
 🚫 This rule is _disabled_ in the ✅ `recommended` config.
 
-Disallows declaring objects and arrays that do not have a type.
+📝 Disallows declaring objects and arrays that do not have a type.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

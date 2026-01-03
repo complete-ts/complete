@@ -1,8 +1,8 @@
-# newline-between-switch-case
+# complete/newline-between-switch-case
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Requires newlines between switch cases.
+📝 Requires newlines between switch cases.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

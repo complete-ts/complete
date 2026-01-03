@@ -1,8 +1,8 @@
-# no-unsafe-plusplus
+# complete/no-unsafe-plusplus
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows unsafe and confusing uses of the `++` and `--` operators.
+📝 Disallows unsafe and confusing uses of the `++` and `--` operators.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

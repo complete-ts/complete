@@ -1,8 +1,8 @@
-# no-empty-jsdoc
+# complete/no-empty-jsdoc
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows empty JSDoc comments (and automatically removes them).
+📝 Disallows empty JSDoc comments (and automatically removes them).
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

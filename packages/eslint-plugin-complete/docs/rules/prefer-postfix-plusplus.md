@@ -1,8 +1,8 @@
-# prefer-postfix-plusplus
+# complete/prefer-postfix-plusplus
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Require `i++` instead of `++i` and `i--` instead of `--i`.
+📝 Require `i++` instead of `++i` and `i--` instead of `--i`.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 

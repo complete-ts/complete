@@ -1,8 +1,8 @@
-# strict-enums
+# complete/strict-enums
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-Disallows the usage of unsafe enum patterns.
+📝 Disallows the usage of unsafe enum patterns.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
