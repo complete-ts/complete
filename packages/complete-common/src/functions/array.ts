@@ -164,6 +164,34 @@ export function filterMap<OldT, NewT>(
 }
 
 /**
+ * Helper function to perform a filter and a map at the same time. Similar to `Array.map`, provide a
+ * function that transforms a value, but return `undefined` if the value should be skipped. (Thus,
+ * this function cannot be used in situations where `undefined` can be a valid array element.)
+ *
+ * This function is useful because the `Array.map` method will always produce an array with the same
+ * amount of elements as the original array.
+ *
+ * This is named `filterMap` after the Rust function:
+ * https://doc.rust-lang.org/std/iter/struct.FilterMap.html
+ *
+ * This is the asynchronous version, which can be used like this:
+ *
+ * ```ts
+ * const results = await asyncFilterMap(things, someFunc);
+ * ```
+ *
+ * (This is an abstraction around `Promise.all`.)
+ */
+export async function filterMapAsync<OldT, NewT>(
+  array: readonly OldT[],
+  func: (element: OldT) => Promise<NewT | undefined>,
+): Promise<readonly NewT[]> {
+  const promises = array.map(async (element) => await func(element));
+  const results = await Promise.all(promises);
+  return results.filter((item) => item !== undefined);
+}
+
+/**
  * Helper function to get a random element from the provided array.
  *
  * Note that this will only work with arrays that do not contain values of `undefined`, since the
