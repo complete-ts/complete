@@ -137,6 +137,30 @@ export function emptyArray(array: unknown[]): void {
 }
 
 /**
+ * Helper function to perform an asynchronous filter. The vanilla `Array.filter` method does not
+ * wait for promises (and treats them as truthy), so this function runs the predicate on all
+ * elements concurrently, awaits the results, and then filters the original array.
+ *
+ * Usage:
+ *
+ * ```ts
+ * const results = await filterAsync(things, async (thing) => await filterFunc(thing));
+ * ```
+ *
+ * (This is an abstraction around `Promise.all`.)
+ */
+export async function filterAsync<T>(
+  array: readonly T[],
+  predicate: (element: T) => Promise<boolean>,
+): Promise<readonly T[]> {
+  const results = await Promise.all(
+    array.map(async (element) => await predicate(element)),
+  );
+
+  return array.filter((_, index) => results[index] === true);
+}
+
+/**
  * Helper function to perform a filter and a map at the same time. Similar to `Array.map`, provide a
  * function that transforms a value, but return `undefined` if the value should be skipped. (Thus,
  * this function cannot be used in situations where `undefined` can be a valid array element.)
