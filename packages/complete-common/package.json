@@ -1,6 +1,6 @@
 {
   "name": "complete-common",
-  "version": "2.11.0",
+  "version": "2.12.0",
   "description": "Helper functions for TypeScript projects.",
   "homepage": "https://complete-ts.github.io/",
   "bugs": {
