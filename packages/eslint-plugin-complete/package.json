@@ -54,7 +54,7 @@
     "@types/node": "25.0.3",
     "@typescript-eslint/rule-tester": "8.52.0",
     "@typescript-eslint/types": "8.52.0",
-    "complete-common": "2.12.0",
+    "complete-common": "2.13.0",
     "complete-node": "16.2.0",
     "eslint-doc-generator": "3.0.2",
     "jest": "30.2.0",
