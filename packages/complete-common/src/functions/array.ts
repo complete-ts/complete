@@ -339,6 +339,9 @@ export function isArrayString(variable: unknown): variable is string[] {
  * promises, resulting in an array of promises rather than the resolved values. This function runs
  * the callback on all elements concurrently, awaits the results, and returns the mapped array.
  *
+ * You can also use this function to simply run an asynchronous function on each element of an array
+ * concurrently.
+ *
  * Usage:
  *
  * ```ts

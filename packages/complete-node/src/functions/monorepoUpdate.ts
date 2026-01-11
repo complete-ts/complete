@@ -5,7 +5,12 @@
  */
 
 import type { ReadonlyRecord } from "complete-common";
-import { assertDefined, assertString, isObject } from "complete-common";
+import {
+  assertDefined,
+  assertString,
+  isObject,
+  mapAsync,
+} from "complete-common";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { isFile } from "./file.js";
@@ -232,41 +237,38 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
 
   // Update the "package.json" files to fix the discrepancies that we found above.
   if (!dryRun) {
-    await Promise.all(
-      [...pendingPackageJSONUpdates.entries()].map(
-        async (packageJSONUpdate) => {
-          const [packageName, tuple] = packageJSONUpdate;
-          const [packageJSON, updatesArray] = tuple;
+    const entries = [...pendingPackageJSONUpdates.entries()];
+    await mapAsync(entries, async (packageJSONUpdate) => {
+      const [packageName, tuple] = packageJSONUpdate;
+      const [packageJSON, updatesArray] = tuple;
 
-          for (const update of updatesArray) {
-            const { depType, depName, newVersion } = update;
-            const dependencies = packageJSON[depType];
-            if (!isObject(dependencies)) {
-              throw new Error(
-                `The "package.json" file for "${packageName}" does not have a valid field for: ${depType}`,
-              );
-            }
-
-            const oldVersion = dependencies[depName];
-            dependencies[depName] = newVersion;
-
-            console.log(
-              `Updated "${packageName}": ${depName} - ${oldVersion} --> ${newVersion}`,
-            );
-          }
-
-          const childPackageJSONPath = path.join(
-            monorepoRoot,
-            "packages",
-            packageName,
-            "package.json",
+      for (const update of updatesArray) {
+        const { depType, depName, newVersion } = update;
+        const dependencies = packageJSON[depType];
+        if (!isObject(dependencies)) {
+          throw new Error(
+            `The "package.json" file for "${packageName}" does not have a valid field for: ${depType}`,
           );
+        }
 
-          const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
-          await writeFile(childPackageJSONPath, packageJSONString);
-        },
-      ),
-    );
+        const oldVersion = dependencies[depName];
+        dependencies[depName] = newVersion;
+
+        console.log(
+          `Updated "${packageName}": ${depName} - ${oldVersion} --> ${newVersion}`,
+        );
+      }
+
+      const childPackageJSONPath = path.join(
+        monorepoRoot,
+        "packages",
+        packageName,
+        "package.json",
+      );
+
+      const packageJSONString = `${JSON.stringify(packageJSON, undefined, 2)}\n`; // Prettify it.
+      await writeFile(childPackageJSONPath, packageJSONString);
+    });
   }
 
   return valid;
@@ -276,8 +278,9 @@ async function getMonorepoChildPackageJSONMap(
   monorepoRoot: string,
   monorepoPackageNames: readonly string[],
 ): Promise<ReadonlyMap<string, ReadonlyRecord<string, unknown>>> {
-  const childPackageJSONs = await Promise.all(
-    monorepoPackageNames.map(async (monorepoPackageName) => {
+  const childPackageJSONs = await mapAsync(
+    monorepoPackageNames,
+    async (monorepoPackageName) => {
       const childPackagePath = path.join(
         monorepoRoot,
         "packages",
@@ -291,7 +294,7 @@ async function getMonorepoChildPackageJSONMap(
       }
 
       return await getPackageJSON(childPackagePath);
-    }),
+    },
   );
 
   const childPackageJSONsMap = new Map<

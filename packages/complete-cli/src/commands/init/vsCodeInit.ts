@@ -1,4 +1,4 @@
-import { assertObject, isArrayString } from "complete-common";
+import { assertObject, isArrayString, mapAsync } from "complete-common";
 import { $, $q, commandExists, getJSONC, isFile } from "complete-node";
 import path from "node:path";
 import { getInputYesNo, promptError, promptLog } from "../../prompt.js";
@@ -53,11 +53,10 @@ async function installVSCodeExtensions(
   }
 
   const extensions = await getExtensionsFromJSON(projectPath);
-  await Promise.all(
-    extensions.map(
-      async (extension) =>
-        await $q`${vsCodeCommand} --install-extension ${extension}`,
-    ),
+  await mapAsync(
+    extensions,
+    async (extension) =>
+      await $q`${vsCodeCommand} --install-extension ${extension}`,
   );
 }
 

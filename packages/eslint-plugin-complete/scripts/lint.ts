@@ -1,4 +1,4 @@
-import { assertDefined } from "complete-common";
+import { assertDefined, mapAsync } from "complete-common";
 import {
   getFilePathsInDirectory,
   lintCommands,
@@ -44,17 +44,16 @@ await lintScript(import.meta.dirname, async () => {
 async function checkGenerateChangedFiles() {
   const fileContentsMap = new Map<string, string>();
 
-  await Promise.all(
-    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
-      const fileContents = await readFile(filePath);
-      fileContentsMap.set(filePath, fileContents);
-    }),
-  );
+  await mapAsync(FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT, async (filePath) => {
+    const fileContents = await readFile(filePath);
+    fileContentsMap.set(filePath, fileContents);
+  });
 
   await generateAll(true);
 
-  const changedFiles = await Promise.all(
-    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT.map(async (filePath) => {
+  const changedFiles = await mapAsync(
+    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT,
+    async (filePath) => {
       const newFileContents = await readFile(filePath);
       const oldFileContents = fileContentsMap.get(filePath);
       assertDefined(
@@ -69,7 +68,7 @@ async function checkGenerateChangedFiles() {
       }
 
       return false;
-    }),
+    },
   );
 
   if (changedFiles.includes(true)) {

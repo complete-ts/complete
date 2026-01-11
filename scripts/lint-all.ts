@@ -1,3 +1,4 @@
+import { mapAsync } from "complete-common";
 import { $, getMonorepoPackageNames, lintScript } from "complete-node";
 import path from "node:path";
 
@@ -6,13 +7,11 @@ import path from "node:path";
 await lintScript(import.meta.dirname, async (packageRoot) => {
   const lintPackages = await getMonorepoPackageNames(packageRoot, "lint");
 
-  await Promise.all(
-    lintPackages.map(async (packageName) => {
-      const packagePath = path.join(packageRoot, "packages", packageName);
-      const $$ = $({ cwd: packagePath });
-      await $$`npm run lint`;
-    }),
-  );
+  await mapAsync(lintPackages, async (packageName) => {
+    const packagePath = path.join(packageRoot, "packages", packageName);
+    const $$ = $({ cwd: packagePath });
+    await $$`npm run lint`;
+  });
 
   console.log("Successfully linted all monorepo packages.");
 });

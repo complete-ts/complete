@@ -11,6 +11,7 @@ import {
   getElapsedSeconds,
   isEnumValue,
   isSemanticVersion,
+  mapAsync,
 } from "complete-common";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
@@ -30,6 +31,8 @@ enum VersionBump {
   patch = "patch",
   dev = "dev",
 }
+
+const PACKAGE_SCRIPTS_THAT_MUST_PASS = ["build", "lint", "test"] as const;
 
 /**
  * Helper function to publish one of a monorepo's packages to npm.
@@ -106,14 +109,12 @@ export async function monorepoPublish(
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
-    await Promise.all(
-      ["build", "lint", "test"].map(async (scriptName) => {
-        const scriptCommand = scripts[scriptName];
-        if (typeof scriptCommand === "string") {
-          await $$`npm run ${scriptName}`;
-        }
-      }),
-    );
+    await mapAsync(PACKAGE_SCRIPTS_THAT_MUST_PASS, async (scriptName) => {
+      const scriptCommand = scripts[scriptName];
+      if (typeof scriptCommand === "string") {
+        await $$`npm run ${scriptName}`;
+      }
+    });
   }
 
   /**

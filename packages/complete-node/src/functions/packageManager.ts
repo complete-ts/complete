@@ -4,7 +4,7 @@
  * @module
  */
 
-import { getEnumValues } from "complete-common";
+import { getEnumValues, mapAsync } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { isFile } from "./file.js";
@@ -174,8 +174,9 @@ export function getPackageManagerLockFileNames(): readonly string[] {
 export async function getPackageManagersForProject(
   packageDir: string,
 ): Promise<readonly PackageManager[]> {
-  const fileChecks = await Promise.all(
-    PACKAGE_MANAGER_VALUES.map(async (packageManager) => {
+  const fileChecks = await mapAsync(
+    PACKAGE_MANAGER_VALUES,
+    async (packageManager) => {
       const lockFileName = PACKAGE_MANAGER_TO_LOCK_FILE_NAME[packageManager];
       const lockFilePath = path.join(packageDir, lockFileName);
       const lockFileExists = await isFile(lockFilePath);
@@ -184,7 +185,7 @@ export async function getPackageManagersForProject(
         packageManager,
         lockFileExists,
       };
-    }),
+    },
   );
 
   return fileChecks

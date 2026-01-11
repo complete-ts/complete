@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter, trimSuffix } from "complete-common";
+import { capitalizeFirstLetter, mapAsync, trimSuffix } from "complete-common";
 import {
   $,
   buildScript,
@@ -32,21 +32,19 @@ await buildScript(import.meta.dirname, async (packageRoot) => {
 
   // Copy all of the "website-root.md" files to match the package names.
   const monorepoPackageNames = await getMonorepoPackageNames(repoRoot);
-  await Promise.all(
-    monorepoPackageNames.map(async (packageName) => {
-      const srcPath = path.join(
-        repoRoot,
-        "packages",
-        packageName,
-        "website-root.md",
-      );
-      const fileExists = await isFile(srcPath);
-      if (fileExists) {
-        const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
-        await copyFileOrDirectory(srcPath, dstPath);
-      }
-    }),
-  );
+  await mapAsync(monorepoPackageNames, async (packageName) => {
+    const srcPath = path.join(
+      repoRoot,
+      "packages",
+      packageName,
+      "website-root.md",
+    );
+    const fileExists = await isFile(srcPath);
+    if (fileExists) {
+      const dstPath = path.join(packageRoot, "docs", `${packageName}.md`);
+      await copyFileOrDirectory(srcPath, dstPath);
+    }
+  });
 
   // Run TypeDoc on the packages that provide library code.
   await runTypeDoc(repoRoot, "complete-common");
@@ -94,36 +92,29 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
   const readmePath = path.join(docsOutputPath, "README.md");
   await deleteFileOrDirectory(readmePath);
 
-  await Promise.all(
-    ["enums", "functions", "types"].map(async (subdirectory) => {
-      const directoryPath = path.join(docsOutputPath, subdirectory);
-      const directoryExists = await isDirectory(directoryPath);
-      if (!directoryExists) {
-        return;
-      }
+  const subdirectories = ["enums", "functions", "types"];
+  await mapAsync(subdirectories, async (subdirectory) => {
+    const directoryPath = path.join(docsOutputPath, subdirectory);
+    const directoryExists = await isDirectory(directoryPath);
+    if (!directoryExists) {
+      return;
+    }
 
-      // We want to remove the superfluous prefix in the title.
-      const fileNames = await getFileNamesInDirectory(directoryPath);
-      await Promise.all(
-        fileNames.map(async (fileName) => {
-          const filePath = path.join(directoryPath, fileName);
-          const newTitle = await getMarkdownTitle(fileName, filePath);
+    // We want to remove the superfluous prefix in the title.
+    const fileNames = await getFileNamesInDirectory(directoryPath);
+    await Promise.all(
+      fileNames.map(async (fileName) => {
+        const filePath = path.join(directoryPath, fileName);
+        const newTitle = await getMarkdownTitle(fileName, filePath);
 
-          await deleteLineInFile(filePath, 1); // e.g. # DependencyType
-          await prependFile(
-            filePath,
-            `---
-title: ${newTitle}
----
-`,
-          );
-        }),
-      );
+        await deleteLineInFile(filePath, 1); // e.g. # DependencyType
+        await prependFile(filePath, `---\ntitle: ${newTitle}\n---\n`);
+      }),
+    );
 
-      // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
-      await addCategoryFile(directoryPath);
-    }),
-  );
+    // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
+    await addCategoryFile(directoryPath);
+  });
 
   // Capitalize the "constants.md" file.
   const constantsPath = path.join(docsOutputPath, "constants.md");

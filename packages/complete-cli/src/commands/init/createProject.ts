@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { assertObject, repeat } from "complete-common";
+import { assertObject, mapAsync, repeat } from "complete-common";
 import {
   $q,
   copyFileOrDirectory,
@@ -92,16 +92,14 @@ async function copyTemplateDirectoryWithoutOverwriting(
   projectPath: string,
 ) {
   const fileNames = await getFileNamesInDirectory(templateDirPath);
-  await Promise.all(
-    fileNames.map(async (fileName) => {
-      const templateFilePath = path.join(templateDirPath, fileName);
-      const destinationFilePath = path.join(projectPath, fileName);
-      const file = await isFile(destinationFilePath);
-      if (!file) {
-        await copyFileOrDirectory(templateFilePath, destinationFilePath);
-      }
-    }),
-  );
+  await mapAsync(fileNames, async (fileName) => {
+    const templateFilePath = path.join(templateDirPath, fileName);
+    const destinationFilePath = path.join(projectPath, fileName);
+    const file = await isFile(destinationFilePath);
+    if (!file) {
+      await copyFileOrDirectory(templateFilePath, destinationFilePath);
+    }
+  });
 }
 
 /** Copy files that need to have text replaced inside of them. */
@@ -229,13 +227,11 @@ async function copyPackageManagerSpecificFiles(
         tsConfigJSONPath,
         tsConfigJSONScriptsPath,
       ];
-      await Promise.all(
-        filePathsToReplaceNodeWithBun.map(async (filePath) => {
-          const fileContents = await readFile(filePath);
-          const newFileContents = fileContents.replaceAll("node", "bun");
-          await writeFile(filePath, newFileContents);
-        }),
-      );
+      await mapAsync(filePathsToReplaceNodeWithBun, async (filePath) => {
+        const fileContents = await readFile(filePath);
+        const newFileContents = fileContents.replaceAll("node", "bun");
+        await writeFile(filePath, newFileContents);
+      });
 
       // Second, replace "tsx" with "bun run".
       const packageJSONPath = path.join(projectPath, "package.json");

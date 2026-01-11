@@ -4,7 +4,7 @@
  * @module
  */
 
-import { assertDefined } from "complete-common";
+import { assertDefined, mapAsync } from "complete-common";
 import path from "node:path";
 import {
   assertDirectory,
@@ -85,20 +85,19 @@ export async function fixMonorepoPackageDistDirectory(
   const filePathsWithExtension = filePaths.filter((filePath) =>
     filePath.endsWith(extension),
   );
-  const filesContents = await Promise.all(
-    filePathsWithExtension.map(async (filePath) => await readFile(filePath)),
+  const filesContents = await mapAsync(
+    filePathsWithExtension,
+    async (filePath) => await readFile(filePath),
   );
-  await Promise.all(
-    filePathsWithExtension.map(async (filePath, i) => {
-      const fileContents = filesContents[i];
-      assertDefined(
-        fileContents,
-        `Failed to get the file contents at index: ${i}`,
-      );
-      const newFileContents = fileContents.replaceAll("../../src/", "src/");
-      await writeFile(filePath, newFileContents);
-    }),
-  );
+  await mapAsync(filePathsWithExtension, async (filePath, i) => {
+    const fileContents = filesContents[i];
+    assertDefined(
+      fileContents,
+      `Failed to get the file contents at index: ${i}`,
+    );
+    const newFileContents = fileContents.replaceAll("../../src/", "src/");
+    await writeFile(filePath, newFileContents);
+  });
 }
 
 /**
@@ -129,18 +128,20 @@ export async function getMonorepoPackageNames(
     return directoryNames;
   }
 
-  const hasScriptPromises = directoryNames.map(async (directoryName) => {
-    const packageJSONPath = path.join(
-      packagesPath,
-      directoryName,
-      "package.json",
-    );
-    const exists = await isFile(packageJSONPath);
-    return exists
-      ? await packageJSONHasScript(packageJSONPath, scriptName)
-      : false;
-  });
+  const hasScriptArray = await mapAsync(
+    directoryNames,
+    async (directoryName) => {
+      const packageJSONPath = path.join(
+        packagesPath,
+        directoryName,
+        "package.json",
+      );
+      const exists = await isFile(packageJSONPath);
+      return exists
+        ? await packageJSONHasScript(packageJSONPath, scriptName)
+        : false;
+    },
+  );
 
-  const hasScript = await Promise.all(hasScriptPromises);
-  return directoryNames.filter((_package, i) => hasScript[i] === true);
+  return directoryNames.filter((_package, i) => hasScriptArray[i] === true);
 }

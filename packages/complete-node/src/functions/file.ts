@@ -4,7 +4,7 @@
  * @module
  */
 
-import { isObject, trimSuffix } from "complete-common";
+import { isObject, mapAsync, trimSuffix } from "complete-common";
 import { createHash } from "node:crypto";
 import type { Dirent } from "node:fs";
 import { createReadStream } from "node:fs";
@@ -80,25 +80,23 @@ export async function cp(srcPath: string, dstPath: string): Promise<void> {
 export async function deleteFileOrDirectory(
   ...filePaths: readonly string[]
 ): Promise<void> {
-  await Promise.all(
-    filePaths.map(async (filePath) => {
-      // Deleting files that do not exist will throw an error, so we need to explicitly check for
-      // that.
-      try {
-        await fs.rm(filePath, {
-          recursive: true,
+  await mapAsync(filePaths, async (filePath) => {
+    // Deleting files that do not exist will throw an error, so we need to explicitly check for
+    // that.
+    try {
+      await fs.rm(filePath, {
+        recursive: true,
+      });
+    } catch (error) {
+      // Deleting files that do not exit should be a no-op. ("ENOENT" means "Error NO ENTry".)
+      const isNoEntryError = isObject(error) && error["code"] === "ENOENT";
+      if (!isNoEntryError) {
+        throw new Error(`Failed to delete file or directory: ${filePath}`, {
+          cause: error,
         });
-      } catch (error) {
-        // Deleting files that do not exit should be a no-op. ("ENOENT" means "Error NO ENTry".)
-        const isNoEntryError = isObject(error) && error["code"] === "ENOENT";
-        if (!isNoEntryError) {
-          throw new Error(`Failed to delete file or directory: ${filePath}`, {
-            cause: error,
-          });
-        }
       }
-    }),
-  );
+    }
+  });
 }
 
 /**
@@ -127,12 +125,10 @@ export async function getDirectoryHashSHA1(
 ): Promise<string> {
   const filePaths = await getFilePathsInDirectory(directoryPath, "files", true);
 
-  const fileInfos = await Promise.all(
-    filePaths.map(async (filePath) => ({
-      filePath,
-      hash: await getFileHashSHA1(filePath),
-    })),
-  );
+  const fileInfos = await mapAsync(filePaths, async (filePath) => ({
+    filePath,
+    hash: await getFileHashSHA1(filePath),
+  }));
 
   // Ensure that the ordering is deterministic.
   const sortedFileInfos = fileInfos.toSorted((a, b) =>
@@ -379,13 +375,11 @@ export async function moveAllFilesInDirectory(
   dstDirectory: string,
 ): Promise<void> {
   const filePaths = await getFilePathsInDirectory(srcDirectory);
-  await Promise.all(
-    filePaths.map(async (filePath) => {
-      const fileName = path.basename(filePath);
-      const dstPath = path.join(dstDirectory, fileName);
-      await moveFileOrDirectory(fileName, dstPath);
-    }),
-  );
+  await mapAsync(filePaths, async (filePath) => {
+    const fileName = path.basename(filePath);
+    const dstPath = path.join(dstDirectory, fileName);
+    await moveFileOrDirectory(fileName, dstPath);
+  });
 }
 
 /**
@@ -436,16 +430,14 @@ export async function renameFileExtensions(
     filePath.endsWith(srcFileExtensionWithPeriod),
   );
 
-  await Promise.all(
-    filePathsWithExtension.map(async (filePath) => {
-      const filePathWithoutExtension = trimSuffix(
-        filePath,
-        srcFileExtensionWithPeriod,
-      );
-      const newFilePath = filePathWithoutExtension + dstFileExtensionWithPeriod;
-      await renameFileOrDirectory(filePath, newFilePath);
-    }),
-  );
+  await mapAsync(filePathsWithExtension, async (filePath) => {
+    const filePathWithoutExtension = trimSuffix(
+      filePath,
+      srcFileExtensionWithPeriod,
+    );
+    const newFilePath = filePathWithoutExtension + dstFileExtensionWithPeriod;
+    await renameFileOrDirectory(filePath, newFilePath);
+  });
 }
 
 /**

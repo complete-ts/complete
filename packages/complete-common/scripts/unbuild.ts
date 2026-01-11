@@ -1,4 +1,4 @@
-import { trimSuffix } from "complete-common";
+import { mapAsync, trimSuffix } from "complete-common";
 import {
   $,
   copyFileOrDirectory,
@@ -11,6 +11,8 @@ import {
 } from "complete-node";
 import os from "node:os";
 import path from "node:path";
+
+const TYPESCRIPT_FILE_EXTENSIONS = ["ts", "mts", "cts"] as const;
 
 /** We use the `unbuild` library to output both ESM and CJS. */
 export async function unbuild(packageRoot: string): Promise<void> {
@@ -40,12 +42,10 @@ async function removeBuggedTypeSuffix(typeName: string) {
   const searchValue = `Readonly${typeName}$1`;
   const replaceValue = `Readonly${typeName}`;
 
-  await Promise.all(
-    ["ts", "mts", "cts"].map(async (extension) => {
-      const filePath = path.join("dist", `index.d.${extension}`);
-      await replaceTextInFile(filePath, searchValue, replaceValue);
-    }),
-  );
+  await mapAsync(TYPESCRIPT_FILE_EXTENSIONS, async (extension) => {
+    const filePath = path.join("dist", `index.d.${extension}`);
+    await replaceTextInFile(filePath, searchValue, replaceValue);
+  });
 }
 
 /**
@@ -61,13 +61,11 @@ async function buildDeclarations(packageRoot: string) {
   const javaScriptFileNames = ["index.cjs", "index.mjs"] as const;
 
   // Move the JavaScript files to a temporary directory.
-  await Promise.all(
-    javaScriptFileNames.map(async (fileName) => {
-      const srcPath = path.join(outDir, fileName);
-      const dstPath = path.join(tmpDir, fileName);
-      await moveFileOrDirectory(srcPath, dstPath);
-    }),
-  );
+  await mapAsync(javaScriptFileNames, async (fileName) => {
+    const srcPath = path.join(outDir, fileName);
+    const dstPath = path.join(tmpDir, fileName);
+    await moveFileOrDirectory(srcPath, dstPath);
+  });
 
   await deleteFileOrDirectory(outDir);
   await $`tsc --emitDeclarationOnly`;
@@ -78,13 +76,11 @@ async function buildDeclarations(packageRoot: string) {
   }
 
   // Move the JavaScript files back.
-  await Promise.all(
-    javaScriptFileNames.map(async (fileName) => {
-      const srcPath = path.join(tmpDir, fileName);
-      const dstPath = path.join(outDir, fileName);
-      await moveFileOrDirectory(srcPath, dstPath);
-    }),
-  );
+  await mapAsync(javaScriptFileNames, async (fileName) => {
+    const srcPath = path.join(tmpDir, fileName);
+    const dstPath = path.join(outDir, fileName);
+    await moveFileOrDirectory(srcPath, dstPath);
+  });
 }
 
 /** By default, TypeScript creates ".d.ts" files, but we need both ".d.cts" and ".d.mts" files. */
@@ -95,16 +91,13 @@ async function copyDeclarations(packageRoot: string) {
     filePath.endsWith(".d.ts"),
   );
 
-  await Promise.all(
-    declarationFilePaths.map(async (filePath) => {
-      await Promise.all(
-        [".d.cts", ".d.mts"].map(async (newExtension) => {
-          const newPath = trimSuffix(filePath, ".d.ts") + newExtension;
-          await copyFileOrDirectory(filePath, newPath);
-        }),
-      );
-    }),
-  );
+  await mapAsync(declarationFilePaths, async (filePath) => {
+    const extensions = [".d.cts", ".d.mts"];
+    await mapAsync(extensions, async (newExtension) => {
+      const newPath = trimSuffix(filePath, ".d.ts") + newExtension;
+      await copyFileOrDirectory(filePath, newPath);
+    });
+  });
 
   // We do not need to create "index.d.cts.map" or "index.d.mts.map" files, because all of the
   // copied declaration files point to "index.d.ts.map".
