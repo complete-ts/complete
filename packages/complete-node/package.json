@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "chalk": "5.6.2",
-    "complete-common": "2.13.0",
+    "complete-common": "2.14.0",
     "diff": "8.0.2",
     "dotenv": "17.2.3",
     "error-stack-parser": "2.1.4",
@@ -46,7 +46,7 @@
     "zod": "4.3.5"
   },
   "devDependencies": {
-    "@types/node": "25.0.3",
+    "@types/node": "25.0.6",
     "@types/which": "3.0.4",
     "eslint-plugin-sort-exports": "0.9.1",
     "typescript": "5.9.3",
