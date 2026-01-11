@@ -324,6 +324,27 @@ export function isArrayString(variable: unknown): variable is string[] {
   return variable.every((element) => typeof element === "string");
 }
 
+/**
+ * Helper function to perform an asynchronous map. The vanilla `Array.map` method does not wait for
+ * promises, resulting in an array of promises rather than the resolved values. This function runs
+ * the callback on all elements concurrently, awaits the results, and returns the mapped array.
+ *
+ * Usage:
+ *
+ * ```ts
+ * const results = await mapAsync(things, async (thing) => await mapFunc(thing));
+ * ```
+ *
+ * (This is an abstraction around `Promise.all`.)
+ */
+export async function mapAsync<T, U>(
+  array: readonly T[],
+  callback: (element: T) => Promise<U>,
+): Promise<readonly U[]> {
+  const promises = array.map(async (element) => await callback(element));
+  return await Promise.all(promises);
+}
+
 /** Initializes an array with all elements containing the specified default value. */
 export function newArray<T>(length: number, value: T): readonly T[] {
   return Array.from({ length }, () => value);
