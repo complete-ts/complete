@@ -151,10 +151,14 @@ export function emptyArray(array: unknown[]): void {
  */
 export async function filterAsync<T>(
   array: readonly T[],
-  predicate: (element: T) => Promise<boolean>,
+  predicate: (
+    element: T,
+    index: number,
+    array: readonly T[],
+  ) => Promise<boolean>,
 ): Promise<readonly T[]> {
   const results = await Promise.all(
-    array.map(async (element) => await predicate(element)),
+    array.map(async (element, index) => await predicate(element, index, array)),
   );
 
   return array.filter((_, index) => results[index] === true);
@@ -208,9 +212,15 @@ export function filterMap<OldT, NewT>(
  */
 export async function filterMapAsync<OldT, NewT>(
   array: readonly OldT[],
-  func: (element: OldT) => Promise<NewT | undefined>,
+  func: (
+    element: OldT,
+    index: number,
+    array: readonly OldT[],
+  ) => Promise<NewT | undefined>,
 ): Promise<readonly NewT[]> {
-  const promises = array.map(async (element) => await func(element));
+  const promises = array.map(
+    async (element, index) => await func(element, index, array),
+  );
   const results = await Promise.all(promises);
   return results.filter((item) => item !== undefined);
 }
@@ -339,9 +349,11 @@ export function isArrayString(variable: unknown): variable is string[] {
  */
 export async function mapAsync<T, U>(
   array: readonly T[],
-  callback: (element: T) => Promise<U>,
+  callback: (element: T, index: number, array: readonly T[]) => Promise<U>,
 ): Promise<readonly U[]> {
-  const promises = array.map(async (element) => await callback(element));
+  const promises = array.map(
+    async (element, index) => await callback(element, index, array),
+  );
   return await Promise.all(promises);
 }
 
