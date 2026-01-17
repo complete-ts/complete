@@ -281,6 +281,6 @@ export function exit(code = 0): never {
  * Under the hood, this uses promises with `setTimeout`.
  */
 export async function sleep(seconds: number): Promise<unknown> {
-  // eslint-disable-next-line no-promise-executor-return
+  // eslint-disable-next-line no-promise-executor-return, @typescript-eslint/strict-void-return
   return await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
