@@ -471,6 +471,8 @@ export const baseTypeScriptESLint = defineConfig(
         },
       ],
 
+      "@typescript-eslint/strict-void-return": "error",
+
       /**
        * The `allowDefaultCaseForExhaustiveSwitch` option is disabled and the
        * `requireDefaultForNonUnion` option is enabled to make the rule stricter. The
