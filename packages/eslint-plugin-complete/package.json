@@ -42,18 +42,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/type-utils": "8.52.0",
-    "@typescript-eslint/utils": "8.52.0",
-    "typescript-eslint": "8.52.0"
+    "@typescript-eslint/type-utils": "8.53.0",
+    "@typescript-eslint/utils": "8.53.0",
+    "typescript-eslint": "8.53.0"
   },
   "devDependencies": {
-    "@babel/core": "7.28.5",
-    "@babel/preset-env": "7.28.5",
+    "@babel/core": "7.28.6",
+    "@babel/preset-env": "7.28.6",
     "@babel/preset-typescript": "7.28.5",
     "@types/jest": "30.0.0",
-    "@types/node": "25.0.6",
-    "@typescript-eslint/rule-tester": "8.52.0",
-    "@typescript-eslint/types": "8.52.0",
+    "@types/node": "25.0.9",
+    "@typescript-eslint/rule-tester": "8.53.0",
+    "@typescript-eslint/types": "8.53.0",
     "complete-common": "2.14.0",
     "complete-node": "16.2.0",
     "eslint-doc-generator": "3.0.2",
