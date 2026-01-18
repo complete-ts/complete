@@ -1,3 +1,4 @@
 import { monorepoPublish } from "complete-node";
 
-await monorepoPublish(import.meta.dirname);
+// TODO: Get "npm-check-updates" working with catalogs.
+await monorepoPublish(import.meta.dirname, false);

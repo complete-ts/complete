@@ -127,9 +127,10 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
 ): Promise<boolean> {
   // First, get and validate the root monorepo "package.json" file.
   const monorepoDependencies = await getPackageJSONDependencies(monorepoRoot);
+  const monorepoPackageJSONPath = path.join(monorepoRoot, "package.json");
   assertDefined(
     monorepoDependencies,
-    `The "${monorepoRoot}/package.json" file does not have a "dependencies" field.`,
+    `The "${monorepoPackageJSONPath}" file does not have a "dependencies" field.`,
   );
 
   // Second, get the child "package.json" files.
