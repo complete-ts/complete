@@ -4,7 +4,7 @@
  * @module
  */
 
-import { versionBumpInfo } from "bumpp";
+import { versionBump as bumppVersionBump } from "bumpp";
 import chalk from "chalk";
 import {
   assertDefined,
@@ -131,7 +131,7 @@ export async function monorepoPublish(
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
 
-  const versionBumpOperation = await versionBumpInfo({
+  const versionBumpResults = await bumppVersionBump({
     release: isDev ? "prerelease" : versionBump, // Defaults to "prompt".
     preid: isDev ? "dev" : undefined, // Defaults to "beta".
     commit: false, // Defaults to true.
@@ -139,7 +139,7 @@ export async function monorepoPublish(
     confirm: false, // Defaults to true.
     cwd: packagePath,
   });
-  if (versionBumpOperation.results.updatedFiles.length === 0) {
+  if (versionBumpResults.updatedFiles.length === 0) {
     throw new Error("Failed to bump the version.");
   }
 
