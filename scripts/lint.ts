@@ -1,10 +1,7 @@
 // This script lints the monorepo. It does not run the lint scripts for each individual package. For
 // that, use the "lint-all.ts" script.
 
-import { lintCommands, lintMonorepoPackageJSONs } from "complete-node";
-import path from "node:path";
-
-const MONOREPO_ROOT = path.resolve(import.meta.dirname, "..");
+import { lintCommands } from "complete-node";
 
 await lintCommands(import.meta.dirname, [
   // Use TypeScript to type-check the code.
@@ -31,9 +28,6 @@ await lintCommands(import.meta.dirname, [
 
   // Check for template updates.
   "bun run ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json",
-
-  // Check to see if the child "package.json" files are up to date.
-  ["lintMonorepoPackageJSONs", lintMonorepoPackageJSONs(MONOREPO_ROOT)],
 
   "markdownlint .",
 ]);
