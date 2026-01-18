@@ -131,7 +131,7 @@ export async function monorepoPublish(
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
 
-  await versionBumpInfo({
+  const versionBumpOperation = await versionBumpInfo({
     release: isDev ? "prerelease" : versionBump, // Defaults to "prompt".
     preid: isDev ? "dev" : undefined, // Defaults to "beta".
     commit: false, // Defaults to true.
@@ -139,6 +139,9 @@ export async function monorepoPublish(
     confirm: false, // Defaults to true.
     cwd: packagePath,
   });
+  if (versionBumpOperation.results.updatedFiles.length === 0) {
+    throw new Error("Failed to bump the version.");
+  }
 
   // Update the lock file.
   await $monorepo`bun install`;
@@ -150,7 +153,12 @@ export async function monorepoPublish(
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore(release): ${tag}`;
   await $monorepo`git commit --message ${commitMessage}`;
-  await $monorepo`git tag ${tag}`;
+  // By default, "git tag" will create a lightweight tag instead of an annotated tag unless the
+  // "--annotate" flag is provided. Annotated tags are preferred because:
+  // - Software releases are conventionally done with annotated tags since they can store metadata
+  //   and be GPG signed.
+  // - Annotated tags will work properly with "git push --follow-tags".
+  await $monorepo`git tag --annotate ${tag} --message ${commitMessage}`;
   // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
   // Upload the package to npm.
