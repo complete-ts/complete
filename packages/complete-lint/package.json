@@ -26,17 +26,16 @@
   ],
   "dependencies": {
     "@types/node": "25.0.9",
-    "complete-tsconfig": "1.3.0",
+    "complete-tsconfig": "workspace:*",
     "cspell": "9.6.0",
     "cspell-check-unused-words": "1.6.0",
     "eslint": "9.39.2",
-    "eslint-config-complete": "4.1.4",
+    "eslint-config-complete": "workspace:*",
     "eslint-import-resolver-typescript": "4.4.4",
     "knip": "5.81.0",
     "prettier": "3.7.2",
     "prettier-plugin-organize-imports": "4.3.0",
-    "prettier-plugin-packagejson": "2.5.21",
-    "tsx": "4.21.0"
+    "prettier-plugin-packagejson": "2.5.21"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"

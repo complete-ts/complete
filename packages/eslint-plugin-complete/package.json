@@ -34,11 +34,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "create-rule": "tsx ./scripts/createRule.ts",
+    "build": "bun run ./scripts/build.ts",
+    "create-rule": "bun run ./scripts/createRule.ts",
     "docs": "bun run build && eslint-doc-generator",
-    "generate": "tsx ./scripts/generate.ts",
-    "lint": "tsx ./scripts/lint.ts",
+    "generate": "bun run ./scripts/generate.ts",
+    "lint": "bun run ./scripts/lint.ts",
     "test": "jest"
   },
   "dependencies": {
@@ -54,8 +54,8 @@
     "@types/node": "25.0.9",
     "@typescript-eslint/rule-tester": "8.53.0",
     "@typescript-eslint/types": "8.53.0",
-    "complete-common": "2.14.0",
-    "complete-node": "16.2.0",
+    "complete-common": "workspace:*",
+    "complete-node": "workspace:*",
     "eslint-doc-generator": "3.0.2",
     "jest": "30.2.0",
     "prettier": "3.7.2",

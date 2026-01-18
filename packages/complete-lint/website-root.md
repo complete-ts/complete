@@ -253,7 +253,6 @@ These are the specific packages that `complete-lint` provides:
 - [`prettier`](https://github.com/prettier/prettier) - The main code formatter, as explained above.
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) - A plugin used because Prettier will not organize imports automatically.
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) - A plugin used because Prettier will not organize "package.json" files automatically.
-- [`tsx`](https://github.com/privatenumber/tsx) - A tool to run a TypeScript file directly. This is included so that you can execute linting scripts.
 
 ## Why Code Formatting is Important
 

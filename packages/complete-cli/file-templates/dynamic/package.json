@@ -17,10 +17,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
-    "lint": "tsx ./scripts/lint.ts",
+    "build": "bun run ./scripts/build.ts",
+    "lint": "bun run ./scripts/lint.ts",
     "publish": "complete-cli publish",
-    "start": "tsx ./src/main.ts",
+    "start": "bun run ./src/main.ts",
     "update": "complete-cli update"
   },
   "devDependencies": {

@@ -25,14 +25,14 @@
     "src"
   ],
   "scripts": {
-    "build": "tsx ./scripts/build.ts",
+    "build": "bun run ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "tsx ./scripts/lint.ts",
-    "test": "tsx --test \"src/**/*.test.ts\""
+    "lint": "bun run ./scripts/lint.ts",
+    "test": "bun test"
   },
   "dependencies": {
     "chalk": "5.6.2",
-    "complete-common": "2.14.0",
+    "complete-common": "workspace:*",
     "diff": "8.0.3",
     "dotenv": "17.2.3",
     "error-stack-parser": "2.1.4",

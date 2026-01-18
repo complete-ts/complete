@@ -149,7 +149,7 @@ jobs:
 
       - name: Deploy the documentation website
         id: deploy-website
-        run: npx tsx ./packages/docs/scripts/deploy.mts ${{ secrets.GITHUB_TOKEN }}
+        run: bun run ./packages/docs/scripts/deploy.mts ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Algolia Crawler
         env:

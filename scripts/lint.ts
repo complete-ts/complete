@@ -30,7 +30,7 @@ await lintCommands(import.meta.dirname, [
   "cspell-check-unused-words",
 
   // Check for template updates.
-  "tsx ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json",
+  "bun run ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json",
 
   // Check to see if the child "package.json" files are up to date.
   ["lintMonorepoPackageJSONs", lintMonorepoPackageJSONs(MONOREPO_ROOT)],

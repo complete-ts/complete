@@ -2,9 +2,7 @@ bun refactor:
 
 - check for isBunRuntime and delete the complete-cli package manager check
 - do PR to npm-check-updates for catalog
-- search for "shamefully" to potentially find other bugs
 - checkCompiledOutputInRepo
-- remove all tsx
 
 ----------------------------------------------------------------------------------------------------
 
