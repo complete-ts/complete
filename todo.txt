@@ -1,3 +1,13 @@
+bun refactor:
+
+- check for isBunRuntime and delete the complete-cli package manager check
+- do PR to npm-check-updates for catalog
+- search for "shamefully" to potentially find other bugs
+- checkCompiledOutputInRepo
+- remove all tsx
+
+----------------------------------------------------------------------------------------------------
+
 short term:
 
 - remove @ts-expect error on ESLint plugins when this issue is resolved
@@ -7,7 +17,6 @@ short term:
 
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
   use: https://github.com/bmish/eslint-doc-generator
-    - https://github.com/bmish/eslint-doc-generator/pull/802
     - do PR to fix newlines
 
 ----------------------------------------------------------------------------------------------------
@@ -19,6 +28,4 @@ long term:
 
 - lint projects:
   - `T extends Foo[]` --> `T extends readonly Foo[]`
-  - https://github.com/typescript-eslint/typescript-eslint/pull/10913 (PR from Brad)
   - https://github.com/typescript-eslint/typescript-eslint/issues/8079 (Enhancement: [no-unnecessary-condition] report on logical operators when the RHS value is redundant)
-  - https://github.com/typescript-eslint/typescript-eslint/pull/11679 (docs: add note about "only: true")

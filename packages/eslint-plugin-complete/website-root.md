@@ -16,7 +16,7 @@ For installation instructions, see [the `complete-lint` page](/complete-lint).
 
 ### Manually
 
-If you do not want to use the `complete-lint` meta-package, then you can install this plugin manually:
+If you do not want to use the `complete-lint` meta-package, then you can install this plugin manually. For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
 
 ```sh
 npm install --save-dev eslint typescript eslint-plugin-complete
@@ -64,7 +64,7 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 
 ## Rules
 
-<!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run generate -->
+<!-- Do not manually modify the RULES_TABLE section. Instead, run: bun run generate -->
 <!-- markdownlint-disable MD060 -->
 <!-- begin auto-generated rules list -->
 

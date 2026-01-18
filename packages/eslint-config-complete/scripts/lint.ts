@@ -22,7 +22,7 @@ async function checkDocs(packageRoot: string) {
   if (oldFileContents !== newFileContents) {
     await writeFile(readmePath, oldFileContents);
     throw new Error(
-      `The "docs.ts" script changed the "${readmePath}" file. Run: "npm run docs`,
+      `The "docs.ts" script changed the "${readmePath}" file. Run: "bun run docs`,
     );
   }
 }

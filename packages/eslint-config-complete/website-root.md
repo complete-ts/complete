@@ -18,7 +18,7 @@ For installation instructions, see [the `complete-lint` page](/complete-lint).
 
 ### Manually
 
-If you do not want to use the `complete-lint` meta-package, then you can install this config manually:
+If you do not want to use the `complete-lint` meta-package, then you can install this config manually. For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
 
 ```sh
 npm install --save-dev eslint typescript eslint-plugin-complete
@@ -124,7 +124,7 @@ If you use Visual Studio Code, you can accomplish this with the following config
 
 Below, we provide documentation for every rule that is disabled. (We take a blacklist approach rather than a whitelist approach.)
 
-<!-- Do not manually modify the RULES_TABLE section. Instead, run: npm run docs -->
+<!-- Do not manually modify the RULES_TABLE section. Instead, run: bun run docs -->
 <!-- markdownlint-disable MD033 MD056 MD060 -->
 <!-- RULES_TABLE -->
 

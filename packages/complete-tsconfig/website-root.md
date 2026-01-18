@@ -23,15 +23,13 @@ For installation instructions, see [the `complete-lint` page](/complete-lint).
 
 ### Manually
 
-If you do not want to use the `complete-lint` meta-package, then you can install this package manually:
+If you do not want to use the `complete-lint` meta-package, then you can install this package manually. For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
 
 ```sh
 npm install complete-tsconfig --save-dev
 ```
 
 (It should be a development dependency because TypeScript is not usually deployed directly.)
-
-Note that if you use the [pnpm](https://pnpm.io/) package manager, you must use the [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) option, since pnpm does not handle transitive dependencies by default. (Alternatively, you could [manually install the dependencies](https://github.com/complete-ts/complete/blob/main/packages/complete-tsconfig/package.json).)
 
 ## Usage
 

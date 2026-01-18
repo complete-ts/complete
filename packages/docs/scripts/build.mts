@@ -78,7 +78,7 @@ await buildScript(import.meta.dirname, async (packageRoot) => {
 async function runTypeDoc(repoRoot: string, packageName: string) {
   const packagePath = path.join(repoRoot, "packages", packageName);
   const $$ = $({ cwd: packagePath });
-  await $$`npm run docs`;
+  await $$`bun run docs`;
 
   const docsOutputPath = path.resolve(
     packagePath,

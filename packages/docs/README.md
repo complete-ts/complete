@@ -5,7 +5,7 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 ## Local Development
 
 ```sh
-npm run start
+bun run start
 ```
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.

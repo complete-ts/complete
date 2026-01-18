@@ -10,7 +10,7 @@ await lintScript(import.meta.dirname, async (packageRoot) => {
   await mapAsync(lintPackages, async (packageName) => {
     const packagePath = path.join(packageRoot, "packages", packageName);
     const $$ = $({ cwd: packagePath });
-    await $$`npm run lint`;
+    await $$`bun run lint`;
   });
 
   console.log("Successfully linted all monorepo packages.");

@@ -23,6 +23,7 @@ import {
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
+import { getPackageManagerForProject } from "./packageManager.js";
 import { getArgs } from "./utils.js";
 
 enum VersionBump {
@@ -109,10 +110,15 @@ export async function monorepoPublish(
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
+    const packageManager = await getPackageManagerForProject(packagePath);
+    assertDefined(
+      packageManager,
+      `Failed to find the package manager for project: ${packagePath}`,
+    );
     await mapAsync(PACKAGE_SCRIPTS_THAT_MUST_PASS, async (scriptName) => {
       const scriptCommand = scripts[scriptName];
       if (typeof scriptCommand === "string") {
-        await $$`npm run ${scriptName}`;
+        await $$`${packageManager} run ${scriptName}`;
       }
     });
   }

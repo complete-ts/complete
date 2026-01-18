@@ -95,9 +95,9 @@ async function prePublish(
   await incrementVersion(versionBumpType);
   await unsetDevelopmentConstants();
 
-  await tryRunNPMScript("build");
+  await tryRunPackageScript("build", packageManager);
   if (!skipLint) {
-    await tryRunNPMScript("lint");
+    await tryRunPackageScript("lint", packageManager);
   }
 }
 
@@ -176,7 +176,7 @@ async function incrementVersion(versionBumpType: string) {
 
   // We always use `npm` here to avoid differences with the version command between package
   // managers. The "--no-git-tag-version" flag will prevent npm from both making a commit and adding
-  // a tag.
+  // a tag. (`bun version` is not implemented.)
   await $`npm version ${versionBumpType} --no-git-tag-version`;
 }
 
@@ -194,13 +194,16 @@ async function unsetDevelopmentConstants() {
   await writeFile(constantsTSPath, newConstantsTS);
 }
 
-async function tryRunNPMScript(scriptName: string) {
+async function tryRunPackageScript(
+  scriptName: string,
+  packageManager: PackageManager,
+) {
   console.log(`Running: ${scriptName}`);
 
   const $$ = $({
     reject: false,
   });
-  const { exitCode } = await $$`npm run ${scriptName}`;
+  const { exitCode } = await $$`${packageManager} run ${scriptName}`;
 
   if (exitCode !== 0) {
     await $`git reset --hard`; // Revert the version changes.

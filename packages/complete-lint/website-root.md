@@ -18,6 +18,8 @@ It should have a `package.json` file, a `tsconfig.json` file, and so on.
 
 ### Step 1 - Install the Dependency
 
+For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
+
 ```sh
 npm install complete-lint --save-dev
 ```

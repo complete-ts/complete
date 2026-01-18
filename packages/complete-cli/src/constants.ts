@@ -14,7 +14,7 @@ const { name, version } = packageJSON;
 export const PROJECT_NAME = name;
 export const PROJECT_VERSION = version;
 
-export const DEFAULT_PACKAGE_MANAGER = PackageManager.npm;
+export const DEFAULT_PACKAGE_MANAGER = PackageManager.bun;
 
 const TEMPLATES_DIR = path.join(PACKAGE_ROOT, "file-templates");
 export const TEMPLATES_STATIC_DIR = path.join(TEMPLATES_DIR, "static");

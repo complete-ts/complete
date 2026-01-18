@@ -25,8 +25,8 @@ describe("hasEmoji", () => {
 
 This page is for people who like [cake](https://en.wikipedia.org/wiki/Cake).
 
-- Run \`npm run cake\` to get cake.
-- Run \`npm run pie\` to get pie.
+- Run \`command cake\` to get cake.
+- Run \`command pie\` to get pie.
       `),
       false,
     );

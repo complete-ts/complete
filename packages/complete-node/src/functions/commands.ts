@@ -9,7 +9,7 @@ import { $o } from "./execa.js";
 
 /**
  * Helper function to check if a specific command exists on the system by attempting to resolve it
- * with the "which" npm library.
+ * with the "which" library.
  */
 export async function commandExists(commandName: string): Promise<boolean> {
   try {
