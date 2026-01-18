@@ -151,7 +151,7 @@ export async function monorepoPublish(
   await $monorepo`git add ${packageJSONPath}`;
   const newVersion = await getPackageJSONVersion(packagePath);
   const tag = `${packageName}-${newVersion}`;
-  const commitMessage = `chore(release): ${tag}`;
+  const commitMessage = `chore: release ${tag}`;
   await $monorepo`git commit --message ${commitMessage}`;
   // By default, "git tag" will create a lightweight tag instead of an annotated tag unless the
   // "--annotate" flag is provided. Annotated tags are preferred because:
