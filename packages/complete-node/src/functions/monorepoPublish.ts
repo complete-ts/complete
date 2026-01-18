@@ -23,11 +23,7 @@ import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
-import {
-  getPackageJSONScripts,
-  getPackageJSONVersion,
-  packageJSONHasDependency,
-} from "./packageJSON.js";
+import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { getPackageManagerForProject } from "./packageManager.js";
 import { getArgs } from "./utils.js";
 
@@ -134,26 +130,18 @@ export async function monorepoPublish(
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
 
-  const hasChangesets = await packageJSONHasDependency(
-    monorepoRoot,
-    "@changesets/cli",
-    "devDependencies",
-  );
+  // TODO: use bumpp
 
-  if (hasChangesets) {
-    await $monorepo`changeset version`;
-  } else {
-    /**
-     * Normally, the "version" command of the packager manager will automatically make a Git commit
-     * for you. However the npm version command is bugged with subdirectories:
-     * https://github.com/npm/cli/issues/2010
-     *
-     * Thus, we manually revert to doing a commit ourselves.
-     */
-    await (isDev
-      ? $package`npm version prerelease --preid=dev --commit-hooks=false`
-      : $package`npm version ${versionBump} --commit-hooks=false`);
-  }
+  /**
+   * Normally, the "version" command of the packager manager will automatically make a Git commit
+   * for you. However the npm version command is bugged with subdirectories:
+   * https://github.com/npm/cli/issues/2010
+   *
+   * Thus, we manually revert to doing a commit ourselves.
+   */
+  await (isDev
+    ? $package`bumpp version prerelease --preid=dev --commit-hooks=false`
+    : $package`bumpp version ${versionBump} --commit-hooks=false`);
 
   // Update the lock file.
   await $monorepo`bun install`;

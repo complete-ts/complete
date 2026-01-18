@@ -46,6 +46,7 @@
       "@typescript-eslint/type-utils": "8.53.0",
       "@typescript-eslint/types": "8.53.0",
       "@typescript-eslint/utils": "8.53.0",
+      "bumpp": "10.4.0",
       "chalk": "5.6.2",
       "clipanion": "4.0.0-rc.4",
       "confusing-browser-globals": "1.0.11",
@@ -105,7 +106,6 @@
     "update": "bun run ./scripts/update.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "2.29.8",
     "complete-node": "workspace:*",
     "cspell": "catalog:",
     "cspell-check-unused-words": "catalog:",
