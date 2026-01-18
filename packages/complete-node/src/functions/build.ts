@@ -9,6 +9,7 @@ import path from "node:path";
 import { $, $o, $q } from "./execa.js";
 import { assertFile } from "./file.js";
 import { getPackageJSON } from "./packageJSON.js";
+import { getPackageManagerForProject } from "./packageManager.js";
 
 /**
  * Helper function to see if the compiled output that is checked-in to the Git repository is
@@ -22,7 +23,9 @@ import { getPackageJSON } from "./packageJSON.js";
  * @throws If the compiled output is not up-to-date.
  */
 export async function checkCompiledOutputInRepo(): Promise<void> {
-  const command = "npm run build";
+  const cwd = process.cwd();
+  const packageManager = await getPackageManagerForProject(cwd);
+  const command = `${packageManager} run build`;
   const commandParts = command.split(" ");
   await $q`${commandParts}`;
 

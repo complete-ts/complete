@@ -1,6 +1,5 @@
 bun refactor:
 
-- checkCompiledOutputInRepo
 - do PR to npm-check-updates for catalog
 - TODO: Get "npm-check-updates" working with catalogs.
 
