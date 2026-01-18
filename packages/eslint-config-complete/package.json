@@ -49,6 +49,7 @@
     "@types/confusing-browser-globals": "catalog:",
     "@types/eslint-config-prettier": "catalog:",
     "@types/node": "catalog:",
+    "@typescript-eslint/utils": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
     "eslint-config-prettier": "catalog:",

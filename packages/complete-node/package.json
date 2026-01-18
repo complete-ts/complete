@@ -50,6 +50,7 @@
     "@types/node": "catalog:",
     "@types/which": "catalog:",
     "eslint-plugin-sort-exports": "catalog:",
+    "typedoc": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "unbuild": "catalog:"

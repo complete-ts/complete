@@ -106,9 +106,16 @@
   },
   "devDependencies": {
     "complete-node": "workspace:*",
+    "cspell": "catalog:",
+    "cspell-check-unused-words": "catalog:",
+    "eslint": "catalog:",
     "eslint-plugin-complete": "workspace:*",
     "git-pull-run": "1.6.2",
     "husky": "9.1.7",
-    "markdownlint-cli": "0.47.0"
+    "knip": "catalog:",
+    "markdownlint-cli": "0.47.0",
+    "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-packagejson": "catalog:"
   }
 }
