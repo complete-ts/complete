@@ -4,6 +4,7 @@
  * @module
  */
 
+import { versionBumpInfo } from "bumpp";
 import chalk from "chalk";
 import {
   assertDefined,
@@ -130,18 +131,14 @@ export async function monorepoPublish(
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
 
-  // TODO: use bumpp
-
-  /**
-   * Normally, the "version" command of the packager manager will automatically make a Git commit
-   * for you. However the npm version command is bugged with subdirectories:
-   * https://github.com/npm/cli/issues/2010
-   *
-   * Thus, we manually revert to doing a commit ourselves.
-   */
-  await (isDev
-    ? $package`bumpp version prerelease --preid=dev --commit-hooks=false`
-    : $package`bumpp version ${versionBump} --commit-hooks=false`);
+  await versionBumpInfo({
+    release: isDev ? "prerelease" : versionBump, // Defaults to "prompt".
+    preid: isDev ? "dev" : undefined, // Defaults to "beta".
+    commit: false, // Defaults to true.
+    tag: false, // Defaults to true.
+    confirm: false, // Defaults to true.
+    cwd: packagePath,
+  });
 
   // Update the lock file.
   await $monorepo`bun install`;
