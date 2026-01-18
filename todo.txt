@@ -1,8 +1,8 @@
 bun refactor:
 
-- check for isBunRuntime and delete the complete-cli package manager check
-- do PR to npm-check-updates for catalog
 - checkCompiledOutputInRepo
+- do PR to npm-check-updates for catalog
+- TODO: Get "npm-check-updates" working with catalogs.
 
 ----------------------------------------------------------------------------------------------------
 
