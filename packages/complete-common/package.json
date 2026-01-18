@@ -32,11 +32,11 @@
     "test": "bun test"
   },
   "devDependencies": {
-    "@types/node": "25.0.9",
+    "@types/node": "catalog:",
     "complete-node": "workspace:*",
-    "eslint-plugin-sort-exports": "0.9.1",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.53.0",
-    "unbuild": "3.6.1"
+    "eslint-plugin-sort-exports": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "unbuild": "catalog:"
   }
 }

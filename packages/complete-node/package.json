@@ -32,26 +32,26 @@
     "test": "bun test"
   },
   "dependencies": {
-    "chalk": "5.6.2",
+    "chalk": "catalog:",
     "complete-common": "workspace:*",
-    "diff": "8.0.3",
-    "dotenv": "17.2.3",
-    "error-stack-parser": "2.1.4",
-    "execa": "9.6.1",
-    "jsonc-parser": "3.3.1",
-    "listr2": "10.0.0",
-    "npm-check-updates": "19.3.1",
-    "package-directory": "8.1.0",
-    "prettier": "3.7.2",
-    "which": "6.0.0",
-    "zod": "4.3.5"
+    "diff": "catalog:",
+    "dotenv": "catalog:",
+    "error-stack-parser": "catalog:",
+    "execa": "catalog:",
+    "jsonc-parser": "catalog:",
+    "listr2": "catalog:",
+    "npm-check-updates": "catalog:",
+    "package-directory": "catalog:",
+    "prettier": "catalog:",
+    "which": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "25.0.9",
-    "@types/which": "3.0.4",
-    "eslint-plugin-sort-exports": "0.9.1",
-    "typescript": "5.9.3",
-    "typescript-eslint": "8.53.0",
-    "unbuild": "3.6.1"
+    "@types/node": "catalog:",
+    "@types/which": "catalog:",
+    "eslint-plugin-sort-exports": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "unbuild": "catalog:"
   }
 }

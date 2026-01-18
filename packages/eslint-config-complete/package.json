@@ -32,28 +32,28 @@
     "lint": "bun run ./scripts/lint.ts"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "5.7.0",
-    "confusing-browser-globals": "1.0.11",
-    "eslint-import-resolver-typescript": "4.4.4",
+    "@stylistic/eslint-plugin": "catalog:",
+    "confusing-browser-globals": "catalog:",
+    "eslint-import-resolver-typescript": "catalog:",
     "eslint-plugin-complete": "workspace:*",
-    "eslint-plugin-eslint-plugin": "7.3.0",
-    "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-jsdoc": "62.0.0",
-    "eslint-plugin-n": "17.23.2",
-    "eslint-plugin-unicorn": "62.0.0",
-    "jsonc-eslint-parser": "2.4.2",
-    "typescript-eslint": "8.53.0"
+    "eslint-plugin-eslint-plugin": "catalog:",
+    "eslint-plugin-import-x": "catalog:",
+    "eslint-plugin-jsdoc": "catalog:",
+    "eslint-plugin-n": "catalog:",
+    "eslint-plugin-unicorn": "catalog:",
+    "jsonc-eslint-parser": "catalog:",
+    "typescript-eslint": "catalog:"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.2",
-    "@types/confusing-browser-globals": "1.0.3",
-    "@types/eslint-config-prettier": "6.11.3",
-    "@types/node": "25.0.9",
+    "@eslint/js": "catalog:",
+    "@types/confusing-browser-globals": "catalog:",
+    "@types/eslint-config-prettier": "catalog:",
+    "@types/node": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
-    "eslint-config-prettier": "10.1.8",
-    "extract-comments": "1.1.0",
-    "typescript": "5.9.3"
+    "eslint-config-prettier": "catalog:",
+    "extract-comments": "catalog:",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
     "eslint": ">= 9.0.0"

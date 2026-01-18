@@ -25,17 +25,17 @@
     "README.md"
   ],
   "dependencies": {
-    "@types/node": "25.0.9",
+    "@types/node": "catalog:",
     "complete-tsconfig": "workspace:*",
-    "cspell": "9.6.0",
-    "cspell-check-unused-words": "1.6.0",
-    "eslint": "9.39.2",
+    "cspell": "catalog:",
+    "cspell-check-unused-words": "catalog:",
+    "eslint": "catalog:",
     "eslint-config-complete": "workspace:*",
-    "eslint-import-resolver-typescript": "4.4.4",
-    "knip": "5.81.0",
-    "prettier": "3.7.2",
-    "prettier-plugin-organize-imports": "4.3.0",
-    "prettier-plugin-packagejson": "2.5.21"
+    "eslint-import-resolver-typescript": "catalog:",
+    "knip": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "prettier-plugin-packagejson": "catalog:"
   },
   "peerDependencies": {
     "typescript": ">= 5.0.0"

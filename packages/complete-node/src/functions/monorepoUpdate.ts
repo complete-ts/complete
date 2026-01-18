@@ -48,6 +48,9 @@ const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
+ * Note that this function is not needed if the monorepo is using the pnpm or bun "catalog" feature,
+ * since that will automatically keep package dependencies in-sync.
+ *
  * @throws If one or more child "package.json" files are out of sync.
  */
 export async function lintMonorepoPackageJSONs(
