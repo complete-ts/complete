@@ -105,6 +105,7 @@
     "update": "bun run ./scripts/update.ts"
   },
   "devDependencies": {
+    "@changesets/cli": "2.29.8",
     "complete-node": "workspace:*",
     "cspell": "catalog:",
     "cspell-check-unused-words": "catalog:",

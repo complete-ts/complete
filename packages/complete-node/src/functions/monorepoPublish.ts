@@ -16,14 +16,18 @@ import {
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { PackageManager } from "../enums/PackageManager.js";
-import { $, $o } from "./execa.js";
+import { $ } from "./execa.js";
 import { assertDirectory } from "./file.js";
-import { isGitDirectoryClean } from "./git.js";
+import { getGitBranch, isGitDirectoryClean } from "./git.js";
 import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
-import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
+import {
+  getPackageJSONScripts,
+  getPackageJSONVersion,
+  packageJSONHasDependency,
+} from "./packageJSON.js";
 import { getPackageManagerForProject } from "./packageManager.js";
 import { getArgs } from "./utils.js";
 
@@ -90,7 +94,7 @@ export async function monorepoPublish(
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
   // polluting the main branch.)
-  const branchName = await $o`git branch --show-current`;
+  const branchName = await getGitBranch(monorepoRoot);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (branchName !== "main" && versionBump !== VersionBump.dev) {
     throw new Error("You must be on the main branch before publishing.");
@@ -101,9 +105,12 @@ export async function monorepoPublish(
     throw new Error("The Git repository must be clean before publishing.");
   }
 
+  const $monorepo = $({ cwd: monorepoRoot });
+  const $package = $({ cwd: packagePath });
+
   // Validate that we can push and pull to the repository.
-  await $`git pull --quiet`;
-  await $`git push --quiet`;
+  await $monorepo`git pull --quiet`;
+  await $monorepo`git push --quiet`;
 
   // Validate that we can detect the package manager.
   const packageManager = await getPackageManagerForProject(monorepoRoot);
@@ -112,8 +119,6 @@ export async function monorepoPublish(
     `Failed to get the package manager for the monorepo at directory: ${monorepoRoot}`,
   );
 
-  const $$ = $({ cwd: packagePath });
-
   // Before bumping the version, check to see if this package builds and lints and tests (so that we
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
@@ -121,32 +126,46 @@ export async function monorepoPublish(
     await mapAsync(PACKAGE_SCRIPTS_THAT_MUST_PASS, async (scriptName) => {
       const scriptCommand = scripts[scriptName];
       if (typeof scriptCommand === "string") {
-        await $$`${packageManager} run ${scriptName}`;
+        await $package`${packageManager} run ${scriptName}`;
       }
     });
   }
 
-  /**
-   * Normally, the "version" command of the packager manager will automatically make a Git commit
-   * for you. However the npm version command is bugged with subdirectories:
-   * https://github.com/npm/cli/issues/2010
-   *
-   * Thus, we manually revert to doing a commit ourselves.
-   */
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
-  await (isDev
-    ? $$`npm version prerelease --preid=dev --commit-hooks=false`
-    : $$`npm version ${versionBump} --commit-hooks=false`);
 
-  // Manually make a Git commit. (See above comment.)
+  const hasChangesets = await packageJSONHasDependency(
+    monorepoRoot,
+    "@changesets/cli",
+    "devDependencies",
+  );
+
+  if (hasChangesets) {
+    await $monorepo`changeset version`;
+  } else {
+    /**
+     * Normally, the "version" command of the packager manager will automatically make a Git commit
+     * for you. However the npm version command is bugged with subdirectories:
+     * https://github.com/npm/cli/issues/2010
+     *
+     * Thus, we manually revert to doing a commit ourselves.
+     */
+    await (isDev
+      ? $package`npm version prerelease --preid=dev --commit-hooks=false`
+      : $package`npm version ${versionBump} --commit-hooks=false`);
+  }
+
+  // Update the lock file.
+  await $monorepo`bun install`;
+
+  // Manually make a Git commit.
   const packageJSONPath = path.join(packagePath, "package.json");
-  await $`git add ${packageJSONPath}`;
+  await $monorepo`git add ${packageJSONPath}`;
   const newVersion = await getPackageJSONVersion(packagePath);
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore(release): ${tag}`;
-  await $`git commit --message ${commitMessage}`;
-  await $`git tag ${tag}`;
+  await $monorepo`git commit --message ${commitMessage}`;
+  await $monorepo`git tag ${tag}`;
   // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
   // Upload the package to npm.
@@ -156,7 +175,7 @@ export async function monorepoPublish(
   //   package is a scoped package), but it is saved here for posterity.
   // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
   //   script in the "package.json" file, causing an infinite loop.
-  await $$`${command} publish --access=public --ignore-scripts --tag=${npmTag}`;
+  await $package`${command} publish --access=public --ignore-scripts --tag=${npmTag}`;
 
   const elapsedSeconds = getElapsedSeconds(startTime);
   const secondsText = elapsedSeconds === 1 ? "second" : "seconds";
@@ -180,10 +199,10 @@ export async function monorepoPublish(
   const isRepositoryCleanOnFinish = await isGitDirectoryClean(monorepoRoot);
   if (!isRepositoryCleanOnFinish) {
     const gitCommitMessage = "chore: updating dependencies";
-    await $`git add --all`;
-    await $`git commit --message ${gitCommitMessage}`;
+    await $monorepo`git add --all`;
+    await $monorepo`git commit --message ${gitCommitMessage}`;
   }
 
   // The "--follow-tags" flag is needed because by default, tags are not pushed.
-  await $`git push --follow-tags`;
+  await $monorepo`git push --follow-tags`;
 }

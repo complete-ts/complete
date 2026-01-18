@@ -271,6 +271,40 @@ export async function getPackageJSONVersion(
 }
 
 /**
+ * Helper function to asynchronously check for a "dependencies" or "devDependencies" or
+ * "peerDependencies" field from a "package.json" file.
+ *
+ * @param filePathOrDirPathOrRecord Either the path to a "package.json" file, the path to a
+ *                                 directory which contains a "package.json" file, or a parsed
+ *                                 JavaScript object from a JSON file. If undefined is passed, the
+ *                                 current working directory will be used.
+ * @param dependencyName The name of the dependency to check for.
+ * @param dependencyType Optional. The specific dependencies field to get. Defaults to
+ *                       "dependencies".
+ * @throws If the "package.json" file cannot be found or is otherwise invalid.
+ */
+export async function packageJSONHasDependency(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+  dependencyName: string,
+  dependencyType: DependencyType = "dependencies",
+): Promise<boolean> {
+  const packageJSONDependencies = await getPackageJSONDependencies(
+    filePathOrDirPathOrRecord,
+    dependencyType,
+  );
+
+  if (packageJSONDependencies === undefined) {
+    return false;
+  }
+
+  const dependency = packageJSONDependencies[dependencyName];
+  return dependency !== undefined;
+}
+
+/**
  * Helper function to asynchronously check if a "package.json" file has a particular script. This
  * will throw an error if the "package.json" file cannot be found or is otherwise invalid.
  *
