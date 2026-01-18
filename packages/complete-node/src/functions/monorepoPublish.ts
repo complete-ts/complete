@@ -15,6 +15,7 @@ import {
 } from "complete-common";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
+import { PackageManager } from "../enums/PackageManager.js";
 import { $, $o } from "./execa.js";
 import { assertDirectory } from "./file.js";
 import { isGitDirectoryClean } from "./git.js";
@@ -104,17 +105,19 @@ export async function monorepoPublish(
   await $`git pull --quiet`;
   await $`git push --quiet`;
 
+  // Validate that we can detect the package manager.
+  const packageManager = await getPackageManagerForProject(monorepoRoot);
+  assertDefined(
+    packageManager,
+    `Failed to get the package manager for the monorepo at directory: ${monorepoRoot}`,
+  );
+
   const $$ = $({ cwd: packagePath });
 
   // Before bumping the version, check to see if this package builds and lints and tests (so that we
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
-    const packageManager = await getPackageManagerForProject(packagePath);
-    assertDefined(
-      packageManager,
-      `Failed to find the package manager for project: ${packagePath}`,
-    );
     await mapAsync(PACKAGE_SCRIPTS_THAT_MUST_PASS, async (scriptName) => {
       const scriptCommand = scripts[scriptName];
       if (typeof scriptCommand === "string") {
@@ -147,12 +150,13 @@ export async function monorepoPublish(
   // (Defer doing a "git push" until the end so that we only trigger a single CI run.)
 
   // Upload the package to npm.
+  const command = packageManager === PackageManager.bun ? "bun" : "npm";
   const npmTag = isDev ? "next" : "latest";
   // - The "--access=public" flag is only technically needed for the first publish (unless the
   //   package is a scoped package), but it is saved here for posterity.
   // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the "publish"
   //   script in the "package.json" file, causing an infinite loop.
-  await $$`npm publish --access=public --ignore-scripts --tag=${npmTag}`;
+  await $$`${command} publish --access=public --ignore-scripts --tag=${npmTag}`;
 
   const elapsedSeconds = getElapsedSeconds(startTime);
   const secondsText = elapsedSeconds === 1 ? "second" : "seconds";

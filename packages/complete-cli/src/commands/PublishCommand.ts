@@ -1,16 +1,17 @@
 import { Command, Option } from "clipanion";
-import { isSemanticVersion } from "complete-common";
-import type { PackageManager } from "complete-node";
+import { assertDefined, isSemanticVersion } from "complete-common";
 import {
   $,
   fatalError,
   getPackageJSONFieldsMandatory,
+  getPackageManagerForProject,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
   getPackageManagersForProject,
   isFile,
   isGitDirectoryClean,
   isGitRepository,
+  PackageManager,
   readFile,
   updatePackageJSONDependencies,
   writeFile,
@@ -224,11 +225,18 @@ async function publish(dryRun: boolean) {
     const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
     await gitCommitAllAndPush(releaseGitCommitMessage);
 
+    const packageManager = await getPackageManagerForProject(CWD);
+    assertDefined(
+      packageManager,
+      `Failed to get the package manager for the project at directory: ${CWD}`,
+    );
+    const command = packageManager === PackageManager.bun ? "bun" : "npm";
+
     // - The "--access=public" flag is only technically needed for the first publish (unless the
     //   package is a scoped package), but it is saved here for posterity.
     // - The "--ignore-scripts" flag is needed since the "npm publish" command will run the
     //   "publish" script in the "package.json" file, causing an infinite loop.
-    await $`npm publish --access=public --ignore-scripts`;
+    await $`${command} publish --access=public --ignore-scripts`;
   }
 
   const dryRunSuffix = dryRun ? " (dry-run)" : "";

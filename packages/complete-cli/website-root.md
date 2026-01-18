@@ -64,7 +64,7 @@ Specifically, this will:
 - Ensure that the project builds.
 - Ensure that the project lints.
 - Commit the version change.
-- Run `npm publish`.
+- Run `npm publish` / `bun publish` (depending on the package manager used in the project).
 
 ### `update`
 
