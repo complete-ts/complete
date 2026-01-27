@@ -25,7 +25,7 @@ export function assertArray(
 export function assertArrayBoolean(
   value: unknown,
   msg: string,
-): asserts value is unknown[] {
+): asserts value is boolean[] {
   assertArray(value, msg);
 
   if (value.some((element) => typeof element !== "boolean")) {
@@ -40,7 +40,7 @@ export function assertArrayBoolean(
 export function assertArrayNumber(
   value: unknown,
   msg: string,
-): asserts value is unknown[] {
+): asserts value is number[] {
   assertArray(value, msg);
 
   if (value.some((element) => typeof element !== "number")) {
@@ -70,7 +70,7 @@ export function assertArrayObject(
 export function assertArrayString(
   value: unknown,
   msg: string,
-): asserts value is unknown[] {
+): asserts value is string[] {
   assertArray(value, msg);
 
   if (value.some((element) => typeof element !== "string")) {
