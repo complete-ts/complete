@@ -24,6 +24,7 @@ const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
 const WHITESPACE_REGEX = /\s/g;
+const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/g;
 const UPPERCASE_REGEX = /^[A-Z]*$/;
 const LOWERCASE_REGEX = /^[a-z]*$/;
 
@@ -309,6 +310,14 @@ export function removeNonPrintableCharacters(string: string): string {
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
   return string.replaceAll(WHITESPACE_REGEX, "");
+}
+
+/** Helper function to convert a string from TitleCase (PascalCase) to kebab-case. */
+export function titleCaseToKebabCase(string: string): string {
+  return string
+    .replaceAll(TITLE_CASE_BOUNDARY_REGEX, "-")
+    .replaceAll(/ +/g, "-")
+    .toLowerCase();
 }
 
 /**

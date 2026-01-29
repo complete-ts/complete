@@ -4,6 +4,7 @@ import {
   hasDiacritic,
   hasEmoji,
   isKebabCase,
+  titleCaseToKebabCase,
   trimPrefix,
   trimSuffix,
 } from "./string.js";
@@ -122,6 +123,40 @@ describe("isKebabCase", () => {
 
   test("should return false for an empty string", () => {
     equal(isKebabCase(""), false);
+  });
+});
+
+describe("titleCaseToKebabCase", () => {
+  test("should convert a single TitleCase word to lowercase", () => {
+    equal(titleCaseToKebabCase("Foo"), "foo");
+  });
+
+  test("should convert two TitleCase words to kebab-case", () => {
+    equal(titleCaseToKebabCase("FooBar"), "foo-bar");
+  });
+
+  test("should convert multiple TitleCase words to kebab-case", () => {
+    equal(titleCaseToKebabCase("FooBarBaz"), "foo-bar-baz");
+  });
+
+  test("should handle an empty string", () => {
+    equal(titleCaseToKebabCase(""), "");
+  });
+
+  test("should handle a string that is already lowercase", () => {
+    equal(titleCaseToKebabCase("foo"), "foo");
+  });
+
+  test("should handle a string with digits", () => {
+    equal(titleCaseToKebabCase("Foo2Bar"), "foo2-bar");
+  });
+
+  test("should handle spaces", () => {
+    equal(titleCaseToKebabCase("Foo Bar"), "foo-bar");
+  });
+
+  test("should handle multiple spaces", () => {
+    equal(titleCaseToKebabCase("Foo  Bar"), "foo-bar");
   });
 });
 
