@@ -8,7 +8,7 @@ import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
 
 /**
  * Helper function to get the values in an object that match an arbitrary condition. Similar to the
- * `Array.map` method, but works for objects.
+ * `Array.filter` method, but works for objects.
  *
  * This is efficient such that it avoids converting the object values into an array.
  */
@@ -31,7 +31,23 @@ export function objectFilter<K extends string | number | symbol, V>(
 }
 
 /**
- * Helper function to convert an object to a map.
+ * Helper function to map the values in an object to another object with new values. Similar to the
+ * `Array.map` method, but works for objects.
+ */
+export function objectMap<K extends string | number | symbol, V, U>(
+  object: Record<K, V>,
+  callback: (key: K, value: V) => U,
+): ReadonlyRecord<K, U> {
+  const entries = Object.entries(object);
+  const mappedEntries = entries.map(([key, value]) => [
+    key,
+    callback(key as K, value as V),
+  ]);
+  return Object.fromEntries(mappedEntries) as Record<K, U>;
+}
+
+/**
+ * Helper function to convert an object to a `Map`.
  *
  * This is useful when you need to construct a type safe object with the `satisfies` operator, but
  * then later on you need to query it in a way where you expect the return value to be T or

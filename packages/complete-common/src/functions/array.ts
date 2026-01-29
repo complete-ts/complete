@@ -177,12 +177,12 @@ export async function filterAsync<T>(
  */
 export function filterMap<OldT, NewT>(
   array: readonly OldT[],
-  func: (element: OldT) => NewT | undefined,
+  predicate: (element: OldT) => NewT | undefined,
 ): readonly NewT[] {
   const filteredArray: NewT[] = [];
 
   for (const element of array) {
-    const newElement = func(element);
+    const newElement = predicate(element);
     if (newElement !== undefined) {
       filteredArray.push(newElement);
     }
@@ -212,14 +212,14 @@ export function filterMap<OldT, NewT>(
  */
 export async function filterMapAsync<OldT, NewT>(
   array: readonly OldT[],
-  func: (
+  predicate: (
     element: OldT,
     index: number,
     array: readonly OldT[],
   ) => Promise<NewT | undefined>,
 ): Promise<readonly NewT[]> {
   const promises = array.map(
-    async (element, index) => await func(element, index, array),
+    async (element, index) => await predicate(element, index, array),
   );
   const results = await Promise.all(promises);
   return results.filter((item) => item !== undefined);
