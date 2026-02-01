@@ -7,6 +7,7 @@
 import type { ReadonlyRecord } from "complete-common";
 import {
   assertDefined,
+  assertObject,
   assertString,
   isObject,
   mapAsync,
@@ -16,7 +17,7 @@ import { packageDirectory } from "package-directory";
 import { isFile } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
 import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
-import { writeFile } from "./readWrite.js";
+import { readFile, writeFile } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
 type DepType = "dependencies" | "devDependencies" | "peerDependencies";
@@ -132,6 +133,15 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
     monorepoDependencies,
     `The "${monorepoPackageJSONPath}" file does not have a "dependencies" field.`,
   );
+
+  // If this monorepo uses the "catalog" feature of bun, then we do not need to do anything, because
+  // presumably all of the dependencies are specified as "catalog:".
+  const monorepoUsesCatalog = await doesMonorepoUseCatalog(
+    monorepoPackageJSONPath,
+  );
+  if (monorepoUsesCatalog) {
+    return true;
+  }
 
   // Second, get the child "package.json" files.
   const monorepoPackageNames = await getMonorepoPackageNames(monorepoRoot);
@@ -276,6 +286,28 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   }
 
   return valid;
+}
+
+/** @see https://bun.com/docs/pm/catalogs */
+async function doesMonorepoUseCatalog(
+  monorepoPackageJSONPath: string,
+): Promise<boolean> {
+  const monorepoPackageJSONContents = await readFile(monorepoPackageJSONPath);
+  const monorepoPackageJSON = JSON.parse(
+    monorepoPackageJSONContents,
+  ) as unknown;
+  assertObject(
+    monorepoPackageJSON,
+    `Failed to parse: ${monorepoPackageJSONPath}`,
+  );
+
+  const { workspaces } = monorepoPackageJSON;
+  if (!isObject(workspaces)) {
+    return false;
+  }
+
+  const { catalog } = workspaces;
+  return isObject(catalog);
 }
 
 async function getMonorepoChildPackageJSONMap(
