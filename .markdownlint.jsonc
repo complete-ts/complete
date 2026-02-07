@@ -1,0 +1,10 @@
+{
+  // TODO: https://github.com/DavidAnson/markdownlint/pull/1939
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/refs/heads/main/schema/.markdownlint.jsonc",
+
+  // Line length
+  // https://github.com/DavidAnson/markdownlint/blob/main/doc/md013.md
+  // Having an arbitrary line length limit for Markdown files is undesirable because we format them
+  // with Prettier and Prettier does not automatically break long lines.
+  "MD013": false,
+}
