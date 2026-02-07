@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "markdownlint configuration schema for JSONC",
+  "description": "JSON schema for the markdownlint configuration file. The official one does not support trailing commas, but this one does.",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema-strict.json"
+    }
+  ],
+  "allowTrailingCommas": true
+}
