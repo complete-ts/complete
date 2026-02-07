@@ -4,8 +4,8 @@
   "config": {
     // Line length
     // https://github.com/DavidAnson/markdownlint/blob/main/doc/md013.md
-    // Having an arbitrary line length limit for Markdown files is undesirable because we format them
-    // with Prettier and Prettier does not automatically break long lines.
+    // Having an arbitrary line length limit for Markdown files is undesirable because we format
+    // them with Prettier and Prettier does not automatically break long lines.
     "MD013": false,
   },
 
