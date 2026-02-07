@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/markdownlint-cli2-config-schema-jsonc.json",
+
+  "config": {
+    // Line length
+    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md013.md
+    // Having an arbitrary line length limit for Markdown files is undesirable because we format them
+    // with Prettier and Prettier does not automatically break long lines.
+    "MD013": false,
+  },
+
+  "ignores": ["**/node_modules", "packages/docs/docs"],
+}
