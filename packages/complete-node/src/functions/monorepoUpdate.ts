@@ -126,22 +126,22 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   monorepoRoot: string,
   dryRun = false,
 ): Promise<boolean> {
-  // First, get and validate the root monorepo "package.json" file.
-  const monorepoDependencies = await getPackageJSONDependencies(monorepoRoot);
-  const monorepoPackageJSONPath = path.join(monorepoRoot, "package.json");
-  assertDefined(
-    monorepoDependencies,
-    `The "${monorepoPackageJSONPath}" file does not have a "dependencies" field.`,
-  );
-
   // If this monorepo uses the "catalog" feature of bun, then we do not need to do anything, because
   // presumably all of the dependencies are specified as "catalog:".
+  const monorepoPackageJSONPath = path.join(monorepoRoot, "package.json");
   const monorepoUsesCatalog = await doesMonorepoUseCatalog(
     monorepoPackageJSONPath,
   );
   if (monorepoUsesCatalog) {
     return true;
   }
+
+  // First, get and validate the root monorepo "package.json" file.
+  const monorepoDependencies = await getPackageJSONDependencies(monorepoRoot);
+  assertDefined(
+    monorepoDependencies,
+    `The "${monorepoPackageJSONPath}" file does not have a "dependencies" field.`,
+  );
 
   // Second, get the child "package.json" files.
   const monorepoPackageNames = await getMonorepoPackageNames(monorepoRoot);
