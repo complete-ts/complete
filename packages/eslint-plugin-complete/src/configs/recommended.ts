@@ -40,6 +40,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/prefer-plusplus": "error",
       "complete/prefer-postfix-plusplus": "error",
       "complete/prefer-readonly-parameter-types": "error",
+      "complete/require-ascii": "error",
       "complete/require-break": "error",
       "complete/require-capital-const-assertions": "error",
       "complete/require-capital-read-only": "error",

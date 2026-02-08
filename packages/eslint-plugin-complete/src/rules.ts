@@ -34,6 +34,7 @@ import { preferPathResolve } from "./rules/prefer-path-resolve.js";
 import { preferPlusplus } from "./rules/prefer-plusplus.js";
 import { preferPostfixPlusplus } from "./rules/prefer-postfix-plusplus.js";
 import { preferReadonlyParameterTypes } from "./rules/prefer-readonly-parameter-types.js";
+import { requireAscii } from "./rules/require-ascii.js";
 import { requireBreak } from "./rules/require-break.js";
 import { requireCapitalConstAssertions } from "./rules/require-capital-const-assertions.js";
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only.js";
@@ -77,6 +78,7 @@ export const rules = {
   "prefer-plusplus": preferPlusplus,
   "prefer-postfix-plusplus": preferPostfixPlusplus,
   "prefer-readonly-parameter-types": preferReadonlyParameterTypes,
+  "require-ascii": requireAscii,
   "require-break": requireBreak,
   "require-capital-const-assertions": requireCapitalConstAssertions,
   "require-capital-read-only": requireCapitalReadOnly,

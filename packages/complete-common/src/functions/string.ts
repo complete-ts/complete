@@ -7,8 +7,11 @@
 import { parseIntSafe } from "./utils.js";
 
 // When regular expressions are located at the root instead of inside the function, the functions
-// are tested to perform 11% faster.
+// are tested to perform 11% faster. However, since the global flag makes a regex stateful, care has
+// to be taken to ensure that regexes used for validation do not use the global flag. Otherwise,
+// they will return inconsistent results due to the `lastIndex` property persisting between calls.
 
+/** We use a "*" instead of a "+" so that an empty string will match. */
 // eslint-disable-next-line no-control-regex
 const ASCII_REGEX = /^[\u0000-\u007F]*$/;
 
@@ -23,7 +26,8 @@ const EMOJI_REGEX = /(\p{Extended_Pictographic}|[#*0-9]\uFE0F?\u20E3)/u;
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
 const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
-const WHITESPACE_REGEX = /\s/g;
+const WHITESPACE_REGEX = /\s/;
+const WHITESPACE_GLOBAL_REGEX = /\s/g;
 const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/g;
 const UPPERCASE_REGEX = /^[A-Z]*$/;
 const LOWERCASE_REGEX = /^[a-z]*$/;
@@ -309,7 +313,7 @@ export function removeNonPrintableCharacters(string: string): string {
 
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
-  return string.replaceAll(WHITESPACE_REGEX, "");
+  return string.replaceAll(WHITESPACE_GLOBAL_REGEX, "");
 }
 
 /** Helper function to convert a string from TitleCase (PascalCase) to kebab-case. */
