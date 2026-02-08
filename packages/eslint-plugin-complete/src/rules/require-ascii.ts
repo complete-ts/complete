@@ -1,12 +1,12 @@
 import { createRule } from "../utils.js";
 
-export type Options = [
+type Options = [
   {
     whitelist?: string[];
   },
 ];
 
-export type MessageIds = "onlyASCII";
+type MessageIds = "onlyASCII";
 
 export const requireAscii = createRule<Options, MessageIds>({
   name: "require-ascii",
