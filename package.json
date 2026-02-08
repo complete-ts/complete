@@ -99,6 +99,7 @@
   },
   "scripts": {
     "postinstall": "bun run ./packages/eslint-plugin-complete/scripts/build.ts",
+    "prepublish": "cd packages/eslint-plugin-complete && bun run build",
     "lint": "bun run ./scripts/lint.ts",
     "lint-all": "bun run ./scripts/lint-all.ts",
     "prepare": "husky",
