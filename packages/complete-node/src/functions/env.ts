@@ -37,7 +37,7 @@ export async function getEnv(importMetaDirname: string): Promise<void> {
     path: envPath,
 
     // By default, dotenv will unhelpfully spam you with tips like: [dotenv@17.2.0] injecting env
-    // (0) from .env (tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild)
+    // (0) from .env (tip: prevent building .env in docker: https://dotenvx.com/prebuild)
     quiet: true,
   });
 

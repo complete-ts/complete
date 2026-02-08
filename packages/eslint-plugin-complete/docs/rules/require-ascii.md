@@ -4,6 +4,8 @@
 
 📝 Require code and comments to only contain ASCII characters.
 
+⚙️ This rule is configurable.
+
 <!-- end auto-generated rule header -->
 
 Require code and comments to only contain ASCII characters. If this is too restrictive, you can use the `whitelist` option to allow specific characters.
