@@ -146,7 +146,7 @@
     },
     "packages/eslint-config-complete": {
       "name": "eslint-config-complete",
-      "version": "4.1.5",
+      "version": "4.2.0",
       "dependencies": {
         "@stylistic/eslint-plugin": "catalog:",
         "confusing-browser-globals": "catalog:",
