@@ -56,6 +56,7 @@ async function createDocFile(ruleName: string, description: string) {
   const content = replaceTemplateText(templateMDContent, ruleName, description);
   const ruleMDPath = path.join(DOCS_PATH, "rules", `${ruleName}.md`);
   await writeFile(ruleMDPath, content);
+  console.log(`Created: ${ruleMDPath}`);
 }
 
 async function createSourceFile(ruleName: string, description: string) {
@@ -68,6 +69,7 @@ async function createSourceFile(ruleName: string, description: string) {
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleSourcePath = path.join(SRC_PATH, "rules", `${ruleName}.ts`);
   await writeFile(ruleSourcePath, contentWithoutComments);
+  console.log(`Created: ${ruleSourcePath}`);
 }
 
 async function createTestFile(ruleName: string, description: string) {
@@ -80,6 +82,7 @@ async function createTestFile(ruleName: string, description: string) {
   const contentWithoutComments = removeFirstAndLastLine(content);
   const ruleTestPath = path.join(TESTS_PATH, "rules", `${ruleName}.test.ts`);
   await writeFile(ruleTestPath, contentWithoutComments);
+  console.log(`Created: ${ruleTestPath}`);
 }
 
 function replaceTemplateText(

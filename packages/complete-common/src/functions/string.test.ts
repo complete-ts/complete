@@ -1,3 +1,5 @@
+/* eslint-disable complete/require-ascii */
+
 import { equal } from "node:assert";
 import { describe, test } from "node:test";
 import {

@@ -86,6 +86,8 @@ function fixRulesTableForJavaScriptOnlyDisabledRules(content) {
       String.raw`(\| \[${ruleName}\][^|]+\| [^|]+\|)(\s+)(\|)`,
       "g",
     );
+
+    // eslint-disable-next-line complete/require-ascii
     content = content.replace(rulePattern, "$1 ✅  $3");
   }
 
