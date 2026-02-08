@@ -39,6 +39,7 @@ const HELPFUL_WARNINGS = {
         "**/scripts/**", // Files inside of a "scripts" directory.
         "**/test/**", // Files inside of a "test" directory.
         "**/tests/**", // Files inside of a "tests" directory.
+        "**/*.test.{js,cjs,mjs,ts,cts,mts}", // Test files
         "**/*.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
         "**/*.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
       ],
