@@ -6,7 +6,7 @@
 
 <!-- end auto-generated rule header -->
 
-Require code and comments to only contain ASCII characters.
+Require code and comments to only contain ASCII characters. If this is too restrictive, you can use the `whitelist` option to allow specific characters.
 
 ## Rule Details
 
@@ -14,7 +14,7 @@ Require code and comments to only contain ASCII characters.
 
 ```ts
 // Bad
-const name = "Αlice"; // Alice with a Greek letter A (0x391)
+const name = "Αlice"; // Greek letter A (0x391), which is indistinguishable from a normal A.
 
 // Good
 const name = "Alice"; // Normal A
@@ -22,7 +22,18 @@ const name = "Alice"; // Normal A
 
 ## Options
 
-This rule is not configurable.
+```json
+{
+  "rules": {
+    "complete/require-ascii": [
+      "error",
+      {
+        "whitelist": []
+      }
+    ]
+  }
+}
+```
 
 ## Resources
 

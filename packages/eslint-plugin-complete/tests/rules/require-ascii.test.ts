@@ -1,4 +1,5 @@
 /* eslint-disable complete/require-ascii */
+/* cspell:words Αlice */
 
 import { requireAscii } from "../../src/rules/require-ascii.js";
 import { ruleTester } from "../utils.js";
@@ -9,6 +10,12 @@ ruleTester.run("require-ascii", requireAscii, {
       code: `
 const name = "Alice"; // Normal A
       `,
+    },
+    {
+      code: `
+const name = "Αlice"; // Alice with a Greek letter A (0x391)
+      `,
+      options: [{ whitelist: ["Α"] }],
     },
   ],
 
