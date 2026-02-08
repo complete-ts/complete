@@ -20,7 +20,10 @@ import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
 import { assertDirectory } from "./file.js";
 import { getGitBranch, isGitDirectoryClean } from "./git.js";
-import { updatePackageJSONDependenciesMonorepo } from "./monorepoUpdate.js";
+import {
+  updatePackageJSONDependenciesMonorepo,
+  updatePackageJSONDependenciesMonorepoChildren,
+} from "./monorepoUpdate.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import { getPackageManagerForProject } from "./packageManager.js";
 import { getArgs } from "./utils.js";
@@ -179,6 +182,11 @@ export async function monorepoPublish(
     // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
     console.log("Checking for monorepo updates...");
     await updatePackageJSONDependenciesMonorepo(monorepoRoot);
+  } else {
+    // Even though we are not updating the dependencies in the root "package.json" file, we still
+    // have to bump the version of monorepo packages that are in other package's "package.json"
+    // files.
+    await updatePackageJSONDependenciesMonorepoChildren(monorepoRoot);
   }
 
   const isRepositoryCleanOnFinish = await isGitDirectoryClean(monorepoRoot);
