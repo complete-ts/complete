@@ -1,8 +1,5 @@
 import { createRule } from "../utils.js";
 
-// eslint-disable-next-line no-control-regex
-const ASCII_REGEX = /^[\u0000-\u007F]+$/g;
-
 export const requireAscii = createRule({
   name: "require-ascii",
   meta: {
@@ -20,21 +17,20 @@ export const requireAscii = createRule({
   defaultOptions: [],
   create(context) {
     return {
-      Identifier(node) {
-        const { name } = node;
-        const matches = ASCII_REGEX.test(name);
+      Program(node) {
+        const text = context.sourceCode.getText();
+        // eslint-disable-next-line no-control-regex
+        const nonAsciiRegex = /[^\u0000-\u007F]/gu;
+        let match: RegExpExecArray | null;
 
-        if (matches) {
+        while ((match = nonAsciiRegex.exec(text)) !== null) {
           context.report({
             node,
             messageId: "onlyASCII",
             data: {
-              character: matches,
+              character: match[0],
             },
-            loc: {
-              line: node.loc.start.line,
-              column: node.loc.start.column,
-            },
+            loc: context.sourceCode.getLocFromIndex(match.index),
           });
         }
       },

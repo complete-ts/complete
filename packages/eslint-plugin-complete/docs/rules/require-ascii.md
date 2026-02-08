@@ -4,18 +4,20 @@
 
 📝 Require code and comments to only contain ASCII characters.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
-
 <!-- end auto-generated rule header -->
 
 Require code and comments to only contain ASCII characters.
 
 ## Rule Details
 
+<!-- cspell:words Αlice -->
+
 ```ts
 // Bad
+const name = "Αlice"; // Alice with a Greek letter A (0x391)
 
 // Good
+const name = "Alice"; // Normal A
 ```
 
 ## Options

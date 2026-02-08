@@ -1,3 +1,5 @@
+/* eslint-disable complete/require-ascii */
+
 import { requireAscii } from "../../src/rules/require-ascii.js";
 import { ruleTester } from "../utils.js";
 
@@ -16,7 +18,13 @@ const name = "Alice"; // Normal A
 // cspell:disable-next-line
 const name = "Αlice"; // Alice with a Greek letter A (0x391)
       `,
-      errors: [{ messageId: "onlyASCII" }],
+      errors: [{ messageId: "onlyASCII", data: { character: "Α" } }],
+    },
+    {
+      code: `
+const emoji = "😀";
+      `,
+      errors: [{ messageId: "onlyASCII", data: { character: "😀" } }],
     },
   ],
 });
