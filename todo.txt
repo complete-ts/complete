@@ -1,7 +1,7 @@
 bun refactor:
 
-- do PR to npm-check-updates for catalog
 - TODO: Get "npm-check-updates" working with catalogs.
+- TODO: https://github.com/oven-sh/bun/pull/26797
 
 ----------------------------------------------------------------------------------------------------
 
