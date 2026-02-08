@@ -3,6 +3,7 @@ import { describe, test } from "node:test";
 import {
   hasDiacritic,
   hasEmoji,
+  isASCII,
   isKebabCase,
   titleCaseToKebabCase,
   trimPrefix,
@@ -58,6 +59,27 @@ describe("hasDiacritic", () => {
 
   test("should handle empty string", () => {
     equal(hasDiacritic(""), false);
+  });
+});
+
+describe("isASCII", () => {
+  test("should return true for ASCII strings", () => {
+    equal(isASCII("Hello World"), true);
+    equal(isASCII("1234567890"), true);
+    equal(isASCII("!@#$%^&*()_+"), true);
+    equal(isASCII(" \n\t\r"), true);
+  });
+
+  test("should return false for non-ASCII strings", () => {
+    equal(isASCII("Hello World 😃"), false);
+    equal(isASCII("á"), false);
+    equal(isASCII("è"), false);
+    equal(isASCII("ô"), false);
+    equal(isASCII("😊"), false);
+  });
+
+  test("should handle empty string", () => {
+    equal(isASCII(""), true);
   });
 });
 
