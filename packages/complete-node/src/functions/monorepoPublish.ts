@@ -146,6 +146,10 @@ export async function monorepoPublish(
   // Update the lock file.
   await $monorepo`bun install`;
 
+  // We must also run "bun update" in order for the new version to appear in the lock file.
+  // TODO: https://github.com/oven-sh/bun/pull/26797
+  await $monorepo`bun update`;
+
   // Manually make a Git commit.
   const packageJSONPath = path.join(packagePath, "package.json");
   await $monorepo`git add ${packageJSONPath}`;
