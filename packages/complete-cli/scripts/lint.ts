@@ -27,7 +27,7 @@ async function checkGitIgnoreUpdates() {
   if (localGitIgnore !== remoteGitIgnore) {
     diff(localGitIgnore, remoteGitIgnore);
     throw new Error(
-      `There is a new "${GITIGNORE_FILE_NAME}" file. Get it at:\n${GITIGNORE_URL}`,
+      `There is a new "${GITIGNORE_FILE_NAME}" file. Get it at: ${GITIGNORE_URL}`,
     );
   }
 }
