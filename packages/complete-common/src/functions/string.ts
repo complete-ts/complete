@@ -249,7 +249,7 @@ export function parseSemanticVersion(versionString: string):
  *
  * For example, by using a marker of "@foo":
  *
- * ```text
+ * ```txt
  * line1
  * # @foo-start
  * line2
@@ -260,7 +260,7 @@ export function parseSemanticVersion(versionString: string):
  *
  * Would return:
  *
- * ```text
+ * ```txt
  * line1
  * line4
  * ```

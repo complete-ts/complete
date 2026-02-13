@@ -62,7 +62,7 @@ export async function getPythonCommand(
  * By default, "python" will exist on Windows, but it is not actually a real version of Python.
  * Running it will generating the following output:
  *
- * ```text
+ * ```txt
  * Python was not found; run without arguments to install from the Microsoft Store, or disable
  * this shortcut from Settings > Manage App Execution Aliases.
  * ```
