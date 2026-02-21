@@ -9,10 +9,14 @@ import { isEnumValue } from "./enums.js";
 import { isObject } from "./types.js";
 
 /** Helper function to throw an error if the provided value is not an array. */
-export function assertArray(
-  value: unknown,
-  msg: string,
-): asserts value is unknown[] {
+export function assertArray<T>(
+  value: T,
+  ...[msg]: [T] extends [readonly unknown[]]
+    ? [
+        "The assertion is useless because the provided value is already an array.",
+      ]
+    : [string]
+): asserts value is T & unknown[] {
   if (!Array.isArray(value)) {
     throw new TypeError(msg);
   }
@@ -22,13 +26,19 @@ export function assertArray(
  * Helper function to throw an error if the provided value is not an array with every element being
  * a boolean.
  */
-export function assertArrayBoolean(
-  value: unknown,
-  msg: string,
-): asserts value is boolean[] {
-  assertArray(value, msg);
+export function assertArrayBoolean<T>(
+  value: T,
+  ...[msg]: [T] extends [readonly boolean[]]
+    ? [
+        "The assertion is useless because the provided value is already a boolean array.",
+      ]
+    : [string]
+): asserts value is T & boolean[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
 
-  if (value.some((element) => typeof element !== "boolean")) {
+  if ((value as unknown[]).some((element) => typeof element !== "boolean")) {
     throw new TypeError(msg);
   }
 }
@@ -37,13 +47,19 @@ export function assertArrayBoolean(
  * Helper function to throw an error if the provided value is not an array with every element being
  * a number.
  */
-export function assertArrayNumber(
-  value: unknown,
-  msg: string,
-): asserts value is number[] {
-  assertArray(value, msg);
+export function assertArrayNumber<T>(
+  value: T,
+  ...[msg]: [T] extends [readonly number[]]
+    ? [
+        "The assertion is useless because the provided value is already a number array.",
+      ]
+    : [string]
+): asserts value is T & number[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
 
-  if (value.some((element) => typeof element !== "number")) {
+  if ((value as unknown[]).some((element) => typeof element !== "number")) {
     throw new TypeError(msg);
   }
 }
@@ -52,13 +68,19 @@ export function assertArrayNumber(
  * Helper function to throw an error if the provided value is not an array with every element being
  * an object (i.e. a TypeScript record).
  */
-export function assertArrayObject(
-  value: unknown,
-  msg: string,
-): asserts value is Array<Record<string, unknown>> {
-  assertArray(value, msg);
+export function assertArrayObject<T>(
+  value: T,
+  ...[msg]: [T] extends [ReadonlyArray<Record<string, unknown>>]
+    ? [
+        "The assertion is useless because the provided value is already an object array.",
+      ]
+    : [string]
+): asserts value is T & Array<Record<string, unknown>> {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
 
-  if (value.some((element) => !isObject(element))) {
+  if ((value as unknown[]).some((element) => !isObject(element))) {
     throw new TypeError(msg);
   }
 }
@@ -67,22 +89,32 @@ export function assertArrayObject(
  * Helper function to throw an error if the provided value is not an array with every element being
  * a string.
  */
-export function assertArrayString(
-  value: unknown,
-  msg: string,
-): asserts value is string[] {
-  assertArray(value, msg);
+export function assertArrayString<T>(
+  value: T,
+  ...[msg]: [T] extends [readonly string[]]
+    ? [
+        "The assertion is useless because the provided value is already a string array.",
+      ]
+    : [string]
+): asserts value is T & string[] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
 
-  if (value.some((element) => typeof element !== "string")) {
+  if ((value as unknown[]).some((element) => typeof element !== "string")) {
     throw new TypeError(msg);
   }
 }
 
 /** Helper function to throw an error if the provided value is not a boolean. */
-export function assertBoolean(
-  value: unknown,
-  msg: string,
-): asserts value is boolean {
+export function assertBoolean<T>(
+  value: T,
+  ...[msg]: [T] extends [boolean]
+    ? [
+        "The assertion is useless because the provided value is already a boolean.",
+      ]
+    : [string]
+): asserts value is T & boolean {
   if (typeof value !== "boolean") {
     throw new TypeError(msg);
   }
@@ -175,10 +207,14 @@ export function assertNotNull<T>(
 }
 
 /** Helper function to throw an error if the provided value is not a number. */
-export function assertNumber(
-  value: unknown,
-  msg: string,
-): asserts value is number {
+export function assertNumber<T>(
+  value: T,
+  ...[msg]: [T] extends [number]
+    ? [
+        "The assertion is useless because the provided value is already a number.",
+      ]
+    : [string]
+): asserts value is T & number {
   if (typeof value !== "number") {
     throw new TypeError(msg);
   }
@@ -193,20 +229,28 @@ export function assertNumber(
  *
  * Under the hood, this function uses the `isObject` helper function.
  */
-export function assertObject(
-  value: unknown,
-  msg: string,
-): asserts value is Record<string, unknown> {
+export function assertObject<T>(
+  value: T,
+  ...[msg]: [T] extends [Record<string, unknown>]
+    ? [
+        "The assertion is useless because the provided value is already an object.",
+      ]
+    : [string]
+): asserts value is T & Record<string, unknown> {
   if (!isObject(value)) {
     throw new TypeError(msg);
   }
 }
 
 /** Helper function to throw an error if the provided value is not a string. */
-export function assertString(
-  value: unknown,
-  msg: string,
-): asserts value is string {
+export function assertString<T>(
+  value: T,
+  ...[msg]: [T] extends [string]
+    ? [
+        "The assertion is useless because the provided value is already a string.",
+      ]
+    : [string]
+): asserts value is T & string {
   if (typeof value !== "string") {
     throw new TypeError(msg);
   }
