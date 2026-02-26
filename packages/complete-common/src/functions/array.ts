@@ -360,6 +360,51 @@ export async function mapAsync<T, U>(
   return await Promise.all(promises);
 }
 
+/**
+ * Helper function to perform an asynchronous map. This is the same thing as the `mapAsync`
+ * function, but allows for limiting the number of array elements that should be worked on at a
+ * time. This is useful to prevent the system from running out of memory in situations with large
+ * arrays and/or expensive functions.
+ *
+ * @param array The array to map.
+ * @param limit The maximum number of concurrent executions that should happen at once.
+ * @param callback The map function.
+ */
+export async function mapAsyncLimit<T, U>(
+  array: readonly T[],
+  limit: number,
+  callback: (item: T) => Promise<U>,
+): Promise<readonly U[]> {
+  if (limit < 1) {
+    throw new RangeError("The limit argument must be at least 1.");
+  }
+
+  const results: U[] = [];
+  let currentIndex = 0;
+  let hasFailed = false;
+
+  async function worker() {
+    // Stop processing if the queue is empty or if another worker failed.
+    while (currentIndex < array.length && !hasFailed) {
+      const index = currentIndex;
+      currentIndex++;
+      try {
+        // eslint-disable-next-line no-await-in-loop, @typescript-eslint/no-non-null-assertion
+        results[index] = await callback(array[index]!);
+      } catch (error) {
+        hasFailed = true; // Signal other workers to stop taking new items.
+        throw error; // Bubble the error up to Promise.all.
+      }
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(limit, array.length) }, worker),
+  );
+
+  return results;
+}
+
 /** Initializes an array with all elements containing the specified default value. */
 export function newArray<T>(length: number, value: T): readonly T[] {
   return Array.from({ length }, () => value);
