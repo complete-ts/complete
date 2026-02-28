@@ -5,6 +5,21 @@
  */
 
 import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
+import type { WidenLiteral } from "../types/WidenLiteral.js";
+
+/**
+ * Safely gets a value from a widened object.
+ *
+ * This is useful when normal indexing produces a type error from an object that uses an `as const`
+ * assertion.
+ */
+export function getWidenedObjectValue<T extends Record<string, unknown>>(
+  object: T,
+  key: WidenLiteral<keyof T>,
+): T[keyof T] | undefined {
+  const widenedObject = object as Record<PropertyKey, T[keyof T]>;
+  return widenedObject[key as PropertyKey];
+}
 
 /**
  * Helper function to get the values in an object that match an arbitrary condition. Similar to the
