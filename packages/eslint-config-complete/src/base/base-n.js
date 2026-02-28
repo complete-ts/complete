@@ -111,6 +111,9 @@ export const baseN = defineConfig({
     "n/prefer-global/console": "off",
 
     /** Disabled since stylistic rules from this plugin are not used. */
+    "n/prefer-global/crypto": "off",
+
+    /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-global/process": "off",
 
     /** Disabled since stylistic rules from this plugin are not used. */
@@ -118,6 +121,9 @@ export const baseN = defineConfig({
 
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-global/text-encoder": "off",
+
+    /** Disabled since stylistic rules from this plugin are not used. */
+    "n/prefer-global/timers": "off",
 
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-global/url": "off",

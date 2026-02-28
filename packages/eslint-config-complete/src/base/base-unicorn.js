@@ -33,6 +33,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/filename-case": "off",
 
     "unicorn/import-style": "error",
+    "unicorn/isolated-functions": "error",
     "unicorn/new-for-builtins": "error",
 
     /**
