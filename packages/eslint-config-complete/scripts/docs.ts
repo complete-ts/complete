@@ -21,6 +21,7 @@ import esLintPluginComplete from "eslint-plugin-complete";
 import esLintPluginImportX from "eslint-plugin-import-x";
 import esLintPluginJSDoc from "eslint-plugin-jsdoc";
 import esLintPluginN from "eslint-plugin-n";
+import esLintPluginPerfectionist from "eslint-plugin-perfectionist";
 import esLintPluginUnicorn from "eslint-plugin-unicorn";
 import extractComments from "extract-comments";
 import path from "node:path";
@@ -137,6 +138,16 @@ const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 );
 
 assertDefined(
+  esLintPluginPerfectionist.configs["recommended-alphabetical"].rules,
+  "Failed to parse the recommended config from the following plugin: eslint-plugin-perfectionist",
+);
+const PERFECTIONIST_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(
+    esLintPluginPerfectionist.configs["recommended-alphabetical"].rules,
+  ),
+);
+
+assertDefined(
   esLintPluginUnicorn.configs.recommended.rules,
   "Failed to parse the recommended config from the following plugin: eslint-plugin-unicorn",
 );
@@ -169,6 +180,7 @@ type ParentConfig =
   | "jsdoc/recommended"
   | "n/recommended"
   | "package-json/recommended"
+  | "perfectionist/recommended-alphabetical"
   | "unicorn/recommended"
   | "complete/recommended"
   | "eslint-config-prettier";
@@ -198,6 +210,8 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js",
   "package-json/recommended":
     "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/src/plugin.ts",
+  "perfectionist/recommended-alphabetical":
+    "https://github.com/azat-io/eslint-plugin-perfectionist/blob/main/index.ts",
   "unicorn/recommended":
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
   "complete/recommended":
@@ -253,6 +267,14 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "https://github.com/eslint-community/eslint-plugin-n",
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/__RULE_NAME__.md",
     esLintPluginN,
+  );
+
+  rulesTable += await getMarkdownRuleSection(
+    "perfectionist",
+    getPluginHeaderTitle("perfectionist"),
+    "https://perfectionist.dev/rules",
+    "https://perfectionist.dev/rules/__RULE_NAME__",
+    esLintPluginPerfectionist,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -599,6 +621,10 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
 
   if (N_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("n/recommended");
+  }
+
+  if (PERFECTIONIST_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("perfectionist/recommended-alphabetical");
   }
 
   if (UNICORN_RECOMMENDED_RULES_SET.has(ruleName)) {
