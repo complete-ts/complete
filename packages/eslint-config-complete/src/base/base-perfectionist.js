@@ -39,7 +39,9 @@ export const basePerfectionist = defineConfig({
     "perfectionist/sort-intersection-types": "error",
     "perfectionist/sort-jsx-props": "error",
     "perfectionist/sort-maps": "error",
-    "perfectionist/sort-modules": "error",
+
+    /** Disabled because module ordering can be semantically significant. */
+    "perfectionist/sort-modules": "off",
 
     /** Disabled since this is automatically handled by `prettier-plugin-organize-imports`. */
     "perfectionist/sort-named-exports": "off",
