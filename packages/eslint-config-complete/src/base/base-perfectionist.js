@@ -56,7 +56,10 @@ export const basePerfectionist = defineConfig({
     "perfectionist/sort-objects": "off",
 
     "perfectionist/sort-sets": "error",
-    "perfectionist/sort-switch-case": "error",
+
+    /** Disabled because switch case ordering can be semantically significant. */
+    "perfectionist/sort-switch-case": "off",
+
     "perfectionist/sort-union-types": "error",
     "perfectionist/sort-variable-declarations": "error",
   },

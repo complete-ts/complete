@@ -166,6 +166,7 @@ const COMPLETE_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 // -------------------------------------------------------------------------------------------------
 
+/* eslint-disable perfectionist/sort-union-types */
 type ParentConfig =
   | "eslint/recommended"
   | "@typescript-eslint/eslint-recommended"
@@ -183,6 +184,7 @@ type ParentConfig =
   | "unicorn/recommended"
   | "complete/recommended"
   | "eslint-config-prettier";
+/* eslint-enable perfectionist/sort-union-types */
 
 const PARENT_CONFIG_LINKS = {
   "eslint/recommended":
