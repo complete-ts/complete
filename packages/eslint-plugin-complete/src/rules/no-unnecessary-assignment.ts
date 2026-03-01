@@ -5,13 +5,13 @@ import { isFlagSet, unionTypeParts } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 const USELESS_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set([
-  "+",
   "-",
-  "|",
+  "+",
   // "<<" is technically a useless operator, but we whitelist it so that bit flag enums will not
   // cause false positives.
   ">>",
   ">>>",
+  "|",
 ]);
 
 const USELESS_ASSIGNMENT_OPERATORS_WITH_ZERO: ReadonlySet<string> = new Set(

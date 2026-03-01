@@ -8,6 +8,7 @@ export type MessageIds = "noArgument";
 
 const JSDOC_EXCEPTION_TAG = "allowEmptyVariadic";
 
+/* eslint-disable perfectionist/sort-sets */
 const LOGGER_METHOD_NAMES: ReadonlySet<string> = new Set([
   "trace",
   "debug",
@@ -16,6 +17,7 @@ const LOGGER_METHOD_NAMES: ReadonlySet<string> = new Set([
   "error",
   "fatal",
 ]);
+/* eslint-enable perfectionist/sort-sets */
 
 export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
   name: "require-variadic-function-argument",

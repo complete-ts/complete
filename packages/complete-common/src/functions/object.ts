@@ -27,7 +27,7 @@ export function getWidenedObjectValue<T extends Record<string, unknown>>(
  *
  * This is efficient such that it avoids converting the object values into an array.
  */
-export function objectFilter<K extends string | number | symbol, V>(
+export function objectFilter<K extends number | string | symbol, V>(
   object: ReadonlyRecord<K, V>,
   predicate: (value: V) => boolean,
 ): readonly V[] {
@@ -49,7 +49,7 @@ export function objectFilter<K extends string | number | symbol, V>(
  * Helper function to map the values in an object to another object with new values. Similar to the
  * `Array.map` method, but works for objects.
  */
-export function objectMap<K extends string | number | symbol, V, U>(
+export function objectMap<K extends number | string | symbol, V, U>(
   object: Record<K, V>,
   callback: (key: K, value: V) => U,
 ): ReadonlyRecord<K, U> {
@@ -72,7 +72,7 @@ export function objectMap<K extends string | number | symbol, V, U>(
  * Note that the converted map will only have string keys, due to the nature of JavaScript objects
  * only having string keys under the hood.
  */
-export function objectToMap<K extends string | number | symbol, V>(
+export function objectToMap<K extends number | string | symbol, V>(
   object: Record<K, V>,
 ): ReadonlyMap<K, V> {
   const map = new Map<K, V>();
@@ -91,8 +91,8 @@ export function objectToMap<K extends string | number | symbol, V>(
  * only having string keys under the hood.
  */
 export function objectToReverseMap<
-  K extends string | number | symbol,
-  V extends string | number | symbol,
+  K extends number | string | symbol,
+  V extends number | string | symbol,
 >(object: Record<K, V>): ReadonlyMap<V, K> {
   const map = new Map<V, K>();
 

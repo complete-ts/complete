@@ -4,11 +4,11 @@ import { createRule } from "../utils.js";
 
 type Options = [];
 
-type MessageIds = "noKeys" | "noEntries";
+type MessageIds = "noEntries" | "noKeys";
 
 const METHOD_NAME_TO_MESSAGE_ID: ReadonlyMap<string, MessageIds> = new Map([
-  ["keys", "noKeys"],
   ["entries", "noEntries"],
+  ["keys", "noKeys"],
 ]);
 
 export const noConfusingSetMethods = createRule<Options, MessageIds>({
@@ -22,10 +22,10 @@ export const noConfusingSetMethods = createRule<Options, MessageIds>({
     },
     schema: [],
     messages: {
-      noKeys:
-        "Using the `Set.keys` method is confusing, since sets do not have keys. Use the `Set.values` method instead.",
       noEntries:
         "Using the `Set.entries` method is confusing, since sets only have values. Use the `Set.values` method instead.",
+      noKeys:
+        "Using the `Set.keys` method is confusing, since sets do not have keys. Use the `Set.values` method instead.",
     },
   },
   defaultOptions: [],
