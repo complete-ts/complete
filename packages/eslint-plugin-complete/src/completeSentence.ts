@@ -4,9 +4,9 @@ import { getAdjustedList, reachedNewList } from "./list.js";
 import { hasURL } from "./utils.js";
 
 export type CompleteSentenceMessageIds =
+  | "doublePeriod"
   | "missingCapital"
-  | "missingPeriod"
-  | "doublePeriod";
+  | "missingPeriod";
 
 interface IncompleteSentence {
   sentence: string;
@@ -310,6 +310,7 @@ function isCapitalizedWordException(text: string): boolean {
   return CAPITALIZED_WORD_EXCEPTIONS.some((word) => text.startsWith(word));
 }
 
+/* eslint-disable perfectionist/sort-sets */
 const MONTHS_SET: ReadonlySet<string> = new Set([
   "January",
   "February",
@@ -324,7 +325,9 @@ const MONTHS_SET: ReadonlySet<string> = new Set([
   "November",
   "December",
 ]);
+/* eslint-enable perfectionist/sort-sets */
 
+// eslint-disable-next-line perfectionist/sort-sets
 const ORDINALS_SET: ReadonlySet<string> = new Set(["st", "nd", "rd", "th"]);
 
 function isDate(text: string) {

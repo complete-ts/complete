@@ -16,12 +16,12 @@ export type Immutable<T> = T extends ImmutablePrimitive
         : ImmutableObject<T>;
 
 type ImmutablePrimitive =
-  | undefined
-  | null
   | boolean
-  | string
   | number
-  | Function; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
+  | string
+  | Function // eslint-disable-line @typescript-eslint/no-unsafe-function-type
+  | null
+  | undefined;
 type ImmutableArray<T> = ReadonlyArray<Immutable<T>>;
 type ImmutableMap<K, V> = ReadonlyMap<Immutable<K>, Immutable<V>>;
 type ImmutableSet<T> = ReadonlySet<Immutable<T>>;

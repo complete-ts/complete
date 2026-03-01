@@ -19,12 +19,14 @@ const PROBLEM_METHODS: ReadonlySet<string> = new Set([
   "values",
 ]);
 
+/* eslint-disable perfectionist/sort-sets */
 const PROBLEM_TYPES: ReadonlySet<string> = new Set([
   "Map",
   "Set",
   "ReadonlyMap",
   "ReadonlySet",
 ]);
+/* eslint-enable perfectionist/sort-sets */
 
 export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
   name: "no-object-methods-with-map-set",

@@ -85,7 +85,7 @@ export function getEnumValues<T extends TranspiledEnum>(
 export function interfaceSatisfiesEnum<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-unnecessary-type-parameters
   T extends Record<Enum, unknown>,
-  Enum extends string | number,
+  Enum extends number | string,
 >(): void {} // eslint-disable-line @typescript-eslint/no-empty-function
 
 /**
@@ -100,7 +100,7 @@ export function interfaceSatisfiesEnum<
 export function isEnumValue<T extends TranspiledEnum>(
   value: number | string,
   transpiledEnum: T,
-  set?: ReadonlySet<string | number>,
+  set?: ReadonlySet<number | string>,
 ): value is T[keyof T] {
   if (set !== undefined) {
     return set.has(value);

@@ -62,7 +62,9 @@ export const basePerfectionist = defineConfig({
     /** Disabled because switch case ordering can be semantically significant. */
     "perfectionist/sort-switch-case": "off",
 
-    "perfectionist/sort-union-types": "error",
+    /** Disabled because union type ordering can be semantically significant. */
+    "perfectionist/sort-union-types": "off",
+
     "perfectionist/sort-variable-declarations": "error",
   },
 });

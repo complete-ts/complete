@@ -7,10 +7,10 @@ import { createRule } from "../utils.js";
 export type Options = [];
 
 export type MessageIds =
-  | "readOnlyMap"
-  | "readOnlySet"
   | "readOnlyArray"
-  | "readOnlyObject";
+  | "readOnlyMap"
+  | "readOnlyObject"
+  | "readOnlySet";
 
 export const requireCapitalReadOnly = createRule<Options, MessageIds>({
   name: "require-capital-read-only",
