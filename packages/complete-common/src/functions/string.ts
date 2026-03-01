@@ -47,8 +47,8 @@ export function capitalizeFirstLetter(string: string): string {
 
 /**
  * Helper function to replace all of the ampersands, less than signs, greater than signs, double
- * quotes, and single quotes in a string with the escaped counterparts. For example, "<" will be
- * replaced with "&lt;".
+ * quotes, and single quotes in a string with the escaped counterparts. For example, `<` will be
+ * replaced with `&lt;`.
  */
 export function escapeHTMLCharacters(string: string): string {
   return string
