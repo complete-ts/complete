@@ -122,16 +122,15 @@ const IMPORT_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 assertDefined(
   esLintPluginJSDoc.configs["flat/recommended"].rules,
-  "Failed to parse the recommended config from the following plugin: eslint-plugin-jsdoc",
+  'Failed to parse the "flat/recommended" config from: eslint-plugin-jsdoc',
 );
-
 const JSDOC_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(esLintPluginJSDoc.configs["flat/recommended"].rules),
 );
 
 assertDefined(
   esLintPluginN.configs.recommended.rules,
-  "Failed to parse the recommended config from the following plugin: eslint-plugin-n",
+  'Failed to parse the "recommended" config from: eslint-plugin-n',
 );
 const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(esLintPluginN.configs.recommended.rules),
@@ -139,7 +138,7 @@ const N_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 assertDefined(
   esLintPluginPerfectionist.configs["recommended-alphabetical"].rules,
-  "Failed to parse the recommended config from the following plugin: eslint-plugin-perfectionist",
+  'Failed to parse the "recommended-alphabetical" config from: eslint-plugin-perfectionist',
 );
 const PERFECTIONIST_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(
@@ -149,7 +148,7 @@ const PERFECTIONIST_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
 
 assertDefined(
   esLintPluginUnicorn.configs.recommended.rules,
-  "Failed to parse the recommended config from the following plugin: eslint-plugin-unicorn",
+  'Failed to parse the "recommended" config from: eslint-plugin-unicorn',
 );
 const UNICORN_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(esLintPluginUnicorn.configs.recommended.rules),
@@ -159,7 +158,7 @@ const COMPLETE_RECOMMENDED_RULES =
   esLintPluginComplete.configs.recommended[0]?.rules;
 assertDefined(
   COMPLETE_RECOMMENDED_RULES,
-  "Failed to parse the recommended config from the following plugin: eslint-plugin-complete",
+  'Failed to parse the "recommended" config from: eslint-plugin-complete',
 );
 const COMPLETE_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   Object.keys(COMPLETE_RECOMMENDED_RULES),
