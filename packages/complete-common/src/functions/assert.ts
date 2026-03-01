@@ -152,7 +152,7 @@ export function assertEnumValue<T extends TranspiledEnum>(
   value: number | string,
   transpiledEnum: T,
   msg: string,
-  set?: ReadonlySet<string | number>,
+  set?: ReadonlySet<number | string>,
 ): asserts value is T[keyof T] {
   if (!isEnumValue(value, transpiledEnum, set)) {
     throw new TypeError(msg);

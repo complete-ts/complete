@@ -36,7 +36,9 @@ export const basePerfectionist = defineConfig({
     /** Disabled because interface ordering can be semantically significant. */
     "perfectionist/sort-interfaces": "off",
 
-    "perfectionist/sort-intersection-types": "error",
+    /** Disabled because intersection type ordering can be semantically significant. */
+    "perfectionist/sort-intersection-types": "off",
+
     "perfectionist/sort-jsx-props": "error",
     "perfectionist/sort-maps": "error",
 
@@ -49,7 +51,7 @@ export const basePerfectionist = defineConfig({
     /** Disabled since this is automatically handled by `prettier-plugin-organize-imports`. */
     "perfectionist/sort-named-imports": "off",
 
-    /** Disabled because type ordering can be semantically significant. */
+    /** Disabled because object type ordering can be semantically significant. */
     "perfectionist/sort-object-types": "off",
 
     /** Disabled because object keys are often not meant to be sorted in alphabetical order. */
