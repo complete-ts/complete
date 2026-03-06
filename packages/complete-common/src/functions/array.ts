@@ -327,7 +327,9 @@ export function isArrayNumber(variable: unknown): variable is number[] {
 }
 
 /** Helper function to check every value of an array to see if it is an object. */
-export function isArrayObject(variable: unknown): variable is string[] {
+export function isArrayObject(
+  variable: unknown,
+): variable is Array<Record<string, unknown>> {
   if (!isArray(variable)) {
     return false;
   }
