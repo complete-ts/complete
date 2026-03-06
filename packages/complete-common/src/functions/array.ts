@@ -8,6 +8,7 @@ import { ReadonlySet } from "../types/ReadonlySet.js";
 import type { WidenLiteral } from "../types/WidenLiteral.js";
 import { assertDefined } from "./assert.js";
 import { getRandomInt } from "./random.js";
+import { isObject } from "./types.js";
 
 /**
  * Helper function to copy a two-dimensional array. Note that the sub-arrays will only be shallow
@@ -323,6 +324,15 @@ export function isArrayNumber(variable: unknown): variable is number[] {
   }
 
   return variable.every((element) => typeof element === "string");
+}
+
+/** Helper function to check every value of an array to see if it is an object. */
+export function isArrayObject(variable: unknown): variable is string[] {
+  if (!isArray(variable)) {
+    return false;
+  }
+
+  return variable.every((element) => isObject(element));
 }
 
 /** Helper function to check every value of an array to see if it is a string. */
