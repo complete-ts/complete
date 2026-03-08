@@ -22,7 +22,7 @@
     },
     "packages/complete-cli": {
       "name": "complete-cli",
-      "version": "1.5.15",
+      "version": "1.5.16",
       "bin": {
         "complete-cli": "./dist/main.js",
       },
