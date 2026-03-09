@@ -4,6 +4,8 @@
  * @module
  */
 
+import type { SemanticVersion } from "../interfaces/SemanticVersion.js";
+import { assertDefined } from "./assert.js";
 import { parseIntSafe } from "./utils.js";
 
 // When regular expressions are located at the root instead of inside the function, the functions
@@ -205,18 +207,9 @@ export function normalizeString(string: string): string {
  *
  * @see https://semver.org/
  */
-export function parseSemanticVersion(versionString: string):
-  | {
-      /** The first number inside of the semantic version. */
-      majorVersion: number;
-
-      /** The second number inside of the semantic version. */
-      minorVersion: number;
-
-      /** The third number inside of the semantic version. */
-      patchVersion: number;
-    }
-  | undefined {
+export function parseSemanticVersion(
+  versionString: string,
+): SemanticVersion | undefined {
   const match = versionString.match(SEMANTIC_VERSION_REGEX);
   if (match === null || match.groups === undefined) {
     return undefined;
@@ -314,6 +307,44 @@ export function removeNonPrintableCharacters(string: string): string {
 /** Helper function to remove all whitespace characters from a string. */
 export function removeWhitespace(string: string): string {
   return string.replaceAll(WHITESPACE_GLOBAL_REGEX, "");
+}
+
+/**
+ * Helper function to check if a semantic version is equal to or greater than a second semantic
+ * version.
+ */
+export function satisfiesSemanticVersion(
+  version: string,
+  minimumVersion: string,
+): boolean {
+  const semanticVersion = parseSemanticVersion(version);
+  assertDefined(
+    semanticVersion,
+    `The following version is not a semantic version: ${version}`,
+  );
+
+  const { majorVersion, minorVersion, patchVersion } = semanticVersion;
+
+  const minimumSemanticVersion = parseSemanticVersion(minimumVersion);
+  assertDefined(
+    minimumSemanticVersion,
+    `The following minimum version is not a semantic version: ${minimumVersion}`,
+  );
+
+  const {
+    majorVersion: minimumMajorVersion,
+    minorVersion: minimumMinorVersion,
+    patchVersion: minimumPatchVersion,
+  } = minimumSemanticVersion;
+
+  return (
+    majorVersion > minimumMajorVersion
+    || (majorVersion === minimumMajorVersion
+      && minorVersion > minimumMinorVersion)
+    || (majorVersion === minimumMajorVersion
+      && minorVersion === minimumMinorVersion
+      && patchVersion >= minimumPatchVersion)
+  );
 }
 
 /** Helper function to convert a string from TitleCase (PascalCase) to kebab-case. */
