@@ -312,6 +312,8 @@ export function removeWhitespace(string: string): string {
 /**
  * Helper function to check if a semantic version is equal to or greater than a second semantic
  * version.
+ *
+ * @throws If either the version or minimum version are not valid semantic versions.
  */
 export function satisfiesSemanticVersion(
   version: string,

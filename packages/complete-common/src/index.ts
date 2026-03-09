@@ -28,3 +28,4 @@ export type * from "./types/TranspiledEnum.js";
 export type * from "./types/Tuple.js";
 export type * from "./types/WidenLiteral.js";
 export type * from "./types/Writeable.js";
+export type * from "./interfaces/SemanticVersion.js";
