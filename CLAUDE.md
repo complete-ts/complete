@@ -425,3 +425,4 @@ Slow is smooth. Smooth is fast.
 - Only write code with normal ASCII characters. Never use emjois in your code.
 - Never put pointless comments in your code. You should be writing easy to read code, making comments superfluous.
 - Do not commit to the repository unless explicitly asked to.
+- When making a new lint rule for "eslint-plugin-complete", use the "bun run create-rule" script.
