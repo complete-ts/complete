@@ -4,4 +4,5 @@ await lintCommands(import.meta.dirname, [
   "tsc --noEmit",
   "tsc --noEmit --project ./scripts/tsconfig.json",
   "eslint",
+  "bun run docs",
 ]);
