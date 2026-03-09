@@ -1,3 +1,4 @@
+/** @see https://semver.org/ */
 export interface SemanticVersion {
   /** The first number inside of the semantic version. */
   majorVersion: number;
