@@ -4,7 +4,7 @@
 
 📝 Requires using the complete-common isArray helper instead of Array.isArray.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
