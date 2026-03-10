@@ -1,3 +1,7 @@
+// We intentionally do not use the `isArray` helper function to avoid circular imports. (The
+// improved return type is not needed for these assertion functions.)
+/* eslint-disable complete/prefer-is-array */
+
 /**
  * Helper functions that have to do with asserting.
  *

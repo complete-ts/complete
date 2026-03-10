@@ -305,7 +305,7 @@ export function includesAny<T>(
 
 /** A wrapper around `Array.isArray` that narrows to `unknown[]` instead of `any[]`. */
 export function isArray(variable: unknown): variable is unknown[] {
-  return Array.isArray(variable);
+  return Array.isArray(variable); // eslint-disable-line complete/prefer-is-array
 }
 
 /** Helper function to check every value of an array to see if it is a boolean. */

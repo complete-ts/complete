@@ -16,6 +16,8 @@ export function isObject(
   return (
     typeof variable === "object"
     && variable !== null
+    // The improved return type is not needed in this context.
+    // eslint-disable-next-line complete/prefer-is-array
     && !Array.isArray(variable)
   );
 }
