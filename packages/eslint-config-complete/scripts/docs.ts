@@ -1,7 +1,7 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
 import esLintJS from "@eslint/js";
-import { parse } from "@typescript-eslint/typescript-estree";
+import { AST_TOKEN_TYPES, parse } from "@typescript-eslint/typescript-estree";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
 import {
@@ -664,14 +664,7 @@ function getRuleComments(
   });
 
   for (const comment of comments) {
-    // First, detect and skip trailing comments.
-    const startOfCommentPos = comment.range[0];
-    const lastNewlinePos = baseJSText.lastIndexOf("\n", startOfCommentPos);
-    const textBeforeComment = baseJSText.slice(
-      Math.max(0, lastNewlinePos),
-      startOfCommentPos,
-    );
-    if (textBeforeComment.trim() !== "") {
+    if (comment.type !== AST_TOKEN_TYPES.Block) {
       continue;
     }
 
