@@ -10,6 +10,7 @@ import {
   isArray,
   isObject,
   kebabCaseToCamelCase,
+  trimPrefix,
 } from "complete-common";
 import {
   isMain,
@@ -659,19 +660,19 @@ function getRuleComments(
   // Parse the file to get the AST and extract all comments
   const { comments } = parse(baseJSText, {
     comment: true, // Needed to extract comments.
-    range: true, // Needed to extract TODO
+    range: true, // Needed to find where the comment ends.
   });
 
   for (const comment of comments) {
     const endOfCommentPos = comment.range[1];
-    const line = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
+    const codeLine = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
 
     // Ignore comments that are not "attached" to rule definitions.
-    if (line.startsWith("const ") || !line.includes(":")) {
+    if (codeLine.startsWith("const ") || !codeLine.includes(":")) {
       continue;
     }
 
-    const lineWithNoQuotes = line.replaceAll('"', "");
+    const lineWithNoQuotes = codeLine.replaceAll('"', "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
     const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
 
@@ -679,14 +680,11 @@ function getRuleComments(
       continue;
     }
 
-    return (
-      comment.value
-        // Strip leading asterisks and whitespace from each line of a block comment.
-        .replaceAll(/^\s*\**\s*/gm, " ")
-        // Collapse all whitespace (newlines, carriage returns, tabs) into a single space.
-        .replaceAll(/\s+/g, " ")
-        .trim()
+    const commentLines = comment.value.split("\n");
+    const commentTrimmedLines = commentLines.map((line) =>
+      trimPrefix(line, "*").trim(),
     );
+    return commentTrimmedLines.join(" ");
   }
 
   return "";
