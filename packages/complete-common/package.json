@@ -36,8 +36,8 @@
     "complete-node": "workspace:*",
     "eslint-plugin-sort-exports": "catalog:",
     "typedoc": "catalog:",
+    "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "unbuild": "catalog:"
   }
 }

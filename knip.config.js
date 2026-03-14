@@ -2,23 +2,37 @@
 
 /** @type {import("knip").KnipConfig} */
 const config = {
-  // Ignore all dependencies in the root. (This is checked by the `lintMonorepoPackageJSONs` helper
-  // function.)
-  ignoreDependencies: [".+"],
+  eslint: {},
+  prettier: {},
+
+  ignoreDependencies: [
+    "cspell", // Executed in: scripts/lint.ts
+    "cspell-check-unused-words", // Executed in: scripts/lint.ts
+    "eslint-plugin-complete", // Executed in: scripts/lint.ts
+    "markdownlint-cli2", // Executed in: scripts/lint.ts
+  ],
 
   workspaces: {
-    "packages/*": {},
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
     },
+    "packages/complete-common": {
+      ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
+    },
+    "packages/complete-lint": {
+      // Since this is a meta-package, Knip will think all of the dependencies are unused.
+      ignoreDependencies: [".+"],
+    },
+    "packages/complete-node": {
+      ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
+    },
     "packages/docs": {
       ignore: [
-        "docusaurus.config.ts",
-        "sidebars.ts",
-        "static/js/hotkey.js",
-        "src/components/HomepageFeatures/index.tsx",
-        "src/pages/index.tsx",
-        "typedoc.config.base.mjs",
+        "typedoc.config.base.mjs", // Imported by Typedoc configs in other libraries.
+        "static/js/hotkey.js", // https://github.com/webpro-nl/knip/issues/1617
+      ],
+      ignoreDependencies: [
+        "@docusaurus/faster", // https://github.com/webpro-nl/knip/issues/1612
       ],
     },
     "packages/eslint-config-complete": {

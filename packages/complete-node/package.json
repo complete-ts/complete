@@ -37,23 +37,21 @@
     "complete-common": "workspace:*",
     "diff": "catalog:",
     "dotenv": "catalog:",
-    "error-stack-parser": "catalog:",
     "execa": "catalog:",
     "jsonc-parser": "catalog:",
     "listr2": "catalog:",
     "npm-check-updates": "catalog:",
     "package-directory": "catalog:",
     "prettier": "catalog:",
-    "which": "catalog:",
-    "zod": "catalog:"
+    "which": "catalog:"
   },
   "devDependencies": {
     "@types/node": "catalog:",
     "@types/which": "catalog:",
     "eslint-plugin-sort-exports": "catalog:",
     "typedoc": "catalog:",
+    "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "unbuild": "catalog:"
   }
 }

@@ -43,8 +43,7 @@
   },
   "dependencies": {
     "@typescript-eslint/type-utils": "catalog:",
-    "@typescript-eslint/utils": "catalog:",
-    "typescript-eslint": "catalog:"
+    "@typescript-eslint/utils": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "catalog:",

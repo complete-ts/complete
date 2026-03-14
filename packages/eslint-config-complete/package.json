@@ -42,13 +42,11 @@
     "eslint-plugin-n": "catalog:",
     "eslint-plugin-perfectionist": "catalog:",
     "eslint-plugin-unicorn": "catalog:",
-    "jsonc-eslint-parser": "catalog:",
     "typescript-eslint": "catalog:"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",
     "@types/confusing-browser-globals": "catalog:",
-    "@types/eslint-config-prettier": "catalog:",
     "@types/node": "catalog:",
     "@typescript-eslint/utils": "catalog:",
     "complete-common": "workspace:*",
