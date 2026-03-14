@@ -1,6 +1,7 @@
 // This script also checks for missing rules from all of the ESLint plugins.
 
 import esLintJS from "@eslint/js";
+import { AST_TOKEN_TYPES, parse } from "@typescript-eslint/typescript-estree";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import type { ReadonlyRecord } from "complete-common";
 import {
@@ -9,6 +10,7 @@ import {
   isArray,
   isObject,
   kebabCaseToCamelCase,
+  trimPrefix,
 } from "complete-common";
 import {
   isMain,
@@ -23,7 +25,6 @@ import esLintPluginJSDoc from "eslint-plugin-jsdoc";
 import esLintPluginN from "eslint-plugin-n";
 import esLintPluginPerfectionist from "eslint-plugin-perfectionist";
 import esLintPluginUnicorn from "eslint-plugin-unicorn";
-import extractComments from "extract-comments";
 import path from "node:path";
 import url from "node:url";
 import tseslint from "typescript-eslint";
@@ -656,22 +657,20 @@ function getRuleComments(
     return "Disabled because this is [handled by Prettier](https://github.com/prettier/eslint-config-prettier/blob/main/index.js).";
   }
 
-  const comments = extractComments(baseJSText);
+  // Parse the file to get the AST and extract all comments
+  const { comments } = parse(baseJSText, {
+    comment: true, // Needed to extract comments.
+    range: true, // Needed to find where the comment ends.
+  });
 
   for (const comment of comments) {
-    // Ignore comments that are not "attached" to code.
-    if (comment.codeStart === undefined) {
+    if (comment.type !== AST_TOKEN_TYPES.Block) {
       continue;
     }
 
-    const line = getLineOfCodeStartingAtPos(comment.codeStart, baseJSText);
-
-    // Ignore comments that are not "attached" to rule definitions.
-    if (line.startsWith("const ") || !line.includes(":")) {
-      continue;
-    }
-
-    const lineWithNoQuotes = line.replaceAll('"', "");
+    const endOfCommentPos = comment.range[1];
+    const codeLine = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
+    const lineWithNoQuotes = codeLine.replaceAll('"', "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
     const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
 
@@ -679,7 +678,11 @@ function getRuleComments(
       continue;
     }
 
-    return comment.value.replaceAll("\n", " ");
+    const commentLines = comment.value.split("\n");
+    const commentTrimmedLines = commentLines.map((line) =>
+      trimPrefix(line.trim(), "*").trim(),
+    );
+    return commentTrimmedLines.join(" ");
   }
 
   return "";
@@ -709,7 +712,8 @@ function isRuleHandledByPrettier(ruleName: string): boolean {
 }
 
 function getLineOfCodeStartingAtPos(pos: number, code: string): string {
-  const codeStartingAtPos = code.slice(pos);
+  // Get rid of the whitespace and newlines between the comment and the code.
+  const codeStartingAtPos = code.slice(pos).trim();
   const newlineIndex = codeStartingAtPos.indexOf("\n");
 
   if (newlineIndex !== -1) {
