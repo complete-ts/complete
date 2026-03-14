@@ -664,6 +664,17 @@ function getRuleComments(
   });
 
   for (const comment of comments) {
+    // First, detect and skip trailing comments.
+    const startOfCommentPos = comment.range[0];
+    const lastNewlinePos = baseJSText.lastIndexOf("\n", startOfCommentPos);
+    const textBeforeComment = baseJSText.slice(
+      Math.max(0, lastNewlinePos),
+      startOfCommentPos,
+    );
+    if (textBeforeComment.trim() !== "") {
+      continue;
+    }
+
     const endOfCommentPos = comment.range[1];
     const codeLine = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
 
