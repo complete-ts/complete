@@ -670,12 +670,6 @@ function getRuleComments(
 
     const endOfCommentPos = comment.range[1];
     const codeLine = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
-
-    // Ignore comments that are not "attached" to rule definitions.
-    if (codeLine.startsWith("const ") || !codeLine.includes(":")) {
-      continue;
-    }
-
     const lineWithNoQuotes = codeLine.replaceAll('"', "");
     const colonIndex = lineWithNoQuotes.indexOf(":");
     const lineRuleName = lineWithNoQuotes.slice(0, Math.max(0, colonIndex));
