@@ -662,6 +662,10 @@ function getRuleComments(
     range: true, // Needed to extract TODO
   });
 
+  if (!comments) {
+    return "";
+  }
+
   for (const comment of comments) {
     const endOfCommentPos = comment.range[1];
     const line = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
@@ -679,7 +683,14 @@ function getRuleComments(
       continue;
     }
 
-    return comment.value.replaceAll("\n", " ").trim();
+    return (
+      comment.value
+        // Strip leading asterisks and whitespace from each line of a block comment.
+        .replaceAll(/^\s*\**\s*/gm, " ")
+        // Collapse all whitespace (newlines, carriage returns, tabs) into a single space.
+        .replaceAll(/\s+/g, " ")
+        .trim()
+    );
   }
 
   return "";
