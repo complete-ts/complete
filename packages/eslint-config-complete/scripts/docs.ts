@@ -682,7 +682,7 @@ function getRuleComments(
 
     const commentLines = comment.value.split("\n");
     const commentTrimmedLines = commentLines.map((line) =>
-      trimPrefix(line, "*").trim(),
+      trimPrefix(line.trim(), "*").trim(),
     );
     return commentTrimmedLines.join(" ");
   }
