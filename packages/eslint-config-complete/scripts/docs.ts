@@ -662,10 +662,6 @@ function getRuleComments(
     range: true, // Needed to extract TODO
   });
 
-  if (!comments) {
-    return "";
-  }
-
   for (const comment of comments) {
     const endOfCommentPos = comment.range[1];
     const line = getLineOfCodeStartingAtPos(endOfCommentPos, baseJSText);
