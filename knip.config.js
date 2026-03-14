@@ -33,6 +33,8 @@ const config = {
       ],
       ignoreDependencies: [
         "@docusaurus/faster", // https://github.com/webpro-nl/knip/issues/1612
+        "typedoc", // Used in: typedoc.config.base.mjs
+        "typedoc-plugin-markdown", // Used in: typedoc.config.base.mjs
       ],
     },
     "packages/eslint-config-complete": {

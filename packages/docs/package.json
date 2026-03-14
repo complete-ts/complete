@@ -55,6 +55,8 @@
     "@types/node": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
+    "typedoc": "catalog:",
+    "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:"
   }
 }
