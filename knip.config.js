@@ -37,9 +37,6 @@ const config = {
         "typedoc-plugin-markdown", // Used in: typedoc.config.base.mjs
       ],
     },
-    "packages/eslint-config-complete": {
-      ignore: ["scripts/extract-comments.d.ts"],
-    },
     "packages/eslint-plugin-complete": {
       ignore: [
         "eslint-doc-generator.config.mjs",
