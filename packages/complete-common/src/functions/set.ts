@@ -52,7 +52,7 @@ export function copySet<T>(oldSet: ReadonlySet<T>): ReadonlySet<T> {
 }
 
 /** Helper function to convert the keys of an object to a set. */
-export function objectKeysToSet<K extends number | string | symbol, V>(
+export function objectKeysToSet<K extends PropertyKey, V>(
   object: Record<K, V>,
 ): ReadonlySet<K> {
   const set = new Set<K>();
@@ -65,7 +65,7 @@ export function objectKeysToSet<K extends number | string | symbol, V>(
 }
 
 /** Helper function to convert the values of an object to a set. */
-export function objectValuesToSet<K extends number | string | symbol, V>(
+export function objectValuesToSet<K extends PropertyKey, V>(
   object: Record<K, V>,
 ): ReadonlySet<V> {
   const set = new Set<V>();

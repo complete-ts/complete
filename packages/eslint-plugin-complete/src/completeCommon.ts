@@ -7,9 +7,7 @@
 // 2) If "complete-common" exists in the monorepo's "node_modules" directory, it can cause bugs due
 //    to tooling preferring the "real" directory over the tsconfig "paths" resolution.
 
-export type ReadonlyRecord<K extends number | string | symbol, V> = Readonly<
-  Record<K, V>
->;
+export type ReadonlyRecord<K extends PropertyKey, V> = Readonly<Record<K, V>>;
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 

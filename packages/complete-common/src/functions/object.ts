@@ -27,7 +27,7 @@ export function getWidenedObjectValue<T extends Record<string, unknown>>(
  *
  * This is efficient such that it avoids converting the object values into an array.
  */
-export function objectFilter<K extends number | string | symbol, V>(
+export function objectFilter<K extends PropertyKey, V>(
   object: ReadonlyRecord<K, V>,
   predicate: (value: V) => boolean,
 ): readonly V[] {
@@ -49,7 +49,7 @@ export function objectFilter<K extends number | string | symbol, V>(
  * Helper function to map the values in an object to another object with new values. Similar to the
  * `Array.map` method, but works for objects.
  */
-export function objectMap<K extends number | string | symbol, V, U>(
+export function objectMap<K extends PropertyKey, V, U>(
   object: Record<K, V>,
   callback: (key: K, value: V) => U,
 ): ReadonlyRecord<K, U> {
@@ -72,7 +72,7 @@ export function objectMap<K extends number | string | symbol, V, U>(
  * Note that the converted map will only have string keys, due to the nature of JavaScript objects
  * only having string keys under the hood.
  */
-export function objectToMap<K extends number | string | symbol, V>(
+export function objectToMap<K extends PropertyKey, V>(
   object: Record<K, V>,
 ): ReadonlyMap<K, V> {
   const map = new Map<K, V>();
@@ -91,8 +91,8 @@ export function objectToMap<K extends number | string | symbol, V>(
  * only having string keys under the hood.
  */
 export function objectToReverseMap<
-  K extends number | string | symbol,
-  V extends number | string | symbol,
+  K extends PropertyKey,
+  V extends PropertyKey,
 >(object: Record<K, V>): ReadonlyMap<V, K> {
   const map = new Map<V, K>();
 
@@ -101,4 +101,22 @@ export function objectToReverseMap<
   }
 
   return map;
+}
+
+/**
+ * Helper function to reverse the keys and values of an object.
+ *
+ * @throws If the object has duplicate values.
+ */
+export function reverseObject<K extends PropertyKey, V extends PropertyKey>(
+  obj: Record<K, V>,
+): ReadonlyRecord<V, K> {
+  const reversed: Partial<Record<V, K>> = {};
+
+  for (const [key, value] of Object.entries(obj)) {
+    // Type assertions are required because `Object.entries` widens the key type to a string.
+    reversed[value as V] = key as K;
+  }
+
+  return reversed as ReadonlyRecord<V, K>;
 }
