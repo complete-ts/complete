@@ -10,9 +10,11 @@ import {
   assertDefined,
   assertStringNotEmpty,
   getElapsedSeconds,
+  getWidenedObjectValue,
   isEnumValue,
   isSemanticVersion,
   mapAsync,
+  reverseObject,
 } from "complete-common";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
@@ -37,6 +39,15 @@ enum VersionBump {
   patch = "patch",
   dev = "dev",
 }
+
+const VERSION_BUMP_TO_SHORTHAND = {
+  [VersionBump.major]: "ma",
+  [VersionBump.minor]: "mi",
+  [VersionBump.patch]: "p",
+  [VersionBump.dev]: "d",
+} as const satisfies Record<VersionBump, string>;
+
+const VERSION_SHORTHAND_TO_ENUM = reverseObject(VERSION_BUMP_TO_SHORTHAND);
 
 const PACKAGE_SCRIPTS_THAT_MUST_PASS = ["build", "lint", "test"] as const;
 
@@ -67,7 +78,7 @@ export async function monorepoPublish(
 
   // Validate command-line arguments
   const args = getArgs();
-  const [packageName, versionBump] = args;
+  const [packageName, versionBumpShorthand] = args;
 
   assertStringNotEmpty(
     packageName,
@@ -81,10 +92,13 @@ export async function monorepoPublish(
   );
 
   assertStringNotEmpty(
-    versionBump,
+    versionBumpShorthand,
     "Error: The type of version bump is required as an argument.",
   );
 
+  const versionBump =
+    getWidenedObjectValue(VERSION_SHORTHAND_TO_ENUM, versionBumpShorthand)
+    ?? versionBumpShorthand;
   if (
     !isEnumValue(versionBump, VersionBump)
     && !isSemanticVersion(versionBump)
