@@ -25,7 +25,10 @@ import {
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
 import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
-import { getPackageManagerForProject } from "./packageManager.js";
+import {
+  getPackageManagerForProject,
+  getPackageManagerInstallCommand,
+} from "./packageManager.js";
 import { getArgs } from "./utils.js";
 
 enum VersionBump {
@@ -144,11 +147,15 @@ export async function monorepoPublish(
   }
 
   // Update the lock file.
-  await $monorepo`bun install`;
+  const installCommand = getPackageManagerInstallCommand(packageManager);
+  const installCommandParts = installCommand.split(" ");
+  await $monorepo`${installCommandParts}`;
 
-  // We must also run "bun update" in order for the new version to appear in the lock file.
-  // TODO: https://github.com/oven-sh/bun/pull/26797
-  await $monorepo`bun update`;
+  if (packageManager === PackageManager.bun) {
+    // We must also run "bun update" in order for the new version to appear in the lock file.
+    // TODO: https://github.com/oven-sh/bun/pull/26797
+    await $monorepo`bun update`;
+  }
 
   // Manually make a Git commit.
   const packageJSONPath = path.join(packagePath, "package.json");

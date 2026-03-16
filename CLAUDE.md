@@ -419,9 +419,9 @@ Slow is smooth. Smooth is fast.
 - This is an open source Git repository for TypeScript-related tooling.
 - If you create or modify a JavaScript/TypeScript file:
   - Use the `mapAsync` helper function instead of `Promise.all`.
-  - Run `bunx --bun prettier --write foo.ts` at the root of the project (not the repository) to ensure it is formatted.
-  - Run `bunx --bun tsc foo.ts` at the root of the project (not the root of the repository) to ensure it is type-checked.
   - Run `bunx --bun eslint --fix foo.ts` at the root of the project (not the root of the repository) to ensure it is linted.
+  - Run `bunx --bun prettier --write foo.ts` at the root of the project (not the root of the repository) to ensure it is formatted.
+  - Run `bun run lint` at the root of the project (not the repository) to ensure it passes all checks.
 - Only write code with normal ASCII characters. Never use emjois in your code.
 - Never put pointless comments in your code. You should be writing easy to read code, making comments superfluous.
 - Do not commit to the repository unless explicitly asked to.
