@@ -21,6 +21,9 @@
     // prefer the "no-fallthrough" ESLint rule instead, as this does not have to do with types.
     "noFallthroughCasesInSwitch": false,
 
+    // The "strictest" config does not enable this: https://github.com/tsconfig/bases/pull/276
+    "noUncheckedSideEffectImports": true,
+
     // The "strictest" config has the "noUnusedLocals" and the "noUnusedParameters" flags set to
     // true. However, we prefer the "@typescript-eslint/no-unused-vars" ESLint rule instead, since
     // unused local variables can be useful while debugging. Furthermore, the ESLint rule has the
