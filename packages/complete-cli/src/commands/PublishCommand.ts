@@ -143,12 +143,12 @@ async function updateDependencies(
   }
 }
 
-async function gitCommitAllAndPush(message: string) {
+async function gitCommitAllAndPush(commitMessage: string) {
   await $`git add --all`;
-  await $`git commit --message ${message}`;
+  await $`git commit --message ${commitMessage}`;
   await $`git push`;
   console.log(
-    `Committed and pushed to the git repository with a message of: ${message}`,
+    `Committed and pushed to the git repository with a message of: ${commitMessage}`,
   );
 }
 
@@ -222,8 +222,8 @@ async function publish(dryRun: boolean) {
   if (dryRun) {
     await $`git reset --hard`; // Revert the version changes.
   } else {
-    const releaseGitCommitMessage = getReleaseGitCommitMessage(version);
-    await gitCommitAllAndPush(releaseGitCommitMessage);
+    const commitMessage = `chore: release ${version}`;
+    await gitCommitAllAndPush(commitMessage);
 
     const packageManager = await getPackageManagerForProject(CWD);
     assertDefined(
@@ -243,8 +243,4 @@ async function publish(dryRun: boolean) {
   console.log(
     `Published ${name} version ${version} successfully${dryRunSuffix}.`,
   );
-}
-
-function getReleaseGitCommitMessage(version: string): string {
-  return `chore: release ${version}`;
 }

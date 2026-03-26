@@ -30,6 +30,7 @@ import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
+  getPackageManagerLockFileName,
 } from "./packageManager.js";
 import { getArgs } from "./utils.js";
 
@@ -173,7 +174,9 @@ export async function monorepoPublish(
 
   // Manually make a Git commit.
   const packageJSONPath = path.join(packagePath, "package.json");
-  await $monorepo`git add ${packageJSONPath}`;
+  const lockFileName = getPackageManagerLockFileName(packageManager);
+  const lockFilePath = path.join(monorepoRoot, lockFileName);
+  await $monorepo`git add ${packageJSONPath} ${lockFilePath}`;
   const newVersion = await getPackageJSONVersion(packagePath);
   const tag = `${packageName}-${newVersion}`;
   const commitMessage = `chore: release ${tag}`;
