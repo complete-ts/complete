@@ -20,7 +20,7 @@ List of fruits:
   testFormatText(text);
 });
 
-test("Number parenthesis list", () => {
+test("Number parentheses list", () => {
   const text = `
 List of fruits:
 1) Apple
@@ -118,7 +118,7 @@ List of things:
   testFormatText(text, formattedText);
 });
 
-test("Number parenthesis list with single overflow", () => {
+test("Number parentheses list with single overflow", () => {
   const text = `
 List of things:
 1) But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will
@@ -136,7 +136,7 @@ List of things:
   testFormatText(text, formattedText);
 });
 
-test("Number parenthesis list with lots of overflow", () => {
+test("Number parentheses list with lots of overflow", () => {
   const text = `
 List of things:
 1) But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
@@ -220,7 +220,7 @@ List of things:
   testFormatText(text, formattedText);
 });
 
-test("Hyphen list with a list item that looks like a number parenthesis list", () => {
+test("Hyphen list with a list item that looks like a number parentheses list", () => {
   const text = `
 Pattern can be any of the following:
 

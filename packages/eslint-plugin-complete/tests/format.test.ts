@@ -201,7 +201,7 @@ e.g. "@param foo This is foo." would be "@param foo".
   testFormatText(text);
 });
 
-test("e.g. in parenthesis does not get merged", () => {
+test("e.g. in parentheses does not get merged", () => {
   const text = `
 The contents of JSDoc tag header, if any.
 (e.g. "@param foo This is foo." would be "@param foo".)
@@ -217,7 +217,7 @@ i.e. "@param foo This is foo." would be "@param foo".
   testFormatText(text);
 });
 
-test("i.e. in parenthesis does not get merged", () => {
+test("i.e. in parentheses does not get merged", () => {
   const text = `
 The contents of JSDoc tag header, if any.
 (i.e. "@param foo This is foo." would be "@param foo".)

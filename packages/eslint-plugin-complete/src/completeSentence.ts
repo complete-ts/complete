@@ -220,7 +220,7 @@ function getIncompleteSentenceKind(
 ): CompleteSentenceMessageIds | undefined {
   let text = sentence;
 
-  // Trim the parenthesis surrounding the sentence, if any.
+  // Trim the parentheses surrounding the sentence, if any.
   let textBeforeModifications: string;
   do {
     textBeforeModifications = text;
@@ -249,7 +249,7 @@ function getIncompleteSentenceKind(
     || text.startsWith(LIST_ELEMENT_IDENTIFIER)
     // Code blocks.
     || text.includes("```")
-    // Sentences that end with a number in parenthesis (which indicates some kind of expression).
+    // Sentences that end with a number in parentheses (which indicates some kind of expression).
     // This must check the original text.
     || / \(\d+\)$/.test(sentence.trimEnd())
   ) {

@@ -220,7 +220,7 @@ function foo() {
 });
 
 valid.push({
-  name: "Comment with spillover number in parenthesis",
+  name: "Comment with spillover number in parentheses",
   code: `
 // For EntityType.CONSTANT_STONE_SHOOTER (202), ConstantStoneShooterVariant.CONSTANT_STONE_SHOOTER
 // (0)

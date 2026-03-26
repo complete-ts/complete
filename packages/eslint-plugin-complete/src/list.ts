@@ -29,7 +29,7 @@ export interface List {
 
 export enum ListKind {
   Hyphen = "Hyphen",
-  NumberParenthesis = "NumberParenthesis",
+  NumberParentheses = "NumberParentheses",
   NumberPeriod = "NumberPeriod",
   JSDocTag = "JSDocTag",
 }
@@ -63,7 +63,7 @@ export function getAdjustedList(
     }
 
     case ListKind.NumberPeriod:
-    case ListKind.NumberParenthesis: {
+    case ListKind.NumberParentheses: {
       // If we are already inside of a numbered list, then do not require blank lines in between the
       // bullets.
       if (list.kind === insideList?.kind) {
@@ -114,17 +114,17 @@ function getList(line: string): List | undefined {
     };
   }
 
-  /** e.g. "1) A bullet point can start with a number and a parenthesis." */
-  const numberParenthesisMatch = line.match(/^(\d+)\) /);
+  /** e.g. "1) A bullet point can start with a number and a parentheses." */
+  const numberParenthesesMatch = line.match(/^(\d+)\) /);
   if (
-    numberParenthesisMatch !== null
-    && numberParenthesisMatch[1] !== undefined
-    && numberParenthesisMatch[1] !== "0"
+    numberParenthesesMatch !== null
+    && numberParenthesesMatch[1] !== undefined
+    && numberParenthesesMatch[1] !== "0"
   ) {
     return {
-      kind: ListKind.NumberParenthesis,
+      kind: ListKind.NumberParentheses,
       numLeadingSpaces,
-      markerSize: numberParenthesisMatch[1].length + ") ".length,
+      markerSize: numberParenthesesMatch[1].length + ") ".length,
     };
   }
 
