@@ -1,6 +1,5 @@
 {
   "lockfileVersion": 1,
-  "configVersion": 1,
   "workspaces": {
     "": {
       "name": "complete-monorepo",
@@ -109,7 +108,7 @@
     },
     "packages/complete-tsconfig": {
       "name": "complete-tsconfig",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "dependencies": {
         "@tsconfig/node-lts": "catalog:",
         "@tsconfig/strictest": "catalog:",
