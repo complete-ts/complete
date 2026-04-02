@@ -8,7 +8,8 @@
   ],
 
   "compilerOptions": {
-    "types": ["jest"],
+    // All types must be specified, since this completely overwrites previous values.
+    "types": ["jest", "node"],
   },
 
   "include": ["./**/*.ts"],
