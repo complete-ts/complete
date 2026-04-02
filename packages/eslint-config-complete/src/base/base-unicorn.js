@@ -22,6 +22,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",
     "unicorn/consistent-function-scoping": "error",
+    "unicorn/consistent-template-literal-escape": "error",
     "unicorn/custom-error-definition": "error",
     "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
     "unicorn/error-message": "error",
@@ -107,6 +108,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-useless-collection-argument": "error",
     "unicorn/no-useless-error-capture-stack-trace": "error",
     "unicorn/no-useless-fallback-in-spread": "error",
+    "unicorn/no-useless-iterator-to-array": "error",
     "unicorn/no-useless-length-check": "error",
     "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-spread": "error",
@@ -165,6 +167,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-response-static-json": "error",
     "unicorn/prefer-set-has": "error",
     "unicorn/prefer-set-size": "error",
+    "unicorn/prefer-simple-condition-first": "error",
     "unicorn/prefer-single-call": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-raw": "error",
@@ -194,6 +197,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/string-content": "off",
 
     "unicorn/switch-case-braces": "error",
+    "unicorn/switch-case-break-position": "error",
 
     /**
      * Even though this rule is in `eslint-config-prettier`, it is not actually handled by Prettier.
