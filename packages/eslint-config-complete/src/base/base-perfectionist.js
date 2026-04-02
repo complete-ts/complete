@@ -11,6 +11,7 @@ export const basePerfectionist = defineConfig({
   },
 
   rules: {
+    /** This rule is only enabled for `ReadonlySet` constructors. */
     "perfectionist/sort-arrays": [
       "error",
       {
