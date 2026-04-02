@@ -29,7 +29,7 @@
     "build": "bun run ./scripts/build.ts",
     "docs": "typedoc",
     "lint": "bun run ./scripts/lint.ts",
-    "test": "bun test"
+    "test": "bun test ./tests"
   },
   "devDependencies": {
     "@types/node": "catalog:",

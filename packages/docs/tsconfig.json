@@ -19,6 +19,7 @@
 
     // TODO: These are necessary options copied from "docusaurus-tsconfig" that are necessary to
     // avoid type errors.
+    "allowJs": true,
     "jsx": "preserve",
   },
 
