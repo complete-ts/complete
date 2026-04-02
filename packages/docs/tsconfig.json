@@ -3,24 +3,18 @@
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
-  "extends": [
-    "../complete-tsconfig/tsconfig.base.json",
-
-    // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
-    // TODO: Commented out until Docusaurus 4.0 comes out due to requiring "ignoreDeprecations":
-    // https://github.com/facebook/docusaurus/pull/11843
-    // "@docusaurus/tsconfig",
-  ],
+  "extends": ["../complete-tsconfig/tsconfig.base.json"],
 
   // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
+    // This package has non-transpiled scripts.
+    "allowJs": true,
+
+    // Necessary since Docusaurus uses JSX.
+    "jsx": "preserve",
+
     // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
     "lib": ["DOM", "ES2021"],
-
-    // TODO: These are necessary options copied from "docusaurus-tsconfig" that are necessary to
-    // avoid type errors.
-    "allowJs": true,
-    "jsx": "preserve",
   },
 
   "include": [
