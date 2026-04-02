@@ -7,13 +7,19 @@
     "../complete-tsconfig/tsconfig.base.json",
 
     // https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-tsconfig/tsconfig.json
-    "@docusaurus/tsconfig",
+    // TODO: Commented out until Docusaurus 4.0 comes out due to requiring "ignoreDeprecations":
+    // https://github.com/facebook/docusaurus/pull/11843
+    // "@docusaurus/tsconfig",
   ],
 
   // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
     // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
     "lib": ["DOM", "ES2021"],
+
+    // TODO: These are necessary options copied from "docusaurus-tsconfig" that are necessary to
+    // avoid type errors.
+    "jsx": "preserve",
   },
 
   "include": [
