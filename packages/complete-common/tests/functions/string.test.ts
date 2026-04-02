@@ -10,7 +10,7 @@ import {
   titleCaseToKebabCase,
   trimPrefix,
   trimSuffix,
-} from "./string.js";
+} from "../../src/functions/string.js";
 
 describe("hasEmoji", () => {
   test("should return true for string with normal emoji", () => {
