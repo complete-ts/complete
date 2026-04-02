@@ -220,7 +220,7 @@ const PARENT_CONFIG_LINKS = {
 
 // -------------------------------------------------------------------------------------------------
 
-let valid = false;
+let valid = true;
 
 if (isMain(import.meta.filename)) {
   await setReadmeRules(false);
