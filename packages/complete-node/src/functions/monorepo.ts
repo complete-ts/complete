@@ -58,7 +58,7 @@ export async function fixMonorepoPackageDistDirectory(
 ): Promise<void> {
   const projectName = path.basename(packageRoot);
   const outDir = path.join(packageRoot, "dist");
-  const realOutDir = path.join(outDir, projectName, "packages", "src");
+  const realOutDir = path.join(outDir, "packages", projectName);
   const tempPath = path.join(os.tmpdir(), projectName);
   await deleteFileOrDirectory(tempPath);
   await moveFileOrDirectory(realOutDir, tempPath);
