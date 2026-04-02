@@ -29,8 +29,6 @@ import path from "node:path";
 import url from "node:url";
 import tseslint from "typescript-eslint";
 
-const FAIL_ON_MISSING_RULES = true as boolean;
-
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
 const PACKAGE_NAME = path.basename(PACKAGE_ROOT);
 const BASE_CONFIGS_PATH = path.join(PACKAGE_ROOT, "src", "base");
@@ -222,6 +220,8 @@ const PARENT_CONFIG_LINKS = {
 
 // -------------------------------------------------------------------------------------------------
 
+let valid = false;
+
 if (isMain(import.meta.filename)) {
   await setReadmeRules(false);
 }
@@ -299,6 +299,10 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "RULES_TABLE",
     PACKAGE_ROOT,
   );
+
+  if (!valid) {
+    throw new Error("One or more rules were missing or invalid.");
+  }
 
   if (!quiet) {
     console.log(`Successfully filled: ${README_PATH}`);
@@ -404,31 +408,23 @@ function auditBaseConfigRules(
 
   const allRules = getAllRulesFromImport(configName, upstreamImport);
 
-  let allValid = true;
-
   // Go through every upstream rule.
   for (const ruleName of allRules) {
     const rule = baseRules[ruleName];
     if (rule === undefined) {
-      allValid = false;
-      console.warn(
-        `Failed to find a rule in the base config from upstream config "${configName}": ${ruleName}`,
-      );
+      valid = false;
+      console.warn(`Failed to find a rule in the base config: ${ruleName}`);
     }
   }
 
   // Also do the inverted check, which confirms that no deprecated rules are turned on.
   for (const ruleName of Object.keys(baseRules)) {
     if (!allRules.includes(ruleName)) {
-      allValid = false;
+      valid = false;
       console.warn(
-        `The rule of "${ruleName}" was not found in the upstream configuration. Is it now deprecated?`,
+        `Failed to find a rule in the upstream configuration (probably due to deprecation): ${ruleName}`,
       );
     }
-  }
-
-  if (FAIL_ON_MISSING_RULES && !allValid) {
-    throw new Error("One or more rules were missing.");
   }
 }
 
