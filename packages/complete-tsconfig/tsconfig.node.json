@@ -4,4 +4,9 @@
   // We extend the recommended Node config:
   // https://github.com/tsconfig/bases/blob/main/bases/node-lts.json
   "extends": "@tsconfig/node-lts/tsconfig.json",
+
+  "compilerOptions": {
+    // TODO: https://github.com/tsconfig/bases/pull/353
+    "types": ["node"],
+  },
 }
