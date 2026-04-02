@@ -234,7 +234,6 @@ const ALL_EXTENSIONS = [
 export const baseImportX = defineConfig(
   {
     plugins: {
-      // @ts-expect-error https://github.com/un-ts/eslint-plugin-import-x/issues/421
       "import-x": esLintPluginImportX,
     },
 
