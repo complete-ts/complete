@@ -11,6 +11,16 @@ export const basePerfectionist = defineConfig({
   },
 
   rules: {
+    "perfectionist/sort-arrays": [
+      "error",
+      {
+        useConfigurationIf: {
+          matchesAstSelector:
+            'NewExpression[callee.name="ReadonlySet"] > ArrayExpression',
+        },
+      },
+    ],
+
     "perfectionist/sort-array-includes": "error",
 
     /** Disabled because class member ordering can be semantically significant. */
