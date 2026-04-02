@@ -5,6 +5,8 @@
 
   // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
+    "rootDir": ".",
+
     // We only have to include the packages that are imported by other packages.
     "paths": {
       "complete-common": ["./packages/complete-common/src/index.ts"],

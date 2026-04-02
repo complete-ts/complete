@@ -5,6 +5,7 @@
  */
 
 import { assertDefined, mapAsync } from "complete-common";
+import os from "node:os";
 import path from "node:path";
 import {
   assertDirectory,
@@ -46,9 +47,9 @@ export async function copyToMonorepoNodeModules(
 
 /**
  * In a monorepo without project references, `tsc` will compile parent projects and include it in
- * the build output, making a weird directory structure. Since build output for a single package
- * should not be include other monorepo dependencies inside of it, all of the output needs to be
- * deleted except for the actual package output.
+ * the build output, creating "dist/packages/foo/src/main.js". Since build output for a single
+ * package should not be include other monorepo dependencies inside of it, all of the output needs
+ * to be deleted except for the actual package output.
  *
  * This function assumes an "outDir" of "dist".
  */
@@ -57,8 +58,8 @@ export async function fixMonorepoPackageDistDirectory(
 ): Promise<void> {
   const projectName = path.basename(packageRoot);
   const outDir = path.join(packageRoot, "dist");
-  const realOutDir = path.join(outDir, projectName, "src");
-  const tempPath = path.join(packageRoot, projectName);
+  const realOutDir = path.join(outDir, projectName, "packages", "src");
+  const tempPath = path.join(os.tmpdir(), projectName);
   await deleteFileOrDirectory(tempPath);
   await moveFileOrDirectory(realOutDir, tempPath);
   await deleteFileOrDirectory(outDir);
