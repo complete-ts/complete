@@ -104,6 +104,7 @@
     "update": "bun run ./scripts/update.ts"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
     "cspell": "catalog:",
@@ -116,6 +117,7 @@
     "markdownlint-cli2": "0.22.0",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
-    "prettier-plugin-packagejson": "catalog:"
+    "prettier-plugin-packagejson": "catalog:",
+    "typescript": "catalog:"
   }
 }

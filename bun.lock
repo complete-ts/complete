@@ -5,6 +5,7 @@
     "": {
       "name": "complete-monorepo",
       "devDependencies": {
+        "@types/node": "catalog:",
         "complete-common": "workspace:*",
         "complete-node": "workspace:*",
         "cspell": "catalog:",
@@ -18,6 +19,7 @@
         "prettier": "catalog:",
         "prettier-plugin-organize-imports": "catalog:",
         "prettier-plugin-packagejson": "catalog:",
+        "typescript": "catalog:",
       },
     },
     "packages/complete-cli": {
