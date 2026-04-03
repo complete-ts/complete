@@ -10,11 +10,6 @@ import path from "node:path";
 
 const REPO_ROOT = path.resolve(import.meta.dirname, "..");
 
-/** The list of dependencies that should not be updated. */
-const LOCKED_DEPENDENCIES = [
-  "prettier-plugin-sh", // https://github.com/un-ts/prettier/issues/489
-] as const;
-
 const packageJSONPath = path.join(REPO_ROOT, "package.json");
 await assertFile(
   packageJSONPath,
@@ -38,7 +33,7 @@ const modifiedPackageJSONContents = `${JSON.stringify(oldPackageJSON, undefined,
 await writeFile(packageJSONPath, modifiedPackageJSONContents);
 
 const $$ = $({ cwd: REPO_ROOT });
-await $$`bunx --bun npm-check-updates --upgrade --reject ${LOCKED_DEPENDENCIES.join(",")}`;
+await $$`bunx --bun npm-check-updates --upgrade`;
 
 const newPackageJSONContents = await readFile(packageJSONPath);
 const newPackageJSON = JSON.parse(newPackageJSONContents) as unknown;
