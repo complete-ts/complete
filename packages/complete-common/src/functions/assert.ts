@@ -9,6 +9,7 @@
  */
 
 import type { TranspiledEnum } from "../types/TranspiledEnum.js";
+import type { Tuple } from "../types/Tuple.js";
 import { isEnumValue } from "./enums.js";
 import { isObject } from "./types.js";
 
@@ -43,6 +44,30 @@ export function assertArrayBoolean<T>(
   }
 
   if ((value as unknown[]).some((element) => typeof element !== "boolean")) {
+    throw new TypeError(msg);
+  }
+}
+
+/**
+ * Helper function to throw an error if the provided array does not have the specified length. Will
+ * also type narrow the array into a tuple of the specified length.
+ */
+export function assertArrayLength<E, N extends number>(
+  value: E[], // eslint-disable-line complete/prefer-readonly-parameter-types
+  length: N,
+  msg: string,
+): asserts value is Tuple<E, N>;
+export function assertArrayLength<E, N extends number>(
+  value: readonly E[],
+  length: N,
+  msg: string,
+): asserts value is Readonly<Tuple<E, N>>;
+export function assertArrayLength(
+  value: readonly unknown[],
+  length: number,
+  msg: string,
+): asserts value is unknown[] {
+  if (value.length !== length) {
     throw new TypeError(msg);
   }
 }

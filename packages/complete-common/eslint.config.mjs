@@ -9,7 +9,7 @@ export default defineConfig(
   {
     files: ["src/functions/**"],
     rules: {
-      "perfectionist/sort-exports": "error",
+      "perfectionist/sort-modules": "error",
     },
   },
 );

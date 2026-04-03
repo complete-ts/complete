@@ -10,7 +10,7 @@ type TupleKey<T extends readonly unknown[]> = {
   [L in T["length"]]: Exclude<Partial<Tuple<unknown, L>>["length"], L>;
 }[T["length"]];
 type TupleValue<T extends readonly unknown[]> = T[0];
-type TupleEntry<T extends readonly unknown[]> = [TupleKey<T>, TupleValue<T>];
+type TupleEntry<T extends readonly unknown[]> = [TupleKey<T>, TupleValue<T>]; // eslint-disable-line perfectionist/sort-modules
 
 /**
  * Helper function to get the entries (i.e. indexes and values) of a tuple in a type-safe way.
