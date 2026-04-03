@@ -7,7 +7,7 @@
 
   // https://www.typescriptlang.org/tsconfig/
   "compilerOptions": {
-    // This package has non-transpiled scripts.
+    // This package has non-transpiled JavaScript code.
     "allowJs": true,
 
     // Necessary since Docusaurus uses JSX.
