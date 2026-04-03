@@ -38,6 +38,6 @@
     "prettier-plugin-packagejson": "catalog:"
   },
   "peerDependencies": {
-    "typescript": ">= 5.0.0"
+    "typescript": ">= 6.0.0"
   }
 }
