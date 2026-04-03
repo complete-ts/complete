@@ -380,6 +380,7 @@ function isAllMonorepoDepsUsed(
   return allDepsUsed;
 }
 
+// eslint-disable-next-line perfectionist/sort-modules
 function addPendingUpdate(
   // eslint-disable-next-line complete/prefer-readonly-parameter-types
   pendingPackageJSONUpdates: PendingPackageJSONUpdates,
