@@ -23,6 +23,6 @@
 
     // Since Bun emulates nearly all of the Node APIs, we want to include the types in the same way
     // that "tsconfig.node.json" does.
-    "types": ["bun", "node"],
+    "types": ["node"],
   },
 }
