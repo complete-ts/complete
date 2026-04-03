@@ -16,9 +16,6 @@ const config = {
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
     },
-    "packages/complete-common": {
-      ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
-    },
     "packages/complete-lint": {
       // Since this is a meta-package, Knip will think all of the dependencies are unused.
       ignoreDependencies: [".+"],
@@ -27,13 +24,7 @@ const config = {
       ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
     },
     "packages/docs": {
-      ignore: [
-        "typedoc.config.base.mjs", // Imported by Typedoc configs in other libraries.
-        "static/js/hotkey.js", // https://github.com/webpro-nl/knip/issues/1617
-      ],
       ignoreDependencies: [
-        "@docusaurus/faster", // https://github.com/webpro-nl/knip/issues/1612
-        "typedoc", // Used in: typedoc.config.base.mjs
         "typedoc-plugin-markdown", // Used in: typedoc.config.base.mjs
       ],
     },

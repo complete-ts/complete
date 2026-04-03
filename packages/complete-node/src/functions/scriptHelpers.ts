@@ -4,7 +4,7 @@
  * @module
  */
 
-/* eslint-disable sort-exports/sort-exports */
+/* eslint-disable perfectionist/sort-modules */
 
 import {
   assertDefined,

@@ -4,6 +4,7 @@ import { ReadonlySet } from "complete-common";
 import {
   $,
   deleteFileOrDirectory,
+  diff,
   fatalError,
   isDirectory,
   isFile,
@@ -231,11 +232,7 @@ async function compareTextFiles(
   await writeFile(tempProjectFilePath, projectFileObject.text);
   await writeFile(tempTemplateFilePath, templateFileObject.text);
 
-  try {
-    await $`diff ${tempProjectFilePath} ${tempTemplateFilePath} --ignore-blank-lines`;
-  } catch {
-    // `diff` will exit with a non-zero code if the files are different, which is expected.
-  }
+  diff(projectFileObject.text, templateFileObject.text)
 
   await deleteFileOrDirectory(tempProjectFilePath);
   await deleteFileOrDirectory(tempTemplateFilePath);

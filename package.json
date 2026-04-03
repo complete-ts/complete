@@ -63,7 +63,6 @@
       "eslint-plugin-jsdoc": "62.9.0",
       "eslint-plugin-n": "17.24.0",
       "eslint-plugin-perfectionist": "5.8.0",
-      "eslint-plugin-sort-exports": "0.9.1",
       "eslint-plugin-unicorn": "64.0.0",
       "execa": "9.6.1",
       "jest": "30.3.0",
