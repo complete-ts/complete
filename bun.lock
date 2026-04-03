@@ -51,7 +51,7 @@
     },
     "packages/complete-common": {
       "name": "complete-common",
-      "version": "2.21.0",
+      "version": "2.22.0",
       "devDependencies": {
         "@types/node": "catalog:",
         "complete-node": "workspace:*",
