@@ -15,6 +15,7 @@ const config = {
   workspaces: {
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
+      ignoreBinaries: ["publish"], // TODO: https://github.com/webpro-nl/knip/pull/1662
     },
     "packages/complete-lint": {
       // Since this is a meta-package, Knip will think all of the dependencies are unused.

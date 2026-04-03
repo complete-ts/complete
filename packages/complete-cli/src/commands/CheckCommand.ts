@@ -2,7 +2,6 @@ import chalk from "chalk";
 import { Command, Option } from "clipanion";
 import { ReadonlySet } from "complete-common";
 import {
-  $,
   deleteFileOrDirectory,
   diff,
   fatalError,
@@ -232,7 +231,7 @@ async function compareTextFiles(
   await writeFile(tempProjectFilePath, projectFileObject.text);
   await writeFile(tempTemplateFilePath, templateFileObject.text);
 
-  diff(projectFileObject.text, templateFileObject.text)
+  diff(projectFileObject.text, templateFileObject.text);
 
   await deleteFileOrDirectory(tempProjectFilePath);
   await deleteFileOrDirectory(tempTemplateFilePath);
