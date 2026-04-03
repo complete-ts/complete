@@ -3,7 +3,6 @@ import {
   $,
   copyFileOrDirectory,
   deleteFileOrDirectory,
-  fixMonorepoPackageDistDirectory,
   getFilePathsInDirectory,
   isFile,
   moveFileOrDirectory,
@@ -69,10 +68,31 @@ async function buildDeclarations(packageRoot: string) {
 
   await deleteFileOrDirectory(outDir);
   await $`tsc --emitDeclarationOnly`;
+
+  // The declarations might be in a "packages" directory due to the "rootDir" setting. If so, we
+  // must move them back to the root of the output directory.
   const indexFilePath = path.join(outDir, "index.d.ts");
   const indexFileExists = await isFile(indexFilePath);
   if (!indexFileExists) {
-    await fixMonorepoPackageDistDirectory(packageRoot);
+    const projectName = path.basename(packageRoot);
+    const nestedSrcDir = path.join(outDir, "packages", projectName, "src");
+    const tempDeclarationsPath = path.join(
+      tmpDir,
+      `${projectName}-declarations`,
+    );
+    await deleteFileOrDirectory(tempDeclarationsPath);
+    await moveFileOrDirectory(nestedSrcDir, tempDeclarationsPath);
+    await deleteFileOrDirectory(outDir);
+    await moveFileOrDirectory(tempDeclarationsPath, outDir);
+
+    // We must also fix the paths inside of the declaration maps.
+    const filePaths = await getFilePathsInDirectory(outDir, "files", true);
+    const mapFilePaths = filePaths.filter((filePath) =>
+      filePath.endsWith(".d.ts.map"),
+    );
+    await mapAsync(mapFilePaths, async (mapFilePath) => {
+      await replaceTextInFile(mapFilePath, "../../../../src/", "../src/");
+    });
   }
 
   // Move the JavaScript files back.
