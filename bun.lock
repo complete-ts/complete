@@ -78,7 +78,7 @@
         "prettier-plugin-packagejson": "catalog:",
       },
       "peerDependencies": {
-        "typescript": ">= 5.0.0",
+        "typescript": ">= 6.0.0",
       },
     },
     "packages/complete-node": {
@@ -173,7 +173,7 @@
     },
     "packages/eslint-plugin-complete": {
       "name": "eslint-plugin-complete",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "dependencies": {
         "@typescript-eslint/type-utils": "catalog:",
         "@typescript-eslint/utils": "catalog:",
@@ -195,7 +195,7 @@
       },
       "peerDependencies": {
         "eslint": ">= 9.0.0",
-        "typescript": ">= 5.0.0",
+        "typescript": ">= 6.0.0",
       },
     },
   },
