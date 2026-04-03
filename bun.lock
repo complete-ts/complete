@@ -26,7 +26,7 @@
       "name": "complete-cli",
       "version": "1.5.19",
       "bin": {
-        "complete-cli": "./dist/main.js",
+        "complete-cli": "./dist/src/main.js",
       },
       "dependencies": {
         "@clack/prompts": "catalog:",
@@ -142,7 +142,7 @@
     },
     "packages/eslint-config-complete": {
       "name": "eslint-config-complete",
-      "version": "4.7.0",
+      "version": "4.7.1",
       "dependencies": {
         "@stylistic/eslint-plugin": "catalog:",
         "confusing-browser-globals": "catalog:",
