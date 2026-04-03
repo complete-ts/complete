@@ -4,11 +4,17 @@
 // "dependencies" object, such that "npm-check-updates" can update it. Then, we move it back to the
 // way that it was.
 
-import { assertObject } from "complete-common";
+import { assertObject, isObject } from "complete-common";
 import { $, assertFile, readFile, writeFile } from "complete-node";
 import path from "node:path";
 
 const REPO_ROOT = path.resolve(import.meta.dirname, "..");
+
+const DEPENDENCY_SECTIONS = [
+  "devDependencies",
+  "peerDependencies",
+  "optionalDependencies",
+] as const;
 
 const packageJSONPath = path.join(REPO_ROOT, "package.json");
 await assertFile(
@@ -29,6 +35,27 @@ assertObject(
 oldPackageJSON["dependencies"] = oldWorkspaces["catalog"];
 oldWorkspaces["catalog"] = undefined;
 
+const savedCatalogRefs: Partial<
+  Record<(typeof DEPENDENCY_SECTIONS)[number], Record<string, string>>
+> = {};
+
+for (const section of DEPENDENCY_SECTIONS) {
+  const sectionData = oldPackageJSON[section];
+  if (!isObject(sectionData)) {
+    continue;
+  }
+  const saved: Record<string, string> = {};
+  for (const [pkg, ver] of Object.entries(sectionData)) {
+    if (typeof ver === "string" && ver.startsWith("catalog:")) {
+      saved[pkg] = ver;
+      sectionData[pkg] = undefined;
+    }
+  }
+  if (Object.keys(saved).length > 0) {
+    savedCatalogRefs[section] = saved;
+  }
+}
+
 const modifiedPackageJSONContents = `${JSON.stringify(oldPackageJSON, undefined, 2)}\n`;
 await writeFile(packageJSONPath, modifiedPackageJSONContents);
 
@@ -47,6 +74,16 @@ assertObject(
 
 newWorkspaces["catalog"] = newPackageJSON["dependencies"];
 newPackageJSON["dependencies"] = undefined;
+
+for (const [section, saved] of Object.entries(savedCatalogRefs)) {
+  const sectionData = newPackageJSON[section];
+  if (!isObject(sectionData)) {
+    continue;
+  }
+  for (const [pkg, ver] of Object.entries(saved)) {
+    sectionData[pkg] = ver;
+  }
+}
 
 const fixedPackageJSONContents = `${JSON.stringify(newPackageJSON, undefined, 2)}\n`;
 await writeFile(packageJSONPath, fixedPackageJSONContents);
