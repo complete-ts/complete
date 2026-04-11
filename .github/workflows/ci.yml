@@ -167,7 +167,7 @@ jobs:
   discord:
     name: Discord Failure Notification
     needs: [build, lint, test, monorepo-lint, docs-deploy]
-    if: failure()
+    if: failure() && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: sarisia/actions-status-discord@v1
