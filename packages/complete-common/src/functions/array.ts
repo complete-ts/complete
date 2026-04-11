@@ -381,3 +381,11 @@ export function newArray<T>(length: number, value: T): readonly T[] {
 export function sumArray(array: readonly number[]): number {
   return array.reduce((accumulator, element) => accumulator + element, 0);
 }
+
+/**
+ * Helper function to filter out non-unique elements from an array. Under the hood, this converts
+ * the array to a `Set` and then back to an array.
+ */
+export function unique<T>(array: readonly T[]): readonly T[] {
+  return [...new Set(array)];
+}
