@@ -21,7 +21,6 @@
   },
   "files": [
     "dist",
-    "file-templates",
     "src"
   ],
   "scripts": {
