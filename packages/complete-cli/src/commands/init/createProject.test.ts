@@ -1,3 +1,4 @@
+import { mapAsync } from "complete-common";
 import {
   $,
   copyFileOrDirectory,
@@ -10,11 +11,19 @@ import { describe, test } from "node:test";
 import { createProject } from "./createProject.js";
 
 const TMP_DIR = os.tmpdir();
-const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..", "..", "..");
+const PACKAGES_DIR = path.resolve(import.meta.dirname, "..", "..", "..", "..");
+const PACKAGES_TO_BUILD = [
+  "complete-cli",
+  "complete-common",
+  "complete-node",
+] as const;
 
 describe("createProject", async () => {
-  const $$ = $({ cwd: PACKAGE_ROOT });
-  await $$`bun run build`;
+  // Before running any tests, build this package and all parent packages.
+  await mapAsync(PACKAGES_TO_BUILD, async (packageName) => {
+    const $$ = $({ cwd: path.join(PACKAGES_DIR, packageName) });
+    await $$`bun run build`;
+  });
 
   test(
     "init foo with build and lint passing",
@@ -35,18 +44,19 @@ describe("createProject", async () => {
           PackageManager.bun,
         );
 
-        // Replace the "complete-cli" from npm with the local development build so that
-        // "complete-cli check" (invoked by the lint script) tests local code, not the published
-        // version.
-        const installedDistPath = path.join(
-          projectPath,
-          "node_modules",
-          "complete-cli",
-          "dist",
-        );
-        const localDistPath = path.join(PACKAGE_ROOT, "dist");
-        await deleteFileOrDirectory(installedDistPath);
-        await copyFileOrDirectory(localDistPath, installedDistPath);
+        // Replace the installed packages with local development builds so that local code changes
+        // are tested rather than the published npm versions.
+        await mapAsync(PACKAGES_TO_BUILD, async (packageName) => {
+          const srcPath = path.join(PACKAGES_DIR, packageName, "dist");
+          const dstPath = path.join(
+            projectPath,
+            "node_modules",
+            packageName,
+            "dist",
+          );
+          await deleteFileOrDirectory(dstPath);
+          await copyFileOrDirectory(srcPath, dstPath);
+        });
 
         const $$q = $({ cwd: projectPath });
         await $$q`bun run build`;
