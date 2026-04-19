@@ -1,10 +1,18 @@
-import { $, deleteFileOrDirectory, PackageManager } from "complete-node";
+import { assertObject } from "complete-common";
+import {
+  $,
+  deleteFileOrDirectory,
+  PackageManager,
+  readFile,
+  writeFile,
+} from "complete-node";
 import os from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
 import { createProject } from "./createProject.js";
 
 const TMP_DIR = os.tmpdir();
+const PACKAGE_PATH = path.resolve(import.meta.dirname, "..", "..", "..");
 
 describe("createProject", () => {
   test(
@@ -22,11 +30,14 @@ describe("createProject", () => {
           projectPath,
           true,
           undefined,
-          false,
+          true,
           PackageManager.bun,
         );
 
+        await setCompleteCLIDependencyToLocal(projectPath);
+
         const $$q = $({ cwd: projectPath });
+        await $$q`bun install`;
         await $$q`bun run build`;
         await $$q`bun run lint`;
       } finally {
@@ -35,3 +46,27 @@ describe("createProject", () => {
     },
   );
 });
+
+/**
+ * We want to test against the development version of `complete-cli`, not the version published on
+ * npm.
+ */
+async function setCompleteCLIDependencyToLocal(projectPath: string) {
+  const packageJSONPath = path.join(projectPath, "package.json");
+  const packageJSONContents = await readFile(packageJSONPath);
+  const packageJSON = JSON.parse(packageJSONContents) as unknown;
+  assertObject(
+    packageJSON,
+    `Failed to parse the "${packageJSONPath}" file as an object.`,
+  );
+
+  const { devDependencies } = packageJSON;
+  assertObject(
+    devDependencies,
+    `Failed to parse the "devDependencies" field in the "${packageJSONPath}" file.`,
+  );
+
+  devDependencies["complete-cli"] = `file:${PACKAGE_PATH}`;
+  const newFileContents = JSON.stringify(packageJSON, undefined, 2);
+  await writeFile(packageJSONPath, newFileContents);
+}
