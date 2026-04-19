@@ -25,5 +25,5 @@ await lintCommands(import.meta.dirname, [
   "cspell-check-unused-words",
 
   // Check for template updates.
-  "bunx complete-cli check",
+  "complete-cli check",
 ]);
