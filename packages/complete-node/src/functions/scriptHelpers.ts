@@ -11,8 +11,6 @@ import {
   getElapsedSeconds,
   includesAny,
   isObject,
-  ReadonlySet,
-  trimSuffix,
 } from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
 import { Listr } from "listr2";
@@ -21,9 +19,10 @@ import { packageDirectory } from "package-directory";
 import { $q } from "./execa.js";
 import {
   deleteFileOrDirectory,
-  getFileNamesInDirectory,
+  getFilePathsInDirectory,
   isDirectory,
 } from "./file.js";
+import { isBunRuntime } from "./runtime.js";
 import { getArgs } from "./utils.js";
 
 /** This should match what is listed in the "complete-lint/website-root.md" file. */
@@ -204,15 +203,19 @@ export async function lintCommands(
     `Failed to find the package root from the directory of: ${packageRoot}`,
   );
 
-  const binDir = path.join(packageRoot, "node_modules", ".bin");
-  const binDirExists = await isDirectory(binDir);
-  const binFileNames = binDirExists
-    ? await getFileNamesInDirectory(binDir)
-    : [];
-  const bunxBinaries = binFileNames
-    .filter((name) => name.endsWith(".bunx"))
-    .map((name) => trimSuffix(name, ".bunx"));
-  const bunxBinariesSet = new ReadonlySet(bunxBinaries);
+  // In certain situations, Execa will not work with bun. As a workaround, we need to use "bunx".
+  const localBinaries = new Set<string>();
+  if (isBunRuntime()) {
+    const binDir = path.join(packageRoot, "node_modules", ".bin");
+    const binDirExists = await isDirectory(binDir);
+    if (binDirExists) {
+      const binFilePaths = await getFilePathsInDirectory(binDir);
+      for (const filePath of binFilePaths) {
+        const fileNameWithoutExt = path.parse(filePath).name;
+        localBinaries.add(fileNameWithoutExt);
+      }
+    }
+  }
 
   const tasks = commands.map((command) => {
     // Handle normal commands.
@@ -225,7 +228,7 @@ export async function lintCommands(
             throw new Error(`Invalid command: ${command}`);
           }
 
-          const useBunx = bunxBinariesSet.has(cmd);
+          const useBunx = localBinaries.has(cmd);
           const finalCmd = useBunx ? "bunx" : cmd;
           const finalArgs = useBunx ? [cmd, ...args] : args;
 
