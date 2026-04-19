@@ -10,11 +10,14 @@ import { describe, test } from "node:test";
 import { createProject } from "./createProject.js";
 
 const TMP_DIR = os.tmpdir();
-const COMPLETE_CLI_PATH = path.resolve(import.meta.dirname, "..", "..", "..");
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..", "..", "..");
 
-describe("createProject", () => {
+describe("createProject", async () => {
+  const $$ = $({ cwd: PACKAGE_ROOT });
+  await $$`bun run build`;
+
   test(
-    "init foo - build and lint succeed",
+    "init foo with build and lint passing",
     { timeout: 5 * 60 * 1000 },
     async () => {
       const projectPath = path.join(TMP_DIR, "foo");
@@ -41,7 +44,7 @@ describe("createProject", () => {
           "complete-cli",
           "dist",
         );
-        const localDistPath = path.join(COMPLETE_CLI_PATH, "dist");
+        const localDistPath = path.join(PACKAGE_ROOT, "dist");
         await deleteFileOrDirectory(installedDistPath);
         await copyFileOrDirectory(localDistPath, installedDistPath);
 
