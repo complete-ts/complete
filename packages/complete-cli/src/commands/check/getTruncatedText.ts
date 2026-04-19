@@ -152,6 +152,14 @@ export function getTruncatedText(
       }
     }
 
+    if (
+      fileName === "tsconfig.json"
+      && (line.includes("tsconfig.node.json")
+        || line.includes("tsconfig.bun.json"))
+    ) {
+      continue;
+    }
+
     if (fileName === "ci.yml" || fileName === "action.yml") {
       // End-users can have different package managers.
       if (hasPackageManagerString(line)) {
