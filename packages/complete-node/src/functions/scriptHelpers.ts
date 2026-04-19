@@ -211,6 +211,7 @@ export async function lintCommands(
 
           return await $q(cmd, args, {
             cwd: packageRoot,
+            preferLocal: true,
           });
         },
       };
