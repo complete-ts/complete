@@ -30,7 +30,7 @@ describe("createProject", () => {
           projectPath,
           true,
           undefined,
-          true,
+          false,
           PackageManager.bun,
         );
 
