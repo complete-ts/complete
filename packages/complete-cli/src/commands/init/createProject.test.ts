@@ -48,7 +48,8 @@ describe("createProject", async () => {
         await deleteFileOrDirectory(installedDistPath);
         await copyFileOrDirectory(localDistPath, installedDistPath);
 
-        const $$q = $({ cwd: projectPath });
+        // `preferLocal` is necessary for `complete-cli` to be in the path.
+        const $$q = $({ cwd: projectPath, preferLocal: true });
         await $$q`bun run build`;
         await $$q`bun run lint`;
       } finally {
