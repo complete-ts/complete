@@ -17,12 +17,7 @@ import { Listr } from "listr2";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { $q } from "./execa.js";
-import {
-  deleteFileOrDirectory,
-  getFilePathsInDirectory,
-  isDirectory,
-} from "./file.js";
-import { isBunRuntime } from "./runtime.js";
+import { deleteFileOrDirectory } from "./file.js";
 import { getArgs } from "./utils.js";
 
 /** This should match what is listed in the "complete-lint/website-root.md" file. */
@@ -203,20 +198,6 @@ export async function lintCommands(
     `Failed to find the package root from the directory of: ${packageRoot}`,
   );
 
-  // In certain situations, Execa will not work with bun. As a workaround, we need to use "bunx".
-  const localBinaries = new Set<string>();
-  if (isBunRuntime()) {
-    const binDir = path.join(packageRoot, "node_modules", ".bin");
-    const binDirExists = await isDirectory(binDir);
-    if (binDirExists) {
-      const binFilePaths = await getFilePathsInDirectory(binDir);
-      for (const filePath of binFilePaths) {
-        const fileNameWithoutExt = path.parse(filePath).name;
-        localBinaries.add(fileNameWithoutExt);
-      }
-    }
-  }
-
   const tasks = commands.map((command) => {
     // Handle normal commands.
     if (typeof command === "string") {
@@ -228,12 +209,9 @@ export async function lintCommands(
             throw new Error(`Invalid command: ${command}`);
           }
 
-          const useBunRun = localBinaries.has(cmd);
-          const finalCmd = useBunRun ? "bun" : cmd;
-          const finalArgs = useBunRun ? ["run", cmd, ...args] : args;
-
-          return await $q(finalCmd, finalArgs, {
+          return await $q(cmd, args, {
             cwd: packageRoot,
+            preferLocal: true,
           });
         },
       };
