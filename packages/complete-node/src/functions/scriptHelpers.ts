@@ -212,10 +212,10 @@ export async function lintCommands(
             throw new Error(`Invalid command: ${command}`);
           }
 
-          // In bun runtime, execa cannot spawn bun's .bin/ entries on Linux. As a workaround, read
-          // the "bin" field from the package's package.json and run the JS entry point directly
-          // with bun. This also ensures the correct (potentially swapped) file is used rather than
-          // a cached binary.
+          // When using bun, execa cannot spawn binaries in the ".bin" directory on Linux. As a
+          // workaround, read the "bin" field from the package's "package.json" and run the
+          // JavaScript entry point directly with bun. This also ensures the correct (potentially
+          // swapped) file is used rather than a cached binary.
           if (isBunRuntime()) {
             const packageJSONPath = path.join(
               packageRoot,
