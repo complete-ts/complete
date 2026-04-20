@@ -45,17 +45,20 @@ describe("createProject", async () => {
         );
 
         // Replace the installed packages with local development builds so that local code changes
-        // are tested rather than the published npm versions.
+        // are tested rather than the published npm versions. Both "dist" (used by Node.js) and
+        // "src" (used by bun via the "bun" export condition) must be replaced.
         await mapAsync(PACKAGES_TO_BUILD, async (packageName) => {
-          const srcPath = path.join(PACKAGES_DIR, packageName, "dist");
-          const dstPath = path.join(
-            projectPath,
-            "node_modules",
-            packageName,
-            "dist",
-          );
-          await deleteFileOrDirectory(dstPath);
-          await copyFileOrDirectory(srcPath, dstPath);
+          await mapAsync(["dist", "src"], async (dir) => {
+            const srcPath = path.join(PACKAGES_DIR, packageName, dir);
+            const dstPath = path.join(
+              projectPath,
+              "node_modules",
+              packageName,
+              dir,
+            );
+            await deleteFileOrDirectory(dstPath);
+            await copyFileOrDirectory(srcPath, dstPath);
+          });
         });
 
         const $$q = $({ cwd: projectPath });
