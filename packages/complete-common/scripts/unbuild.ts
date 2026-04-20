@@ -5,7 +5,6 @@ import {
   deleteFileOrDirectory,
   getFilePathsInDirectory,
   isFile,
-  makeDirectory,
   moveFileOrDirectory,
   replaceTextInFile,
 } from "complete-node";
@@ -58,7 +57,6 @@ async function buildDeclarations(packageRoot: string) {
   const projectName = path.basename(packageRoot);
   const outDir = path.join(packageRoot, "dist");
   const tmpDir = path.join(os.tmpdir(), projectName);
-  await makeDirectory(tmpDir);
 
   const javaScriptFileNames = ["index.cjs", "index.mjs"] as const;
 
