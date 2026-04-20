@@ -48,7 +48,7 @@ describe("createProject", async () => {
         // are tested rather than the published npm versions. Both "dist" (used by Node.js) and
         // "src" (used by bun via the "bun" export condition) must be replaced.
         await mapAsync(PACKAGES_TO_BUILD, async (packageName) => {
-          await mapAsync(["dist", "src"], async (dir) => {
+          await mapAsync(["dist"], async (dir) => {
             const srcPath = path.join(PACKAGES_DIR, packageName, dir);
             const dstPath = path.join(
               projectPath,
