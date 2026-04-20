@@ -8,6 +8,7 @@
 
 import {
   assertDefined,
+  assertObject,
   getElapsedSeconds,
   includesAny,
   isObject,
@@ -216,19 +217,22 @@ export async function lintCommands(
           // with bun. This also ensures the correct (potentially swapped) file is used rather than
           // a cached binary.
           if (isBunRuntime()) {
-            const pkgJsonPath = path.join(
+            const packageJSONPath = path.join(
               packageRoot,
               "node_modules",
               cmd,
               "package.json",
             );
-            if (await isFile(pkgJsonPath)) {
-              const pkgJsonText = await readFile(pkgJsonPath);
-              const pkgJson = JSON.parse(pkgJsonText) as Record<
-                string,
-                unknown
-              >;
-              const binField = pkgJson["bin"];
+
+            const packageJSONExists = await isFile(packageJSONPath);
+            if (packageJSONExists) {
+              const packageJSONContents = await readFile(packageJSONPath);
+              const packageJSON = JSON.parse(packageJSONContents) as unknown;
+              assertObject(
+                packageJSON,
+                `Failed to parse the "${packageJSONPath}" file as an object.`,
+              );
+              const binField = packageJSON["bin"];
               let binEntry: string | undefined;
               if (typeof binField === "string") {
                 binEntry = binField;
@@ -250,6 +254,7 @@ export async function lintCommands(
                 });
               }
             }
+
             // Fall back to "bun run" for packages whose binary name differs from the package name
             // (e.g. "tsc" from the "typescript" package).
             return await $q("bun", ["run", cmd, ...args], {
