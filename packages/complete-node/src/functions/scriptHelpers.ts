@@ -17,7 +17,9 @@ import { Listr } from "listr2";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { $q } from "./execa.js";
-import { deleteFileOrDirectory } from "./file.js";
+import { deleteFileOrDirectory, isFile } from "./file.js";
+import { readFile } from "./readWrite.js";
+import { isBunRuntime } from "./runtime.js";
 import { getArgs } from "./utils.js";
 
 /** This should match what is listed in the "complete-lint/website-root.md" file. */
@@ -207,6 +209,49 @@ export async function lintCommands(
           const [cmd, ...args] = command.split(" ");
           if (cmd === undefined) {
             throw new Error(`Invalid command: ${command}`);
+          }
+
+          // In bun runtime, execa cannot spawn bun's .bin/ entries on Linux. As a workaround, read
+          // the "bin" field from the package's package.json and run the JS entry point directly
+          // with bun. This also ensures the correct (potentially swapped) file is used rather than
+          // a cached binary.
+          if (isBunRuntime()) {
+            const pkgJsonPath = path.join(
+              packageRoot,
+              "node_modules",
+              cmd,
+              "package.json",
+            );
+            if (await isFile(pkgJsonPath)) {
+              const pkgJsonText = await readFile(pkgJsonPath);
+              const pkgJson = JSON.parse(pkgJsonText) as Record<string, unknown>;
+              const binField = pkgJson["bin"];
+              let binEntry: string | undefined;
+              if (typeof binField === "string") {
+                binEntry = binField;
+              } else if (isObject(binField)) {
+                const entry = binField[cmd];
+                if (typeof entry === "string") {
+                  binEntry = entry;
+                }
+              }
+              if (binEntry !== undefined) {
+                const jsPath = path.join(
+                  packageRoot,
+                  "node_modules",
+                  cmd,
+                  binEntry,
+                );
+                return await $q("bun", [jsPath, ...args], {
+                  cwd: packageRoot,
+                });
+              }
+            }
+            // Fall back to "bun run" for packages whose binary name differs from the package name
+            // (e.g. "tsc" from the "typescript" package).
+            return await $q("bun", ["run", cmd, ...args], {
+              cwd: packageRoot,
+            });
           }
 
           return await $q(cmd, args, {
