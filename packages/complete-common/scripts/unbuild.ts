@@ -5,6 +5,7 @@ import {
   deleteFileOrDirectory,
   getFilePathsInDirectory,
   isFile,
+  makeDirectory,
   moveFileOrDirectory,
   replaceTextInFile,
 } from "complete-node";
@@ -54,8 +55,10 @@ async function removeBuggedTypeSuffix(typeName: string) {
  * configuration file is bugged.)
  */
 async function buildDeclarations(packageRoot: string) {
+  const projectName = path.basename(packageRoot);
   const outDir = path.join(packageRoot, "dist");
-  const tmpDir = os.tmpdir();
+  const tmpDir = path.join(os.tmpdir(), projectName);
+  await makeDirectory(tmpDir);
 
   const javaScriptFileNames = ["index.cjs", "index.mjs"] as const;
 
@@ -74,7 +77,6 @@ async function buildDeclarations(packageRoot: string) {
   const indexFilePath = path.join(outDir, "index.d.ts");
   const indexFileExists = await isFile(indexFilePath);
   if (!indexFileExists) {
-    const projectName = path.basename(packageRoot);
     const nestedSrcDir = path.join(outDir, "packages", projectName, "src");
     const tempDeclarationsPath = path.join(
       tmpDir,

@@ -8,16 +8,20 @@
 
 import {
   assertDefined,
+  assertObject,
   getElapsedSeconds,
   includesAny,
   isObject,
+  mapAsync,
 } from "complete-common";
 import { ExecaError, ExecaSyncError } from "execa";
 import { Listr } from "listr2";
 import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { $q } from "./execa.js";
-import { deleteFileOrDirectory } from "./file.js";
+import { deleteFileOrDirectory, isFile } from "./file.js";
+import { readFile } from "./readWrite.js";
+import { isBunRuntime } from "./runtime.js";
 import { getArgs } from "./utils.js";
 
 /** This should match what is listed in the "complete-lint/website-root.md" file. */
@@ -198,6 +202,11 @@ export async function lintCommands(
     `Failed to find the package root from the directory of: ${packageRoot}`,
   );
 
+  const textCommands = commands.filter(
+    (command) => typeof command === "string",
+  );
+  const bunBinPaths = await getBunBinPaths(textCommands, packageRoot);
+
   const tasks = commands.map((command) => {
     // Handle normal commands.
     if (typeof command === "string") {
@@ -209,8 +218,19 @@ export async function lintCommands(
             throw new Error(`Invalid command: ${command}`);
           }
 
+          if (isBunRuntime()) {
+            const jsPath = bunBinPaths.get(cmd);
+            if (jsPath !== undefined) {
+              return await $q("bun", [jsPath, ...args], { cwd: packageRoot });
+            }
+            // Fall back to "bun run" for packages whose binary name differs from the package name
+            // (e.g. "tsc" from the "typescript" package).
+            return await $q("bun", ["run", cmd, ...args], { cwd: packageRoot });
+          }
+
           return await $q(cmd, args, {
             cwd: packageRoot,
+            preferLocal: true,
           });
         },
       };
@@ -240,6 +260,70 @@ export async function lintCommands(
     const packageName = path.basename(packageRoot);
     printSuccess(startTime, "linted", packageName);
   }
+}
+
+/**
+ * When using bun, execa cannot spawn binaries in the ".bin" directory on Linux. As a workaround,
+ * read the "bin" field from each package's "package.json" and run the JavaScript entry point
+ * directly with bun. Pre-resolve all paths upfront (in parallel, deduplicated by command name) so
+ * each package.json is read at most once before concurrent task execution begins.
+ */
+async function getBunBinPaths(
+  textCommands: readonly string[],
+  packageRoot: string,
+): Promise<ReadonlyMap<string, string>> {
+  const bunBinPaths = new Map<string, string>();
+
+  if (!isBunRuntime()) {
+    return bunBinPaths;
+  }
+
+  const cmdNames = new Set<string>();
+  for (const command of textCommands) {
+    if (typeof command === "string") {
+      const cmd = command.split(" ")[0];
+      if (cmd !== undefined) {
+        cmdNames.add(cmd);
+      }
+    }
+  }
+
+  await mapAsync([...cmdNames], async (cmd) => {
+    const packageJSONPath = path.join(
+      packageRoot,
+      "node_modules",
+      cmd,
+      "package.json",
+    );
+    const packageJSONExists = await isFile(packageJSONPath);
+    if (!packageJSONExists) {
+      return;
+    }
+
+    const packageJSONContents = await readFile(packageJSONPath);
+    const packageJSON = JSON.parse(packageJSONContents) as unknown;
+    assertObject(
+      packageJSON,
+      `Failed to parse the "${packageJSONPath}" file as an object.`,
+    );
+
+    const binField = packageJSON["bin"];
+    let binEntry: string | undefined;
+    if (typeof binField === "string") {
+      binEntry = binField;
+    } else if (isObject(binField)) {
+      const entry = binField[cmd];
+      if (typeof entry === "string") {
+        binEntry = entry;
+      }
+    }
+    if (binEntry !== undefined) {
+      const binPath = path.join(packageRoot, "node_modules", cmd, binEntry);
+      bunBinPaths.set(cmd, binPath);
+    }
+  });
+
+  return bunBinPaths;
 }
 
 /**

@@ -1,10 +1,17 @@
 import chalk from "chalk";
-import { assertObject, mapAsync, repeat } from "complete-common";
+import {
+  assertArrayString,
+  assertObject,
+  filterMapAsync,
+  mapAsync,
+  repeat,
+} from "complete-common";
 import {
   $q,
   copyFileOrDirectory,
   formatWithPrettier,
   getFileNamesInDirectory,
+  getJSONC,
   getPackageJSON,
   getPackageManagerInstallCICommand,
   getPackageManagerInstallCommand,
@@ -59,6 +66,7 @@ export async function createProject(
   }
 
   await installNodeModules(projectPath, skipInstall, packageManager);
+  await updateCSpellConfigForAuthorName(authorName, projectPath);
   await formatFiles(projectPath, packageManager);
 
   // Only make the initial commit once all of the files have been copied and formatted.
@@ -312,4 +320,53 @@ async function formatFiles(
   await (packageManager === PackageManager.bun
     ? $$q`bunx prettier --write .`
     : $$q`prettier --write .`);
+}
+
+async function updateCSpellConfigForAuthorName(
+  authorName: string | undefined,
+  projectPath: string,
+) {
+  if (authorName === undefined) {
+    return;
+  }
+
+  // Remove the numbers from the author name, if any.
+  const words = authorName.split(/[^A-Za-z]+/).filter(Boolean);
+  if (words.length === 0) {
+    return;
+  }
+
+  const invalidWords = await filterMapAsync(words, async (word) => {
+    const $$q = $q({ cwd: projectPath, reject: false, input: word });
+    const { exitCode } = await $$q`cspell stdin`;
+    return exitCode === 0 ? undefined : word;
+  });
+  if (invalidWords.length === 0) {
+    return;
+  }
+
+  await addWordsToCSpellConfig(invalidWords, projectPath);
+}
+
+async function addWordsToCSpellConfig(
+  newWords: readonly string[],
+  projectPath: string,
+) {
+  const cSpellConfigPath = path.join(projectPath, "cspell.config.jsonc");
+
+  const config = await getJSONC(cSpellConfigPath);
+  assertObject(
+    config,
+    'Failed to parse the "cspell.config.jsonc" file as an object.',
+  );
+
+  const { words } = config;
+  assertArrayString(
+    words,
+    'Failed to parse the "words" array in the "cspell.config.jsonc" file.',
+  );
+
+  config["words"] = [...words, ...newWords];
+  const newFileContents = JSON.stringify(config, undefined, 2);
+  await writeFile(cSpellConfigPath, newFileContents);
 }
