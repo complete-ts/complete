@@ -228,9 +228,9 @@ export async function lintCommands(
             throw new Error(`Invalid command: ${command}`);
           }
 
-          const useBunx = localBinaries.has(cmd);
-          const finalCmd = useBunx ? "bunx" : cmd;
-          const finalArgs = useBunx ? [cmd, ...args] : args;
+          const useBunRun = localBinaries.has(cmd);
+          const finalCmd = useBunRun ? "bun" : cmd;
+          const finalArgs = useBunRun ? ["run", cmd, ...args] : args;
 
           return await $q(finalCmd, finalArgs, {
             cwd: packageRoot,
