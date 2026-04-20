@@ -306,6 +306,7 @@ async function getBunBinPaths(
       packageJSON,
       `Failed to parse the "${packageJSONPath}" file as an object.`,
     );
+
     const binField = packageJSON["bin"];
     let binEntry: string | undefined;
     if (typeof binField === "string") {
@@ -317,10 +318,8 @@ async function getBunBinPaths(
       }
     }
     if (binEntry !== undefined) {
-      bunBinPaths.set(
-        cmd,
-        path.join(packageRoot, "node_modules", cmd, binEntry),
-      );
+      const binPath = path.join(packageRoot, "node_modules", cmd, binEntry);
+      bunBinPaths.set(cmd, binPath);
     }
   });
 
