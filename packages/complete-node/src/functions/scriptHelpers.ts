@@ -224,7 +224,10 @@ export async function lintCommands(
             );
             if (await isFile(pkgJsonPath)) {
               const pkgJsonText = await readFile(pkgJsonPath);
-              const pkgJson = JSON.parse(pkgJsonText) as Record<string, unknown>;
+              const pkgJson = JSON.parse(pkgJsonText) as Record<
+                string,
+                unknown
+              >;
               const binField = pkgJson["bin"];
               let binEntry: string | undefined;
               if (typeof binField === "string") {
