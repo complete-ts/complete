@@ -72,6 +72,24 @@ export function assertArrayLength(
   }
 }
 
+/** Helper function to throw an error if the provided value is not an array or is an empty array. */
+export function assertArrayNonEmpty<T>(
+  value: T,
+  ...[msg]: [T] extends [readonly [unknown, ...unknown[]]]
+    ? [
+        "The assertion is useless because the provided value is already a non-empty array.",
+      ]
+    : [string]
+): asserts value is T & [unknown, ...unknown[]] {
+  if (!Array.isArray(value)) {
+    throw new TypeError(msg);
+  }
+
+  if (value.length === 0) {
+    throw new TypeError(msg);
+  }
+}
+
 /**
  * Helper function to throw an error if the provided value is not an array with every element being
  * a number.
