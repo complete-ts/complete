@@ -80,7 +80,8 @@ export function assertArrayNonEmpty<T>(
         "The assertion is useless because the provided value is already a non-empty array.",
       ]
     : [string]
-): asserts value is T & [unknown, ...unknown[]] {
+): asserts value is T
+  & (T extends ReadonlyArray<infer E> ? [E, ...E[]] : [unknown, ...unknown[]]) {
   if (!Array.isArray(value)) {
     throw new TypeError(msg);
   }
