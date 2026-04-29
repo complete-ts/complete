@@ -63,7 +63,7 @@
     },
     "packages/complete-lint": {
       "name": "complete-lint",
-      "version": "5.8.4",
+      "version": "5.9.0",
       "dependencies": {
         "@types/node": "catalog:",
         "complete-tsconfig": "workspace:*",
