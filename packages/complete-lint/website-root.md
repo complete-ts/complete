@@ -242,7 +242,8 @@ jobs:
 
 These are the specific packages that `complete-lint` provides:
 
-- [`@types/node`](https://www.npmjs.com/package/@types/node) - The types for the Node.js runtime. This is included since it is expected that you will be linting your project with a TypeScript script.
+- [`@types/bun`](https://www.npmjs.com/package/@types/bun) - The types for the Bun runtime. This is included as a convenience, since it is expected that you will be linting your project with a TypeScript script and Bun is a good choice for a TypeScript runtime. (Even if you don't use Bun, having these types included won't hurt anything.)
+- [`@types/node`](https://www.npmjs.com/package/@types/node) - The types for the Node.js runtime. This is included as a convenience, since it is expected that you will be linting your project with a TypeScript script and Node.js is a common TypeScript runtime. (Even if you use Bun instead of Node.js, having these types included is a good thing because Bun supports the Node.js APIs.)
 - [`complete-tsconfig`](/complete-tsconfig) - A collection of TypeScript configuration files that allow for maximum safety.
 - [`cspell`](https://github.com/streetsidesoftware/cspell) - A spell checker for code that is intended to be paired with the [Code Spell Checker Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker). Even though this does not have to do with ESLint or Prettier, this is included in the meta-package because most projects should be linting for misspelled words.
 - [`cspell-check-unused-words`](https://github.com/Zamiell/cspell-check-unused-words) - A helpful script that can detect unused words inside your CSpell configuration, allowing you to clean up unnecessary entries.

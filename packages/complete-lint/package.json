@@ -1,6 +1,6 @@
 {
   "name": "complete-lint",
-  "version": "5.9.0",
+  "version": "5.10.0",
   "description": "A linting dependency meta-package for TypeScript projects.",
   "keywords": [
     "lint",
@@ -25,6 +25,7 @@
     "README.md"
   ],
   "dependencies": {
+    "@types/bun": "catalog:",
     "@types/node": "catalog:",
     "complete-tsconfig": "workspace:*",
     "cspell": "catalog:",
