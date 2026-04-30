@@ -113,7 +113,7 @@
     "git-pull-run": "1.6.2",
     "husky": "9.1.7",
     "knip": "catalog:",
-    "markdownlint-cli2": "0.22.0",
+    "markdownlint-cli2": "0.22.1",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "prettier-plugin-packagejson": "catalog:",
