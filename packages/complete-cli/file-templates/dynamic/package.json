@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/author-name/project-name.git"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "author-name",
   "type": "module",
   "files": [
