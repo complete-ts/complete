@@ -26,12 +26,17 @@ import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
 } from "./monorepoUpdate.js";
-import { getPackageJSONScripts, getPackageJSONVersion } from "./packageJSON.js";
+import {
+  getPackageJSONScripts,
+  getPackageJSONVersion,
+  packageJSONHasCatalog,
+} from "./packageJSON.js";
 import {
   getPackageManagerForProject,
   getPackageManagerInstallCommand,
   getPackageManagerLockFileName,
 } from "./packageManager.js";
+import { updatePackageJSONDependencies } from "./update.js";
 import { getArgs } from "./utils.js";
 
 enum VersionBump {
@@ -209,7 +214,13 @@ export async function monorepoPublish(
   if (updateMonorepo) {
     // Finally, check for dependency updates to ensure that we keep the monorepo up to date.
     console.log("Checking for monorepo updates...");
-    await updatePackageJSONDependenciesMonorepo(monorepoRoot);
+    const monorepoPackageJSONPath = path.join(monorepoRoot, "package.json");
+    const monorepoUsesCatalog = await packageJSONHasCatalog(
+      monorepoPackageJSONPath,
+    );
+    await (monorepoUsesCatalog
+      ? updatePackageJSONDependencies(monorepoRoot)
+      : updatePackageJSONDependenciesMonorepo(monorepoRoot));
   } else {
     // Even though we are not updating the dependencies in the root "package.json" file, we still
     // have to bump the version of monorepo packages that are in other package's "package.json"

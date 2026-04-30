@@ -270,6 +270,27 @@ export async function getPackageJSONVersion(
   return version;
 }
 
+/** @see https://bun.com/docs/pm/catalogs */
+export async function packageJSONHasCatalog(
+  filePathOrDirPathOrRecord:
+    | string
+    | ReadonlyRecord<string, unknown>
+    | undefined,
+): Promise<boolean> {
+  const packageJSON =
+    typeof filePathOrDirPathOrRecord === "object"
+      ? filePathOrDirPathOrRecord
+      : await getPackageJSON(filePathOrDirPathOrRecord);
+
+  const { workspaces } = packageJSON;
+  if (!isObject(workspaces)) {
+    return false;
+  }
+
+  const { catalog } = workspaces;
+  return isObject(catalog);
+}
+
 /**
  * Helper function to asynchronously check for a "dependencies" or "devDependencies" or
  * "peerDependencies" field from a "package.json" file.

@@ -142,12 +142,23 @@ async function runNPMCheckUpdates(
   const $$ = $({ cwd: packageRoot });
   const oldPackageJSONString = await readFile(packageJSONPath);
 
+  const packageJSON = JSON.parse(oldPackageJSONString) as unknown;
+  assertObject(packageJSON, `Failed to parse the file: ${packageJSONPath}`);
+  const { workspaces } = packageJSON;
+  const packageJSONHasWorkspaces = isObject(workspaces);
+
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
-  // - "--reject" is only necessary if we need to specify dependencies that should not be upgraded.
-  await (packagesToIgnore.length === 0
-    ? $$`npm-check-updates --upgrade`
-    : $$`npm-check-updates --upgrade --reject ${packagesToIgnore.join(",")}`);
+  let command = "npm-check-updates --upgrade";
+  if (packagesToIgnore.length > 0) {
+    command += ` --reject ${packagesToIgnore.join(",")}`;
+  }
+  if (packageJSONHasWorkspaces) {
+    command += " --workspaces";
+  }
+
+  const commandParts = command.split(" ");
+  await $$`${commandParts}`;
 
   const newPackageJSONString = await readFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
@@ -163,6 +174,12 @@ async function runNPMCheckUpdatesQuiet(
   packageJSONPath: string,
   packagesToIgnore: readonly string[],
 ): Promise<boolean> {
+  const packageJSONString = await readFile(packageJSONPath);
+  const packageJSON = JSON.parse(packageJSONString) as unknown;
+  assertObject(packageJSON, `Failed to parse the file: ${packageJSONPath}`);
+  const { workspaces } = packageJSON;
+  const packageJSONHasWorkspaces = isObject(workspaces);
+
   // We need to perform a dynamic import for "npm-check-updates" since the module has side effects:
   // https://github.com/raineorshine/npm-check-updates/issues/1524
   const npmCheckUpdates = await import("npm-check-updates");
@@ -170,6 +187,7 @@ async function runNPMCheckUpdatesQuiet(
     upgrade: true,
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
+    workspaces: packageJSONHasWorkspaces,
   });
 
   if (!isObject(upgradedPackages)) {

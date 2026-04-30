@@ -1,7 +1,5 @@
 bun refactor:
 
-- https://github.com/azat-io/eslint-plugin-perfectionist/issues/722#issuecomment-4054922602
-- TODO: Get "npm-check-updates" working with catalogs.
 - TODO: https://github.com/oven-sh/bun/pull/26797
 
 ----------------------------------------------------------------------------------------------------

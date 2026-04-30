@@ -7,7 +7,6 @@
 import type { ReadonlyRecord } from "complete-common";
 import {
   assertDefined,
-  assertObject,
   assertString,
   isObject,
   mapAsync,
@@ -16,8 +15,12 @@ import path from "node:path";
 import { packageDirectory } from "package-directory";
 import { isFile } from "./file.js";
 import { getMonorepoPackageNames } from "./monorepo.js";
-import { getPackageJSON, getPackageJSONDependencies } from "./packageJSON.js";
-import { readFile, writeFile } from "./readWrite.js";
+import {
+  getPackageJSON,
+  getPackageJSONDependencies,
+  packageJSONHasCatalog,
+} from "./packageJSON.js";
+import { writeFile } from "./readWrite.js";
 import { updatePackageJSONDependencies } from "./update.js";
 
 type DepType = "dependencies" | "devDependencies" | "peerDependencies";
@@ -71,6 +74,10 @@ export async function lintMonorepoPackageJSONs(
  * are any updates, the package manager used in the project will be automatically invoked to install
  * them.
  *
+ * (This is only useful in monorepos that do not use the "catalog" feature to consolidate dependency
+ * versions. For those cases, the `updatePackageJSONDependencies` function should be used, since it
+ * properly handles workspaces.)
+ *
  * This function attempts to find the monorepo root directory automatically based on searching
  * backwards from the file of the calling function.
  *
@@ -117,6 +124,8 @@ export async function updatePackageJSONDependenciesMonorepo(
  * If you need to check to see if the monorepo dependencies are up to date in a lint script, then
  * use the `lintMonorepoPackageJSONs` function instead.
  *
+ * Note that this function will be a no-op if the "package.json" file is found to contain a catalog.
+ *
  * @param monorepoRoot The full path to the monorepo root directory.
  * @param dryRun Optional. If true, will not modify the "package.json" files. Defaults to false.
  * @returns Whether all of the "package.json" files were valid.
@@ -129,7 +138,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   // If this monorepo uses the "catalog" feature of bun, then we do not need to do anything, because
   // presumably all of the dependencies are specified as "catalog:".
   const monorepoPackageJSONPath = path.join(monorepoRoot, "package.json");
-  const monorepoUsesCatalog = await doesMonorepoUseCatalog(
+  const monorepoUsesCatalog = await packageJSONHasCatalog(
     monorepoPackageJSONPath,
   );
   if (monorepoUsesCatalog) {
@@ -286,28 +295,6 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
   }
 
   return valid;
-}
-
-/** @see https://bun.com/docs/pm/catalogs */
-async function doesMonorepoUseCatalog(
-  monorepoPackageJSONPath: string,
-): Promise<boolean> {
-  const monorepoPackageJSONContents = await readFile(monorepoPackageJSONPath);
-  const monorepoPackageJSON = JSON.parse(
-    monorepoPackageJSONContents,
-  ) as unknown;
-  assertObject(
-    monorepoPackageJSON,
-    `Failed to parse: ${monorepoPackageJSONPath}`,
-  );
-
-  const { workspaces } = monorepoPackageJSON;
-  if (!isObject(workspaces)) {
-    return false;
-  }
-
-  const { catalog } = workspaces;
-  return isObject(catalog);
 }
 
 async function getMonorepoChildPackageJSONMap(
