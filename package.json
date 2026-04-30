@@ -100,7 +100,7 @@
     "prepare": "husky",
     "prepublish": "cd packages/eslint-plugin-complete && bun run build",
     "publish": "bun run ./scripts/publish.ts",
-    "update": "bun run ./scripts/update.ts"
+    "update": "bun run ./packages/complete-cli/src/main.ts update"
   },
   "devDependencies": {
     "@types/node": "catalog:",
