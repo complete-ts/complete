@@ -18,7 +18,7 @@ export function getWidenedObjectValue<T extends Record<string, unknown>>(
   key: WidenLiteral<keyof T>,
 ): T[keyof T] | undefined {
   const widenedObject = object as Record<PropertyKey, T[keyof T]>;
-  return widenedObject[key as PropertyKey];
+  return widenedObject[key];
 }
 
 /**

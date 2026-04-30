@@ -10,6 +10,7 @@ const config = {
     "cspell-check-unused-words", // Executed in: scripts/lint.ts
     "eslint-plugin-complete", // Executed in: scripts/lint.ts
     "markdownlint-cli2", // Executed in: scripts/lint.ts
+    "npm-check-updates", // Needed by the "update" script.
   ],
 
   workspaces: {
