@@ -1,5 +1,6 @@
 bun refactor:
 
+- When TypeScript 7 is adopted, search and delete all "target", since it defaults to latest year.
 - TODO: https://github.com/oven-sh/bun/pull/26797
 
 ----------------------------------------------------------------------------------------------------
@@ -13,7 +14,6 @@ short term:
 
 - abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
   use: https://github.com/bmish/eslint-doc-generator
-    - do PR to fix newlines
 
 ----------------------------------------------------------------------------------------------------
 

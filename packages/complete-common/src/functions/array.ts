@@ -383,9 +383,14 @@ export function sumArray(array: readonly number[]): number {
 }
 
 /**
- * Helper function to filter out non-unique elements from an array. Under the hood, this converts
- * the array to a `Set` and then back to an array.
+ * Helper function to filter out non-unique elements from an array and sort it. Under the hood, this
+ * converts the array to a `Set` and then back to an sorted array.
  */
 export function unique<T>(array: readonly T[]): readonly T[] {
-  return [...new Set(array)];
+  const uniqueElements = [...new Set(array)];
+  return uniqueElements.toSorted((a, b) =>
+    typeof a === "number" && typeof b === "number"
+      ? a - b
+      : String(a).localeCompare(String(b)),
+  );
 }

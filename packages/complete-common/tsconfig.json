@@ -13,8 +13,8 @@
     "declaration": true,
     "declarationMap": true,
 
-    // Needed since this library uses the `String.replaceAll` method. (The default is ES5.)
-    "target": "ES2021",
+    // Needed since this library uses the `Array.toSorted` method. (The default is ES5.)
+    "target": "ES2023",
   },
 
   "exclude": ["src/**/*.test.ts"],
