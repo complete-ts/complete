@@ -28,8 +28,7 @@
   "scripts": {
     "build": "bun run ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "bun run ./scripts/lint.ts",
-    "test": "bun test"
+    "lint": "bun run ./scripts/lint.ts"
   },
   "dependencies": {
     "bumpp": "catalog:",
