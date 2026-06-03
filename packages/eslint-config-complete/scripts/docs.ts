@@ -12,11 +12,7 @@ import {
   kebabCaseToCamelCase,
   trimPrefix,
 } from "complete-common";
-import {
-  isMain,
-  readFile,
-  setMarkdownContentInsideHTMLMarker,
-} from "complete-node";
+import { readFile, setMarkdownContentInsideHTMLMarker } from "complete-node";
 import type { Linter } from "eslint";
 import esLintConfigPrettier from "eslint-config-prettier";
 import esLintPluginComplete from "eslint-plugin-complete";
@@ -222,7 +218,7 @@ const PARENT_CONFIG_LINKS = {
 
 let valid = true;
 
-if (isMain(import.meta.filename)) {
+if (import.meta.main) {
   await setReadmeRules(false);
 }
 

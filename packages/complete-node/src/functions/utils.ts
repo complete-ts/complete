@@ -39,19 +39,3 @@ export function fatalError(...args: readonly unknown[]): never {
 export function getArgs(): readonly string[] {
   return process.argv.slice(2);
 }
-
-/**
- * Helper function to see if the current file is is the JavaScript/TypeScript entry point. Returns
- * false if the current file was imported from somewhere else.
- *
- * This is similar to the `__name__ == "__main__"` pattern from the Python programming language.
- *
- * Under the hood, this checks to see if the file path of the calling function is equal to
- * `process.argv[1]`.
- *
- * @param importMetaFilename The value of `import.meta.filename`.
- */
-export function isMain(importMetaFilename: string): boolean {
-  // `import.meta.filename` does not have a "file:" prefix, so we can compare it directly.
-  return importMetaFilename === process.argv[1];
-}
