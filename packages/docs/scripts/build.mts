@@ -102,15 +102,13 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
 
     // We want to remove the superfluous prefix in the title.
     const fileNames = await getFileNamesInDirectory(directoryPath);
-    await Promise.all(
-      fileNames.map(async (fileName) => {
-        const filePath = path.join(directoryPath, fileName);
-        const newTitle = await getMarkdownTitle(fileName, filePath);
+    await mapAsync(fileNames, async (fileName) => {
+      const filePath = path.join(directoryPath, fileName);
+      const newTitle = await getMarkdownTitle(fileName, filePath);
 
-        await deleteLineInFile(filePath, 1); // e.g. # DependencyType
-        await prependFile(filePath, `---\ntitle: ${newTitle}\n---\n`);
-      }),
-    );
+      await deleteLineInFile(filePath, 1); // e.g. # DependencyType
+      await prependFile(filePath, `---\ntitle: ${newTitle}\n---\n`);
+    });
 
     // We want to capitalize the directories in the Docusaurus sidebar, so we add a category file.
     await addCategoryFile(directoryPath);
@@ -121,6 +119,12 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
   const constantsExists = await isFile(constantsPath);
   if (constantsExists) {
     await replaceTextInFile(constantsPath, "# constants", "# Constants");
+  }
+
+  const interfacesPath = path.join(docsOutputPath, "interfaces");
+  const interfacesExists = await isDirectory(interfacesPath);
+  if (interfacesExists) {
+    await addCategoryFile(interfacesPath);
   }
 }
 
