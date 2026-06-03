@@ -18,6 +18,12 @@ const config = {
     "TupleEntry",
     "TupleKey",
   ],
+
+  intentionallyNotDocumented: [
+    "types/KeysMatch.KeysMatch.__type.error",
+    "types/KeysMatch.KeysMatch.__type.extra",
+    "types/KeysMatch.KeysMatch.__type.missing",
+  ],
 };
 
 export default config;
