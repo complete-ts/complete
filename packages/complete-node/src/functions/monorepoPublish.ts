@@ -13,7 +13,6 @@ import {
   getWidenedObjectValue,
   isEnumValue,
   isSemanticVersion,
-  mapAsync,
   reverseObject,
 } from "complete-common";
 import path from "node:path";
@@ -143,12 +142,14 @@ export async function monorepoPublish(
   // can avoid unnecessary version bumps).
   const scripts = await getPackageJSONScripts(packagePath);
   if (scripts !== undefined) {
-    await mapAsync(PACKAGE_SCRIPTS_THAT_MUST_PASS, async (scriptName) => {
+    for (const scriptName of PACKAGE_SCRIPTS_THAT_MUST_PASS) {
       const scriptCommand = scripts[scriptName];
       if (typeof scriptCommand === "string") {
+        // If we run the scripts at the same time, then ESLint will fail with strange errors.
+        // eslint-disable-next-line no-await-in-loop
         await $package`${packageManager} run ${scriptName}`;
       }
-    });
+    }
   }
 
   const isDev =
