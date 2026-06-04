@@ -1,10 +1,17 @@
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import type ts from "typescript";
 import { createRule } from "../utils.js";
 
 type Options = [];
 type MessageIds = "incorrectOrder";
+
+type Replacement = [range: TSESTree.Range, replacementText: string];
+
+interface SortableProperty {
+  readonly order: number;
+  readonly property: TSESTree.Property;
+}
 
 export const sortDestructuredProperties = createRule<Options, MessageIds>({
   name: "sort-destructured-properties",
@@ -16,6 +23,7 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
       recommended: true,
       requiresTypeChecking: true,
     },
+    fixable: "code",
     schema: [],
     messages: {
       incorrectOrder:
@@ -26,6 +34,7 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
+    const { sourceCode } = context;
 
     return {
       ObjectPattern(node) {
@@ -56,6 +65,12 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
           }
 
           if (order < highestSeenOrder && highestSeenName !== undefined) {
+            const replacement = getReplacementText(
+              sourceCode,
+              node,
+              propertyOrder,
+            );
+
             context.report({
               node: property.key,
               messageId: "incorrectOrder",
@@ -63,6 +78,14 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
                 earlierName: propertyName,
                 laterName: highestSeenName,
               },
+              ...(replacement === undefined
+                ? {}
+                : {
+                    fix(fixer) {
+                      const [range, replacementText] = replacement;
+                      return fixer.replaceTextRange(range, replacementText);
+                    },
+                  }),
             });
             return;
           }
@@ -74,6 +97,51 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
     };
   },
 });
+
+function getReplacementText(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.ObjectPattern,
+  propertyOrder: ReadonlyMap<string, number>,
+): Replacement | undefined {
+  const sortableProperties: SortableProperty[] = [];
+
+  for (const property of node.properties) {
+    if (property.type === AST_NODE_TYPES.RestElement) {
+      continue;
+    }
+
+    const propertyName = getPropertyName(property);
+    const order =
+      propertyName === undefined ? undefined : propertyOrder.get(propertyName);
+    if (order === undefined) {
+      return undefined;
+    }
+
+    sortableProperties.push({
+      order,
+      property,
+    });
+  }
+
+  const firstProperty = sortableProperties.at(0)?.property;
+  const lastProperty = sortableProperties.at(-1)?.property;
+  if (firstProperty === undefined || lastProperty === undefined) {
+    return undefined;
+  }
+
+  const range: TSESTree.Range = [firstProperty.range[0], lastProperty.range[1]];
+
+  if (hasCommentInRange(sourceCode, range)) {
+    return undefined;
+  }
+
+  const replacementText = sortableProperties
+    .toSorted((a, b) => a.order - b.order)
+    .map(({ property }) => sourceCode.getText(property))
+    .join(", ");
+
+  return [range, replacementText];
+}
 
 function getPropertyName(property: TSESTree.Property): string | undefined {
   if (property.computed) {
@@ -90,6 +158,17 @@ function getPropertyName(property: TSESTree.Property): string | undefined {
       return typeof key.value === "string" ? key.value : undefined;
     }
   }
+}
+
+function hasCommentInRange(
+  sourceCode: TSESLint.SourceCode,
+  range: TSESTree.Range,
+): boolean {
+  return sourceCode
+    .getAllComments()
+    .some(
+      (comment) => comment.range[0] >= range[0] && comment.range[1] <= range[1],
+    );
 }
 
 function getPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {

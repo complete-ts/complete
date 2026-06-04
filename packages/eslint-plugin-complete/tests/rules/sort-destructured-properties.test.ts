@@ -68,6 +68,15 @@ interface Foo {
 declare const foo: Foo;
 const { description, name } = foo;
       `,
+      output: `
+interface Foo {
+  name: string;
+  description: string;
+}
+
+declare const foo: Foo;
+const { name, description } = foo;
+      `,
       errors: [
         {
           messageId: "incorrectOrder",
@@ -88,6 +97,15 @@ interface Foo {
 declare const foo: Foo;
 const { description: fooDescription, name: fooName } = foo;
       `,
+      output: `
+interface Foo {
+  name: string;
+  description: string;
+}
+
+declare const foo: Foo;
+const { name: fooName, description: fooDescription } = foo;
+      `,
       errors: [
         {
           messageId: "incorrectOrder",
@@ -106,6 +124,16 @@ interface Foo {
 }
 
 function logFoo({ description, name }: Foo) {
+  console.log(name, description);
+}
+      `,
+      output: `
+interface Foo {
+  name: string;
+  description: string;
+}
+
+function logFoo({ name, description }: Foo) {
   console.log(name, description);
 }
       `,
@@ -130,6 +158,17 @@ interface Foo {
 
 declare const foo: Foo;
 const { nested: { description, name } } = foo;
+      `,
+      output: `
+interface Foo {
+  nested: {
+    name: string;
+    description: string;
+  };
+}
+
+declare const foo: Foo;
+const { nested: { name, description } } = foo;
       `,
       errors: [
         {
