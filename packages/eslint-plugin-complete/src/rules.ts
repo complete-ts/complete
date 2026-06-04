@@ -41,6 +41,7 @@ import { requireCapitalConstAssertions } from "./rules/require-capital-const-ass
 import { requireCapitalReadOnly } from "./rules/require-capital-read-only.js";
 import { requireUnannotatedConstAssertions } from "./rules/require-unannotated-const-assertions.js";
 import { requireVariadicFunctionArgument } from "./rules/require-variadic-function-argument.js";
+import { sortDestructuredProperties } from "./rules/sort-destructured-properties.js";
 import { strictArrayMethods } from "./rules/strict-array-methods.js";
 import { strictEnums } from "./rules/strict-enums.js";
 import { strictUndefinedFunctions } from "./rules/strict-undefined-functions.js";
@@ -86,6 +87,7 @@ export const rules = {
   "require-capital-read-only": requireCapitalReadOnly,
   "require-unannotated-const-assertions": requireUnannotatedConstAssertions,
   "require-variadic-function-argument": requireVariadicFunctionArgument,
+  "sort-destructured-properties": sortDestructuredProperties,
   "strict-array-methods": strictArrayMethods,
   "strict-enums": strictEnums,
   "strict-undefined-functions": strictUndefinedFunctions,
