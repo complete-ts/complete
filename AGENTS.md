@@ -268,7 +268,7 @@ Punt to Q when:
 - Anything irreversible
 - Scope change discovered
 - Choosing between valid approaches with real tradeoffs
-- "I'm not sure this is what Q wants"
+- "I'm not sure that this is what Q wants"
 - Being wrong costs more than waiting
 
 **When running autonomously/as subagent:**
