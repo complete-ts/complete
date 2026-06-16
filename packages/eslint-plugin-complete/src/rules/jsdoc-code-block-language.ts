@@ -42,7 +42,7 @@ export const jsdocCodeBlockLanguage = createRule({
 
         // Ignore the second "```" that closes a code block.
         if (!insideCodeBlock) {
-          continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+          continue;
         }
 
         if (line.endsWith("```")) {

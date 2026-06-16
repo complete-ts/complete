@@ -176,7 +176,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
     for (const depType of DEPENDENCY_TYPES_TO_CHECK) {
       const childDependencies = childPackageJSON[depType];
       if (!isObject(childDependencies)) {
-        continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+        continue;
       }
 
       for (const [depName, depVersion] of Object.entries(childDependencies)) {
@@ -193,7 +193,7 @@ export async function updatePackageJSONDependenciesMonorepoChildren(
 
         // Skip checking packages on the local file system.
         if (depVersion.startsWith("file:")) {
-          continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+          continue;
         }
 
         const otherPackageJSON = childPackageJSONMap.get(depName);
@@ -346,7 +346,7 @@ function isAllMonorepoDepsUsed(
     for (const dependencyType of DEPENDENCY_TYPES_TO_CHECK) {
       const dependencies = childPackageJSON[dependencyType];
       if (!isObject(dependencies)) {
-        continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+        continue;
       }
 
       for (const depName of Object.keys(dependencies)) {

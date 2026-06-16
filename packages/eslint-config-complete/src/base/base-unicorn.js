@@ -80,7 +80,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
     "unicorn/no-blob-to-file": "error",
-    "unicorn/no-break-in-nested-loop": "error",
+
+    /** Disabled since simple double nested loops are common. */
+    "unicorn/no-break-in-nested-loop": "off",
+
     "unicorn/no-canvas-to-image": "error",
 
     /** Disabled since it is unnecessary with TypeScript objects that are properly typed. */

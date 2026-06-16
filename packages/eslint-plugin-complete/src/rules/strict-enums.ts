@@ -309,7 +309,7 @@ export const strictEnums = createRule<Options, MessageIds>({
               argumentTypeArgument === undefined
               || parameterTypeArgument === undefined
             ) {
-              continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+              continue;
             }
 
             if (

@@ -104,12 +104,12 @@ async function getPackagesToIgnore(
       dependenciesObject,
     )) {
       if (!isObject(dependencyObject)) {
-        continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+        continue;
       }
 
       const lockVersion = dependencyObject["lock-version"];
       if (lockVersion !== true) {
-        continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+        continue;
       }
 
       const lockReason = dependencyObject["lock-reason"];

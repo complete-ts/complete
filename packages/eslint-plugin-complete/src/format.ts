@@ -269,7 +269,7 @@ export function formatText(
     for (const [wordIndex, word] of words.entries()) {
       // Words can be blank strings in certain cases. For example: "dog cat"
       if (word === "") {
-        continue; // eslint-disable-line unicorn/no-break-in-nested-loop
+        continue;
       }
 
       // Handle splitting to a new line.

@@ -79,19 +79,19 @@ export function getCommentBlocks(
     for (let j = i + 1; j < comments.length; j++) {
       const nextComment = comments[j];
       if (nextComment === undefined) {
-        break; // eslint-disable-line unicorn/no-break-in-nested-loop
+        break;
       }
 
       // Break if we are on a non-contiguous line.
       const nextCommentStartLine = nextComment.loc.start.line;
       const lineDelta = j - commentIndex;
       if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
-        break; // eslint-disable-line unicorn/no-break-in-nested-loop
+        break;
       }
 
       // Break if this is a "separator" line.
       if (isSeparatorLine(nextComment.value)) {
-        break; // eslint-disable-line unicorn/no-break-in-nested-loop
+        break;
       }
 
       commentBlock.mergedText += "\n";
