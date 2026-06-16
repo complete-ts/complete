@@ -12,6 +12,7 @@ export const baseUnicorn = defineConfig({
 
   rules: {
     "unicorn/better-dom-traversing": "error",
+    "unicorn/better-regex": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/class-reference-in-static-methods": "error",
     "unicorn/comment-content": "error",

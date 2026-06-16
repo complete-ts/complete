@@ -86,9 +86,10 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         effectiveMaxLength,
       );
 
-      const formattedComment = canFitOnSingleLine
-        ? getJSDocCommentSingleLine(formattedText, leftWhitespace)
-        : getJSDocCommentMultiLine(formattedText, leftWhitespace);
+      const func = canFitOnSingleLine
+        ? getJSDocCommentSingleLine
+        : getJSDocCommentMultiLine;
+      const formattedComment = func(formattedText, leftWhitespace);
 
       if (DEBUG && originalComment !== formattedComment) {
         console.log("originalComment:");

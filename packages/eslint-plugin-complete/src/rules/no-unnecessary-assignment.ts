@@ -138,7 +138,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       const types = unionTypeParts(type);
       return (
         types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
-        && !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
+        && types.every((t) => !isFlagSet(t.flags, ts.TypeFlags.Undefined))
       );
     }
 
@@ -152,7 +152,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
       const types = unionTypeParts(type);
       return (
         types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Undefined))
-        && !types.some((t) => isFlagSet(t.flags, ts.TypeFlags.Null))
+        && types.every((t) => !isFlagSet(t.flags, ts.TypeFlags.Null))
       );
     }
 

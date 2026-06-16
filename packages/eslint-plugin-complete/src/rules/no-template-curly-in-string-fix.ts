@@ -24,22 +24,18 @@ export const noTemplateCurlyInStringFix = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      Literal(node) {
-        if (
-          typeof node.value === "string"
-          && ERRONEOUS_TEMPLATE_STRING_REGEX.test(node.value)
-        ) {
-          context.report({
-            node,
-            messageId: "unexpectedTemplateExpression",
-            fix(fixer) {
-              return fixer.replaceText(node, `\`${node.value}\``);
-            },
-          });
-        }
-      },
-    };
-  },
+  create: (context) => ({
+    Literal(node) {
+      if (
+        typeof node.value === "string"
+        && ERRONEOUS_TEMPLATE_STRING_REGEX.test(node.value)
+      ) {
+        context.report({
+          node,
+          messageId: "unexpectedTemplateExpression",
+          fix: (fixer) => fixer.replaceText(node, `\`${node.value}\``),
+        });
+      }
+    },
+  }),
 });
