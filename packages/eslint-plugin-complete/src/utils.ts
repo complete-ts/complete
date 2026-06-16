@@ -3,7 +3,7 @@ import { ASTUtils, ESLintUtils } from "@typescript-eslint/utils";
 import type { MyPluginDocs } from "./interfaces/MyPluginDocs.js";
 
 /** Taken from ESLint: https://github.com/eslint/eslint/blob/main/lib/rules/max-len.js */
-const URL_REGEXP = /[^:/?#]:\/\/[^?#]/u;
+const URL_REGEXP = /[^#\/:?]:\/\/[^#?]/v;
 
 export function areStringsEqualExcludingTrailingSpaces(
   string1: string,
