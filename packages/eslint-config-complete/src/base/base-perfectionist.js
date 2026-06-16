@@ -11,6 +11,8 @@ export const basePerfectionist = defineConfig({
   },
 
   rules: {
+    "perfectionist/sort-array-includes": "error",
+
     /** This rule is only enabled for `ReadonlySet` constructors. */
     "perfectionist/sort-arrays": [
       "error",
@@ -21,8 +23,6 @@ export const basePerfectionist = defineConfig({
         },
       },
     ],
-
-    "perfectionist/sort-array-includes": "error",
 
     /** Disabled because class member ordering can be semantically significant. */
     "perfectionist/sort-classes": "off",

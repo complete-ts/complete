@@ -182,18 +182,6 @@ export const baseJSDoc = defineConfig(
 
       "jsdoc/require-next-description": "error",
       "jsdoc/require-next-type": "error",
-      "jsdoc/require-template-description": "error",
-      "jsdoc/require-throws-description": "error",
-
-      /**
-       * Disabled since in most cases, the type of a thrown error will simply be `Error`, making the
-       * annotation superfluous.
-       */
-      "jsdoc/require-throws-type": "off",
-
-      "jsdoc/require-yields-description": "error",
-      "jsdoc/require-yields-type": "error",
-
       /** Configured to only apply when there are one or more parameters. */
       "jsdoc/require-param": [
         "error",
@@ -206,7 +194,6 @@ export const baseJSDoc = defineConfig(
           ],
         },
       ],
-
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-description": [
         "error",
@@ -225,11 +212,11 @@ export const baseJSDoc = defineConfig(
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-param-type": "off",
-
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-property": "off",
 
       "jsdoc/require-property-description": "error",
+
       "jsdoc/require-property-name": "error",
 
       /** Disabled because it is not needed in TypeScript. */
@@ -243,7 +230,6 @@ export const baseJSDoc = defineConfig(
 
       /** Disabled because it is overboard for every function to document every return value. */
       "jsdoc/require-returns-check": "off",
-
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-returns-description": [
         "error",
@@ -261,14 +247,28 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is overboard to document every generic type variable. */
       "jsdoc/require-template": "off",
 
+      "jsdoc/require-template-description": "error",
+
       /** Disabled because it is overboard to document every throw statement. */
       "jsdoc/require-throws": "off",
+
+      "jsdoc/require-throws-description": "error",
+
+      /**
+       * Disabled since in most cases, the type of a thrown error will simply be `Error`, making the
+       * annotation superfluous.
+       */
+      "jsdoc/require-throws-type": "off",
 
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields": "off",
 
       /** Disabled because it is overboard to document every yield. */
       "jsdoc/require-yields-check": "off",
+
+      "jsdoc/require-yields-description": "error",
+
+      "jsdoc/require-yields-type": "error",
 
       "jsdoc/sort-tags": "error",
 

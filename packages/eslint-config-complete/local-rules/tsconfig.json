@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
+  "extends": "../tsconfig.json",
+  "include": ["./*.mjs"],
+}
