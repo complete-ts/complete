@@ -6,6 +6,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 
 export const recommended: TSESLint.FlatConfig.Config[] = [
   {
+    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
     plugins: {},
     rules: {
       "complete/complete-sentences-jsdoc": "error",
@@ -54,7 +55,6 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/strict-undefined-functions": "error",
       "complete/strict-void-functions": "error",
     },
-    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
   },
   {
     rules: {

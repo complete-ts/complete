@@ -22,16 +22,16 @@ export const CONFIGS_DIRECTORY_PATH = path.join(PACKAGE_ROOT, "src", "configs");
 const BASE_CONFIG = [
   // The main config object.
   {
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
+
     // The "plugins" property is populated in the "index.ts" file.
     plugins: {},
 
     // The "rules" property is populated below with all of the rules of this plugin.
     rules: {},
-
-    // Rules that require type information will throw an error on ".json" files. (This is needed
-    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
-    // plugin, we include it here defensively.)
-    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
   },
 
   // Disable some core ESLint rules that conflict with the rules in this plugin.

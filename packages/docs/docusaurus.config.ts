@@ -7,39 +7,27 @@ const darkCodeTheme = themes.vsDark;
 
 const config: Config = {
   title: "Complete",
-  tagline: "A collection of packages to make working with TypeScript easier.",
-  favicon: "img/favicon.ico",
-
   url: "https://complete-ts.github.io",
   baseUrl: "/",
-
-  organizationName: "complete-ts",
-  projectName: "complete-ts.github.io",
-
-  onBrokenAnchors: "throw",
-  onBrokenLinks: "throw",
-  onDuplicateRoutes: "throw",
+  favicon: "img/favicon.ico",
 
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
   },
 
-  presets: [
-    [
-      "classic",
-      {
-        docs: {
-          routeBasePath: "/", // Serve the docs at the site's root.
-          sidebarPath: "./sidebars.ts",
-          editUrl: undefined,
-        },
-        theme: {
-          customCss: "./src/css/custom.css",
-        },
-      } satisfies Preset.Options,
-    ],
-  ],
+  future: {
+    faster: true,
+    v4: true,
+  },
+
+  onBrokenLinks: "throw",
+  onBrokenAnchors: "throw",
+  onDuplicateRoutes: "throw",
+
+  tagline: "A collection of packages to make working with TypeScript easier.",
+  organizationName: "complete-ts",
+  projectName: "complete-ts.github.io",
 
   themeConfig: {
     navbar: {
@@ -62,7 +50,9 @@ const config: Config = {
       ],
     },
 
-    footer: undefined,
+    colorMode: {
+      defaultMode: "dark",
+    },
 
     prism: {
       theme: lightCodeTheme,
@@ -70,9 +60,7 @@ const config: Config = {
       additionalLanguages: ["lua"],
     },
 
-    colorMode: {
-      defaultMode: "dark",
-    },
+    footer: undefined,
 
     // From: https://dashboard.algolia.com/account/api-keys/all
     algolia: {
@@ -83,9 +71,26 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
 
-  // -------------------------
-  // Added fields from vanilla
-  // -------------------------
+  presets: [
+    [
+      "classic",
+      {
+        docs: {
+          routeBasePath: "/", // Serve the docs at the site's root.
+          sidebarPath: "./sidebars.ts",
+          editUrl: undefined,
+        },
+        theme: {
+          customCss: "./src/css/custom.css",
+        },
+      } satisfies Preset.Options,
+    ],
+  ],
+
+  scripts: [
+    // We provide some keyboard shortcuts for easier navigation.
+    "/js/hotkey.js",
+  ],
 
   markdown: {
     // Needed so that the following text works properly: `1 << -1 (0)`
@@ -96,16 +101,6 @@ const config: Config = {
       onBrokenMarkdownLinks: "throw",
       onBrokenMarkdownImages: "throw",
     },
-  },
-
-  scripts: [
-    // We provide some keyboard shortcuts for easier navigation.
-    "/js/hotkey.js",
-  ],
-
-  future: {
-    faster: true,
-    v4: true,
   },
 };
 

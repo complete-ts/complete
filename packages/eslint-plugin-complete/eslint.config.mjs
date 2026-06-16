@@ -28,4 +28,11 @@ export default defineConfig(
       "unicorn/no-empty-file": "off",
     },
   },
+
+  {
+    files: ["src/rules/*.ts"],
+    rules: {
+      "complete/sort-objects": "off",
+    },
+  },
 );

@@ -192,10 +192,10 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict-type-checked.ts",
   "@typescript-eslint/strict":
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts",
-  "@typescript-eslint/stylistic-type-checked":
-    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
   "@typescript-eslint/stylistic":
     "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic.ts",
+  "@typescript-eslint/stylistic-type-checked":
+    "https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts",
   "import-x/recommended":
     "https://github.com/un-ts/eslint-plugin-import-x/blob/master/src/config/recommended.ts",
   "jsdoc/recommended":

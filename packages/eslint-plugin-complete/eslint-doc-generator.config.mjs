@@ -6,6 +6,17 @@ const config = {
   // Defaults to "README.md".
   pathRuleList: "website-root.md",
 
+  async postprocess(content, pathToFile) {
+    const newContent = getNewContent(content, pathToFile);
+    const cwd = process.cwd();
+    const prettierConfig = await resolveConfig(cwd);
+
+    return await format(newContent, {
+      parser: "markdown",
+      ...prettierConfig,
+    });
+  },
+
   // Defaults to "[configs, deprecated, fixableAndHasSuggestions, requiresTypeChecking]". We want to
   // enable every option except for "type", since that contains superfluous information.
   ruleDocNotices: [
@@ -32,17 +43,6 @@ const config = {
     "requiresTypeChecking",
     "deprecated",
   ],
-
-  async postprocess(content, pathToFile) {
-    const newContent = getNewContent(content, pathToFile);
-    const cwd = process.cwd();
-    const prettierConfig = await resolveConfig(cwd);
-
-    return await format(newContent, {
-      parser: "markdown",
-      ...prettierConfig,
-    });
-  },
 };
 
 export default config;

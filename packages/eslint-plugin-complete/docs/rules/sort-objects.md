@@ -12,6 +12,8 @@
 
 Requires object literal properties to match the declared type order.
 
+Note that this rule has an auto-fixer, but it will refuse to auto-fix if there are attached block comments, as those usually semantic meaning relating to the line and the auto-fixer is not smart enough to move them.
+
 ## Rule Details
 
 ```ts

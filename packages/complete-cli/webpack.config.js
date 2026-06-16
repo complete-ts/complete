@@ -8,12 +8,7 @@ import WebpackShebangPlugin from "webpack-shebang-plugin";
 /** @type {import("webpack").Configuration} */
 const config = {
   entry: "./src/main.ts",
-  output: {
-    path: path.join(import.meta.dirname, "dist"),
-    filename: "main.cjs",
-  },
   mode: "production",
-  target: "node",
   module: {
     rules: [
       {
@@ -23,6 +18,11 @@ const config = {
       },
     ],
   },
+  output: {
+    path: path.join(import.meta.dirname, "dist"),
+    filename: "main.cjs",
+  },
+  plugins: [new WebpackShebangPlugin()],
   resolve: {
     extensions: [".js", ".ts"],
     extensionAlias: {
@@ -40,7 +40,7 @@ const config = {
       }),
     ],
   },
-  plugins: [new WebpackShebangPlugin()],
+  target: "node",
 };
 
 export default config;
