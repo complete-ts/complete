@@ -518,7 +518,8 @@ function isDeprecatedRule(rule: unknown): boolean {
     throw new Error("Failed to parse the rule metadata as an object.");
   }
 
-  return meta["deprecated"] !== undefined && meta["deprecated"] !== false;
+  const { deprecated } = meta;
+  return deprecated === true;
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
