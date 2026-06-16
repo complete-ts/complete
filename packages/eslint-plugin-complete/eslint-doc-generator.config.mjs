@@ -60,7 +60,7 @@ function getNewContent(content, pathToFile) {
 
 /**
  * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with
- * "eslint-plugin-complete/rules/complete-sentences-jsdoc".
+ * "/eslint-plugin-complete/rules/complete-sentences-jsdoc".
  *
  * @param content {string}
  * @returns {string}
@@ -68,7 +68,7 @@ function getNewContent(content, pathToFile) {
 function fixDocusaurusLinks(content) {
   return content.replaceAll(
     /docs\/(rules\/[^)]+)\.md/g,
-    "eslint-plugin-complete/$1",
+    "/eslint-plugin-complete/$1",
   );
 }
 
