@@ -18,24 +18,22 @@ export const consistentNamedTuples = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      TSTupleType(node) {
-        const hasNamedElements = node.elementTypes.some(
+  create: (context) => ({
+    TSTupleType(node) {
+      const hasNamedElements = node.elementTypes.some(
+        (typeNode) => typeNode.type === AST_NODE_TYPES.TSNamedTupleMember,
+      );
+      if (hasNamedElements) {
+        const hasAllNamedElements = node.elementTypes.every(
           (typeNode) => typeNode.type === AST_NODE_TYPES.TSNamedTupleMember,
         );
-        if (hasNamedElements) {
-          const hasAllNamedElements = node.elementTypes.every(
-            (typeNode) => typeNode.type === AST_NODE_TYPES.TSNamedTupleMember,
-          );
-          if (!hasAllNamedElements) {
-            context.report({
-              loc: node.loc,
-              messageId: "notNamed",
-            });
-          }
+        if (!hasAllNamedElements) {
+          context.report({
+            loc: node.loc,
+            messageId: "notNamed",
+          });
         }
-      },
-    };
-  },
+      }
+    },
+  }),
 });

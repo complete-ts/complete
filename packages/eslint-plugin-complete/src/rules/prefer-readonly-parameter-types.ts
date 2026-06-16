@@ -186,7 +186,8 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
                     node: actualParam,
                     messageId: "shouldBeReadonly",
                   });
-                  break;
+
+                  break; // eslint-disable-line unicorn/no-break-in-nested-loop
                 }
 
                 case "Record": {
@@ -202,11 +203,11 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
                     });
                   }
 
-                  break;
+                  break; // eslint-disable-line unicorn/no-break-in-nested-loop
                 }
 
                 default: {
-                  break;
+                  break; // eslint-disable-line unicorn/no-break-in-nested-loop
                 }
               }
             }

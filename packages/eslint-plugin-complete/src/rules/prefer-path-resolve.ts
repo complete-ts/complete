@@ -52,9 +52,7 @@ export const preferPathResolve = createRule({
           context.report({
             node: callee.property,
             messageId: "usePathResolve",
-            fix(fixer) {
-              return fixer.replaceText(property, "resolve");
-            },
+            fix: (fixer) => fixer.replaceText(property, "resolve"),
           });
         }
       },

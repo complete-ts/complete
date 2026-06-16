@@ -18,33 +18,31 @@ export const strictVoidFunctions = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      ReturnStatement(node) {
-        if (node.argument === null) {
-          return;
-        }
+  create: (context) => ({
+    ReturnStatement(node) {
+      if (node.argument === null) {
+        return;
+      }
 
-        const parentFunction = getParentFunction(node);
-        if (parentFunction === undefined) {
-          return;
-        }
+      const parentFunction = getParentFunction(node);
+      if (parentFunction === undefined) {
+        return;
+      }
 
-        const { returnType } = parentFunction;
-        if (returnType === undefined) {
-          return;
-        }
+      const { returnType } = parentFunction;
+      if (returnType === undefined) {
+        return;
+      }
 
-        const { typeAnnotation } = returnType;
-        if (typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword) {
-          return;
-        }
+      const { typeAnnotation } = returnType;
+      if (typeAnnotation.type !== AST_NODE_TYPES.TSVoidKeyword) {
+        return;
+      }
 
-        context.report({
-          loc: node.loc,
-          messageId: "mismatchedReturnType",
-        });
-      },
-    };
-  },
+      context.report({
+        loc: node.loc,
+        messageId: "mismatchedReturnType",
+      });
+    },
+  }),
 });

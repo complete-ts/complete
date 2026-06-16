@@ -16,15 +16,13 @@ export const noNumberEnums = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      "TSEnumMember > :matches(Literal[raw>=0].initializer, UnaryExpression.initializer)":
-        (node) => {
-          context.report({
-            node,
-            messageId: "noNumberEnums",
-          });
-        },
-    };
-  },
+  create: (context) => ({
+    "TSEnumMember > :matches(Literal[raw>=0].initializer, UnaryExpression.initializer)":
+      (node) => {
+        context.report({
+          node,
+          messageId: "noNumberEnums",
+        });
+      },
+  }),
 });

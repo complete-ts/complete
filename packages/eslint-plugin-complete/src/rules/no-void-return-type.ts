@@ -55,9 +55,7 @@ export const noVoidReturnType = createRule({
           context.report({
             loc: typeAnnotation.loc,
             messageId: "voidReturnType",
-            fix(fixer) {
-              return fixer.remove(returnType);
-            },
+            fix: (fixer) => fixer.remove(returnType),
           });
         }
       },

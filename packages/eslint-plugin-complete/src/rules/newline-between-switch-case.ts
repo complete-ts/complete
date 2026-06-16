@@ -52,9 +52,7 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
         if (!hasBlankLinesBetween(node, nextToken)) {
           context.report({
             node,
-            fix(fixer) {
-              return fixer.insertTextAfter(node, "\n");
-            },
+            fix: (fixer) => fixer.insertTextAfter(node, "\n"),
             messageId: "noNewline",
           });
         }

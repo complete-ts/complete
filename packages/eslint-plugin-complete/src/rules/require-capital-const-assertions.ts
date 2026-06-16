@@ -40,59 +40,56 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      VariableDeclaration(node) {
-        if (node.kind !== "const") {
-          return;
+  create: (context) => ({
+    VariableDeclaration(node) {
+      if (node.kind !== "const") {
+        return;
+      }
+
+      for (const declaration of node.declarations) {
+        const { id } = declaration;
+        if (id.type !== AST_NODE_TYPES.Identifier) {
+          continue;
         }
 
-        for (const declaration of node.declarations) {
-          const { id } = declaration;
-          if (id.type !== AST_NODE_TYPES.Identifier) {
-            continue;
-          }
-
-          if (!isFirstLetterCapitalized(id.name)) {
-            continue;
-          }
-
-          const { init } = declaration;
-          if (init === null) {
-            continue;
-          }
-
-          // Do nothing if this is not an object or array expression.
-          if (!ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type)) {
-            continue;
-          }
-
-          if (hasConstAssertion(init)) {
-            continue;
-          }
-
-          context.report({
-            loc: node.loc,
-            messageId: "noConstAssertion",
-            fix: (fixer) => {
-              // If this variable is not being assigned to anything, then there is nothing we can
-              // fix.
-              if (
-                declaration.init === null
-                || declaration.init.type === AST_NODE_TYPES.TSAsExpression
-                || AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)
-              ) {
-                // eslint-disable-next-line unicorn/no-null
-                return null;
-              }
-
-              return fixer.insertTextAfter(declaration.init, " as const");
-            },
-          });
+        if (!isFirstLetterCapitalized(id.name)) {
+          continue;
         }
-      },
-    };
-  },
+
+        const { init } = declaration;
+        if (init === null) {
+          continue;
+        }
+
+        // Do nothing if this is not an object or array expression.
+        if (!ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type)) {
+          continue;
+        }
+
+        if (hasConstAssertion(init)) {
+          continue;
+        }
+
+        context.report({
+          loc: node.loc,
+          messageId: "noConstAssertion",
+          fix: (fixer) => {
+            // If this variable is not being assigned to anything, then there is nothing we can fix.
+            if (
+              declaration.init === null
+              || declaration.init.type === AST_NODE_TYPES.TSAsExpression
+              || AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)
+            ) {
+              // eslint-disable-next-line unicorn/no-null
+              return null;
+            }
+
+            return fixer.insertTextAfter(declaration.init, " as const");
+          },
+        });
+      }
+    },
+  }),
 });
 
 function hasConstAssertion(init: TSESTree.Expression): boolean {

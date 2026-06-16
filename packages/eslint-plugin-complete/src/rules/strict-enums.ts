@@ -94,23 +94,23 @@ export const strictEnums = createRule<Options, MessageIds>({
        * - Fruit --> [Fruit]
        * - Fruit | Vegetable --> [Fruit, Vegetable]
        */
-      const subTypes = unionTypeParts(type);
+      const subtypes = unionTypeParts(type);
 
       /**
        * Next, we must resolve generic types with constraints. For example:
        * - Fruit --> Fruit
        * - T extends Fruit --> Fruit
        */
-      const subTypesConstraints = subTypes.map((subType) => {
-        const constraint = subType.getConstraint();
-        return constraint ?? subType;
+      const subtypesConstraints = subtypes.map((subtype) => {
+        const constraint = subtype.getConstraint();
+        return constraint ?? subtype;
       });
 
-      const enumSubTypes = subTypesConstraints.filter((subType) =>
-        isEnum(subType),
+      const enumSubTypes = subtypesConstraints.filter((subtype) =>
+        isEnum(subtype),
       );
-      const baseEnumSubTypes = enumSubTypes.map((subType) =>
-        getBaseEnumType(subType),
+      const baseEnumSubTypes = enumSubTypes.map((subtype) =>
+        getBaseEnumType(subtype),
       );
       return new Set(baseEnumSubTypes);
     }
@@ -294,12 +294,12 @@ export const strictEnums = createRule<Options, MessageIds>({
         const argumentTypeArguments = checker.getTypeArguments(argumentType);
 
         const parameterSubTypes = unionTypeParts(parameterType);
-        for (const parameterSubType of parameterSubTypes) {
-          if (!isTypeReferenceType(parameterSubType)) {
+        for (const parameterSubtype of parameterSubTypes) {
+          if (!isTypeReferenceType(parameterSubtype)) {
             continue;
           }
           const parameterTypeArguments =
-            checker.getTypeArguments(parameterSubType);
+            checker.getTypeArguments(parameterSubtype);
 
           // eslint-disable-next-line unicorn/no-for-loop
           for (let i = 0; i < argumentTypeArguments.length; i++) {
@@ -309,7 +309,7 @@ export const strictEnums = createRule<Options, MessageIds>({
               argumentTypeArgument === undefined
               || parameterTypeArgument === undefined
             ) {
-              continue;
+              continue; // eslint-disable-line unicorn/no-break-in-nested-loop
             }
 
             if (
@@ -349,10 +349,10 @@ export const strictEnums = createRule<Options, MessageIds>({
        * useNumber(Fruit.Apple);
        * ```
        */
-      const parameterSubTypes = unionTypeParts(parameterType);
-      for (const parameterSubType of parameterSubTypes) {
+      const parameterSubtypes = unionTypeParts(parameterType);
+      for (const parameterSubtype of parameterSubtypes) {
         if (
-          isTypeFlagSet(parameterSubType, ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT)
+          isTypeFlagSet(parameterSubtype, ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT)
         ) {
           return false;
         }
@@ -369,12 +369,12 @@ export const strictEnums = createRule<Options, MessageIds>({
        * ```
        */
       const argumentSubTypes = unionTypeParts(argumentType);
-      for (const argumentSubType of argumentSubTypes) {
+      for (const argumentSubtype of argumentSubTypes) {
         if (
-          argumentSubType.isLiteral()
-          && !isEnum(argumentSubType)
+          argumentSubtype.isLiteral()
+          && !isEnum(argumentSubtype)
           // Allow passing number literals if there are number literals in the actual function type.
-          && !parameterSubTypes.includes(argumentSubType)
+          && !parameterSubtypes.includes(argumentSubtype)
         ) {
           return true;
         }
@@ -389,7 +389,7 @@ export const strictEnums = createRule<Options, MessageIds>({
        * ```
        */
       const argumentSubTypesSet = new Set(argumentSubTypes);
-      const parameterSubTypesSet = new Set(parameterSubTypes);
+      const parameterSubTypesSet = new Set(parameterSubtypes);
       if (setHasAnyElementFromSet(argumentSubTypesSet, parameterSubTypesSet)) {
         return false;
       }
@@ -512,7 +512,7 @@ function getIntersectingSet<T>(
   a: ReadonlySet<T>,
   b: ReadonlySet<T>,
 ): ReadonlySet<T> {
-  const intersectingValues = [...a.values()].filter((value) => b.has(value));
+  const intersectingValues = [...a].filter((value) => b.has(value));
   return new Set(intersectingValues);
 }
 

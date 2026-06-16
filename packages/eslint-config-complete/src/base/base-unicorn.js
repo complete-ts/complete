@@ -12,7 +12,6 @@ export const baseUnicorn = defineConfig({
 
   rules: {
     "unicorn/better-dom-traversing": "error",
-    "unicorn/better-regex": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/class-reference-in-static-methods": "error",
     "unicorn/comment-content": "error",
@@ -325,7 +324,12 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/relative-url-style": "error",
     "unicorn/require-array-join-separator": "error",
-    "unicorn/require-array-sort-compare": "error",
+
+    /**
+     * Superseded by the `@typescript-eslint/require-array-sort-compare` rule (which is type-aware).
+     */
+    "unicorn/require-array-sort-compare": "off",
+
     "unicorn/require-css-escape": "error",
     "unicorn/require-module-attributes": "error",
     "unicorn/require-module-specifiers": "error",

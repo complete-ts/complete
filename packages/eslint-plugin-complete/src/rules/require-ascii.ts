@@ -49,7 +49,7 @@ export const requireAscii = createRule<Options, MessageIds>({
       Program(node) {
         const text = context.sourceCode.getText();
         // eslint-disable-next-line no-control-regex
-        const nonAsciiRegex = /[^\u0000-\u007F]/gu;
+        const nonAsciiRegex = /[^\u{0}-\u{7F}]/gu;
         let match: RegExpExecArray | null;
 
         while ((match = nonAsciiRegex.exec(text)) !== null) {

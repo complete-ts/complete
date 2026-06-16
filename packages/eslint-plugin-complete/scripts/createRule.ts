@@ -32,12 +32,11 @@ async function createRule() {
   );
 
   const ruleName = firstArg;
-  const descriptionRaw = secondArg;
-
   if (!isKebabCase(ruleName)) {
     throw new Error("The rule name must be in kebab-case.");
   }
 
+  const descriptionRaw = secondArg;
   const description = trimSuffix(descriptionRaw, ".");
   if (description.endsWith(".")) {
     throw new Error("The rule description cannot end with a period.");

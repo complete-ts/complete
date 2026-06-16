@@ -16,14 +16,12 @@ export const noForIn = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      ForInStatement(node) {
-        context.report({
-          node,
-          messageId: "noForIn",
-        });
-      },
-    };
-  },
+  create: (context) => ({
+    ForInStatement(node) {
+      context.report({
+        node,
+        messageId: "noForIn",
+      });
+    },
+  }),
 });

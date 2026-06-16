@@ -78,14 +78,12 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
                 earlierName: propertyName,
                 laterName: highestSeenName,
               },
-              ...(replacement === undefined
-                ? {}
-                : {
-                    fix(fixer) {
-                      const [range, replacementText] = replacement;
-                      return fixer.replaceTextRange(range, replacementText);
-                    },
-                  }),
+              ...(replacement !== undefined && {
+                fix(fixer) {
+                  const [range, replacementText] = replacement;
+                  return fixer.replaceTextRange(range, replacementText);
+                },
+              }),
             });
             return;
           }

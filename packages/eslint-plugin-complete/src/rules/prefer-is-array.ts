@@ -19,23 +19,21 @@ export const preferIsArray = createRule({
     },
   },
   defaultOptions: [],
-  create(context) {
-    return {
-      MemberExpression(node) {
-        if (
-          node.object.type === AST_NODE_TYPES.Identifier
-          && node.object.name === "Array"
-          && node.property.type === AST_NODE_TYPES.Identifier
-          && node.property.name === "isArray"
-          && !node.computed
-        ) {
-          context.report({
-            node,
-            messageId: "useIsArray",
-            fix: (fixer) => fixer.replaceText(node, "isArray"),
-          });
-        }
-      },
-    };
-  },
+  create: (context) => ({
+    MemberExpression(node) {
+      if (
+        node.object.type === AST_NODE_TYPES.Identifier
+        && node.object.name === "Array"
+        && node.property.type === AST_NODE_TYPES.Identifier
+        && node.property.name === "isArray"
+        && !node.computed
+      ) {
+        context.report({
+          node,
+          messageId: "useIsArray",
+          fix: (fixer) => fixer.replaceText(node, "isArray"),
+        });
+      }
+    },
+  }),
 });
