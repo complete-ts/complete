@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-unsafe-string-replacement */
-
 import { isEnumBlockLabel, isSpecialComment } from "./comments.js";
 import type { List } from "./list.js";
 import { getAdjustedList, reachedNewList } from "./list.js";
@@ -179,14 +177,14 @@ function splitOnSpecialText(text: string): readonly string[] {
     // - apple
     // - banana
     const previousLine = lines[i - 1];
-    const isPreviousLineWasBlank =
+    const previousLineWasBlank =
       previousLine === undefined || previousLine.trim() === "";
-    const isPreviousLineEndedInColon =
+    const previousLineEndedInColon =
       previousLine !== undefined && previousLine.trimEnd().endsWith(":");
     const list = getAdjustedList(
       line,
-      isPreviousLineWasBlank,
-      isPreviousLineEndedInColon,
+      previousLineWasBlank,
+      previousLineEndedInColon,
       insideList,
     );
     if (reachedNewList(insideList, list)) {

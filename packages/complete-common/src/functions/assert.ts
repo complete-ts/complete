@@ -212,9 +212,9 @@ export function assertInteger(
   value: unknown,
   msg: string,
 ): asserts value is number {
-  // `Number.isInteger` will correctly return false for non-number variables such as strings,
+  // `Number.isSafeInteger` will correctly return false for non-number variables such as strings,
   // booleans, and so on.
-  if (!Number.isInteger(value)) {
+  if (!Number.isSafeInteger(value)) {
     throw new TypeError(msg);
   }
 }

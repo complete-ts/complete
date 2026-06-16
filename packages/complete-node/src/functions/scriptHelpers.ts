@@ -281,7 +281,7 @@ async function getBunBinPaths(
   const cmdNames = new Set<string>();
   for (const command of textCommands) {
     if (typeof command === "string") {
-      const cmd = command.split(" ")[0];
+      const cmd = command.split(" ", 1)[0];
       if (cmd !== undefined) {
         cmdNames.add(cmd);
       }

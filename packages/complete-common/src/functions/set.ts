@@ -41,14 +41,9 @@ export function combineSets<T>(
   return newSet;
 }
 
-/** Helper function to copy a set. (You can also use a Set constructor to accomplish this task.) */
+/** Helper function to copy a set. (Under the hood, this simply calls the `Set` constructor.) */
 export function copySet<T>(oldSet: ReadonlySet<T>): ReadonlySet<T> {
-  const newSet = new Set<T>();
-  for (const value of oldSet) {
-    newSet.add(value);
-  }
-
-  return newSet;
+  return new Set(oldSet);
 }
 
 /** Helper function to convert the keys of an object to a set. */

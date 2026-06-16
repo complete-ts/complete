@@ -6,6 +6,11 @@ import path from "node:path";
 export class MetadataCommand extends Command {
   static override paths = [["metadata"], ["m"]];
 
+  static override usage = Command.Usage({
+    description:
+      'Creates a "package-metadata.json" file to document locked dependencies. (The "update" command will respect the contents of this file.)',
+  });
+
   // The first positional argument.
   dependencyName = Option.String({
     required: true,
@@ -13,11 +18,6 @@ export class MetadataCommand extends Command {
 
   reason = Option.String({
     required: false,
-  });
-
-  static override usage = Command.Usage({
-    description:
-      'Creates a "package-metadata.json" file to document locked dependencies. (The "update" command will respect the contents of this file.)',
   });
 
   async execute(): Promise<void> {

@@ -99,7 +99,7 @@ export function isKeyOf<T extends object>(
   key: PropertyKey,
   target: T,
 ): key is keyof T {
-  return key in target;
+  return Object.hasOwn(target, key);
 }
 
 /**
@@ -132,7 +132,9 @@ export function parseFloatSafe(string: string): number | undefined {
     return undefined;
   }
 
-  const number = Number.parseFloat(trimmedString);
+  // The "Number" constructor is used instead of "Number.parseFloat":
+  // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-coercion.md
+  const number = Number(trimmedString);
   return Number.isNaN(number) ? undefined : number;
 }
 
@@ -160,7 +162,9 @@ export function parseIntSafe(string: string): number | undefined {
     return undefined;
   }
 
-  const number = Number.parseInt(trimmedString, 10);
+  // The "Number" constructor is used instead of "Number.parseInt":
+  // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-coercion.md
+  const number = Math.trunc(Number(trimmedString));
   return Number.isNaN(number) ? undefined : number;
 }
 

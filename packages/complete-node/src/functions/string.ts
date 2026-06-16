@@ -42,12 +42,11 @@ export function setContentInsideHTMLMarker(
   const markerEnd = newHTMLComment(`/${markerName}`);
 
   const markerStartIndex = original.indexOf(markerStart);
-  const markerEndIndex = original.indexOf(markerEnd);
-
   if (markerStartIndex === -1) {
     throw new Error(`Failed to find the marker: ${markerStart}`);
   }
 
+  const markerEndIndex = original.indexOf(markerEnd);
   if (markerEndIndex === -1) {
     throw new Error(`Failed to find the marker: ${markerEnd}`);
   }
@@ -59,7 +58,7 @@ export function setContentInsideHTMLMarker(
   }
 
   if (text !== "") {
-    text = `${text}\n`; // eslint-disable-line no-param-reassign
+    text += "\n"; // eslint-disable-line no-param-reassign
   }
 
   text = `\n${text}`; // eslint-disable-line no-param-reassign

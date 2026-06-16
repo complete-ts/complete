@@ -38,12 +38,12 @@ export async function createProject(
   projectName: string,
   authorName: string | undefined,
   projectPath: string,
-  createNewDir: boolean,
+  shouldCreateNewDir: boolean,
   gitRemoteURL: string | undefined,
   skipInstall: boolean,
   packageManager: PackageManager,
 ): Promise<void> {
-  if (createNewDir) {
+  if (shouldCreateNewDir) {
     await makeDirectory(projectPath);
   }
 
@@ -83,7 +83,7 @@ async function copyStaticFiles(projectPath: string) {
   );
 
   // Rename "_gitattributes" to ".gitattributes". (If it is kept as ".gitattributes", then it won't
-  // be committed to git.)
+  // be committed to Git.)
   const gitAttributesPath = path.join(projectPath, "_gitattributes");
   const correctGitAttributesPath = path.join(projectPath, ".gitattributes");
   await renameFileOrDirectory(gitAttributesPath, correctGitAttributesPath);

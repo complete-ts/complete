@@ -15,7 +15,7 @@ import { parseIntSafe } from "./utils.js";
 
 /** We use a "*" instead of a "+" so that an empty string will match. */
 // eslint-disable-next-line no-control-regex
-const ASCII_REGEX = /^[\u0000-\u007F]*$/;
+const ASCII_REGEX = /^[\u{0}-\u{7F}]*$/u;
 
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
 
@@ -23,7 +23,7 @@ const DIACRITIC_REGEX = /\p{Diacritic}/u;
  * - We can't use `/\p{Emoji}/u` because it has a false positive on "#" characters.
  * - We can't use `/\p{Extended_Pictographic}/u` because it has a false negative on keycap emojis.
  */
-const EMOJI_REGEX = /(\p{Extended_Pictographic}|[#*0-9]\uFE0F?\u20E3)/u;
+const EMOJI_REGEX = /(\p{Extended_Pictographic}|[#*0-9]\u{FE0F}?\u{20E3})/u;
 
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
 const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
@@ -158,7 +158,7 @@ export function isUpperCase(string: string): boolean {
 /** Helper function to convert a string from kebab-case to camelCase. */
 export function kebabCaseToCamelCase(string: string): string {
   return string.replaceAll(/-./g, (match) => {
-    const firstLetterOfWord = match[1];
+    const firstLetterOfWord = match.at(1);
     return firstLetterOfWord === undefined
       ? ""
       : firstLetterOfWord.toUpperCase();

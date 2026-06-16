@@ -1,10 +1,10 @@
 // @ts-check
 
 /**
- * @typedef {{ type: string, name?: string, value?: unknown }} RuleObjectKey
- * @typedef {{ type: string, id?: unknown, key?: unknown }} RuleObjectParent
- * @typedef {{ computed: boolean, key: RuleObjectKey }} RuleObjectProperty
- * @typedef {{ parent?: unknown }} RuleObjectExpression
+ * @typedef {{type: string, name?: string, value?: unknown}} RuleObjectKey
+ * @typedef {{type: string, id?: unknown, key?: unknown}} RuleObjectParent
+ * @typedef {{computed: boolean, key: RuleObjectKey}} RuleObjectProperty
+ * @typedef {{parent?: unknown}} RuleObjectExpression
  */
 
 /** @type {import("eslint").Rule.RuleModule} */

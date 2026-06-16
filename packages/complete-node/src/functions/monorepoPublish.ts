@@ -219,9 +219,10 @@ export async function monorepoPublish(
     const monorepoUsesCatalog = await packageJSONHasCatalog(
       monorepoPackageJSONPath,
     );
-    await (monorepoUsesCatalog
-      ? updatePackageJSONDependencies(monorepoRoot)
-      : updatePackageJSONDependenciesMonorepo(monorepoRoot));
+    const func = monorepoUsesCatalog
+      ? updatePackageJSONDependencies
+      : updatePackageJSONDependenciesMonorepo;
+    await func(monorepoRoot);
   } else {
     // Even though we are not updating the dependencies in the root "package.json" file, we still
     // have to bump the version of monorepo packages that are in other package's "package.json"

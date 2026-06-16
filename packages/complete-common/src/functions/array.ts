@@ -17,13 +17,7 @@ import { isObject } from "./types.js";
 export function arrayCopyTwoDimensional<T>(
   array: ReadonlyArray<readonly T[]>,
 ): ReadonlyArray<readonly T[]> {
-  const copiedArray: T[][] = [];
-
-  for (const subArray of array) {
-    copiedArray.push([...subArray]);
-  }
-
-  return copiedArray;
+  return Array.from(array, (subArray) => [...subArray]);
 }
 
 /**
@@ -94,6 +88,9 @@ export function arrayRemoveAllInPlace<T>(
       index = array.indexOf(element);
       if (index > -1) {
         removedOneOrMoreElements = true;
+
+        // We deliberately use "splice" for better performance.
+        // eslint-disable-next-line unicorn/no-array-splice
         array.splice(index, 1);
       }
     } while (index > -1);
@@ -134,7 +131,8 @@ export function arrayRemoveInPlace<T>(
 /** Helper function to remove all of the elements in an array in-place. */
 // eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function emptyArray(array: unknown[]): void {
-  array.splice(0);
+  // eslint-disable-next-line no-param-reassign
+  array.length = 0;
 }
 
 /**

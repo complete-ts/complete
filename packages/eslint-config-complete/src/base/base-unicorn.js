@@ -17,7 +17,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/class-reference-in-static-methods": "error",
     "unicorn/comment-content": "error",
     "unicorn/consistent-assert": "error",
-    "unicorn/consistent-boolean-name": "error",
+
+    /** Disabled because it is too strict. */
+    "unicorn/consistent-boolean-name": "off",
+
     "unicorn/consistent-class-member-order": "error",
     "unicorn/consistent-compound-words": "error",
     "unicorn/consistent-date-clone": "error",
@@ -81,7 +84,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-blob-to-file": "error",
     "unicorn/no-break-in-nested-loop": "error",
     "unicorn/no-canvas-to-image": "error",
-    "unicorn/no-computed-property-existence-check": "error",
+
+    /** Disabled since it is unnecessary with TypeScript objects that are properly typed. */
+    "unicorn/no-computed-property-existence-check": "off",
+
     "unicorn/no-confusing-array-splice": "error",
     "unicorn/no-confusing-array-with": "error",
     "unicorn/no-console-spaces": "error",
@@ -170,7 +176,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unsafe-buffer-conversion": "error",
     "unicorn/no-unsafe-dom-html": "error",
     "unicorn/no-unsafe-property-key": "error",
-    "unicorn/no-unsafe-string-replacement": "error",
+
+    /** Disabled since it has too many false positives. */
+    "unicorn/no-unsafe-string-replacement": "off",
+
     "unicorn/no-unused-array-method-return": "error",
     "unicorn/no-unused-properties": "error",
     "unicorn/no-useless-boolean-cast": "error",
@@ -235,7 +244,13 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-identifier-import-export-specifiers": "error",
     "unicorn/prefer-import-meta-properties": "error",
     "unicorn/prefer-includes": "error",
-    "unicorn/prefer-includes-over-repeated-comparisons": "error",
+
+    /**
+     * Disabled since it does not work with common TypeScript narrowing patterns such as: `major ===
+     * undefined || minor === undefined || patch === undefined`
+     */
+    "unicorn/prefer-includes-over-repeated-comparisons": "off",
+
     "unicorn/prefer-iterable-in-constructor": "error",
     "unicorn/prefer-iterator-concat": "error",
     "unicorn/prefer-iterator-to-array": "error",

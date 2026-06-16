@@ -56,7 +56,8 @@ function getGithubCLIHostsPath(): string | undefined {
   return path.join(HOME_DIR, ".config", "gh", "hosts.yml");
 }
 
-/** @returns The git remote URL. For example: git@github.com:alice/foo.git */
+// eslint-disable-next-line unicorn/comment-content
+/** @returns The Git remote URL. For example: git@github.com:alice/foo.git */
 export async function promptGitHubRepoOrGitRemoteURL(
   projectName: string,
   yes: boolean,
@@ -134,10 +135,10 @@ If you do not want to initialize a Git repository for this project, press enter 
     return getGitRemoteURL(projectName, gitHubUsername);
   }
 
-  const createNewGitHubRepo = await getInputYesNo(
+  const shouldCreateNewGitHubRepo = await getInputYesNo(
     `Would you like to create a new GitHub repository at: ${chalk.green(url)}`,
   );
-  if (createNewGitHubRepo) {
+  if (shouldCreateNewGitHubRepo) {
     await $q`gh repo create ${projectName} --public`;
     promptLog("Successfully created a new GitHub repository.");
     return getGitRemoteURL(projectName, gitHubUsername);

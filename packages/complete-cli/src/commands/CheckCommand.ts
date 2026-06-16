@@ -28,17 +28,17 @@ const URL_PREFIX =
 export class CheckCommand extends Command {
   static override paths = [["check"], ["c"]];
 
+  static override usage = Command.Usage({
+    description:
+      "Checks the current project for out-of-date files that came from the initial bootstrap.",
+  });
+
   ignore = Option.String("-i,--ignore", {
     description: "Comma separated list of file names to ignore.",
   });
 
   verbose = Option.Boolean("-v,--verbose", false, {
     description: "Enable verbose output.",
-  });
-
-  static override usage = Command.Usage({
-    description:
-      "Checks the current project for out-of-date files that came from the initial bootstrap.",
   });
 
   async execute(): Promise<void> {
@@ -100,28 +100,7 @@ async function checkTemplateDirectory(
       templateDirectory,
       templateFilePath,
     );
-    const templateFileName = path.basename(relativeTemplateFilePath);
-
-    let projectFilePath = path.join(CWD, relativeTemplateFilePath);
-    switch (templateFileName) {
-      case "_cspell.config.jsonc": {
-        projectFilePath = path.resolve(
-          projectFilePath,
-          "..",
-          "cspell.config.jsonc",
-        );
-        break;
-      }
-
-      case "_gitattributes": {
-        projectFilePath = path.resolve(projectFilePath, "..", ".gitattributes");
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
+    const projectFilePath = getProjectFilePath(relativeTemplateFilePath);
 
     const projectFileName = path.basename(projectFilePath);
     if (ignoreFileNamesSet.has(projectFileName)) {
@@ -140,6 +119,25 @@ async function checkTemplateDirectory(
   }
 
   return !oneOrMoreErrors;
+}
+
+function getProjectFilePath(relativeTemplateFilePath: string) {
+  const templateFileName = path.basename(relativeTemplateFilePath);
+  const projectFilePath = path.join(CWD, relativeTemplateFilePath);
+
+  switch (templateFileName) {
+    case "_cspell.config.jsonc": {
+      return path.resolve(projectFilePath, "..", "cspell.config.jsonc");
+    }
+
+    case "_gitattributes": {
+      return path.resolve(projectFilePath, "..", ".gitattributes");
+    }
+
+    default: {
+      return projectFilePath;
+    }
+  }
 }
 
 /** @returns Whether the dynamic files were valid. */

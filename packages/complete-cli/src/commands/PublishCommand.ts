@@ -22,6 +22,10 @@ import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 export class PublishCommand extends Command {
   static override paths = [["publish"], ["p"]];
 
+  static override usage = Command.Usage({
+    description: "Bumps the version & publishes a new release.",
+  });
+
   // The first positional argument.
   versionBumpType = Option.String({
     required: true,
@@ -37,10 +41,6 @@ export class PublishCommand extends Command {
 
   skipUpdate = Option.Boolean("--skip-update", false, {
     description: "Skip updating the npm dependencies.",
-  });
-
-  static override usage = Command.Usage({
-    description: "Bumps the version & publishes a new release.",
   });
 
   async execute(): Promise<void> {

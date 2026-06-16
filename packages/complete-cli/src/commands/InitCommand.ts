@@ -12,6 +12,10 @@ import { vsCodeInit } from "./init/vsCodeInit.js";
 export class InitCommand extends Command {
   static override paths = [["init"], ["i"]];
 
+  static override usage = Command.Usage({
+    description: "Initialize a new TypeScript project.",
+  });
+
   // The first positional argument.
   name = Option.String({
     required: false,
@@ -64,17 +68,13 @@ export class InitCommand extends Command {
     description: "Allow project names that are normally illegal.",
   });
 
-  static override usage = Command.Usage({
-    description: "Initialize a new TypeScript project.",
-  });
-
   async execute(): Promise<void> {
     promptStart();
 
     const packageManager = await getPackageManagerUsedForNewProject(this);
 
     // Prompt the end-user for some information (and validate it as we go).
-    const { projectPath, createNewDir } = await getProjectPath(
+    const { projectPath, shouldCreateNewDir } = await getProjectPath(
       this.name,
       this.useCurrentDirectory,
       this.customDirectory,
@@ -96,7 +96,7 @@ export class InitCommand extends Command {
       projectName,
       authorName,
       projectPath,
-      createNewDir,
+      shouldCreateNewDir,
       gitRemoteURL,
       this.skipInstall,
       packageManager,
