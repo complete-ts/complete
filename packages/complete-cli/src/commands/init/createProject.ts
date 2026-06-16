@@ -331,7 +331,7 @@ async function updateCSpellConfigForAuthorName(
   }
 
   // Remove the numbers from the author name, if any.
-  const words = authorName.split(/[^A-Za-z]+/).filter(Boolean);
+  const words = authorName.split(/[^a-z]+/v).filter(Boolean);
   if (words.length === 0) {
     return;
   }

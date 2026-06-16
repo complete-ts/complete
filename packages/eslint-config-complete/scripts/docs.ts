@@ -535,7 +535,8 @@ function isDeprecatedRule(rule: unknown): boolean {
   }
 
   const { deprecated } = meta;
-  return deprecated === true;
+  // Newer ESLint rules can use an object here to include deprecation details.
+  return deprecated !== undefined && deprecated !== false;
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
