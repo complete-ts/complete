@@ -29,9 +29,9 @@ const HELPFUL_WARNINGS = {
         "test.{js,jsx}", // repos with a single test file
         "test-*.{js,jsx}", // repos with multiple top-level test files
         "**/*{.,_}{test,spec}.{js,jsx}", // tests where the extension or filename suffix denotes that it is a test
-        "**/gulpfile.js", // gulp config
-        "**/gulpfile.*.js", // gulp config
-        "**/Gruntfile{,.js}", // grunt config
+        "**/gulpfile.js", // Gulp config
+        "**/gulpfile.*.js", // Gulp config
+        "**/Gruntfile{,.js}", // Grunt config
         "**/protractor.conf.js", // protractor config
         "**/protractor.conf.*.js", // protractor config
         "**/karma.conf.js", // karma config

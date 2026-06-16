@@ -131,8 +131,7 @@ export function arrayRemoveInPlace<T>(
 /** Helper function to remove all of the elements in an array in-place. */
 // eslint-disable-next-line complete/prefer-readonly-parameter-types
 export function emptyArray(array: unknown[]): void {
-  // eslint-disable-next-line no-param-reassign
-  array.length = 0;
+  array.length = 0; // eslint-disable-line no-param-reassign
 }
 
 /**

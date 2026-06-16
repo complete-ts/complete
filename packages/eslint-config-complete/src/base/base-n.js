@@ -64,8 +64,8 @@ export const baseN = defineConfig({
     "n/no-process-env": "off",
 
     /**
-     * Disabled because using `process.exit` is common to exit command-line applications without
-     * verbose output.
+     * Disabled because using `process.exit` is common to exit command-line apps without verbose
+     * output.
      */
     "n/no-process-exit": "off",
 
