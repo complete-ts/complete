@@ -20,7 +20,7 @@ export const sortObjects = createRule<Options, MessageIds>({
     docs: {
       description:
         "Requires object properties to match the declared type order",
-      recommended: false,
+      recommended: true,
       requiresTypeChecking: true,
     },
     fixable: "code",

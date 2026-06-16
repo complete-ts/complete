@@ -48,6 +48,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/require-unannotated-const-assertions": "error",
       "complete/require-variadic-function-argument": "error",
       "complete/sort-destructured-properties": "error",
+      "complete/sort-objects": "error",
       "complete/strict-array-methods": "error",
       "complete/strict-enums": "error",
       "complete/strict-undefined-functions": "error",

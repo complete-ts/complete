@@ -1,5 +1,7 @@
 # complete/sort-objects
 
+💼 This rule is enabled in the ✅ `recommended` config.
+
 📝 Requires object properties to match the declared type order.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
