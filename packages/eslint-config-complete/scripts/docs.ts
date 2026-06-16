@@ -23,6 +23,7 @@ import esLintPluginImportX from "eslint-plugin-import-x";
 import esLintPluginJSDoc from "eslint-plugin-jsdoc";
 import esLintPluginN from "eslint-plugin-n";
 import esLintPluginPerfectionist from "eslint-plugin-perfectionist";
+import esLintPluginRegexp from "eslint-plugin-regexp";
 import esLintPluginUnicorn from "eslint-plugin-unicorn";
 import path from "node:path";
 import url from "node:url";
@@ -144,6 +145,10 @@ const PERFECTIONIST_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
   ),
 );
 
+const REGEXP_RECOMMENDED_RULES_SET: ReadonlySet<string> = new Set(
+  Object.keys(esLintPluginRegexp.configs.recommended.rules),
+);
+
 assertDefined(
   esLintPluginUnicorn.configs.recommended.rules,
   'Failed to parse the "recommended" config from: eslint-plugin-unicorn',
@@ -178,6 +183,7 @@ type ParentConfig =
   | "n/recommended"
   | "package-json/recommended"
   | "perfectionist/recommended-alphabetical"
+  | "regexp/recommended"
   | "unicorn/recommended"
   | "complete/recommended"
   | "eslint-config-prettier";
@@ -209,6 +215,8 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/src/plugin.ts",
   "perfectionist/recommended-alphabetical":
     "https://github.com/azat-io/eslint-plugin-perfectionist/blob/main/index.ts",
+  "regexp/recommended":
+    "https://github.com/ota-meshi/eslint-plugin-regexp/blob/master/lib/configs/recommended.ts",
   "unicorn/recommended":
     "https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js",
   "complete/recommended":
@@ -274,6 +282,14 @@ export async function setReadmeRules(quiet: boolean): Promise<void> {
     "https://perfectionist.dev/rules",
     "https://perfectionist.dev/rules/__RULE_NAME__",
     esLintPluginPerfectionist,
+  );
+
+  rulesTable += await getMarkdownRuleSection(
+    "regexp",
+    getPluginHeaderTitle("regexp"),
+    "https://github.com/ota-meshi/eslint-plugin-regexp",
+    "https://github.com/ota-meshi/eslint-plugin-regexp/blob/master/docs/rules/__RULE_NAME__.md",
+    esLintPluginRegexp,
   );
 
   rulesTable += await getMarkdownRuleSection(
@@ -640,6 +656,10 @@ function getParentConfigs(ruleName: string): readonly ParentConfig[] {
 
   if (PERFECTIONIST_RECOMMENDED_RULES_SET.has(ruleName)) {
     parentConfigs.push("perfectionist/recommended-alphabetical");
+  }
+
+  if (REGEXP_RECOMMENDED_RULES_SET.has(ruleName)) {
+    parentConfigs.push("regexp/recommended");
   }
 
   if (UNICORN_RECOMMENDED_RULES_SET.has(ruleName)) {

@@ -68,7 +68,7 @@ function isBaseRuleMap(node) {
 
   if (isRuleObjectParent(parent, "VariableDeclarator")) {
     const idName = getNodeName(parent.id);
-    return idName !== undefined && /^[A-Z_]+$/.test(idName);
+    return idName !== undefined && /^[A-Z_]+$/v.test(idName);
   }
 
   return (

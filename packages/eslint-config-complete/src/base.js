@@ -5,6 +5,7 @@ import { baseImportX } from "./base/base-import-x.js";
 import { baseJSDoc } from "./base/base-jsdoc.js";
 import { baseN } from "./base/base-n.js";
 import { basePerfectionist } from "./base/base-perfectionist.js";
+import { baseRegexp } from "./base/base-regexp.js";
 import { baseStylistic } from "./base/base-stylistic.js";
 import { baseTypeScriptESLint } from "./base/base-typescript-eslint.js";
 import { baseUnicorn } from "./base/base-unicorn.js";
@@ -27,6 +28,7 @@ export const completeConfigBase = defineConfig(
   ...baseJSDoc,
   ...baseN, // "n" stands for Node.
   ...basePerfectionist,
+  ...baseRegexp,
   ...baseUnicorn,
 
   // TODO: The `defineConfig` helper function is bugged.

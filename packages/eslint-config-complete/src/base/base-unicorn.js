@@ -12,6 +12,7 @@ export const baseUnicorn = defineConfig({
 
   rules: {
     "unicorn/better-dom-traversing": "error",
+    "unicorn/better-regex": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/class-reference-in-static-methods": "error",
     "unicorn/comment-content": "error",
@@ -69,6 +70,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-array-fill-with-reference-type": "error",
     "unicorn/no-array-from-fill": "error",
     "unicorn/no-array-method-this-argument": "error",
+    "unicorn/no-array-push-push": "error",
     "unicorn/no-array-reduce": "error",
     "unicorn/no-array-reverse": "error",
     "unicorn/no-array-sort": "error",
@@ -99,9 +101,11 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-for-each": "error",
     "unicorn/no-for-loop": "error",
     "unicorn/no-global-object-property-assignment": "error",
+    "unicorn/no-hex-escape": "error",
     "unicorn/no-immediate-mutation": "error",
     "unicorn/no-incorrect-query-selector": "error",
     "unicorn/no-incorrect-template-string-interpolation": "error",
+    "unicorn/no-instanceof-array": "error",
     "unicorn/no-instanceof-builtins": "error",
     "unicorn/no-invalid-argument-count": "error",
     "unicorn/no-invalid-fetch-options": "error",
@@ -112,6 +116,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-keyword-prefix": "off",
 
     "unicorn/no-late-current-target-access": "error",
+    "unicorn/no-length-as-slice-end": "error",
     "unicorn/no-lonely-if": "error",
     "unicorn/no-magic-array-flat-depth": "error",
 
@@ -223,6 +228,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-direct-iteration": "error",
     "unicorn/prefer-dispose": "error",
     "unicorn/prefer-dom-node-append": "error",
+    "unicorn/prefer-dom-node-dataset": "error",
     "unicorn/prefer-dom-node-html-methods": "error",
     "unicorn/prefer-dom-node-remove": "error",
     "unicorn/prefer-dom-node-text-content": "error",
@@ -250,6 +256,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-iterator-to-array": "error",
     "unicorn/prefer-iterator-to-array-at-end": "error",
 
+    "unicorn/prefer-json-parse-buffer": "error",
     "unicorn/prefer-keyboard-event-key": "error",
     "unicorn/prefer-location-assign": "error",
     "unicorn/prefer-logical-operator-over-ternary": "error",

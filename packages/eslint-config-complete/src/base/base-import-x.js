@@ -158,6 +158,8 @@ const STYLE_GUIDE = {
   /** Disabled because this style is not generally used. */
   "import-x/group-exports": "off",
 
+  "import-x/imports-first": "error",
+
   /** Disabled since it will trigger false positives in codebases that prefer smaller files. */
   "import-x/max-dependencies": "off",
 

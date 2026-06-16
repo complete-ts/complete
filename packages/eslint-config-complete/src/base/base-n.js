@@ -45,6 +45,8 @@ export const baseN = defineConfig({
     /** Disabled since require statements are not used in TypeScript code. */
     "n/no-extraneous-require": "off",
 
+    "n/no-hide-core-modules": "error",
+
     /** Disabled since it is handled by the TypeScript compiler. */
     "n/no-missing-import": "off",
 
@@ -138,5 +140,6 @@ export const baseN = defineConfig({
     "n/prefer-promises/fs": "off",
 
     "n/process-exit-as-throw": "error",
+    "n/shebang": "error",
   },
 });
