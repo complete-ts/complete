@@ -13,8 +13,8 @@
     "declaration": true,
     "declarationMap": true,
 
-    // Needed since this library uses the `Array.toSorted` method. (The default is ES5.)
-    "target": "ES2023",
+    // Needed since this library uses regular expression unicode sets. (The default is ES5.)
+    "target": "ES2024",
   },
 
   "exclude": ["src/**/*.test.ts"],

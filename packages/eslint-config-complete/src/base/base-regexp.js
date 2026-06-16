@@ -15,7 +15,10 @@ export const baseRegexp = defineConfig({
     "regexp/control-character-escape": "error",
     "regexp/grapheme-string-literal": "error",
     "regexp/hexadecimal-escape": "error",
-    "regexp/letter-case": "error",
+
+    /** Disabled since it conflicts with the `unicorn/escape-case` rule. */
+    "regexp/letter-case": "off",
+
     "regexp/match-any": "error",
     "regexp/negation": "error",
     "regexp/no-contradiction-with-assertion": "error",

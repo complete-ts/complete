@@ -4,8 +4,6 @@
  * @module
  */
 
-/* eslint-disable regexp/require-unicode-sets-regexp */
-
 import type { SemanticVersion } from "../interfaces/SemanticVersion.js";
 import { assertDefined } from "./assert.js";
 import { parseIntSafe } from "./utils.js";
@@ -16,25 +14,25 @@ import { parseIntSafe } from "./utils.js";
 // they will return inconsistent results due to the `lastIndex` property persisting between calls.
 
 /** We use a "*" instead of a "+" so that an empty string will match. */
-const ASCII_REGEX = /^\p{ASCII}*$/u;
+const ASCII_REGEX = /^\p{ASCII}*$/v;
 
-const DIACRITIC_REGEX = /\p{Diacritic}/u;
+const DIACRITIC_REGEX = /\p{Diacritic}/v;
+const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/v;
 
 /**
  * - We can't use `/\p{Emoji}/u` because it has a false positive on "#" characters.
  * - We can't use `/\p{Extended_Pictographic}/u` because it has a false negative on keycap emojis.
  */
-// eslint-disable-next-line unicorn/escape-case -- regexp/letter-case requires lowercase code point escapes.
-const EMOJI_REGEX = /\p{Extended_Pictographic}|[#*0-9]\u{fe0f}?\u{20e3}/u;
+const EMOJI_REGEX = /\p{Extended_Pictographic}|[#*0-9]\u{FE0F}?\u{20E3}/v;
 
-const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/u;
+const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/v;
 const SEMANTIC_VERSION_REGEX =
-  /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/u;
-const WHITESPACE_REGEX = /\s/u;
-const WHITESPACE_GLOBAL_REGEX = /\s/gu;
-const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/gu;
-const UPPERCASE_REGEX = /^[A-Z]*$/u;
-const LOWERCASE_REGEX = /^[a-z]*$/u;
+  /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/v;
+const WHITESPACE_REGEX = /\s/v;
+const WHITESPACE_GLOBAL_REGEX = /\s/gv;
+const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/gv;
+const UPPERCASE_REGEX = /^[A-Z]*$/v;
+const LOWERCASE_REGEX = /^[a-z]*$/v;
 
 /** Helper function to capitalize the first letter of a string. */
 export function capitalizeFirstLetter(string: string): string {
@@ -126,7 +124,8 @@ export function isASCII(str: string): boolean {
  * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
  */
 export function isFirstLetterCapitalized(string: string): boolean {
-  return /^\p{Lu}/u.test(string);
+  // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
+  return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
 }
 
 /**
@@ -159,7 +158,7 @@ export function isUpperCase(string: string): boolean {
 
 /** Helper function to convert a string from kebab-case to camelCase. */
 export function kebabCaseToCamelCase(string: string): string {
-  return string.replaceAll(/-./gu, (match) => {
+  return string.replaceAll(/-./gv, (match) => {
     const firstLetterOfWord = match.at(1);
     return firstLetterOfWord === undefined
       ? ""
@@ -191,11 +190,11 @@ export function normalizeString(string: string): string {
 
   // Normalize newlines.
   sanitizedString = sanitizedString.replaceAll("\n\r", "\n");
-  sanitizedString = sanitizedString.replaceAll(/\p{Zl}/gu, "\n");
-  sanitizedString = sanitizedString.replaceAll(/\p{Zp}/gu, "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zl}/gv, "\n");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zp}/gv, "\n");
 
   // Normalize spaces.
-  sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gu, " ");
+  sanitizedString = sanitizedString.replaceAll(/\p{Zs}/gv, " ");
 
   // Remove leading/trailing whitespace.
   sanitizedString = sanitizedString.trim();
@@ -303,7 +302,7 @@ export function removeLinesMatching(string: string, match: string): string {
  * https://stackoverflow.com/questions/11598786/how-to-replace-non-printable-unicode-characters-javascript
  */
 export function removeNonPrintableCharacters(string: string): string {
-  return string.replaceAll(/\p{C}/gu, "");
+  return string.replaceAll(/\p{C}/gv, "");
 }
 
 /** Helper function to remove all whitespace characters from a string. */
@@ -355,7 +354,7 @@ export function satisfiesSemanticVersion(
 export function titleCaseToKebabCase(string: string): string {
   return string
     .replaceAll(TITLE_CASE_BOUNDARY_REGEX, "-")
-    .replaceAll(/ +/gu, "-")
+    .replaceAll(/ +/gv, "-")
     .toLowerCase();
 }
 

@@ -4,13 +4,11 @@
  * @module
  */
 
-/* eslint-disable regexp/require-unicode-sets-regexp */
-
 // When regexes are located at the root instead of inside the function, the functions are tested to
 // perform 11% faster.
 
-const FLOAT_REGEX = /^-?(?:\d+(?:\.\d+)?|\.\d+)$/u;
-const INTEGER_REGEX = /^-?\d+$/u;
+const FLOAT_REGEX = /^-?(?:\d+(?:\.\d+)?|\.\d+)$/v;
+const INTEGER_REGEX = /^-?\d+$/v;
 
 /**
  * Helper function to get an iterator of integers with the specified range, inclusive on the lower
