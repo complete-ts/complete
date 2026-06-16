@@ -248,7 +248,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-includes-over-repeated-comparisons": "off",
 
     "unicorn/prefer-iterable-in-constructor": "error",
-    "unicorn/prefer-iterator-concat": "error",
+
+    /** Disabled since `Iterator.spread` is not available in TypeScript 6. */
+    "unicorn/prefer-iterator-concat": "off",
+
     "unicorn/prefer-iterator-to-array": "error",
     "unicorn/prefer-iterator-to-array-at-end": "error",
 
