@@ -158,9 +158,6 @@ const STYLE_GUIDE = {
   /** Disabled because this style is not generally used. */
   "import-x/group-exports": "off",
 
-  /** Disabled because this rule is deprecated. */
-  "import-x/imports-first": "off",
-
   /** Disabled since it will trigger false positives in codebases that prefer smaller files. */
   "import-x/max-dependencies": "off",
 

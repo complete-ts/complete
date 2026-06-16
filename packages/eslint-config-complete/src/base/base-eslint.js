@@ -288,9 +288,7 @@ const SUGGESTIONS = {
   "no-continue": "off",
 
   "no-delete-var": "error",
-
-  /** Disabled since it is incompatible with the `unicorn/better-regex` rule. */
-  "no-div-regex": "off",
+  "no-div-regex": "error",
 
   /** The `allowElseIf` option is disabled to make the rule stricter. */
   "no-else-return": [

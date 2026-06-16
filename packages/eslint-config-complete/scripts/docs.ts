@@ -499,7 +499,26 @@ function getAllRulesFromOldPlugin(
     throw new Error(`Failed to parse the rules for: ${configName}`);
   }
 
-  return Object.keys(rules).map((rule) => `${configName}/${rule}`);
+  return Object.entries(rules)
+    .filter(([, rule]) => !isDeprecatedRule(rule))
+    .map(([rule]) => `${configName}/${rule}`);
+}
+
+function isDeprecatedRule(rule: unknown): boolean {
+  if (!isObject(rule)) {
+    throw new Error("Failed to parse a rule as an object.");
+  }
+
+  const { meta } = rule;
+  if (meta === undefined) {
+    return false;
+  }
+
+  if (!isObject(meta)) {
+    throw new Error("Failed to parse the rule metadata as an object.");
+  }
+
+  return meta["deprecated"] !== undefined && meta["deprecated"] !== false;
 }
 
 function getMarkdownHeader(headerTitle: string, headerLink: string): string {
