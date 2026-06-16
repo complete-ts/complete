@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-unsafe-string-replacement */
+
 import { isEnumBlockLabel, isSpecialComment } from "./comments.js";
 import type { List } from "./list.js";
 import { getAdjustedList, reachedNewList } from "./list.js";
@@ -38,7 +40,7 @@ export function getIncompleteSentences(
   const textBlocks = splitOnSpecialText(text);
   for (const textBlock of textBlocks) {
     // Handle text that "spills over" to the next line by simply converting all newlines to spaces.
-    const squishedText = textBlock.split("\n").join(" ").trim();
+    const squishedText = textBlock.replaceAll("\n", " ").trim();
 
     // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
     // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
@@ -143,7 +145,11 @@ function splitOnSpecialText(text: string): readonly string[] {
 
     // Remove any JSDoc tags. (But leave the descriptions following the tags, if any.) "@param" tags
     // are followed by variable names, which will not be part of the sentence.
-    line = line.replace(/^\s*@param \w+ /, SENTENCE_SEPARATOR_IDENTIFIER);
+    line = line.replace(
+      /^\s*@param\s+(?:{[^}]+}\s+)?\w+\s*/,
+      SENTENCE_SEPARATOR_IDENTIFIER,
+    );
+    line = line.replace(/^\s*@\S+\s+{[^}]+}\s*/, SENTENCE_SEPARATOR_IDENTIFIER);
     // This is "\S+" instead of "\w+" because we need to match things like "@ts-expect-error".
     line = line.replace(/^\s*@\S+/, SENTENCE_SEPARATOR_IDENTIFIER);
 
@@ -173,14 +179,14 @@ function splitOnSpecialText(text: string): readonly string[] {
     // - apple
     // - banana
     const previousLine = lines[i - 1];
-    const previousLineWasBlank =
+    const isPreviousLineWasBlank =
       previousLine === undefined || previousLine.trim() === "";
-    const previousLineEndedInColon =
+    const isPreviousLineEndedInColon =
       previousLine !== undefined && previousLine.trimEnd().endsWith(":");
     const list = getAdjustedList(
       line,
-      previousLineWasBlank,
-      previousLineEndedInColon,
+      isPreviousLineWasBlank,
+      isPreviousLineEndedInColon,
       insideList,
     );
     if (reachedNewList(insideList, list)) {

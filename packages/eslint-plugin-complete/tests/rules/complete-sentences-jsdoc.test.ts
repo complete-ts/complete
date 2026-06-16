@@ -469,6 +469,15 @@ valid.push({
 });
 
 valid.push({
+  name: "Comment with JSDoc returns type predicate",
+  code: `
+/**
+ * @returns {value is Record<string, unknown>}
+ */
+  `,
+});
+
+valid.push({
   name: "Comment with JSDoc link with URL without trailing text",
   code: `
 /**
