@@ -72,7 +72,13 @@ export const baseRegexp = defineConfig({
     "regexp/prefer-escape-replacement-dollar-char": "error",
     "regexp/prefer-lookaround": "error",
     "regexp/prefer-named-backreference": "error",
+
+    /**
+     * Disabled because it is common to have a regex with only a single match, in which case a named
+     * capture group can be needlessly verbose (and cause extra type narrowing).
+     */
     "regexp/prefer-named-capture-group": "error",
+
     "regexp/prefer-named-replacement": "error",
     "regexp/prefer-plus-quantifier": "error",
     "regexp/prefer-predefined-assertion": "error",

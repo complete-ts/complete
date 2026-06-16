@@ -37,7 +37,10 @@ const POSSIBLE_PROBLEMS = {
   "no-constant-binary-expression": "error",
   "no-constant-condition": "error",
   "no-constructor-return": "error",
-  "no-control-regex": "error",
+
+  /** Superseded by the `regexp/no-control-characters` rule. */
+  "no-control-regex": "off",
+
   "no-debugger": "error",
 
   /** Disabled since this is already enforced by TypeScript (`ts(2300)`). */
@@ -56,7 +59,9 @@ const POSSIBLE_PROBLEMS = {
   /** Superseded by the `import-x/no-duplicates` rule. */
   "no-duplicate-imports": "off",
 
-  "no-empty-character-class": "error",
+  /** Superseded by the `regexp/no-empty-character-class` rule. */
+  "no-empty-character-class": "off",
+
   "no-empty-pattern": "error",
   "no-ex-assign": "error",
   "no-fallthrough": "error",
@@ -68,13 +73,17 @@ const POSSIBLE_PROBLEMS = {
   "no-import-assign": "off", // @typescript-eslint/eslint-recommended
 
   "no-inner-declarations": "error",
-  "no-invalid-regexp": "error",
+
+  /** Superseded by the `regexp/no-invalid-regexp` rule. */
+  "no-invalid-regexp": "off",
+
   "no-irregular-whitespace": "error",
 
   /** Superseded by the `@typescript-eslint/no-loss-of-precision` rule. */
   "no-loss-of-precision": "off",
 
-  "no-misleading-character-class": "error",
+  /** Superseded by the `regexp/no-misleading-unicode-character` rule. */
+  "no-misleading-character-class": "off",
 
   /** Disabled since this is already enforced by TypeScript (`ts(7009)`). */
   "no-new-native-nonconstructor": "off", // @typescript-eslint/eslint-recommended
@@ -126,7 +135,8 @@ const POSSIBLE_PROBLEMS = {
   /** Superseded by the `@typescript-eslint/no-use-before-define` rule. */
   "no-use-before-define": "off",
 
-  "no-useless-backreference": "error",
+  /** Superseded by the `regexp/no-useless-backreference` rule. */
+  "no-useless-backreference": "off",
 
   /**
    * Disabled since [Airbnb reports that the rule is "very
@@ -389,7 +399,8 @@ const SUGGESTIONS = {
   /** Disabled since this is already enforced by TypeScript (`ts(2451)`). */
   "no-redeclare": "off", // @typescript-eslint/eslint-recommended
 
-  "no-regex-spaces": "error",
+  /** Superseded by the `regexp/prefer-quantifier` rule. */
+  "no-regex-spaces": "off",
 
   /**
    * The options are [copied from
@@ -627,11 +638,7 @@ const SUGGESTIONS = {
   /** Superseded by the `@typescript-eslint/require-await` rule. */
   "require-await": "off",
 
-  /**
-   * Disabled because requiring the `u` or the `v` flag for ASCII text is verbose and cumbersome.
-   * (Even though these flags would also enable regex strict mode, the marginal benefit is not worth
-   * the verbosity.)
-   */
+  /** Superseded by the `regexp/require-unicode-regexp` rule. */
   "require-unicode-regexp": "off",
 
   "require-yield": "error",
