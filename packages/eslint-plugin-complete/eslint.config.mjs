@@ -30,7 +30,7 @@ export default defineConfig(
   },
 
   {
-    files: ["src/rules/*.ts"],
+    files: ["src/rules/*.ts", "tests/rules/*.ts"],
     rules: {
       "complete/sort-objects": "off",
     },
