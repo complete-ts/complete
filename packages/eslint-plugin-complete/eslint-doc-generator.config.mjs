@@ -67,8 +67,8 @@ function getNewContent(content, pathToFile) {
  */
 function fixDocusaurusLinks(content) {
   return content.replaceAll(
-    /docs\/(rules\/[^)]+)\.md/g,
-    "/eslint-plugin-complete/$1",
+    /docs\/(?<rulePath>rules\/[^\)]+)\.md/gv,
+    "/eslint-plugin-complete/$<rulePath>",
   );
 }
 

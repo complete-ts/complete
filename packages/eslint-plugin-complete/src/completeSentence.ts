@@ -17,14 +17,14 @@ interface IncompleteSentence {
  * From:
  * https://stackoverflow.com/questions/23571013/how-to-remove-url-from-a-string-completely-in-javascript
  */
-const FULL_URL_REGEX = /(?:https?|ftp):\/\/[\S\n]+/g;
+const FULL_URL_REGEX = /(?:ftp|https?):\/\/[\S\n]+/gv;
 
 /**
  * From:
  * https://stackoverflow.com/questions/11761563/javascript-regexp-for-splitting-text-into-sentences-and-keeping-the-delimiter
  */
 const SENTENCE_REGEX =
-  /(?=[^])(?:\P{Sentence_Terminal}|\p{Sentence_Terminal}(?!['"`\p{Close_Punctuation}\p{Final_Punctuation}\s]))*(?:\p{Sentence_Terminal}+['"`\p{Close_Punctuation}\p{Final_Punctuation}]*|$)/guy;
+  /(?=[\s\S])(?:\P{Sentence_Terminal}|\p{Sentence_Terminal}(?![\s\p{Close_Punctuation}\p{Final_Punctuation}"'`]))*(?:\p{Sentence_Terminal}+[\p{Close_Punctuation}\p{Final_Punctuation}"'`]*|$)/gvy;
 
 const SENTENCE_SEPARATOR_IDENTIFIER = "___sentence_separator_identifier___";
 const IN_LINE_CODE_IDENTIFIER = "___in_line_code_identifier___";
@@ -76,41 +76,44 @@ function splitOnSpecialText(text: string): readonly string[] {
   // subsequent text to be considered to be part of the previous sentence.
 
   // Remove multi-line code blocks.
-  text = text.replaceAll(/```[\S\s]*```/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+  text = text.replaceAll(/```[\s\S]*```/gv, SENTENCE_SEPARATOR_IDENTIFIER);
 
   // Remove example tag blocks. An example tag might be followed by another tag, so first look for
   // that situation. Then, handle the situation where the example tag is the final tag.
   text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
-    /@example[\S\s]*?@/gm,
+    /@example[\s\S]*?@/gv,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replaceAll(/@example[\S\s]*/gm, "");
+  text = text.replaceAll(/@example[\s\S]*/gv, "");
 
   // Remove import tag blocks. An import tag contains code, so it is not expected to be a complete
   // sentence. (This is copy-pasted from the code that handles example tags above.)
   text = text.replaceAll(
     // We use `[\s\S]` instead of `.` because the latter does not match a new line.
-    /@import[\S\s]*?@/gm,
+    /@import[\s\S]*?@/gv,
     `${SENTENCE_SEPARATOR_IDENTIFIER}@`,
   );
-  text = text.replaceAll(/@import[\S\s]*/gm, "");
+  text = text.replaceAll(/@import[\s\S]*/gv, "");
 
   // Replace the link tags with the link text. Note that if we replace them with a sentence
   // separator instead, then the following sentence would fail: Get the name of a peripheral wrapped
   // with {@link peripheral.wrap}.
   // https://regex101.com/r/0u8hQG/1
   // https://jsdoc.app/tags-inline-link.html
-  text = text.replaceAll(
-    /\[([^\]]*)]{@link [^ |}]+}|{@link ([^ |}]+)[ |]?}|{@link [^ |}]+[ |]([^}]+)}/gm,
-    "$1$2$3",
-  );
+  text = replaceInlineLinks(text);
 
   // Remove Markdown headers.
-  text = text.replaceAll(/^\n\s*#.*\n\n/gm, SENTENCE_SEPARATOR_IDENTIFIER);
+  text = text.replaceAll(
+    /^\n[^\S\n\r\u{2028}\u{2029}]*#.*\n{2}/gmv,
+    SENTENCE_SEPARATOR_IDENTIFIER,
+  );
   if (text.trimStart().startsWith("#")) {
     // Also handle if the first line is a Markdown header.
-    text = text.replace(/^\s*#.*\n\n/m, SENTENCE_SEPARATOR_IDENTIFIER);
+    text = text.replace(
+      /^[^\S\n\r\u{2028}\u{2029}]*#.*\n{2}/mv,
+      SENTENCE_SEPARATOR_IDENTIFIER,
+    );
   }
 
   // Remove pipes (which indicate a Markdown table).
@@ -122,13 +125,13 @@ function splitOnSpecialText(text: string): readonly string[] {
 
   // Handle quoted periods.
   // e.g. Please ignore the '.' character.
-  text = text.replaceAll(/'\.+'/g, "");
-  text = text.replaceAll(/"\.+"/g, "");
+  text = text.replaceAll(/'\.+'/gv, "");
+  text = text.replaceAll(/"\.+"/gv, "");
 
   // Handle quoted question marks.
   // e.g. This text contains "???" in the middle.
-  text = text.replaceAll(/'\?+'/g, "");
-  text = text.replaceAll(/"\?+"/g, "");
+  text = text.replaceAll(/'\?+'/gv, "");
+  text = text.replaceAll(/"\?+"/gv, "");
 
   const lines = text.split("\n");
   const newLines: string[] = [];
@@ -139,22 +142,25 @@ function splitOnSpecialText(text: string): readonly string[] {
 
     // Ignore "@type" JSDoc tags, since they contain a code type instead of English text.
     // https://jsdoc.app/tags-type.html
-    line = line.replace(/^\s*@type .+$/, SENTENCE_SEPARATOR_IDENTIFIER);
+    line = line.replace(/^\s*@type .+$/v, SENTENCE_SEPARATOR_IDENTIFIER);
 
     // Remove any JSDoc tags. (But leave the descriptions following the tags, if any.) "@param" tags
     // are followed by variable names, which will not be part of the sentence.
     line = line.replace(
-      /^\s*@param\s+(?:{[^}]+}\s+)?\w+\s*/,
+      /^\s*@param\s+(?:\{[^\}]+\}\s+)?\w+\s*/v,
       SENTENCE_SEPARATOR_IDENTIFIER,
     );
-    line = line.replace(/^\s*@\S+\s+{[^}]+}\s*/, SENTENCE_SEPARATOR_IDENTIFIER);
+    line = line.replace(
+      /^\s*@\S+\s+\{[^\}]+\}\s*/v,
+      SENTENCE_SEPARATOR_IDENTIFIER,
+    );
     // This is "\S+" instead of "\w+" because we need to match things like "@ts-expect-error".
-    line = line.replace(/^\s*@\S+/, SENTENCE_SEPARATOR_IDENTIFIER);
+    line = line.replace(/^\s*@\S+/v, SENTENCE_SEPARATOR_IDENTIFIER);
 
     // Replace any single-line code snippets with custom text. The custom text begins with an
     // underscore, which means that it will count towards the sentence starting with a capital
     // letter. (This is only relevant if the code block is the first word in the sentence.)
-    line = line.replaceAll(/`.+`/g, IN_LINE_CODE_IDENTIFIER);
+    line = line.replaceAll(/`.+`/gv, IN_LINE_CODE_IDENTIFIER);
 
     // Remove any URLs present in the string, as the periods will count as sentence terminators.
     // e.g. "This is my URL: https://stackoverflow."
@@ -162,14 +168,14 @@ function splitOnSpecialText(text: string): readonly string[] {
 
     // Remove the periods from some common abbreviations so that they do not mess up the sentence
     // parsing.
-    line = line.replaceAll(/\bDr\.\s+/g, "Dr");
-    line = line.replaceAll(/\bJr\.\s+/g, "Jr");
-    line = line.replaceAll(/\bMr\.\s+/g, "Mr");
-    line = line.replaceAll(/\bMrs\.\s+/g, "Mrs");
-    line = line.replaceAll(/\bMs\.\s+/g, "Ms");
-    line = line.replaceAll(/\bSr\.\s+/g, "Sr");
-    line = line.replaceAll(/\bSt\.\s+/g, "St");
-    line = line.replaceAll(/\betc\.\s+/g, "etc");
+    line = line.replaceAll(/\bDr\.\s+/gv, "Dr");
+    line = line.replaceAll(/\bJr\.\s+/gv, "Jr");
+    line = line.replaceAll(/\bMr\.\s+/gv, "Mr");
+    line = line.replaceAll(/\bMrs\.\s+/gv, "Mrs");
+    line = line.replaceAll(/\bMs\.\s+/gv, "Ms");
+    line = line.replaceAll(/\bSr\.\s+/gv, "Sr");
+    line = line.replaceAll(/\bSt\.\s+/gv, "St");
+    line = line.replaceAll(/\betc\.\s+/gv, "etc");
 
     // Replace list bullet headers, since they are never part of a sentence. We also need to mark
     // that this sentence is a list element for the purposes of ignoring any incomplete sentences.
@@ -209,6 +215,60 @@ function splitOnSpecialText(text: string): readonly string[] {
   return textBlocks.filter((textBlock) => !isEnumBlockLabel(textBlock));
 }
 
+function replaceInlineLinks(text: string): string {
+  let replacedText = "";
+  let index = 0;
+
+  while (index < text.length) {
+    const linkStart = text.indexOf("{@link ", index);
+    if (linkStart === -1) {
+      return replacedText + text.slice(index);
+    }
+
+    const linkEnd = text.indexOf("}", linkStart);
+    if (linkEnd === -1) {
+      return replacedText + text.slice(index);
+    }
+
+    const markdownLinkStart =
+      text.at(linkStart - 1) === "]" ? text.lastIndexOf("[", linkStart) : -1;
+    const replacementStart =
+      markdownLinkStart === -1 ? linkStart : markdownLinkStart;
+    const linkContent = text.slice(linkStart + "{@link ".length, linkEnd);
+    const replacement =
+      markdownLinkStart === -1
+        ? getInlineLinkReplacement(linkContent)
+        : text.slice(markdownLinkStart + 1, linkStart - 1);
+
+    replacedText += text.slice(index, replacementStart) + replacement;
+    index = linkEnd + 1;
+  }
+
+  return replacedText;
+}
+
+function getInlineLinkReplacement(linkContent: string): string {
+  const pipeIndex = linkContent.indexOf("|");
+  const spaceIndex = linkContent.indexOf(" ");
+  let separatorIndex: number;
+  if (pipeIndex === -1) {
+    separatorIndex = spaceIndex;
+  } else if (spaceIndex === -1) {
+    separatorIndex = pipeIndex;
+  } else {
+    separatorIndex = Math.min(pipeIndex, spaceIndex);
+  }
+
+  if (separatorIndex === -1) {
+    return linkContent;
+  }
+
+  const target = linkContent.slice(0, separatorIndex);
+  const description = linkContent.slice(separatorIndex + 1);
+
+  return description === "" ? target : description;
+}
+
 export function getSentences(text: string): readonly string[] {
   const match = text.match(SENTENCE_REGEX);
   if (match === null) {
@@ -228,7 +288,13 @@ function getIncompleteSentenceKind(
   let textBeforeModifications: string;
   do {
     textBeforeModifications = text;
-    text = text.trim().replace(/^\(*/, "").replace(/\)*$/, "").trim();
+    text = text.trim();
+    while (text.startsWith("(")) {
+      text = text.slice(1).trimStart();
+    }
+    while (text.endsWith(")")) {
+      text = text.slice(0, -1).trimEnd();
+    }
   } while (text !== textBeforeModifications);
 
   // Ignore / whitelist some specific things.
@@ -236,7 +302,7 @@ function getIncompleteSentenceKind(
     // Blank text.
     text === ""
     // Sentences that do not contain any letters.
-    || !/[A-Za-z]/.test(text)
+    || !/[A-Za-z]/v.test(text)
     // Sentences with an arrow, like: "Alice --> Bob"
     || text.includes("-->")
     // Placeholder text.
@@ -248,14 +314,14 @@ function getIncompleteSentenceKind(
     // URLS.
     || hasURL(text)
     // Single JSDoc tags.
-    || /^@\w+$/.test(text)
+    || /^@\w+$/v.test(text)
     // Lists.
     || text.startsWith(LIST_ELEMENT_IDENTIFIER)
     // Code blocks.
     || text.includes("```")
     // Sentences that end with a number in parentheses (which indicates some kind of expression).
     // This must check the original text.
-    || / \(\d+\)$/.test(sentence.trimEnd())
+    || / \(\d+\)$/v.test(sentence.trimEnd())
   ) {
     return undefined;
   }
@@ -271,14 +337,14 @@ function getIncompleteSentenceKind(
   if (
     isLoneSentence
     // Single words, double words, and triple words.
-    && (/^\S+$/.test(text)
-      || /^\S+ \S+$/.test(text)
-      || /^\S+ \S+ \S+$/.test(text))
+    && (/^\S+$/v.test(text)
+      || /^\S+ \S+$/v.test(text)
+      || /^\S+ \S+ \S+$/v.test(text))
   ) {
     return undefined;
   }
 
-  if (/^[a-z]/.test(text) && !isCapitalizedWordException(text)) {
+  if (/^[a-z]/v.test(text) && !isCapitalizedWordException(text)) {
     return "missingCapital";
   }
 
@@ -337,7 +403,7 @@ const ORDINALS_SET: ReadonlySet<string> = new Set(["st", "nd", "rd", "th"]);
 function isDate(text: string) {
   text = text.trim();
 
-  const match1 = text.match(/^(?<month>\w+) \d+(?<ordinal>\w+)$/);
+  const match1 = /^(?<month>[a-z]+) \d+(?<ordinal>nd|rd|st|th)$/iv.exec(text);
   if (match1 !== null && match1.groups !== undefined) {
     const { month, ordinal } = match1.groups;
     if (
@@ -350,7 +416,9 @@ function isDate(text: string) {
     }
   }
 
-  const match2 = text.match(/^(?<month>\w+) \d+(?<ordinal>\w+), \d+$/);
+  const match2 = /^(?<month>[a-z]+) \d+(?<ordinal>nd|rd|st|th), \d+$/iv.exec(
+    text,
+  );
   if (match2 !== null && match2.groups !== undefined) {
     const { month, ordinal } = match2.groups;
     if (

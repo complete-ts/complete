@@ -4,6 +4,8 @@
  * @module
  */
 
+/* eslint-disable regexp/require-unicode-sets-regexp */
+
 import type { SemanticVersion } from "../interfaces/SemanticVersion.js";
 import { assertDefined } from "./assert.js";
 import { parseIntSafe } from "./utils.js";
@@ -14,8 +16,7 @@ import { parseIntSafe } from "./utils.js";
 // they will return inconsistent results due to the `lastIndex` property persisting between calls.
 
 /** We use a "*" instead of a "+" so that an empty string will match. */
-// eslint-disable-next-line no-control-regex
-const ASCII_REGEX = /^[\u{0}-\u{7F}]*$/u;
+const ASCII_REGEX = /^\p{ASCII}*$/u;
 
 const DIACRITIC_REGEX = /\p{Diacritic}/u;
 
@@ -23,16 +24,17 @@ const DIACRITIC_REGEX = /\p{Diacritic}/u;
  * - We can't use `/\p{Emoji}/u` because it has a false positive on "#" characters.
  * - We can't use `/\p{Extended_Pictographic}/u` because it has a false negative on keycap emojis.
  */
-const EMOJI_REGEX = /(\p{Extended_Pictographic}|[#*0-9]\u{FE0F}?\u{20E3})/u;
+// eslint-disable-next-line unicorn/escape-case -- regexp/letter-case requires lowercase code point escapes.
+const EMOJI_REGEX = /\p{Extended_Pictographic}|[#*0-9]\u{fe0f}?\u{20e3}/u;
 
-const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
-const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/;
-const SEMANTIC_VERSION_REGEX = /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/;
-const WHITESPACE_REGEX = /\s/;
-const WHITESPACE_GLOBAL_REGEX = /\s/g;
-const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/g;
-const UPPERCASE_REGEX = /^[A-Z]*$/;
-const LOWERCASE_REGEX = /^[a-z]*$/;
+const KEBAB_CASE_REGEX = /^[\da-z]+(?:-[\da-z]+)*$/u;
+const SEMANTIC_VERSION_REGEX =
+  /^v*(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/u;
+const WHITESPACE_REGEX = /\s/u;
+const WHITESPACE_GLOBAL_REGEX = /\s/gu;
+const TITLE_CASE_BOUNDARY_REGEX = /(?<=[\da-z])(?=[A-Z])/gu;
+const UPPERCASE_REGEX = /^[A-Z]*$/u;
+const LOWERCASE_REGEX = /^[a-z]*$/u;
 
 /** Helper function to capitalize the first letter of a string. */
 export function capitalizeFirstLetter(string: string): string {
@@ -124,7 +126,7 @@ export function isASCII(str: string): boolean {
  * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
  */
 export function isFirstLetterCapitalized(string: string): boolean {
-  return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
+  return /^\p{Lu}/u.test(string);
 }
 
 /**
@@ -157,7 +159,7 @@ export function isUpperCase(string: string): boolean {
 
 /** Helper function to convert a string from kebab-case to camelCase. */
 export function kebabCaseToCamelCase(string: string): string {
-  return string.replaceAll(/-./g, (match) => {
+  return string.replaceAll(/-./gu, (match) => {
     const firstLetterOfWord = match.at(1);
     return firstLetterOfWord === undefined
       ? ""
@@ -210,7 +212,7 @@ export function normalizeString(string: string): string {
 export function parseSemanticVersion(
   versionString: string,
 ): SemanticVersion | undefined {
-  const match = versionString.match(SEMANTIC_VERSION_REGEX);
+  const match = SEMANTIC_VERSION_REGEX.exec(versionString);
   if (match === null || match.groups === undefined) {
     return undefined;
   }
@@ -353,7 +355,7 @@ export function satisfiesSemanticVersion(
 export function titleCaseToKebabCase(string: string): string {
   return string
     .replaceAll(TITLE_CASE_BOUNDARY_REGEX, "-")
-    .replaceAll(/ +/g, "-")
+    .replaceAll(/ +/gu, "-")
     .toLowerCase();
 }
 

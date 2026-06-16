@@ -5,7 +5,7 @@
 
 import { createRule } from "../utils.js";
 
-const ERRONEOUS_TEMPLATE_STRING_REGEX = /\$\{[^}]+\}/u;
+const ERRONEOUS_TEMPLATE_STRING_REGEX = /\$\{[^\}]+\}/v;
 
 export const noTemplateCurlyInStringFix = createRule({
   name: "no-template-curly-in-string-fix",

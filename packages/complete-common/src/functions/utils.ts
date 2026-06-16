@@ -4,11 +4,13 @@
  * @module
  */
 
+/* eslint-disable regexp/require-unicode-sets-regexp */
+
 // When regexes are located at the root instead of inside the function, the functions are tested to
 // perform 11% faster.
 
-const FLOAT_REGEX = /^-?\d*\.?\d+$/;
-const INTEGER_REGEX = /^-?\d+$/;
+const FLOAT_REGEX = /^-?(?:\d+(?:\.\d+)?|\.\d+)$/u;
+const INTEGER_REGEX = /^-?\d+$/u;
 
 /**
  * Helper function to get an iterator of integers with the specified range, inclusive on the lower
@@ -128,7 +130,7 @@ export function parseFloatSafe(string: string): number | undefined {
   const trimmedString = string.trim();
 
   // If the string does not entirely consist of numbers, return undefined.
-  if (FLOAT_REGEX.exec(trimmedString) === null) {
+  if (!FLOAT_REGEX.test(trimmedString)) {
     return undefined;
   }
 
@@ -158,7 +160,7 @@ export function parseIntSafe(string: string): number | undefined {
   const trimmedString = string.trim();
 
   // If the string does not entirely consist of numbers, return undefined.
-  if (INTEGER_REGEX.exec(trimmedString) === null) {
+  if (!INTEGER_REGEX.test(trimmedString)) {
     return undefined;
   }
 

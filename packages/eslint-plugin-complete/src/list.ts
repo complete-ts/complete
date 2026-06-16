@@ -101,30 +101,33 @@ function getList(line: string): List | undefined {
   }
 
   /** e.g. "1. A bullet point can start with a number and a period." */
-  const numberPeriodMatch = line.match(/^(\d+)\. /);
+  const numberPeriodMatch = /^(?<listNumber>\d+)\. /v.exec(line);
   if (
     numberPeriodMatch !== null
-    && numberPeriodMatch[1] !== undefined
-    && numberPeriodMatch[1] !== "0"
+    && numberPeriodMatch.groups !== undefined
+    && numberPeriodMatch.groups["listNumber"] !== undefined
+    && numberPeriodMatch.groups["listNumber"] !== "0"
   ) {
     return {
       kind: ListKind.NumberPeriod,
       numLeadingSpaces,
-      markerSize: numberPeriodMatch[1].length + ". ".length,
+      markerSize: numberPeriodMatch.groups["listNumber"].length + ". ".length,
     };
   }
 
   /** e.g. "1) A bullet point can start with a number and a parentheses." */
-  const numberParenthesesMatch = line.match(/^(\d+)\) /);
+  const numberParenthesesMatch = /^(?<listNumber>\d+)\) /v.exec(line);
   if (
     numberParenthesesMatch !== null
-    && numberParenthesesMatch[1] !== undefined
-    && numberParenthesesMatch[1] !== "0"
+    && numberParenthesesMatch.groups !== undefined
+    && numberParenthesesMatch.groups["listNumber"] !== undefined
+    && numberParenthesesMatch.groups["listNumber"] !== "0"
   ) {
     return {
       kind: ListKind.NumberParentheses,
       numLeadingSpaces,
-      markerSize: numberParenthesesMatch[1].length + ") ".length,
+      markerSize:
+        numberParenthesesMatch.groups["listNumber"].length + ") ".length,
     };
   }
 
@@ -155,7 +158,7 @@ function getJSDocTagName(text: string): string | undefined {
     return undefined;
   }
 
-  const tagMatch = text.match(/^@(?<tagName>\w+)/);
+  const tagMatch = /^@(?<tagName>\w+)/v.exec(text);
   if (tagMatch === null || tagMatch.groups === undefined) {
     return undefined;
   }
@@ -168,7 +171,7 @@ function getJSDocTagName(text: string): string | undefined {
   // Specific JSDoc tags have words after them that should be part of the tag for indenting
   // purposes.
   if (tagName === "param") {
-    const paramMatch = text.match(/^(?<tagWithVariableName>@\w+ \w+)/);
+    const paramMatch = /^(?<tagWithVariableName>@\w+ \w+)/v.exec(text);
     if (paramMatch === null || paramMatch.groups === undefined) {
       return "@param";
     }

@@ -9,8 +9,6 @@
 
 export type ReadonlyRecord<K extends PropertyKey, V> = Readonly<Record<K, V>>;
 
-const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/u;
-
 /**
  * Helper function to throw an error if the provided value is equal to `undefined`.
  *
@@ -46,7 +44,8 @@ export function capitalizeFirstLetter(string: string): string {
  * https://stackoverflow.com/questions/8334606/check-if-first-letter-of-word-is-a-capital-letter
  */
 export function isFirstLetterCapitalized(string: string): boolean {
-  return FIRST_LETTER_CAPITALIZED_REGEX.test(string);
+  // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
+  return /^\p{Lu}/v.test(string);
 }
 
 /**

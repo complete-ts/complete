@@ -112,7 +112,7 @@ export function getCommentBlocks(
 export function allCommentsInBlockAreCommentedOutArrayElements(
   commentBlock: LeadingLineCommentBlock,
 ): boolean {
-  return commentBlock.originalComments.every(
-    (comment) => comment.value.match(/^\s*"[^"]*",\s*$/) !== null,
+  return commentBlock.originalComments.every((comment) =>
+    /^\s*"[^"]*",\s*$/v.test(comment.value),
   );
 }

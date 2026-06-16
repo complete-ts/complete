@@ -16,17 +16,17 @@ export function getTextFromJSDocComment(comment: string): string {
   const lines = comment.split("\n");
   const linesWithRemovedAsterisks = lines.map((line) => {
     // First, if the line contains only spaces and/or asterisks, it can be deleted.
-    if (/^[\s*]*$/.test(line)) {
+    if (/^[\s*]*$/v.test(line)) {
       return "";
     }
 
     // We have to be careful not to trim all of the whitespace from the line here because whitespace
     // must be preserved while inside of code blocks.
-    line = line.replace(/^\s*\* /, "");
+    line = line.replace(/^\s*\* /v, "");
 
     // Remove any duplicate asterisks, like "* * Foo".
     while (line.startsWith("* ")) {
-      line = line.replace(/^\* /, "");
+      line = line.replace(/^\* /v, "");
     }
 
     return line;

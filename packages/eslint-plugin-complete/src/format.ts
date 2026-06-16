@@ -29,7 +29,7 @@ export function formatText(
   shouldParseJSDocTags = true,
 ): string {
   // First, replace any whitespace that is not a newline or a space with a space (like e.g. tabs).
-  text = text.replaceAll(/[^\S\n ]+/g, " ");
+  text = text.replaceAll(/[^\S\n ]+/gv, " ");
 
   let formattedText = "";
   let formattedLine = "";
@@ -260,7 +260,7 @@ export function formatText(
     }
 
     // Preserve leading whitespace for continuation lines (e.g., URLs after colons).
-    const leadingWhitespace = line.match(/^\s*/)?.[0] ?? "";
+    const leadingWhitespace = /^\s*/v.exec(line)?.[0] ?? "";
     const shouldPreserveIndentation =
       previousLineEndedInColon && leadingWhitespace !== "";
 
@@ -388,5 +388,5 @@ function stringContainsOnlyWhitespace(string: string) {
  * its own word, even if it has spaces inside of it.
  */
 function getWordsFromLine(line: string): readonly string[] {
-  return line.match(/(?:{@link .+?}|\S)+/g) ?? [];
+  return line.match(/(?:\{@link .+?\}|\S)+/gv) ?? [];
 }

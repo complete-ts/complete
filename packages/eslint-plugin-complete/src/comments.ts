@@ -29,27 +29,27 @@ export function isEnumBlockLabel(text: string): boolean {
 
   return (
     // e.g. CollectibleType.SAD_ONION
-    /^\w+\.\w+$/.test(text)
+    /^\w+\.\w+$/v.test(text)
     // e.g. CollectibleType.SAD_ONION (1)
-    || /^\w+\.\w+ \(\d+\)$/.test(text)
+    || /^\w+\.\w+ \(\d+\)$/v.test(text)
     // e.g. CacheFlag.FIRE_DELAY (1 << 1)
-    || /^\w+\.\w+ \(\d+ << \d+\)$/.test(text)
+    || /^\w+\.\w+ \(\d+ << \d+\)$/v.test(text)
     // e.g. 1
-    || /^\d+$/.test(text)
+    || /^\d+$/v.test(text)
     // e.g. 1.0
-    || /^\d+\.\d+$/.test(text)
+    || /^\d+\.\d+$/v.test(text)
     // e.g. 1 << 1
-    || /^\d+ << \d+$/.test(text)
+    || /^\d+ << \d+$/v.test(text)
     // e.g. 1, 2, 3, 4, 5
-    || /^\d+, \d+$/.test(text)
-    || /^\d+, \d+, \d+$/.test(text)
-    || /^(?:\d+, ){3}\d+$/.test(text)
-    || /^(?:\d+, ){4}\d+$/.test(text)
+    || /^\d+, \d+$/v.test(text)
+    || /^\d+, \d+, \d+$/v.test(text)
+    || /^(?:\d+, ){3}\d+$/v.test(text)
+    || /^(?:\d+, ){4}\d+$/v.test(text)
     // e.g. 1.0, 2.0, 3.0, 4.0, 5.0
-    || /^\d+\.\d+, \d+\.\d+$/.test(text)
-    || /^(?:\d+\.\d+, ){2}\d+\.\d+$/.test(text)
-    || /^(?:\d+\.\d+, ){3}\d+\.\d+$/.test(text)
-    || /^(?:\d+\.\d+, ){4}\d+\.\d+$/.test(text)
+    || /^\d+\.\d+, \d+\.\d+$/v.test(text)
+    || /^(?:\d+\.\d+, ){2}\d+\.\d+$/v.test(text)
+    || /^(?:\d+\.\d+, ){3}\d+\.\d+$/v.test(text)
+    || /^(?:\d+\.\d+, ){4}\d+\.\d+$/v.test(text)
   );
 }
 
@@ -63,7 +63,7 @@ export function isEnumBlockLabel(text: string): boolean {
  * ```
  */
 export function isSeparatorLine(text: string): boolean {
-  return /^\s*-+\s*$/.test(text);
+  return /^\s*-+\s*$/v.test(text);
 }
 
 export function isSpecialComment(text: string): boolean {

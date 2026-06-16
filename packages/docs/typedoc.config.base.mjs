@@ -68,12 +68,14 @@ function getEntryPoints(packageDirectoryPath) {
   const lines = typeScriptFile.split("\n");
   const exportLines = lines.filter((line) => line.startsWith("export"));
   const exportPaths = exportLines.map((line) => {
-    const match = line.match(/export (?:type )?\* from "(.+)";/);
-    if (match === null) {
+    const match = /export (?:type )?\* from "(?<insideQuotes>[^"]+)";/v.exec(
+      line,
+    );
+    if (match === null || match.groups === undefined) {
       throw new Error(`Failed to parse line: ${line}`);
     }
 
-    const insideQuotes = match[1];
+    const { insideQuotes } = match.groups;
     if (insideQuotes === undefined) {
       throw new Error(`Failed to parse inside the quotes: ${line}`);
     }
