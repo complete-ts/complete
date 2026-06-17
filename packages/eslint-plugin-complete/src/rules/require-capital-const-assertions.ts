@@ -76,15 +76,14 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
           fix: (fixer) => {
             // If this variable is not being assigned to anything, then there is nothing we can fix.
             if (
-              declaration.init === null
-              || declaration.init.type === AST_NODE_TYPES.TSAsExpression
-              || AUTO_FIX_TYPE_BLACKLIST.has(declaration.init.type)
+              init.type === AST_NODE_TYPES.TSAsExpression
+              || AUTO_FIX_TYPE_BLACKLIST.has(init.type)
             ) {
               // eslint-disable-next-line unicorn/no-null
               return null;
             }
 
-            return fixer.insertTextAfter(declaration.init, " as const");
+            return fixer.insertTextAfter(init, " as const");
           },
         });
       }

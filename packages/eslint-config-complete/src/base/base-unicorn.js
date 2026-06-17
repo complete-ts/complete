@@ -23,10 +23,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/consistent-class-member-order": "error",
     "unicorn/consistent-compound-words": "error",
     "unicorn/consistent-date-clone": "error",
-
-    /** Disabled because it has too many false positives. */
-    "unicorn/consistent-destructuring": "off",
-
+    "unicorn/consistent-destructuring": "error",
     "unicorn/consistent-empty-array-spread": "error",
     "unicorn/consistent-existence-index-check": "error",
     "unicorn/consistent-export-decorator-position": "error",

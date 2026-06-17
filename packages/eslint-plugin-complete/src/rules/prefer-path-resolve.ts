@@ -50,7 +50,7 @@ export const preferPathResolve = createRule({
 
         if (hasParentDirectorySegment) {
           context.report({
-            node: callee.property,
+            node: property,
             messageId: "usePathResolve",
             fix: (fixer) => fixer.replaceText(property, "resolve"),
           });
