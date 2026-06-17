@@ -20,8 +20,8 @@ const DIACRITIC_REGEX = /\p{Diacritic}/v;
 const FIRST_LETTER_CAPITALIZED_REGEX = /^\p{Lu}/v;
 
 /**
- * - We can't use `/\p{Emoji}/u` because it has a false positive on "#" characters.
- * - We can't use `/\p{Extended_Pictographic}/u` because it has a false negative on keycap emojis.
+ * - We can't use `/\p{Emoji}/v` because it has a false positive on "#" characters.
+ * - We can't use `/\p{Extended_Pictographic}/v` because it has a false negative on keycap emojis.
  */
 const EMOJI_REGEX = /\p{Extended_Pictographic}|[#*0-9]\u{FE0F}?\u{20E3}/v;
 
