@@ -76,6 +76,22 @@ async function validate() {
       'Failed to find the "package.json" file in the current working directory.',
     );
   }
+
+  // Fail fast if we are not currently logged in. (There is no analogous bun command.)
+  const command = await getPublishCommand();
+  if (command === "npm") {
+    await $`${command} whoami`;
+  }
+}
+
+async function getPublishCommand() {
+  const packageManager = await getPackageManagerForProject(CWD);
+  assertDefined(
+    packageManager,
+    `Failed to get the package manager for the project at directory: ${CWD}`,
+  );
+
+  return packageManager === PackageManager.bun ? "bun" : "npm";
 }
 
 /**
@@ -225,12 +241,7 @@ async function publish(dryRun: boolean) {
     const commitMessage = `chore: release ${version}`;
     await gitCommitAllAndPush(commitMessage);
 
-    const packageManager = await getPackageManagerForProject(CWD);
-    assertDefined(
-      packageManager,
-      `Failed to get the package manager for the project at directory: ${CWD}`,
-    );
-    const command = packageManager === PackageManager.bun ? "bun" : "npm";
+    const command = await getPublishCommand();
 
     // - The "--access=public" flag is only technically needed for the first publish (unless the
     //   package is a scoped package), but it is saved here for posterity.
