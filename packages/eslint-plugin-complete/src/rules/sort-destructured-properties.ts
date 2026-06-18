@@ -173,6 +173,11 @@ function getPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
   const propertyOrder = new Map<string, number>();
 
   for (const [i, property] of type.getProperties().entries()) {
+    const declarations = property.getDeclarations();
+    if (declarations === undefined || declarations.length === 0) {
+      continue;
+    }
+
     propertyOrder.set(property.getName(), i);
   }
 

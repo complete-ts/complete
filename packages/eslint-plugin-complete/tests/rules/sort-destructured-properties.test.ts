@@ -55,6 +55,15 @@ declare const foo: Foo;
 const { nested: { name, description } } = foo;
       `,
     },
+    {
+      code: `
+declare function getFields<T extends string>(
+  ...fieldNames: readonly T[]
+): Record<T, string>;
+
+const { name, version } = getFields("name", "version");
+      `,
+    },
   ],
 
   invalid: [
