@@ -111,7 +111,7 @@
     },
     "packages/complete-tsconfig": {
       "name": "complete-tsconfig",
-      "version": "1.6.0",
+      "version": "1.7.0",
       "dependencies": {
         "@tsconfig/node-lts": "catalog:",
         "@tsconfig/strictest": "catalog:",
