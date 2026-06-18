@@ -31,6 +31,10 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
 
+    // We standardize the source for compiled output to be the "src" directory, since this is
+    // idiomatic in the TypeScript ecosystem.
+    "rootDir": "${configDir}/src",
+
     // We standardize the destination for compiled output to be the "dist" directory, since this is
     // idiomatic in the TypeScript ecosystem.
     "outDir": "${configDir}/dist",
