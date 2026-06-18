@@ -18,13 +18,13 @@
   // Automatically insert a trailing newline when saving a file to match the POSIX standard.
   "files.insertFinalNewline": true,
 
-  // Automatically remove all trailing whitespace when saving a file.
-  "files.trimTrailingWhitespace": true,
-
   // Allow custom schemas hosted on GitHub.
   "json.schemaDownload.trustedDomains": {
     "https://raw.githubusercontent.com/": true,
   },
+
+  // Automatically remove all trailing whitespace when saving a file.
+  "files.trimTrailingWhitespace": true,
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
   "search.exclude": {
