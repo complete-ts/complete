@@ -15,6 +15,9 @@
 
     // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
     "lib": ["DOM", "ES2021"],
+
+    // Necessary since "./src" is the default and we type-check files in the root project directory.
+    "rootDir": ".",
   },
 
   "include": [
