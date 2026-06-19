@@ -10,7 +10,7 @@ import {
 
 describe("assertsDefined", () => {
   /** We use a value of null since it is the least arbitrary non-undefined value. */
-  const value = null as unknown; // eslint-disable-line unicorn/no-null
+  const value: unknown = null; // eslint-disable-line unicorn/no-null
 
   // @ts-expect-error Should fail since we are not in a union with undefined.
   assertDefined(value as boolean, "");
@@ -48,7 +48,7 @@ describe("assertsDefined", () => {
 });
 
 describe("assertsNull", () => {
-  const value = undefined as unknown;
+  const value: unknown = undefined;
 
   // @ts-expect-error Should fail since we are not in a union with null.
   assertNotNull(value as boolean, "");
