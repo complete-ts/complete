@@ -301,7 +301,7 @@ async function getBunBinPaths(
     }
 
     const packageJSONContents = await readFile(packageJSONPath);
-    const packageJSON = JSON.parse(packageJSONContents) as unknown;
+    const packageJSON: unknown = JSON.parse(packageJSONContents);
     assertObject(
       packageJSON,
       `Failed to parse the "${packageJSONPath}" file as an object.`,

@@ -142,7 +142,7 @@ async function runNPMCheckUpdates(
   const $$ = $({ cwd: packageRoot });
   const oldPackageJSONString = await readFile(packageJSONPath);
 
-  const packageJSON = JSON.parse(oldPackageJSONString) as unknown;
+  const packageJSON: unknown = JSON.parse(oldPackageJSONString);
   assertObject(packageJSON, `Failed to parse the file: ${packageJSONPath}`);
   const { workspaces } = packageJSON;
   const packageJSONHasWorkspaces = isObject(workspaces);
@@ -175,7 +175,7 @@ async function runNPMCheckUpdatesQuiet(
   packagesToIgnore: readonly string[],
 ): Promise<boolean> {
   const packageJSONString = await readFile(packageJSONPath);
-  const packageJSON = JSON.parse(packageJSONString) as unknown;
+  const packageJSON: unknown = JSON.parse(packageJSONString);
   assertObject(packageJSON, `Failed to parse the file: ${packageJSONPath}`);
   const { workspaces } = packageJSON;
   const packageJSONHasWorkspaces = isObject(workspaces);
