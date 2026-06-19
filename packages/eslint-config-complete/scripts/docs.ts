@@ -434,12 +434,14 @@ function auditBaseConfigRules(
 
   // Also do the inverted check, which confirms that no deprecated rules are turned on.
   for (const ruleName of Object.keys(baseRules)) {
-    if (!allRules.includes(ruleName)) {
-      valid = false;
-      console.warn(
-        `Failed to find a rule in the upstream configuration (probably due to deprecation): ${ruleName}`,
-      );
+    if (allRules.includes(ruleName)) {
+      continue;
     }
+
+    valid = false;
+    console.warn(
+      `Failed to find a rule in the upstream configuration (probably due to deprecation): ${ruleName}`,
+    );
   }
 }
 
