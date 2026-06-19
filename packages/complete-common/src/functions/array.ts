@@ -88,9 +88,6 @@ export function arrayRemoveAllInPlace<T>(
       index = array.indexOf(element);
       if (index > -1) {
         removedOneOrMoreElements = true;
-
-        // We deliberately use "splice" for better performance.
-        // eslint-disable-next-line unicorn/no-array-splice
         array.splice(index, 1);
       }
     } while (index > -1);
