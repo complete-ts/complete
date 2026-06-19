@@ -358,10 +358,12 @@ function isAllMonorepoDepsUsed(
   // Second, use the set to check for unused dependencies.
   let allDepsUsed = true;
   for (const depName of Object.keys(monorepoDependencies)) {
-    if (!usedDependencies.has(depName)) {
-      allDepsUsed = false;
-      console.error(`Monorepo dependency is unused: ${depName}`);
+    if (usedDependencies.has(depName)) {
+      continue;
     }
+
+    allDepsUsed = false;
+    console.error(`Monorepo dependency is unused: ${depName}`);
   }
 
   return allDepsUsed;

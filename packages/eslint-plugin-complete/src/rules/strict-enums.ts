@@ -403,11 +403,7 @@ export const strictEnums = createRule<Options, MessageIds>({
        * useFruit(Fruit.Apple);
        * ```
        */
-      if (setHasAnyElementFromSet(argumentEnumTypes, parameterEnumTypes)) {
-        return false;
-      }
-
-      return true;
+      return !setHasAnyElementFromSet(argumentEnumTypes, parameterEnumTypes);
     }
 
     // ------------------
