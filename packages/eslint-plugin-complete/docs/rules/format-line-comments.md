@@ -45,7 +45,7 @@ Lines that are too short will be merged together:
 The rule tries to be as smart as possible. For example, it won't complain about TypeScript [triple slash directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html):
 
 ```ts
-/// <reference path="foo1.d.ts" />
+/// <reference path="foo.d.ts" />
 ```
 
 You can open a GitHub issue if you find a situation where this rule should be smarter.

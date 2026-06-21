@@ -488,14 +488,14 @@ valid.push({
   name: "Using triple slash directives with a leading comment",
   code: `
 // This is my directive.
-/// <reference path="foo1.d.ts" />
+/// <reference path="foo.d.ts" />
   `,
 });
 
 valid.push({
   name: "Using triple slash directives with a trailing comment",
   code: `
-/// <reference path="foo1.d.ts" />
+/// <reference path="foo.d.ts" />
 // This is my directive.
   `,
 });
