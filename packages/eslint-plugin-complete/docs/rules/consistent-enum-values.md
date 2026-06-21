@@ -36,7 +36,7 @@ enum Foo {
 
 ## Justification
 
-In pure TypeScript programs, the values of an enum are superfluous: they should not affect the runtime behavior of the program in any way. Thus, the values that you select for your enums are purely be a stylistic concern.
+In pure TypeScript programs, the values of an enum are superfluous: they should not affect the runtime behavior of the program in any way. Thus, the values that you select for your enums should purely be a stylistic concern.
 
 Thus, it follows that the simplest and most maintainable solution would be to use the "computed" enum value feature of TypeScript, like this:
 
