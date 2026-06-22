@@ -18,7 +18,6 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/format-line-comments": "error",
       "complete/jsdoc-code-block-language": "error",
       "complete/newline-between-switch-case": "error",
-      "complete/no-confusing-set-methods": "error",
       "complete/no-empty-jsdoc": "error",
       "complete/no-empty-line-comments": "error",
       "complete/no-explicit-array-loops": "error",

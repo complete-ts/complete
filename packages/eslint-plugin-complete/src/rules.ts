@@ -11,7 +11,6 @@ import { formatJSDocComments } from "./rules/format-jsdoc-comments.js";
 import { formatLineComments } from "./rules/format-line-comments.js";
 import { jsdocCodeBlockLanguage } from "./rules/jsdoc-code-block-language.js";
 import { newlineBetweenSwitchCase } from "./rules/newline-between-switch-case.js";
-import { noConfusingSetMethods } from "./rules/no-confusing-set-methods.js";
 import { noEmptyJSDoc } from "./rules/no-empty-jsdoc.js";
 import { noEmptyLineComments } from "./rules/no-empty-line-comments.js";
 import { noExplicitArrayLoops } from "./rules/no-explicit-array-loops.js";
@@ -59,7 +58,6 @@ export const rules = {
   "format-line-comments": formatLineComments,
   "jsdoc-code-block-language": jsdocCodeBlockLanguage,
   "newline-between-switch-case": newlineBetweenSwitchCase,
-  "no-confusing-set-methods": noConfusingSetMethods,
   "no-empty-jsdoc": noEmptyJSDoc,
   "no-empty-line-comments": noEmptyLineComments,
   "no-explicit-array-loops": noExplicitArrayLoops,
