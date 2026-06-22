@@ -21,7 +21,6 @@ const config: Config = {
     v4: true,
   },
 
-  onBrokenLinks: "throw",
   onBrokenAnchors: "throw",
   onDuplicateRoutes: "throw",
 
