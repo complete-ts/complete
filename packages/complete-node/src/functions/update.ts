@@ -17,6 +17,7 @@ import {
 import { readFile } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
+const COOLDOWN_DURATION = "7d";
 
 /**
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
@@ -149,7 +150,7 @@ async function runNPMCheckUpdates(
 
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
-  let command = "npm-check-updates --upgrade";
+  let command = `npm-check-updates --upgrade --cooldown ${COOLDOWN_DURATION}`;
   if (packagesToIgnore.length > 0) {
     command += ` --reject ${packagesToIgnore.join(",")}`;
   }
@@ -188,6 +189,7 @@ async function runNPMCheckUpdatesQuiet(
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
     workspaces: packageJSONHasWorkspaces,
+    cooldown: COOLDOWN_DURATION, // Mitigate supply chain attacks.
   });
 
   if (!isObject(upgradedPackages)) {
