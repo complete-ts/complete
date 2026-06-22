@@ -28,6 +28,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/no-number-enums": "error",
       "complete/no-object-any": "error",
       "complete/no-object-methods-with-map-set": "error",
+      "complete/no-redundant-jsdoc-default": "error",
       "complete/no-string-length-0": "error",
       "complete/no-template-curly-in-string-fix": "error",
       "complete/no-undefined-return-type": "error",
