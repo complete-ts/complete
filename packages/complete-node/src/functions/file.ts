@@ -516,8 +516,6 @@ export async function touch(filePath: string): Promise<void> {
 
   try {
     await fs.access(filePath);
-    // We intentionally do not use 2026 APIs because they are too new.
-    // eslint-disable-next-line unicorn/prefer-temporal
     const now = new Date();
     await fs.utimes(filePath, now, now);
   } catch (error) {
