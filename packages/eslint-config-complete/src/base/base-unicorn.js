@@ -342,7 +342,14 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-string-trim-start-end": "error",
     "unicorn/prefer-structured-clone": "error",
     "unicorn/prefer-switch": "error",
-    "unicorn/prefer-temporal": "error",
+
+    /**
+     * Disabled since Bun [does not yet support the Temporal
+     * API](https://github.com/oven-sh/bun/issues/15853). (Node.js [does
+     * though](https://nodejs.org/en/blog/release/v26.0.0).)
+     */
+    "unicorn/prefer-temporal": "off",
+
     "unicorn/prefer-ternary": "error",
     "unicorn/prefer-top-level-await": "error",
     "unicorn/prefer-type-error": "error",
