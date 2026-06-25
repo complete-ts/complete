@@ -84,9 +84,7 @@ assertStringNotEmpty(
 );
 
 /** @see https://github.com/octokit/core.js */
-const octokit = new Octokit({
-  auth: gitHubToken,
-});
+const octokit = new Octokit({ auth: gitHubToken });
 
 // Wait for the website to be be live (which usually takes around 5 minutes).
 let totalSeconds = 0;
@@ -110,9 +108,7 @@ while (true) {
     {
       owner: "complete-ts",
       repo: "complete-ts.github.io",
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
+      headers: { "X-GitHub-Api-Version": "2022-11-28" },
     },
   );
 

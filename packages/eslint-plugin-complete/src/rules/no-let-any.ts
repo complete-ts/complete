@@ -13,9 +13,7 @@ export const noLetAny = createRule({
       requiresTypeChecking: true,
     },
     schema: [],
-    messages: {
-      noType: "Variables must be declared with a type.",
-    },
+    messages: { noType: "Variables must be declared with a type." },
   },
   defaultOptions: [],
   create(context) {

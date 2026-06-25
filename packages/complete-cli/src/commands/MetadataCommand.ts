@@ -12,13 +12,9 @@ export class MetadataCommand extends Command {
   });
 
   // The first positional argument.
-  dependencyName = Option.String({
-    required: true,
-  });
+  dependencyName = Option.String({ required: true });
 
-  reason = Option.String({
-    required: false,
-  });
+  reason = Option.String({ required: false });
 
   async execute(): Promise<void> {
     const packageJSONPath = await getFilePath("package.json", undefined);

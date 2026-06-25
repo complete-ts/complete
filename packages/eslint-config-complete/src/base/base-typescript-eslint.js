@@ -7,9 +7,7 @@ import tseslint from "typescript-eslint";
  */
 export const baseTypeScriptESLint = defineConfig(
   {
-    plugins: {
-      "@typescript-eslint": tseslint.plugin,
-    },
+    plugins: { "@typescript-eslint": tseslint.plugin },
 
     // We need to provide some special configuration to ESLint in order for it to parse TypeScript
     // files. From:
@@ -46,12 +44,7 @@ export const baseTypeScriptESLint = defineConfig(
        * The default value is `array`. We choose `array-simple` because it makes complicated arrays
        * easier to understand. This is worth the cost of deviating from the base rule configuration.
        */
-      "@typescript-eslint/array-type": [
-        "error",
-        {
-          default: "array-simple",
-        },
-      ],
+      "@typescript-eslint/array-type": ["error", { default: "array-simple" }],
 
       "@typescript-eslint/await-thenable": "error",
       "@typescript-eslint/ban-ts-comment": "error",
@@ -167,9 +160,7 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-empty-interface": [
         "error",
-        {
-          allowSingleExtends: true,
-        },
+        { allowSingleExtends: true },
       ],
 
       "@typescript-eslint/no-empty-object-type": "error",
@@ -184,9 +175,7 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-floating-promises": [
         "error",
-        {
-          ignoreVoid: false,
-        },
+        { ignoreVoid: false },
       ],
 
       "@typescript-eslint/no-for-in-array": "error",
@@ -197,9 +186,7 @@ export const baseTypeScriptESLint = defineConfig(
       /** The `capIsConstructor` option is disabled to make the rule stricter. */
       "@typescript-eslint/no-invalid-this": [
         "error",
-        {
-          capIsConstructor: false,
-        },
+        { capIsConstructor: false },
       ],
 
       "@typescript-eslint/no-invalid-void-type": "error",
@@ -326,9 +313,7 @@ export const baseTypeScriptESLint = defineConfig(
        */
       "@typescript-eslint/no-unused-expressions": [
         "error",
-        {
-          allowTaggedTemplates: true,
-        },
+        { allowTaggedTemplates: true },
       ],
 
       "@typescript-eslint/no-unused-private-class-members": "error",
@@ -376,11 +361,9 @@ export const baseTypeScriptESLint = defineConfig(
             object: true,
           },
         },
-        {
-          // We disable this for renamed properties, since code like the following should be valid:
-          // `const someSpecificMyEnum = MyEnum.Value1;`
-          enforceForRenamedProperties: false,
-        },
+        // We disable this for renamed properties, since code like the following should be valid:
+        // `const someSpecificMyEnum = MyEnum.Value1;`
+        { enforceForRenamedProperties: false },
       ],
 
       "@typescript-eslint/prefer-enum-initializers": "error",
@@ -402,9 +385,7 @@ export const baseTypeScriptESLint = defineConfig(
       /** The `allowEmptyReject` option is enabled since this is a common pattern. */
       "@typescript-eslint/prefer-promise-reject-errors": [
         "error",
-        {
-          allowEmptyReject: true,
-        },
+        { allowEmptyReject: true },
       ],
 
       "@typescript-eslint/prefer-readonly": "error",
@@ -509,9 +490,7 @@ export const baseTypeScriptESLint = defineConfig(
   },
 
   // Enable linting on TypeScript file extensions.
-  {
-    files: ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
-  },
+  { files: ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"] },
 
   // Disable some TypeScript-specific rules in JavaScript files.
   {
@@ -533,9 +512,7 @@ export const baseTypeScriptESLint = defineConfig(
   // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
   {
     files: ["**/*.test.{js,cjs,mjs,ts,cts,mts}"],
-    rules: {
-      "@typescript-eslint/no-floating-promises": "off",
-    },
+    rules: { "@typescript-eslint/no-floating-promises": "off" },
   },
 
   {
@@ -552,8 +529,6 @@ export const baseTypeScriptESLint = defineConfig(
       // a separate "tests" directory.
       "**/tests/**",
     ],
-    rules: {
-      "@typescript-eslint/no-restricted-imports": "off",
-    },
+    rules: { "@typescript-eslint/no-restricted-imports": "off" },
   },
 );

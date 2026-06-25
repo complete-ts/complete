@@ -64,9 +64,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
         },
       },
     ],
-    messages: {
-      shouldBeReadonly: "Parameter should be a read only type.",
-    },
+    messages: { shouldBeReadonly: "Parameter should be a read only type." },
   },
   defaultOptions: [
     {

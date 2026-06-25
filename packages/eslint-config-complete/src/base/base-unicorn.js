@@ -6,9 +6,7 @@ import { defineConfig } from "eslint/config";
  * https://github.com/sindresorhus/eslint-plugin-unicorn
  */
 export const baseUnicorn = defineConfig({
-  plugins: {
-    unicorn: esLintPluginUnicorn,
-  },
+  plugins: { unicorn: esLintPluginUnicorn },
 
   rules: {
     "unicorn/better-dom-traversing": "error",

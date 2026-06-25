@@ -24,15 +24,11 @@ export default defineConfig(
 
   {
     files: ["src/template.ts", "tests/template.ts", "tests/fixtures/file.ts"],
-    rules: {
-      "unicorn/no-empty-file": "off",
-    },
+    rules: { "unicorn/no-empty-file": "off" },
   },
 
   {
     files: ["src/rules/*.ts", "tests/rules/*.ts"],
-    rules: {
-      "complete/sort-objects": "off",
-    },
+    rules: { "complete/sort-objects": "off" },
   },
 );

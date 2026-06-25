@@ -7,9 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseJSDoc = defineConfig(
   {
-    plugins: {
-      jsdoc: esLintPluginJSDoc,
-    },
+    plugins: { jsdoc: esLintPluginJSDoc },
 
     rules: {
       /** Disabled because it is not needed in TypeScript. */
@@ -141,9 +139,7 @@ export const baseJSDoc = defineConfig(
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/no-types": [
         "error",
-        {
-          contexts: ["any"],
-        },
+        { contexts: ["any"] },
       ],
 
       /** Disabled because it is not needed in TypeScript. */
@@ -197,17 +193,13 @@ export const baseJSDoc = defineConfig(
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-description": [
         "error",
-        {
-          contexts: ["any"],
-        },
+        { contexts: ["any"] },
       ],
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-param-name": [
         "error",
-        {
-          contexts: ["any"],
-        },
+        { contexts: ["any"] },
       ],
 
       /** Disabled because it is not needed in TypeScript. */
@@ -233,9 +225,7 @@ export const baseJSDoc = defineConfig(
       /** The `contexts` option is set to `any` to make the rule stricter. */
       "jsdoc/require-returns-description": [
         "error",
-        {
-          contexts: ["any"],
-        },
+        { contexts: ["any"] },
       ],
 
       /** Disabled because it is not needed in TypeScript. */

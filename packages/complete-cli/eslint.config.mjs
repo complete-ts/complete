@@ -16,8 +16,6 @@ export default defineConfig(
     },
   },
 
-  {
-    // We do not want to lint template files, since they do not have valid code inside of them yet.
-    ignores: ["**/file-templates/**"],
-  },
+  // We do not want to lint template files, since they do not have valid code inside of them yet.
+  { ignores: ["**/file-templates/**"] },
 );

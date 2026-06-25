@@ -43,15 +43,11 @@ export async function copyFileOrDirectory(
   dstPath: string,
 ): Promise<void> {
   try {
-    await fs.cp(srcPath, dstPath, {
-      recursive: true,
-    });
+    await fs.cp(srcPath, dstPath, { recursive: true });
   } catch (error) {
     throw new Error(
       `Failed to copy file or directory "${srcPath}" to "${dstPath}".`,
-      {
-        cause: error,
-      },
+      { cause: error },
     );
   }
 }
@@ -84,16 +80,12 @@ export async function deleteFileOrDirectory(
     // Deleting files that do not exist will throw an error, so we need to explicitly check for
     // that.
     try {
-      await fs.rm(filePath, {
-        recursive: true,
-      });
+      await fs.rm(filePath, { recursive: true });
     } catch (error) {
       // Deleting files that do not exit should be a no-op. ("ENOENT" means "Error NO ENTry".)
       const isNoEntryError = isObject(error) && error["code"] === "ENOENT";
       if (!isNoEntryError) {
-        throw new Error(`Failed to delete file or directory: ${filePath}`, {
-          cause: error,
-        });
+        throw new Error(`Failed to delete file or directory: ${filePath}`, { cause: error });
       }
     }
   });
@@ -151,9 +143,7 @@ export async function getFileHashSHA1(filePath: string): Promise<string> {
 
     return hash.digest("hex");
   } catch (error) {
-    throw new Error(`Failed to get the SHA1 file hash for file: ${filePath}`, {
-      cause: error,
-    });
+    throw new Error(`Failed to get the SHA1 file hash for file: ${filePath}`, { cause: error });
   }
 }
 
@@ -182,9 +172,7 @@ export async function getFileNamesInDirectory(
   } catch (error) {
     throw new Error(
       `Failed to get the file names in the directory: ${directoryPath}`,
-      {
-        cause: error,
-      },
+      { cause: error },
     );
   }
 
@@ -338,13 +326,9 @@ export async function makeDirectory(
   recursive = true,
 ): Promise<void> {
   try {
-    await fs.mkdir(directoryPath, {
-      recursive,
-    });
+    await fs.mkdir(directoryPath, { recursive });
   } catch (error) {
-    throw new Error(`Failed to delete file or directory: ${directoryPath}`, {
-      cause: error,
-    });
+    throw new Error(`Failed to delete file or directory: ${directoryPath}`, { cause: error });
   }
 }
 
@@ -457,24 +441,16 @@ export async function renameFileOrDirectory(
     // https://stackoverflow.com/questions/43206198/what-does-the-exdev-cross-device-link-not-permitted-error-mean
     if (error instanceof Error && "code" in error && error.code === "EXDEV") {
       try {
-        await fs.cp(srcPath, dstPath, {
-          recursive: true,
-        });
-        await fs.rm(srcPath, {
-          recursive: true,
-        });
+        await fs.cp(srcPath, dstPath, { recursive: true });
+        await fs.rm(srcPath, { recursive: true });
       } catch (error_) {
         throw new Error(
           `Failed to rename/move "${srcPath}" to "${dstPath}" across a file system boundary.`,
-          {
-            cause: error_,
-          },
+          { cause: error_ },
         );
       }
     } else {
-      throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, {
-        cause: error,
-      });
+      throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, { cause: error });
     }
   }
 }

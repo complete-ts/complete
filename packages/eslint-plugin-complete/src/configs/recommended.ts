@@ -12,6 +12,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/complete-sentences-jsdoc": "error",
       "complete/complete-sentences-line-comments": "error",
       "complete/consistent-enum-values": "error",
+      "complete/consistent-object-braces": "error",
       "complete/eqeqeq-fix": "error",
       "complete/format-jsdoc-comments": "error",
       "complete/format-line-comments": "error",

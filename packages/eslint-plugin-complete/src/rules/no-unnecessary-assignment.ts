@@ -186,9 +186,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryZero",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         } else if (
           node.operator === "+="
@@ -211,9 +209,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryZero",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -247,9 +243,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -261,9 +255,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -275,9 +267,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -289,9 +279,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -303,9 +291,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
 
@@ -317,9 +303,7 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
           context.report({
             loc: node.loc,
             messageId: "unnecessaryShortCircuit",
-            data: {
-              operator: node.operator,
-            },
+            data: { operator: node.operator },
           });
         }
       },

@@ -16,9 +16,7 @@ export function sortCaseInsensitive(
 ): readonly string[] {
   const newArray = [...array];
   newArray.sort((a, b) =>
-    a.localeCompare(b, undefined, {
-      sensitivity: "base",
-    }),
+    a.localeCompare(b, undefined, { sensitivity: "base" }),
   );
 
   return newArray;

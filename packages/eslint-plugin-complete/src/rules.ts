@@ -5,6 +5,7 @@
 import { completeSentencesJSDoc } from "./rules/complete-sentences-jsdoc.js";
 import { completeSentencesLineComments } from "./rules/complete-sentences-line-comments.js";
 import { consistentEnumValues } from "./rules/consistent-enum-values.js";
+import { consistentObjectBraces } from "./rules/consistent-object-braces.js";
 import { eqeqeqFix } from "./rules/eqeqeq-fix.js";
 import { formatJSDocComments } from "./rules/format-jsdoc-comments.js";
 import { formatLineComments } from "./rules/format-line-comments.js";
@@ -52,6 +53,7 @@ export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
   "complete-sentences-line-comments": completeSentencesLineComments,
   "consistent-enum-values": consistentEnumValues,
+  "consistent-object-braces": consistentObjectBraces,
   "eqeqeq-fix": eqeqeqFix,
   "format-jsdoc-comments": formatJSDocComments,
   "format-line-comments": formatLineComments,

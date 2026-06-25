@@ -33,13 +33,9 @@ export class CheckCommand extends Command {
       "Checks the current project for out-of-date files that came from the initial bootstrap.",
   });
 
-  ignore = Option.String("-i,--ignore", {
-    description: "Comma separated list of file names to ignore.",
-  });
+  ignore = Option.String("-i,--ignore", { description: "Comma separated list of file names to ignore." });
 
-  verbose = Option.Boolean("-v,--verbose", false, {
-    description: "Enable verbose output.",
-  });
+  verbose = Option.Boolean("-v,--verbose", false, { description: "Enable verbose output." });
 
   async execute(): Promise<void> {
     let oneOrMoreErrors = false;

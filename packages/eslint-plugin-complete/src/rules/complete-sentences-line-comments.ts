@@ -90,9 +90,7 @@ export const completeSentencesLineComments = createRule<
             end: lastComment.loc.end,
           },
           messageId: incompleteSentence.messageId,
-          data: {
-            sentence: incompleteSentence.sentence,
-          },
+          data: { sentence: incompleteSentence.sentence },
         });
       }
     }

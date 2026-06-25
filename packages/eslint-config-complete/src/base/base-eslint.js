@@ -9,9 +9,7 @@ const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
   "array-callback-return": [
     "error",
-    {
-      checkForEach: true,
-    },
+    { checkForEach: true },
   ],
 
   /** Disabled since this is already enforced by TypeScript (`ts(2335)` & `ts(2377)`). */
@@ -241,9 +239,7 @@ const SUGGESTIONS = {
   "logical-assignment-operators": [
     "error",
     "always",
-    {
-      enforceForIfStatements: true,
-    },
+    { enforceForIfStatements: true },
   ],
 
   "max-classes-per-file": "error",
@@ -303,9 +299,7 @@ const SUGGESTIONS = {
   /** The `allowElseIf` option is disabled to make the rule stricter. */
   "no-else-return": [
     "error",
-    {
-      allowElseIf: false,
-    },
+    { allowElseIf: false },
   ],
 
   "no-empty": "error",
@@ -539,9 +533,7 @@ const SUGGESTIONS = {
   /** The `defaultAssignment` option is disabled to make the rule stricter. */
   "no-unneeded-ternary": [
     "error",
-    {
-      defaultAssignment: false,
-    },
+    { defaultAssignment: false },
   ],
 
   /** Superseded by the `@typescript-eslint/no-unused-expressions` rule. */
@@ -555,9 +547,7 @@ const SUGGESTIONS = {
   /** The `enforceForClassMembers` option is enabled to make the rule stricter. */
   "no-useless-computed-key": [
     "error",
-    {
-      enforceForClassMembers: true,
-    },
+    { enforceForClassMembers: true },
   ],
 
   "no-useless-concat": "error",
@@ -586,9 +576,7 @@ const SUGGESTIONS = {
   "object-shorthand": [
     "error",
     "always",
-    {
-      ignoreConstructors: false,
-    },
+    { ignoreConstructors: false },
   ],
 
   /**
@@ -624,9 +612,7 @@ const SUGGESTIONS = {
   /** The `disallowRedundantWrapping` option is enabled to make the rule stricter. */
   "prefer-regex-literals": [
     "error",
-    {
-      disallowRedundantWrapping: true,
-    },
+    { disallowRedundantWrapping: true },
   ],
 
   "prefer-rest-params": "error",
@@ -666,9 +652,7 @@ const SUGGESTIONS = {
  * @type {Record<string, import("@typescript-eslint/utils").TSESLint.SharedConfig.RuleEntry>}
  * @see https://eslint.org/docs/latest/rules/#suggestions
  */
-const LAYOUT_AND_FORMATTING = {
-  "unicode-bom": "error",
-};
+const LAYOUT_AND_FORMATTING = { "unicode-bom": "error" };
 
 /**
  * This ESLint config only contains built-in rules from ESLint itself:

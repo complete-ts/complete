@@ -25,13 +25,19 @@ const name = "Αlice"; // Alice with a Greek letter A (0x391)
 // cspell:disable-next-line
 const name = "Αlice"; // Alice with a Greek letter A (0x391)
       `,
-      errors: [{ messageId: "onlyASCII", data: { character: "Α" } }],
+      errors: [{
+        messageId: "onlyASCII",
+        data: { character: "Α" }
+      }],
     },
     {
       code: `
 const emoji = "😀";
       `,
-      errors: [{ messageId: "onlyASCII", data: { character: "😀" } }],
+      errors: [{
+        messageId: "onlyASCII",
+        data: { character: "😀" }
+      }],
     },
   ],
 });

@@ -8,9 +8,7 @@ import { defineConfig } from "eslint/config";
  * originating plugin) .
  */
 export const completeConfigESLintPlugin = defineConfig({
-  plugins: {
-    "eslint-plugin": esLintPluginESLintPlugin,
-  },
+  plugins: { "eslint-plugin": esLintPluginESLintPlugin },
 
   rules: {
     "eslint-plugin/consistent-output": "error",
@@ -49,9 +47,7 @@ export const completeConfigESLintPlugin = defineConfig({
      */
     "eslint-plugin/require-meta-docs-description": [
       "error",
-      {
-        pattern: "^(Enforce|Require|Disallow)",
-      },
+      { pattern: "^(Enforce|Require|Disallow)" },
     ],
 
     "eslint-plugin/require-meta-docs-recommended": "error",

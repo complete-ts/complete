@@ -10,6 +10,7 @@ import {
   areStringsEqualExcludingTrailingSpaces,
   createRule,
 } from "../utils.js";
+import { MAX_LENGTH } from "./format-jsdoc-comments.js";
 
 const SLASH_SLASH = "//";
 const DEBUG = false as boolean;
@@ -45,19 +46,9 @@ export const formatLineComments = createRule<Options, MessageIds>({
         additionalProperties: false,
       },
     ],
-    messages: {
-      incorrectlyFormatted: "Comment is not formatted correctly.",
-    },
+    messages: { incorrectlyFormatted: "Comment is not formatted correctly." },
   },
-  defaultOptions: [
-    {
-      /**
-       * Matches the Airbnb style guide, which is the most popular JavaScript style guide in the
-       * world.
-       */
-      maxLength: 100,
-    },
-  ],
+  defaultOptions: [{ maxLength: MAX_LENGTH }],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of

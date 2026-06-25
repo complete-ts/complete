@@ -12,61 +12,41 @@ import { vsCodeInit } from "./init/vsCodeInit.js";
 export class InitCommand extends Command {
   static override paths = [["init"], ["i"]];
 
-  static override usage = Command.Usage({
-    description: "Initialize a new TypeScript project.",
-  });
+  static override usage = Command.Usage({ description: "Initialize a new TypeScript project." });
 
   // The first positional argument.
-  name = Option.String({
-    required: false,
-  });
+  name = Option.String({ required: false });
 
   yes = Option.Boolean("-y,--yes", false, {
     description:
       'Answer yes to every dialog option, similar to how "npm init --yes" works.',
   });
 
-  useCurrentDirectory = Option.Boolean("--use-current-directory", false, {
-    description: "Use the current directory as the root for the project.",
-  });
+  useCurrentDirectory = Option.Boolean("--use-current-directory", false, { description: "Use the current directory as the root for the project." });
 
   customDirectory = Option.String("--custom-directory", {
     description:
       "Initialize the project into the specified directory (instead of creating a new one based on the name or using the current working directory).",
   });
 
-  vsCode = Option.Boolean("--vscode", false, {
-    description: "Open the project in Visual Studio Code after initialization.",
-  });
+  vsCode = Option.Boolean("--vscode", false, { description: "Open the project in Visual Studio Code after initialization." });
 
-  npm = Option.Boolean("--npm", false, {
-    description: "Use npm as the package manager.",
-  });
+  npm = Option.Boolean("--npm", false, { description: "Use npm as the package manager." });
 
-  yarn = Option.Boolean("--yarn", false, {
-    description: "Use yarn as the package manager.",
-  });
+  yarn = Option.Boolean("--yarn", false, { description: "Use yarn as the package manager." });
 
-  pnpm = Option.Boolean("--pnpm", false, {
-    description: "Use pnpm as the package manager.",
-  });
+  pnpm = Option.Boolean("--pnpm", false, { description: "Use pnpm as the package manager." });
 
-  bun = Option.Boolean("--bun", false, {
-    description: "Use bun as the package manager.",
-  });
+  bun = Option.Boolean("--bun", false, { description: "Use bun as the package manager." });
 
-  skipGit = Option.Boolean("--skip-git", false, {
-    description: "Do not initialize Git.",
-  });
+  skipGit = Option.Boolean("--skip-git", false, { description: "Do not initialize Git." });
 
   skipInstall = Option.Boolean("--skip-install", false, {
     description:
       "Do not automatically install the dependencies after initializing the project.",
   });
 
-  forceName = Option.Boolean("-f,--force-name", false, {
-    description: "Allow project names that are normally illegal.",
-  });
+  forceName = Option.Boolean("-f,--force-name", false, { description: "Allow project names that are normally illegal." });
 
   async execute(): Promise<void> {
     promptStart();

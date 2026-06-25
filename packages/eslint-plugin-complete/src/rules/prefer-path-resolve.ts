@@ -13,9 +13,7 @@ export const preferPathResolve = createRule({
     },
     fixable: "code",
     schema: [],
-    messages: {
-      usePathResolve: 'Change "path.join" to "path.resolve".',
-    },
+    messages: { usePathResolve: 'Change "path.join" to "path.resolve".' },
   },
   defaultOptions: [],
   create(context) {

@@ -233,7 +233,11 @@ export function parseSemanticVersion(
     return undefined;
   }
 
-  return { majorVersion, minorVersion, patchVersion };
+  return {
+    majorVersion,
+    minorVersion,
+    patchVersion
+  };
 }
 
 /* eslint-disable jsdoc/escape-inline-tags */

@@ -46,9 +46,7 @@ export const noObjectAny = createRule({
             context.report({
               node,
               messageId: "noType",
-              data: {
-                ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
-              },
+              data: { ordinal: getOrdinalSuffix(i + 1) }, // e.g. 0 --> 1st
             });
           }
         }

@@ -40,15 +40,9 @@ export const completeConfigBase = defineConfig(
   // We also want to ignore:
   // - The "dist" directory, since it is the idiomatic place for compiled output in TypeScript.
   // - Minified JavaScript files.
-  {
-    ignores: ["**/dist/", "*.min.js"],
-  },
+  { ignores: ["**/dist/", "*.min.js"] },
 
   // By default, ESLint will warn on unused disable directives, but since warnings will still result
   // in a 0 exit code, we need to set this to "error".
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: "error",
-    },
-  },
+  { linterOptions: { reportUnusedDisableDirectives: "error" } },
 );

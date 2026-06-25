@@ -84,9 +84,7 @@ export const noRedundantJSDocDefault = createRule({
         context.report({
           node: node.value,
           messageId: "redundantDefault",
-          data: {
-            defaultValue: getPrintableDefaultValue(jsDocDefaultValue),
-          },
+          data: { defaultValue: getPrintableDefaultValue(jsDocDefaultValue) },
         });
       },
     };

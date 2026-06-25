@@ -23,23 +23,17 @@ export const requireAscii = createRule<Options, MessageIds>({
         properties: {
           whitelist: {
             type: "array",
-            items: {
-              type: "string",
-            },
+            items: { type: "string" },
             description: "An array of allowed non-ASCII characters.",
           },
         },
         additionalProperties: false,
       },
     ],
-    messages: {
-      onlyASCII: "Non-ASCII character of {{ character }} is forbidden.",
-    },
+    messages: { onlyASCII: "Non-ASCII character of {{ character }} is forbidden." },
   },
   defaultOptions: [
-    {
-      whitelist: [],
-    },
+    { whitelist: [] },
   ],
   create(context, [options]) {
     const { whitelist = [] } = options;
@@ -60,9 +54,7 @@ export const requireAscii = createRule<Options, MessageIds>({
           context.report({
             node,
             messageId: "onlyASCII",
-            data: {
-              character,
-            },
+            data: { character },
             loc: context.sourceCode.getLocFromIndex(match.index),
           });
         }

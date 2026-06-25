@@ -37,9 +37,7 @@ function addPluginToConfigs(
   for (const configArray of Object.values(configsToMutate)) {
     for (const config of configArray) {
       if (config.plugins !== undefined) {
-        Object.assign(config.plugins, {
-          [pluginName]: plugin,
-        });
+        Object.assign(config.plugins, { [pluginName]: plugin });
       }
     }
   }

@@ -18,7 +18,10 @@ const ICON_SIZE = "8em";
 const FeatureList: FeatureItem[] = [
   {
     title: "Safety First",
-    icon: <ShieldCheckIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
+    icon: <ShieldCheckIcon style={{
+      width: ICON_SIZE,
+      height: ICON_SIZE
+    }} />,
     description: (
       <>
         Writing safe TypeScript is non-trivial. Complete makes it as easy and
@@ -28,7 +31,10 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "Clean Configs",
-    icon: <WrenchIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
+    icon: <WrenchIcon style={{
+      width: ICON_SIZE,
+      height: ICON_SIZE
+    }} />,
     description: (
       <>
         TypeScript tooling can be complex. Keep your project clean by
@@ -38,7 +44,10 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "Free & Open Source",
-    icon: <BookOpenIcon style={{ width: ICON_SIZE, height: ICON_SIZE }} />,
+    icon: <BookOpenIcon style={{
+      width: ICON_SIZE,
+      height: ICON_SIZE
+    }} />,
     description: <>Complete is MIT licensed and supported by the community.</>,
   },
 ];

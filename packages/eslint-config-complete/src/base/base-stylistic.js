@@ -6,24 +6,24 @@ import { defineConfig } from "eslint/config";
  * https://eslint.style/
  */
 export const baseStylistic = defineConfig({
-  plugins: {
-    "@stylistic": esLintPluginStylistic,
-  },
+  plugins: { "@stylistic": esLintPluginStylistic },
 
   rules: {
     /** This rule is not handled by Prettier, so we must use ESLint to enforce it. */
     "@stylistic/lines-between-class-members": [
       "error",
       "always",
-      {
-        exceptAfterSingleLine: true,
-      },
+      { exceptAfterSingleLine: true },
     ],
 
     /** Enforce a blank line between functions. (Prettier does not do this by default.) */
     "@stylistic/padding-line-between-statements": [
       "error",
-      { blankLine: "always", prev: "function", next: "function" },
+      {
+        blankLine: "always",
+        prev: "function",
+        next: "function"
+      },
     ],
 
     /**
@@ -49,9 +49,7 @@ export const baseStylistic = defineConfig({
     "@stylistic/spaced-comment": [
       "error",
       "always",
-      {
-        markers: ["/"],
-      },
+      { markers: ["/"] },
     ],
   },
 });

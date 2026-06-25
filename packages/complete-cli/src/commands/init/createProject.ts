@@ -269,9 +269,7 @@ async function revertVersionsInPackageJSON(projectPath: string) {
 }
 
 async function createPackageMetadataJSON(projectPath: string) {
-  const packageMetadata = {
-    devDependencies: {} as Record<string, unknown>,
-  };
+  const packageMetadata = { devDependencies: {} as Record<string, unknown> };
   for (const { name, reason } of LOCKED_DEPENDENCIES) {
     packageMetadata.devDependencies[name] = {
       "lock-version": true,
@@ -337,7 +335,11 @@ async function updateCSpellConfigForAuthorName(
   }
 
   const invalidWords = await filterMapAsync(words, async (word) => {
-    const $$q = $q({ cwd: projectPath, reject: false, input: word });
+    const $$q = $q({
+      cwd: projectPath,
+      reject: false,
+      input: word,
+    });
     const { exitCode } = await $$q`cspell stdin`;
     return exitCode === 0 ? undefined : word;
   });

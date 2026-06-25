@@ -9,6 +9,11 @@ import {
 const EXTRA_NUM_CHARACTERS_TO_FIT_ON_JSDOC_SINGLE_LINE = 4;
 const DEBUG = false as boolean;
 
+/**
+ * Matches the Airbnb style guide, which is the most popular JavaScript style guide in the world.
+ */
+export const MAX_LENGTH = 100;
+
 export type Options = [
   {
     maxLength: number;
@@ -40,19 +45,9 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         additionalProperties: false,
       },
     ],
-    messages: {
-      incorrectlyFormatted: "Comment is not formatted correctly.",
-    },
+    messages: { incorrectlyFormatted: "Comment is not formatted correctly." },
   },
-  defaultOptions: [
-    {
-      /**
-       * Matches the Airbnb style guide, which is the most popular JavaScript style guide in the
-       * world.
-       */
-      maxLength: 100,
-    },
-  ],
+  defaultOptions: [{ maxLength: MAX_LENGTH }],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of

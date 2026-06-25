@@ -8,8 +8,6 @@ export default defineConfig(
 
   {
     files: ["src/functions/**"],
-    rules: {
-      "perfectionist/sort-modules": "error",
-    },
+    rules: { "perfectionist/sort-modules": "error" },
   },
 );
