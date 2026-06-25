@@ -19,7 +19,9 @@ export async function appendFile(
   try {
     await fs.appendFile(filePath, data);
   } catch (error) {
-    throw new Error(`Failed to append to the file: ${filePath}`, { cause: error });
+    throw new Error(`Failed to append to the file: ${filePath}`, {
+      cause: error,
+    });
   }
 }
 
@@ -131,6 +133,8 @@ export async function writeFile(filePath: string, data: string): Promise<void> {
   try {
     await fs.writeFile(filePath, data);
   } catch (error) {
-    throw new Error(`Failed to write to the file: ${filePath}`, { cause: error });
+    throw new Error(`Failed to write to the file: ${filePath}`, {
+      cause: error,
+    });
   }
 }

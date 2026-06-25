@@ -22,16 +22,24 @@ import { CWD, DEFAULT_PACKAGE_MANAGER } from "../constants.js";
 export class PublishCommand extends Command {
   static override paths = [["publish"], ["p"]];
 
-  static override usage = Command.Usage({ description: "Bumps the version & publishes a new release." });
+  static override usage = Command.Usage({
+    description: "Bumps the version & publishes a new release.",
+  });
 
   // The first positional argument.
   versionBumpType = Option.String({ required: true });
 
-  dryRun = Option.Boolean("--dry-run", false, { description: "Skip committing/uploading & perform a Git reset afterward." });
+  dryRun = Option.Boolean("--dry-run", false, {
+    description: "Skip committing/uploading & perform a Git reset afterward.",
+  });
 
-  skipLint = Option.Boolean("--skip-lint", false, { description: "Skip linting before publishing." });
+  skipLint = Option.Boolean("--skip-lint", false, {
+    description: "Skip linting before publishing.",
+  });
 
-  skipUpdate = Option.Boolean("--skip-update", false, { description: "Skip updating the npm dependencies." });
+  skipUpdate = Option.Boolean("--skip-update", false, {
+    description: "Skip updating the npm dependencies.",
+  });
 
   async execute(): Promise<void> {
     await validate();
