@@ -148,9 +148,14 @@ async function runNPMCheckUpdates(
   const { workspaces } = packageJSON;
   const packageJSONHasWorkspaces = isObject(workspaces);
 
+  // - We invoke the "ncu" bin alias instead of the equivalently-functional "npm-check-updates" bin.
+  //   On Windows, Bun generates manifest-less ".exe" bin shims; since "npm-check-updates.exe"
+  //   contains the substring "update", Windows' Installer Detection heuristic auto-elevates it,
+  //   causing a UAC prompt and an "EACCES" spawn failure for non-elevated processes. The "ncu" bin
+  //   name contains none of the trigger keywords, so it spawns normally.
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
   //   displays what is upgradeable).
-  let command = `npm-check-updates --upgrade --cooldown ${COOLDOWN_DURATION}`;
+  let command = `ncu --upgrade --cooldown ${COOLDOWN_DURATION}`;
   if (packagesToIgnore.length > 0) {
     command += ` --reject ${packagesToIgnore.join(",")}`;
   }
