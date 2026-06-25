@@ -85,9 +85,7 @@ export async function deleteFileOrDirectory(
       // Deleting files that do not exit should be a no-op. ("ENOENT" means "Error NO ENTry".)
       const isNoEntryError = isObject(error) && error["code"] === "ENOENT";
       if (!isNoEntryError) {
-        throw new Error(`Failed to delete file or directory: ${filePath}`, {
-          cause: error,
-        });
+        throw new Error(`Failed to delete file or directory: ${filePath}`, { cause: error });
       }
     }
   });
@@ -145,9 +143,7 @@ export async function getFileHashSHA1(filePath: string): Promise<string> {
 
     return hash.digest("hex");
   } catch (error) {
-    throw new Error(`Failed to get the SHA1 file hash for file: ${filePath}`, {
-      cause: error,
-    });
+    throw new Error(`Failed to get the SHA1 file hash for file: ${filePath}`, { cause: error });
   }
 }
 
@@ -332,9 +328,7 @@ export async function makeDirectory(
   try {
     await fs.mkdir(directoryPath, { recursive });
   } catch (error) {
-    throw new Error(`Failed to delete file or directory: ${directoryPath}`, {
-      cause: error,
-    });
+    throw new Error(`Failed to delete file or directory: ${directoryPath}`, { cause: error });
   }
 }
 
@@ -456,9 +450,7 @@ export async function renameFileOrDirectory(
         );
       }
     } else {
-      throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, {
-        cause: error,
-      });
+      throw new Error(`Failed to rename "${srcPath}" to "${dstPath}".`, { cause: error });
     }
   }
 }
