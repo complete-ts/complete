@@ -129,16 +129,19 @@ test("Parenthetical e.g., does not count as sentence", () => {
   );
 });
 
-test("Parenthetical i.e. does not count as sentence", () => {
-  testIncompleteSentence("I cannot eat certain foods (i.e. Apple).", undefined);
+test("Parenthetical i.e., does not count as sentence", () => {
+  testIncompleteSentence(
+    "I cannot eat certain foods (i.e., Apple).",
+    undefined,
+  );
 });
 
 test("e.g., on separate line does not count as sentence", () => {
   testIncompleteSentence("I cannot eat certain foods.\ne.g., Apple", undefined);
 });
 
-test("i.e. on separate line does not count as sentence", () => {
-  testIncompleteSentence("I cannot eat certain foods.\ni.e. Apple", undefined);
+test("i.e., on separate line does not count as sentence", () => {
+  testIncompleteSentence("I cannot eat certain foods.\ni.e., Apple", undefined);
 });
 
 test("Parenthetical e.g., on separate line does not count as sentence", () => {
@@ -148,9 +151,9 @@ test("Parenthetical e.g., on separate line does not count as sentence", () => {
   );
 });
 
-test("Parenthetical i.e. on separate line does not count as sentence", () => {
+test("Parenthetical i.e., on separate line does not count as sentence", () => {
   testIncompleteSentence(
-    "I cannot eat certain foods.\n(i.e. Apple)",
+    "I cannot eat certain foods.\n(i.e., Apple)",
     undefined,
   );
 });

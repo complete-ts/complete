@@ -129,12 +129,12 @@ function splitOnSpecialText(text: string): readonly string[] {
   text = text.replaceAll("\n\n", `\n${SENTENCE_SEPARATOR_IDENTIFIER}\n`);
 
   // Handle quoted periods.
-  // e.g. Please ignore the '.' character.
+  // e.g., Please ignore the '.' character.
   text = text.replaceAll(/'\.+'/gv, "");
   text = text.replaceAll(/"\.+"/gv, "");
 
   // Handle quoted question marks.
-  // e.g. This text contains "???" in the middle.
+  // e.g., This text contains "???" in the middle.
   text = text.replaceAll(/'\?+'/gv, "");
   text = text.replaceAll(/"\?+"/gv, "");
 
@@ -168,7 +168,7 @@ function splitOnSpecialText(text: string): readonly string[] {
     line = line.replaceAll(/`.+`/gv, IN_LINE_CODE_IDENTIFIER);
 
     // Remove any URLs present in the string, as the periods will count as sentence terminators.
-    // e.g. "This is my URL: https://stackoverflow."
+    // e.g., "This is my URL: https://stackoverflow."
     line = line.replaceAll(FULL_URL_REGEX, "");
 
     // Remove the periods from some common abbreviations so that they do not mess up the sentence

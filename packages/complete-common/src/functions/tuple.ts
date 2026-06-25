@@ -13,7 +13,7 @@ type TupleValue<T extends readonly unknown[]> = T[0];
 type TupleEntry<T extends readonly unknown[]> = [TupleKey<T>, TupleValue<T>]; // eslint-disable-line perfectionist/sort-modules
 
 /**
- * Helper function to get the entries (i.e. indexes and values) of a tuple in a type-safe way.
+ * Helper function to get the entries (i.e., indexes and values) of a tuple in a type-safe way.
  *
  * This is useful because the vanilla `Array.entries` method will always have the keys be of type
  * `number`.
@@ -25,7 +25,7 @@ export function* tupleEntries<T extends readonly unknown[]>(
 }
 
 /**
- * Helper function to get the keys (i.e. indexes) of a tuple in a type-safe way.
+ * Helper function to get the keys (i.e., indexes) of a tuple in a type-safe way.
  *
  * This is useful because the vanilla `Array.keys` method will always have the keys be of type
  * `number`.

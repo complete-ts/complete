@@ -28,7 +28,7 @@ export function formatText(
   maxLength: number,
   shouldParseJSDocTags = true,
 ): string {
-  // First, replace any whitespace that is not a newline or a space with a space (like e.g. tabs).
+  // First, replace any whitespace that is not a newline or a space with a space (like e.g., tabs).
   text = text.replaceAll(/[^\S\n ]+/gv, " ");
 
   let formattedText = "";
@@ -242,7 +242,7 @@ export function formatText(
     ) {
       encounteredJSDocTags = true;
 
-      // Enforce a newline between a JSDoc description (i.e. introductory text) and the first JSDoc
+      // Enforce a newline between a JSDoc description (i.e., introductory text) and the first JSDoc
       // tag.
       if (
         !stringContainsOnlyWhitespace(formattedText)
@@ -370,9 +370,13 @@ function startsWithExample(text: string): boolean {
 
   return (
     trimmedText.startsWith("e.g. ")
+    || trimmedText.startsWith("e.g., ")
     || trimmedText.startsWith("(e.g. ")
+    || trimmedText.startsWith("(e.g., ")
     || trimmedText.startsWith("i.e. ")
+    || trimmedText.startsWith("i.e., ")
     || trimmedText.startsWith("(i.e. ")
+    || trimmedText.startsWith("(i.e., ")
   );
 }
 

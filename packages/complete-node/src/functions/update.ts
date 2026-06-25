@@ -153,8 +153,8 @@ async function runNPMCheckUpdates(
   //   contains the substring "update", Windows' Installer Detection heuristic auto-elevates it,
   //   causing a UAC prompt and an "EACCES" spawn failure for non-elevated processes. The "ncu" bin
   //   name contains none of the trigger keywords, so it spawns normally.
-  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e. it only
-  //   displays what is upgradeable).
+  // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e., it
+  //   only displays what is upgradeable).
   let command = `ncu --upgrade --cooldown ${COOLDOWN_DURATION}`;
   if (packagesToIgnore.length > 0) {
     command += ` --reject ${packagesToIgnore.join(",")}`;

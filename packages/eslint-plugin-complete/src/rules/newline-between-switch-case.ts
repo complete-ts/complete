@@ -30,7 +30,7 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
       SwitchCase(node) {
         const { parent } = node;
 
-        // Ignore switch cases without a consequent (i.e. no brackets), as those should not have
+        // Ignore switch cases without a consequent (i.e., no brackets), as those should not have
         // newlines after them.
         if (node.consequent.length === 0) {
           return;

@@ -82,7 +82,7 @@ This directory contains files related to [GitHub](https://github.com/). If you d
 
 ### [`.github/workflows/ci.yml`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/.github/workflows/ci.yml)
 
-This directory contains the file for [GitHub Actions](https://github.com/features/actions) (i.e. [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)).
+This directory contains the file for [GitHub Actions](https://github.com/features/actions) (i.e., [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)).
 
 By default, it contains a job to build the project and lint the project. (It is also common to test the project in CI, but that is not included by default.)
 

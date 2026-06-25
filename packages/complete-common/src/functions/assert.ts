@@ -114,7 +114,7 @@ export function assertArrayNumber<T>(
 
 /**
  * Helper function to throw an error if the provided value is not an array with every element being
- * an object (i.e. a TypeScript record).
+ * an object (i.e., a TypeScript record).
  */
 export function assertArrayObject<T>(
   value: T,
@@ -269,7 +269,7 @@ export function assertNumber<T>(
 }
 
 /**
- * Helper function to throw an error if the provided value is not an object (i.e. a TypeScript
+ * Helper function to throw an error if the provided value is not an object (i.e., a TypeScript
  * record).
  *
  * This is useful to have TypeScript narrow a `Record<string, unknown> | undefined` value to

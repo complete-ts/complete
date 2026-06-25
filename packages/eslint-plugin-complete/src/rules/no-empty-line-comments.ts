@@ -28,7 +28,7 @@ export const noEmptyLineComments = createRule({
     const comments = context.sourceCode.getAllComments();
     const emptyLeadingLineComments = comments.filter(
       (comment) =>
-        comment.type === TSESTree.AST_TOKEN_TYPES.Line // i.e. a "//" comment
+        comment.type === TSESTree.AST_TOKEN_TYPES.Line // i.e., a "//" comment
         && comment.value.trim() === "",
     );
 

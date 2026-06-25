@@ -6,7 +6,7 @@ import { assertFile } from "./file.js";
 
 /**
  * Helper function to get environment variables from a ".env" file that is located next to the
- * project's "package.json" file (i.e. at the root of the project repository) and inject them into
+ * project's "package.json" file (i.e., at the root of the project repository) and inject them into
  * the `process.env` object.
  *
  * Typically, once you have used this function, you would validate the `process.env` object with a

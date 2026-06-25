@@ -57,7 +57,7 @@ export function getEnumValues<T extends TranspiledEnum>(
 
 /**
  * Helper function to validate that an interface contains all of the keys of an enum. You must
- * specify both generic parameters in order for this to work properly (i.e. the interface and then
+ * specify both generic parameters in order for this to work properly (i.e., the interface and then
  * the enum).
  *
  * For example:
@@ -78,7 +78,7 @@ export function getEnumValues<T extends TranspiledEnum>(
  * interfaceSatisfiesEnum<MyEnumToType, MyEnum>();
  * ```
  *
- * This function is only meant to be used with interfaces (i.e. types that will not exist at
+ * This function is only meant to be used with interfaces (i.e., types that will not exist at
  * run-time). If you are generating an object that will contain all of the keys of an enum, use the
  * `satisfies` operator with the `Record` type instead.
  */

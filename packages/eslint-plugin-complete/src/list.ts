@@ -16,13 +16,13 @@ export interface List {
 
   /**
    * The size of the characters that make up the bullet point.
-   * e.g. "1. Foo" would be 3.
+   * e.g., "1. Foo" would be 3.
    */
   markerSize: number;
 
   /**
-   * The contents of JSDoc tag header, if any. e.g., "@param foo This is foo." would be "@param
-   * foo".
+   * The contents of JSDoc tag header, if any.
+   * e.g., "@param foo This is foo." would be "@param foo".
    */
   jsDocTagName?: string;
 }

@@ -8,7 +8,7 @@ export function getLeadingLineComments(
 ): readonly TSESTree.Comment[] {
   return comments.filter(
     (comment) =>
-      comment.type === TSESTree.AST_TOKEN_TYPES.Line // i.e. a "//" comment
+      comment.type === TSESTree.AST_TOKEN_TYPES.Line // i.e., a "//" comment
       && comment.value.trim() !== ""
       && !comment.value.startsWith("/") // Filter out triple slash directives
       && isCommentOnOwnLine(sourceCode, comment),
