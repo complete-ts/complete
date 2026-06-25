@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseRegexp = defineConfig({
   plugins: {
-    regexp: esLintPluginRegexp
+    regexp: esLintPluginRegexp,
   },
 
   rules: {

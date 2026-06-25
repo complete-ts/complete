@@ -46,7 +46,7 @@ export const completeConfigBase = defineConfig(
   // in a 0 exit code, we need to set this to "error".
   {
     linterOptions: {
-      reportUnusedDisableDirectives: "error"
-    }
+      reportUnusedDisableDirectives: "error",
+    },
   },
 );

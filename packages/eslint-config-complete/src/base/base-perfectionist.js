@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const basePerfectionist = defineConfig({
   plugins: {
-    perfectionist: esLintPluginPerfectionist
+    perfectionist: esLintPluginPerfectionist,
   },
 
   rules: {

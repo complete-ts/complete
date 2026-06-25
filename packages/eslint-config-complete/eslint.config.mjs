@@ -12,12 +12,12 @@ export default defineConfig(
     plugins: {
       "complete-config": {
         rules: {
-          "sort-base-rule-objects": sortBaseRuleObjects
+          "sort-base-rule-objects": sortBaseRuleObjects,
         },
       },
     },
     rules: {
-      "complete-config/sort-base-rule-objects": "error"
+      "complete-config/sort-base-rule-objects": "error",
     },
   },
 );

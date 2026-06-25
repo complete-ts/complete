@@ -8,7 +8,7 @@ import tseslint from "typescript-eslint";
 export const baseTypeScriptESLint = defineConfig(
   {
     plugins: {
-      "@typescript-eslint": tseslint.plugin
+      "@typescript-eslint": tseslint.plugin,
     },
 
     // We need to provide some special configuration to ESLint in order for it to parse TypeScript
@@ -515,7 +515,7 @@ export const baseTypeScriptESLint = defineConfig(
   {
     files: ["**/*.test.{js,cjs,mjs,ts,cts,mts}"],
     rules: {
-      "@typescript-eslint/no-floating-promises": "off"
+      "@typescript-eslint/no-floating-promises": "off",
     },
   },
 
@@ -534,7 +534,7 @@ export const baseTypeScriptESLint = defineConfig(
       "**/tests/**",
     ],
     rules: {
-      "@typescript-eslint/no-restricted-imports": "off"
+      "@typescript-eslint/no-restricted-imports": "off",
     },
   },
 );

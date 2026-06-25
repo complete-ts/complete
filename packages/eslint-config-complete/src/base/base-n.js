@@ -8,7 +8,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseN = defineConfig({
   plugins: {
-    n: esLintPluginN
+    n: esLintPluginN,
   },
 
   rules: {

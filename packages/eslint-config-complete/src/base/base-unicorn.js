@@ -7,7 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 export const baseUnicorn = defineConfig({
   plugins: {
-    unicorn: esLintPluginUnicorn
+    unicorn: esLintPluginUnicorn,
   },
 
   rules: {
