@@ -30,9 +30,9 @@ export async function checkCompiledOutputInRepo(): Promise<void> {
   await $q`${commandParts}`;
 
   const gitStatusOutput = await $o`git status --porcelain`;
-  const gitDirty = gitStatusOutput === "";
+  const gitClean = gitStatusOutput === "";
 
-  if (gitDirty) {
+  if (!gitClean) {
     throw new Error(
       `The compiled output does not match the Git repository. Run: ${command}`,
     );
