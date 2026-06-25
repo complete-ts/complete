@@ -49,7 +49,9 @@ const config: Config = {
       ],
     },
 
-    colorMode: { defaultMode: "dark" },
+    colorMode: {
+      defaultMode: "dark",
+    },
 
     prism: {
       theme: lightCodeTheme,
@@ -77,7 +79,9 @@ const config: Config = {
           sidebarPath: "./sidebars.ts",
           editUrl: undefined,
         },
-        theme: { customCss: "./src/css/custom.css" },
+        theme: {
+          customCss: "./src/css/custom.css",
+        },
       } satisfies Preset.Options,
     ],
   ],

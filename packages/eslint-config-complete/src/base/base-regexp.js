@@ -6,7 +6,9 @@ import { defineConfig } from "eslint/config";
  * https://github.com/ota-meshi/eslint-plugin-regexp
  */
 export const baseRegexp = defineConfig({
-  plugins: { regexp: esLintPluginRegexp },
+  plugins: {
+    regexp: esLintPluginRegexp
+  },
 
   rules: {
     "regexp/confusing-quantifier": "error",

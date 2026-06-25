@@ -230,7 +230,9 @@ const ALL_EXTENSIONS = [
  */
 export const baseImportX = defineConfig(
   {
-    plugins: { "import-x": esLintPluginImportX },
+    plugins: {
+      "import-x": esLintPluginImportX
+    },
 
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
     // work properly with TypeScript:
@@ -251,7 +253,9 @@ export const baseImportX = defineConfig(
       "import-x/parsers": {
         "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
       },
-      "import-x/resolver": { typescript: true },
+      "import-x/resolver": {
+        typescript: true
+      },
     },
 
     rules: {
@@ -265,7 +269,9 @@ export const baseImportX = defineConfig(
   // Disable some TypeScript-specific rules in JavaScript files.
   {
     files: ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.jsx"],
-    rules: { "import-x/no-commonjs": "off" },
+    rules: {
+      "import-x/no-commonjs": "off"
+    },
   },
 
   // Some configuration files must export a default object as a design limitation.
@@ -276,7 +282,9 @@ export const baseImportX = defineConfig(
       "sidebars.js", // Docusaurus config file
       "sidebars.ts", // Docusaurus config file
     ],
-    rules: { "import-x/no-default-export": "off" },
+    rules: {
+      "import-x/no-default-export": "off"
+    },
   },
 
   {

@@ -108,7 +108,9 @@ while (true) {
     {
       owner: "complete-ts",
       repo: "complete-ts.github.io",
-      headers: { "X-GitHub-Api-Version": "2022-11-28" },
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
     },
   );
 

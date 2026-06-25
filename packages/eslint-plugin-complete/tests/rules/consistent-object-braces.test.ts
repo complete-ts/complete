@@ -56,6 +56,13 @@ const foo = {
 };
       `,
     },
+    {
+      code: `
+ignore = Option.String("-i,--ignore", {
+  description: "Comma separated list of file names to ignore.",
+});
+      `,
+    },
   ],
 
   invalid: [

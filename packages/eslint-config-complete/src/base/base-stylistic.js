@@ -6,7 +6,9 @@ import { defineConfig } from "eslint/config";
  * https://eslint.style/
  */
 export const baseStylistic = defineConfig({
-  plugins: { "@stylistic": esLintPluginStylistic },
+  plugins: {
+    "@stylistic": esLintPluginStylistic
+  },
 
   rules: {
     /** This rule is not handled by Prettier, so we must use ESLint to enforce it. */

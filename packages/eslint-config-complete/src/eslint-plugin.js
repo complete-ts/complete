@@ -8,7 +8,9 @@ import { defineConfig } from "eslint/config";
  * originating plugin) .
  */
 export const completeConfigESLintPlugin = defineConfig({
-  plugins: { "eslint-plugin": esLintPluginESLintPlugin },
+  plugins: {
+    "eslint-plugin": esLintPluginESLintPlugin
+  },
 
   rules: {
     "eslint-plugin/consistent-output": "error",

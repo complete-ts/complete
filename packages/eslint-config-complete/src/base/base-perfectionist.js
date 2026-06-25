@@ -6,7 +6,9 @@ import { defineConfig } from "eslint/config";
  * https://perfectionist.dev/rules
  */
 export const basePerfectionist = defineConfig({
-  plugins: { perfectionist: esLintPluginPerfectionist },
+  plugins: {
+    perfectionist: esLintPluginPerfectionist
+  },
 
   rules: {
     "perfectionist/sort-array-includes": "error",

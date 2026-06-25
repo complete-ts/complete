@@ -7,7 +7,9 @@ import tseslint from "typescript-eslint";
  */
 export const baseTypeScriptESLint = defineConfig(
   {
-    plugins: { "@typescript-eslint": tseslint.plugin },
+    plugins: {
+      "@typescript-eslint": tseslint.plugin
+    },
 
     // We need to provide some special configuration to ESLint in order for it to parse TypeScript
     // files. From:
@@ -512,7 +514,9 @@ export const baseTypeScriptESLint = defineConfig(
   // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
   {
     files: ["**/*.test.{js,cjs,mjs,ts,cts,mts}"],
-    rules: { "@typescript-eslint/no-floating-promises": "off" },
+    rules: {
+      "@typescript-eslint/no-floating-promises": "off"
+    },
   },
 
   {
@@ -529,6 +533,8 @@ export const baseTypeScriptESLint = defineConfig(
       // a separate "tests" directory.
       "**/tests/**",
     ],
-    rules: { "@typescript-eslint/no-restricted-imports": "off" },
+    rules: {
+      "@typescript-eslint/no-restricted-imports": "off"
+    },
   },
 );

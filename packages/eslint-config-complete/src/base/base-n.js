@@ -7,7 +7,9 @@ import { defineConfig } from "eslint/config";
  * (This is a forked version of `eslint-plugin-node`.)
  */
 export const baseN = defineConfig({
-  plugins: { n: esLintPluginN },
+  plugins: {
+    n: esLintPluginN
+  },
 
   rules: {
     /** Disabled since stylistic rules from this plugin are not used. */

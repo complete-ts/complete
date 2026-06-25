@@ -5,6 +5,8 @@ import { createRule } from "../utils.js";
 type Options = [];
 type MessageIds = "consistentObjectBraces";
 
+const PRETTIER_DEFAULT_PRINT_WIDTH = 80;
+
 export const consistentObjectBraces = createRule<Options, MessageIds>({
   name: "consistent-object-braces",
   meta: {
@@ -50,7 +52,7 @@ function checkObjectNode(
     return;
   }
 
-  const needsFix = getNeedsFix(node, openingBrace, closingBrace);
+  const needsFix = getNeedsFix(sourceCode, node, openingBrace, closingBrace);
 
   if (!needsFix) {
     return;
@@ -76,6 +78,7 @@ function checkObjectNode(
 }
 
 function getNeedsFix(
+  sourceCode: TSESLint.SourceCode,
   node: TSESTree.ObjectExpression,
   openingBrace: TSESTree.Token,
   closingBrace: TSESTree.Token,
@@ -97,6 +100,7 @@ function getNeedsFix(
   if (node.properties.length === 1) {
     return (
       !isMultiline(firstProperty)
+      && canUseSingleLineBraces(sourceCode, node)
       && (openingBrace.loc.end.line !== firstProperty.loc.start.line
         || closingBrace.loc.start.line !== lastProperty.loc.end.line)
     );
@@ -139,7 +143,12 @@ function getReplacementText(
       return undefined;
     }
 
-    return `{ ${sourceCode.getText(property)} }`;
+    const replacementText = `{ ${sourceCode.getText(property)} }`;
+    if (!canUseSingleLineBraces(sourceCode, node, replacementText)) {
+      return undefined;
+    }
+
+    return replacementText;
   }
 
   return getMultilineReplacementText(
@@ -231,6 +240,24 @@ function isObjectPropertyValue(node: TSESTree.ObjectExpression): boolean {
 
 function isMultiline(node: TSESTree.Node): boolean {
   return node.loc.start.line !== node.loc.end.line;
+}
+
+function canUseSingleLineBraces(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.ObjectExpression,
+  replacementText = sourceCode.getText(node),
+): boolean {
+  const line = sourceCode.lines[node.loc.start.line - 1];
+  if (line === undefined) {
+    return false;
+  }
+
+  const prefix = line.slice(0, node.loc.start.column);
+  const suffix = line.slice(node.loc.end.column);
+  return (
+    prefix.length + replacementText.length + suffix.length
+    <= PRETTIER_DEFAULT_PRINT_WIDTH
+  );
 }
 
 function hasCommaAfter(
