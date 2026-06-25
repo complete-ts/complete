@@ -101,7 +101,6 @@ function replaceTemplateText(
 /** Intended to be used on file content that needs to have a trailing newline. */
 function removeFirstAndLastLine(text: string): string {
   const lines = text.trim().split("\n");
-  // eslint-disable-next-line unicorn/no-array-front-mutation
   lines.shift(); // Remove first line
   lines.pop(); // Remove last line
   lines.push(""); // Add a trailing newline
