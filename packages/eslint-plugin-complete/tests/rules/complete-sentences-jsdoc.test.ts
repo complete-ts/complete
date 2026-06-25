@@ -365,12 +365,12 @@ invalid.push({
 });
 
 valid.push({
-  name: "Comment using e.g. and no period",
+  name: "Comment using e.g., and no period",
   code: `
 /**
  * The static methods in this class can only be called by a global variable.
  *
- * e.g. \`Foo.Bar()\`
+ * e.g., \`Foo.Bar()\`
  */
   `,
 });

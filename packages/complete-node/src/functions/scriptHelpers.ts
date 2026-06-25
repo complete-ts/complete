@@ -224,7 +224,7 @@ export async function lintCommands(
               return await $q("bun", [jsPath, ...args], { cwd: packageRoot });
             }
             // Fall back to "bun run" for packages whose binary name differs from the package name
-            // (e.g. "tsc" from the "typescript" package).
+            // (e.g., "tsc" from the "typescript" package).
             return await $q("bun", ["run", cmd, ...args], { cwd: packageRoot });
           }
 

@@ -7,10 +7,7 @@ import { defineConfig } from "eslint/config";
  */
 const POSSIBLE_PROBLEMS = {
   /** The `checkForEach` option is enabled to make the rule stricter. */
-  "array-callback-return": [
-    "error",
-    { checkForEach: true },
-  ],
+  "array-callback-return": ["error", { checkForEach: true }],
 
   /** Disabled since this is already enforced by TypeScript (`ts(2335)` & `ts(2377)`). */
   "constructor-super": "off", // @typescript-eslint/eslint-recommended
@@ -297,10 +294,7 @@ const SUGGESTIONS = {
   "no-div-regex": "error",
 
   /** The `allowElseIf` option is disabled to make the rule stricter. */
-  "no-else-return": [
-    "error",
-    { allowElseIf: false },
-  ],
+  "no-else-return": ["error", { allowElseIf: false }],
 
   "no-empty": "error",
 
@@ -531,10 +525,7 @@ const SUGGESTIONS = {
   "no-underscore-dangle": "off",
 
   /** The `defaultAssignment` option is disabled to make the rule stricter. */
-  "no-unneeded-ternary": [
-    "error",
-    { defaultAssignment: false },
-  ],
+  "no-unneeded-ternary": ["error", { defaultAssignment: false }],
 
   /** Superseded by the `@typescript-eslint/no-unused-expressions` rule. */
   "no-unused-expressions": "off",
@@ -545,10 +536,7 @@ const SUGGESTIONS = {
   "no-useless-catch": "error",
 
   /** The `enforceForClassMembers` option is enabled to make the rule stricter. */
-  "no-useless-computed-key": [
-    "error",
-    { enforceForClassMembers: true },
-  ],
+  "no-useless-computed-key": ["error", { enforceForClassMembers: true }],
 
   "no-useless-concat": "error",
 
@@ -573,11 +561,7 @@ const SUGGESTIONS = {
   "no-with": "off", // @typescript-eslint/eslint-recommended
 
   /** The `ignoreConstructors` option is disabled to make the rule stricter. */
-  "object-shorthand": [
-    "error",
-    "always",
-    { ignoreConstructors: false },
-  ],
+  "object-shorthand": ["error", "always", { ignoreConstructors: false }],
 
   /**
    * The `never` option is provided to disallow multi-variable declarations (since they can be
@@ -610,10 +594,7 @@ const SUGGESTIONS = {
   "prefer-promise-reject-errors": "off",
 
   /** The `disallowRedundantWrapping` option is enabled to make the rule stricter. */
-  "prefer-regex-literals": [
-    "error",
-    { disallowRedundantWrapping: true },
-  ],
+  "prefer-regex-literals": ["error", { disallowRedundantWrapping: true }],
 
   "prefer-rest-params": "error",
   "prefer-spread": "error",

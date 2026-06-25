@@ -248,7 +248,9 @@ export const baseImportX = defineConfig(
         "node_modules",
         "node_modules/@types",
       ],
-      "import-x/parsers": { "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS },
+      "import-x/parsers": {
+        "@typescript-eslint/parser": TYPESCRIPT_EXTENSIONS,
+      },
       "import-x/resolver": { typescript: true },
     },
 

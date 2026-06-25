@@ -30,7 +30,9 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
       requiresTypeChecking: true,
     },
     schema: [],
-    messages: { noArgument: "You must pass at least one argument to a variadic function." },
+    messages: {
+      noArgument: "You must pass at least one argument to a variadic function.",
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -109,7 +111,7 @@ function getMethodName(node: TSESTree.Expression): string | undefined {
  * This rule has a false positive with any logger function. (Both `console.log` and logger functions
  * from logging libraries like Pino and Winston are affected.)
  *
- * e.g. `logger.info("hello world");`
+ * e.g., `logger.info("hello world");`
  */
 function isConsoleOrWindowOrLoggerFunction(
   callee: TSESTree.Expression,

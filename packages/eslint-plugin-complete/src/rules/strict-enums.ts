@@ -207,7 +207,7 @@ export const strictEnums = createRule<Options, MessageIds>({
             node: argument,
             messageId: "mismatchedFunctionArgument",
             data: {
-              ordinal: getOrdinalSuffix(i + 1), // e.g. 0 --> 1st
+              ordinal: getOrdinalSuffix(i + 1), // e.g., 0 --> 1st
               type1: getTypeName(checker, argumentType),
               type2: getTypeName(checker, parameterType),
             },

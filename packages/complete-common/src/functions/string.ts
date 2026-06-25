@@ -236,7 +236,7 @@ export function parseSemanticVersion(
   return {
     majorVersion,
     minorVersion,
-    patchVersion
+    patchVersion,
   };
 }
 

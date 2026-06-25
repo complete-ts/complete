@@ -28,24 +28,24 @@ export function isEnumBlockLabel(text: string): boolean {
   text = text.trim();
 
   return (
-    // e.g. CollectibleType.SAD_ONION
+    // e.g., CollectibleType.SAD_ONION
     /^\w+\.\w+$/v.test(text)
-    // e.g. CollectibleType.SAD_ONION (1)
+    // e.g., CollectibleType.SAD_ONION (1)
     || /^\w+\.\w+ \(\d+\)$/v.test(text)
-    // e.g. CacheFlag.FIRE_DELAY (1 << 1)
+    // e.g., CacheFlag.FIRE_DELAY (1 << 1)
     || /^\w+\.\w+ \(\d+ << \d+\)$/v.test(text)
-    // e.g. 1
+    // e.g., 1
     || /^\d+$/v.test(text)
-    // e.g. 1.0
+    // e.g., 1.0
     || /^\d+\.\d+$/v.test(text)
-    // e.g. 1 << 1
+    // e.g., 1 << 1
     || /^\d+ << \d+$/v.test(text)
-    // e.g. 1, 2, 3, 4, 5
+    // e.g., 1, 2, 3, 4, 5
     || /^\d+, \d+$/v.test(text)
     || /^\d+, \d+, \d+$/v.test(text)
     || /^(?:\d+, ){3}\d+$/v.test(text)
     || /^(?:\d+, ){4}\d+$/v.test(text)
-    // e.g. 1.0, 2.0, 3.0, 4.0, 5.0
+    // e.g., 1.0, 2.0, 3.0, 4.0, 5.0
     || /^\d+\.\d+, \d+\.\d+$/v.test(text)
     || /^(?:\d+\.\d+, ){2}\d+\.\d+$/v.test(text)
     || /^(?:\d+\.\d+, ){3}\d+\.\d+$/v.test(text)
@@ -73,9 +73,9 @@ export function isSpecialComment(text: string): boolean {
     text.startsWith("eslint-")
     || text.startsWith("prettier-")
     || text.startsWith("cspell:")
-    || text.startsWith("ts-prune-") // e.g. ts-prune-ignore-next
+    || text.startsWith("ts-prune-") // e.g., ts-prune-ignore-next
     || text.startsWith("@ts-")
-    || text.startsWith("@template-") // e.g. @template-customization-start (complete-cli directives)
+    || text.startsWith("@template-") // e.g., @template-customization-start (complete-cli directives)
     || text.startsWith("TODO:")
     || text.startsWith("FIXME:")
     || text === "TODO"

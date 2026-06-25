@@ -8,7 +8,7 @@
 
 <!-- end auto-generated rule header -->
 
-Object literals with one property must be on one line. Object literals with two or more properties must put each property on its own line. This rule preserves existing trailing commas; Prettier should be responsible for adding or removing them.
+Object literals with one property must be on one line unless that property value is another object literal. Object literals with two or more properties, object literals used as object property values, and object literals with object-valued properties must put each property on its own line. This rule preserves existing trailing commas; Prettier should be responsible for adding or removing them.
 
 This rule applies to object expressions, such as object literals assigned to variables, nested inside other objects, or passed as function arguments. It does not apply to object patterns, such as destructuring assignments or function parameters.
 
@@ -20,14 +20,26 @@ const foo = {
   bar,
 };
 
-const baz = { one, two };
-
 // Good
 const foo = { bar };
 
+// Bad
+const baz = { one, two };
+
+// Good
 const baz = {
   one,
   two,
+};
+
+// Bad
+const qux = { nested: { value } };
+
+// Good
+const qux = {
+  nested: {
+    value,
+  },
 };
 ```
 
@@ -35,7 +47,6 @@ This rule does not report destructuring patterns:
 
 ```ts
 const { foo } = bar;
-
 function foo({ bar }: Baz) {}
 ```
 

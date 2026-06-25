@@ -115,10 +115,8 @@ export function noop(): void {}
  * - `undefined` is returned instead of `Number.NaN`, which is helpful in conjunction with
  *   TypeScript type narrowing patterns.
  * - Strings that are a mixture of numbers and letters will result in undefined instead of the part
- *   of the string that is the number. (e.g. "1a" --> undefined instead of "1a" --> 1)
+ *   of the string that is the number. (e.g., "1a" --> undefined instead of "1a" --> 1)
  * - Non-strings will result in undefined instead of being coerced to a number.
- *
- * @param string A string to convert to an integer.
  */
 export function parseFloatSafe(string: string): number | undefined {
   if (typeof string !== "string") {
@@ -144,7 +142,7 @@ export function parseFloatSafe(string: string): number | undefined {
  * - `undefined` is returned instead of `Number.NaN`, which is helpful in conjunction with
  *   TypeScript type narrowing patterns.
  * - Strings that are a mixture of numbers and letters will result in undefined instead of the part
- *   of the string that is the number. (e.g. "1a" --> undefined instead of "1a" --> 1)
+ *   of the string that is the number. (e.g., "1a" --> undefined instead of "1a" --> 1)
  * - Non-strings will result in undefined instead of being coerced to a number.
  *
  * If you have to use a radix other than 10, use the vanilla `Number.parseInt` function instead,

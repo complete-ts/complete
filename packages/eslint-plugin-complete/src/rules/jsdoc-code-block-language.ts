@@ -12,7 +12,9 @@ export const jsdocCodeBlockLanguage = createRule({
       requiresTypeChecking: false,
     },
     schema: [],
-    messages: { noLanguage: "You must specify a language for the code block." },
+    messages: {
+      noLanguage: "You must specify a language for the code block.",
+    },
   },
   defaultOptions: [],
 

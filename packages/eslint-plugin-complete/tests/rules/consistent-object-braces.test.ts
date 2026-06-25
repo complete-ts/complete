@@ -43,6 +43,19 @@ const foo = {
 };
       `,
     },
+    {
+      code: `
+const foo = {
+  plugins: {
+    "complete-config": {
+      rules: {
+        "sort-base-rule-objects": sortBaseRuleObjects
+      },
+    },
+  },
+};
+      `,
+    },
   ],
 
   invalid: [
@@ -55,9 +68,7 @@ const foo = {
       output: `
 const foo = { bar };
       `,
-      errors: [
-        { messageId: "consistentObjectBraces" },
-      ],
+      errors: [{ messageId: "consistentObjectBraces" }],
     },
     {
       code: `
@@ -69,9 +80,7 @@ const foo = {
   baz
 };
       `,
-      errors: [
-        { messageId: "consistentObjectBraces" },
-      ],
+      errors: [{ messageId: "consistentObjectBraces" }],
     },
     {
       code: `
@@ -83,7 +92,36 @@ const foo = {
   baz,
 };
       `,
+      errors: [{ messageId: "consistentObjectBraces" }],
+    },
+    {
+      code: `
+const foo = {
+  nested: { bar },
+};
+      `,
+      output: `
+const foo = {
+  nested: {
+    bar
+  },
+};
+      `,
+      errors: [{ messageId: "consistentObjectBraces" }],
+    },
+    {
+      code: `
+const foo = { nested: { bar } };
+      `,
+      output: `
+const foo = {
+  nested: {
+    bar
+  }
+};
+      `,
       errors: [
+        { messageId: "consistentObjectBraces" },
         { messageId: "consistentObjectBraces" },
       ],
     },
@@ -99,9 +137,7 @@ const foo = {
   baz
 };
       `,
-      errors: [
-        { messageId: "consistentObjectBraces" },
-      ],
+      errors: [{ messageId: "consistentObjectBraces" }],
     },
     {
       code: `
@@ -115,9 +151,7 @@ const foo = {
   baz
 };
       `,
-      errors: [
-        { messageId: "consistentObjectBraces" },
-      ],
+      errors: [{ messageId: "consistentObjectBraces" }],
     },
   ],
 });

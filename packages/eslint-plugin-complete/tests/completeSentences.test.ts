@@ -122,25 +122,28 @@ test("Text after colon is exempt", () => {
   testIncompleteSentence("This is my example: foo", undefined);
 });
 
-test("Parenthetical e.g. does not count as sentence", () => {
-  testIncompleteSentence("I cannot eat certain foods (e.g. Apple).", undefined);
+test("Parenthetical e.g., does not count as sentence", () => {
+  testIncompleteSentence(
+    "I cannot eat certain foods (e.g., Apple).",
+    undefined,
+  );
 });
 
 test("Parenthetical i.e. does not count as sentence", () => {
   testIncompleteSentence("I cannot eat certain foods (i.e. Apple).", undefined);
 });
 
-test("e.g. on separate line does not count as sentence", () => {
-  testIncompleteSentence("I cannot eat certain foods.\ne.g. Apple", undefined);
+test("e.g., on separate line does not count as sentence", () => {
+  testIncompleteSentence("I cannot eat certain foods.\ne.g., Apple", undefined);
 });
 
 test("i.e. on separate line does not count as sentence", () => {
   testIncompleteSentence("I cannot eat certain foods.\ni.e. Apple", undefined);
 });
 
-test("Parenthetical e.g. on separate line does not count as sentence", () => {
+test("Parenthetical e.g., on separate line does not count as sentence", () => {
   testIncompleteSentence(
-    "I cannot eat certain foods.\n(e.g. Apple)",
+    "I cannot eat certain foods.\n(e.g., Apple)",
     undefined,
   );
 });

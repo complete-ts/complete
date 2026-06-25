@@ -193,18 +193,18 @@ And you will find the information that you seek.
   testFormatText(text);
 });
 
-test("e.g. does not get merged", () => {
+test("e.g., does not get merged", () => {
   const text = `
 The contents of JSDoc tag header, if any.
-e.g. "@param foo This is foo." would be "@param foo".
+e.g., "@param foo This is foo." would be "@param foo".
   `;
   testFormatText(text);
 });
 
-test("e.g. in parentheses does not get merged", () => {
+test("e.g., in parentheses does not get merged", () => {
   const text = `
 The contents of JSDoc tag header, if any.
-(e.g. "@param foo This is foo." would be "@param foo".)
+(e.g., "@param foo This is foo." would be "@param foo".)
   `;
   testFormatText(text);
 });

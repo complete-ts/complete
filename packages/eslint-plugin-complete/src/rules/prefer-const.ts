@@ -191,7 +191,7 @@ function hasMemberExpressionAssignment(node) {
  * - If the variable is never initialized nor assigned.
  * - If the variable is initialized in a different scope from the declaration.
  * - If the unique assignment of the variable cannot change to a declaration.
- *   e.g. `if (a) b = 1` / `return (b = 1)`
+ *   e.g., `if (a) b = 1` / `return (b = 1)`
  * - If the variable is declared in the global scope and `eslintUsed` is `true`.
  *   `/*exported foo` directive comment makes such variables. This rule does not
  *   warn such variables because this rule cannot distinguish whether the

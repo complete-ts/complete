@@ -45,7 +45,9 @@ export const sortBaseRuleObjects = {
   }),
   meta: {
     type: "suggestion",
-    docs: { description: "Require base ESLint rule maps to be sorted by rule name." },
+    docs: {
+      description: "Require base ESLint rule maps to be sorted by rule name.",
+    },
     schema: [],
     messages: {
       incorrectOrder:

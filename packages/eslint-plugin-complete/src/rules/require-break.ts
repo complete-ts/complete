@@ -18,7 +18,9 @@ export const requireBreak = createRule<Options, MessageIds>({
       requiresTypeChecking: false,
     },
     schema: [],
-    messages: { noBreak: "Expected a 'break' statement." },
+    messages: {
+      noBreak: "Expected a 'break' statement.",
+    },
   },
   defaultOptions: [],
   create(context) {

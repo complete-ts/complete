@@ -364,7 +364,7 @@ valid.push({
 // Allow ending with a quote or backtick if this is an example of something indicated with a colon
 // or an "e.g" or an "i.e.", like:
 // - Use the following code: \`foo()\`
-// - e.g. \`Foo.Bar()\`
+// - e.g., \`Foo.Bar()\`
   `,
 });
 

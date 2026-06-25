@@ -75,7 +75,7 @@ export const completeSentencesLineComments = createRule<
       }
 
       // Unlike JSDoc comments, we want to whitelist comment blocks that begin with JavaScript
-      // keywords. This is to make commenting out code less painful. e.g. `// const foo = 123;`
+      // keywords. This is to make commenting out code less painful. e.g., `// const foo = 123;`
       const text = commentBlock.mergedText;
       const firstWord = getFirstWord(text);
       if (JAVASCRIPT_RESERVED_WORDS_SET.has(firstWord)) {
@@ -90,7 +90,9 @@ export const completeSentencesLineComments = createRule<
             end: lastComment.loc.end,
           },
           messageId: incompleteSentence.messageId,
-          data: { sentence: incompleteSentence.sentence },
+          data: {
+            sentence: incompleteSentence.sentence,
+          },
         });
       }
     }
@@ -106,7 +108,7 @@ function getFirstWord(text: string): string {
     return "";
   }
 
-  // We want to match e.g. `console.log`.
+  // We want to match e.g., `console.log`.
   const parts = firstWord.split(".");
   const firstPart = parts[0];
   if (firstPart === undefined) {

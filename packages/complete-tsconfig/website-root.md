@@ -56,7 +56,7 @@ Note that the [base config](https://github.com/complete-ts/complete/blob/main/pa
 
 By default, Visual Studio Code will automatically recognize TypeScript config files and apply a schema. However, this schema allows for additional properties in order to prevent throwing errors for tools/frameworks like [Angular](https://angular.dev/) that add [custom fields](https://angular.dev/reference/configs/angular-compiler-options).
 
-However, the problem with this is that you might accidentally misspell a property (or e.g. accidentally add a compiler option to the root object). In these cases, you will not get a red squiggly line in your editor, making for a frustrating troubleshooting experience.
+However, the problem with this is that you might accidentally misspell a property (or e.g., accidentally add a compiler option to the root object). In these cases, you will not get a red squiggly line in your editor, making for a frustrating troubleshooting experience.
 
 In order to fix this, you should use the strict schema in all of your TypeScript configuration files like this:
 

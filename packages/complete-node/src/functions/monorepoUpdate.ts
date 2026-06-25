@@ -389,7 +389,7 @@ function addPendingUpdate(
   const update = {
     depType,
     depName,
-    newVersion
+    newVersion,
   };
   updatesArray.push(update);
 }

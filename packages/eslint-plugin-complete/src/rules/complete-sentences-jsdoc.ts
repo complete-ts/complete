@@ -51,7 +51,9 @@ export const completeSentencesJSDoc = createRule<
             end: comment.loc.end,
           },
           messageId: incompleteSentence.messageId,
-          data: { sentence: incompleteSentence.sentence },
+          data: {
+            sentence: incompleteSentence.sentence,
+          },
         });
       }
     }

@@ -19,7 +19,9 @@ export const noTemplateCurlyInStringFix = createRule({
     },
     fixable: "code",
     schema: [],
-    messages: { unexpectedTemplateExpression: "Unexpected template string expression." },
+    messages: {
+      unexpectedTemplateExpression: "Unexpected template string expression.",
+    },
   },
   defaultOptions: [],
   create: (context) => ({

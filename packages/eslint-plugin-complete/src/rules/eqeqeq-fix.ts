@@ -32,7 +32,7 @@ function isNullLiteral(node) {
 
     /*
     * Checking `node.value === null` does not guarantee that a literal is a null literal.
-    * When parsing values that cannot be represented in the current environment (e.g. unicode
+    * When parsing values that cannot be represented in the current environment (e.g., unicode
     * regexes in Node 4), `node.value` is set to `null` because it wouldn't be possible to
     * set `node.value` to a unicode regex. To make sure a literal is actually `null`, check
     * `node.regex` instead. Also see: https://github.com/eslint/eslint/issues/8020

@@ -106,7 +106,7 @@ async function runTypeDoc(repoRoot: string, packageName: string) {
       const filePath = path.join(directoryPath, fileName);
       const newTitle = await getMarkdownTitle(fileName, filePath);
 
-      await deleteLineInFile(filePath, 1); // e.g. # DependencyType
+      await deleteLineInFile(filePath, 1); // e.g., # DependencyType
       await prependFile(filePath, `---\ntitle: ${newTitle}\n---\n`);
     });
 

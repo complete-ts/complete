@@ -59,7 +59,7 @@ function getNewContent(content, pathToFile) {
 }
 
 /**
- * Replace e.g. "docs/rules/complete-sentences-jsdoc.md" with
+ * Replace e.g., "docs/rules/complete-sentences-jsdoc.md" with
  * "/eslint-plugin-complete/rules/complete-sentences-jsdoc".
  *
  * @param content {string}

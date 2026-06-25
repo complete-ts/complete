@@ -7,7 +7,9 @@ import { defineConfig } from "eslint/config";
  */
 export const baseJSDoc = defineConfig(
   {
-    plugins: { jsdoc: esLintPluginJSDoc },
+    plugins: {
+      jsdoc: esLintPluginJSDoc,
+    },
 
     rules: {
       /** Disabled because it is not needed in TypeScript. */
@@ -137,10 +139,7 @@ export const baseJSDoc = defineConfig(
       "jsdoc/no-restricted-syntax": "off",
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
-      "jsdoc/no-types": [
-        "error",
-        { contexts: ["any"] },
-      ],
+      "jsdoc/no-types": ["error", { contexts: ["any"] }],
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
@@ -191,16 +190,10 @@ export const baseJSDoc = defineConfig(
         },
       ],
       /** The `contexts` option is set to `any` to make the rule stricter. */
-      "jsdoc/require-param-description": [
-        "error",
-        { contexts: ["any"] },
-      ],
+      "jsdoc/require-param-description": ["error", { contexts: ["any"] }],
 
       /** The `contexts` option is set to `any` to make the rule stricter. */
-      "jsdoc/require-param-name": [
-        "error",
-        { contexts: ["any"] },
-      ],
+      "jsdoc/require-param-name": ["error", { contexts: ["any"] }],
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-param-type": "off",
@@ -223,10 +216,7 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is overboard for every function to document every return value. */
       "jsdoc/require-returns-check": "off",
       /** The `contexts` option is set to `any` to make the rule stricter. */
-      "jsdoc/require-returns-description": [
-        "error",
-        { contexts: ["any"] },
-      ],
+      "jsdoc/require-returns-description": ["error", { contexts: ["any"] }],
 
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/require-returns-type": "off",
@@ -266,7 +256,7 @@ export const baseJSDoc = defineConfig(
       "jsdoc/tag-lines": "off",
 
       /**
-       * Disabled since it is only useful in certain environments (e.g. when your project converts
+       * Disabled since it is only useful in certain environments (e.g., when your project converts
        * JSDoc comments to Markdown).
        */
       "jsdoc/text-escaping": "off",

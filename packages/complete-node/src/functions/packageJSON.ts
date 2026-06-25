@@ -117,7 +117,7 @@ export async function getPackageJSONField(
     return undefined;
   }
 
-  // Assume that all fields are strings. For objects (like e.g. "dependencies"), other helper
+  // Assume that all fields are strings. For objects (like e.g., "dependencies"), other helper
   // functions should be used.
   assertString(
     field,

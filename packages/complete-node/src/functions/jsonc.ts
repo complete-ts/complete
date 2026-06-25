@@ -21,7 +21,9 @@ export async function getJSONC(filePath: string): Promise<unknown> {
   try {
     json = parse(fileContents);
   } catch (error) {
-    throw new Error(`Failed to parse a file as JSONC: ${filePath}`, { cause: error });
+    throw new Error(`Failed to parse a file as JSONC: ${filePath}`, {
+      cause: error,
+    });
   }
 
   return json;

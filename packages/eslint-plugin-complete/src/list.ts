@@ -21,8 +21,8 @@ export interface List {
   markerSize: number;
 
   /**
-   * The contents of JSDoc tag header, if any.
-   * e.g. "@param foo This is foo." would be "@param foo".
+   * The contents of JSDoc tag header, if any. e.g., "@param foo This is foo." would be "@param
+   * foo".
    */
   jsDocTagName?: string;
 }
@@ -91,7 +91,7 @@ function getList(line: string): List | undefined {
   const trimmedLength = line.length;
   const numLeadingSpaces = originalLength - trimmedLength;
 
-  // e.g. "- A bullet point can start with a hyphen."
+  // e.g., "- A bullet point can start with a hyphen."
   if (line.startsWith("- ")) {
     return {
       kind: ListKind.Hyphen,
@@ -100,7 +100,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  /** e.g. "1. A bullet point can start with a number and a period." */
+  /** e.g., "1. A bullet point can start with a number and a period." */
   const numberPeriodMatch = /^(?<listNumber>\d+)\. /v.exec(line);
   if (
     numberPeriodMatch !== null
@@ -115,7 +115,7 @@ function getList(line: string): List | undefined {
     };
   }
 
-  /** e.g. "1) A bullet point can start with a number and a parentheses." */
+  /** e.g., "1) A bullet point can start with a number and a parentheses." */
   const numberParenthesesMatch = /^(?<listNumber>\d+)\) /v.exec(line);
   if (
     numberParenthesesMatch !== null

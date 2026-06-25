@@ -25,7 +25,9 @@ const config = {
   plugins: [new WebpackShebangPlugin()],
   resolve: {
     extensions: [".js", ".ts"],
-    extensionAlias: { ".js": [".ts", ".js"] },
+    extensionAlias: {
+      ".js": [".ts", ".js"],
+    },
     plugins: [
       new TSConfigPathsWebpackPlugin({
         // We cannot use a relative path here or else Knip will throw an error.

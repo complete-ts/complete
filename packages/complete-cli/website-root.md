@@ -176,13 +176,13 @@ More info:
 
 ### [`package.json`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/dynamic/package.json)
 
-This is the configuration file for [npm](https://docs.npmjs.com/cli/v11/commands/npm), the [Node.js](https://nodejs.org/en) package manager. It contains a description of your project and all of its dependencies. If you add a new dependency (with e.g. `npm install react --save`), then npm would automatically edit the "package.json" file accordingly.
+This is the configuration file for [npm](https://docs.npmjs.com/cli/v11/commands/npm), the [Node.js](https://nodejs.org/en) package manager. It contains a description of your project and all of its dependencies. If you add a new dependency (with e.g., `npm install react --save`), then npm would automatically edit the "package.json" file accordingly.
 
 By default, `complete-cli init` includes the following dependencies:
 
 - `complete-cli` - Helpful for updating dependencies and keeping the template files up to date.
 - `complete-lint` - Necessary to format and lint the project.
-- `complete-node` - Necessary for the build and lint scripts that are installed by default. (They are written in TypeScript instead of e.g. Bash).
+- `complete-node` - Necessary for the build and lint scripts that are installed by default. (They are written in TypeScript instead of e.g., Bash).
 - `typescript` - Provides the ability to type-check and compile TypeScript code.
 
 ### `package-lock.json`
@@ -216,7 +216,7 @@ This is [the idiomatic name for a README file on GitHub](https://docs.github.com
 
 ### [`scripts`](https://github.com/complete-ts/complete/tree/main/packages/complete-cli/file-templates/static/scripts)
 
-This directory contains TypeScript scripts that are listed in the "package.json" file. (It is more maintainable to have project scripts be written in TypeScript than e.g. Bash or Python.)
+This directory contains TypeScript scripts that are listed in the "package.json" file. (It is more maintainable to have project scripts be written in TypeScript than e.g., Bash or Python.)
 
 ### [`scripts/build.ts`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/scripts/build.ts)
 

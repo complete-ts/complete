@@ -42,7 +42,12 @@ export function getIncompleteSentences(
 
     // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
     // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
-    if (squishedText.includes("e.g.") || squishedText.includes("i.e.")) {
+    if (
+      squishedText.includes("e.g.")
+      || squishedText.includes("e.g.,")
+      || squishedText.includes("i.e.")
+      || squishedText.includes("i.e.,")
+    ) {
       continue;
     }
 

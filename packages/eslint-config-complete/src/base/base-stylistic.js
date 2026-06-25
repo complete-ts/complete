@@ -22,7 +22,7 @@ export const baseStylistic = defineConfig({
       {
         blankLine: "always",
         prev: "function",
-        next: "function"
+        next: "function",
       },
     ],
 
@@ -46,10 +46,6 @@ export const baseStylistic = defineConfig({
      *
      * The `markers` option is provided to make this rule ignore lines that start with "///".
      */
-    "@stylistic/spaced-comment": [
-      "error",
-      "always",
-      { markers: ["/"] },
-    ],
+    "@stylistic/spaced-comment": ["error", "always", { markers: ["/"] }],
   },
 });
