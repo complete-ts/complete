@@ -1,6 +1,6 @@
 {
   "name": "complete-node",
-  "version": "17.0.1",
+  "version": "17.0.2",
   "description": "Helper functions for TypeScript projects.",
   "homepage": "https://complete-ts.github.io/",
   "bugs": {
