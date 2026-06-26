@@ -85,7 +85,7 @@
     },
     "packages/complete-node": {
       "name": "complete-node",
-      "version": "17.0.2",
+      "version": "18.0.0",
       "dependencies": {
         "bumpp": "catalog:",
         "chalk": "catalog:",
