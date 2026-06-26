@@ -20,7 +20,7 @@ import { packageDirectory } from "package-directory";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
 import { assertDirectory } from "./file.js";
-import { getGitBranch, isGitDirectoryClean } from "./git.js";
+import { getGitBranchName, isGitDirectoryClean } from "./git.js";
 import {
   updatePackageJSONDependenciesMonorepo,
   updatePackageJSONDependenciesMonorepoChildren,
@@ -113,7 +113,7 @@ export async function monorepoPublish(
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
   // polluting the main branch.)
-  const branchName = await getGitBranch(monorepoRoot);
+  const branchName = await getGitBranchName(monorepoRoot);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (branchName !== "main" && versionBump !== VersionBump.dev) {
     throw new Error("You must be on the main branch before publishing.");
