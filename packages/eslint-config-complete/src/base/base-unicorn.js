@@ -22,6 +22,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/consistent-class-member-order": "error",
     "unicorn/consistent-compound-words": "error",
+    "unicorn/consistent-conditional-object-spread": "error",
     "unicorn/consistent-date-clone": "error",
     "unicorn/consistent-destructuring": "error",
     "unicorn/consistent-empty-array-spread": "error",
@@ -33,6 +34,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/consistent-optional-chaining": "error",
     "unicorn/consistent-template-literal-escape": "error",
     "unicorn/custom-error-definition": "error",
+    "unicorn/default-export-style": "error",
     "unicorn/dom-node-dataset": "error",
     "unicorn/empty-brace-spaces": "off", // eslint-config-prettier
     "unicorn/error-message": "error",
@@ -49,6 +51,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/isolated-functions": "error",
     "unicorn/logical-assignment-operators": "error",
     "unicorn/max-nested-calls": "error",
+
+    /** Disabled since it is common to use the variable name of "i". */
+    "unicorn/name-replacements": "off",
+
     "unicorn/new-for-builtins": "error",
 
     /**
@@ -58,17 +64,21 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-abusive-eslint-disable": "off",
 
     "unicorn/no-accessor-recursion": "error",
+    "unicorn/no-accidental-bitwise-operator": "error",
     "unicorn/no-anonymous-default-export": "error",
 
     /** Disabled since it is not helpful when using TypeScript. */
     "unicorn/no-array-callback-reference": "off",
 
+    "unicorn/no-array-concat-in-loop": "error",
     "unicorn/no-array-fill-with-reference-type": "error",
     "unicorn/no-array-from-fill": "error",
+    "unicorn/no-array-front-mutation": "error",
     "unicorn/no-array-method-this-argument": "error",
     "unicorn/no-array-reduce": "error",
     "unicorn/no-array-reverse": "error",
     "unicorn/no-array-sort": "error",
+    "unicorn/no-array-sort-for-min-max": "error",
     "unicorn/no-array-splice": "error",
 
     /** Disabled because this goes against the standard JSDoc format. */
@@ -77,11 +87,14 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
     "unicorn/no-blob-to-file": "error",
+    "unicorn/no-boolean-sort-comparator": "error",
 
     /** Disabled since simple double nested loops are common. */
     "unicorn/no-break-in-nested-loop": "off",
 
     "unicorn/no-canvas-to-image": "error",
+    "unicorn/no-chained-comparison": "error",
+    "unicorn/no-collection-bracket-access": "error",
 
     /** Disabled since it is unnecessary with TypeScript objects that are properly typed. */
     "unicorn/no-computed-property-existence-check": "off",
@@ -89,8 +102,12 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-confusing-array-splice": "error",
     "unicorn/no-confusing-array-with": "error",
     "unicorn/no-console-spaces": "error",
+    "unicorn/no-constant-zero-expression": "error",
     "unicorn/no-declarations-before-early-exit": "error",
     "unicorn/no-document-cookie": "error",
+    "unicorn/no-double-comparison": "error",
+    "unicorn/no-duplicate-if-branches": "error",
+    "unicorn/no-duplicate-logical-operands": "error",
     "unicorn/no-duplicate-loops": "error",
     "unicorn/no-duplicate-set-values": "error",
     "unicorn/no-empty-file": "error",
@@ -100,10 +117,12 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-for-loop": "error",
     "unicorn/no-global-object-property-assignment": "error",
     "unicorn/no-immediate-mutation": "error",
+    "unicorn/no-impossible-length-comparison": "error",
     "unicorn/no-incorrect-query-selector": "error",
     "unicorn/no-incorrect-template-string-interpolation": "error",
     "unicorn/no-instanceof-builtins": "error",
     "unicorn/no-invalid-argument-count": "error",
+    "unicorn/no-invalid-character-comparison": "error",
     "unicorn/no-invalid-fetch-options": "error",
     "unicorn/no-invalid-file-input-accept": "error",
     "unicorn/no-invalid-remove-event-listener": "error",
@@ -112,12 +131,14 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-keyword-prefix": "off",
     "unicorn/no-late-current-target-access": "error",
     "unicorn/no-lonely-if": "error",
+    "unicorn/no-loop-iterable-mutation": "error",
     "unicorn/no-magic-array-flat-depth": "error",
 
     /** Superseded by the `complete/format-line-comments` rule. */
     "unicorn/no-manually-wrapped-comments": "off",
 
     "unicorn/no-mismatched-map-key": "error",
+    "unicorn/no-misrefactored-assignment": "error",
     "unicorn/no-named-default": "error",
     "unicorn/no-negated-array-predicate": "error",
     "unicorn/no-negated-comparison": "error",
@@ -127,6 +148,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-new-array": "error",
     "unicorn/no-new-buffer": "error",
     "unicorn/no-non-function-verb-prefix": "error",
+    "unicorn/no-nonstandard-builtin-properties": "error",
     "unicorn/no-null": "error",
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-object-methods-with-collections": "error",
@@ -140,6 +162,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/no-redundant-comparison": "error",
     "unicorn/no-return-array-push": "error",
+    "unicorn/no-selector-as-dom-name": "error",
     "unicorn/no-single-promise-in-promise-methods": "error",
     "unicorn/no-static-only-class": "error",
     "unicorn/no-subtraction-comparison": "error",
@@ -157,6 +180,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
     "unicorn/no-unnecessary-await": "error",
+    "unicorn/no-unnecessary-boolean-comparison": "error",
     "unicorn/no-unnecessary-global-this": "error",
     "unicorn/no-unnecessary-nested-ternary": "error",
     "unicorn/no-unnecessary-polyfills": "error",
@@ -179,13 +203,16 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-useless-boolean-cast": "error",
     "unicorn/no-useless-coercion": "error",
     "unicorn/no-useless-collection-argument": "error",
+    "unicorn/no-useless-compound-assignment": "error",
     "unicorn/no-useless-concat": "error",
     "unicorn/no-useless-continue": "error",
+    "unicorn/no-useless-delete-check": "error",
     "unicorn/no-useless-else": "error",
     "unicorn/no-useless-error-capture-stack-trace": "error",
     "unicorn/no-useless-fallback-in-spread": "error",
     "unicorn/no-useless-iterator-to-array": "error",
     "unicorn/no-useless-length-check": "error",
+    "unicorn/no-useless-logical-operand": "error",
     "unicorn/no-useless-override": "error",
     "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-recursion": "error",
@@ -196,6 +223,7 @@ export const baseUnicorn = defineConfig({
     /** Disabled since it does not work properly with TypeScript. */
     "unicorn/no-useless-undefined": "off",
 
+    "unicorn/no-xor-as-exponentiation": "error",
     "unicorn/no-zero-fractions": "error",
     "unicorn/number-literal-case": "off", // eslint-config-prettier
     "unicorn/numeric-separators-style": "error",
@@ -205,8 +233,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-array-find": "error",
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
+    "unicorn/prefer-array-from-async": "error",
     "unicorn/prefer-array-from-map": "error",
     "unicorn/prefer-array-index-of": "error",
+    "unicorn/prefer-array-iterable-methods": "error",
     "unicorn/prefer-array-last-methods": "error",
     "unicorn/prefer-array-slice": "error",
     "unicorn/prefer-array-some": "error",
@@ -214,9 +244,11 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-await": "error",
     "unicorn/prefer-bigint-literals": "error",
     "unicorn/prefer-blob-reading-methods": "error",
+    "unicorn/prefer-boolean-return": "error",
     "unicorn/prefer-class-fields": "error",
     "unicorn/prefer-classlist-toggle": "error",
     "unicorn/prefer-code-point": "error",
+    "unicorn/prefer-continue": "error",
     "unicorn/prefer-date-now": "error",
     "unicorn/prefer-default-parameters": "error",
     "unicorn/prefer-direct-iteration": "error",
@@ -229,10 +261,12 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-else-if": "error",
     "unicorn/prefer-event-target": "error",
     "unicorn/prefer-export-from": "error",
+    "unicorn/prefer-flat-math-min-max": "error",
     "unicorn/prefer-get-or-insert-computed": "error",
     "unicorn/prefer-global-number-constants": "error",
     "unicorn/prefer-global-this": "error",
     "unicorn/prefer-has-check": "error",
+    "unicorn/prefer-hoisting-branch-code": "error",
     "unicorn/prefer-https": "error",
     "unicorn/prefer-identifier-import-export-specifiers": "error",
     "unicorn/prefer-import-meta-properties": "error",
@@ -257,6 +291,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-logical-operator-over-ternary": "error",
     "unicorn/prefer-map-from-entries": "error",
     "unicorn/prefer-math-abs": "error",
+    "unicorn/prefer-math-constants": "error",
     "unicorn/prefer-math-min-max": "error",
     "unicorn/prefer-math-trunc": "error",
     "unicorn/prefer-minimal-ternary": "error",
@@ -276,10 +311,12 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-path2d": "error",
     "unicorn/prefer-private-class-fields": "error",
+    "unicorn/prefer-promise-with-resolvers": "error",
     "unicorn/prefer-prototype-methods": "error",
     "unicorn/prefer-query-selector": "error",
     "unicorn/prefer-queue-microtask": "error",
     "unicorn/prefer-reflect-apply": "error",
+    "unicorn/prefer-regexp-escape": "error",
     "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-response-static-json": "error",
     "unicorn/prefer-scoped-selector": "error",
@@ -291,6 +328,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-single-array-predicate": "error",
     "unicorn/prefer-single-call": "error",
     "unicorn/prefer-single-object-destructuring": "error",
+    "unicorn/prefer-single-replace": "error",
     "unicorn/prefer-smaller-scope": "error",
     "unicorn/prefer-split-limit": "error",
     "unicorn/prefer-spread": "error",
@@ -317,11 +355,11 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-type-error": "error",
     "unicorn/prefer-type-literal-last": "error",
     "unicorn/prefer-uint8array-base64": "error",
+    "unicorn/prefer-unary-minus": "error",
     "unicorn/prefer-unicode-code-point-escapes": "error",
+    "unicorn/prefer-url-can-parse": "error",
     "unicorn/prefer-url-href": "error",
-
-    /** Disabled since it is common to use the variable name of "i". */
-    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-while-loop-condition": "error",
 
     "unicorn/relative-url-style": "error",
     "unicorn/require-array-join-separator": "error",

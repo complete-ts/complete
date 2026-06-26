@@ -88,7 +88,7 @@ export function arrayRemoveAllInPlace<T>(
       index = array.indexOf(element);
       if (index > -1) {
         removedOneOrMoreElements = true;
-        array.splice(index, 1); // eslint-disable-line unicorn/no-array-splice
+        array.splice(index, 1);
       }
     } while (index > -1);
   }
