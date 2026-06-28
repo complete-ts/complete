@@ -271,6 +271,8 @@ function hasAllObjectExpressionProperties(
 
 interface PropertyDeclarationPosition {
   readonly declarationPosition: {
+    readonly containerEnd: number;
+    readonly containerStart: number;
     readonly fileName: string;
     readonly start: number;
   };
@@ -302,12 +304,20 @@ function getDeclarationPropertyOrder(
 
   const firstFileName =
     propertyDeclarationPositions.at(0)?.declarationPosition.fileName;
+  const firstContainerStart =
+    propertyDeclarationPositions.at(0)?.declarationPosition.containerStart;
+  const firstContainerEnd =
+    propertyDeclarationPositions.at(0)?.declarationPosition.containerEnd;
 
   if (
     firstFileName === undefined
+    || firstContainerStart === undefined
+    || firstContainerEnd === undefined
     || propertyDeclarationPositions.some(
       ({ declarationPosition }) =>
-        declarationPosition.fileName !== firstFileName,
+        declarationPosition.fileName !== firstFileName
+        || declarationPosition.containerStart !== firstContainerStart
+        || declarationPosition.containerEnd !== firstContainerEnd,
     )
   ) {
     return undefined;
@@ -342,6 +352,8 @@ function getPropertyDeclarationPosition(
   }
 
   return {
+    containerEnd: declaration.parent.getEnd(),
+    containerStart: declaration.parent.getStart(),
     fileName: declaration.getSourceFile().fileName,
     start: declaration.getStart(),
   };

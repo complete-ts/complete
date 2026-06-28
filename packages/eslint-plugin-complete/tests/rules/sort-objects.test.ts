@@ -150,6 +150,25 @@ dump({
 });
       `,
     },
+    {
+      code: `
+interface EnvironmentBase {
+  type: string;
+  applications: readonly string[];
+}
+
+interface ProdEnvironment extends EnvironmentBase {
+  type: "prod";
+}
+
+type Environment = ProdEnvironment;
+
+const prod: Environment = {
+  type: "prod",
+  applications: [],
+};
+      `,
+    },
   ],
 
   invalid: [
@@ -385,6 +404,51 @@ dump({
           data: {
             earlierName: "lineWidth",
             laterName: "quoteStyle",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface EnvironmentBase {
+  type: string;
+  applications: readonly string[];
+}
+
+interface ProdEnvironment extends EnvironmentBase {
+  type: "prod";
+}
+
+type Environment = ProdEnvironment;
+
+const prod: Environment = {
+  applications: [],
+  type: "prod",
+};
+      `,
+      output: `
+interface EnvironmentBase {
+  type: string;
+  applications: readonly string[];
+}
+
+interface ProdEnvironment extends EnvironmentBase {
+  type: "prod";
+}
+
+type Environment = ProdEnvironment;
+
+const prod: Environment = {
+  type: "prod",
+  applications: [],
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "type",
+            laterName: "applications",
           },
         },
       ],
