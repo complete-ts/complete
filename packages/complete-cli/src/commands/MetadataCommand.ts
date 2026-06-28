@@ -2,6 +2,7 @@ import { Command, Option } from "clipanion";
 import { assertObject, isObject } from "complete-common";
 import { getFilePath, isFile, readFile, writeFile } from "complete-node";
 import path from "node:path";
+import type { PackageMetadataDependencyLock } from "../interfaces/PackageMetadataDependencyLock.js";
 
 export class MetadataCommand extends Command {
   static override paths = [["metadata"], ["m"]];
@@ -49,10 +50,11 @@ export class MetadataCommand extends Command {
       packageMetadata["dependencies"] = dependencies;
     }
 
-    dependencies[this.dependencyName] = {
+    const dependencyLock: PackageMetadataDependencyLock = {
       "lock-version": true,
       "lock-reason": this.reason ?? "",
     };
+    dependencies[this.dependencyName] = dependencyLock;
 
     const packageMetadataJSON = `${JSON.stringify(packageMetadata, undefined, 2)}\n`;
     await writeFile(packageMetadataPath, packageMetadataJSON);

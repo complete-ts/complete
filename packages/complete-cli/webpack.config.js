@@ -12,22 +12,22 @@ const config = {
   module: {
     rules: [
       {
+        exclude: /node_modules/v,
         test: /\.ts$/v,
         use: "ts-loader",
-        exclude: /node_modules/v,
       },
     ],
   },
   output: {
-    path: path.join(import.meta.dirname, "dist"),
     filename: "main.cjs",
+    path: path.join(import.meta.dirname, "dist"),
   },
   plugins: [new WebpackShebangPlugin()],
   resolve: {
-    extensions: [".js", ".ts"],
     extensionAlias: {
       ".js": [".ts", ".js"],
     },
+    extensions: [".js", ".ts"],
     plugins: [
       new TSConfigPathsWebpackPlugin({
         // We cannot use a relative path here or else Knip will throw an error.

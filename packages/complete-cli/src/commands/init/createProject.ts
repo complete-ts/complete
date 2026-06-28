@@ -31,6 +31,7 @@ import {
   TEMPLATES_STATIC_DIR,
 } from "../../constants.js";
 import { initGitRepository } from "../../git.js";
+import type { PackageMetadataDependencyLock } from "../../interfaces/PackageMetadataDependencyLock.js";
 import { promptError, promptLog, promptSpinnerStart } from "../../prompt.js";
 import { LOCKED_DEPENDENCIES } from "./lockedDependencies.js";
 
@@ -271,10 +272,11 @@ async function revertVersionsInPackageJSON(projectPath: string) {
 async function createPackageMetadataJSON(projectPath: string) {
   const packageMetadata = { devDependencies: {} as Record<string, unknown> };
   for (const { name, reason } of LOCKED_DEPENDENCIES) {
-    packageMetadata.devDependencies[name] = {
+    const dependencyLock: PackageMetadataDependencyLock = {
       "lock-version": true,
       "lock-reason": reason,
     };
+    packageMetadata.devDependencies[name] = dependencyLock;
   }
   const packageMetadataText = JSON.stringify(packageMetadata);
   await formatWithPrettier(packageMetadataText, "json", projectPath);
