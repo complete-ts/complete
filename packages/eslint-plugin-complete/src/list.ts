@@ -95,8 +95,8 @@ function getList(line: string): List | undefined {
   if (line.startsWith("- ")) {
     return {
       kind: ListKind.Hyphen,
-      markerSize: "- ".length,
       numLeadingSpaces,
+      markerSize: "- ".length,
     };
   }
 
@@ -110,8 +110,8 @@ function getList(line: string): List | undefined {
   ) {
     return {
       kind: ListKind.NumberPeriod,
-      markerSize: numberPeriodMatch.groups["listNumber"].length + ". ".length,
       numLeadingSpaces,
+      markerSize: numberPeriodMatch.groups["listNumber"].length + ". ".length,
     };
   }
 
@@ -125,19 +125,19 @@ function getList(line: string): List | undefined {
   ) {
     return {
       kind: ListKind.NumberParentheses,
+      numLeadingSpaces,
       markerSize:
         numberParenthesesMatch.groups["listNumber"].length + ") ".length,
-      numLeadingSpaces,
     };
   }
 
   const jsDocTagName = getJSDocTagName(line);
   if (jsDocTagName !== undefined) {
     return {
-      jsDocTagName,
       kind: ListKind.JSDocTag,
-      markerSize: jsDocTagName.length + " ".length,
       numLeadingSpaces,
+      markerSize: jsDocTagName.length + " ".length,
+      jsDocTagName,
     };
   }
 

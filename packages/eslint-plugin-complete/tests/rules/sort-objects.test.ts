@@ -69,6 +69,23 @@ const foo: Foo = {
 };
       `,
     },
+    {
+      code: `
+interface List {
+  kind: string;
+  numLeadingSpaces: number;
+  markerSize: number;
+}
+
+function getList(): List | undefined {
+  return {
+    kind: "Hyphen",
+    numLeadingSpaces: 0,
+    markerSize: 2,
+  };
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -114,6 +131,47 @@ const foo: Record<string, unknown> = {
           data: {
             earlierName: "description",
             laterName: "name",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface List {
+  kind: string;
+  numLeadingSpaces: number;
+  markerSize: number;
+}
+
+function getList(): List | undefined {
+  return {
+    kind: "Hyphen",
+    markerSize: 2,
+    numLeadingSpaces: 0,
+  };
+}
+      `,
+      output: `
+interface List {
+  kind: string;
+  numLeadingSpaces: number;
+  markerSize: number;
+}
+
+function getList(): List | undefined {
+  return {
+    kind: "Hyphen",
+    numLeadingSpaces: 0,
+    markerSize: 2,
+  };
+}
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "numLeadingSpaces",
+            laterName: "markerSize",
           },
         },
       ],

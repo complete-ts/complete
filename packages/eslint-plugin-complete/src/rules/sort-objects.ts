@@ -1,6 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import type ts from "typescript";
+import ts from "typescript";
+import { isFlagSet, unionTypeParts } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 type Options = [];
@@ -199,13 +200,32 @@ function getPropertyOrder(
 }
 
 function getDeclaredPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
+  const typeWithDeclaredProperties = getTypeWithDeclaredProperties(type);
+  if (typeWithDeclaredProperties === undefined) {
+    return new Map<string, number>();
+  }
+
   const propertyOrder = new Map<string, number>();
 
-  for (const [i, property] of type.getProperties().entries()) {
+  for (const [i, property] of typeWithDeclaredProperties
+    .getProperties()
+    .entries()) {
     propertyOrder.set(property.getName(), i);
   }
 
   return propertyOrder;
+}
+
+function getTypeWithDeclaredProperties(type: ts.Type): ts.Type | undefined {
+  const objectTypes = unionTypeParts(type).filter(isObjectTypeWithProperties);
+  return objectTypes.length === 1 ? objectTypes[0] : undefined;
+}
+
+function isObjectTypeWithProperties(type: ts.Type): boolean {
+  return (
+    isFlagSet(type.flags, ts.TypeFlags.Object)
+    && type.getProperties().length > 0
+  );
 }
 
 function getAlphabeticalPropertyOrder(
