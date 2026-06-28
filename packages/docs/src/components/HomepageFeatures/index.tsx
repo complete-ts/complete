@@ -21,8 +21,8 @@ const FeatureList: FeatureItem[] = [
     icon: (
       <ShieldCheckIcon
         style={{
-          width: ICON_SIZE,
           height: ICON_SIZE,
+          width: ICON_SIZE,
         }}
       />
     ),
@@ -38,8 +38,8 @@ const FeatureList: FeatureItem[] = [
     icon: (
       <WrenchIcon
         style={{
-          width: ICON_SIZE,
           height: ICON_SIZE,
+          width: ICON_SIZE,
         }}
       />
     ),
@@ -55,8 +55,8 @@ const FeatureList: FeatureItem[] = [
     icon: (
       <BookOpenIcon
         style={{
-          width: ICON_SIZE,
           height: ICON_SIZE,
+          width: ICON_SIZE,
         }}
       />
     ),

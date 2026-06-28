@@ -7,9 +7,10 @@ import tseslint from "typescript-eslint";
  */
 export const baseTypeScriptESLint = defineConfig(
   {
-    plugins: {
-      "@typescript-eslint": tseslint.plugin,
-    },
+    // Rules that require type information will throw an error on ".json" files. (This is needed
+    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
+    // plugin, we include it here defensively.)
+    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
 
     // We need to provide some special configuration to ESLint in order for it to parse TypeScript
     // files. From:
@@ -37,6 +38,10 @@ export const baseTypeScriptESLint = defineConfig(
           defaultProject: "tsconfig.json",
         },
       },
+    },
+
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
     },
 
     rules: {
@@ -116,23 +121,23 @@ export const baseTypeScriptESLint = defineConfig(
         // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables
         // (23.10).
         {
-          selector: "variable",
           format: ["camelCase", "PascalCase", "UPPER_CASE"],
           leadingUnderscore: "allow",
+          selector: "variable",
         },
         // Allow camelCase functions (23.2), and PascalCase functions (23.8).
         {
-          selector: "function",
           format: ["camelCase", "PascalCase"],
           leadingUnderscore: "allow",
+          selector: "function",
         },
         // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make
         // TypeScript recommendations, we are assuming this rule would similarly apply to anything
         // "type like", including interfaces, type aliases, and enums.
         {
-          selector: "typeLike",
           format: ["PascalCase"],
           leadingUnderscore: "allow",
+          selector: "typeLike",
         },
       ],
 
@@ -354,11 +359,11 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/prefer-destructuring": [
         "error",
         {
-          VariableDeclarator: {
+          AssignmentExpression: {
             array: false,
             object: true,
           },
-          AssignmentExpression: {
+          VariableDeclarator: {
             array: false,
             object: true,
           },
@@ -442,15 +447,15 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/strict-boolean-expressions": [
         "error",
         {
-          allowString: false,
-          allowNumber: false,
-          allowNullableObject: true,
-          allowNullableBoolean: false,
-          allowNullableString: false,
-          allowNullableNumber: false,
-          allowNullableEnum: false,
           allowAny: false,
+          allowNullableBoolean: false,
+          allowNullableEnum: false,
+          allowNullableNumber: false,
+          allowNullableObject: true,
+          allowNullableString: false,
+          allowNumber: false,
           allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+          allowString: false,
         },
       ],
 
@@ -466,8 +471,8 @@ export const baseTypeScriptESLint = defineConfig(
         "error",
         {
           allowDefaultCaseForExhaustiveSwitch: false,
-          requireDefaultForNonUnion: true,
           considerDefaultExhaustiveForUnions: true,
+          requireDefaultForNonUnion: true,
         },
       ],
 
@@ -484,11 +489,6 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/unified-signatures": "error",
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
     },
-
-    // Rules that require type information will throw an error on ".json" files. (This is needed
-    // when using `eslint-plugin-package-json`. Even though this config does not currently use the
-    // plugin, we include it here defensively.)
-    ignores: ["**/*.json", "**/*.jsonc", "**/*.code-workspace"],
   },
 
   // Enable linting on TypeScript file extensions.

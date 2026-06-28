@@ -23,8 +23,8 @@ export const baseStylistic = defineConfig({
       "error",
       {
         blankLine: "always",
-        prev: "function",
         next: "function",
+        prev: "function",
       },
     ],
 
@@ -37,8 +37,8 @@ export const baseStylistic = defineConfig({
       "error",
       "double",
       {
-        avoidEscape: true,
         allowTemplateLiterals: "never",
+        avoidEscape: true,
       },
     ],
 

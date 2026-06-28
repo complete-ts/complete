@@ -359,7 +359,6 @@ const SUGGESTIONS = {
   "no-param-reassign": [
     "error",
     {
-      props: true,
       ignorePropertyModificationsFor: [
         "acc", // for reduce accumulators
         "accumulator", // for reduce accumulators
@@ -373,6 +372,7 @@ const SUGGESTIONS = {
         "$scope", // for Angular 1 scopes
         "staticContext", // for ReactRouter context
       ],
+      props: true,
     },
   ],
 
@@ -411,14 +411,14 @@ const SUGGESTIONS = {
   "no-restricted-globals": [
     "error",
     {
-      name: "isFinite",
       message:
         "Use Number.isFinite instead: https://github.com/airbnb/javascript#standard-library--isfinite",
+      name: "isFinite",
     },
     {
-      name: "isNaN",
       message:
         "Use Number.isNaN instead: https://github.com/airbnb/javascript#standard-library--isnan",
+      name: "isNaN",
     },
     ...confusingBrowserGlobals,
   ],
@@ -433,52 +433,52 @@ const SUGGESTIONS = {
   "no-restricted-properties": [
     "error",
     {
+      message: "arguments.callee is deprecated",
       object: "arguments",
       property: "callee",
-      message: "arguments.callee is deprecated",
     },
     {
+      message: "Please use Number.isFinite instead",
       object: "global",
       property: "isFinite",
-      message: "Please use Number.isFinite instead",
     },
     {
+      message: "Please use Number.isFinite instead",
       object: "self",
       property: "isFinite",
-      message: "Please use Number.isFinite instead",
     },
     {
+      message: "Please use Number.isFinite instead",
       object: "window",
       property: "isFinite",
-      message: "Please use Number.isFinite instead",
     },
     {
+      message: "Please use Number.isNaN instead",
       object: "global",
       property: "isNaN",
-      message: "Please use Number.isNaN instead",
     },
     {
+      message: "Please use Number.isNaN instead",
       object: "self",
       property: "isNaN",
-      message: "Please use Number.isNaN instead",
     },
     {
+      message: "Please use Number.isNaN instead",
       object: "window",
       property: "isNaN",
-      message: "Please use Number.isNaN instead",
     },
     {
+      message: "Please use Object.defineProperty instead.",
       property: "__defineGetter__",
-      message: "Please use Object.defineProperty instead.",
     },
     {
+      message: "Please use Object.defineProperty instead.",
       property: "__defineSetter__",
-      message: "Please use Object.defineProperty instead.",
     },
     {
+      message: "Use the exponentiation operator (**) instead.",
       object: "Math",
       property: "pow",
-      message: "Use the exponentiation operator (**) instead.",
     },
   ],
 

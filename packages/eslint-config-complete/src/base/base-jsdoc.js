@@ -183,8 +183,8 @@ export const baseJSDoc = defineConfig(
         {
           contexts: [
             {
-              context: "FunctionDeclaration",
               comment: 'JsdocBlock:has(JsdocTag[tag="param"])',
+              context: "FunctionDeclaration",
             },
           ],
         },

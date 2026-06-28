@@ -6,6 +6,7 @@ import { OptionDefaults } from "typedoc";
  * Helper function for modules to get the base TypeDoc config used in this monorepo.
  *
  * @param {string} packageDirectoryPath The path to the package directory.
+ * @returns {import("typedoc").TypeDocOptions}
  */
 export function getTypeDocConfig(packageDirectoryPath) {
   const packageName = path.basename(packageDirectoryPath);
@@ -13,21 +14,23 @@ export function getTypeDocConfig(packageDirectoryPath) {
   const entryPoints = getEntryPoints(packageDirectoryPath);
 
   return {
-    out,
+    plugin: ["typedoc-plugin-markdown"],
     entryPoints,
+
     // We do not want to generate a readme since the "website-root.md" file is copied to the root of
     // the "docs" directory.
     readme: "none",
+
+    out,
+    githubPages: false, // See: https://typedoc.org/options/output/#githubpages
+    blockTags: [...OptionDefaults.blockTags, "@allowEmptyVariadic"],
     treatWarningsAsErrors: true,
+
     validation: {
       notExported: true,
       invalidLink: true,
       notDocumented: true,
     },
-    githubPages: false, // See: https://typedoc.org/options/output/#githubpages
-    blockTags: [...OptionDefaults.blockTags, "@allowEmptyVariadic"],
-
-    plugin: ["typedoc-plugin-markdown"],
 
     // We copy the options from: https://typedoc-plugin-markdown.org/plugins/docusaurus/options
     hideBreadcrumbs: true,

@@ -234,9 +234,15 @@ export const baseImportX = defineConfig(
       "import-x": esLintPluginImportX,
     },
 
+    rules: {
+      ...HELPFUL_WARNINGS,
+      ...MODULE_SYSTEMS,
+      ...STATIC_ANALYSIS,
+      ...STYLE_GUIDE,
+    },
+
     // Beyond just specifying the plugin, additional configuration is necessary to make the plugin
     // work properly with TypeScript:
-
     // - First, the "eslint-import-resolver-typescript" package needs to be installed, or else an
     //   error will appear: "Resolve error: typescript with invalid interface loaded as resolver"
     // - However, it is discussed in this issue to include that dep as part of
@@ -256,13 +262,6 @@ export const baseImportX = defineConfig(
       "import-x/resolver": {
         typescript: true,
       },
-    },
-
-    rules: {
-      ...HELPFUL_WARNINGS,
-      ...MODULE_SYSTEMS,
-      ...STATIC_ANALYSIS,
-      ...STYLE_GUIDE,
     },
   },
 
