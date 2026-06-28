@@ -103,6 +103,31 @@ readdir({
 });
       `,
     },
+    {
+      code: `
+type SidebarItemDoc = {
+  type: "doc" | "ref";
+  label?: string;
+  id: string;
+};
+
+type SidebarItemCategory = {
+  type: "category";
+  label: string;
+  items: SidebarItemConfig[];
+  link?: unknown;
+};
+
+type SidebarItemConfig = SidebarItemDoc | SidebarItemCategory | string;
+
+const sidebar: SidebarItemConfig = {
+  type: "category",
+  label: "complete-common",
+  items: [],
+  link: {},
+};
+      `,
+    },
   ],
 
   invalid: [
@@ -230,6 +255,63 @@ readdir({
           data: {
             earlierName: "withFileTypes",
             laterName: "recursive",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+type SidebarItemDoc = {
+  type: "doc" | "ref";
+  label?: string;
+  id: string;
+};
+
+type SidebarItemCategory = {
+  type: "category";
+  label: string;
+  items: SidebarItemConfig[];
+  link?: unknown;
+};
+
+type SidebarItemConfig = SidebarItemDoc | SidebarItemCategory | string;
+
+const sidebar: SidebarItemConfig = {
+  label: "complete-common",
+  type: "category",
+  items: [],
+  link: {},
+};
+      `,
+      output: `
+type SidebarItemDoc = {
+  type: "doc" | "ref";
+  label?: string;
+  id: string;
+};
+
+type SidebarItemCategory = {
+  type: "category";
+  label: string;
+  items: SidebarItemConfig[];
+  link?: unknown;
+};
+
+type SidebarItemConfig = SidebarItemDoc | SidebarItemCategory | string;
+
+const sidebar: SidebarItemConfig = {
+  type: "category",
+  label: "complete-common",
+  items: [],
+  link: {},
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "type",
+            laterName: "label",
           },
         },
       ],

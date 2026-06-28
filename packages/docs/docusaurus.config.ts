@@ -17,8 +17,8 @@ const config: Config = {
   },
 
   future: {
-    faster: true,
     v4: true,
+    faster: true,
   },
 
   onBrokenAnchors: "throw",
@@ -31,10 +31,6 @@ const config: Config = {
   themeConfig: {
     navbar: {
       title: "complete",
-      logo: {
-        alt: "Complete Logo",
-        src: "img/logo.png",
-      },
       items: [
         {
           href: "https://github.com/complete-ts/complete",
@@ -47,6 +43,10 @@ const config: Config = {
           position: "right",
         },
       ],
+      logo: {
+        alt: "Complete Logo",
+        src: "img/logo.png",
+      },
     },
 
     colorMode: {
@@ -76,8 +76,8 @@ const config: Config = {
       {
         docs: {
           routeBasePath: "/", // Serve the docs at the site's root.
-          sidebarPath: "./sidebars.ts",
           editUrl: undefined,
+          sidebarPath: "./sidebars.ts",
         },
         theme: {
           customCss: "./src/css/custom.css",

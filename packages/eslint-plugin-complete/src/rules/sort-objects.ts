@@ -190,7 +190,7 @@ function getPropertyOrder(
   const declaredPropertyOrder =
     contextualType === undefined
       ? new Map<string, number>()
-      : getDeclaredPropertyOrder(contextualType);
+      : getDeclaredPropertyOrder(contextualType, node);
 
   if (declaredPropertyOrder.size > 0) {
     return declaredPropertyOrder;
@@ -199,8 +199,11 @@ function getPropertyOrder(
   return getAlphabeticalPropertyOrder(node);
 }
 
-function getDeclaredPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
-  const typeWithDeclaredProperties = getTypeWithDeclaredProperties(type);
+function getDeclaredPropertyOrder(
+  type: ts.Type,
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> {
+  const typeWithDeclaredProperties = getTypeWithDeclaredProperties(type, node);
   if (typeWithDeclaredProperties === undefined) {
     return new Map<string, number>();
   }
@@ -216,9 +219,20 @@ function getDeclaredPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
   return propertyOrder;
 }
 
-function getTypeWithDeclaredProperties(type: ts.Type): ts.Type | undefined {
+function getTypeWithDeclaredProperties(
+  type: ts.Type,
+  node: TSESTree.ObjectExpression,
+): ts.Type | undefined {
   const objectTypes = unionTypeParts(type).filter(isObjectTypeWithProperties);
-  return objectTypes.length === 1 ? objectTypes[0] : undefined;
+  if (objectTypes.length === 1) {
+    return objectTypes[0];
+  }
+
+  const matchingObjectTypes = objectTypes.filter((objectType) =>
+    hasAllObjectExpressionProperties(objectType, node),
+  );
+
+  return matchingObjectTypes.length === 1 ? matchingObjectTypes[0] : undefined;
 }
 
 function isObjectTypeWithProperties(type: ts.Type): boolean {
@@ -226,6 +240,28 @@ function isObjectTypeWithProperties(type: ts.Type): boolean {
     isFlagSet(type.flags, ts.TypeFlags.Object | ts.TypeFlags.Intersection)
     && type.getProperties().length > 0
   );
+}
+
+function hasAllObjectExpressionProperties(
+  type: ts.Type,
+  node: TSESTree.ObjectExpression,
+): boolean {
+  for (const property of node.properties) {
+    if (property.type === AST_NODE_TYPES.SpreadElement) {
+      continue;
+    }
+
+    const propertyName = getPropertyName(property);
+    if (propertyName === undefined) {
+      continue;
+    }
+
+    if (type.getProperty(propertyName) === undefined) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function getAlphabeticalPropertyOrder(
