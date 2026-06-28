@@ -190,7 +190,7 @@ function getPropertyOrder(
   const declaredPropertyOrder =
     contextualType === undefined
       ? new Map<string, number>()
-      : getDeclaredPropertyOrder(contextualType, node);
+      : getDeclaredPropertyOrder(checker, contextualType, tsNode, node);
 
   if (declaredPropertyOrder.size > 0) {
     return declaredPropertyOrder;
@@ -200,10 +200,17 @@ function getPropertyOrder(
 }
 
 function getDeclaredPropertyOrder(
+  checker: ts.TypeChecker,
   type: ts.Type,
+  tsNode: ts.Expression,
   node: TSESTree.ObjectExpression,
 ): ReadonlyMap<string, number> {
-  const typeWithDeclaredProperties = getTypeWithDeclaredProperties(type, node);
+  const typeWithDeclaredProperties = getTypeWithDeclaredProperties(
+    checker,
+    type,
+    tsNode,
+    node,
+  );
   if (typeWithDeclaredProperties === undefined) {
     return new Map<string, number>();
   }
@@ -225,7 +232,9 @@ function getTypePropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
 }
 
 function getTypeWithDeclaredProperties(
+  checker: ts.TypeChecker,
   type: ts.Type,
+  tsNode: ts.Expression,
   node: TSESTree.ObjectExpression,
 ): ts.Type | undefined {
   const objectTypes = unionTypeParts(type).filter(isObjectTypeWithProperties);
@@ -237,7 +246,18 @@ function getTypeWithDeclaredProperties(
     hasAllObjectExpressionProperties(objectType, node),
   );
 
-  return matchingObjectTypes.length === 1 ? matchingObjectTypes[0] : undefined;
+  if (matchingObjectTypes.length === 1) {
+    return matchingObjectTypes[0];
+  }
+
+  const actualType = checker.getTypeAtLocation(tsNode);
+  const assignableObjectTypes = matchingObjectTypes.filter((objectType) =>
+    checker.isTypeAssignableTo(actualType, objectType),
+  );
+
+  return assignableObjectTypes.length === 1
+    ? assignableObjectTypes[0]
+    : undefined;
 }
 
 function isObjectTypeWithProperties(type: ts.Type): boolean {

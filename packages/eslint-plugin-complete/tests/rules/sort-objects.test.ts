@@ -161,7 +161,16 @@ interface ProdEnvironment extends EnvironmentBase {
   type: "prod";
 }
 
-type Environment = ProdEnvironment;
+interface StagingEnvironment extends EnvironmentBase {
+  type: "staging";
+}
+
+interface DevEnvironment extends EnvironmentBase {
+  type: "dev";
+  branchUsername?: string;
+}
+
+type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
   type: "prod",
@@ -419,7 +428,16 @@ interface ProdEnvironment extends EnvironmentBase {
   type: "prod";
 }
 
-type Environment = ProdEnvironment;
+interface StagingEnvironment extends EnvironmentBase {
+  type: "staging";
+}
+
+interface DevEnvironment extends EnvironmentBase {
+  type: "dev";
+  branchUsername?: string;
+}
+
+type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
   applications: [],
@@ -436,7 +454,16 @@ interface ProdEnvironment extends EnvironmentBase {
   type: "prod";
 }
 
-type Environment = ProdEnvironment;
+interface StagingEnvironment extends EnvironmentBase {
+  type: "staging";
+}
+
+interface DevEnvironment extends EnvironmentBase {
+  type: "dev";
+  branchUsername?: string;
+}
+
+type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
   type: "prod",
