@@ -208,11 +208,16 @@ function getDeclaredPropertyOrder(
     return new Map<string, number>();
   }
 
+  return (
+    getDeclarationPropertyOrder(typeWithDeclaredProperties, node)
+    ?? getTypePropertyOrder(typeWithDeclaredProperties)
+  );
+}
+
+function getTypePropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
   const propertyOrder = new Map<string, number>();
 
-  for (const [i, property] of typeWithDeclaredProperties
-    .getProperties()
-    .entries()) {
+  for (const [i, property] of type.getProperties().entries()) {
     propertyOrder.set(property.getName(), i);
   }
 
@@ -264,14 +269,99 @@ function hasAllObjectExpressionProperties(
   return true;
 }
 
+interface PropertyDeclarationPosition {
+  readonly declarationPosition: {
+    readonly fileName: string;
+    readonly start: number;
+  };
+  readonly propertyName: string;
+}
+
+function getDeclarationPropertyOrder(
+  type: ts.Type,
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> | undefined {
+  const propertyDeclarationPositions: PropertyDeclarationPosition[] = [];
+
+  for (const propertyName of getObjectExpressionPropertyNames(node)) {
+    const property = type.getProperty(propertyName);
+    const declarationPosition =
+      property === undefined
+        ? undefined
+        : getPropertyDeclarationPosition(property);
+
+    if (declarationPosition === undefined) {
+      return undefined;
+    }
+
+    propertyDeclarationPositions.push({
+      declarationPosition,
+      propertyName,
+    });
+  }
+
+  const firstFileName =
+    propertyDeclarationPositions.at(0)?.declarationPosition.fileName;
+
+  if (
+    firstFileName === undefined
+    || propertyDeclarationPositions.some(
+      ({ declarationPosition }) =>
+        declarationPosition.fileName !== firstFileName,
+    )
+  ) {
+    return undefined;
+  }
+
+  const propertyOrder = new Map<string, number>();
+  const sortedPropertyDeclarationPositions =
+    propertyDeclarationPositions.toSorted(
+      (a, b) => a.declarationPosition.start - b.declarationPosition.start,
+    );
+
+  for (const [
+    i,
+    { propertyName },
+  ] of sortedPropertyDeclarationPositions.entries()) {
+    propertyOrder.set(propertyName, i);
+  }
+
+  return propertyOrder;
+}
+
+function getPropertyDeclarationPosition(
+  property: ts.Symbol,
+): PropertyDeclarationPosition["declarationPosition"] | undefined {
+  if (property.declarations?.length !== 1) {
+    return undefined;
+  }
+
+  const declaration = property.declarations[0];
+  if (declaration === undefined) {
+    return undefined;
+  }
+
+  return {
+    fileName: declaration.getSourceFile().fileName,
+    start: declaration.getStart(),
+  };
+}
+
+function getObjectExpressionPropertyNames(
+  node: TSESTree.ObjectExpression,
+): readonly string[] {
+  return node.properties
+    .filter((property) => property.type !== AST_NODE_TYPES.SpreadElement)
+    .map((property) => getPropertyName(property))
+    .filter((propertyName) => propertyName !== undefined);
+}
+
 function getAlphabeticalPropertyOrder(
   node: TSESTree.ObjectExpression,
 ): ReadonlyMap<string, number> {
-  const propertyNames = node.properties
-    .filter((property) => property.type !== AST_NODE_TYPES.SpreadElement)
-    .map((property) => getPropertyName(property))
-    .filter((propertyName) => propertyName !== undefined)
-    .toSorted((a, b) => a.localeCompare(b));
+  const propertyNames = getObjectExpressionPropertyNames(node).toSorted(
+    (a, b) => a.localeCompare(b),
+  );
 
   const propertyOrder = new Map<string, number>();
 

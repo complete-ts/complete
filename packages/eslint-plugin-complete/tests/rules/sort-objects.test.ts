@@ -128,6 +128,28 @@ const sidebar: SidebarItemConfig = {
 };
       `,
     },
+    {
+      code: `
+interface PresenterOptions {
+  schema: string;
+  indent?: number;
+  lineWidth?: number;
+  quoteStyle?: "auto" | "single" | "double";
+}
+
+interface DumpOptions extends Omit<PresenterOptions, "schema"> {
+  schema?: string;
+  skipInvalid?: boolean;
+}
+
+declare function dump(options?: DumpOptions): void;
+
+dump({
+  lineWidth: -1,
+  quoteStyle: "double",
+});
+      `,
+    },
   ],
 
   invalid: [
@@ -312,6 +334,57 @@ const sidebar: SidebarItemConfig = {
           data: {
             earlierName: "type",
             laterName: "label",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface PresenterOptions {
+  schema: string;
+  indent?: number;
+  lineWidth?: number;
+  quoteStyle?: "auto" | "single" | "double";
+}
+
+interface DumpOptions extends Omit<PresenterOptions, "schema"> {
+  schema?: string;
+  skipInvalid?: boolean;
+}
+
+declare function dump(options?: DumpOptions): void;
+
+dump({
+  quoteStyle: "double",
+  lineWidth: -1,
+});
+      `,
+      output: `
+interface PresenterOptions {
+  schema: string;
+  indent?: number;
+  lineWidth?: number;
+  quoteStyle?: "auto" | "single" | "double";
+}
+
+interface DumpOptions extends Omit<PresenterOptions, "schema"> {
+  schema?: string;
+  skipInvalid?: boolean;
+}
+
+declare function dump(options?: DumpOptions): void;
+
+dump({
+  lineWidth: -1,
+  quoteStyle: "double",
+});
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "lineWidth",
+            laterName: "quoteStyle",
           },
         },
       ],
