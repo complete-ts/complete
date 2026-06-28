@@ -223,7 +223,7 @@ function getTypeWithDeclaredProperties(type: ts.Type): ts.Type | undefined {
 
 function isObjectTypeWithProperties(type: ts.Type): boolean {
   return (
-    isFlagSet(type.flags, ts.TypeFlags.Object)
+    isFlagSet(type.flags, ts.TypeFlags.Object | ts.TypeFlags.Intersection)
     && type.getProperties().length > 0
   );
 }

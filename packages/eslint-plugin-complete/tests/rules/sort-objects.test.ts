@@ -86,6 +86,23 @@ function getList(): List | undefined {
 }
       `,
     },
+    {
+      code: `
+type ReaddirOptions = {
+  encoding?: string;
+} & {
+  withFileTypes: true;
+  recursive?: boolean;
+};
+
+declare function readdir(options: ReaddirOptions): void;
+
+readdir({
+  withFileTypes: true,
+  recursive: true,
+});
+      `,
+    },
   ],
 
   invalid: [
@@ -172,6 +189,47 @@ function getList(): List | undefined {
           data: {
             earlierName: "numLeadingSpaces",
             laterName: "markerSize",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+type ReaddirOptions = {
+  encoding?: string;
+} & {
+  withFileTypes: true;
+  recursive?: boolean;
+};
+
+declare function readdir(options: ReaddirOptions): void;
+
+readdir({
+  recursive: true,
+  withFileTypes: true,
+});
+      `,
+      output: `
+type ReaddirOptions = {
+  encoding?: string;
+} & {
+  withFileTypes: true;
+  recursive?: boolean;
+};
+
+declare function readdir(options: ReaddirOptions): void;
+
+readdir({
+  withFileTypes: true,
+  recursive: true,
+});
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "withFileTypes",
+            laterName: "recursive",
           },
         },
       ],
