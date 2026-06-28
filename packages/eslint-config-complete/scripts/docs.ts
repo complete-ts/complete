@@ -181,7 +181,6 @@ type ParentConfig =
   | "import-x/recommended"
   | "jsdoc/recommended"
   | "n/recommended"
-  | "package-json/recommended"
   | "perfectionist/recommended-alphabetical"
   | "regexp/recommended"
   | "unicorn/recommended"
@@ -211,8 +210,6 @@ const PARENT_CONFIG_LINKS = {
     "https://github.com/gajus/eslint-plugin-jsdoc/blob/main/src/index.js",
   "n/recommended":
     "https://github.com/eslint-community/eslint-plugin-n/blob/master/lib/configs/_commons.js",
-  "package-json/recommended":
-    "https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/src/plugin.ts",
   "perfectionist/recommended-alphabetical":
     "https://github.com/azat-io/eslint-plugin-perfectionist/blob/main/index.ts",
   "regexp/recommended":
