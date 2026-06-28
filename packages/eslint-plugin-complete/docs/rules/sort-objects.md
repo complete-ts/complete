@@ -2,7 +2,7 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Requires object properties to match the declared type order.
+📝 Requires object properties to match the declared type order or alphabetical order.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
@@ -10,7 +10,7 @@
 
 <!-- end auto-generated rule header -->
 
-Requires object literal properties to match the declared type order.
+Requires object literal properties to match the declared type order. If there is no declared property order, object literal properties must be in alphabetical order.
 
 Note that this rule has an auto-fixer, but it will refuse to auto-fix if there are attached block comments, as those usually semantic meaning relating to the line and the auto-fixer is not smart enough to move them.
 

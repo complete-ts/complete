@@ -10,6 +10,22 @@ const a = 1;
     },
     {
       code: `
+const foo = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
+const foo: Record<string, unknown> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
 interface Foo {
   name: string;
   description: string;
@@ -56,6 +72,52 @@ const foo: Foo = {
   ],
 
   invalid: [
+    {
+      code: `
+const foo = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+      output: `
+const foo = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "description",
+            laterName: "name",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+const foo: Record<string, unknown> = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+      output: `
+const foo: Record<string, unknown> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "description",
+            laterName: "name",
+          },
+        },
+      ],
+    },
     {
       code: `
 interface Foo {

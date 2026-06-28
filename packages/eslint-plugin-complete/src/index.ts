@@ -7,11 +7,11 @@ import { rules } from "./rules.js";
 const { name, version } = packageJSON;
 
 const plugin = {
+  configs,
   meta: {
     name,
     version,
   },
-  configs,
   rules,
 };
 

@@ -60,8 +60,8 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
   {
     rules: {
       eqeqeq: "off",
-      "no-useless-return": "off",
       "no-template-curly-in-string": "off",
+      "no-useless-return": "off",
       "prefer-const": "off",
     },
   },

@@ -19,7 +19,7 @@ export const sortObjects = createRule<Options, MessageIds>({
     type: "problem",
     docs: {
       description:
-        "Requires object properties to match the declared type order",
+        "Requires object properties to match the declared type order or alphabetical order",
       recommended: true,
       requiresTypeChecking: true,
     },
@@ -27,7 +27,7 @@ export const sortObjects = createRule<Options, MessageIds>({
     schema: [],
     messages: {
       incorrectOrder:
-        "Object property `{{ earlierName }}` must be before `{{ laterName }}` to match the declared type order.",
+        "Object property `{{ earlierName }}` must be before `{{ laterName }}` to match the required order.",
     },
   },
   defaultOptions: [],
@@ -39,12 +39,7 @@ export const sortObjects = createRule<Options, MessageIds>({
     return {
       ObjectExpression(node) {
         const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
-        const type = getObjectType(checker, tsNode);
-        const propertyOrder = getPropertyOrder(type);
-
-        if (propertyOrder.size === 0) {
-          return;
-        }
+        const propertyOrder = getPropertyOrder(checker, tsNode, node);
 
         let highestSeenOrder = -1;
         let highestSeenName: string | undefined;
@@ -185,15 +180,47 @@ function hasCommentInRange(
     );
 }
 
-function getObjectType(checker: ts.TypeChecker, node: ts.Expression): ts.Type {
-  return checker.getContextualType(node) ?? checker.getTypeAtLocation(node);
+function getPropertyOrder(
+  checker: ts.TypeChecker,
+  tsNode: ts.Expression,
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> {
+  const contextualType = checker.getContextualType(tsNode);
+  const declaredPropertyOrder =
+    contextualType === undefined
+      ? new Map<string, number>()
+      : getDeclaredPropertyOrder(contextualType);
+
+  if (declaredPropertyOrder.size > 0) {
+    return declaredPropertyOrder;
+  }
+
+  return getAlphabeticalPropertyOrder(node);
 }
 
-function getPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
+function getDeclaredPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
   const propertyOrder = new Map<string, number>();
 
   for (const [i, property] of type.getProperties().entries()) {
     propertyOrder.set(property.getName(), i);
+  }
+
+  return propertyOrder;
+}
+
+function getAlphabeticalPropertyOrder(
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> {
+  const propertyNames = node.properties
+    .filter((property) => property.type !== AST_NODE_TYPES.SpreadElement)
+    .map((property) => getPropertyName(property))
+    .filter((propertyName) => propertyName !== undefined)
+    .toSorted((a, b) => a.localeCompare(b));
+
+  const propertyOrder = new Map<string, number>();
+
+  for (const [i, propertyName] of propertyNames.entries()) {
+    propertyOrder.set(propertyName, i);
   }
 
   return propertyOrder;

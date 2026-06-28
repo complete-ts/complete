@@ -40,13 +40,13 @@ const BASE_CONFIG = [
       // The core ESLint "eqeqeq" rule will conflict with the "complete/eqeqeq-fix" rule.
       eqeqeq: "off",
 
-      // The core ESLint "no-useless-return" rule will conflict with the
-      // "complete/no-useless-return" rule.
-      "no-useless-return": "off",
-
       // The core ESLint "no-template-curly-in-string" rule will conflict with the
       // "complete/no-template-curly-in-string-fix" rule.
       "no-template-curly-in-string": "off",
+
+      // The core ESLint "no-useless-return" rule will conflict with the
+      // "complete/no-useless-return" rule.
+      "no-useless-return": "off",
 
       // The core ESLint "prefer-const" rule will conflict with the "complete/prefer-const" rule.
       "prefer-const": "off",

@@ -10,15 +10,15 @@ export default defineConfig(
 
   {
     rules: {
-      /** These rules conflict with this plugin's testing style. */
-      "unicorn/prefer-single-call": "off",
-      "unicorn/no-immediate-mutation": "off",
-
       /** Some rules use bitwise operators to deal with TypeScript bit flags. */
       "no-bitwise": "off",
 
       /** We commonly trim incoming text. */
       "no-param-reassign": "off",
+
+      /** These rules conflict with this plugin's testing style. */
+      "unicorn/no-immediate-mutation": "off",
+      "unicorn/prefer-single-call": "off",
     },
   },
 
