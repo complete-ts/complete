@@ -18,15 +18,6 @@ import { readFile } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 const COOLDOWN_DURATION = "7d";
-const INTERNAL_PACKAGES = [
-  "complete-cli",
-  "complete-common",
-  "complete-lint",
-  "complete-node",
-  "complete-tsconfig",
-  "eslint-config-complete",
-  "eslint-plugin-complete",
-] as const;
 
 /**
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
