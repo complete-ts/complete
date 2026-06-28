@@ -4,7 +4,7 @@
  * @module
  */
 
-import { assertObject, includes, isObject } from "complete-common";
+import { assertObject, isObject } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
@@ -199,8 +199,7 @@ async function runNPMCheckUpdatesQuiet(
   // https://github.com/raineorshine/npm-check-updates/issues/1524
   const npmCheckUpdates = await import("npm-check-updates");
   const upgradedPackages = await npmCheckUpdates.run({
-    cooldown: (packageName) =>
-      includes(INTERNAL_PACKAGES, packageName) ? 0 : "7d", // Mitigate supply chain attacks.
+    cooldown: "7d", // Mitigate supply chain attacks.
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
     upgrade: true,

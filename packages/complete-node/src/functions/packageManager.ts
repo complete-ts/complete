@@ -182,8 +182,8 @@ export async function getPackageManagersForProject(
       const lockFileExists = await isFile(lockFilePath);
 
       return {
-        packageManager,
         lockFileExists,
+        packageManager,
       };
     },
   );
