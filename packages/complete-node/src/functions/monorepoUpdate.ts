@@ -386,10 +386,9 @@ function addPendingUpdate(
   }
 
   const updatesArray = tuple[1];
-  const update = {
+  updatesArray.push({
     depType,
     depName,
     newVersion,
-  };
-  updatesArray.push(update);
+  });
 }

@@ -4,7 +4,7 @@
  * @module
  */
 
-import { assertObject, isObject } from "complete-common";
+import { assertObject, includes, isObject } from "complete-common";
 import path from "node:path";
 import { PackageManager } from "../enums/PackageManager.js";
 import { $ } from "./execa.js";
@@ -18,6 +18,15 @@ import { readFile } from "./readWrite.js";
 
 const DEPENDENCY_TYPES_TO_CHECK = ["dependencies", "devDependencies"] as const;
 const COOLDOWN_DURATION = "7d";
+const INTERNAL_PACKAGES = [
+  "complete-cli",
+  "complete-common",
+  "complete-lint",
+  "complete-node",
+  "complete-tsconfig",
+  "eslint-config-complete",
+  "eslint-plugin-complete",
+] as const;
 
 /**
  * Helper function to run `npm-check-updates` to update the dependencies in the "package.json" file.
@@ -190,11 +199,12 @@ async function runNPMCheckUpdatesQuiet(
   // https://github.com/raineorshine/npm-check-updates/issues/1524
   const npmCheckUpdates = await import("npm-check-updates");
   const upgradedPackages = await npmCheckUpdates.run({
-    upgrade: true,
+    cooldown: (packageName) =>
+      includes(INTERNAL_PACKAGES, packageName) ? 0 : "7d", // Mitigate supply chain attacks.
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
+    upgrade: true,
     workspaces: packageJSONHasWorkspaces,
-    cooldown: COOLDOWN_DURATION, // Mitigate supply chain attacks.
   });
 
   if (!isObject(upgradedPackages)) {
