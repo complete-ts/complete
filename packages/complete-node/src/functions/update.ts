@@ -61,8 +61,8 @@ export async function updatePackageJSONDependencies(
   if (packageJSONChanged && installAfterUpdate) {
     const $$ = $({
       cwd: packageRoot,
-      stderr: quiet ? "pipe" : "inherit",
       stdout: quiet ? "pipe" : "inherit",
+      stderr: quiet ? "pipe" : "inherit",
     });
     const packageManager =
       (await getPackageManagerForProject(packageRoot)) ?? PackageManager.npm;
