@@ -176,7 +176,7 @@
     },
     "packages/eslint-plugin-complete": {
       "name": "eslint-plugin-complete",
-      "version": "1.11.2",
+      "version": "1.11.3",
       "dependencies": {
         "@typescript-eslint/type-utils": "catalog:",
         "@typescript-eslint/utils": "catalog:",
