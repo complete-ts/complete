@@ -606,6 +606,43 @@ declare function logFoo(foo: Foo): void;
     },
     {
       code: `
+interface Options {
+  stdout: string;
+  stderr: string;
+}
+
+declare function bind<T extends Options>(options: T): void;
+
+bind({
+  stderr: "inherit",
+  stdout: "inherit",
+});
+      `,
+      output: `
+interface Options {
+  stdout: string;
+  stderr: string;
+}
+
+declare function bind<T extends Options>(options: T): void;
+
+bind({
+  stdout: "inherit",
+  stderr: "inherit",
+});
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "stdout",
+            laterName: "stderr",
+          },
+        },
+      ],
+    },
+    {
+      code: `
 interface Foo {
   nested: {
     name: string;

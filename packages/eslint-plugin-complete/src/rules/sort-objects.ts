@@ -196,7 +196,73 @@ function getPropertyOrder(
     return declaredPropertyOrder;
   }
 
+  const genericConstraintPropertyOrder = getGenericConstraintPropertyOrder(
+    checker,
+    tsNode,
+    node,
+  );
+  if (genericConstraintPropertyOrder.size > 0) {
+    return genericConstraintPropertyOrder;
+  }
+
   return getAlphabeticalPropertyOrder(node);
+}
+
+function getGenericConstraintPropertyOrder(
+  checker: ts.TypeChecker,
+  tsNode: ts.Expression,
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> {
+  const parameterDeclaration = getResolvedParameterDeclaration(checker, tsNode);
+  const parameterType = parameterDeclaration?.type;
+  if (
+    parameterDeclaration === undefined
+    || parameterType === undefined
+    || !ts.isTypeReferenceNode(parameterType)
+    || !ts.isIdentifier(parameterType.typeName)
+  ) {
+    return new Map<string, number>();
+  }
+
+  const typeParameterName = parameterType.typeName.text;
+  const typeParameterDeclaration =
+    parameterDeclaration.parent.typeParameters?.find(
+      (typeParameter) => typeParameter.name.text === typeParameterName,
+    );
+  const constraint = typeParameterDeclaration?.constraint;
+  if (constraint === undefined) {
+    return new Map<string, number>();
+  }
+
+  return getDeclaredPropertyOrder(
+    checker,
+    checker.getTypeFromTypeNode(constraint),
+    tsNode,
+    node,
+  );
+}
+
+function getResolvedParameterDeclaration(
+  checker: ts.TypeChecker,
+  tsNode: ts.Expression,
+): ts.ParameterDeclaration | undefined {
+  const { parent } = tsNode;
+  if (!ts.isCallExpression(parent)) {
+    return undefined;
+  }
+
+  const argumentIndex = parent.arguments.indexOf(tsNode);
+  if (argumentIndex === -1) {
+    return undefined;
+  }
+
+  const signature = checker.getResolvedSignature(parent);
+  const declaration = signature?.declaration;
+  if (declaration === undefined || !ts.isFunctionLike(declaration)) {
+    return undefined;
+  }
+
+  return declaration.parameters.at(argumentIndex);
 }
 
 function getDeclaredPropertyOrder(
