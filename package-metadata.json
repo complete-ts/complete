@@ -12,6 +12,10 @@
     "@babel/preset-typescript": {
       "lock-version": true,
       "lock-reason": "Keep Babel on version 7 because Jest/Bun currently resolves Babel 7 transformer internals that are incompatible with Babel 8 presets."
+    },
+    "eslint-plugin-n": {
+      "lock-version": true,
+      "lock-reason": "Need to wait a week for v18.2.1 to age."
     }
   }
 }
