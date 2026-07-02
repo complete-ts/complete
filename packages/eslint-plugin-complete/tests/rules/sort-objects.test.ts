@@ -206,6 +206,33 @@ const foo = {
     },
     {
       code: `
+declare function getValue<T>(callback: () => T): T;
+
+const value = getValue(() => ({
+  b: 1,
+  a: 2,
+}));
+      `,
+      output: `
+declare function getValue<T>(callback: () => T): T;
+
+const value = getValue(() => ({
+  a: 2,
+  b: 1,
+}));
+      `,
+      errors: [
+        {
+          messageId: "incorrectOrder",
+          data: {
+            earlierName: "a",
+            laterName: "b",
+          },
+        },
+      ],
+    },
+    {
+      code: `
 const foo: Record<string, unknown> = {
   name: "foo",
   description: "A foo.",

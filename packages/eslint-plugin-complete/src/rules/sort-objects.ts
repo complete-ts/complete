@@ -216,7 +216,7 @@ function getDeclaredPropertyOrder(
   }
 
   return (
-    getDeclarationPropertyOrder(typeWithDeclaredProperties, node)
+    getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
     ?? getTypePropertyOrder(typeWithDeclaredProperties)
   );
 }
@@ -301,6 +301,7 @@ interface PropertyDeclarationPosition {
 
 function getDeclarationPropertyOrder(
   type: ts.Type,
+  tsNode: ts.Expression,
   node: TSESTree.ObjectExpression,
 ): ReadonlyMap<string, number> | undefined {
   const propertyDeclarationPositions: PropertyDeclarationPosition[] = [];
@@ -341,6 +342,14 @@ function getDeclarationPropertyOrder(
     )
   ) {
     return undefined;
+  }
+
+  if (
+    firstFileName === tsNode.getSourceFile().fileName
+    && firstContainerStart === tsNode.getStart()
+    && firstContainerEnd === tsNode.getEnd()
+  ) {
+    return new Map<string, number>();
   }
 
   const propertyOrder = new Map<string, number>();
