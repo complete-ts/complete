@@ -20,8 +20,8 @@ import { $ as dollarSignFunc } from "execa";
  * @see https://nodejs.org/api/child_process.html#child_process_options_stdio
  */
 export const $ = dollarSignFunc({
-  stdout: "inherit",
   stderr: "inherit",
+  stdout: "inherit",
 });
 
 /**

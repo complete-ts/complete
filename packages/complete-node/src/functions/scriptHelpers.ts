@@ -211,7 +211,6 @@ export async function lintCommands(
     // Handle normal commands.
     if (typeof command === "string") {
       return {
-        title: command,
         task: async () => {
           const [cmd, ...args] = command.split(" ");
           if (cmd === undefined) {
@@ -233,13 +232,14 @@ export async function lintCommands(
             preferLocal: true,
           });
         },
+        title: command,
       };
     }
 
     // Handle promises.
     return {
-      title: command[0],
       task: async () => await command[1],
+      title: command[0],
     };
   });
 
