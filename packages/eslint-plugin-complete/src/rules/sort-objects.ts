@@ -5,13 +5,20 @@ import { isFlagSet, unionTypeParts } from "../typeUtils.js";
 import { createRule } from "../utils.js";
 
 type Options = [];
-type MessageIds = "incorrectOrder";
+type MessageIds = "incorrectAlphabeticalOrder" | "incorrectDeclaredTypeOrder";
 
 type Replacement = [range: TSESTree.Range, replacementText: string];
 
 interface SortableProperty {
   readonly order: number;
   readonly property: TSESTree.Property;
+}
+
+type SortKind = "alphabetical" | "declaredType";
+
+interface PropertyOrder {
+  readonly kind: SortKind;
+  readonly order: ReadonlyMap<string, number>;
 }
 
 export const sortObjects = createRule<Options, MessageIds>({
@@ -27,8 +34,10 @@ export const sortObjects = createRule<Options, MessageIds>({
     fixable: "code",
     schema: [],
     messages: {
-      incorrectOrder:
-        "Object property `{{ earlierName }}` must be before `{{ laterName }}` to match the required order.",
+      incorrectAlphabeticalOrder:
+        "Object property `{{ earlierName }}` must be before `{{ laterName }}` to be in alphabetical order.",
+      incorrectDeclaredTypeOrder:
+        "Object property `{{ earlierName }}` must be before `{{ laterName }}` to match the declared type order.",
     },
   },
   defaultOptions: [],
@@ -55,7 +64,7 @@ export const sortObjects = createRule<Options, MessageIds>({
             continue;
           }
 
-          const order = propertyOrder.get(propertyName);
+          const order = propertyOrder.order.get(propertyName);
           if (order === undefined) {
             continue;
           }
@@ -64,12 +73,15 @@ export const sortObjects = createRule<Options, MessageIds>({
             const replacement = getReplacementText(
               sourceCode,
               node,
-              propertyOrder,
+              propertyOrder.order,
             );
 
             context.report({
               node: property.key,
-              messageId: "incorrectOrder",
+              messageId:
+                propertyOrder.kind === "alphabetical"
+                  ? "incorrectAlphabeticalOrder"
+                  : "incorrectDeclaredTypeOrder",
               data: {
                 earlierName: propertyName,
                 laterName: highestSeenName,
@@ -185,7 +197,7 @@ function getPropertyOrder(
   checker: ts.TypeChecker,
   tsNode: ts.Expression,
   node: TSESTree.ObjectExpression,
-): ReadonlyMap<string, number> {
+): PropertyOrder {
   const contextualType = checker.getContextualType(tsNode);
   const declaredPropertyOrder =
     contextualType === undefined
@@ -193,7 +205,10 @@ function getPropertyOrder(
       : getDeclaredPropertyOrder(checker, contextualType, tsNode, node);
 
   if (declaredPropertyOrder.size > 0) {
-    return declaredPropertyOrder;
+    return {
+      kind: "declaredType",
+      order: declaredPropertyOrder,
+    };
   }
 
   const genericConstraintPropertyOrder = getGenericConstraintPropertyOrder(
@@ -202,10 +217,16 @@ function getPropertyOrder(
     node,
   );
   if (genericConstraintPropertyOrder.size > 0) {
-    return genericConstraintPropertyOrder;
+    return {
+      kind: "declaredType",
+      order: genericConstraintPropertyOrder,
+    };
   }
 
-  return getAlphabeticalPropertyOrder(node);
+  return {
+    kind: "alphabetical",
+    order: getAlphabeticalPropertyOrder(node),
+  };
 }
 
 function getGenericConstraintPropertyOrder(

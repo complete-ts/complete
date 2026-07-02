@@ -196,7 +196,7 @@ const foo = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectAlphabeticalOrder",
           data: {
             earlierName: "description",
             laterName: "name",
@@ -223,7 +223,7 @@ const value = getValue(() => ({
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectAlphabeticalOrder",
           data: {
             earlierName: "a",
             laterName: "b",
@@ -246,7 +246,7 @@ const foo: Record<string, unknown> = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectAlphabeticalOrder",
           data: {
             earlierName: "description",
             laterName: "name",
@@ -287,7 +287,7 @@ function getList(): List | undefined {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "numLeadingSpaces",
             laterName: "markerSize",
@@ -328,7 +328,7 @@ readdir({
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "withFileTypes",
             laterName: "recursive",
@@ -385,7 +385,7 @@ const sidebar: SidebarItemConfig = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "type",
             laterName: "label",
@@ -436,7 +436,7 @@ dump({
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "lineWidth",
             laterName: "quoteStyle",
@@ -499,7 +499,7 @@ const prod: Environment = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "type",
             laterName: "applications",
@@ -526,7 +526,7 @@ const foo: Foo = { name: "foo", description: "A foo." };
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "name",
             laterName: "description",
@@ -559,7 +559,7 @@ const foo: Foo = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "name",
             laterName: "description",
@@ -596,7 +596,7 @@ declare function logFoo(foo: Foo): void;
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "name",
             laterName: "description",
@@ -633,7 +633,7 @@ bind({
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "stdout",
             laterName: "stderr",
@@ -674,7 +674,7 @@ const foo: Foo = {
       `,
       errors: [
         {
-          messageId: "incorrectOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "name",
             laterName: "description",
