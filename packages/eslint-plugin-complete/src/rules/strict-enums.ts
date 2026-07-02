@@ -271,10 +271,7 @@ export const strictEnums = createRule<Options, MessageIds>({
       }
 
       const rightEnumTypes = getEnumTypes(rightType);
-      const intersectingTypes = getIntersectingSet(
-        leftEnumTypes,
-        rightEnumTypes,
-      );
+      const intersectingTypes = leftEnumTypes.intersection(rightEnumTypes);
       return intersectingTypes.size === 0;
     }
 
@@ -502,15 +499,6 @@ export const strictEnums = createRule<Options, MessageIds>({
     };
   },
 });
-
-/** Given a set A and set B, return a set that contains only elements that are in both sets. */
-function getIntersectingSet<T>(
-  a: ReadonlySet<T>,
-  b: ReadonlySet<T>,
-): ReadonlySet<T> {
-  const intersectingValues = [...a].filter((value) => b.has(value));
-  return new Set(intersectingValues);
-}
 
 /**
  * From:
