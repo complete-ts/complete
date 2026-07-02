@@ -339,8 +339,8 @@ async function updateCSpellConfigForAuthorName(
   const invalidWords = await filterMapAsync(words, async (word) => {
     const $$q = $q({
       cwd: projectPath,
-      reject: false,
       input: word,
+      reject: false,
     });
     const { exitCode } = await $$q`cspell stdin`;
     return exitCode === 0 ? undefined : word;

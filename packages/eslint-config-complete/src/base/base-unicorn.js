@@ -266,7 +266,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-dom-node-text-content": "error",
     "unicorn/prefer-early-return": "error",
     "unicorn/prefer-else-if": "error",
-    "unicorn/prefer-error-is-error": "error",
+
+    /** Disabled because ECMAScript 2027 APIs are too new to enforce. */
+    "unicorn/prefer-error-is-error": "off",
+
     "unicorn/prefer-event-target": "error",
     "unicorn/prefer-export-from": "error",
     "unicorn/prefer-flat-math-min-max": "error",
@@ -388,7 +391,11 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-number-to-fixed-digits-argument": "error",
     "unicorn/require-passive-events": "error",
 
-    /** Disabled since it is not recommended by the plugin authors. */
+    /**
+     * Disabled since it is [not
+     * recommended](https://github.com/sindresorhus/eslint-plugin-unicorn/pull/1581) by the plugin
+     * authors.
+     */
     "unicorn/require-post-message-target-origin": "off",
 
     "unicorn/require-proxy-trap-boolean-return": "error",
