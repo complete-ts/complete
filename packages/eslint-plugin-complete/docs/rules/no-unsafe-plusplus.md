@@ -17,8 +17,8 @@ This rule is meant to be used in conjunction with this [`prefer-plusplus`](prefe
 ```ts
 // Bad
 (foo++, foo++, foo++);
-for (foo++; ; ) {}
-for (; foo++; ) {}
+for (foo++; ;) {}
+for (; foo++;) {}
 foo++ + foo++;
 array[foo++];
 

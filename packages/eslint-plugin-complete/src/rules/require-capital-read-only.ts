@@ -7,10 +7,7 @@ import { createRule } from "../utils.js";
 export type Options = [];
 
 export type MessageIds =
-  | "readOnlyArray"
-  | "readOnlyMap"
-  | "readOnlyObject"
-  | "readOnlySet";
+  "readOnlyArray" | "readOnlyMap" | "readOnlyObject" | "readOnlySet";
 
 export const requireCapitalReadOnly = createRule<Options, MessageIds>({
   name: "require-capital-read-only",
@@ -124,7 +121,7 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
   return !!(
     // prettier-ignore
     // @ts-expect-error Using internal functions.
-    (ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
+    ts.getCheckFlags(symbol) & ts.CheckFlags.Readonly ||
       (symbol.flags & ts.SymbolFlags.Property &&
         // @ts-expect-error Using internal functions.
         ts.getDeclarationModifierFlagsFromSymbol(symbol) &
@@ -134,7 +131,7 @@ function isReadonlySymbol(symbol: ts.Symbol): boolean {
         ts.getDeclarationNodeFlagsFromSymbol(symbol) & ts.NodeFlags.Const) ||
       (symbol.flags & ts.SymbolFlags.Accessor &&
         !(symbol.flags & ts.SymbolFlags.SetAccessor)) ||
-      symbol.flags & ts.SymbolFlags.EnumMember)
+      symbol.flags & ts.SymbolFlags.EnumMember
   );
 }
 /* eslint-enable */

@@ -4,9 +4,7 @@ import { getAdjustedList, reachedNewList } from "./list.js";
 import { hasURL } from "./utils.js";
 
 export type CompleteSentenceMessageIds =
-  | "doublePeriod"
-  | "missingCapital"
-  | "missingPeriod";
+  "doublePeriod" | "missingCapital" | "missingPeriod";
 
 interface IncompleteSentence {
   sentence: string;

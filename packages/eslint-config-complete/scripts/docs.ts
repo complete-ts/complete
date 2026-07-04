@@ -90,8 +90,7 @@ function getTypeScriptESLintConfigRules(configName: string): readonly string[] {
   const configNameCamelCase = kebabCaseToCamelCase(configName);
   const configKey = configNameCamelCase as keyof typeof tseslint.configs;
   const configArray = tseslint.configs[configKey] as
-    | FlatConfig.Config[]
-    | undefined;
+    FlatConfig.Config[] | undefined;
   assertDefined(
     configArray,
     `Failed to parse the "typescript-eslint/${configName}" config.`,

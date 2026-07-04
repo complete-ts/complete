@@ -54,9 +54,7 @@ export async function getPackageJSON(
  */
 export async function getPackageJSONDependencies(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
   dependencyType: DependencyType = "dependencies",
 ): Promise<Record<string, string> | undefined> {
   const packageJSON =
@@ -102,9 +100,7 @@ export async function getPackageJSONDependencies(
  */
 export async function getPackageJSONField(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
   fieldName: string,
 ): Promise<string | undefined> {
   const packageJSON =
@@ -142,9 +138,7 @@ export async function getPackageJSONField(
  */
 export async function getPackageJSONFieldMandatory(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
   fieldName: string,
 ): Promise<string> {
   const field = await getPackageJSONField(filePathOrDirPathOrRecord, fieldName);
@@ -203,9 +197,7 @@ export async function getPackageJSONFieldsMandatory<T extends string>(
  */
 export async function getPackageJSONScripts(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
 ): Promise<Record<string, string> | undefined> {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
@@ -251,9 +243,7 @@ export async function getPackageJSONScripts(
  */
 export async function getPackageJSONVersion(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
 ): Promise<string> {
   const version = await getPackageJSONField(
     filePathOrDirPathOrRecord,
@@ -273,9 +263,7 @@ export async function getPackageJSONVersion(
 /** @see https://bun.com/docs/pm/catalogs */
 export async function packageJSONHasCatalog(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
 ): Promise<boolean> {
   const packageJSON =
     typeof filePathOrDirPathOrRecord === "object"
@@ -306,9 +294,7 @@ export async function packageJSONHasCatalog(
  */
 export async function packageJSONHasDependency(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
   dependencyName: string,
   dependencyType: DependencyType = "dependencies",
 ): Promise<boolean> {
@@ -337,9 +323,7 @@ export async function packageJSONHasDependency(
  */
 export async function packageJSONHasScript(
   filePathOrDirPathOrRecord:
-    | string
-    | ReadonlyRecord<string, unknown>
-    | undefined,
+    string | ReadonlyRecord<string, unknown> | undefined,
   scriptName: string,
 ): Promise<boolean> {
   const packageJSON =

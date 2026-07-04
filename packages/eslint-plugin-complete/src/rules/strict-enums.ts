@@ -21,9 +21,7 @@ const ALLOWED_TYPES_FOR_ANY_ENUM_ARGUMENT =
 export type Options = [];
 
 export type MessageIds =
-  | "incorrectIncrement"
-  | "mismatchedAssignment"
-  | "mismatchedFunctionArgument";
+  "incorrectIncrement" | "mismatchedAssignment" | "mismatchedFunctionArgument";
 
 export const strictEnums = createRule<Options, MessageIds>({
   name: "strict-enums",
