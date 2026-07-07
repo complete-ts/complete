@@ -290,6 +290,18 @@ export function assertObject<T>(
   }
 }
 
+/** Helper function to throw an error if the provided value is not a positive integer. */
+export function assertPositiveInteger(
+  value: unknown,
+  msg: string,
+): asserts value is number {
+  // `Number.isSafeInteger` will correctly return false for non-number variables such as strings,
+  // booleans, and so on.
+  if (!Number.isSafeInteger(value) || (value as number) <= 0) {
+    throw new TypeError(msg);
+  }
+}
+
 /** Helper function to throw an error if the provided value is not a string. */
 export function assertString<T>(
   value: T,
