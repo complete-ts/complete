@@ -7,7 +7,8 @@
 /**
  * Helper function to get the number of elapsed seconds since a starting time.
  *
- * This function always returns a whole number (using `Math.floor` on the result).
+ * By default, this function will return a whole number (using `Math.floor` on the result), but this
+ * can be disabled with the "roundToInteger" parameter.
  *
  * For example:
  *
