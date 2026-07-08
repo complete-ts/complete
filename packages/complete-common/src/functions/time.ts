@@ -17,10 +17,13 @@
  * const elapsedSeconds = getElapsedSeconds(startTime);
  * ```
  */
-export function getElapsedSeconds(startTime: number): number {
+export function getElapsedSeconds(
+  startTime: number,
+  roundToInteger = true,
+): number {
   const endTime = Date.now();
   const elapsedMilliseconds = endTime - startTime;
   const elapsedSeconds = elapsedMilliseconds / 1000;
 
-  return Math.floor(elapsedSeconds);
+  return roundToInteger ? Math.floor(elapsedSeconds) : elapsedSeconds;
 }
