@@ -85,6 +85,7 @@ export const baseUnicorn = defineConfig({
     /** Disabled because this goes against the standard JSDoc format. */
     "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
 
+    "unicorn/no-async-promise-finally": "error",
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
     "unicorn/no-blob-to-file": "error",
@@ -182,9 +183,11 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-uncalled-method": "error",
     "unicorn/no-undeclared-class-members": "error",
     "unicorn/no-unnecessary-array-flat-depth": "error",
+    "unicorn/no-unnecessary-array-flat-map": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
     "unicorn/no-unnecessary-await": "error",
     "unicorn/no-unnecessary-boolean-comparison": "error",
+    "unicorn/no-unnecessary-fetch-options": "error",
     "unicorn/no-unnecessary-global-this": "error",
     "unicorn/no-unnecessary-nested-ternary": "error",
     "unicorn/no-unnecessary-polyfills": "error",
@@ -197,6 +200,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unreadable-object-destructuring": "error",
     "unicorn/no-unsafe-buffer-conversion": "error",
     "unicorn/no-unsafe-dom-html": "error",
+    "unicorn/no-unsafe-promise-all-settled-values": "error",
     "unicorn/no-unsafe-property-key": "error",
 
     /** Disabled since it has too many false positives. */
@@ -232,6 +236,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/number-literal-case": "off", // eslint-config-prettier
     "unicorn/numeric-separators-style": "error",
     "unicorn/operator-assignment": "error",
+    "unicorn/prefer-abort-signal-any": "error",
     "unicorn/prefer-abort-signal-timeout": "error",
     "unicorn/prefer-add-event-listener": "error",
     "unicorn/prefer-add-event-listener-options": "error",
@@ -241,6 +246,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-from-async": "error",
     "unicorn/prefer-array-from-map": "error",
+    "unicorn/prefer-array-from-range": "error",
     "unicorn/prefer-array-index-of": "error",
     "unicorn/prefer-array-iterable-methods": "error",
     "unicorn/prefer-array-last-methods": "error",
@@ -250,6 +256,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-await": "error",
     "unicorn/prefer-bigint-literals": "error",
     "unicorn/prefer-blob-reading-methods": "error",
+    "unicorn/prefer-block-statement-over-iife": "error",
     "unicorn/prefer-boolean-return": "error",
     "unicorn/prefer-class-fields": "error",
     "unicorn/prefer-classlist-toggle": "error",
@@ -276,6 +283,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-get-or-insert-computed": "error",
     "unicorn/prefer-global-number-constants": "error",
     "unicorn/prefer-global-this": "error",
+    "unicorn/prefer-group-by": "error",
     "unicorn/prefer-has-check": "error",
     "unicorn/prefer-hoisting-branch-code": "error",
     "unicorn/prefer-https": "error",
@@ -294,6 +302,7 @@ export const baseUnicorn = defineConfig({
     /** Disabled since `Iterator.spread` is not available in TypeScript 6. */
     "unicorn/prefer-iterator-concat": "off",
 
+    "unicorn/prefer-iterator-helpers": "error",
     "unicorn/prefer-iterator-to-array": "error",
     "unicorn/prefer-iterator-to-array-at-end": "error",
 
@@ -339,6 +348,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-short-arrow-method": "error",
     "unicorn/prefer-simple-condition-first": "error",
     "unicorn/prefer-simple-sort-comparator": "error",
+    "unicorn/prefer-simplified-conditions": "error",
     "unicorn/prefer-single-array-predicate": "error",
     "unicorn/prefer-single-call": "error",
     "unicorn/prefer-single-object-destructuring": "error",
