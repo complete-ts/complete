@@ -8,6 +8,34 @@ import type { ReadonlyRecord } from "../types/ReadonlyRecord.js";
 import type { WidenLiteral } from "../types/WidenLiteral.js";
 
 /**
+ * Helper function to get the keys and values of an object with their literal key types preserved.
+ *
+ * This is a typed wrapper around `Object.entries`. The type assertion is necessary because
+ * TypeScript defines the keys from `Object.entries` as being `string[]`.
+ */
+export function getObjectEntries<const T extends object>(
+  object: T,
+): ReadonlyArray<{ [K in keyof T]: [K, T[K]] }[keyof T]> {
+  return Object.entries(object) as Array<
+    {
+      [K in keyof T]: [K, T[K]];
+    }[keyof T]
+  >;
+}
+
+/**
+ * Helper function to get keys of an object with their literal key types preserved.
+ *
+ * This is a typed wrapper around `Object.keys`. The type assertion is necessary because TypeScript
+ * defines `Object.keys` as returning `string[]`.
+ */
+export function getObjectKeys<const T extends object>(
+  object: T,
+): ReadonlyArray<keyof T> {
+  return Object.keys(object) as Array<keyof T>;
+}
+
+/**
  * Safely gets a value from a widened object.
  *
  * This is useful when normal indexing produces a type error from an object that uses an `as const`
