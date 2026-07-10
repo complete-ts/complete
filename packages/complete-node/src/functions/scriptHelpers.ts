@@ -165,9 +165,9 @@ export async function script(
       );
       const exitCode = typeof error.exitCode === "number" ? error.exitCode : 1;
       process.exit(exitCode);
-    } else {
-      throw error;
     }
+
+    throw error;
   }
 
   if (!quiet && verb !== undefined) {
