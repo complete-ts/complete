@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a sharable configuration for [markdownlint](https://github.com/DavidAnson/markdownlint). It disables rules that are redundant with [Prettier](https://prettier.io/) or do not provide enough value for typical Markdown projects.
+This is a sharable configuration for [markdownlint](https://github.com/DavidAnson/markdownlint). It disables rules that are redundant with [Prettier](https://prettier.io/) and [`markdownlint-rule-complete`](/markdownlint-rule-complete).
 
 ## Install
 
@@ -57,7 +57,6 @@ Custom rules are distributed separately by [`markdownlint-rule-complete`](/markd
 - `MD022` (headings should be surrounded by blank lines): Prettier handles this check.
 - `MD031` (fenced code blocks should be surrounded by blank lines): Prettier handles this check.
 - `MD032` (lists should be surrounded by blank lines): Prettier handles this check.
-- `MD034` (bare URLs): GitHub and Docusaurus convert bare URLs into links.
-- `MD045` (images should have alternate text): The maintenance burden of alternate text outweighs its advantages.
+- `MD045` (images should have alternate text): Conflicts with `markdownlint-rule-complete/no-image-alt-text`.
 - `MD047` (files should end with a single newline): Prettier handles this check.
 - `MD060` (table column style): Prettier handles this check.
