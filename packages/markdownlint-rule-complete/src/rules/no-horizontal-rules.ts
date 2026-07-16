@@ -1,6 +1,6 @@
 import type { Rule } from "markdownlint";
 
-export const noHorizontalRules: Rule = {
+const noHorizontalRules: Rule = {
   names: ["no-horizontal-rules"],
   description: "Horizontal rules are not allowed",
   tags: ["style"],

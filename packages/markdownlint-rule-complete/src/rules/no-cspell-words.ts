@@ -2,7 +2,7 @@ import type { Rule } from "markdownlint";
 
 const CSPELL_WORDS_DIRECTIVE = /cspell:\s*words/giv;
 
-export const noCspellWords: Rule = {
+const noCspellWords: Rule = {
   names: ["no-cspell-words"],
   description: "CSpell words directives are not allowed.",
   tags: ["style"],

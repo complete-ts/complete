@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noImageAltText } from "../src/rules/no-image-alt-text.js";
+import noImageAltText from "../src/rules/no-image-alt-text.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("removes image alt text", () => {

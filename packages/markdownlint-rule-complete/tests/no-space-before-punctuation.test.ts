@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noSpaceBeforePunctuation } from "../src/rules/no-space-before-punctuation.js";
+import noSpaceBeforePunctuation from "../src/rules/no-space-before-punctuation.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("no-space-before-punctuation", () => {

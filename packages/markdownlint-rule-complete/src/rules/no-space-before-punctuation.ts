@@ -1,6 +1,6 @@
 import type { Rule } from "markdownlint";
 
-export const noSpaceBeforePunctuation: Rule = {
+const noSpaceBeforePunctuation: Rule = {
   names: ["no-space-before-punctuation"],
   description: "Accidental space before a period or comma.",
   tags: ["style"],

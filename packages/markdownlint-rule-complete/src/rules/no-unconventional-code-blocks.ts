@@ -6,7 +6,7 @@ const UNCONVENTIONAL_LANGUAGES: ReadonlyMap<string, string> = new Map([
   ["text", "txt"],
 ]);
 
-export const noUnconventionalCodeBlocks: Rule = {
+const noUnconventionalCodeBlocks: Rule = {
   names: ["no-unconventional-code-blocks"],
   description:
     "Unconventional code block language identifiers are not allowed.",

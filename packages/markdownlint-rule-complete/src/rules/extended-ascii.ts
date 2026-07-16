@@ -6,7 +6,7 @@ const EMOJI_WHITELIST: ReadonlySet<string> = new Set(["\u{2705}", "\u{274C}"]);
  * Based on:
  * https://github.com/DavidAnson/markdownlint-rule-extended-ascii/blob/main/extended-ascii.cjs
  */
-export const extendedAscii: Rule = {
+const extendedAscii: Rule = {
   names: ["extended-ascii"],
   description: "Only extended ASCII characters are allowed",
   tags: ["accessibility"],

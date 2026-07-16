@@ -1,6 +1,6 @@
 import type { MarkdownItBaseToken, Rule } from "markdownlint";
 
-export const noRedundantLinks: Rule = {
+const noRedundantLinks: Rule = {
   names: ["no-redundant-links"],
   description:
     "Redundant links should be avoided (link text is the same as the URL)",

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noCodeBlockNewlines } from "../src/rules/no-code-block-newlines.js";
+import noCodeBlockNewlines from "../src/rules/no-code-block-newlines.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("normal code block", () => {

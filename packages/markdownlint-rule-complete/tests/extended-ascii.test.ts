@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { extendedAscii } from "../src/rules/extended-ascii.js";
+import extendedAscii from "../src/rules/extended-ascii.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("plain text", () => {

@@ -1,7 +1,7 @@
 import { assertDefined, parseIntSafe } from "complete-common";
 import type { Rule } from "markdownlint";
 
-export const noBoldHeaders: Rule = {
+const noBoldHeaders: Rule = {
   names: ["no-bold-headers"],
   description: "Headers should not contain bolding.",
   tags: ["style"],

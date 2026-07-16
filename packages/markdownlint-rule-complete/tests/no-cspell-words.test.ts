@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noCspellWords } from "../src/rules/no-cspell-words.js";
+import noCspellWords from "../src/rules/no-cspell-words.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("allows other cspell directives", () => {

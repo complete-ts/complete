@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noRedundantLinks } from "../src/rules/no-redundant-links.js";
+import noRedundantLinks from "../src/rules/no-redundant-links.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("normal link", () => {

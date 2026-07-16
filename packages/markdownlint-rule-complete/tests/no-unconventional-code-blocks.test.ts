@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noUnconventionalCodeBlocks } from "../src/rules/no-unconventional-code-blocks.js";
+import noUnconventionalCodeBlocks from "../src/rules/no-unconventional-code-blocks.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("no-unconventional-code-blocks", () => {

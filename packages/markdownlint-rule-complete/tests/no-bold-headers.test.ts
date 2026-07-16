@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noBoldHeaders } from "../src/rules/no-bold-headers.js";
+import noBoldHeaders from "../src/rules/no-bold-headers.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("no-bold-headers", () => {

@@ -1,6 +1,6 @@
 import type { Rule } from "markdownlint";
 
-export const noCodeBlockNewlines: Rule = {
+const noCodeBlockNewlines: Rule = {
   names: ["no-code-block-newlines"],
   description:
     "Code blocks must not have leading or trailing blank lines inside the fences.",

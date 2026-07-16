@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { noHorizontalRules } from "../src/rules/no-horizontal-rules.js";
+import noHorizontalRules from "../src/rules/no-horizontal-rules.js";
 import { testMarkdownlintRule } from "./utils.js";
 
 test("no-horizontal-rules", () => {

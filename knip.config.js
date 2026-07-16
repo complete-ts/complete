@@ -16,7 +16,6 @@ const config = {
   workspaces: {
     "packages/complete-cli": {
       ignore: ["file-templates/**"],
-      ignoreBinaries: ["publish"], // TODO: https://github.com/webpro-nl/knip/pull/1662
     },
     "packages/complete-lint": {
       // Since this is a meta-package, Knip will think all of the dependencies are unused.
@@ -39,7 +38,7 @@ const config = {
       ],
     },
     "packages/markdownlint-rule-complete": {
-      ignoreDependencies: ["unbuild"], // Executed indirectly in: scripts/build.ts
+      ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
     },
   },
 };

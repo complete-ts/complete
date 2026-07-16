@@ -1,6 +1,6 @@
 import type { MicromarkToken, Rule } from "markdownlint";
 
-export const noImageAltText: Rule = {
+const noImageAltText: Rule = {
   names: ["no-image-alt-text"],
   description: "Images links must not have alt text",
   tags: ["accessibility"],
