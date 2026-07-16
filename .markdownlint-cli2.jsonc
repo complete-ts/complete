@@ -2,62 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/markdownlint-cli2-config-schema-jsonc.json",
 
   "config": {
-    // Trailing spaces
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md009.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD009": false,
-
-    // Hard tabs
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md010.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD010": false,
-
-    // Multiple consecutive blank lines
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md012.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD012": false,
-
-    // Line length
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md013.md
-    // Having an arbitrary line length limit for Markdown files is undesirable because we format
-    // them with Prettier and Prettier does not automatically break long lines.
-    "MD013": false,
-
-    // Headings should be surrounded by blank lines
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md022.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD022": false,
-
-    // Fenced code blocks should be surrounded by blank lines
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md031.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD031": false,
-
-    // Lists should be surrounded by blank lines
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md032.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD032": false,
-
-    // Bare URL used
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md034.md
-    // The rationale for this rule is that bare URLs are not converted into links by some Markdown
-    // parsers. However, both GitHub and Docusaurus do properly convert bare URLs.
-    "MD034": false,
-
-    // Images should have alternate text (alt text)
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md045.md
-    // The advantages of alt text do not outweigh their maintenance burden.
-    "MD045": false,
-
-    // Files should end with a single newline character
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md047.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD047": false,
-
-    // Table column style
-    // https://github.com/DavidAnson/markdownlint/blob/main/doc/md060.md
-    // Prettier handles this check, so there is no need for Markdownlint to flag it.
-    "MD060": false,
+    "extends": "markdownlint-config-complete",
   },
 
   // We have to import them one at a time because Node.js cannot resolve the ".js" imports.

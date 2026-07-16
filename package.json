@@ -118,6 +118,7 @@
     "husky": "9.1.7",
     "knip": "catalog:",
     "markdownlint-cli2": "0.23.0",
+    "markdownlint-config-complete": "workspace:*",
     "npm-check-updates": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",

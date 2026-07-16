@@ -49,6 +49,7 @@ const sidebars: SidebarsConfig = {
         id: "eslint-plugin-complete",
       },
     },
+    "markdownlint-config-complete",
     "markdownlint-rule-complete",
   ],
 };

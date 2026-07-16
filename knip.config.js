@@ -9,6 +9,7 @@ const config = {
     "cspell", // Executed in: scripts/lint.ts
     "cspell-check-unused-words", // Executed in: scripts/lint.ts
     "eslint-plugin-complete", // Executed in: scripts/lint.ts
+    "markdownlint-config-complete", // Used in: .markdownlint-cli2.jsonc
     "markdownlint-cli2", // Executed in: scripts/lint.ts
     "npm-check-updates", // Needed by the "update" script.
   ],

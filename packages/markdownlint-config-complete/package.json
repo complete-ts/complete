@@ -1,0 +1,35 @@
+{
+  "name": "markdownlint-config-complete",
+  "version": "1.0.0",
+  "description": "A sharable markdownlint config.",
+  "keywords": [
+    "markdown",
+    "markdownlint",
+    "config",
+    "configs",
+    "lint",
+    "linting"
+  ],
+  "homepage": "https://complete-ts.github.io/",
+  "bugs": {
+    "url": "https://github.com/complete-ts/complete/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/complete-ts/complete.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "type": "module",
+  "exports": "./markdownlint.json",
+  "main": "./markdownlint.json",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "markdownlint.json",
+    "package.json"
+  ],
+  "peerDependencies": {
+    "markdownlint": ">= 0.41.0"
+  }
+}
