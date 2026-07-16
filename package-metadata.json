@@ -1,5 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/refs/heads/main/packages/complete-cli/schemas/package-metadata-schema.json",
+  "dependencies": {
+    "typescript": {
+      "lock-version": true,
+      "lock-reason": "TSESLint does not work yet with TypeScript 7"
+    }
+  },
   "devDependencies": {
     "@babel/core": {
       "lock-version": true,
