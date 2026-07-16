@@ -38,7 +38,7 @@ export const noRedundantLinks: Rule = {
   },
 };
 
-export default noRedundantLinks; // eslint-disable-line import-x/no-default-export
+export default noRedundantLinks;
 
 function getAttr(token: MarkdownItBaseToken, name: string): string | undefined {
   const attrs = token.attrs ?? [];

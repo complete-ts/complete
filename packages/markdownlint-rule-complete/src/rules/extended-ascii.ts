@@ -63,4 +63,4 @@ export const extendedAscii: Rule = {
   },
 };
 
-export default extendedAscii; // eslint-disable-line import-x/no-default-export
+export default extendedAscii;

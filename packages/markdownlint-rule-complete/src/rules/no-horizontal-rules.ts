@@ -19,4 +19,4 @@ export const noHorizontalRules: Rule = {
   },
 };
 
-export default noHorizontalRules; // eslint-disable-line import-x/no-default-export
+export default noHorizontalRules;

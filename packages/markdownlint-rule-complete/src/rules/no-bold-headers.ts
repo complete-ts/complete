@@ -62,4 +62,4 @@ export const noBoldHeaders: Rule = {
   },
 };
 
-export default noBoldHeaders; // eslint-disable-line import-x/no-default-export
+export default noBoldHeaders;

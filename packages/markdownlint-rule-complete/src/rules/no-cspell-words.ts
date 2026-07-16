@@ -23,4 +23,4 @@ export const noCspellWords: Rule = {
   },
 };
 
-export default noCspellWords; // eslint-disable-line import-x/no-default-export
+export default noCspellWords;
