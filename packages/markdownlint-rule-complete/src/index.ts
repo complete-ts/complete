@@ -20,8 +20,8 @@ const rules: Rule[] = [
   noSpaceBeforePunctuation,
   noUnconventionalCodeBlocks,
 ];
-
 export default rules;
+
 export { extendedAscii } from "./rules/extended-ascii.js";
 export { noBoldHeaders } from "./rules/no-bold-headers.js";
 export { noCodeBlockNewlines } from "./rules/no-code-block-newlines.js";
