@@ -1,6 +1,6 @@
 # `eslint-config-complete`
 
-[![npm version](https://img.shields.io/npm/v/eslint-config-complete.svg)](https://www.npmjs.com/package/eslint-config-complete)
+[![](https://img.shields.io/npm/v/eslint-config-complete.svg)](https://www.npmjs.com/package/eslint-config-complete)
 
 ## Introduction
 

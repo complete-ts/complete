@@ -12,8 +12,6 @@ Require code and comments to only contain ASCII characters. If this is too restr
 
 ## Rule Details
 
-<!-- cspell:words Αlice -->
-
 ```ts
 // Bad
 const name = "Αlice"; // Greek letter A (0x391), which is indistinguishable from a normal A.

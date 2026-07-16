@@ -1,6 +1,6 @@
 # `markdownlint-rule-complete`
 
-[![npm version](https://img.shields.io/npm/v/markdownlint-rule-complete.svg)](https://www.npmjs.com/package/markdownlint-rule-complete)
+[![](https://img.shields.io/npm/v/markdownlint-rule-complete.svg)](https://www.npmjs.com/package/markdownlint-rule-complete)
 
 `markdownlint-rule-complete` is a collection of opinionated custom rules for [`markdownlint`](https://github.com/DavidAnson/markdownlint).
 

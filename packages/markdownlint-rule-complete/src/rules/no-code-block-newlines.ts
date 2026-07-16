@@ -57,3 +57,5 @@ export const noCodeBlockNewlines: Rule = {
     }
   },
 };
+
+export default noCodeBlockNewlines; // eslint-disable-line import-x/no-default-export

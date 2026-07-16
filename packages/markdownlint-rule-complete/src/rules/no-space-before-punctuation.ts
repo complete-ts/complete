@@ -77,3 +77,5 @@ export const noSpaceBeforePunctuation: Rule = {
     }
   },
 };
+
+export default noSpaceBeforePunctuation; // eslint-disable-line import-x/no-default-export

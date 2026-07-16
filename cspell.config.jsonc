@@ -49,6 +49,7 @@
     "misrefactored",
     "nonconstructor",
     "nonoctal",
+    "nums",
     "quasis",
     "Rossum",
     "sarisia",
@@ -59,5 +60,6 @@
     "TSES",
     "Webstorm",
     "Zamiell",
+    "Αlice",
   ],
 }

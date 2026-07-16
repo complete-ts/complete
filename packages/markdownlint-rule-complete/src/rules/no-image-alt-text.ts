@@ -29,6 +29,8 @@ export const noImageAltText: Rule = {
   },
 };
 
+export default noImageAltText; // eslint-disable-line import-x/no-default-export
+
 function traverse(
   tokens: readonly MicromarkToken[],
   type: string,

@@ -1,9 +1,11 @@
 import type { Rule } from "markdownlint";
 
-// Based on:
-// https://github.com/DavidAnson/markdownlint-rule-extended-ascii/blob/main/extended-ascii.cjs
 const EMOJI_WHITELIST: ReadonlySet<string> = new Set(["\u{2705}", "\u{274C}"]);
 
+/**
+ * Based on:
+ * https://github.com/DavidAnson/markdownlint-rule-extended-ascii/blob/main/extended-ascii.cjs
+ */
 export const extendedAscii: Rule = {
   names: ["extended-ascii"],
   description: "Only extended ASCII characters are allowed",
@@ -60,3 +62,5 @@ export const extendedAscii: Rule = {
     }
   },
 };
+
+export default extendedAscii; // eslint-disable-line import-x/no-default-export

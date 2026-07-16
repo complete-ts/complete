@@ -1,6 +1,6 @@
 # `eslint-plugin-complete`
 
-[![npm version](https://img.shields.io/npm/v/eslint-plugin-complete.svg)](https://www.npmjs.com/package/eslint-plugin-complete)
+[![](https://img.shields.io/npm/v/eslint-plugin-complete.svg)](https://www.npmjs.com/package/eslint-plugin-complete)
 
 ## Introduction
 
@@ -65,7 +65,6 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 ## Rules
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: bun run generate -->
-<!-- markdownlint-disable MD060 -->
 <!-- begin auto-generated rules list -->
 
 💼 Configurations enabled in.\

@@ -44,3 +44,5 @@ export const noUnconventionalCodeBlocks: Rule = {
     }
   },
 };
+
+export default noUnconventionalCodeBlocks; // eslint-disable-line import-x/no-default-export

@@ -1,6 +1,6 @@
 # `complete-tsconfig`
 
-[![npm version](https://img.shields.io/npm/v/complete-tsconfig.svg)](https://www.npmjs.com/package/complete-tsconfig)
+[![](https://img.shields.io/npm/v/complete-tsconfig.svg)](https://www.npmjs.com/package/complete-tsconfig)
 
 ## Introduction
 
