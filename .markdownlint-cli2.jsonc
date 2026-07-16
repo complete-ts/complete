@@ -60,6 +60,7 @@
     "MD060": false,
   },
 
+  // We have to import them one at a time because Node.js cannot resolve the ".js" imports.
   "customRules": [
     "./packages/markdownlint-rule-complete/src/rules/extended-ascii.ts",
     "./packages/markdownlint-rule-complete/src/rules/no-bold-headers.ts",
