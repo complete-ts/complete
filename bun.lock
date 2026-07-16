@@ -201,6 +201,25 @@
         "typescript": ">= 6.0.0",
       },
     },
+    "packages/markdownlint-rule-complete": {
+      "name": "markdownlint-rule-complete",
+      "version": "1.0.0",
+      "dependencies": {
+        "complete-common": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/bun": "catalog:",
+        "@types/markdown-it": "catalog:",
+        "complete-node": "workspace:*",
+        "markdown-it": "catalog:",
+        "markdownlint": "catalog:",
+        "typescript": "catalog:",
+        "unbuild": "catalog:",
+      },
+      "peerDependencies": {
+        "markdownlint": ">= 0.41.0",
+      },
+    },
   },
   "catalog": {
     "@babel/core": "7.29.7",
@@ -224,6 +243,7 @@
     "@types/confusing-browser-globals": "1.0.3",
     "@types/jest": "30.0.0",
     "@types/klaw-sync": "6.0.5",
+    "@types/markdown-it": "14.1.2",
     "@types/node": "26.1.0",
     "@types/source-map-support": "0.5.10",
     "@types/which": "3.0.4",
@@ -257,6 +277,8 @@
     "klaw-sync": "8.0.0",
     "knip": "6.24.0",
     "listr2": "10.2.2",
+    "markdown-it": "14.2.0",
+    "markdownlint": "0.41.0",
     "npm-check-updates": "22.2.9",
     "package-directory": "8.2.0",
     "prettier": "3.9.4",
@@ -1483,7 +1505,13 @@
 
     "@types/klaw-sync": ["@types/klaw-sync@6.0.5", "", { "dependencies": { "@types/node": "*" } }, "sha512-xlavCRyu5ibDjsOc7PSgeUbwOBZdnJsND8gFUVfBilplbBIWhLZVjwtqbZq0327ny3jNt7oviEh5NS9a4LudeQ=="],
 
+    "@types/linkify-it": ["@types/linkify-it@5.0.0", "", {}, "sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q=="],
+
+    "@types/markdown-it": ["@types/markdown-it@14.1.2", "", { "dependencies": { "@types/linkify-it": "^5", "@types/mdurl": "^2" } }, "sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog=="],
+
     "@types/mdast": ["@types/mdast@4.0.4", "", { "dependencies": { "@types/unist": "*" } }, "sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA=="],
+
+    "@types/mdurl": ["@types/mdurl@2.0.0", "", {}, "sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg=="],
 
     "@types/mdx": ["@types/mdx@2.0.14", "", {}, "sha512-T48PeuJtvLosNTPVhfnIp3i/n3a4g4Bad7YCq5k64D4u7NwDrAotikQ+5+sjtUvBmxCMlbo3dVL+C2dP0rWHzg=="],
 
@@ -2698,6 +2726,8 @@
     "markdownlint-cli2": ["markdownlint-cli2@0.23.0", "", { "dependencies": { "globby": "16.2.0", "js-yaml": "5.2.0", "jsonc-parser": "3.3.1", "jsonpointer": "5.0.1", "markdown-it": "14.2.0", "markdownlint": "0.41.0", "markdownlint-cli2-formatter-default": "0.0.6", "micromatch": "4.0.8", "smol-toml": "1.7.0" }, "bin": { "markdownlint-cli2": "markdownlint-cli2-bin.mjs" } }, "sha512-1nmgQmU/ZTMRVwYCDs7i1HI3zfBISnT2NNRv+9V01oOLZbAtqL+a7tldpPhBWBVBten3FqhMCGV6EUh9McqutQ=="],
 
     "markdownlint-cli2-formatter-default": ["markdownlint-cli2-formatter-default@0.0.6", "", { "peerDependencies": { "markdownlint-cli2": ">=0.0.4" } }, "sha512-VVDGKsq9sgzu378swJ0fcHfSicUnMxnL8gnLm/Q4J/xsNJ4e5bA6lvAz7PCzIl0/No0lHyaWdqVD2jotxOSFMQ=="],
+
+    "markdownlint-rule-complete": ["markdownlint-rule-complete@workspace:packages/markdownlint-rule-complete"],
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
 

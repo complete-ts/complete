@@ -38,6 +38,9 @@ const config = {
         "tests/fixtures/file.ts",
       ],
     },
+    "packages/markdownlint-rule-complete": {
+      ignoreDependencies: ["unbuild"], // Executed indirectly in: scripts/build.ts
+    },
   },
 };
 

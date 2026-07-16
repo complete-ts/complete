@@ -1,0 +1,56 @@
+{
+  "name": "markdownlint-rule-complete",
+  "version": "1.0.0",
+  "description": "A collection of opinionated markdownlint rules.",
+  "keywords": [
+    "markdown",
+    "markdownlint",
+    "markdownlint-rule",
+    "lint",
+    "linting",
+    "rules"
+  ],
+  "homepage": "https://complete-ts.github.io/",
+  "bugs": {
+    "url": "https://github.com/complete-ts/complete/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/complete-ts/complete.git"
+  },
+  "license": "MIT",
+  "author": "Zamiell",
+  "type": "module",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "bun run ./scripts/build.ts",
+    "lint": "bun run ./scripts/lint.ts",
+    "test": "bun test ./tests"
+  },
+  "dependencies": {
+    "complete-common": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "catalog:",
+    "@types/markdown-it": "catalog:",
+    "complete-node": "workspace:*",
+    "markdown-it": "catalog:",
+    "markdownlint": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:"
+  },
+  "peerDependencies": {
+    "markdownlint": ">= 0.41.0"
+  }
+}
