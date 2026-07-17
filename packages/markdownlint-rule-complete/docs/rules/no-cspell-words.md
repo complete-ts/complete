@@ -6,12 +6,16 @@ Disallows CSpell `words` directives.
 
 Project-specific words should be added to the CSpell configuration instead of being scattered across Markdown files. Other CSpell directives remain allowed.
 
+<!-- markdownlint-disable no-cspell-words -->
+
 ```md
 <!-- Bad -->
-<!-- cspell:words Docusaurus -->
+
+<!-- cspell:words foo --> foo
 
 <!-- Good -->
-<!-- cspell:disable-next-line -->
+
+foo
 ```
 
 ## Options
