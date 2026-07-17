@@ -66,6 +66,23 @@ await buildScript(import.meta.dirname, async (packageRoot) => {
   const templatePath = path.join(dstPluginPath, "template.md");
   await deleteFileOrDirectory(templatePath);
 
+  // markdownlint-rule-complete
+  const srcMarkdownlintPluginPath = path.join(
+    repoRoot,
+    "packages",
+    "markdownlint-rule-complete",
+    "docs",
+  );
+  const dstMarkdownlintPluginPath = path.join(
+    packageRoot,
+    "docs",
+    "markdownlint-rule-complete",
+  );
+  await copyFileOrDirectory(
+    srcMarkdownlintPluginPath,
+    dstMarkdownlintPluginPath,
+  );
+
   // Format the TypeDoc output with Prettier, which will remove superfluous backslash escape
   // characters that cause issues with search engine indexing. (However, we must change directories
   // to avoid creating a spurious "node_modules" directory.)
