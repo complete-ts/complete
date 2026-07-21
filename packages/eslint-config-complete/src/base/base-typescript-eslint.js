@@ -176,9 +176,9 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/no-extraneous-class": "error",
 
       /**
-       * - The `ignoreVoid` option is disabled to make the rule stricter.
-       * - The `allowForKnownSafeCalls` is used because the built-in Node.js test runner contains
-       *   functions that are not meant to be awaited.
+       * The `ignoreVoid` option is disabled to make the rule stricter. The `allowForKnownSafeCalls`
+       * is used because the built-in Node.js test runner contains functions that are not meant to
+       * be awaited.
        */
       "@typescript-eslint/no-floating-promises": [
         "error",
@@ -232,12 +232,8 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/no-require-imports": "error",
 
       /**
-       * Configured to prevent importing with some common patterns that are almost always a mistake:
-       *
-       * - "src" directories (but allowed in test files that are in a separate "tests" directory)
-       * - "dist" directories
-       * - "index" files (things in the same package should directly import instead of use the
-       *   public API)
+       * Configured to prevent importing with some common patterns that are almost always a mistake
+       * ("/src", "/dist", and "/index").
        */
       "@typescript-eslint/no-restricted-imports": [
         "error",
