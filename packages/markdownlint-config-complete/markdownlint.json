@@ -8,5 +8,14 @@
   "MD032": false,
   "MD045": false,
   "MD047": false,
-  "MD060": false
+  "MD060": false,
+  "extended-ascii": true,
+  "no-bold-headers": true,
+  "no-code-block-newlines": true,
+  "no-cspell-words": true,
+  "no-horizontal-rules": true,
+  "no-image-alt-text": true,
+  "no-redundant-links": true,
+  "no-space-before-punctuation": true,
+  "no-unconventional-code-blocks": true
 }
