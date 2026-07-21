@@ -177,12 +177,21 @@ export const baseTypeScriptESLint = defineConfig(
 
       /**
        * - The `ignoreVoid` option is disabled to make the rule stricter.
-       * - The rule is disabled in "*.test.ts" files because the built-in Node test runner returns a
-       *   promise that is not meant to be awaited.
+       * - The `allowForKnownSafeCalls` is used because the built-in Node.js test runner contains
+       *   functions that are not meant to be awaited.
        */
       "@typescript-eslint/no-floating-promises": [
         "error",
-        { ignoreVoid: false },
+        {
+          allowForKnownSafeCalls: [
+            {
+              from: "package",
+              name: ["describe", "test"],
+              package: "node:test",
+            },
+          ],
+          ignoreVoid: false,
+        },
       ],
 
       "@typescript-eslint/no-for-in-array": "error",
@@ -508,14 +517,6 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/no-unsafe-return": "off",
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/strict-boolean-expressions": "off",
-    },
-  },
-
-  // The built-in Node.js test-runner returns a promise which is not meant to be awaited.
-  {
-    files: ["**/*.test.{js,cjs,mjs,ts,cts,mts}"],
-    rules: {
-      "@typescript-eslint/no-floating-promises": "off",
     },
   },
 
