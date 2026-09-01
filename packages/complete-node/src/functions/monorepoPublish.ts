@@ -4,7 +4,6 @@
  * @module
  */
 
-import type { VersionBumpRelease } from "bumpp";
 import { versionBump as bumppVersionBump } from "bumpp";
 import chalk from "chalk";
 import {
@@ -105,17 +104,19 @@ export async function monorepoPublish(
   const versionBump =
     getWidenedObjectValue(VERSION_SHORTHAND_TO_ENUM, versionBumpShorthand)
     ?? versionBumpShorthand;
-  if (
-    !isEnumValue(versionBump, VersionBump)
-    && !isSemanticVersion(versionBump)
-  ) {
-    throw new Error(`The following version bump is not valid: ${versionBump}`);
+  if (!isEnumValue(versionBump, VersionBump)) {
+    throw new Error(`The following version is not valid: ${versionBump}`);
+  }
+
+  if (!isSemanticVersion(versionBump)) {
+    throw new Error(
+      `The following version is not valid semantic version: ${versionBump}`,
+    );
   }
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid
   // polluting the main branch.)
   const branchName = await getGitBranchName(monorepoRoot);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   if (branchName !== "main" && versionBump !== VersionBump.dev) {
     throw new Error("You must be on the main branch before publishing.");
   }
@@ -153,16 +154,10 @@ export async function monorepoPublish(
     }
   }
 
-  const isDev =
-    isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
-
-  let release: VersionBumpRelease = "prompt";
-  if (isEnumValue(versionBump, VersionBump)) {
-    release = versionBump === VersionBump.dev ? "prerelease" : versionBump;
-  }
+  const isDev = versionBump === VersionBump.dev;
 
   const versionBumpResults = await bumppVersionBump({
-    release,
+    release: isDev ? "prerelease" : versionBump, // Defaults to "prompt".
     preid: isDev ? "dev" : undefined, // Defaults to "beta".
     commit: false, // Defaults to true.
     tag: false, // Defaults to true.

@@ -63,7 +63,7 @@ export function objectFilter<K extends PropertyKey, V>(
 
   // eslint-disable-next-line complete/no-for-in
   for (const key in object) {
-    const value = object[key]; // eslint-disable-line unicorn/no-unsafe-property-key
+    const value = object[key];
     const match = predicate(value);
     if (match) {
       array.push(value);
