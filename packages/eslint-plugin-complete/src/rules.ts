@@ -48,6 +48,7 @@ import { strictArrayMethods } from "./rules/strict-array-methods.js";
 import { strictEnums } from "./rules/strict-enums.js";
 import { strictUndefinedFunctions } from "./rules/strict-undefined-functions.js";
 import { strictVoidFunctions } from "./rules/strict-void-functions.js";
+import { typeDeclarationImmutability } from "./rules/type-declaration-immutability.js";
 
 export const rules = {
   "complete-sentences-jsdoc": completeSentencesJSDoc,
@@ -96,4 +97,5 @@ export const rules = {
   "strict-enums": strictEnums,
   "strict-undefined-functions": strictUndefinedFunctions,
   "strict-void-functions": strictVoidFunctions,
+  "type-declaration-immutability": typeDeclarationImmutability,
 };

@@ -12,6 +12,7 @@ import {
   isRecommendedRule,
 } from "./utils.js";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 type LinterConfigRules = Record<
   string,
   TSESLint.Linter.RuleLevel | TSESLint.Linter.RuleLevelAndOptions

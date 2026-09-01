@@ -120,6 +120,7 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 | [strict-enums](/eslint-plugin-complete/rules/strict-enums)                                                 | Disallows the usage of unsafe enum patterns                                                                 | ✅  |     | 💭  |
 | [strict-undefined-functions](/eslint-plugin-complete/rules/strict-undefined-functions)                     | Disallows empty return statements in functions annotated as returning undefined                             | ✅  |     | 💭  |
 | [strict-void-functions](/eslint-plugin-complete/rules/strict-void-functions)                               | Disallows non-empty return statements in functions annotated as returning void                              | ✅  |     |     |
+| [type-declaration-immutability](/eslint-plugin-complete/rules/type-declaration-immutability)               | Enforces that type aliases and interfaces are immutable                                                     | ✅  |     | 💭  |
 
 <!-- end auto-generated rules list -->
 

@@ -55,6 +55,7 @@ export const recommended: TSESLint.FlatConfig.Config[] = [
       "complete/strict-enums": "error",
       "complete/strict-undefined-functions": "error",
       "complete/strict-void-functions": "error",
+      "complete/type-declaration-immutability": "error",
     },
   },
   {
