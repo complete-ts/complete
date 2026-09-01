@@ -95,7 +95,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-await-in-promise-methods": "error",
 
     /** Disabled since barrel files are useful as package entry points. */
-    "unicorn/no-barrel-files": "off",
+    "unicorn/no-barrel-files": "error",
 
     "unicorn/no-blob-to-file": "error",
     "unicorn/no-boolean-sort-comparator": "error",
@@ -155,7 +155,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-misrefactored-assignment": "error",
 
     /** Disabled since this config only targets JavaScript and TypeScript files. */
-    "unicorn/no-missing-local-resource": "off",
+    "unicorn/no-missing-local-resource": "error",
 
     "unicorn/no-multiple-promise-resolver-calls": "error",
     "unicorn/no-named-default": "error",
@@ -184,7 +184,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-selector-as-dom-name": "error",
 
     /** Disabled since this config only targets JavaScript and TypeScript files. */
-    "unicorn/no-shorthand-property-overrides": "off",
+    "unicorn/no-shorthand-property-overrides": "error",
 
     "unicorn/no-single-promise-in-promise-methods": "error",
     "unicorn/no-static-only-class": "error",
@@ -301,7 +301,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/prefer-event-target": "error",
 
-    /** Disabled since this config only targets JavaScript and TypeScript files. */
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
     "unicorn/prefer-explicit-viewport-units": "off",
 
     "unicorn/prefer-export-from": "error",
@@ -425,7 +425,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-css-escape": "error",
 
     /** Disabled since frontmatter fields are project-specific. */
-    "unicorn/require-frontmatter-fields": "off",
+    "unicorn/require-frontmatter-fields": "error",
 
     "unicorn/require-module-attributes": "error",
     "unicorn/require-module-specifiers": "error",
@@ -441,7 +441,8 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/require-proxy-trap-boolean-return": "error",
 
-    "unicorn/single-line-block-comment-style": ["error", "single-line"],
+    /** The default is "multiline", which is not idiomatic in the TypeScript ecosystem. */
+    "unicorn/single-line-block-comment-style": ["error", "singleline"],
 
     /** Disabled since string content enforcement is too project-specific. */
     "unicorn/string-content": "off",
