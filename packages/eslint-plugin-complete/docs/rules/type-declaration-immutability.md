@@ -8,33 +8,20 @@
 
 <!-- end auto-generated rule header -->
 
-This rule has the same purpose as
-[`functional/type-declaration-immutability`](https://github.com/eslint-functional/eslint-plugin-functional/blob/main/docs/rules/type-declaration-immutability.md),
-but has no options and requires every interface to be fully immutable. Type
-aliases are not checked, and interface names do not affect enforcement.
+This rule has the same purpose as [`functional/type-declaration-immutability`](https://github.com/eslint-functional/eslint-plugin-functional/blob/main/docs/rules/type-declaration-immutability.md), but has no options and requires every interface to be fully immutable. Type aliases are not checked, and interface names do not affect enforcement.
 
 ## Rule Details
 
 ```ts
 // Bad
-interface MutableSettings {
-  readonly nested: {
-    enabled: boolean;
-  };
+interface Foo {
+  bar: string;
 }
 
 // Good
-interface Settings {
-  readonly nested: {
-    readonly enabled: boolean;
-  };
+interface Foo {
+  readonly bar: string;
 }
-
-type Options = [
-  {
-    readonly maxLength: number;
-  },
-];
 ```
 
 ## Options

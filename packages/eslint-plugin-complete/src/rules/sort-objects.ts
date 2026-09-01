@@ -18,7 +18,7 @@ type SortKind = "alphabetical" | "declaredType";
 
 interface PropertyOrder {
   readonly kind: SortKind;
-  readonly order: Readonly<ReadonlyMap<string, number>>;
+  readonly order: ReadonlyMap<string, number>;
 }
 
 export const sortObjects = createRule<Options, MessageIds>({

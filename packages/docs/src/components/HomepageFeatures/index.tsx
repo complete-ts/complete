@@ -7,9 +7,9 @@ import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 
 interface FeatureItem {
-  title: string;
-  icon: React.JSX.Element;
-  description: React.JSX.Element;
+  readonly title: string;
+  readonly icon: Readonly<React.JSX.Element>;
+  readonly description: Readonly<React.JSX.Element>;
 }
 
 const ICON_SIZE = "8em";

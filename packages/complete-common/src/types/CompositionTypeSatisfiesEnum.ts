@@ -47,18 +47,18 @@ enum ObjectiveType {
 }
 
 interface FooObjective {
-  type: ObjectiveType.Foo;
-  fooThing: number;
+  readonly type: ObjectiveType.Foo;
+  readonly fooThing: number;
 }
 
 interface BarObjective {
-  type: ObjectiveType.Bar;
-  barThing: string;
+  readonly type: ObjectiveType.Bar;
+  readonly barThing: string;
 }
 
 interface BazObjective {
-  type: ObjectiveType.Baz;
-  bazThing: string;
+  readonly type: ObjectiveType.Baz;
+  readonly bazThing: string;
 }
 
 type Objective1 = FooObjective | BarObjective | BazObjective;

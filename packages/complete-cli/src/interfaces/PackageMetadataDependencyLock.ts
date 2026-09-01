@@ -1,4 +1,4 @@
 export interface PackageMetadataDependencyLock {
-  "lock-version": boolean;
-  "lock-reason": string;
+  readonly "lock-version": boolean;
+  readonly "lock-reason": string;
 }
