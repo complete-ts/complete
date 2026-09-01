@@ -107,7 +107,6 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "complete-common": "workspace:*",
     "complete-node": "workspace:*",
     "cspell": "catalog:",
     "cspell-check-unused-words": "catalog:",

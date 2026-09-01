@@ -190,7 +190,7 @@ export async function script(
 export async function lintCommands(
   importMetaDirname: string,
   commands: ReadonlyArray<
-    string | [name: string, promise: Promise<unknown>]
+    string | readonly [name: string, promise: Promise<unknown>]
   > = DEFAULT_LINT_COMMANDS,
   quiet = false,
 ): Promise<void> {
@@ -247,6 +247,9 @@ export async function lintCommands(
     concurrent: true,
     exitOnError: false,
     collectErrors: true,
+    rendererOptions: {
+      collapseErrors: false,
+    },
   });
 
   await listr.run();
