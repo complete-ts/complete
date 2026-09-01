@@ -269,7 +269,7 @@
     "dotenv": "17.4.2",
     "eslint": "10.9.1",
     "eslint-config-prettier": "10.1.8",
-    "eslint-doc-generator": "3.7.0",
+    "eslint-doc-generator": "3.7.1",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-eslint-plugin": "7.6.2",
     "eslint-plugin-import-x": "4.17.1",
@@ -2144,7 +2144,7 @@
 
     "eslint-config-prettier": ["eslint-config-prettier@10.1.8", "", { "peerDependencies": { "eslint": ">=7.0.0" }, "bin": { "eslint-config-prettier": "bin/cli.js" } }, "sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w=="],
 
-    "eslint-doc-generator": ["eslint-doc-generator@3.7.0", "", { "dependencies": { "@typescript-eslint/utils": "^8.63.0", "ajv": "^8.11.2", "change-case": "^5.0.0", "commander": "^14.0.0", "cosmiconfig": "^9.0.0", "deepmerge": "^4.2.2", "dot-prop": "^10.1.0", "editorconfig": "^3.0.1", "jest-diff": "^30.2.0", "json-schema": "^0.4.0", "json-schema-traverse": "^1.0.0", "markdown-table": "^3.0.3", "node-emoji": "^2.2.0", "table": "^6.9.0", "type-fest": "^5.3.1" }, "peerDependencies": { "eslint": ">= 8.57.1" }, "bin": { "eslint-doc-generator": "dist/bin/eslint-doc-generator.js" } }, "sha512-7whEuo71CV8TuLdKkwi1cY/SIxvH9DCSSvXNjYp/09D7grRMe+TWYakbr9z2mu6g9f1L9mm7O3ZLLmy/CjOZ0w=="],
+    "eslint-doc-generator": ["eslint-doc-generator@3.7.1", "", { "dependencies": { "@typescript-eslint/utils": "^8.63.0", "ajv": "^8.11.2", "change-case": "^5.0.0", "commander": "^14.0.0", "cosmiconfig": "^9.0.0", "deepmerge": "^4.2.2", "dot-prop": "^10.1.0", "editorconfig": "^3.0.1", "jest-diff": "^30.2.0", "json-schema": "^0.4.0", "json-schema-traverse": "^1.0.0", "markdown-table": "^3.0.3", "node-emoji": "^2.2.0", "table": "^6.9.0", "type-fest": "^5.3.1" }, "peerDependencies": { "eslint": ">= 8.57.1" }, "bin": { "eslint-doc-generator": "dist/bin/eslint-doc-generator.js" } }, "sha512-odIgSjibq02MJo4uH/7aJEb7sOQCFFSeVgpjEUAE8evq6nJHBAhMKhu8XtdQdiwZJYDSG2hxT1qXwXHCh35d3w=="],
 
     "eslint-import-context": ["eslint-import-context@0.1.9", "", { "dependencies": { "get-tsconfig": "^4.10.1", "stable-hash-x": "^0.2.0" }, "peerDependencies": { "unrs-resolver": "^1.0.0" }, "optionalPeers": ["unrs-resolver"] }, "sha512-K9Hb+yRaGAGUbwjhFNHvSmmkZs9+zbuoe3kFQ4V1wYjrepUFYM2dZAfNtjbbj3qsPfUfsA68Bx/ICWQMi+C8Eg=="],
 
