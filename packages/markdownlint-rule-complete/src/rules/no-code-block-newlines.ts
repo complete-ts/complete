@@ -40,9 +40,9 @@ const noCodeBlockNewlines: Rule = {
 
       const lastContentLine = closingFenceLine - 1;
       if (
-        lastContentLine > startLine
+        lastContentLine !== firstContentLine
+        && lastContentLine > startLine
         && lastContentLine >= firstContentLine
-        && lastContentLine !== firstContentLine
       ) {
         const line = params.lines[lastContentLine];
         if (line !== undefined && line.trim() === "") {

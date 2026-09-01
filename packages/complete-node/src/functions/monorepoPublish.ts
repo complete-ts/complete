@@ -4,6 +4,7 @@
  * @module
  */
 
+import type { VersionBumpRelease } from "bumpp";
 import { versionBump as bumppVersionBump } from "bumpp";
 import chalk from "chalk";
 import {
@@ -155,8 +156,13 @@ export async function monorepoPublish(
   const isDev =
     isEnumValue(versionBump, VersionBump) && versionBump === VersionBump.dev;
 
+  let release: VersionBumpRelease = "prompt";
+  if (isEnumValue(versionBump, VersionBump)) {
+    release = versionBump === VersionBump.dev ? "prerelease" : versionBump;
+  }
+
   const versionBumpResults = await bumppVersionBump({
-    release: isDev ? "prerelease" : versionBump, // Defaults to "prompt".
+    release,
     preid: isDev ? "dev" : undefined, // Defaults to "beta".
     commit: false, // Defaults to true.
     tag: false, // Defaults to true.
