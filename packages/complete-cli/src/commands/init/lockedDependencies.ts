@@ -1,7 +1,7 @@
 interface LockedDependency {
-  name: string;
-  version: string;
-  reason: string;
+  readonly name: string;
+  readonly version: string;
+  readonly reason: string;
 }
 
 // eslint-disable-next-line complete/require-capital-const-assertions

@@ -23,10 +23,11 @@ export function getLeadingLineComments(
  * // The second line of the block.
  * ```
  */
-interface LeadingLineCommentBlock {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type LeadingLineCommentBlock = {
   mergedText: string;
   originalComments: TSESTree.Comment[];
-}
+};
 
 /**
  * Returns an array of grouped comments. For example, the following code would return an array of

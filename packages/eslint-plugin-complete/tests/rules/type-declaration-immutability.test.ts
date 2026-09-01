@@ -8,14 +8,13 @@ ruleTester.run("type-declaration-immutability", typeDeclarationImmutability, {
 type Primitive = string;
 type PrimitiveUnion = string | number | undefined;
 type MutableElement = {
-  readonly value: string;
+  value: string;
 };
-type ImmutableObject = {
-  readonly id: number;
-  readonly nested: {
-    readonly value: string;
-  };
-};
+export type Options = [
+  {
+    readonly maxLength: number;
+  },
+];
 
 interface ImmutableInterface {
   readonly id: number;
@@ -36,46 +35,6 @@ interface LinkedNode {
   ],
 
   invalid: [
-    {
-      code: `
-type MutableProperty = {
-  id: number;
-};
-      `,
-      errors: [{ messageId: "mustBeImmutable" }],
-    },
-    {
-      code: `
-type MutableElement = {
-  value: string;
-};
-      `,
-      errors: [{ messageId: "mustBeImmutable" }],
-    },
-    {
-      code: `
-type MutableNestedProperty = {
-  readonly nested: {
-    value: string;
-  };
-};
-      `,
-      errors: [{ messageId: "mustBeImmutable" }],
-    },
-    {
-      code: `
-type MutableArray = {
-  readonly values: string[];
-};
-      `,
-      errors: [{ messageId: "mustBeImmutable" }],
-    },
-    {
-      code: `
-type ReadonlyDeepArray = readonly string[];
-      `,
-      errors: [{ messageId: "mustBeImmutable" }],
-    },
     {
       code: `
 interface MutableInterface {

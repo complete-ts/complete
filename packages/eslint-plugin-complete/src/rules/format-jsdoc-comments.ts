@@ -16,7 +16,7 @@ export const MAX_LENGTH = 100;
 
 export type Options = [
   {
-    maxLength: number;
+    readonly maxLength: number;
   },
 ];
 

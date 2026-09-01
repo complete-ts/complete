@@ -1,8 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
-import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ImmutabilityCache } from "is-immutable-type";
 import { getDefaultOverrides, isImmutableType } from "is-immutable-type";
-import type ts from "typescript";
 import { createRule } from "../utils.js";
 
 type Options = [];
@@ -13,13 +12,13 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
   meta: {
     type: "problem",
     docs: {
-      description: "Enforces that type aliases and interfaces are immutable",
+      description: "Enforces that interfaces are immutable",
       recommended: true,
       requiresTypeChecking: true,
     },
     schema: [],
     messages: {
-      mustBeImmutable: "Type declarations must be immutable.",
+      mustBeImmutable: "Interfaces must be immutable.",
     },
   },
   defaultOptions: [],
@@ -30,19 +29,14 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
     const immutabilityCache: ImmutabilityCache = new WeakMap();
     const immutabilityOverrides = getDefaultOverrides();
 
-    function checkTypeDeclaration(
-      node: TSESTree.TSInterfaceDeclaration | TSESTree.TSTypeAliasDeclaration,
-    ) {
+    function checkInterface(node: TSESTree.TSInterfaceDeclaration) {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
-      const typeOrTypeNode =
-        node.type === AST_NODE_TYPES.TSTypeAliasDeclaration
-          ? (tsNode as ts.TypeAliasDeclaration).type
-          : checker.getTypeAtLocation(tsNode);
+      const type = checker.getTypeAtLocation(tsNode);
 
       if (
         !isImmutableType(
           program,
-          typeOrTypeNode,
+          type,
           immutabilityOverrides,
           immutabilityCache,
         )
@@ -54,9 +48,6 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
       }
     }
 
-    return {
-      TSInterfaceDeclaration: checkTypeDeclaration,
-      TSTypeAliasDeclaration: checkTypeDeclaration,
-    };
+    return { TSInterfaceDeclaration: checkInterface };
   },
 });

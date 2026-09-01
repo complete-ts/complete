@@ -2,7 +2,7 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Enforces that type aliases and interfaces are immutable.
+📝 Enforces that interfaces are immutable.
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
@@ -10,17 +10,13 @@
 
 This rule has the same purpose as
 [`functional/type-declaration-immutability`](https://github.com/eslint-functional/eslint-plugin-functional/blob/main/docs/rules/type-declaration-immutability.md),
-but has no options and requires every type alias and interface to be fully
-immutable. Declaration names do not affect enforcement.
+but has no options and requires every interface to be fully immutable. Type
+aliases are not checked, and interface names do not affect enforcement.
 
 ## Rule Details
 
 ```ts
 // Bad
-type MutableUser = {
-  name: string;
-};
-
 interface MutableSettings {
   readonly nested: {
     enabled: boolean;
@@ -28,15 +24,17 @@ interface MutableSettings {
 }
 
 // Good
-type User = {
-  readonly name: string;
-};
-
 interface Settings {
   readonly nested: {
     readonly enabled: boolean;
   };
 }
+
+type Options = [
+  {
+    readonly maxLength: number;
+  },
+];
 ```
 
 ## Options

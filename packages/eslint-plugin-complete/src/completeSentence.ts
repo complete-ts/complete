@@ -7,8 +7,8 @@ export type CompleteSentenceMessageIds =
   "doublePeriod" | "missingCapital" | "missingPeriod";
 
 interface IncompleteSentence {
-  sentence: string;
-  messageId: CompleteSentenceMessageIds;
+  readonly sentence: string;
+  readonly messageId: CompleteSentenceMessageIds;
 }
 
 /**

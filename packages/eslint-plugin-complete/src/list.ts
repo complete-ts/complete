@@ -9,22 +9,22 @@
  * ```
  */
 export interface List {
-  kind: ListKind;
+  readonly kind: ListKind;
 
   /** The size of the whitespace prior to the marker. For example, " 1. Foo" would be 2. */
-  numLeadingSpaces: number;
+  readonly numLeadingSpaces: number;
 
   /**
    * The size of the characters that make up the bullet point.
    * e.g., "1. Foo" would be 3.
    */
-  markerSize: number;
+  readonly markerSize: number;
 
   /**
    * The contents of JSDoc tag header, if any.
    * e.g., "@param foo This is foo." would be "@param foo".
    */
-  jsDocTagName?: string;
+  readonly jsDocTagName?: string;
 }
 
 export enum ListKind {
