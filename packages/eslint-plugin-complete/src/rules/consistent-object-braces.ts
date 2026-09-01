@@ -151,30 +151,19 @@ function getReplacementText(
     return replacementText;
   }
 
-  return getMultilineReplacementText(
-    sourceCode,
-    properties,
-    openingBrace,
-    closingBrace,
-  );
+  return getMultilineReplacementText(sourceCode, properties, openingBrace);
 }
 
 function getMultilineReplacementText(
   sourceCode: TSESLint.SourceCode,
   properties: readonly TSESTree.ObjectLiteralElement[],
   openingBrace: TSESTree.Token,
-  closingBrace: TSESTree.Token,
   closingIndent = getLineIndent(sourceCode, openingBrace.loc.start.line),
 ): string {
   const propertyIndent = `${closingIndent}  `;
-  const propertyTexts = properties.map((property, i) => {
-    const nextProperty = properties.at(i + 1);
-    const hasComma =
-      nextProperty === undefined
-        ? hasCommaAfter(sourceCode, property, closingBrace)
-        : hasCommaBetween(sourceCode, property, nextProperty);
+  const propertyTexts = properties.map((property) => {
     const propertyText = getPropertyText(sourceCode, property, propertyIndent);
-    return `${propertyIndent}${propertyText}${hasComma ? "," : ""}`;
+    return `${propertyIndent}${propertyText},`;
   });
 
   return `{\n${propertyTexts.join("\n")}\n${closingIndent}}`;
@@ -212,7 +201,6 @@ function getPropertyText(
     sourceCode,
     property.value.properties,
     openingBrace,
-    closingBrace,
     propertyIndent,
   )}`;
 }
@@ -257,32 +245,6 @@ function canUseSingleLineBraces(
   return (
     prefix.length + replacementText.length + suffix.length
     <= PRETTIER_DEFAULT_PRINT_WIDTH
-  );
-}
-
-function hasCommaAfter(
-  sourceCode: TSESLint.SourceCode,
-  property: TSESTree.ObjectLiteralElement,
-  closingBrace: TSESTree.Token,
-): boolean {
-  const token = sourceCode.getTokenAfter(property);
-  return (
-    token !== null
-    && token.value === ","
-    && token.range[0] < closingBrace.range[0]
-  );
-}
-
-function hasCommaBetween(
-  sourceCode: TSESLint.SourceCode,
-  property: TSESTree.ObjectLiteralElement,
-  nextProperty: TSESTree.ObjectLiteralElement,
-): boolean {
-  const token = sourceCode.getTokenAfter(property);
-  return (
-    token !== null
-    && token.value === ","
-    && token.range[0] < nextProperty.range[0]
   );
 }
 

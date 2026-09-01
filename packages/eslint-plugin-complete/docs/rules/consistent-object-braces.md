@@ -8,7 +8,7 @@
 
 <!-- end auto-generated rule header -->
 
-Object literals with one property must be on one line unless that property value is another object literal. Object literals with two or more properties, object literals used as object property values, and object literals with object-valued properties must put each property on its own line. This rule preserves existing trailing commas; Prettier should be responsible for adding or removing them.
+Object literals with one property must be on one line unless that property value is another object literal. Object literals with two or more properties, object literals used as object property values, and object literals with object-valued properties must put each property on its own line. When automatically fixing an object literal to use multiple lines, the rule adds a trailing comma after every property.
 
 This rule applies to object expressions, such as object literals assigned to variables, nested inside other objects, or passed as function arguments. It does not apply to object patterns, such as destructuring assignments or function parameters.
 

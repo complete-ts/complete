@@ -84,7 +84,7 @@ const foo = { bar, baz };
       output: `
 const foo = {
   bar,
-  baz
+  baz,
 };
       `,
       errors: [{ messageId: "consistentObjectBraces" }],
@@ -110,7 +110,7 @@ const foo = {
       output: `
 const foo = {
   nested: {
-    bar
+    bar,
   },
 };
       `,
@@ -123,8 +123,8 @@ const foo = { nested: { bar } };
       output: `
 const foo = {
   nested: {
-    bar
-  }
+    bar,
+  },
 };
       `,
       errors: [
@@ -141,7 +141,7 @@ const foo = {
       output: `
 const foo = {
   bar,
-  baz
+  baz,
 };
       `,
       errors: [{ messageId: "consistentObjectBraces" }],
@@ -155,7 +155,7 @@ const foo = { bar,
       output: `
 const foo = {
   bar,
-  baz
+  baz,
 };
       `,
       errors: [{ messageId: "consistentObjectBraces" }],
