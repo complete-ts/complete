@@ -64,7 +64,7 @@
     },
     "packages/complete-lint": {
       "name": "complete-lint",
-      "version": "5.25.2",
+      "version": "5.25.3",
       "dependencies": {
         "@types/bun": "catalog:",
         "@types/node": "catalog:",
