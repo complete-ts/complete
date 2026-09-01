@@ -20,7 +20,6 @@ const REPO_ROOT = path.resolve(PACKAGE_ROOT, "..", "..");
 const DOCS_REPO = path.join(REPO_ROOT, DOCS_REPO_NAME);
 const DOCS_REPO_GIT = path.join(DOCS_REPO, ".git");
 const DOCS_REPO_GIT_BACKUP = `/tmp/${DOCS_REPO_NAME}.git`;
-const SECONDS_TO_SLEEP = 10;
 
 // Validate environment variables.
 const GITHUB_OUTPUT_FILE = process.env["GITHUB_OUTPUT"];
@@ -133,11 +132,12 @@ while (true) {
     break;
   }
 
+  const secondsToSleep = 10;
   console.log(
-    `The latest version of the site (${commitSHA1}) has not yet been deployed to GitHub Pages. (The GitHub page status is "${status}" and the GitHub page commit is "${commit}".) Sleeping for ${SECONDS_TO_SLEEP} seconds. (${totalSeconds} seconds have passed so far in total.)`,
+    `The latest version of the site (${commitSHA1}) has not yet been deployed to GitHub Pages. (The GitHub page status is "${status}" and the GitHub page commit is "${commit}".) Sleeping for ${secondsToSleep} seconds. (${totalSeconds} seconds have passed so far in total.)`,
   );
-  await sleep(SECONDS_TO_SLEEP); // eslint-disable-line no-await-in-loop
-  totalSeconds += SECONDS_TO_SLEEP;
+  await sleep(secondsToSleep); // eslint-disable-line no-await-in-loop
+  totalSeconds += secondsToSleep;
 }
 
 await appendFile(GITHUB_OUTPUT_FILE, "SHOULD_CRAWL=1\n");

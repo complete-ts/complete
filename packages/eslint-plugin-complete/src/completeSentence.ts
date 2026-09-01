@@ -304,12 +304,12 @@ function getIncompleteSentenceKind(
   if (
     // Blank text.
     text === ""
+    // Placeholder text.
+    || text === "n/a"
     // Sentences that do not contain any letters.
     || !/[A-Za-z]/v.test(text)
     // Sentences with an arrow, like: "Alice --> Bob"
     || text.includes("-->")
-    // Placeholder text.
-    || text === "n/a"
     // Special comments.
     || isSpecialComment(text)
     // Dates.
@@ -411,8 +411,8 @@ function isDate(text: string) {
     const { month, ordinal } = match1.groups;
     if (
       month !== undefined
-      && MONTHS_SET.has(month)
       && ordinal !== undefined
+      && MONTHS_SET.has(month)
       && ORDINALS_SET.has(ordinal)
     ) {
       return true;
@@ -426,8 +426,8 @@ function isDate(text: string) {
     const { month, ordinal } = match2.groups;
     if (
       month !== undefined
-      && MONTHS_SET.has(month)
       && ordinal !== undefined
+      && MONTHS_SET.has(month)
       && ORDINALS_SET.has(ordinal)
     ) {
       return true;

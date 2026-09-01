@@ -82,16 +82,16 @@ export function formatText(
 
     const nextLine = lines[i + 1];
     const nextLineIsJSDocTag =
-      nextLine !== undefined && nextLine.trim().startsWith("@");
+      nextLine !== undefined && nextLine.trimStart().startsWith("@");
 
     // Handle blank lines.
     if (lineIsBlank) {
       // If we are between JSDoc tags, skip this blank line entirely.
       if (
         encounteredJSDocTags
+        && nextLineIsJSDocTag
         && insideList !== undefined
         && insideList.kind === ListKind.JSDocTag
-        && nextLineIsJSDocTag
       ) {
         continue;
       }
@@ -106,8 +106,8 @@ export function formatText(
       // code block).
       const lastCharacter = formattedText.at(-1);
       if (
-        (lastCharacter !== undefined && lastCharacter !== "\n")
-        || insideCodeBlock
+        insideCodeBlock
+        || (lastCharacter !== undefined && lastCharacter !== "\n")
       ) {
         formattedText += "\n";
       }
@@ -245,9 +245,9 @@ export function formatText(
       // Enforce a newline between a JSDoc description (i.e., introductory text) and the first JSDoc
       // tag.
       if (
-        !stringContainsOnlyWhitespace(formattedText)
-        && !previousLineWasBlank
+        !previousLineWasBlank
         && !previousLineInsideExampleTagBlock
+        && !stringContainsOnlyWhitespace(formattedText)
       ) {
         // Append the partial line that we were building, if any.
         [formattedLine, formattedText] = appendLineToText(

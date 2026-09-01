@@ -64,7 +64,7 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
             continue;
           }
 
-          if (order < highestSeenOrder && highestSeenName !== undefined) {
+          if (highestSeenName !== undefined && order < highestSeenOrder) {
             const replacement = getReplacementText(
               sourceCode,
               node,
