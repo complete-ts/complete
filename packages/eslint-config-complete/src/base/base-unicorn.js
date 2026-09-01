@@ -15,6 +15,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/catch-error-name": "error",
     "unicorn/class-reference-in-static-methods": "error",
     "unicorn/comment-content": "error",
+
+    /** Superseded by the `arrow-body-style` rule. */
+    "unicorn/consistent-arrow-return-style": "off",
+
     "unicorn/consistent-assert": "error",
 
     /** Disabled because it is too strict. */
@@ -50,6 +54,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/id-match": "error",
     "unicorn/import-style": "error",
     "unicorn/isolated-functions": "error",
+    "unicorn/iteration-fallback-style": "error",
     "unicorn/logical-assignment-operators": "error",
     "unicorn/max-nested-calls": "error",
 
@@ -88,6 +93,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-async-promise-finally": "error",
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
+
+    /** Disabled since barrel files are useful as package entry points. */
+    "unicorn/no-barrel-files": "off",
+
     "unicorn/no-blob-to-file": "error",
     "unicorn/no-boolean-sort-comparator": "error",
 
@@ -144,6 +153,11 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/no-mismatched-map-key": "error",
     "unicorn/no-misrefactored-assignment": "error",
+
+    /** Disabled since this config only targets JavaScript and TypeScript files. */
+    "unicorn/no-missing-local-resource": "off",
+
+    "unicorn/no-multiple-promise-resolver-calls": "error",
     "unicorn/no-named-default": "error",
     "unicorn/no-negated-array-predicate": "error",
     "unicorn/no-negated-comparison": "error",
@@ -168,6 +182,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-redundant-comparison": "error",
     "unicorn/no-return-array-push": "error",
     "unicorn/no-selector-as-dom-name": "error",
+
+    /** Disabled since this config only targets JavaScript and TypeScript files. */
+    "unicorn/no-shorthand-property-overrides": "off",
+
     "unicorn/no-single-promise-in-promise-methods": "error",
     "unicorn/no-static-only-class": "error",
     "unicorn/no-subtraction-comparison": "error",
@@ -179,6 +197,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-this-outside-of-class": "error",
     "unicorn/no-top-level-assignment-in-function": "error",
     "unicorn/no-top-level-side-effects": "error",
+    "unicorn/no-transition-all": "error",
     "unicorn/no-typeof-undefined": "error",
     "unicorn/no-uncalled-method": "error",
     "unicorn/no-undeclared-class-members": "error",
@@ -193,6 +212,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unnecessary-polyfills": "error",
     "unicorn/no-unnecessary-slice-end": "error",
     "unicorn/no-unnecessary-splice": "error",
+    "unicorn/no-unnecessary-string-trim": "error",
     "unicorn/no-unreadable-array-destructuring": "error",
     "unicorn/no-unreadable-for-of-expression": "error",
     "unicorn/no-unreadable-iife": "error",
@@ -202,6 +222,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unsafe-dom-html": "error",
     "unicorn/no-unsafe-promise-all-settled-values": "error",
     "unicorn/no-unsafe-property-key": "error",
+    "unicorn/no-unsafe-sqlite-interpolation": "error",
 
     /** Disabled since it has too many false positives. */
     "unicorn/no-unsafe-string-replacement": "off",
@@ -223,6 +244,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-useless-logical-operand": "error",
     "unicorn/no-useless-override": "error",
     "unicorn/no-useless-promise-resolve-reject": "error",
+    "unicorn/no-useless-re-export": "error",
     "unicorn/no-useless-recursion": "error",
     "unicorn/no-useless-spread": "error",
     "unicorn/no-useless-switch-case": "error",
@@ -278,6 +300,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-error-is-error": "off",
 
     "unicorn/prefer-event-target": "error",
+
+    /** Disabled since this config only targets JavaScript and TypeScript files. */
+    "unicorn/prefer-explicit-viewport-units": "off",
+
     "unicorn/prefer-export-from": "error",
     "unicorn/prefer-flat-math-min-max": "error",
     "unicorn/prefer-get-or-insert-computed": "error",
@@ -375,6 +401,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-temporal": "off",
 
     "unicorn/prefer-ternary": "error",
+    "unicorn/prefer-then-catch": "error",
     "unicorn/prefer-toggle-attribute": "error",
     "unicorn/prefer-top-level-await": "error",
     "unicorn/prefer-type-error": "error",
@@ -396,6 +423,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-array-sort-compare": "off",
 
     "unicorn/require-css-escape": "error",
+
+    /** Disabled since frontmatter fields are project-specific. */
+    "unicorn/require-frontmatter-fields": "off",
+
     "unicorn/require-module-attributes": "error",
     "unicorn/require-module-specifiers": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error",
@@ -409,6 +440,8 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-post-message-target-origin": "off",
 
     "unicorn/require-proxy-trap-boolean-return": "error",
+
+    "unicorn/single-line-block-comment-style": ["error", "single-line"],
 
     /** Disabled since string content enforcement is too project-specific. */
     "unicorn/string-content": "off",

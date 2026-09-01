@@ -128,8 +128,12 @@ export const baseN = defineConfig({
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-global/url-search-params": "off",
 
+    "n/prefer-import/assert-strict": "error",
+
     /** Superseded by the `unicorn/prefer-node-protocol` rule. */
     "n/prefer-node-protocol": "off",
+
+    "n/prefer-process-get-builtin-module": "error",
 
     /** Disabled since stylistic rules from this plugin are not used. */
     "n/prefer-promises/dns": "off",

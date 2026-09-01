@@ -144,6 +144,8 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
+      "jsdoc/normalize-see-links": "error",
+
       /**
        * Disabled since it is not idiomatic in the ecosystem to do this, especially in configuration
        * files like "prettier.config.mjs".
