@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "@types/bun": "catalog:",
-    "@types/markdown-it": "catalog:",
     "complete-node": "workspace:*",
     "markdown-it": "catalog:",
     "markdownlint": "catalog:",
