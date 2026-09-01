@@ -12,7 +12,6 @@ import {
   getElapsedSeconds,
   getWidenedObjectValue,
   isEnumValue,
-  isSemanticVersion,
   reverseObject,
 } from "complete-common";
 import path from "node:path";
@@ -106,12 +105,6 @@ export async function monorepoPublish(
     ?? versionBumpShorthand;
   if (!isEnumValue(versionBump, VersionBump)) {
     throw new Error(`The following version is not valid: ${versionBump}`);
-  }
-
-  if (!isSemanticVersion(versionBump)) {
-    throw new Error(
-      `The following version is not valid semantic version: ${versionBump}`,
-    );
   }
 
   // Validate that we are on the correct branch. (Allow bumping dev on a branch so that we can avoid

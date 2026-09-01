@@ -153,10 +153,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/no-mismatched-map-key": "error",
     "unicorn/no-misrefactored-assignment": "error",
-
-    /** Disabled since this config only targets JavaScript and TypeScript files. */
-    "unicorn/no-missing-local-resource": "error", // TODO
-
+    "unicorn/no-missing-local-resource": "error",
     "unicorn/no-multiple-promise-resolver-calls": "error",
     "unicorn/no-named-default": "error",
     "unicorn/no-negated-array-predicate": "error",
@@ -182,10 +179,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-redundant-comparison": "error",
     "unicorn/no-return-array-push": "error",
     "unicorn/no-selector-as-dom-name": "error",
-
-    /** Disabled since this config only targets JavaScript and TypeScript files. */
-    "unicorn/no-shorthand-property-overrides": "error", // TODO
-
+    "unicorn/no-shorthand-property-overrides": "error",
     "unicorn/no-single-promise-in-promise-methods": "error",
     "unicorn/no-static-only-class": "error",
     "unicorn/no-subtraction-comparison": "error",
@@ -423,10 +417,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-array-sort-compare": "off",
 
     "unicorn/require-css-escape": "error",
-
-    /** Disabled since frontmatter fields are project-specific. */
-    "unicorn/require-frontmatter-fields": "error", // TODO
-
+    "unicorn/require-frontmatter-fields": "error",
     "unicorn/require-module-attributes": "error",
     "unicorn/require-module-specifiers": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error",
