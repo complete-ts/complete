@@ -1,4 +1,4 @@
-import { deepStrictEqual } from "node:assert";
+import { deepStrictEqual } from "node:assert/strict";
 import { describe, test } from "node:test";
 import { unique } from "../../src/functions/array.js";
 

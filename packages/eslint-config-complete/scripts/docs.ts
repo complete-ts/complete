@@ -683,11 +683,11 @@ function getRuleComments(
   rule: Linter.RuleEntry,
   baseJSText: string,
 ): string {
-  if (isRuleHandledByTypeScriptCompiler(ruleName) && rule === "off") {
+  if (rule === "off" && isRuleHandledByTypeScriptCompiler(ruleName)) {
     return "Disabled because this is [handled by the TypeScript compiler](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/eslint-recommended.ts).";
   }
 
-  if (isRuleHandledByPrettier(ruleName) && rule === "off") {
+  if (rule === "off" && isRuleHandledByPrettier(ruleName)) {
     return "Disabled because this is [handled by Prettier](https://github.com/prettier/eslint-config-prettier/blob/main/index.js).";
   }
 

@@ -1,4 +1,4 @@
-import { deepStrictEqual, strictEqual } from "node:assert";
+import { deepStrictEqual, strictEqual } from "node:assert/strict";
 import { describe, test } from "node:test";
 import { assertDefined, assertNotNull } from "../../src/functions/assert.js";
 import {

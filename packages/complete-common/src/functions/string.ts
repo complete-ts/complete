@@ -240,7 +240,6 @@ export function parseSemanticVersion(
   };
 }
 
-/* eslint-disable jsdoc/escape-inline-tags */
 /**
  * Helper function to remove lines from a multi-line string. This function looks for a "-start" and
  * a "-end" suffix after the marker. Lines with markets will be completely removed from the output.
@@ -263,7 +262,6 @@ export function parseSemanticVersion(
  * line4
  * ```
  */
-/* eslint-enable jsdoc/escape-inline-tags */
 export function removeLinesBetweenMarkers(
   string: string,
   marker: string,
