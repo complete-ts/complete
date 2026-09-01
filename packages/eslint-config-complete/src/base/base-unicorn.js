@@ -442,7 +442,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-proxy-trap-boolean-return": "error",
 
     /** The default is "multiline", which is not idiomatic in the TypeScript ecosystem. */
-    "unicorn/single-line-block-comment-style": ["error", "singleline"],
+    "unicorn/single-line-block-comment-style": ["error", "single-line"],
 
     /** Disabled since string content enforcement is too project-specific. */
     "unicorn/string-content": "off",

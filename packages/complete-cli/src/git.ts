@@ -68,7 +68,7 @@ export async function promptGitHubRepoOrGitRemoteURL(
   }
 
   // Hard-code certain project names as never causing a Git repository to be initialized.
-  if (projectName.startsWith("test") || projectName === "foo") {
+  if (projectName === "foo" || projectName.startsWith("test")) {
     return undefined;
   }
 

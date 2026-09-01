@@ -146,7 +146,7 @@ export function getTruncatedText(
         continue;
       }
 
-      if ((line.endsWith("]") || line.endsWith("],")) && isSkipping) {
+      if (isSkipping && (line.endsWith("]") || line.endsWith("],"))) {
         isSkipping = false;
         continue;
       }
