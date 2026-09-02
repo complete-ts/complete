@@ -43,20 +43,32 @@ const COOLDOWN_DURATION = "7d";
  * @param installAfterUpdate Optional. Whether to install the new dependencies afterward, if any.
  *                           Default is true.
  * @param quiet Optional. Whether to suppress console output. Default is false.
+ * @param packagesWithoutCooldown Optional. Package names that should be updated without applying
+ *                                the dependency cooldown.
  * @returns Whether the "package.json" file was updated.
  */
 export async function updatePackageJSONDependencies(
   filePathOrDirPath?: string,
   installAfterUpdate = true,
   quiet = false,
+  packagesWithoutCooldown: readonly string[] = [],
 ): Promise<boolean> {
   const packageJSONPath = await getFilePath("package.json", filePathOrDirPath);
   const packageRoot = path.dirname(packageJSONPath);
   const packagesToIgnore = await getPackagesToIgnore(packageRoot);
 
   const packageJSONChanged = await (quiet
-    ? runNPMCheckUpdatesQuiet(packageJSONPath, packagesToIgnore)
-    : runNPMCheckUpdates(packageJSONPath, packagesToIgnore, packageRoot));
+    ? runNPMCheckUpdatesQuiet(
+        packageJSONPath,
+        packagesToIgnore,
+        packagesWithoutCooldown,
+      )
+    : runNPMCheckUpdates(
+        packageJSONPath,
+        packagesToIgnore,
+        packagesWithoutCooldown,
+        packageRoot,
+      ));
 
   if (packageJSONChanged && installAfterUpdate) {
     const $$ = $({
@@ -138,6 +150,7 @@ async function getPackagesToIgnore(
 async function runNPMCheckUpdates(
   packageJSONPath: string,
   packagesToIgnore: readonly string[],
+  packagesWithoutCooldown: readonly string[],
   packageRoot: string,
 ): Promise<boolean> {
   const $$ = $({ cwd: packageRoot });
@@ -156,8 +169,12 @@ async function runNPMCheckUpdates(
   // - "--upgrade" is necessary because `npm-check-updates` will be a no-op by default (i.e., it
   //   only displays what is upgradeable).
   let command = `ncu --upgrade --cooldown ${COOLDOWN_DURATION}`;
-  if (packagesToIgnore.length > 0) {
-    command += ` --reject ${packagesToIgnore.join(",")}`;
+  const packagesToRejectWithCooldown = [
+    ...packagesToIgnore,
+    ...packagesWithoutCooldown,
+  ];
+  if (packagesToRejectWithCooldown.length > 0) {
+    command += ` --reject ${packagesToRejectWithCooldown.join(",")}`;
   }
   if (packageJSONHasWorkspaces) {
     command += " --workspaces";
@@ -165,6 +182,19 @@ async function runNPMCheckUpdates(
 
   const commandParts = command.split(" ");
   await $$`${commandParts}`;
+
+  if (packagesWithoutCooldown.length > 0) {
+    let noCooldownCommand = `ncu --upgrade --cooldown 0 --filter ${packagesWithoutCooldown.join(",")}`;
+    if (packagesToIgnore.length > 0) {
+      noCooldownCommand += ` --reject ${packagesToIgnore.join(",")}`;
+    }
+    if (packageJSONHasWorkspaces) {
+      noCooldownCommand += " --workspaces";
+    }
+
+    const noCooldownCommandParts = noCooldownCommand.split(" ");
+    await $$`${noCooldownCommandParts}`;
+  }
 
   const newPackageJSONString = await readFile(packageJSONPath);
   return oldPackageJSONString !== newPackageJSONString;
@@ -179,6 +209,7 @@ async function runNPMCheckUpdates(
 async function runNPMCheckUpdatesQuiet(
   packageJSONPath: string,
   packagesToIgnore: readonly string[],
+  packagesWithoutCooldown: readonly string[],
 ): Promise<boolean> {
   const packageJSONString = await readFile(packageJSONPath);
   const packageJSON: unknown = JSON.parse(packageJSONString);
@@ -190,7 +221,10 @@ async function runNPMCheckUpdatesQuiet(
   // https://github.com/raineorshine/npm-check-updates/issues/1524
   const npmCheckUpdates = await import("npm-check-updates");
   const upgradedPackages = await npmCheckUpdates.run({
-    cooldown: "7d", // Mitigate supply chain attacks.
+    // Mitigate supply chain attacks while allowing explicitly trusted packages to update
+    // immediately.
+    cooldown: (packageName) =>
+      packagesWithoutCooldown.includes(packageName) ? 0 : COOLDOWN_DURATION,
     packageFile: packageJSONPath,
     reject: packagesToIgnore,
     upgrade: true,

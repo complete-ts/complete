@@ -89,10 +89,13 @@ export async function lintMonorepoPackageJSONs(
  *
  * @param importMetaDirname The value of `import.meta.dirname` (so that this function can find the
  *                          package root).
+ * @param packagesWithoutCooldown Optional. Package names that should be updated without applying
+ *                                the dependency cooldown.
  * @returns Whether any "package.json" files were changed.
  */
 export async function updatePackageJSONDependenciesMonorepo(
   importMetaDirname: string,
+  packagesWithoutCooldown: readonly string[] = [],
 ): Promise<boolean> {
   const monorepoRoot = await packageDirectory({ cwd: importMetaDirname });
   assertDefined(
@@ -101,8 +104,12 @@ export async function updatePackageJSONDependenciesMonorepo(
   );
 
   // First, update the main "package.json" at the root of the monorepo.
-  const monorepoPackageJSONChanged =
-    await updatePackageJSONDependencies(monorepoRoot);
+  const monorepoPackageJSONChanged = await updatePackageJSONDependencies(
+    monorepoRoot,
+    true,
+    false,
+    packagesWithoutCooldown,
+  );
 
   // Second, check to see if child "package.json" dependencies are up to date.
   const zeroFilesChanged =
