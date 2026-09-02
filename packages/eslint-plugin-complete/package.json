@@ -36,7 +36,7 @@
   "scripts": {
     "build": "bun run ./scripts/build.ts",
     "create-rule": "bun run ./scripts/createRule.ts",
-    "docs": "bun run build && eslint-doc-generator && bunx prettier --write docs",
+    "docs": "bun run build && eslint-doc-generator && bunx prettier --write .",
     "generate": "bun run ./scripts/generate.ts",
     "lint": "bun run ./scripts/lint.ts",
     "test": "jest"
