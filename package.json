@@ -48,7 +48,7 @@
       "@typescript-eslint/types": "8.68.0",
       "@typescript-eslint/typescript-estree": "8.68.0",
       "@typescript-eslint/utils": "8.68.0",
-      "bumpp": "12.2.1",
+      "bumpp": "12.2.2",
       "chalk": "6.0.0",
       "clipanion": "4.0.0-rc.4",
       "confusing-browser-globals": "1.0.11",
