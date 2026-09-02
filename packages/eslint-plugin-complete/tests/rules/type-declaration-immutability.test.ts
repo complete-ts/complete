@@ -41,6 +41,20 @@ interface ImmutableCollections {
 }
       `,
     },
+    {
+      code: `
+type int = number & {};
+declare const brand: unique symbol;
+type BrandedInt = number & {
+  readonly [brand]: "BrandedInt";
+};
+
+interface ImmutablePrimitiveIntersections {
+  readonly int: int;
+  readonly brandedInt: BrandedInt;
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -77,6 +91,30 @@ interface MutableCollectionValues {
   readonly array: readonly { value: string }[];
   readonly map: ReadonlyMap<string, { value: string }>;
   readonly set: ReadonlySet<{ value: string }>;
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+type MutableInt = number & {
+  value: string;
+};
+
+interface MutablePrimitiveIntersection {
+  readonly int: MutableInt;
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+type PrimitiveIntersectionWithMethod = number & {
+  mutate(): void;
+};
+
+interface PrimitiveIntersectionWithMethodProperty {
+  readonly int: PrimitiveIntersectionWithMethod;
 }
       `,
       errors: [{ messageId: "mustBeImmutable" }],

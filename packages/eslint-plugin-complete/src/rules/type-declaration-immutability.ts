@@ -1,11 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ImmutabilityCache } from "is-immutable-type";
-import {
-  getDefaultOverrides,
-  Immutability,
-  isImmutableType,
-} from "is-immutable-type";
+import { getDefaultOverrides, Immutability } from "is-immutable-type";
+import { isImmutableTypeWithPrimitiveIntersectionPatch } from "../patch.js";
 import { createRule } from "../utils.js";
 
 type Options = [];
@@ -65,7 +62,7 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
       const type = checker.getTypeAtLocation(tsNode);
 
       if (
-        !isImmutableType(
+        !isImmutableTypeWithPrimitiveIntersectionPatch(
           program,
           type,
           IMMUTABILITY_OVERRIDES,
