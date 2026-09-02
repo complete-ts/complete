@@ -2,9 +2,11 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
+📝 Disallows template literal placeholder syntax in regular strings (and
+automatically fixes).
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 

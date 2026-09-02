@@ -2,7 +2,8 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows explicit type annotations for variables that have a const assertion.
+📝 Disallows explicit type annotations for variables that have a const
+assertion.
 
 <!-- end auto-generated rule header -->
 
