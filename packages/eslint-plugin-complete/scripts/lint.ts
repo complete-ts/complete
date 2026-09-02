@@ -8,8 +8,8 @@ import {
 import path from "node:path";
 import { PACKAGE_ROOT } from "./constants.js";
 import { generateAll } from "./generate.js";
-import { CONFIGS_DIRECTORY_PATH } from "./generateConfigs.js";
-import { RULES_TS_PATH } from "./generateRules.js";
+import { CONFIGS_DIRECTORY_PATH } from "./generateRecommendedTS.js";
+import { RULES_TS_PATH } from "./generateRulesTS.js";
 
 const DOCS_RULES_PATHS = path.join(PACKAGE_ROOT, "docs", "rules");
 const DOCS_RULES_FILE_PATHS = await getFilePathsInDirectory(DOCS_RULES_PATHS);

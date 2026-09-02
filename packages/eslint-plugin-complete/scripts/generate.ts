@@ -1,6 +1,6 @@
 import { $ } from "complete-node";
-import { generateConfigs } from "./generateConfigs.js";
-import { generateRules } from "./generateRules.js";
+import { generateRecommendedTS } from "./generateRecommendedTS.js";
+import { generateRulesTS } from "./generateRulesTS.js";
 
 if (import.meta.main) {
   await generateAll();
@@ -10,17 +10,19 @@ export async function generateAll(quiet = false): Promise<void> {
   // Generating rules must come before configs and readme because it builds the "rules.ts" file
   // (which is parsed later on).
   if (!quiet) {
-    console.log("Generating rules...");
+    console.log('Generating "rules.ts"...');
   }
-  await generateRules();
+  await generateRulesTS();
 
   if (!quiet) {
-    console.log("Generating configs...");
+    console.log('Generating "recommended.ts"...');
   }
-  await generateConfigs();
+  await generateRecommendedTS();
 
   if (!quiet) {
-    console.log("Generating readme...");
+    console.log(
+      'Generating "website-root.md" and all of the individual rule docs...',
+    );
   }
   await $`bun run docs`;
 

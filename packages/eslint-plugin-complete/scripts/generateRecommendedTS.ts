@@ -66,11 +66,7 @@ const BASE_CONFIG = [
   },
 ] as const satisfies TSESLint.FlatConfig.Config[];
 
-export async function generateConfigs(): Promise<void> {
-  await recommended();
-}
-
-async function recommended() {
+export async function generateRecommendedTS(): Promise<void> {
   const ruleEntries = await getRuleEntries();
   const recommendedRules = ruleEntries
     .filter((entry) => isRecommendedRule(entry[1]))
