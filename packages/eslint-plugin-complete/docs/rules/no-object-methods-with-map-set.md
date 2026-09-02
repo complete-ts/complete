@@ -4,15 +4,18 @@
 
 📝 Disallows using object methods with maps and sets.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
-Specifically, it disallows `Object.entries`, `Object.keys`, and `Object.values`, since doing this is virtually always a bug.
+Specifically, it disallows `Object.entries`, `Object.keys`, and `Object.values`,
+since doing this is virtually always a bug.
 
 ## Rule Details
 
-In order to iterate over a JavaScript object, you might have some code like this:
+In order to iterate over a JavaScript object, you might have some code like
+this:
 
 ```ts
 for (const [key, value] of Object.entries(foo)) {
@@ -20,7 +23,12 @@ for (const [key, value] of Object.entries(foo)) {
 }
 ```
 
-However, it is common to refactor objects to [maps](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), since they are [more performant and provide a nicer API](https://claritydev.net/blog/simplifying-code-with-maps-in-javascript/). After such a refactor, the above code block would still pass the TypeScript compiler, but would not work at all.
+However, it is common to refactor objects to
+[maps](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map),
+since they are
+[more performant and provide a nicer API](https://claritydev.net/blog/simplifying-code-with-maps-in-javascript/).
+After such a refactor, the above code block would still pass the TypeScript
+compiler, but would not work at all.
 
 This rule prevents the use of specific `Object` methods with maps and sets.
 

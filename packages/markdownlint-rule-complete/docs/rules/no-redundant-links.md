@@ -4,7 +4,8 @@ Disallows links whose text is identical to their URL.
 
 ## Rule Details
 
-When a URL is already the visible text, wrapping it in link syntax adds no information. Use a descriptive label or leave the URL bare.
+When a URL is already the visible text, wrapping it in link syntax adds no
+information. Use a descriptive label or leave the URL bare.
 
 ```md
 <!-- Bad -->

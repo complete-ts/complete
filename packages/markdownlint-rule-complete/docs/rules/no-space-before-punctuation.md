@@ -4,7 +4,9 @@ Disallows spaces before periods and commas.
 
 ## Rule Details
 
-This rule reports one or more spaces immediately before a period or comma at the end of a text segment and automatically removes them. Code blocks and punctuation followed directly by another non-whitespace character are ignored.
+This rule reports one or more spaces immediately before a period or comma at the
+end of a text segment and automatically removes them. Code blocks and
+punctuation followed directly by another non-whitespace character are ignored.
 
 ```md
 <!-- Bad -->

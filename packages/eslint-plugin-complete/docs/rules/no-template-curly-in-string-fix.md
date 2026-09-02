@@ -2,17 +2,23 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows template literal placeholder syntax in regular strings (and automatically fixes).
+📝 Disallows template literal placeholder syntax in regular strings (and
+automatically fixes).
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
-This is a replacement for the ESLint [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string) rule that includes the ability for `--fix` to work properly.
+This is a replacement for the ESLint
+[`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string)
+rule that includes the ability for `--fix` to work properly.
 
 ## Rule Details
 
-The official ESLint [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string) rule works like this:
+The official ESLint
+[`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string)
+rule works like this:
 
 ```ts
 // Bad
@@ -22,7 +28,11 @@ const fooString = "foo: ${foo}";
 const fooString = `foo: ${foo}`;
 ```
 
-This is a fantastic rule, as the use of quotes in this situation is almost always a bug. However, ESLint will not automatically fix this for you when using the `--fix` flag, unlike other rules. This is because ESLint does not want to break code in the extremely rare case where the programmer did this intentionally.
+This is a fantastic rule, as the use of quotes in this situation is almost
+always a bug. However, ESLint will not automatically fix this for you when using
+the `--fix` flag, unlike other rules. This is because ESLint does not want to
+break code in the extremely rare case where the programmer did this
+intentionally.
 
 To get around this, use this rule instead.
 
@@ -40,7 +50,8 @@ If you use this rule, make sure to turn off the vanilla ESLint rule, like this:
 
 Otherwise, the two rules will conflict with each other.
 
-Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
+Note that if you use the `recommended` config that comes with this plugin, then
+the vanilla ESLint rule will be turned off automatically.
 
 ## Options
 

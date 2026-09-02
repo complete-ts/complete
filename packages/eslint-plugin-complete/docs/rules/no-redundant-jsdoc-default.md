@@ -4,13 +4,14 @@
 
 📝 Disallows setting object properties to their JSDoc default values.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
-Disallows setting object properties to their JSDoc default values. This catches redundant
-configuration such as explicitly setting a property to `true` when its type declaration documents
-`@default true`.
+Disallows setting object properties to their JSDoc default values. This catches
+redundant configuration such as explicitly setting a property to `true` when its
+type declaration documents `@default true`.
 
 ## Rule Details
 

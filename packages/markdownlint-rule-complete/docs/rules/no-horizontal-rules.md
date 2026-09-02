@@ -4,7 +4,9 @@ Disallows horizontal rules.
 
 ## Rule Details
 
-Horizontal rules create visual structure without describing the relationship between sections. Prefer headings to organize content. This rule automatically removes horizontal rules.
+Horizontal rules create visual structure without describing the relationship
+between sections. Prefer headings to organize content. This rule automatically
+removes horizontal rules.
 
 ```md
 <!-- Bad -->

@@ -4,19 +4,26 @@
 
 ## Introduction
 
-This is an [ESLint](https://eslint.org/) plugin containing rules that can help make your TypeScript code more safe or more strict.
+This is an [ESLint](https://eslint.org/) plugin containing rules that can help
+make your TypeScript code more safe or more strict.
 
 ## Install
 
 ### Using `complete-lint`
 
-This package is part of the [`complete-lint`](/complete-lint) meta-linting package. If you want to enable a comprehensive ESLint config in your TypeScript project as quickly as possible, it is recommended that instead of consuming `eslint-plugin-complete` directly, you instead list `complete-lint` as a dependency, as that will install the plugin, the config, and other goodies.
+This package is part of the [`complete-lint`](/complete-lint) meta-linting
+package. If you want to enable a comprehensive ESLint config in your TypeScript
+project as quickly as possible, it is recommended that instead of consuming
+`eslint-plugin-complete` directly, you instead list `complete-lint` as a
+dependency, as that will install the plugin, the config, and other goodies.
 
 For installation instructions, see [the `complete-lint` page](/complete-lint).
 
 ### Manually
 
-If you do not want to use the `complete-lint` meta-package, then you can install this plugin manually. For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
+If you do not want to use the `complete-lint` meta-package, then you can install
+this plugin manually. For example, if you use the
+[npm](https://docs.npmjs.com/cli/commands/npm) package manager:
 
 ```sh
 npm install --save-dev eslint typescript eslint-plugin-complete
@@ -26,7 +33,9 @@ npm install --save-dev eslint typescript eslint-plugin-complete
 
 ## Usage
 
-If you are using [`eslint-config-complete`](/eslint-config-complete), then this plugin is automatically enabled. Otherwise, you can manually enable this plugin and the recommended rules with the following "eslint.config.mjs" file:
+If you are using [`eslint-config-complete`](/eslint-config-complete), then this
+plugin is automatically enabled. Otherwise, you can manually enable this plugin
+and the recommended rules with the following "eslint.config.mjs" file:
 
 ```js
 // @ts-check
@@ -37,7 +46,8 @@ import { defineConfig } from "eslint/config";
 export default defineConfig(...esLintPluginComplete.configs.recommended);
 ```
 
-Alternatively, you can omit the recommended config and just enable the specific rules that you need:
+Alternatively, you can omit the recommended config and just enable the specific
+rules that you need:
 
 ```ts
 // @ts-check
@@ -56,7 +66,9 @@ export default defineConfig({
 });
 ```
 
-Note that if you get type errors, you have have to use a `@ts-expect-error` directive, due to a [bug in `typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
+Note that if you get type errors, you have have to use a `@ts-expect-error`
+directive, due to a
+[bug in `typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint/issues/11543).
 
 ## Configs
 
@@ -69,8 +81,10 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 
 💼 Configurations enabled in.\
 ✅ Set in the `recommended` configuration.\
-🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
-💭 Requires [type information](https://typescript-eslint.io/linting/typed-linting).
+🔧 Automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
+💭
+Requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 | Name                                                                                                       | Description                                                                                                 | 💼  | 🔧  | 💭  |
 | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- | :-- | :-- | :-- |
@@ -126,11 +140,28 @@ Note that if you get type errors, you have have to use a `@ts-expect-error` dire
 
 ## Automatic Fixing
 
-You probably already use [Prettier](https://prettier.io/), which is helpful to automatically format files. You probably even have your IDE set up to run Prettier every time your save a file. This kind of thing saves you a tremendous amount of time - you can type out a bunch of code completely unformatted, and then press `Ctrl + s` at the end to automatically fix everything. (Alternatively, you could press `Ctrl + shift + f` to format the file without saving it, but it's simpler to just use one hotkey for everything.)
+You probably already use [Prettier](https://prettier.io/), which is helpful to
+automatically format files. You probably even have your IDE set up to run
+Prettier every time your save a file. This kind of thing saves you a tremendous
+amount of time - you can type out a bunch of code completely unformatted, and
+then press `Ctrl + s` at the end to automatically fix everything.
+(Alternatively, you could press `Ctrl + shift + f` to format the file without
+saving it, but it's simpler to just use one hotkey for everything.)
 
-In a similar way to Prettier, this ESLint plugin contains several rules that are designed to automatically apply whenever you save the file (like the [`complete/format-jsdoc-comments`](eslint-plugin-complete/rules/format-jsdoc-comments) rule). These rules are "fixers", which are applied when ESLint is executed with the "--fix" flag. So, in the same way that you configure Prettier to run on save, you should also configure `eslint --fix` to run on save.
+In a similar way to Prettier, this ESLint plugin contains several rules that are
+designed to automatically apply whenever you save the file (like the
+[`complete/format-jsdoc-comments`](eslint-plugin-complete/rules/format-jsdoc-comments)
+rule). These rules are "fixers", which are applied when ESLint is executed with
+the "--fix" flag. So, in the same way that you configure Prettier to run on
+save, you should also configure `eslint --fix` to run on save.
 
-For example, if you use [Visual Studio Code](https://code.visualstudio.com/), and you have the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extensions installed, you can add the following to your repository's `.vscode/settings.json` file:
+For example, if you use [Visual Studio Code](https://code.visualstudio.com/),
+and you have the
+[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+and the
+[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+extensions installed, you can add the following to your repository's
+`.vscode/settings.json` file:
 
 <!-- We cannot use "jsonc" as the language below because Docusaurus will not display the colors properly. -->
 
@@ -149,4 +180,5 @@ For example, if you use [Visual Studio Code](https://code.visualstudio.com/), an
 
 ## Comment Formatting
 
-For a discussion around comments and the motivations for some of the comment rules in the plugin, see [this page](/eslint-plugin-complete/comments).
+For a discussion around comments and the motivations for some of the comment
+rules in the plugin, see [this page](/eslint-plugin-complete/comments).

@@ -4,13 +4,16 @@
 
 📝 Disallows explicit iteration for arrays.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
-In this case, "explicit iteration" means using the `values` method (or `Object.values`) in a for loop. Forbidding this can make code easier to read.
+In this case, "explicit iteration" means using the `values` method (or
+`Object.values`) in a for loop. Forbidding this can make code easier to read.
 
 Also see the [`no-explicit-map-set-loops`](no-explicit-map-set-loops.md) rule.
 
@@ -30,7 +33,9 @@ for (const element of myArray.values()) {
 }
 ```
 
-Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
+Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare
+because it is needlessly verbose. Thus, it is recommended to forbid this pattern
+in your codebase to prevent confusion and ensure consistency.
 
 ## Options
 

@@ -4,11 +4,17 @@
 
 📝 Requires using the complete-common isArray helper instead of Array.isArray.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
-The `Array.isArray` function is the standard way in JavaScript/TypeScript to check if something is an array. However, the return type for it is `arg is any[]`. This is bad, because `any` disables the type-checker. Thus, this rule forces you to use the `isArray` helper function from the `complete-common` library, which is the same thing as the `Array.isArray` function, but has a proper return type of `arg is unknown[]`.
+The `Array.isArray` function is the standard way in JavaScript/TypeScript to
+check if something is an array. However, the return type for it is
+`arg is any[]`. This is bad, because `any` disables the type-checker. Thus, this
+rule forces you to use the `isArray` helper function from the `complete-common`
+library, which is the same thing as the `Array.isArray` function, but has a
+proper return type of `arg is unknown[]`.
 
 ## Rule Details
 

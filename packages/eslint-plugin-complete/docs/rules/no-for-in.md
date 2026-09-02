@@ -8,7 +8,8 @@
 
 ## Rule Details
 
-"for in" loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop or instead.
+"for in" loops iterate over the entire prototype chain, which is virtually never
+what you want. Use a "for of" loop or instead.
 
 ```ts
 // Bad

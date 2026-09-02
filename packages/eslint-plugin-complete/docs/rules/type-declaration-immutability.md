@@ -4,11 +4,15 @@
 
 📝 Enforces that interfaces are immutable.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
-This rule has the same purpose as [`functional/type-declaration-immutability`](https://github.com/eslint-functional/eslint-plugin-functional/blob/main/docs/rules/type-declaration-immutability.md), but has no options and requires every interface to be fully immutable. Type aliases are not checked, and interface names do not affect enforcement.
+This rule has the same purpose as
+[`functional/type-declaration-immutability`](https://github.com/eslint-functional/eslint-plugin-functional/blob/main/docs/rules/type-declaration-immutability.md),
+but has no options and requires every interface to be fully immutable. Type
+aliases are not checked, and interface names do not affect enforcement.
 
 ## Rule Details
 

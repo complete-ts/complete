@@ -4,7 +4,8 @@ Disallows bold text in headings.
 
 ## Rule Details
 
-Heading syntax already gives text visual emphasis, so additional bold formatting is redundant. This rule automatically removes bold markers from headings.
+Heading syntax already gives text visual emphasis, so additional bold formatting
+is redundant. This rule automatically removes bold markers from headings.
 
 ```md
 <!-- Bad -->

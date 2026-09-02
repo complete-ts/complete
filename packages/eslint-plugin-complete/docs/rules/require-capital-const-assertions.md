@@ -2,9 +2,11 @@
 
 🚫 This rule is _disabled_ in the ✅ `recommended` config.
 
-📝 Requires a capital letter for named objects and arrays that have a const assertion.
+📝 Requires a capital letter for named objects and arrays that have a const
+assertion.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
@@ -12,19 +14,33 @@
 
 In TypeScript:
 
-- Variables are usually typed with [camelCase](https://en.wikipedia.org/wiki/Camel_case) names.
-- Types, interfaces, enums, and classes are usually typed with [PascalCase](https://techterms.com/definition/pascalcase) names.
-- Static constants are usually typed with [SCREAMING_SNAKE_CASE](https://en.wikipedia.org/wiki/Snake_case) names.
+- Variables are usually typed with
+  [camelCase](https://en.wikipedia.org/wiki/Camel_case) names.
+- Types, interfaces, enums, and classes are usually typed with
+  [PascalCase](https://techterms.com/definition/pascalcase) names.
+- Static constants are usually typed with
+  [SCREAMING_SNAKE_CASE](https://en.wikipedia.org/wiki/Snake_case) names.
 
-Thus, when a variable is typed with a capital letter, it is heavily implied that it is acting as an enum, some other type-like value, or a read-only constant.
+Thus, when a variable is typed with a capital letter, it is heavily implied that
+it is acting as an enum, some other type-like value, or a read-only constant.
 
-The `enum` construct that is built-in to TypeScript makes things immutable by default. However, not everyone uses the built-in enums for various reasons. And in some cases, like when the enum values are the results of a function, you can't use the built-in enums at all. Thus, it is common to see plain objects representing enums in both JavaScript and TypeScript code.
+The `enum` construct that is built-in to TypeScript makes things immutable by
+default. However, not everyone uses the built-in enums for various reasons. And
+in some cases, like when the enum values are the results of a function, you
+can't use the built-in enums at all. Thus, it is common to see plain objects
+representing enums in both JavaScript and TypeScript code.
 
-Since enums should never be modified, it almost always makes sense to use the [const assertions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions) feature of TypeScript on objects that are representing an enum. Doing so will automatically make every property read-only without having to manually type it on every single field.
+Since enums should never be modified, it almost always makes sense to use the
+[const assertions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions)
+feature of TypeScript on objects that are representing an enum. Doing so will
+automatically make every property read-only without having to manually type it
+on every single field.
 
-Similarly, the same logic applies to objects or arrays that are representing a static, read-only constant - they should also always have a const assertion.
+Similarly, the same logic applies to objects or arrays that are representing a
+static, read-only constant - they should also always have a const assertion.
 
-Use this rule to ensure read-only fields on all of the enums and constants throughout your codebase to keep things as safe as possible.
+Use this rule to ensure read-only fields on all of the enums and constants
+throughout your codebase to keep things as safe as possible.
 
 ```ts
 // Bad

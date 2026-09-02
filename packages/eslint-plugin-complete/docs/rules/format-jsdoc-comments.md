@@ -2,19 +2,25 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows `/**` comments longer than N characters and multi-line comments that can be merged together.
+📝 Disallows `/**` comments longer than N characters and multi-line comments
+that can be merged together.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 ⚙️ This rule is configurable.
 
 <!-- end auto-generated rule header -->
 
-Much like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run `eslint --fix` on save.
+Much like [Prettier](https://prettier.io/), this rule is designed to auto-format
+your comments so that you don't have to think about it. Try
+[configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run
+`eslint --fix` on save.
 
 Also see the [`format-line-comments`](format-line-comments.md) rule.
 
-For more information on why you should use this rule, see the [comment formatting discussion](../comments.md).
+For more information on why you should use this rule, see the
+[comment formatting discussion](../comments.md).
 
 ## Rule Details
 
@@ -35,7 +41,8 @@ Lines that are too long will be split to the next line:
  */
 ```
 
-Similarly, lines that are too long in a single-line JSDoc will be converted to a multi-line JSDoc:
+Similarly, lines that are too long in a single-line JSDoc will be converted to a
+multi-line JSDoc:
 
 ```ts
 // Bad
@@ -48,7 +55,8 @@ Similarly, lines that are too long in a single-line JSDoc will be converted to a
  */
 ```
 
-Lines that are too short will be merged together. And, if possible, JSDoc will be converted to a single-line:
+Lines that are too short will be merged together. And, if possible, JSDoc will
+be converted to a single-line:
 
 ```ts
 // Bad
@@ -61,7 +69,8 @@ Lines that are too short will be merged together. And, if possible, JSDoc will b
 /** I love cookies. But not cake. */
 ```
 
-The rule tries to be as smart as possible. For example, it won't complain about a bulleted list:
+The rule tries to be as smart as possible. For example, it won't complain about
+a bulleted list:
 
 ```ts
 // Good
@@ -73,9 +82,11 @@ The rule tries to be as smart as possible. For example, it won't complain about 
  */
 ```
 
-You can open a GitHub issue if you find a situation where this rule should be smarter.
+You can open a GitHub issue if you find a situation where this rule should be
+smarter.
 
-Non JSDoc-style comments (i.e., lines that begin with `/*` followed by a space) are ignored, since they are commonly-used to comment-out large blocks of code.
+Non JSDoc-style comments (i.e., lines that begin with `/*` followed by a space)
+are ignored, since they are commonly-used to comment-out large blocks of code.
 
 For example:
 

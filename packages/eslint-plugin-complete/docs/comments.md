@@ -1,6 +1,7 @@
 # Comments
 
-`eslint-plugin-complete` contains several rules that make working with comments very strict. Why would anyone want to subject themselves to that?
+`eslint-plugin-complete` contains several rules that make working with comments
+very strict. Why would anyone want to subject themselves to that?
 
 Let's have a short discussion on the motivation for these rules.
 
@@ -10,17 +11,20 @@ First, some jargon:
 
 - The `//` characters represent a "line" comment.
 - The `/*` characters represent a "block" comment. (It is ended with `*/`.)
-- The `/**` characters represent a "[JSDoc](https://jsdoc.app/)" comment. (It is also ended with `*/`.)
+- The `/**` characters represent a "[JSDoc](https://jsdoc.app/)" comment. (It is
+  also ended with `*/`.)
 
 ### Line Comments
 
-When line comments are on the same line as code, they are called _trailing line comments_. For example:
+When line comments are on the same line as code, they are called _trailing line
+comments_. For example:
 
 ```ts
 foo(); // hello world
 ```
 
-When line comments are on their own line, they are called _leading line comments_. For example:
+When line comments are on their own line, they are called _leading line
+comments_. For example:
 
 ```ts
 // hello world
@@ -38,7 +42,8 @@ _Leading line comments_ can be either be single-line, or multi-line:
 
 ### Block Comments
 
-Block comments are ignored by the rules of this plugin, since they are typically used to comment out blocks of code. For example:
+Block comments are ignored by the rules of this plugin, since they are typically
+used to comment out blocks of code. For example:
 
 ```ts
 /*
@@ -49,7 +54,8 @@ bar();
 
 ### JSDoc Comments
 
-JSDoc is a type of block comment that has a [strictly defined format](https://jsdoc.app/about-getting-started.html).
+JSDoc is a type of block comment that has a
+[strictly defined format](https://jsdoc.app/about-getting-started.html).
 
 Like line comments, JSDoc comments can either be single-line or multi-line:
 
@@ -66,14 +72,17 @@ Multi-line JSDoc comments use asterisks to denote the beginning of each line.
 
 ## Ignoring In-Line Comments
 
-With the definitions out of the way, let's talk about how we use the different kinds of comments. It is common to use _trailing line comments_ to write quick annotations:
+With the definitions out of the way, let's talk about how we use the different
+kinds of comments. It is common to use _trailing line comments_ to write quick
+annotations:
 
 ```ts
 foo(); // initialize the data
 bar(); // probably not needed but just in case
 ```
 
-In this circumstance, it would probably be a waste of time to force the programmer to write the comments in complete sentences, like this:
+In this circumstance, it would probably be a waste of time to force the
+programmer to write the comments in complete sentences, like this:
 
 ```ts
 foo(); // We call this function to initialize the data.
@@ -84,14 +93,20 @@ Thus, _trailing line comments_ are ignored by the rules in this plugin.
 
 ## Annotating Information on Variables and Functions
 
-In contrast to _trailing line comments_, _leading line comments_ are usually longer and more detailed. For example, say that we want to document something about the `foo` variable:
+In contrast to _trailing line comments_, _leading line comments_ are usually
+longer and more detailed. For example, say that we want to document something
+about the `foo` variable:
 
 ```ts
 // matches the USS design document, section D
 const foo = 100;
 ```
 
-This is a good start. But the problem with annotating this information with a line comment is that it doesn't get "attached" to the variable. For example, in Visual Studio Code, if we hover over the `foo` variable (either at the declaration or elsewhere in the code), we would see that it has a value of 100, but we wouldn't see what the comment is.
+This is a good start. But the problem with annotating this information with a
+line comment is that it doesn't get "attached" to the variable. For example, in
+Visual Studio Code, if we hover over the `foo` variable (either at the
+declaration or elsewhere in the code), we would see that it has a value of 100,
+but we wouldn't see what the comment is.
 
 To fix this problem, we can annotate the information as a JSDoc comment instead:
 
@@ -100,22 +115,40 @@ To fix this problem, we can annotate the information as a JSDoc comment instead:
 const foo = 100;
 ```
 
-Now, wherever we happen to be in the code, we can always mouse over `foo` to see the comment. Nice! (And if we use a documentation generator like [TypeDoc](https://github.com/TypeStrong/typedoc), it would automatically go in the generated documentation.)
+Now, wherever we happen to be in the code, we can always mouse over `foo` to see
+the comment. Nice! (And if we use a documentation generator like
+[TypeDoc](https://github.com/TypeStrong/typedoc), it would automatically go in
+the generated documentation.)
 
-However, one problem remains. You are [supposed to use complete sentences in JSDoc comments](https://jsdoc.app/about-getting-started.html), because it represents official information that will be extracted out and put on a documentation webpage. So we should update the comment to be like this:
+However, one problem remains. You are
+[supposed to use complete sentences in JSDoc comments](https://jsdoc.app/about-getting-started.html),
+because it represents official information that will be extracted out and put on
+a documentation webpage. So we should update the comment to be like this:
 
 ```ts
 /** Matches the USS design document, section D. */
 const foo = 100;
 ```
 
-Subsequently, it makes sense to have a linting rule to ensure that all JSDoc comments have complete sentences in them. This is the point of the [`complete/complete-sentences-jsdoc`](rules/complete-sentences-jsdoc.md) rule. (It is much smarter than the similar [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md) rule.)
+Subsequently, it makes sense to have a linting rule to ensure that all JSDoc
+comments have complete sentences in them. This is the point of the
+[`complete/complete-sentences-jsdoc`](rules/complete-sentences-jsdoc.md) rule.
+(It is much smarter than the similar
+[`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md)
+rule.)
 
 ## Using a Ruler
 
-Many code projects have conventions to prevent lines from getting over a certain amount of characters. This kind of thing ensures that code is easy to read. It also is helpful to people with seeing disabilities, and for developers who prefer to open two files side by side.
+Many code projects have conventions to prevent lines from getting over a certain
+amount of characters. This kind of thing ensures that code is easy to read. It
+also is helpful to people with seeing disabilities, and for developers who
+prefer to open two files side by side.
 
-In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/docs/latest/rules/max-len) lint rule. This lint rule is often accompanied by an on-screen ruler inside of the IDE. Having the ruler on-screen is very nice, as it can accurately show when a line is over the limit. For example, to enable the ruler in Visual Studio Code:
+In JavaScript/TypeScript, ESLint provides the
+[`max-len`](https://eslint.org/docs/latest/rules/max-len) lint rule. This lint
+rule is often accompanied by an on-screen ruler inside of the IDE. Having the
+ruler on-screen is very nice, as it can accurately show when a line is over the
+limit. For example, to enable the ruler in Visual Studio Code:
 
 ```json
 {
@@ -123,11 +156,16 @@ In JavaScript/TypeScript, ESLint provides the [`max-len`](https://eslint.org/doc
 }
 ```
 
-Formatters such as [Prettier](https://prettier.io/) have taken this concept to the next level. Prettier automatically reformats your code to stay within the line limit. Since it happens automatically, using Prettier is a huge timer-saver!
+Formatters such as [Prettier](https://prettier.io/) have taken this concept to
+the next level. Prettier automatically reformats your code to stay within the
+line limit. Since it happens automatically, using Prettier is a huge
+timer-saver!
 
 ## Using JSDoc With a Ruler
 
-Code comments should stay to the left of the ruler for the exact same reasons that normal code should. Unfortunately, Prettier does not automatically reformat JSDoc comments. This makes working with them a real pain.
+Code comments should stay to the left of the ruler for the exact same reasons
+that normal code should. Unfortunately, Prettier does not automatically reformat
+JSDoc comments. This makes working with them a real pain.
 
 For example, say that you have the following JSDoc comment:
 
@@ -141,7 +179,8 @@ For example, say that you have the following JSDoc comment:
  */
 ```
 
-This comment is aligned with a ruler of 100 characters. Imagine that I need to add some new information before the "No one rejects" sentence:
+This comment is aligned with a ruler of 100 characters. Imagine that I need to
+add some new information before the "No one rejects" sentence:
 
 ```ts
 /**
@@ -153,9 +192,13 @@ This comment is aligned with a ruler of 100 characters. Imagine that I need to a
  */
 ```
 
-Oh no! Now we have to manually re-adjust the next N lines of the block in order to keep everything aligned.
+Oh no! Now we have to manually re-adjust the next N lines of the block in order
+to keep everything aligned.
 
-This annoying problem is why the [`complete/format-jsdoc-comments`](rules/complete-sentences-jsdoc.md) rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is save the file, and all of the subsequent lines will be automatically adjusted.
+This annoying problem is why the
+[`complete/format-jsdoc-comments`](rules/complete-sentences-jsdoc.md) rule
+exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is
+save the file, and all of the subsequent lines will be automatically adjusted.
 
 ## Using Line Comments With a Ruler
 
@@ -169,15 +212,21 @@ The same problem happens with multi-line _leading line comments_:
 // pursue pleasure rationally encounter consequences that are extremely painful.
 ```
 
-After adding "ADDING INFORMATION HERE", we have to manually re-adjust the next N lines of the block in order to keep everything aligned.
+After adding "ADDING INFORMATION HERE", we have to manually re-adjust the next N
+lines of the block in order to keep everything aligned.
 
-Similar to the `format-jsdoc-comments` rule, the [`complete/format-line-comments`](rules/format-line-comments.md) rule saves us from the tedium of manually formatting.
+Similar to the `format-jsdoc-comments` rule, the
+[`complete/format-line-comments`](rules/format-line-comments.md) rule saves us
+from the tedium of manually formatting.
 
 ## Consistency With Line Comments and JSDoc Comments
 
-You might notice that in general, there is a bit of asymmetry between JSDoc comments and _leading line comments_.
+You might notice that in general, there is a bit of asymmetry between JSDoc
+comments and _leading line comments_.
 
-Specifically, you might already know that you are supposed to use complete sentences for JSDoc comments. But you might not use complete sentences for your _leading line comments_. For example:
+Specifically, you might already know that you are supposed to use complete
+sentences for JSDoc comments. But you might not use complete sentences for your
+_leading line comments_. For example:
 
 ```ts
 // This is how we do things here
@@ -185,13 +234,20 @@ Specifically, you might already know that you are supposed to use complete sente
 // It's just the way it is
 ```
 
-In this style, line breaks are used instead of periods. This kind of style can look nice under certain circumstances. But once we are committed to using the `format-line-comments` rule, this style becomes an anti-pattern, because the rule will change it to this:
+In this style, line breaks are used instead of periods. This kind of style can
+look nice under certain circumstances. But once we are committed to using the
+`format-line-comments` rule, this style becomes an anti-pattern, because the
+rule will change it to this:
 
 ```ts
 // This is how we do things here I don't know why It's just the way it is
 ```
 
-In order to prevent this from happening, the [`complete/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md) rule forces you to use complete sentences for any _leading line comment_. In the previous example, once we use complete sentences, it gets auto-formatted to this:
+In order to prevent this from happening, the
+[`complete/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md)
+rule forces you to use complete sentences for any _leading line comment_. In the
+previous example, once we use complete sentences, it gets auto-formatted to
+this:
 
 ```ts
 // This is how we do things here. I don't know why. It's just the way it is.
@@ -199,9 +255,17 @@ In order to prevent this from happening, the [`complete/complete-sentences-line-
 
 Much better!
 
-Even if you don't use the `format-line-comments` rule, having consistency between JSDoc comments and line comments is a good thing. Why should JSDoc comments be styled one way (with complete sentences) and _leading line comments_ styled another way (without complete sentences)? Having a mismatch here is distracting for someone reading the code, and confusing for someone trying to work on the code: "Am I supposed to use punctuation here or not?" Better to make things always consistent.
+Even if you don't use the `format-line-comments` rule, having consistency
+between JSDoc comments and line comments is a good thing. Why should JSDoc
+comments be styled one way (with complete sentences) and _leading line comments_
+styled another way (without complete sentences)? Having a mismatch here is
+distracting for someone reading the code, and confusing for someone trying to
+work on the code: "Am I supposed to use punctuation here or not?" Better to make
+things always consistent.
 
-Finally, note that complete-sentences are not enforced for certain kinds of single-line _leading line comments_. For example, the rule allows you to make quick annotations like this:
+Finally, note that complete-sentences are not enforced for certain kinds of
+single-line _leading line comments_. For example, the rule allows you to make
+quick annotations like this:
 
 ```ts
 // Local variables
@@ -214,4 +278,7 @@ const foo = 123;
 const bar = 456;
 ```
 
-All of the rules in this plugin are designed to try and be as smart as possible. They are trying to hit the sweet spot between false positives and false negatives. You can open a GitHub issue if you find a situation where this rule should be smarter.
+All of the rules in this plugin are designed to try and be as smart as possible.
+They are trying to hit the sweet spot between false positives and false
+negatives. You can open a GitHub issue if you find a situation where this rule
+should be smarter.

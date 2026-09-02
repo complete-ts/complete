@@ -4,7 +4,8 @@
 
 📝 Requires boolean return types on some specific array methods.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
@@ -20,7 +21,11 @@ This rule targets the following Array methods:
 - [`Array.prototype.findLastIndex`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)
 - [`Array.prototype.some`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
 
-Normally, the [`@typescript-eslint/strict-boolean-expressions`](https://typescript-eslint.io/rules/strict-boolean-expressions/) ESLint rule catches bugs where you are supposed to put a boolean value but accidentally put something else. Unfortunately, [that rule does not catch this mistake when using array methods](https://github.com/typescript-eslint/typescript-eslint/issues/8016).
+Normally, the
+[`@typescript-eslint/strict-boolean-expressions`](https://typescript-eslint.io/rules/strict-boolean-expressions/)
+ESLint rule catches bugs where you are supposed to put a boolean value but
+accidentally put something else. Unfortunately,
+[that rule does not catch this mistake when using array methods](https://github.com/typescript-eslint/typescript-eslint/issues/8016).
 
 Thus, an additional ESLint rule is necessary to handle this.
 

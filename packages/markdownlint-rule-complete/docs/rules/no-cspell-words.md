@@ -4,7 +4,8 @@ Disallows CSpell `words` directives.
 
 ## Rule Details
 
-Project-specific words should be added to the CSpell configuration instead of being scattered across Markdown files. Other CSpell directives remain allowed.
+Project-specific words should be added to the CSpell configuration instead of
+being scattered across Markdown files. Other CSpell directives remain allowed.
 
 <!-- markdownlint-disable no-cspell-words -->
 

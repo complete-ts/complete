@@ -4,13 +4,22 @@
 
 📝 Requires object brace spacing to match the property count.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
-Object literals with one property must be on one line unless that property value is another object literal. Object literals with two or more properties, object literals used as object property values, and object literals with object-valued properties must put each property on its own line. When automatically fixing an object literal to use multiple lines, the rule adds a trailing comma after every property.
+Object literals with one property must be on one line unless that property value
+is another object literal. Object literals with two or more properties, object
+literals used as object property values, and object literals with object-valued
+properties must put each property on its own line. When automatically fixing an
+object literal to use multiple lines, the rule adds a trailing comma after every
+property.
 
-This rule applies to object expressions, such as object literals assigned to variables, nested inside other objects, or passed as function arguments. It does not apply to object patterns, such as destructuring assignments or function parameters.
+This rule applies to object expressions, such as object literals assigned to
+variables, nested inside other objects, or passed as function arguments. It does
+not apply to object patterns, such as destructuring assignments or function
+parameters.
 
 ## Rule Details
 

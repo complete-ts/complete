@@ -2,7 +2,8 @@
 
 [![](https://img.shields.io/npm/v/markdownlint-rule-complete.svg)](https://www.npmjs.com/package/markdownlint-rule-complete)
 
-`markdownlint-rule-complete` is a collection of opinionated custom rules for [`markdownlint`](https://github.com/DavidAnson/markdownlint).
+`markdownlint-rule-complete` is a collection of opinionated custom rules for
+[`markdownlint`](https://github.com/DavidAnson/markdownlint).
 
 ## Installation
 

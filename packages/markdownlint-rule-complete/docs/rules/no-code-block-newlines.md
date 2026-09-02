@@ -4,7 +4,8 @@ Disallows leading and trailing blank lines inside fenced code blocks.
 
 ## Rule Details
 
-This rule automatically removes blank lines immediately after an opening fence or immediately before a closing fence.
+This rule automatically removes blank lines immediately after an opening fence
+or immediately before a closing fence.
 
 ````md
 <!-- Bad -->

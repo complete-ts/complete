@@ -1,6 +1,7 @@
 # Overview
 
-Complete is a collection of packages to make working with [TypeScript](https://www.typescriptlang.org/) easier.
+Complete is a collection of packages to make working with
+[TypeScript](https://www.typescriptlang.org/) easier.
 
 ## Packages
 

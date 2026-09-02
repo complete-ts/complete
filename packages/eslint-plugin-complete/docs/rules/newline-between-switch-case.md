@@ -4,17 +4,21 @@
 
 📝 Requires newlines between switch cases.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
-Having newlines between each case can make code easier to read, as it better delineates each block.
+Having newlines between each case can make code easier to read, as it better
+delineates each block.
 
-Based on [this rule](https://github.com/lukeapage/eslint-plugin-switch-case/blob/master/docs/rules/newline-between-switch-case.md).
+Based on
+[this rule](https://github.com/lukeapage/eslint-plugin-switch-case/blob/master/docs/rules/newline-between-switch-case.md).
 
 ## Rule Details
 
-This rule does not apply to "fall through" switch cases; those should be squished together with the other cases. See below for an example.
+This rule does not apply to "fall through" switch cases; those should be
+squished together with the other cases. See below for an example.
 
 ```ts
 // Bad

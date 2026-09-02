@@ -4,7 +4,8 @@ Requires conventional language identifiers for fenced code blocks.
 
 ## Rule Details
 
-This rule automatically replaces `bash` with `sh`, `console` with `powershell`, and `text` with `txt`.
+This rule automatically replaces `bash` with `sh`, `console` with `powershell`,
+and `text` with `txt`.
 
 ````md
 <!-- Bad -->

@@ -4,7 +4,8 @@
 
 📝 Requires maps/sets/arrays with a capital letter to be read-only.
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
@@ -12,14 +13,24 @@
 
 In TypeScript:
 
-- Variables are usually typed with [camelCase](https://en.wikipedia.org/wiki/Camel_case) names.
-- Static constants are usually typed with [SCREAMING_SNAKE_CASE](https://en.wikipedia.org/wiki/Snake_case) names.
+- Variables are usually typed with
+  [camelCase](https://en.wikipedia.org/wiki/Camel_case) names.
+- Static constants are usually typed with
+  [SCREAMING_SNAKE_CASE](https://en.wikipedia.org/wiki/Snake_case) names.
 
-Thus, when a map, set, array, or object is typed with a capital letter, it is heavily implied that it is acting as a static constant. Since maps, sets, and arrays are writable by default, it is common to explicitly type these kinds of constants with `ReadonlyMap<Foo, Bar>` or `ReadonlySet<Foo>` or `readonly Foo[]` or `Readonly<Foo>` to enforce that they can never be modified later on, which prevents bugs. However, it can be difficult to remember to do this every single time.
+Thus, when a map, set, array, or object is typed with a capital letter, it is
+heavily implied that it is acting as a static constant. Since maps, sets, and
+arrays are writable by default, it is common to explicitly type these kinds of
+constants with `ReadonlyMap<Foo, Bar>` or `ReadonlySet<Foo>` or `readonly Foo[]`
+or `Readonly<Foo>` to enforce that they can never be modified later on, which
+prevents bugs. However, it can be difficult to remember to do this every single
+time.
 
-Use this rule to ensure that the SCREAMING_SNAKE_CASE variables are read-only throughout your codebase to keep things as safe as possible.
+Use this rule to ensure that the SCREAMING_SNAKE_CASE variables are read-only
+throughout your codebase to keep things as safe as possible.
 
-Also see the [`require-capital-const-assertions` rule](require-capital-const-assertions.md).
+Also see the
+[`require-capital-const-assertions` rule](require-capital-const-assertions.md).
 
 ```ts
 // Bad

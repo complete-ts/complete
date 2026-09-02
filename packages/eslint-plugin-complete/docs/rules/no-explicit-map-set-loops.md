@@ -4,13 +4,17 @@
 
 📝 Disallows explicit iteration for maps and sets.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
-In this case, "explicit iteration" means using a method like `entries` or `values` in a for loop, where omitting the method would result in equivalent code. Forbidding this can make code easier to read.
+In this case, "explicit iteration" means using a method like `entries` or
+`values` in a for loop, where omitting the method would result in equivalent
+code. Forbidding this can make code easier to read.
 
 Also see the [`no-explicit-array-loops`](no-explicit-array-loops.md) rule.
 
@@ -36,7 +40,9 @@ for (const value of mySet.values()) {
 }
 ```
 
-Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare because it is needlessly verbose. Thus, it is recommended to forbid this pattern in your codebase to prevent confusion and ensure consistency.
+Idiomatic TypeScript code iterates implicitly. Explicit iteration is rare
+because it is needlessly verbose. Thus, it is recommended to forbid this pattern
+in your codebase to prevent confusion and ensure consistency.
 
 ## Options
 

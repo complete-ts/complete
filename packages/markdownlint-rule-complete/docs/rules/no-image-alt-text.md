@@ -4,7 +4,8 @@ Disallows image alt text.
 
 ## Rule Details
 
-This opinionated rule requires empty image labels and automatically removes their contents.
+This opinionated rule requires empty image labels and automatically removes
+their contents.
 
 ```md
 <!-- Bad -->

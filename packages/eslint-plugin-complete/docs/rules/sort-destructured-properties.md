@@ -4,15 +4,19 @@
 
 📝 Requires destructured object properties to match the declared type order.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
 Requires destructured object properties to match the declared type order.
 
-Note that this rule [was proposed to TSESLint](https://github.com/typescript-eslint/typescript-eslint/issues/6893), but was rejected.
+Note that this rule
+[was proposed to TSESLint](https://github.com/typescript-eslint/typescript-eslint/issues/6893),
+but was rejected.
 
 ## Rule Details
 

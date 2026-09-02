@@ -4,21 +4,31 @@
 
 📝 Disallows `void` return types on non-exported functions.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires
+[type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 
 ## Rule Details
 
-Most of the time, programmers do not bother typing `void` after the functions that they write, since this return type is implied by default. Adding the `void` annotation to every function would clutter the code.
+Most of the time, programmers do not bother typing `void` after the functions
+that they write, since this return type is implied by default. Adding the `void`
+annotation to every function would clutter the code.
 
-With that said, some codebases use the [`explicit-module-boundary-types`](https://typescript-eslint.io/rules/explicit-module-boundary-types/) ESLint rule, which requires that you annotate the type for every exported function. So in this case, typing the `void` is required for some functions.
+With that said, some codebases use the
+[`explicit-module-boundary-types`](https://typescript-eslint.io/rules/explicit-module-boundary-types/)
+ESLint rule, which requires that you annotate the type for every exported
+function. So in this case, typing the `void` is required for some functions.
 
-However, from time to time, programmers will refactor exported functions to non-exported functions. After doing this, the largely-superfluous `void` annotation will remain in the code, causing clutter.
+However, from time to time, programmers will refactor exported functions to
+non-exported functions. After doing this, the largely-superfluous `void`
+annotation will remain in the code, causing clutter.
 
-To solve the problem, use this lint rule to automatically remove void return types on non-exported functions.
+To solve the problem, use this lint rule to automatically remove void return
+types on non-exported functions.
 
 ```ts
 // Bad

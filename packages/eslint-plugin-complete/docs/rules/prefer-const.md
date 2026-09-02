@@ -2,17 +2,24 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Requires `const` declarations for variables that are never reassigned after declared (with no auto-fixer).
+📝 Requires `const` declarations for variables that are never reassigned after
+declared (with no auto-fixer).
 
 ⚙️ This rule is configurable.
 
 <!-- end auto-generated rule header -->
 
-This is the exact same thing as the ESLint [`prefer-const`](https://eslint.org/docs/latest/rules/prefer-const) rule, except the auto-fixer is disabled.
+This is the exact same thing as the ESLint
+[`prefer-const`](https://eslint.org/docs/latest/rules/prefer-const) rule, except
+the auto-fixer is disabled.
 
 ## Rule Details
 
-This version of the rule without an auto-fixer is useful because it is common during development to comment out code that modifies a `let` variable. In these cases, the auto-fixer is harmful, since it would require us to manually go change the `const` back to a `let` after uncommenting the code to put it back the way it way.
+This version of the rule without an auto-fixer is useful because it is common
+during development to comment out code that modifies a `let` variable. In these
+cases, the auto-fixer is harmful, since it would require us to manually go
+change the `const` back to a `let` after uncommenting the code to put it back
+the way it way.
 
 ## Gotchas
 
@@ -28,11 +35,13 @@ If you use this rule, make sure to turn off the vanilla ESLint rule, like this:
 
 Otherwise, the two rules will conflict with each other.
 
-Note that if you use the `recommended` config that comes with this plugin, then the vanilla ESLint rule will be turned off automatically.
+Note that if you use the `recommended` config that comes with this plugin, then
+the vanilla ESLint rule will be turned off automatically.
 
 ## Options
 
-This rule is not configurable. (All of the unsafe options from the original have been removed.)
+This rule is not configurable. (All of the unsafe options from the original have
+been removed.)
 
 ## Resources
 

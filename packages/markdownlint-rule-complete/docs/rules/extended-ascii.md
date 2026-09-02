@@ -4,7 +4,8 @@ Requires text to contain only ASCII characters, with limited exceptions.
 
 ## Rule Details
 
-This rule reports non-ASCII characters in regular text. However, the check mark, cross mark, and box-drawing characters are allowed.
+This rule reports non-ASCII characters in regular text. However, the check mark,
+cross mark, and box-drawing characters are allowed.
 
 ```md
 <!-- Bad -->

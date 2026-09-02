@@ -2,19 +2,25 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows `//` comments longer than N characters and multi-line comments that can be merged together.
+📝 Disallows `//` comments longer than N characters and multi-line comments that
+can be merged together.
 
-🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 ⚙️ This rule is configurable.
 
 <!-- end auto-generated rule header -->
 
-Like [Prettier](https://prettier.io/), this rule is designed to auto-format your comments so that you don't have to think about it. Try [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run `eslint --fix` on save.
+Like [Prettier](https://prettier.io/), this rule is designed to auto-format your
+comments so that you don't have to think about it. Try
+[configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run
+`eslint --fix` on save.
 
 Also see the [`format-jsdoc-comments`](format-jsdoc-comments.md) rule.
 
-For more information on why you should use this rule, see the [comment formatting discussion](../comments.md).
+For more information on why you should use this rule, see the
+[comment formatting discussion](../comments.md).
 
 ## Rule Details
 
@@ -42,13 +48,16 @@ Lines that are too short will be merged together:
 // Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ```
 
-The rule tries to be as smart as possible. For example, it won't complain about TypeScript [triple slash directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html):
+The rule tries to be as smart as possible. For example, it won't complain about
+TypeScript
+[triple slash directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html):
 
 ```ts
 /// <reference path="foo.d.ts" />
 ```
 
-You can open a GitHub issue if you find a situation where this rule should be smarter.
+You can open a GitHub issue if you find a situation where this rule should be
+smarter.
 
 ## Options
 

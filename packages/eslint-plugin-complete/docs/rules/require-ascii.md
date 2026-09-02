@@ -8,7 +8,8 @@
 
 <!-- end auto-generated rule header -->
 
-Require code and comments to only contain ASCII characters. If this is too restrictive, you can use the `whitelist` option to allow specific characters.
+Require code and comments to only contain ASCII characters. If this is too
+restrictive, you can use the `whitelist` option to allow specific characters.
 
 ## Rule Details
 

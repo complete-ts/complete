@@ -4,21 +4,28 @@
 
 ## Introduction
 
-This is a sharable configuration for [ESLint](https://eslint.org/) that is intended to be used in TypeScript projects that want to be as safe as possible.
+This is a sharable configuration for [ESLint](https://eslint.org/) that is
+intended to be used in TypeScript projects that want to be as safe as possible.
 
-The config is environment-agnostic, meaning that it will work in client-side projects (e.g., React), server-side projects (e.g., Node.js), and so on.
+The config is environment-agnostic, meaning that it will work in client-side
+projects (e.g., React), server-side projects (e.g., Node.js), and so on.
 
 ## Install
 
 ### Using `complete-lint`
 
-This package is part of the [`complete-lint`](/complete-lint) meta-linting package. It is recommended that instead of consuming `eslint-config-complete` directly, you instead list `complete-lint` as a dependency, as that will install both this config and other goodies.
+This package is part of the [`complete-lint`](/complete-lint) meta-linting
+package. It is recommended that instead of consuming `eslint-config-complete`
+directly, you instead list `complete-lint` as a dependency, as that will install
+both this config and other goodies.
 
 For installation instructions, see [the `complete-lint` page](/complete-lint).
 
 ### Manually
 
-If you do not want to use the `complete-lint` meta-package, then you can install this config manually. For example, if you use the [npm](https://docs.npmjs.com/cli/commands/npm) package manager:
+If you do not want to use the `complete-lint` meta-package, then you can install
+this config manually. For example, if you use the
+[npm](https://docs.npmjs.com/cli/commands/npm) package manager:
 
 ```sh
 npm install --save-dev eslint typescript eslint-plugin-complete
@@ -43,53 +50,115 @@ export default defineConfig(...completeConfigBase);
 
 This package exports two configs:
 
-- `completeConfigBase` - The general-purpose config that people should use for TypeScript projects.
-- `completeConfigESLintPlugin` - Enables extra rules for custom ESLint plugins from [`eslint-plugin-eslint-plugin`](https://github.com/eslint-community/eslint-plugin-eslint-plugin). (This should only be used in custom ESLint plugins.)
+- `completeConfigBase` - The general-purpose config that people should use for
+  TypeScript projects.
+- `completeConfigESLintPlugin` - Enables extra rules for custom ESLint plugins
+  from
+  [`eslint-plugin-eslint-plugin`](https://github.com/eslint-community/eslint-plugin-eslint-plugin).
+  (This should only be used in custom ESLint plugins.)
 
 ## Why Do I Need To Use ESLint?
 
-If you are reading this page, you are likely a user of [TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript is great because it saves you an enormous amount of time. The hours spent troubleshooting run-time errors caused from small typos have become a thing of the past. Good riddance!
+If you are reading this page, you are likely a user of
+[TypeScript](https://www.typescriptlang.org/). As you probably know, TypeScript
+is great because it saves you an enormous amount of time. The hours spent
+troubleshooting run-time errors caused from small typos have become a thing of
+the past. Good riddance!
 
-But there are many other code problems that do not have to do with types. For example, ESLint can show you [when you forgot to use the `await` keyword](https://typescript-eslint.io/rules/require-await/). And it can help show you lines of code that [you think are doing something but are not really doing anything](https://typescript-eslint.io/rules/no-unused-expressions). In the same way that you want to use TypeScript to catch as many bugs as possible, you also want to use ESLint with a config that enables lots of good linting rules to catch even more bugs.
+But there are many other code problems that do not have to do with types. For
+example, ESLint can show you
+[when you forgot to use the `await` keyword](https://typescript-eslint.io/rules/require-await/).
+And it can help show you lines of code that
+[you think are doing something but are not really doing anything](https://typescript-eslint.io/rules/no-unused-expressions).
+In the same way that you want to use TypeScript to catch as many bugs as
+possible, you also want to use ESLint with a config that enables lots of good
+linting rules to catch even more bugs.
 
-ESLint rules can help catch bugs, but they can also help to make your codebase more consistent and adhere to best-practices within the TypeScript ecosystem. Remember that [code is read more often than it is written](https://skeptics.stackexchange.com/questions/48560/is-code-read-more-often-than-its-written). If you care about your code being the best that it can possibly be, then using ESLint is a must!
+ESLint rules can help catch bugs, but they can also help to make your codebase
+more consistent and adhere to best-practices within the TypeScript ecosystem.
+Remember that
+[code is read more often than it is written](https://skeptics.stackexchange.com/questions/48560/is-code-read-more-often-than-its-written).
+If you care about your code being the best that it can possibly be, then using
+ESLint is a must!
 
 ## Why Do I Need `eslint-config-complete`?
 
-`eslint-config-complete` is one of the most comprehensive ESLint configs out there.
+`eslint-config-complete` is one of the most comprehensive ESLint configs out
+there.
 
-Building an ESLint config from scratch takes many, many hours. ESLint has [over 250 rules](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-all.js). `typescript-eslint` has [over 125 rules](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/all.ts). And that's just the beginning.
+Building an ESLint config from scratch takes many, many hours. ESLint has
+[over 250 rules](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-all.js).
+`typescript-eslint` has
+[over 125 rules](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/all.ts).
+And that's just the beginning.
 
-Don't bother creating and maintaining a huge ESLint config yourself. We've done the work to:
+Don't bother creating and maintaining a huge ESLint config yourself. We've done
+the work to:
 
-- Enable every ESLint rule that we can find from trusted sources that provides value.
-- Weed out the rules that don't apply to TypeScript codebases (because many ESLint rules were written before TypeScript existed).
-- Weed out the rules covered by [Prettier](https://prettier.io/) (because many ESLint rules were written before Prettier existed).
-- Weed out the rules that are too noisy to provide value (and document them below).
+- Enable every ESLint rule that we can find from trusted sources that provides
+  value.
+- Weed out the rules that don't apply to TypeScript codebases (because many
+  ESLint rules were written before TypeScript existed).
+- Weed out the rules covered by [Prettier](https://prettier.io/) (because many
+  ESLint rules were written before Prettier existed).
+- Weed out the rules that are too noisy to provide value (and document them
+  below).
 
 ## Our Config Philosophy
 
-We want to enable as many lint rules as possible, so that we can catch as many bugs as possible. Of course, this is a tradeoff: with more lint rules, we get more false positives. But in general, a few false positives are worth the time saved from investigating and squashing bugs. (More on false positives [later](#dealing-with-false-positives).)
+We want to enable as many lint rules as possible, so that we can catch as many
+bugs as possible. Of course, this is a tradeoff: with more lint rules, we get
+more false positives. But in general, a few false positives are worth the time
+saved from investigating and squashing bugs. (More on false positives
+[later](#dealing-with-false-positives).)
 
-In line with this philosophy, our linting config enables nearly all of the recommended rules from both the core ESLint team and the TypeScript ESLint team, as well as some additional rules that catch even more bugs.
+In line with this philosophy, our linting config enables nearly all of the
+recommended rules from both the core ESLint team and the TypeScript ESLint team,
+as well as some additional rules that catch even more bugs.
 
-This config also assumes that you are using [Prettier](https://prettier.io/) to format your TypeScript code, which is considered to be best-practice in the ecosystem. Subsequently, all formatting-related rules that conflict with Prettier are disabled. (However, we use a few formatting-related rules that are not handled by Prettier.)
+This config also assumes that you are using [Prettier](https://prettier.io/) to
+format your TypeScript code, which is considered to be best-practice in the
+ecosystem. Subsequently, all formatting-related rules that conflict with
+Prettier are disabled. (However, we use a few formatting-related rules that are
+not handled by Prettier.)
 
 ## Auto-Fixing
 
-Deploying this ESLint config on an existing codebase can generate a ton of warnings. Fixing them all might seem overwhelming. While some warnings need to be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the code will fix itself if you run ESLint with the `--fix` flag. So, by running `npx eslint --fix .` in the root of your project, you can take care of a lot of the warnings automatically.
+Deploying this ESLint config on an existing codebase can generate a ton of
+warnings. Fixing them all might seem overwhelming. While some warnings need to
+be fixed manually, a ton of ESLint rules have "auto-fixers". This means that the
+code will fix itself if you run ESLint with the `--fix` flag. So, by running
+`npx eslint --fix .` in the root of your project, you can take care of a lot of
+the warnings automatically.
 
-Additionally, we recommend that you [configure your IDE (e.g., Visual Studio Code) to automatically run `--fix` whenever you save a file](/complete-lint#step-4---editor-integration).
+Additionally, we recommend that you
+[configure your IDE (e.g., Visual Studio Code) to automatically run `--fix` whenever you save a file](/complete-lint#step-4---editor-integration).
 
 ## Dealing with False Positives
 
-Your first reaction to having a bunch of yellow squiggly lines might be to disable any rule that gets in your way. However, even if you think an ESLint warning is superfluous, it is often a sign that your codebase is structured in a bug-prone or non-idiomatic way. Before simply disabling a rule, sometimes it is good to do some research and think carefully if your code can be refactored in some way to be cleaner.
+Your first reaction to having a bunch of yellow squiggly lines might be to
+disable any rule that gets in your way. However, even if you think an ESLint
+warning is superfluous, it is often a sign that your codebase is structured in a
+bug-prone or non-idiomatic way. Before simply disabling a rule, sometimes it is
+good to do some research and think carefully if your code can be refactored in
+some way to be cleaner.
 
-Additionally, some ESLint rules are not about catching bugs, but are about code style and code consistency. If you find the new style to be foreign and weird, it can be tempting to ignore or disable the rule. But before you do that, consider the cost: your codebase will be deviating from others in the TypeScript ecosystem. It is [really nice for everyone's code to adhere to the same look and the same standards](/complete-lint#why-code-formatting-is-important)!
+Additionally, some ESLint rules are not about catching bugs, but are about code
+style and code consistency. If you find the new style to be foreign and weird,
+it can be tempting to ignore or disable the rule. But before you do that,
+consider the cost: your codebase will be deviating from others in the TypeScript
+ecosystem. It is
+[really nice for everyone's code to adhere to the same look and the same standards](/complete-lint#why-code-formatting-is-important)!
 
-With that said, with so many ESLint rules turned on, you will undoubtedly come across some false positives. You can quickly take care of these by adding a `// eslint-disable-next-line insert-rule-name-here` comment. And you can automatically add the comment by selecting "Quick Fix" in Visual Studio Code, which is mapped to `Ctrl + .` by default.
+With that said, with so many ESLint rules turned on, you will undoubtedly come
+across some false positives. You can quickly take care of these by adding a
+`// eslint-disable-next-line insert-rule-name-here` comment. And you can
+automatically add the comment by selecting "Quick Fix" in Visual Studio Code,
+which is mapped to `Ctrl + .` by default.
 
-If you find yourself adding a lot of disable comments for a specific rule, then turn the rule off for the entire project by adding an entry for it in your `eslint.config.mjs` file: like this:
+If you find yourself adding a lot of disable comments for a specific rule, then
+turn the rule off for the entire project by adding an entry for it in your
+`eslint.config.mjs` file: like this:
 
 ```js
 // @ts-check
@@ -110,11 +179,18 @@ Some rules won't make sense for every project and that's okay!
 
 ## Red Squigglies & Yellow Squigglies
 
-The legendary Josh Goldberg has [an excellent blog explaining why using warnings in ESLint should be avoided](https://www.joshuakgoldberg.com/blog/if-i-wrote-a-linter-part-2-developer-experience/#only-errors). In fact, the ESLint ecosystem has standardized around not using warnings, so this config follows suit.
+The legendary Josh Goldberg has
+[an excellent blog explaining why using warnings in ESLint should be avoided](https://www.joshuakgoldberg.com/blog/if-i-wrote-a-linter-part-2-developer-experience/#only-errors).
+In fact, the ESLint ecosystem has standardized around not using warnings, so
+this config follows suit.
 
-Furthermore, we especially agree with Josh's opinion on squigglies: red squigglies should be reserved for TypeScript errors (which are often critical bugs that will cause a run-time error) and yellow squigglies should be reserved for ESLint errors (which are often code-quality issues).
+Furthermore, we especially agree with Josh's opinion on squigglies: red
+squigglies should be reserved for TypeScript errors (which are often critical
+bugs that will cause a run-time error) and yellow squigglies should be reserved
+for ESLint errors (which are often code-quality issues).
 
-If you use Visual Studio Code, you can accomplish this with the following configuration:
+If you use Visual Studio Code, you can accomplish this with the following
+configuration:
 
 ```jsonc
 "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
@@ -122,7 +198,8 @@ If you use Visual Studio Code, you can accomplish this with the following config
 
 ## Rule List
 
-Below, we provide documentation for every rule that is disabled. (We take a blacklist approach rather than a whitelist approach.)
+Below, we provide documentation for every rule that is disabled. (We take a
+blacklist approach rather than a whitelist approach.)
 
 <!-- Do not manually modify the RULES_TABLE section. Instead, run: bun run docs -->
 <!-- markdownlint-disable MD033 MD056 MD060 -->
