@@ -4,8 +4,7 @@
 
 📝 Requires the use of `===` and `!==` (and automatically fixes).
 
-🔧 This rule is automatically fixable by the
-[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 ⚙️ This rule is configurable.
 

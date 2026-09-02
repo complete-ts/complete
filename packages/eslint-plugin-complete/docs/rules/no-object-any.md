@@ -4,8 +4,7 @@
 
 📝 Disallows declaring objects and arrays that do not have a type.
 
-💭 This rule requires
-[type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 

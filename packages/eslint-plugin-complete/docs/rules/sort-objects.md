@@ -2,14 +2,11 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Requires object properties to match the declared type order or alphabetical
-order.
+📝 Requires object properties to match the declared type order or alphabetical order.
 
-🔧 This rule is automatically fixable by the
-[`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-💭 This rule requires
-[type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 

@@ -2,13 +2,11 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Require function parameters to be typed as `readonly` to prevent accidental
-mutation of inputs.
+📝 Require function parameters to be typed as `readonly` to prevent accidental mutation of inputs.
 
 ⚙️ This rule is configurable.
 
-💭 This rule requires
-[type information](https://typescript-eslint.io/linting/typed-linting).
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 

@@ -2,8 +2,7 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Disallows non-empty return statements in functions annotated as returning
-void.
+📝 Disallows non-empty return statements in functions annotated as returning void.
 
 <!-- end auto-generated rule header -->
 

@@ -2,8 +2,7 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
-📝 Requires `const` declarations for variables that are never reassigned after
-declared (with no auto-fixer).
+📝 Requires `const` declarations for variables that are never reassigned after declared (with no auto-fixer).
 
 ⚙️ This rule is configurable.
 
