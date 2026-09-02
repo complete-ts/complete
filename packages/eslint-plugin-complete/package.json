@@ -44,7 +44,8 @@
   "dependencies": {
     "@typescript-eslint/type-utils": "catalog:",
     "@typescript-eslint/utils": "catalog:",
-    "is-immutable-type": "catalog:"
+    "is-immutable-type": "catalog:",
+    "ts-api-utils": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "catalog:",

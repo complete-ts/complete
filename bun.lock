@@ -181,6 +181,7 @@
         "@typescript-eslint/type-utils": "catalog:",
         "@typescript-eslint/utils": "catalog:",
         "is-immutable-type": "catalog:",
+        "ts-api-utils": "catalog:",
       },
       "devDependencies": {
         "@babel/core": "catalog:",
@@ -297,6 +298,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "source-map-support": "0.5.21",
+    "ts-api-utils": "2.5.0",
     "ts-loader": "9.6.2",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "typedoc": "0.28.20",

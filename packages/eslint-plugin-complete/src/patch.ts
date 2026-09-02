@@ -6,6 +6,7 @@ import type {
 import { Immutability, isImmutableType } from "is-immutable-type";
 import ts from "typescript";
 
+/** TODO: Open a PR for this once the other PR is accepted. */
 export function isImmutableTypeWithPatches(
   program: ts.Program,
   type: ts.Type,

@@ -107,7 +107,16 @@ interface MutableNestedInterface {
   };
 }
       `,
-      errors: [{ messageId: "mustBeImmutable" }],
+      errors: [
+        {
+          messageId: "mustBeImmutable",
+          data: {
+            firstFieldName: "nested",
+            violationCount: 1,
+            violationNoun: "violation",
+          },
+        },
+      ],
     },
     {
       code: `
@@ -167,6 +176,28 @@ interface ReadonlyTupleWithMutableValue {
 }
       `,
       errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+interface MultipleViolations {
+  first: string;
+  readonly immutable: string;
+  readonly nested: {
+    mutable: string;
+  };
+  third(): void;
+}
+      `,
+      errors: [
+        {
+          messageId: "mustBeImmutable",
+          data: {
+            firstFieldName: "first",
+            violationCount: 3,
+            violationNoun: "violations",
+          },
+        },
+      ],
     },
     {
       code: `
