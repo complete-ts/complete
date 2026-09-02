@@ -24,6 +24,9 @@ interface Foo {
 }
 ```
 
+Deeply immutable `ReadonlyMap`, `ReadonlySet`, and read-only array types are
+considered immutable.
+
 ## Options
 
 This rule is not configurable.

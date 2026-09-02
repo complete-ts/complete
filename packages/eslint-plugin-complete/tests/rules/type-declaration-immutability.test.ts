@@ -32,6 +32,15 @@ interface LinkedNode {
 }
       `,
     },
+    {
+      code: `
+interface ImmutableCollections {
+  readonly array: readonly unknown[];
+  readonly map: ReadonlyMap<unknown, unknown>;
+  readonly set: ReadonlySet<unknown>;
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -58,6 +67,16 @@ interface MutableNestedInterface {
 interface InterfaceWithMethod {
   readonly id: number;
   getValue(): number;
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+interface MutableCollectionValues {
+  readonly array: readonly { value: string }[];
+  readonly map: ReadonlyMap<string, { value: string }>;
+  readonly set: ReadonlySet<{ value: string }>;
 }
       `,
       errors: [{ messageId: "mustBeImmutable" }],

@@ -1,11 +1,43 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ImmutabilityCache } from "is-immutable-type";
-import { getDefaultOverrides, isImmutableType } from "is-immutable-type";
+import {
+  getDefaultOverrides,
+  Immutability,
+  isImmutableType,
+} from "is-immutable-type";
 import { createRule } from "../utils.js";
 
 type Options = [];
 type MessageIds = "mustBeImmutable";
+
+const IMMUTABILITY_OVERRIDES = [
+  ...getDefaultOverrides(),
+  {
+    type: {
+      from: "lib",
+      name: "ReadonlyArray",
+    },
+    from: Immutability.ReadonlyDeep,
+    to: Immutability.Immutable,
+  },
+  {
+    type: {
+      from: "lib",
+      name: "ReadonlyMap",
+    },
+    from: Immutability.ReadonlyDeep,
+    to: Immutability.Immutable,
+  },
+  {
+    type: {
+      from: "lib",
+      name: "ReadonlySet",
+    },
+    from: Immutability.ReadonlyDeep,
+    to: Immutability.Immutable,
+  },
+] as const;
 
 export const typeDeclarationImmutability = createRule<Options, MessageIds>({
   name: "type-declaration-immutability",
@@ -27,7 +59,6 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
     const { program } = parserServices;
     const checker = program.getTypeChecker();
     const immutabilityCache: ImmutabilityCache = new WeakMap();
-    const immutabilityOverrides = getDefaultOverrides();
 
     function checkInterface(node: TSESTree.TSInterfaceDeclaration) {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
@@ -37,7 +68,7 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
         !isImmutableType(
           program,
           type,
-          immutabilityOverrides,
+          IMMUTABILITY_OVERRIDES,
           immutabilityCache,
         )
       ) {
