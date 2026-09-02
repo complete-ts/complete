@@ -16,7 +16,6 @@ interface SortableProperty {
 
 type SortKind = "alphabetical" | "declaredType";
 
-// eslint-disable-next-line complete/type-declaration-immutability
 interface PropertyOrder {
   readonly kind: SortKind;
   readonly order: ReadonlyMap<string, number>;
