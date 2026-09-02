@@ -55,6 +55,39 @@ interface ImmutablePrimitiveIntersections {
 }
       `,
     },
+    {
+      code: `
+interface ImmutableTuples {
+  readonly tuple: readonly [string, number];
+  readonly tupleUnion:
+    | readonly [string]
+    | readonly [number, boolean];
+  readonly nestedTuple: readonly [readonly [string]];
+  readonly optionalTuple: readonly [value?: string];
+}
+      `,
+    },
+    {
+      code: `
+type ImmutableTuple = readonly [string, number];
+
+interface ImmutableTupleAlias {
+  readonly tuple: ImmutableTuple;
+}
+      `,
+    },
+    {
+      code: `
+type int = number & {};
+
+interface ImmutableCallbackTuple {
+  readonly callbackTuple: readonly [
+    callback: (value: int) => void,
+    filter?: int,
+  ];
+}
+      `,
+    },
   ],
 
   invalid: [
@@ -115,6 +148,36 @@ type PrimitiveIntersectionWithMethod = number & {
 
 interface PrimitiveIntersectionWithMethodProperty {
   readonly int: PrimitiveIntersectionWithMethod;
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+interface MutableTuple {
+  readonly tuple: [string, number];
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+interface ReadonlyTupleWithMutableValue {
+  readonly tuple: readonly [{ value: string }];
+}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+type GenericTuple<T> = readonly [T];
+
+interface ImmutableGenericTuple {
+  readonly tuple: GenericTuple<string>;
+}
+
+interface MutableGenericTuple {
+  readonly tuple: GenericTuple<{ value: string }>;
 }
       `,
       errors: [{ messageId: "mustBeImmutable" }],

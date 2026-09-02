@@ -2,7 +2,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ImmutabilityCache } from "is-immutable-type";
 import { getDefaultOverrides, Immutability } from "is-immutable-type";
-import { isImmutableTypeWithPrimitiveIntersectionPatch } from "../patch.js";
+import { isImmutableTypeWithPatches } from "../patch.js";
 import { createRule } from "../utils.js";
 
 type Options = [];
@@ -55,14 +55,14 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
     const parserServices = ESLintUtils.getParserServices(context);
     const { program } = parserServices;
     const checker = program.getTypeChecker();
-    const immutabilityCache: ImmutabilityCache = new WeakMap();
 
     function checkInterface(node: TSESTree.TSInterfaceDeclaration) {
       const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
       const type = checker.getTypeAtLocation(tsNode);
+      const immutabilityCache: ImmutabilityCache = new WeakMap();
 
       if (
-        !isImmutableTypeWithPrimitiveIntersectionPatch(
+        !isImmutableTypeWithPatches(
           program,
           type,
           IMMUTABILITY_OVERRIDES,
