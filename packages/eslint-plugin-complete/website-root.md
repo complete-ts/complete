@@ -81,8 +81,10 @@ directive, due to a
 
 💼 Configurations enabled in.\
 ✅ Set in the `recommended` configuration.\
-🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
-💭 Requires [type information](https://typescript-eslint.io/linting/typed-linting).
+🔧 Automatically fixable by the
+[`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
+💭
+Requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 | Name                                                                                                       | Description                                                                                                 | 💼  | 🔧  | 💭  |
 | :--------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- | :-- | :-- | :-- |
