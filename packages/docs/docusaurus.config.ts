@@ -1,6 +1,5 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
-import { capitalizeFirstLetter } from "complete-common";
 import { themes } from "prism-react-renderer";
 import typeDocConfigCompleteCommon from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
 import typeDocConfigCompleteNode from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
@@ -132,7 +131,9 @@ const config: Config = {
               item.type === "category"
                 ? {
                     ...item,
-                    label: capitalizeFirstLetter(item.label),
+                    label: item.label.replace(/^./v, (firstCharacter) =>
+                      firstCharacter.toUpperCase(),
+                    ),
                   }
                 : item,
             );

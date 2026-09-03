@@ -44,7 +44,6 @@
     "@docusaurus/preset-classic": "catalog:",
     "@heroicons/react": "catalog:",
     "@mdx-js/react": "catalog:",
-    "complete-common": "workspace:*",
     "prism-react-renderer": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -54,6 +53,7 @@
     "@docusaurus/types": "catalog:",
     "@octokit/core": "catalog:",
     "@types/node": "catalog:",
+    "complete-common": "workspace:*",
     "complete-node": "workspace:*",
     "docusaurus-plugin-typedoc": "catalog:",
     "typedoc": "catalog:",
