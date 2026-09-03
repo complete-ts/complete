@@ -55,6 +55,7 @@
       "cspell": "10.1.1",
       "cspell-check-unused-words": "1.6.3",
       "diff": "9.0.0",
+      "docusaurus-plugin-typedoc": "1.4.2",
       "dotenv": "17.4.2",
       "eslint": "10.9.1",
       "eslint-config-prettier": "10.1.8",

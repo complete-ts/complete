@@ -13,13 +13,14 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "scripts": {
-    "build": "bun run ./scripts/build.mts",
+    "build": "bun run prepare-docs && docusaurus build",
     "clear": "docusaurus clear",
     "deploy": "bun run  ./scripts/deploy.mts",
     "docusaurus": "docusaurus",
     "lint": "bun run ./scripts/lint.mts",
+    "prepare-docs": "bun run ./scripts/prepare.mts",
     "serve": "docusaurus serve",
-    "start": "docusaurus start",
+    "start": "bun run prepare-docs && docusaurus start",
     "swizzle": "docusaurus swizzle",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations"
@@ -54,6 +55,7 @@
     "@types/node": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
+    "docusaurus-plugin-typedoc": "catalog:",
     "typedoc": "catalog:",
     "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:"

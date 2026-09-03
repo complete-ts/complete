@@ -1,9 +1,19 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
+import typeDocConfigCompleteCommon from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import typeDocConfigCompleteNode from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import typeDocPackageNamesJSON from "./typedoc-package-names.json";
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
+
+const TYPE_DOC_PACKAGE_NAMES: ReadonlySet<string> = new Set(
+  typeDocPackageNamesJSON,
+);
+const TYPE_DOC_PACKAGE_INDEX_IDS: ReadonlySet<string> = new Set(
+  typeDocPackageNamesJSON.map((name) => `${name}/index`),
+);
 
 const config: Config = {
   title: "Complete",
@@ -70,6 +80,29 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
 
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        ...typeDocConfigCompleteCommon,
+        id: "complete-common",
+        sidebar: {
+          autoConfiguration: false,
+        },
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        ...typeDocConfigCompleteNode,
+        id: "complete-node",
+        sidebar: {
+          autoConfiguration: false,
+        },
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -78,7 +111,36 @@ const config: Config = {
           routeBasePath: "/", // Serve the docs at the site's root.
           editUrl: undefined,
           sidebarPath: "./sidebars.ts",
+
+          // Docusaurus requires a mutable array from this third-party callback.
+          // eslint-disable-next-line complete/no-mutable-return
+          async sidebarItemsGenerator({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            const filteredSidebarItems = sidebarItems.filter(
+              (item) =>
+                item.type !== "doc" || !TYPE_DOC_PACKAGE_INDEX_IDS.has(item.id),
+            );
+
+            if (!TYPE_DOC_PACKAGE_NAMES.has(args.item.dirName)) {
+              return filteredSidebarItems;
+            }
+
+            return filteredSidebarItems.map((item) =>
+              item.type === "category"
+                ? {
+                    ...item,
+                    label: item.label.replace(/^./v, (firstCharacter) =>
+                      firstCharacter.toUpperCase(),
+                    ),
+                  }
+                : item,
+            );
+          },
         },
+
         theme: {
           customCss: "./src/css/custom.css",
         },
