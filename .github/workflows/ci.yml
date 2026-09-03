@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - id: set-matrix
-        uses: complete-ts/get-package-names@74a665d786f7a3d976996c7ccad3470e6c27ebf3 # main
+        uses: complete-ts/get-package-names@452871456b458acf4b8544205e3d8ef966061380 # v1
         with:
           script-name: build
 
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - id: set-matrix
-        uses: complete-ts/get-package-names@74a665d786f7a3d976996c7ccad3470e6c27ebf3 # main
+        uses: complete-ts/get-package-names@452871456b458acf4b8544205e3d8ef966061380 # v1
         with:
           script-name: lint
 
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - id: set-matrix
-        uses: complete-ts/get-package-names@74a665d786f7a3d976996c7ccad3470e6c27ebf3 # main
+        uses: complete-ts/get-package-names@452871456b458acf4b8544205e3d8ef966061380 # v1
         with:
           script-name: test
 
