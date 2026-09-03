@@ -60,7 +60,6 @@
     "complete-node": "workspace:*",
     "eslint-doc-generator": "catalog:",
     "jest": "catalog:",
-    "prettier": "catalog:",
     "typescript": "catalog:"
   },
   "peerDependencies": {
