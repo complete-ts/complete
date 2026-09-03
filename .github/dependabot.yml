@@ -1,7 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - /
+      - /packages/complete-cli/file-templates/dynamic
+      - /packages/complete-cli/file-templates/static
     schedule:
       interval: weekly
     groups:
