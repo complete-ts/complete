@@ -1,9 +1,15 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
+import commonTypeDocConfig from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import nodeTypeDocConfig from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
+const TYPE_DOC_INDEX_IDS: ReadonlySet<string> = new Set([
+  "complete-common/index",
+  "complete-node/index",
+]);
 
 const config: Config = {
   title: "Complete",
@@ -70,6 +76,29 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
 
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        ...commonTypeDocConfig,
+        id: "complete-common",
+        sidebar: {
+          autoConfiguration: false,
+        },
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      {
+        ...nodeTypeDocConfig,
+        id: "complete-node",
+        sidebar: {
+          autoConfiguration: false,
+        },
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -78,6 +107,17 @@ const config: Config = {
           routeBasePath: "/", // Serve the docs at the site's root.
           editUrl: undefined,
           sidebarPath: "./sidebars.ts",
+          // Docusaurus requires a mutable array from this third-party callback.
+          // eslint-disable-next-line complete/no-mutable-return
+          async sidebarItemsGenerator({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            return sidebarItems.filter(
+              (item) => item.type !== "doc" || !TYPE_DOC_INDEX_IDS.has(item.id),
+            );
+          },
         },
         theme: {
           customCss: "./src/css/custom.css",

@@ -15,7 +15,7 @@ const sidebars: SidebarsConfig = {
       ],
       link: {
         type: "doc",
-        id: "complete-common",
+        id: "complete-common/index",
       },
     },
     "complete-lint",
@@ -30,7 +30,7 @@ const sidebars: SidebarsConfig = {
       ],
       link: {
         type: "doc",
-        id: "complete-node",
+        id: "complete-node/index",
       },
     },
     "complete-tsconfig",

@@ -24,11 +24,6 @@ const config = {
     "packages/complete-node": {
       ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
     },
-    "packages/docs": {
-      ignoreDependencies: [
-        "typedoc-plugin-markdown", // Used in: typedoc.config.base.mjs
-      ],
-    },
     "packages/eslint-plugin-complete": {
       ignore: [
         "eslint-doc-generator.config.mjs",
