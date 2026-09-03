@@ -11,9 +11,9 @@ the newest mutually compatible releases allowed by the repository's seven-day
 minimum package release age.
 
 An isolated migration spike confirmed that the current `router: "module"` model
-works with Starlight and preserves all 59 TypeDoc page shapes. It also exposed
-two issues that must be handled deliberately: package landing pages need
-`entryFileName: "index"`, and 28 mixed-case TypeDoc URLs become lowercase.
+works with Starlight and preserves all 59 TypeDoc page shapes. Package landing
+pages need `entryFileName: "index"`, and mixed-case TypeDoc URLs become
+lowercase.
 
 ## Implementation Plan
 
@@ -30,8 +30,7 @@ two issues that must be handled deliberately: package landing pages need
    validation, table formats, and package-root routes.
 6. Preserve customized TypeDoc display titles through the supported
    typedoc-plugin-frontmatter extension point.
-7. Add redirects for the 28 mixed-case TypeDoc routes and the obsolete
-   Docusaurus `/blog/` and `/search/` routes.
+7. Add redirects for the obsolete Docusaurus `/blog/` and `/search/` routes.
 8. Translate the existing top-level sidebar ordering and use generated groups
    for TypeDoc, ESLint rules, and Markdownlint rules.
 9. Port the logo, favicon, `.nojekyll`, colors, social links, syntax themes, and
@@ -46,45 +45,14 @@ two issues that must be handled deliberately: package landing pages need
 
 ## Route Compatibility
 
-The following legacy TypeDoc routes require redirects to lowercase canonical
-routes:
-
-- `/complete-common/interfaces/SemanticVersion/`
-- `/complete-common/types/AddSubtract/`
-- `/complete-common/types/CompositionTypeSatisfiesEnum/`
-- `/complete-common/types/ERange/`
-- `/complete-common/types/Expect/`
-- `/complete-common/types/IRange/`
-- `/complete-common/types/Immutable/`
-- `/complete-common/types/KeysMatch/`
-- `/complete-common/types/NaturalNumbersLessThan/`
-- `/complete-common/types/NaturalNumbersLessThanOrEqualTo/`
-- `/complete-common/types/ObjectValues/`
-- `/complete-common/types/ReadonlyMap/`
-- `/complete-common/types/ReadonlyRecord/`
-- `/complete-common/types/ReadonlySet/`
-- `/complete-common/types/TranspiledEnum/`
-- `/complete-common/types/Tuple/`
-- `/complete-common/types/WidenLiteral/`
-- `/complete-common/types/Writeable/`
-- `/complete-node/enums/JavaScriptRuntime/`
-- `/complete-node/enums/PackageManager/`
-- `/complete-node/functions/monorepoPublish/`
-- `/complete-node/functions/monorepoUpdate/`
-- `/complete-node/functions/nukeDependencies/`
-- `/complete-node/functions/packageJSON/`
-- `/complete-node/functions/packageManager/`
-- `/complete-node/functions/readWrite/`
-- `/complete-node/functions/scriptHelpers/`
-- `/complete-node/types/DependencyType/`
-
-The Docusaurus-only `/blog/` and `/search/` routes should redirect to `/`.
+The Docusaurus-only `/blog/` and `/search/` routes redirect to `/`. Legacy
+mixed-case TypeDoc routes are not retained.
 
 ## Risk and Effort
 
 | Risk                              | Level  | Mitigation                                                     |
 | --------------------------------- | ------ | -------------------------------------------------------------- |
-| Mixed-case TypeDoc URLs           | High   | Maintain the explicit redirect map and compare route manifests |
+| Mixed-case TypeDoc URLs           | Low    | Adopt Starlight's lowercase canonical routes                   |
 | Raw TypeDoc page titles           | High   | Customize frontmatter using TypeDoc reflection data            |
 | Duplicate Markdown H1s            | Medium | Normalize staged Markdown and TypeDoc package readmes          |
 | Cross-repository Pages deployment | Medium | Retain the existing SSH branch-publishing mechanism            |

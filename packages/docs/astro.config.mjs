@@ -105,45 +105,9 @@ const TYPE_DOC_SIDEBARS = new Map([
   ],
 ]);
 
-const LEGACY_TYPE_DOC_ROUTES = [
-  "/complete-common/interfaces/SemanticVersion",
-  "/complete-common/types/AddSubtract",
-  "/complete-common/types/CompositionTypeSatisfiesEnum",
-  "/complete-common/types/ERange",
-  "/complete-common/types/Expect",
-  "/complete-common/types/IRange",
-  "/complete-common/types/Immutable",
-  "/complete-common/types/KeysMatch",
-  "/complete-common/types/NaturalNumbersLessThan",
-  "/complete-common/types/NaturalNumbersLessThanOrEqualTo",
-  "/complete-common/types/ObjectValues",
-  "/complete-common/types/ReadonlyMap",
-  "/complete-common/types/ReadonlyRecord",
-  "/complete-common/types/ReadonlySet",
-  "/complete-common/types/TranspiledEnum",
-  "/complete-common/types/Tuple",
-  "/complete-common/types/WidenLiteral",
-  "/complete-common/types/Writeable",
-  "/complete-node/enums/JavaScriptRuntime",
-  "/complete-node/enums/PackageManager",
-  "/complete-node/functions/monorepoPublish",
-  "/complete-node/functions/monorepoUpdate",
-  "/complete-node/functions/nukeDependencies",
-  "/complete-node/functions/packageJSON",
-  "/complete-node/functions/packageManager",
-  "/complete-node/functions/readWrite",
-  "/complete-node/functions/scriptHelpers",
-  "/complete-node/types/DependencyType",
-];
-
-const redirects = Object.fromEntries(
-  LEGACY_TYPE_DOC_ROUTES.map((route) => [route, route.toLowerCase()]),
-);
-
 export default defineConfig({
   site: "https://complete-ts.github.io",
   redirects: {
-    ...redirects,
     "/blog": "/",
     "/search": "/",
   },

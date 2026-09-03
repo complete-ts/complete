@@ -42,7 +42,7 @@
       "@typescript-eslint/types": "8.68.0",
       "@typescript-eslint/typescript-estree": "8.68.0",
       "@typescript-eslint/utils": "8.68.0",
-      "astro": "7.2.8",
+      "astro": "7.2.9",
       "bumpp": "12.2.2",
       "chalk": "6.0.0",
       "clipanion": "4.0.0-rc.4",
@@ -89,7 +89,7 @@
       "typescript": "6.0.3",
       "typescript-eslint": "8.68.0",
       "unbuild": "3.6.1",
-      "webpack": "5.109.2",
+      "webpack": "5.110.0",
       "webpack-shebang-plugin": "1.1.8",
       "which": "7.0.0",
       "yaml": "2.9.0"
