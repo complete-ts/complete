@@ -111,6 +111,7 @@ const config: Config = {
           routeBasePath: "/", // Serve the docs at the site's root.
           editUrl: undefined,
           sidebarPath: "./sidebars.ts",
+
           // Docusaurus requires a mutable array from this third-party callback.
           // eslint-disable-next-line complete/no-mutable-return
           async sidebarItemsGenerator({
@@ -139,6 +140,7 @@ const config: Config = {
             );
           },
         },
+
         theme: {
           customCss: "./src/css/custom.css",
         },
