@@ -16,8 +16,9 @@ Essentially, you are only allowed to use "foo++" in places where swapping it to
 "++foo" or "foo += 1" would have no functional change in the program.
 
 This rule is meant to be used in conjunction with this
-[`prefer-plusplus`](prefer-plusplus.md) and
-[`prefer-postfix-plusplus`](prefer-postfix-plusplus.md) ESLint rules.
+[`prefer-plusplus`](/eslint-plugin-complete/rules/prefer-plusplus/) and
+[`prefer-postfix-plusplus`](/eslint-plugin-complete/rules/prefer-postfix-plusplus/)
+ESLint rules.
 
 ```ts
 // Bad

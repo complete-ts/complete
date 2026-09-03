@@ -30,7 +30,7 @@ Use this rule to ensure that the SCREAMING_SNAKE_CASE variables are read-only
 throughout your codebase to keep things as safe as possible.
 
 Also see the
-[`require-capital-const-assertions` rule](require-capital-const-assertions.md).
+[`require-capital-const-assertions` rule](/eslint-plugin-complete/rules/require-capital-const-assertions/).
 
 ```ts
 // Bad

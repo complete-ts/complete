@@ -160,10 +160,10 @@ they have some advantages:
   don't have control over.
 
 For this reason, we recommend that use you the
-[`complete/no-number-enums`](no-number-enums.md) rule by default in your
-TypeScript projects. But in the specific projects where you need number enums,
-you can disable that rule and rely on the `complete/strict-enums` rule to keep
-you safe.
+[`complete/no-number-enums`](/eslint-plugin-complete/rules/no-number-enums/)
+rule by default in your TypeScript projects. But in the specific projects where
+you need number enums, you can disable that rule and rely on the
+`complete/strict-enums` rule to keep you safe.
 
 ## Limitations
 

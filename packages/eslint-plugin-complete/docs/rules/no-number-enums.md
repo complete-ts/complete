@@ -42,10 +42,11 @@ generally convert all of your number enums to string enums in order to get
 better safety guarantees from the TypeScript compiler.
 
 Obviously, there are
-[some cases where number enums are superior](strict-enums.md#number-enums-vs-string-enums).
+[some cases where number enums are superior](/eslint-plugin-complete/rules/strict-enums/#number-enums-vs-string-enums).
 If you are in a codebase that needs to use number enums, then you should disable
-this rule and make sure that you use the [`strict-enums`](strict-enums.md) rule,
-which makes working with number enums about as safe as string enums.
+this rule and make sure that you use the
+[`strict-enums`](/eslint-plugin-complete/rules/strict-enums/) rule, which makes
+working with number enums about as safe as string enums.
 
 ## Options
 

@@ -1,5 +1,5 @@
-// A TypeScript configuration file for Docusaurus. It is not used for compilation. It is just used
-// by Visual Studio Code.
+// A TypeScript configuration file for Astro. It is not used for compilation. It is used by
+// Visual Studio Code and "astro check".
 {
   "$schema": "https://raw.githubusercontent.com/complete-ts/complete/main/packages/complete-tsconfig/schemas/tsconfig-strict-schema.json",
 
@@ -10,22 +10,21 @@
     // This package has non-transpiled JavaScript code.
     "allowJs": true,
 
-    // Necessary since Docusaurus uses JSX.
-    "jsx": "preserve",
+    "lib": ["DOM", "ES2023"],
 
-    // We enable "ES2021" to provide support for `String.replaceAll` in TypeDoc configuration files.
-    "lib": ["DOM", "ES2021"],
-
-    // The Docusaurus configuration imports package-specific TypeDoc configurations.
+    // The Astro configuration imports package-specific TypeDoc configurations.
     "rootDir": "..",
+
+    "types": ["astro/client"],
   },
 
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./static/js/*.js",
-    "docusaurus.config.ts",
-    "sidebars.ts",
-    "typedoc.config.base.cjs",
+    "./src/**/*.mjs",
+    "./public/js/*.js",
+    "astro.config.mjs",
+    "typedoc.config.base.mjs",
+    "../complete-common/typedoc.config.mjs",
+    "../complete-node/typedoc.config.mjs",
   ],
 }

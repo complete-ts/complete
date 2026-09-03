@@ -1,0 +1,39 @@
+:root {
+  --sl-color-accent-low: #132f43;
+  --sl-color-accent: #4b9cd6;
+  --sl-color-accent-high: #b9ddf5;
+}
+
+:root[data-theme="light"] {
+  --sl-color-accent-low: #dceefa;
+  --sl-color-accent: #2670a5;
+  --sl-color-accent-high: #173f5c;
+}
+
+.site-title {
+  text-transform: lowercase;
+}
+
+/* BEGIN BUG FIX FOR SUPERFLUOUS SCROLL BARS ON THE BANNER PAGE */
+
+html[data-has-hero] footer {
+  display: none;
+}
+
+@media (min-width: 50rem) {
+  html[data-has-hero] .hero {
+    padding-block: clamp(2rem, calc(1rem + 5vmin), 5rem);
+  }
+
+  html[data-has-hero] .hero > img {
+    width: min(100%, 22rem);
+  }
+}
+
+@media (min-width: 72rem) {
+  html[data-has-hero] .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* END BUG FIX FOR SUPERFLUOUS SCROLL BARS ON THE BANNER PAGE */

@@ -16,7 +16,9 @@ In this case, "explicit iteration" means using a method like `entries` or
 `values` in a for loop, where omitting the method would result in equivalent
 code. Forbidding this can make code easier to read.
 
-Also see the [`no-explicit-array-loops`](no-explicit-array-loops.md) rule.
+Also see the
+[`no-explicit-array-loops`](/eslint-plugin-complete/rules/no-explicit-array-loops/)
+rule.
 
 ## Rule Details
 

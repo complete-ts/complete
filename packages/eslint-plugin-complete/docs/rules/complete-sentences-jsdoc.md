@@ -12,7 +12,7 @@ rule, but it is smarter in that it will generate less false positives. (See the
 cases outlined below.)
 
 For more information on why you should use this rule, see the
-[comment formatting discussion](../comments.md).
+[comment formatting discussion](/eslint-plugin-complete/comments/).
 
 ## Rule Details
 

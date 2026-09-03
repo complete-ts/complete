@@ -24,6 +24,12 @@ const config = {
     "packages/complete-node": {
       ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
     },
+    "packages/docs": {
+      entry: ["homepage.mdx"],
+      ignoreDependencies: [
+        "@astrojs/check", // Loaded by the "astro check" command in: scripts/lint.mts
+      ],
+    },
     "packages/eslint-plugin-complete": {
       ignore: [
         "eslint-doc-generator.config.mjs",

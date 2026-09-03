@@ -31,7 +31,8 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: docs-build
-          path: ./packages/docs/build
+          path: ./packages/docs/dist
+          include-hidden-files: true
 
   get-lint-packages:
     runs-on: ubuntu-latest
@@ -104,35 +105,11 @@ jobs:
           echo "Error: The GitHub secret of \"DOCS_SSH_PRIVATE_KEY\" is not set."
           exit 1
 
-      - name: Check if the "ALGOLIA_CRAWLER_USER_ID" GitHub secret is set
-        env:
-          SECRET_CHECK: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
-        if: ${{ env.SECRET_CHECK == '' }}
-        run: |
-          echo "Error: The GitHub secret of \"ALGOLIA_CRAWLER_USER_ID\" is not set."
-          exit 1
-
-      - name: Check if the "ALGOLIA_CRAWLER_API_KEY" GitHub secret is set
-        env:
-          SECRET_CHECK: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
-        if: ${{ env.SECRET_CHECK == '' }}
-        run: |
-          echo "Error: The GitHub secret of \"ALGOLIA_CRAWLER_API_KEY\" is not set."
-          exit 1
-
-      - name: Check if the "ALGOLIA_CRAWLER_ID" GitHub secret is set
-        env:
-          SECRET_CHECK: ${{ secrets.ALGOLIA_CRAWLER_ID }}
-        if: ${{ env.SECRET_CHECK == '' }}
-        run: |
-          echo "Error: The GitHub secret of \"ALGOLIA_CRAWLER_ID\" is not set."
-          exit 1
-
       - name: Retrieve the docs build directory
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: docs-build
-          path: ./packages/docs/build
+          path: ./packages/docs/dist
 
       - name: Checkout the docs repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -148,21 +125,7 @@ jobs:
           path: complete-ts.github.io
 
       - name: Deploy the documentation website
-        id: deploy-website
-        run: bun run ./packages/docs/scripts/deploy.mts ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run Algolia Crawler
-        env:
-          # From: https://crawler.algolia.com/admin/user/settings/
-          ALGOLIA_CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
-          ALGOLIA_CRAWLER_API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
-
-          # From: https://crawler.algolia.com/admin/crawlers/[crawler-id]/settings
-          ALGOLIA_CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
-        run: |
-          curl -X POST -H "Content-Type: application/json" \
-            --user $ALGOLIA_CRAWLER_USER_ID:$ALGOLIA_CRAWLER_API_KEY \
-            "https://crawler.algolia.com/api/1/crawlers/$ALGOLIA_CRAWLER_ID/reindex"
+        run: bun run ./packages/docs/scripts/deploy.mts
 
   discord:
     name: Discord Failure Notification

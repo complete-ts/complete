@@ -25,10 +25,10 @@ with more standard code, which can make things a bit less arcane at the cost of
 a little verbosity.
 
 Thus, this rule is meant to be used with the
-[`no-unsafe-plusplus`](no-unsafe-plusplus.md) ESLint rule, which ensures that
-code like in the previous example can be identified and removed. The remaining
-cases of `++i` in your code-base can be safety converted to the more-standard
-`i++`, which will make your code more uniform.
+[`no-unsafe-plusplus`](/eslint-plugin-complete/rules/no-unsafe-plusplus/) ESLint
+rule, which ensures that code like in the previous example can be identified and
+removed. The remaining cases of `++i` in your code-base can be safety converted
+to the more-standard `i++`, which will make your code more uniform.
 
 ```ts
 // Bad

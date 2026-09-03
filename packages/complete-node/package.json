@@ -48,6 +48,7 @@
     "@types/node": "catalog:",
     "@types/which": "catalog:",
     "typedoc": "catalog:",
+    "typedoc-plugin-frontmatter": "catalog:",
     "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:"

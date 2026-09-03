@@ -150,7 +150,7 @@ saving it, but it's simpler to just use one hotkey for everything.)
 
 In a similar way to Prettier, this ESLint plugin contains several rules that are
 designed to automatically apply whenever you save the file (like the
-[`complete/format-jsdoc-comments`](eslint-plugin-complete/rules/format-jsdoc-comments)
+[`complete/format-jsdoc-comments`](/eslint-plugin-complete/rules/format-jsdoc-comments/)
 rule). These rules are "fixers", which are applied when ESLint is executed with
 the "--fix" flag. So, in the same way that you configure Prettier to run on
 save, you should also configure `eslint --fix` to run on save.
@@ -163,18 +163,16 @@ and the
 extensions installed, you can add the following to your repository's
 `.vscode/settings.json` file:
 
-<!-- We cannot use "jsonc" as the language below because Docusaurus will not display the colors properly. -->
-
-```json
+```jsonc
 {
   // Automatically run the formatter when certain files are saved.
   "[javascript][typescript][javascriptreact][typescriptreact]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
+      "source.fixAll.eslint": "explicit",
     },
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  }
+    "editor.formatOnSave": true,
+  },
 }
 ```
 

@@ -132,8 +132,8 @@ const foo = 100;
 
 Subsequently, it makes sense to have a linting rule to ensure that all JSDoc
 comments have complete sentences in them. This is the point of the
-[`complete/complete-sentences-jsdoc`](rules/complete-sentences-jsdoc.md) rule.
-(It is much smarter than the similar
+[`complete/complete-sentences-jsdoc`](/eslint-plugin-complete/rules/complete-sentences-jsdoc/)
+rule. (It is much smarter than the similar
 [`jsdoc/require-description-complete-sentence`](https://github.com/gajus/eslint-plugin-jsdoc/blob/master/.README/rules/require-description-complete-sentence.md)
 rule.)
 
@@ -196,9 +196,10 @@ Oh no! Now we have to manually re-adjust the next N lines of the block in order
 to keep everything aligned.
 
 This annoying problem is why the
-[`complete/format-jsdoc-comments`](rules/complete-sentences-jsdoc.md) rule
-exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do is
-save the file, and all of the subsequent lines will be automatically adjusted.
+[`complete/format-jsdoc-comments`](/eslint-plugin-complete/rules/complete-sentences-jsdoc/)
+rule exists. After adding the "ADDING SOME INFORMATION HERE", all we have to do
+is save the file, and all of the subsequent lines will be automatically
+adjusted.
 
 ## Using Line Comments With a Ruler
 
@@ -216,8 +217,8 @@ After adding "ADDING INFORMATION HERE", we have to manually re-adjust the next N
 lines of the block in order to keep everything aligned.
 
 Similar to the `format-jsdoc-comments` rule, the
-[`complete/format-line-comments`](rules/format-line-comments.md) rule saves us
-from the tedium of manually formatting.
+[`complete/format-line-comments`](/eslint-plugin-complete/rules/format-line-comments/)
+rule saves us from the tedium of manually formatting.
 
 ## Consistency With Line Comments and JSDoc Comments
 
@@ -244,7 +245,7 @@ rule will change it to this:
 ```
 
 In order to prevent this from happening, the
-[`complete/complete-sentences-line-comments`](rules/complete-sentences-line-comments.md)
+[`complete/complete-sentences-line-comments`](/eslint-plugin-complete/rules/complete-sentences-line-comments/)
 rule forces you to use complete sentences for any _leading line comment_. In the
 previous example, once we use complete sentences, it gets auto-formatted to
 this:
