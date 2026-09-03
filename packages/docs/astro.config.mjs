@@ -181,15 +181,6 @@ export default defineConfig({
           ],
         },
       ],
-      head: [
-        {
-          tag: "script",
-          attrs: {
-            defer: true,
-            src: "/js/hotkey.js",
-          },
-        },
-      ],
       customCss: ["./src/styles/custom.css"],
       favicon: "/img/favicon.ico",
       expressiveCode: {

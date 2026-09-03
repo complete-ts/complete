@@ -25,7 +25,7 @@ const config = {
       ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
     },
     "packages/docs": {
-      entry: ["homepage.mdx", "public/js/hotkey.js"],
+      entry: ["homepage.mdx"],
       ignoreDependencies: [
         "@astrojs/check", // Loaded by the "astro check" command in: scripts/lint.mts
       ],
