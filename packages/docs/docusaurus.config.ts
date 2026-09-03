@@ -1,8 +1,8 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
-import commonTypeDocConfig from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
-import nodeTypeDocConfig from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import typeDocConfigCompleteCommon from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import typeDocConfigCompleteNode from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
@@ -80,7 +80,7 @@ const config: Config = {
     [
       "docusaurus-plugin-typedoc",
       {
-        ...commonTypeDocConfig,
+        ...typeDocConfigCompleteCommon,
         id: "complete-common",
         sidebar: {
           autoConfiguration: false,
@@ -90,7 +90,7 @@ const config: Config = {
     [
       "docusaurus-plugin-typedoc",
       {
-        ...nodeTypeDocConfig,
+        ...typeDocConfigCompleteNode,
         id: "complete-node",
         sidebar: {
           autoConfiguration: false,
