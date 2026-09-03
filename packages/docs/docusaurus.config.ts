@@ -1,5 +1,6 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
+import { capitalizeFirstLetter } from "complete-common";
 import { themes } from "prism-react-renderer";
 import typeDocConfigCompleteCommon from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
 import typeDocConfigCompleteNode from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
@@ -8,6 +9,9 @@ import typeDocPackageNamesJSON from "./typedoc-package-names.json";
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
 
+const TYPE_DOC_PACKAGE_NAMES: ReadonlySet<string> = new Set(
+  typeDocPackageNamesJSON,
+);
 const TYPE_DOC_PACKAGE_INDEX_IDS: ReadonlySet<string> = new Set(
   typeDocPackageNamesJSON.map((name) => `${name}/index`),
 );
@@ -115,9 +119,22 @@ const config: Config = {
             ...args
           }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args);
-            return sidebarItems.filter(
+            const filteredSidebarItems = sidebarItems.filter(
               (item) =>
                 item.type !== "doc" || !TYPE_DOC_PACKAGE_INDEX_IDS.has(item.id),
+            );
+
+            if (!TYPE_DOC_PACKAGE_NAMES.has(args.item.dirName)) {
+              return filteredSidebarItems;
+            }
+
+            return filteredSidebarItems.map((item) =>
+              item.type === "category"
+                ? {
+                    ...item,
+                    label: capitalizeFirstLetter(item.label),
+                  }
+                : item,
             );
           },
         },
