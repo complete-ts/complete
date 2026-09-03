@@ -190,7 +190,9 @@ export async function script(
 export async function lintCommands(
   importMetaDirname: string,
   commands: ReadonlyArray<
-    string | readonly [name: string, promise: Promise<unknown>]
+    // The tuple is intentionally not set to "readonly" because this causes usability issues for
+    // consumers.
+    string | [name: string, promise: Promise<unknown>]
   > = DEFAULT_LINT_COMMANDS,
   quiet = false,
 ): Promise<void> {
