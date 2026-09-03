@@ -39,11 +39,13 @@ This justification does not apply if you use the combination of:
 
 - The [Prettier](https://prettier.io/) auto-formatter (which automatically
   inserts semicolons for you)
-- The [`complete/no-unsafe-plusplus`](no-unsafe-plusplus.md) rule (which
-  prevents usage of `++i` where swapping it to `i++` would change the
-  functionality of the program)
-- The [`complete/prefer-postfix-plusplus`](prefer-postfix-plusplus) rule (which
-  prevents usage of `++i` in favor of `i++`)
+- The
+  [`complete/no-unsafe-plusplus`](/eslint-plugin-complete/rules/no-unsafe-plusplus/)
+  rule (which prevents usage of `++i` where swapping it to `i++` would change
+  the functionality of the program)
+- The
+  [`complete/prefer-postfix-plusplus`](/eslint-plugin-complete/rules/prefer-postfix-plusplus/)
+  rule (which prevents usage of `++i` in favor of `i++`)
 
 Together, these heavily restrict the usage of the operator, making the only
 legal usage equal to that of "+= 1".

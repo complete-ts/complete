@@ -1,4 +1,4 @@
-# `complete-node`
+<!-- markdownlint-disable MD041 -->
 
 [![](https://img.shields.io/npm/v/complete-node.svg)](https://www.npmjs.com/package/complete-node)
 

@@ -9,14 +9,11 @@ Thumbs.db
 # Agents
 .claude/settings.local.json
 
-# Docusaurus artifacts
-# https://github.com/facebook/docusaurus/blob/main/packages/create-docusaurus/templates/shared/gitignore
-build
-.docusaurus
-.cache-loader
+# Documentation website artifacts
+.astro
 
-# Copied documentation
-packages/docs/docs
+# Staged documentation
+packages/docs/src/content/docs
 
 # ------------------------------
 # GitHub Node.gitignore template
@@ -130,9 +127,6 @@ dist
 
 # vitepress cache directory
 **/.vitepress/cache
-
-# Docusaurus cache and generated files
-.docusaurus
 
 # Serverless directories
 .serverless/

@@ -23,7 +23,8 @@ Use this rule to enforce a consistent enum style throughout your codebase.
 
 This rule only enforces the naming style for string enums. Thus, you should use
 this rule in conjunction with the
-[`complete/no-number-enums`](no-number-enums.md) rule and the
+[`complete/no-number-enums`](/eslint-plugin-complete/rules/no-number-enums/)
+rule and the
 [`@typescript-eslint/prefer-enum-initializers`](https://typescript-eslint.io/rules/prefer-enum-initializers/)
 rule to prevent all number enums.
 

@@ -214,7 +214,7 @@ In JavaScript/TypeScript, "dist"
 
 This is the configuration file for [ESLint](https://eslint.org/), the TypeScript
 linter. By default, it includes the standard linting config from
-[eslint-config-complete](eslint-config-complete.md).
+[eslint-config-complete](/eslint-config-complete/).
 
 You can edit this file if you need to disable a specific linting rule.
 
@@ -222,7 +222,7 @@ You can edit this file if you need to disable a specific linting rule.
 
 This is the configuration file for [Knip](https://knip.dev/), a tool that checks
 for unused files, exports, and dependencies. By default, it suppresses warnings
-for the [complete-lint](complete-lint.md) meta package.
+for the [complete-lint](/complete-lint/) meta package.
 
 ### [`LICENSE`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/LICENSE)
 
@@ -333,7 +333,7 @@ addition to invoking `tsc`.
 ### [`scripts/lint.ts`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/static/scripts/lint.ts)
 
 By default, the lint script performs
-[these steps](complete-lint.md#step-5---create-a-lint-script). Edit this file if
+[these steps](/complete-lint/#step-5---create-a-lint-script). Edit this file if
 a certain type of check does not make sense for your specific project or if you
 want to add more checks.
 

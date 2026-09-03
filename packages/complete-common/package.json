@@ -35,6 +35,7 @@
     "@types/node": "catalog:",
     "complete-node": "workspace:*",
     "typedoc": "catalog:",
+    "typedoc-plugin-frontmatter": "catalog:",
     "typedoc-plugin-markdown": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:"

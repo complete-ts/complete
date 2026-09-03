@@ -13,51 +13,29 @@
   "license": "GPL-3.0",
   "author": "Zamiell",
   "scripts": {
-    "build": "bun run prepare-docs && docusaurus build",
-    "clear": "docusaurus clear",
+    "build": "bun run prepare-docs && astro build",
     "deploy": "bun run  ./scripts/deploy.mts",
-    "docusaurus": "docusaurus",
-    "lint": "bun run ./scripts/lint.mts",
+    "lint": "bun run prepare-docs && bun run ./scripts/lint.mts",
     "prepare-docs": "bun run ./scripts/prepare.mts",
-    "serve": "docusaurus serve",
-    "start": "bun run prepare-docs && docusaurus start",
-    "swizzle": "docusaurus swizzle",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "write-translations": "docusaurus write-translations"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "serve": "astro preview",
+    "start": "bun run prepare-docs && astro dev"
   },
   "dependencies": {
-    "@docusaurus/core": "catalog:",
-    "@docusaurus/faster": "catalog:",
-    "@docusaurus/plugin-content-docs": "catalog:",
-    "@docusaurus/preset-classic": "catalog:",
-    "@heroicons/react": "catalog:",
-    "@mdx-js/react": "catalog:",
-    "prism-react-renderer": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@astrojs/markdown-remark": "catalog:",
+    "@astrojs/starlight": "catalog:",
+    "astro": "catalog:",
+    "sharp": "catalog:",
+    "typedoc": "catalog:",
+    "typedoc-plugin-frontmatter": "catalog:",
+    "typedoc-plugin-markdown": "catalog:"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "catalog:",
-    "@docusaurus/types": "catalog:",
-    "@octokit/core": "catalog:",
+    "@astrojs/check": "catalog:",
     "@types/node": "catalog:",
     "complete-common": "workspace:*",
     "complete-node": "workspace:*",
-    "docusaurus-plugin-typedoc": "catalog:",
-    "typedoc": "catalog:",
-    "typedoc-plugin-markdown": "catalog:",
+    "starlight-links-validator": "catalog:",
+    "starlight-typedoc": "catalog:",
     "typescript": "catalog:"
   }
 }

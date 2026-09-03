@@ -18,5 +18,5 @@
     "./packages/markdownlint-rule-complete/src/rules/no-unconventional-code-blocks.ts",
   ],
 
-  "ignores": ["**/node_modules", "packages/docs/docs"],
+  "ignores": ["**/node_modules", "packages/docs/src/content/docs"],
 }

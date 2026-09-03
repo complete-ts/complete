@@ -1,7 +1,7 @@
 # The `complete` Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern
-static website generator.
+This website is built using [Astro](https://astro.build/) and
+[Starlight](https://starlight.astro.build/).
 
 ## Local Development
 
@@ -9,5 +9,12 @@ static website generator.
 bun run start
 ```
 
-This command starts a local development server and open up a browser window.
-Most changes are reflected live without having to restart the server.
+This command stages the package documentation and starts a local development
+server. Most changes are reflected live without restarting the server.
+
+The production search index is generated during a build:
+
+```sh
+bun run build
+bun run serve
+```

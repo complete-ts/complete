@@ -17,10 +17,12 @@ comments so that you don't have to think about it. Try
 [configuring your IDE](/eslint-plugin-complete#automatic-fixing) to run
 `eslint --fix` on save.
 
-Also see the [`format-jsdoc-comments`](format-jsdoc-comments.md) rule.
+Also see the
+[`format-jsdoc-comments`](/eslint-plugin-complete/rules/format-jsdoc-comments/)
+rule.
 
 For more information on why you should use this rule, see the
-[comment formatting discussion](../comments.md).
+[comment formatting discussion](/eslint-plugin-complete/comments/).
 
 ## Rule Details
 
