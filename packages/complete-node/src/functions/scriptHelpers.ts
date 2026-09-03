@@ -176,6 +176,10 @@ export async function script(
   }
 }
 
+/** The type given to the `lintCommands` helper function. */
+export type LintCommand =
+  string | readonly [name: string, promise: Promise<unknown>];
+
 /**
  * Helper function to run a series of concurrent lint commands. Nice console output will be shown
  * with the "listr2" library.
@@ -189,11 +193,7 @@ export async function script(
  */
 export async function lintCommands(
   importMetaDirname: string,
-  commands: ReadonlyArray<
-    // The tuple is intentionally not set to "readonly" because this causes usability issues for
-    // consumers.
-    string | [name: string, promise: Promise<unknown>]
-  > = DEFAULT_LINT_COMMANDS,
+  commands: readonly LintCommand[] = DEFAULT_LINT_COMMANDS,
   quiet = false,
 ): Promise<void> {
   const startTime = Date.now();
