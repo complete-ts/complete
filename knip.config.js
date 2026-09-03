@@ -31,6 +31,9 @@ const config = {
         "tests/template.ts",
         "tests/fixtures/file.ts",
       ],
+      ignoreDependencies: [
+        "prettier", // Used in: eslint-doc-generator.config.mjs
+      ],
     },
     "packages/markdownlint-rule-complete": {
       ignoreDependencies: ["unbuild"], // Used in: scripts/build.ts
