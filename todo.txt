@@ -1,7 +1,7 @@
 bun refactor:
 
 - When TypeScript 7 is adopted, search and delete all "target", since it defaults to latest year.
-- TODO: https://github.com/oven-sh/bun/pull/26797
+- TODO: https://github.com/oven-sh/bun/pull/36285
 
 ----------------------------------------------------------------------------------------------------
 
