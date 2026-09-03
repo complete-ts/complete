@@ -3,13 +3,14 @@ import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
 import typeDocConfigCompleteCommon from "../complete-common/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
 import typeDocConfigCompleteNode from "../complete-node/typedoc.config.cjs"; // eslint-disable-line import-x/no-relative-packages
+import typeDocPackageNamesJSON from "./typedoc-package-names.json";
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
-const TYPE_DOC_INDEX_IDS: ReadonlySet<string> = new Set([
-  "complete-common/index",
-  "complete-node/index",
-]);
+
+const TYPE_DOC_PACKAGE_INDEX_IDS: ReadonlySet<string> = new Set(
+  typeDocPackageNamesJSON.map((name) => `${name}/index`),
+);
 
 const config: Config = {
   title: "Complete",
@@ -115,7 +116,8 @@ const config: Config = {
           }) {
             const sidebarItems = await defaultSidebarItemsGenerator(args);
             return sidebarItems.filter(
-              (item) => item.type !== "doc" || !TYPE_DOC_INDEX_IDS.has(item.id),
+              (item) =>
+                item.type !== "doc" || !TYPE_DOC_PACKAGE_INDEX_IDS.has(item.id),
             );
           },
         },

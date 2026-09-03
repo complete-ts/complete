@@ -7,11 +7,11 @@ import {
   script,
 } from "complete-node";
 import path from "node:path";
+import typeDocPackageNamesJSON from "../typedoc-package-names.json" with { type: "json" };
 
-const TYPE_DOC_PACKAGE_NAMES: ReadonlySet<string> = new Set([
-  "complete-common",
-  "complete-node",
-]);
+const TYPE_DOC_PACKAGE_NAMES: ReadonlySet<string> = new Set(
+  typeDocPackageNamesJSON,
+);
 
 await script(
   import.meta.dirname,
