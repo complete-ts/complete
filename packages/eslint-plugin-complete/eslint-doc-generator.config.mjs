@@ -1,4 +1,3 @@
-import path from "node:path";
 import { format, resolveConfig } from "prettier";
 
 /** @type {import("eslint-doc-generator").GenerateOptions} */
@@ -7,11 +6,12 @@ const config = {
   pathRuleList: "website-root.md",
 
   async postprocess(content, pathToFile) {
-    const newContent = getNewContent(content, pathToFile);
-    const cwd = process.cwd();
-    const prettierConfig = await resolveConfig(cwd);
+    const updatedContent = pathToFile.endsWith("website-root.md")
+      ? addRecommendedConfigIndicators(content)
+      : content;
+    const prettierConfig = await resolveConfig(pathToFile);
 
-    return await format(newContent, {
+    return await format(updatedContent, {
       parser: "markdown",
       ...prettierConfig,
     });
@@ -28,6 +28,8 @@ const config = {
     "requiresTypeChecking",
   ],
 
+  ruleDocSectionInclude: ["Resources"],
+
   // Defaults to true. See: https://github.com/bmish/eslint-doc-generator/issues/806
   ruleDocSectionOptions: false,
 
@@ -43,78 +45,34 @@ const config = {
     "requiresTypeChecking",
     "deprecated",
   ],
+
+  urlRuleDoc: "/eslint-plugin-complete/rules/{name}",
 };
 
 export default config;
 
-function getNewContent(content, pathToFile) {
-  if (pathToFile.includes(`${path.sep}website-root.md`)) {
-    content = fixDocusaurusLinks(content);
-    content = fixRulesTableForJavaScriptOnlyDisabledRules(content);
-
-    return content;
-  }
-
-  return getContentWithResourcesSection(content, pathToFile);
-}
-
-/**
- * Replace e.g., "docs/rules/complete-sentences-jsdoc.md" with
- * "/eslint-plugin-complete/rules/complete-sentences-jsdoc".
- *
- * @param content {string}
- * @returns {string}
- */
-function fixDocusaurusLinks(content) {
-  return content.replaceAll(
-    /docs\/(?<rulePath>rules\/[^\)]+)\.md/gv,
-    "/eslint-plugin-complete/$<rulePath>",
-  );
-}
-
-/** Work around this bug: https://github.com/bmish/eslint-doc-generator/issues/822 */
-function fixRulesTableForJavaScriptOnlyDisabledRules(content) {
-  const rulesToFix = [
+/** Mark rules that the recommended config enables generally but disables for JavaScript files. */
+function addRecommendedConfigIndicators(content) {
+  const javaScriptOnlyRuleNames = [
     "no-let-any",
     "no-object-any",
     "require-capital-const-assertions",
     "require-capital-read-only",
   ];
+  const enabledConfigIndicator = String.fromCodePoint(0x27_05);
+  let updatedContent = content;
 
-  for (const ruleName of rulesToFix) {
+  for (const ruleName of javaScriptOnlyRuleNames) {
     const rulePattern = new RegExp(
       String.raw`(\| \[${ruleName}\][^|]+\| [^|]+\|)(\s+)(\|)`,
       "g",
     );
 
-    // eslint-disable-next-line complete/require-ascii
-    content = content.replace(rulePattern, "$1 ✅  $3");
+    updatedContent = updatedContent.replace(
+      rulePattern,
+      `$1 ${enabledConfigIndicator}  $3`,
+    );
   }
 
-  return content;
-}
-
-/**
- * Add a "Resources" section as the final section.
- *
- * @param content {string}
- * @param pathToFile {string}
- * @returns {string}
- */
-function getContentWithResourcesSection(content, pathToFile) {
-  const ruleName = pathToFile.split(path.sep).pop().replace(".md", "");
-
-  const resourcesSection = `## Resources
-
-- [How to use this rule](https://complete-ts.github.io/eslint-plugin-complete)
-- [Rule source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/src/rules/${ruleName}.ts)
-- [Test source](https://github.com/complete-ts/complete/blob/main/packages/eslint-plugin-complete/tests/rules/${ruleName}.test.ts)
-`;
-
-  const resourcesIndex = content.indexOf("## Resources");
-  if (resourcesIndex !== -1) {
-    content = content.slice(0, resourcesIndex);
-  }
-
-  return `${content.trim()}\n\n${resourcesSection}`;
+  return updatedContent;
 }

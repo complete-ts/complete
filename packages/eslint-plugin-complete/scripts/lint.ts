@@ -1,27 +1,15 @@
 import { assertDefined, mapAsync } from "complete-common";
-import {
-  getFilePathsInDirectory,
-  lintCommands,
-  lintScript,
-  readFile,
-} from "complete-node";
+import { $, lintCommands, lintScript, readFile } from "complete-node";
 import path from "node:path";
-import { PACKAGE_ROOT } from "./constants.js";
-import { generateAll } from "./generate.js";
-import { CONFIGS_DIRECTORY_PATH } from "./generateRecommendedTS.js";
-import { RULES_TS_PATH } from "./generateRulesTS.js";
+import {
+  CONFIGS_DIRECTORY_PATH,
+  generateRecommendedTS,
+} from "./generateRecommendedTS.js";
+import { generateRulesTS, RULES_TS_PATH } from "./generateRulesTS.js";
 
-const DOCS_RULES_PATHS = path.join(PACKAGE_ROOT, "docs", "rules");
-const DOCS_RULES_FILE_PATHS = await getFilePathsInDirectory(DOCS_RULES_PATHS);
-
-const FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT = [
-  // From "generateRules.mts":
+const CODE_GENERATION_OUTPUT_PATHS = [
   RULES_TS_PATH,
-  // From "generateConfigs.mts":
   path.join(CONFIGS_DIRECTORY_PATH, "recommended.ts"),
-  // From: "generateReadme.mts":
-  path.join(PACKAGE_ROOT, "website-root.md"),
-  ...DOCS_RULES_FILE_PATHS,
 ] as const;
 
 await lintScript(import.meta.dirname, async () => {
@@ -38,21 +26,23 @@ await lintScript(import.meta.dirname, async () => {
 
   // We cannot do generation at the same time as the other linting because it changes the
   // compilation output, creating a race condition.
-  await checkGenerateChangedFiles();
+  await checkCodeGeneration();
+  await $`bun run docs:check`;
 });
 
-async function checkGenerateChangedFiles() {
+async function checkCodeGeneration() {
   const fileContentsMap = new Map<string, string>();
 
-  await mapAsync(FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT, async (filePath) => {
+  await mapAsync(CODE_GENERATION_OUTPUT_PATHS, async (filePath) => {
     const fileContents = await readFile(filePath);
     fileContentsMap.set(filePath, fileContents);
   });
 
-  await generateAll(true);
+  await generateRulesTS();
+  await generateRecommendedTS();
 
   const changedFiles = await mapAsync(
-    FILE_PATHS_TOUCHED_BY_GENERATE_SCRIPT,
+    CODE_GENERATION_OUTPUT_PATHS,
     async (filePath) => {
       const newFileContents = await readFile(filePath);
       const oldFileContents = fileContentsMap.get(filePath);
