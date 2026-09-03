@@ -14,6 +14,8 @@
   text-transform: lowercase;
 }
 
+/* BEGIN BUG FIX FOR SUPERFLUOUS SCROLL BARS ON THE BANNER PAGE */
+
 html[data-has-hero] footer {
   display: none;
 }
@@ -33,3 +35,5 @@ html[data-has-hero] footer {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* END BUG FIX FOR SUPERFLUOUS SCROLL BARS ON THE BANNER PAGE */
