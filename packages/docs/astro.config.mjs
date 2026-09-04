@@ -21,6 +21,7 @@ const TYPE_DOC_SIDEBARS = new Map([
   [
     "complete-common",
     {
+      collapsed: true,
       items: [
         {
           label: "Overview",
@@ -28,9 +29,11 @@ const TYPE_DOC_SIDEBARS = new Map([
         },
         "complete-common/constants",
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-common/functions",
               },
             },
@@ -38,9 +41,11 @@ const TYPE_DOC_SIDEBARS = new Map([
           label: "Functions",
         },
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-common/interfaces",
               },
             },
@@ -48,9 +53,11 @@ const TYPE_DOC_SIDEBARS = new Map([
           label: "Interfaces",
         },
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-common/types",
               },
             },
@@ -64,15 +71,18 @@ const TYPE_DOC_SIDEBARS = new Map([
   [
     "complete-node",
     {
+      collapsed: true,
       items: [
         {
           label: "Overview",
           slug: "complete-node",
         },
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-node/enums",
               },
             },
@@ -80,9 +90,11 @@ const TYPE_DOC_SIDEBARS = new Map([
           label: "Enums",
         },
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-node/functions",
               },
             },
@@ -90,9 +102,11 @@ const TYPE_DOC_SIDEBARS = new Map([
           label: "Functions",
         },
         {
+          collapsed: true,
           items: [
             {
               autogenerate: {
+                collapsed: true,
                 directory: "complete-node/types",
               },
             },
@@ -142,6 +156,7 @@ export default defineConfig({
         "eslint-config-complete",
         {
           label: "eslint-plugin-complete",
+          collapsed: true,
           items: [
             {
               slug: "eslint-plugin-complete",
@@ -150,10 +165,12 @@ export default defineConfig({
             "eslint-plugin-complete/comments",
             {
               label: "Rules",
+              collapsed: true,
               items: [
                 {
                   autogenerate: {
                     directory: "eslint-plugin-complete/rules",
+                    collapsed: true,
                   },
                 },
               ],
@@ -163,6 +180,7 @@ export default defineConfig({
         "markdownlint-config-complete",
         {
           label: "markdownlint-rule-complete",
+          collapsed: true,
           items: [
             {
               slug: "markdownlint-rule-complete",
@@ -170,10 +188,12 @@ export default defineConfig({
             },
             {
               label: "Rules",
+              collapsed: true,
               items: [
                 {
                   autogenerate: {
                     directory: "markdownlint-rule-complete/rules",
+                    collapsed: true,
                   },
                 },
               ],
