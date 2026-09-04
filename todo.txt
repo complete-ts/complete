@@ -1,26 +1,11 @@
-bun refactor:
+long term:
 
 - When TypeScript 7 is adopted, search and delete all "target", since it defaults to latest year.
-- TODO: https://github.com/oven-sh/bun/pull/36285
-
-----------------------------------------------------------------------------------------------------
-
-short term:
 
 - remove @ts-expect error on ESLint plugins when this issue is resolved
   https://github.com/typescript-eslint/typescript-eslint/issues/11543
   (also remove github issue link from docs)
   (have to do isaacscript project too)
-
-- abstract generation/linting logic for plugin into complete somehow (for eslint-plugin-isaacscript)
-  use: https://github.com/bmish/eslint-doc-generator
-
-----------------------------------------------------------------------------------------------------
-
-long term:
-
-- enable "import-x/no-rename-default" rule once this PR is accepted:
-  https://github.com/un-ts/eslint-plugin-import-x/pull/157 (fix: false positive with no-rename-default)
 
 - lint projects:
   - `T extends Foo[]` --> `T extends readonly Foo[]`

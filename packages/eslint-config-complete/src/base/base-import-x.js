@@ -57,7 +57,7 @@ const HELPFUL_WARNINGS = {
   "import-x/no-named-as-default-member": "off",
 
   /**
-   * Temporarily disabled due to [false
+   * Disabled since it has a lot of [false
    * positives](https://github.com/un-ts/eslint-plugin-import-x/pull/157).
    */
   "import-x/no-rename-default": "off",
