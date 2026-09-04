@@ -64,20 +64,20 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
         },
       },
     ],
+    defaultOptions: [
+      {
+        allow: readonlynessOptionsDefaults.allow,
+        checkParameterProperties: true,
+        ignoreInferredTypes: false,
+        treatMethodsAsReadonly:
+          readonlynessOptionsDefaults.treatMethodsAsReadonly,
+        onlyRecordsArraysMapsSet: true,
+      },
+    ],
     messages: {
       shouldBeReadonly: "Parameter should be a read only type.",
     },
   },
-  defaultOptions: [
-    {
-      allow: readonlynessOptionsDefaults.allow,
-      checkParameterProperties: true,
-      ignoreInferredTypes: false,
-      treatMethodsAsReadonly:
-        readonlynessOptionsDefaults.treatMethodsAsReadonly,
-      onlyRecordsArraysMapsSet: true,
-    },
-  ],
   create(
     context,
     [

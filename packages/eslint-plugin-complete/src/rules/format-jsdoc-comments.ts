@@ -45,11 +45,11 @@ export const formatJSDocComments = createRule<Options, MessageIds>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ maxLength: MAX_LENGTH }],
     messages: {
       incorrectlyFormatted: "Comment is not formatted correctly.",
     },
   },
-  defaultOptions: [{ maxLength: MAX_LENGTH }],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of

@@ -32,11 +32,11 @@ export const requireAscii = createRule<Options, MessageIds>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ whitelist: [] }],
     messages: {
       onlyASCII: "Non-ASCII character of {{ character }} is forbidden.",
     },
   },
-  defaultOptions: [{ whitelist: [] }],
   create(context, [options]) {
     const { whitelist = [] } = options;
     const whitelistSet = new Set(whitelist);

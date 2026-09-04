@@ -34,13 +34,7 @@ export const completeConfigESLintPlugin = defineConfig({
     "eslint-plugin/prefer-placeholders": "error",
     "eslint-plugin/prefer-replace-text": "error",
     "eslint-plugin/report-message-format": "error",
-
-    /**
-     * TODO: Enable this rule.
-     *
-     * @see https://github.com/eslint-community/eslint-plugin-eslint-plugin/issues/545
-     */
-    "eslint-plugin/require-meta-default-options": "off",
+    "eslint-plugin/require-meta-default-options": "error",
 
     /**
      * TODO: Remove these options.
