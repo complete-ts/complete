@@ -91,10 +91,11 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
     ],
   ) {
     const services = getParserServices(context);
-
-    allow ??= [];
-
-    allow.push("ReadonlyMap", "ReadonlySet");
+    const allowedTypes: TypeOrValueSpecifier[] = [
+      ...(allow ?? []),
+      "ReadonlyMap",
+      "ReadonlySet",
+    ];
 
     return {
       [[
@@ -193,7 +194,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
                 case "Record": {
                   const isReadOnly = isTypeReadonly(services.program, type, {
                     treatMethodsAsReadonly,
-                    allow,
+                    allow: allowedTypes,
                   });
 
                   if (!isReadOnly) {
@@ -215,7 +216,7 @@ export const preferReadonlyParameterTypes = createRule<Options, MessageIds>({
             // Handle the standard case.
             const isReadOnly = isTypeReadonly(services.program, type, {
               treatMethodsAsReadonly,
-              allow,
+              allow: allowedTypes,
             });
 
             if (!isReadOnly) {
