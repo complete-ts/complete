@@ -168,7 +168,8 @@ export async function monorepoPublish(
 
   if (packageManager === PackageManager.bun) {
     // We must also run "bun update" in order for the new version to appear in the lock file.
-    // TODO: https://github.com/oven-sh/bun/pull/26797
+    // TODO: This is fixed in the next version of Bun.
+    // https://github.com/oven-sh/bun/commit/f942cb004953245b759298ec1d590ff5ff189b86
     await $monorepo`bun update`;
   }
 
