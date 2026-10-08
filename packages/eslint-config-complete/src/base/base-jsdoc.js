@@ -144,6 +144,9 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
+      /** Disabled because it is not needed in TypeScript. */
+      "jsdoc/no-unnecessary-type-assertion": "off",
+
       "jsdoc/normalize-see-links": "error",
 
       /**
@@ -262,6 +265,9 @@ export const baseJSDoc = defineConfig(
        * JSDoc comments to Markdown).
        */
       "jsdoc/text-escaping": "off",
+
+      /** Superseded by the `@typescript-eslint/ban-ts-comment` rule. */
+      "jsdoc/ts-ban-ts-comment": "off",
 
       "jsdoc/ts-method-signature-style": "error",
       "jsdoc/ts-no-empty-object-type": "error",

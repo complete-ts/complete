@@ -90,6 +90,7 @@ export const baseUnicorn = defineConfig({
     /** Disabled because this goes against the standard JSDoc format. */
     "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
 
+    "unicorn/no-async-iterator-callback": "error",
     "unicorn/no-async-promise-finally": "error",
     "unicorn/no-await-expression-member": "error",
     "unicorn/no-await-in-promise-methods": "error",
@@ -115,8 +116,19 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-console-spaces": "error",
     "unicorn/no-constant-zero-expression": "error",
     "unicorn/no-declarations-before-early-exit": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-deprecated-css-features": "off",
+
     "unicorn/no-document-cookie": "error",
     "unicorn/no-double-comparison": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-duplicate-css-selectors": "off",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-duplicate-font-family-names": "off",
+
     "unicorn/no-duplicate-if-branches": "error",
     "unicorn/no-duplicate-logical-operands": "error",
     "unicorn/no-duplicate-loops": "error",
@@ -136,6 +148,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-invalid-character-comparison": "error",
     "unicorn/no-invalid-fetch-options": "error",
     "unicorn/no-invalid-file-input-accept": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-invalid-media-features": "off",
+
     "unicorn/no-invalid-remove-event-listener": "error",
     "unicorn/no-invalid-well-known-symbol-methods": "error",
 
@@ -161,6 +177,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-negated-condition": "error",
     "unicorn/no-negation-in-equality-check": "error",
     "unicorn/no-nested-ternary": "off", // eslint-config-prettier
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-nesting-with-mixed-specificity": "off",
+
     "unicorn/no-new-array": "error",
     "unicorn/no-new-buffer": "error",
     "unicorn/no-non-function-verb-prefix": "error",
@@ -177,6 +197,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-process-exit": "off",
 
     "unicorn/no-redundant-comparison": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-redundant-nested-style-rules": "off",
+
     "unicorn/no-return-array-push": "error",
     "unicorn/no-selector-as-dom-name": "error",
     "unicorn/no-shorthand-property-overrides": "error",
@@ -195,6 +219,13 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-typeof-undefined": "error",
     "unicorn/no-uncalled-method": "error",
     "unicorn/no-undeclared-class-members": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-unknown-css-annotations": "off",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-unknown-pseudo-selectors": "off",
+
     "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-unnecessary-array-flat-map": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
@@ -221,7 +252,11 @@ export const baseUnicorn = defineConfig({
     /** Disabled since it has too many false positives. */
     "unicorn/no-unsafe-string-replacement": "off",
 
-    "unicorn/no-unused-array-method-return": "error",
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/no-unscoped-css-nesting-selector": "off",
+
+    "unicorn/no-unused-builtin-method-return": "error",
+    "unicorn/no-unused-iterator-helper": "error",
     "unicorn/no-unused-properties": "error",
     "unicorn/no-useless-boolean-cast": "error",
     "unicorn/no-useless-coercion": "error",
@@ -240,6 +275,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-re-export": "error",
     "unicorn/no-useless-recursion": "error",
+    "unicorn/no-useless-set-construction": "error",
     "unicorn/no-useless-spread": "error",
     "unicorn/no-useless-switch-case": "error",
     "unicorn/no-useless-template-literals": "error",
@@ -247,6 +283,7 @@ export const baseUnicorn = defineConfig({
     /** Disabled since it does not work properly with TypeScript. */
     "unicorn/no-useless-undefined": "off",
 
+    "unicorn/no-using-resource-escape": "error",
     "unicorn/no-xor-as-exponentiation": "error",
     "unicorn/no-zero-fractions": "error",
     "unicorn/number-literal-case": "off", // eslint-config-prettier
@@ -277,6 +314,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-class-fields": "error",
     "unicorn/prefer-classlist-toggle": "error",
     "unicorn/prefer-code-point": "error",
+    "unicorn/prefer-combined-guards": "error",
     "unicorn/prefer-continue": "error",
     "unicorn/prefer-date-now": "error",
     "unicorn/prefer-default-parameters": "error",
@@ -326,6 +364,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-iterator-to-array": "error",
     "unicorn/prefer-iterator-to-array-at-end": "error",
 
+    /** Disabled since `Iterator.zip` is not available in TypeScript 6. */
+    "unicorn/prefer-iterator-zip": "off",
+
+    "unicorn/prefer-json-import": "error",
     "unicorn/prefer-keyboard-event-key": "error",
     "unicorn/prefer-location-assign": "error",
     "unicorn/prefer-logical-operator-over-ternary": "error",
@@ -334,6 +376,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-math-constants": "error",
     "unicorn/prefer-math-min-max": "error",
     "unicorn/prefer-math-trunc": "error",
+
+    /** Disabled since it causes errors on JavaScript/TypeScript files. */
+    "unicorn/prefer-media-feature-range-syntax": "off",
+
     "unicorn/prefer-minimal-ternary": "error",
     "unicorn/prefer-modern-dom-apis": "error",
     "unicorn/prefer-modern-math-apis": "error",
@@ -394,6 +440,7 @@ export const baseUnicorn = defineConfig({
      */
     "unicorn/prefer-temporal": "off",
 
+    "unicorn/prefer-temporal-conversion": "error",
     "unicorn/prefer-ternary": "error",
     "unicorn/prefer-then-catch": "error",
     "unicorn/prefer-toggle-attribute": "error",
@@ -401,6 +448,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-type-error": "error",
     "unicorn/prefer-type-literal-last": "error",
     "unicorn/prefer-uint8array-base64": "error",
+    "unicorn/prefer-uint8array-hex": "error",
     "unicorn/prefer-unary-minus": "error",
     "unicorn/prefer-unicode-code-point-escapes": "error",
     "unicorn/prefer-url-can-parse": "error",

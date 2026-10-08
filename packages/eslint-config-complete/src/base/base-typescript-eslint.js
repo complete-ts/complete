@@ -195,6 +195,7 @@ export const baseTypeScriptESLint = defineConfig(
       ],
 
       "@typescript-eslint/no-for-in-array": "error",
+      "@typescript-eslint/no-generated-empty-object-type": "error",
       "@typescript-eslint/no-implied-eval": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/no-inferrable-types": "error",
@@ -306,6 +307,7 @@ export const baseTypeScriptESLint = defineConfig(
       "@typescript-eslint/no-unsafe-assignment": "error",
       "@typescript-eslint/no-unsafe-call": "error",
       "@typescript-eslint/no-unsafe-declaration-merging": "error",
+      "@typescript-eslint/no-unsafe-enum-assignment": "error",
       "@typescript-eslint/no-unsafe-enum-comparison": "error",
       "@typescript-eslint/no-unsafe-function-type": "error",
       "@typescript-eslint/no-unsafe-member-access": "error",

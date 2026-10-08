@@ -422,10 +422,12 @@ function auditBaseConfigRules(
   // Go through every upstream rule.
   for (const ruleName of allRules) {
     const rule = baseRules[ruleName];
-    if (rule === undefined) {
-      valid = false;
-      console.warn(`Failed to find a rule in the base config: ${ruleName}`);
+    if (rule !== undefined) {
+      continue;
     }
+
+    valid = false;
+    console.warn(`Failed to find a rule in the base config: ${ruleName}`);
   }
 
   // Also do the inverted check, which confirms that no deprecated rules are turned on.
@@ -451,11 +453,9 @@ function getAllRulesFromImport(
   }
 
   // The "typescript-eslint" plugin is a special case (since it uses the flat config).
-  if (pluginName === "typescript-eslint") {
-    return getAllRulesFromTSESLint(pluginName, upstreamImport);
-  }
-
-  return getAllRulesFromOldPlugin(pluginName, upstreamImport);
+  return pluginName === "typescript-eslint"
+    ? getAllRulesFromTSESLint(pluginName, upstreamImport)
+    : getAllRulesFromOldPlugin(pluginName, upstreamImport);
 }
 
 function getAllRulesFromCoreESLint(
@@ -750,11 +750,9 @@ function getLineOfCodeStartingAtPos(pos: number, code: string): string {
   const codeStartingAtPos = code.slice(pos).trim();
   const newlineIndex = codeStartingAtPos.indexOf("\n");
 
-  if (newlineIndex !== -1) {
-    return codeStartingAtPos.slice(0, Math.max(0, newlineIndex));
-  }
-
-  return codeStartingAtPos;
+  return newlineIndex === -1
+    ? codeStartingAtPos
+    : codeStartingAtPos.slice(0, Math.max(0, newlineIndex));
 }
 
 function getMarkdownTableRow(
