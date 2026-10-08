@@ -96,11 +96,7 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
         const type = checker.getTypeAtLocation(tsNode);
 
         const typeName = getTypeName(type);
-        if (typeName === undefined) {
-          return;
-        }
-
-        if (!PROBLEM_TYPES.has(typeName)) {
+        if ((typeName === undefined) || !PROBLEM_TYPES.has(typeName)) {
           return;
         }
 

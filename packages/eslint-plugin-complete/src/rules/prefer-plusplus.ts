@@ -35,11 +35,7 @@ export const preferPlusplus = createRule<Options, MessageIds>({
         const tsNodeRight = parserServices.esTreeNodeToTSNodeMap.get(
           node.right,
         );
-        if (!ts.isNumericLiteral(tsNodeRight)) {
-          return;
-        }
-
-        if (tsNodeRight.getText() !== "1") {
+        if (!ts.isNumericLiteral(tsNodeRight) || (tsNodeRight.getText() !== "1")) {
           return;
         }
 

@@ -80,11 +80,7 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
   }
 
   // This would be "ReadonlyArray" if it was the read-only version.
-  if (typeName === "Array") {
-    return "mutableArray";
-  }
-
-  return undefined;
+  return typeName === "Array" ? "mutableArray" : undefined;
 }
 
 /** If that does not exist, If that does not exist, target the entire function. */

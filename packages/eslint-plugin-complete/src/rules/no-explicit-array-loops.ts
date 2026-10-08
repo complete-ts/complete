@@ -37,11 +37,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       }
 
       const memberExpression = callExpression.callee;
-      if (memberExpression.type !== AST_NODE_TYPES.MemberExpression) {
-        return;
-      }
-
-      if (memberExpression.object.type !== AST_NODE_TYPES.Identifier) {
+      if ((memberExpression.type !== AST_NODE_TYPES.MemberExpression) || (memberExpression.object.type !== AST_NODE_TYPES.Identifier)) {
         return;
       }
 
@@ -88,15 +84,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       }
 
       const memberExpression = callExpression.callee;
-      if (memberExpression.type !== AST_NODE_TYPES.MemberExpression) {
-        return;
-      }
-
-      if (memberExpression.object.type !== AST_NODE_TYPES.Identifier) {
-        return;
-      }
-
-      if (memberExpression.object.name !== "Object") {
+      if ((memberExpression.type !== AST_NODE_TYPES.MemberExpression) || (memberExpression.object.type !== AST_NODE_TYPES.Identifier) || (memberExpression.object.name !== "Object")) {
         return;
       }
 
@@ -111,11 +99,7 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
       }
 
       const firstArgument = callExpression.arguments[0];
-      if (firstArgument === undefined) {
-        return;
-      }
-
-      if (firstArgument.type !== AST_NODE_TYPES.Identifier) {
+      if ((firstArgument === undefined) || (firstArgument.type !== AST_NODE_TYPES.Identifier)) {
         return;
       }
 

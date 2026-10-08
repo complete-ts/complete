@@ -71,13 +71,7 @@ export const noRedundantJSDocDefault = createRule({
         }
 
         const jsDocDefaultValue = getJSDocDefaultValue(checker, propertySymbol);
-        if (jsDocDefaultValue === undefined) {
-          return;
-        }
-
-        if (
-          !areComparableDefaultValuesEqual(propertyValue, jsDocDefaultValue)
-        ) {
+        if ((jsDocDefaultValue === undefined) || !areComparableDefaultValuesEqual(propertyValue, jsDocDefaultValue)) {
           return;
         }
 
@@ -125,16 +119,10 @@ function getComparableValue(
 function getComparableLiteralValue(
   value: bigint | boolean | null | number | RegExp | string,
 ): ComparableDefaultValue | undefined {
-  if (
-    typeof value === "boolean"
+  return typeof value === "boolean"
     || typeof value === "number"
     || typeof value === "string"
-    || value === null
-  ) {
-    return value;
-  }
-
-  return undefined;
+    || value === null ? value : undefined;
 }
 
 function getJSDocDefaultValue(
@@ -152,11 +140,7 @@ function getJSDocDefaultValue(
     ?.map((displayPart) => displayPart.text)
     .join("")
     .trim();
-  if (tagText === undefined || tagText === "") {
-    return undefined;
-  }
-
-  return parseDefaultValue(tagText);
+  return tagText === undefined || tagText === "" ? undefined : parseDefaultValue(tagText);
 }
 
 function getPrintableDefaultValue(value: ComparableDefaultValue): string {
@@ -204,15 +188,9 @@ function getTemplateLiteralValue(
 function getUnaryExpressionValue(
   node: TSESTree.UnaryExpression,
 ): number | undefined {
-  if (
-    node.operator !== "-"
+  return node.operator !== "-"
     || node.argument.type !== AST_NODE_TYPES.Literal
-    || typeof node.argument.value !== "number"
-  ) {
-    return undefined;
-  }
-
-  return -node.argument.value;
+    || typeof node.argument.value !== "number" ? undefined : -node.argument.value;
 }
 
 function parseDefaultValue(
@@ -252,11 +230,7 @@ function parseDefaultValueStringOrNumber(
     return numberValue;
   }
 
-  if (!defaultValue.startsWith('"') || !defaultValue.endsWith('"')) {
-    return undefined;
-  }
-
-  return parseJSONString(defaultValue);
+  return !defaultValue.startsWith('"') || !defaultValue.endsWith('"') ? undefined : parseJSONString(defaultValue);
 }
 
 function parseJSONString(defaultValue: string): string | undefined {

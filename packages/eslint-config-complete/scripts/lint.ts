@@ -19,10 +19,12 @@ async function checkDocs(packageRoot: string) {
   await setReadmeRules(true);
 
   const newFileContents = await readFile(readmePath);
-  if (oldFileContents !== newFileContents) {
-    await writeFile(readmePath, oldFileContents);
-    throw new Error(
-      `The "docs.ts" script changed the "${readmePath}" file. Run: "bun run docs`,
-    );
+  if (oldFileContents === newFileContents) {
+    return;
   }
+
+  await writeFile(readmePath, oldFileContents);
+  throw new Error(
+    `The "docs.ts" script changed the "${readmePath}" file. Run: "bun run docs`,
+  );
 }

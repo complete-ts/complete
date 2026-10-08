@@ -92,11 +92,7 @@ function getErrorMessageId(type: ts.Type): MessageIds | undefined {
   }
 
   // This would be "ReadonlyArray" if it was the read-only version.
-  if (typeName === "Array") {
-    return "readOnlyArray";
-  }
-
-  return undefined;
+  return typeName === "Array" ? "readOnlyArray" : undefined;
 }
 
 function isReadOnlyObject(type: ts.Type): boolean {

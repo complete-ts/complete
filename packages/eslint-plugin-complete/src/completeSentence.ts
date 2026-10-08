@@ -274,11 +274,7 @@ function getInlineLinkReplacement(linkContent: string): string {
 
 export function getSentences(text: string): readonly string[] {
   const match = text.match(SENTENCE_REGEX);
-  if (match === null) {
-    return [];
-  }
-
-  return match;
+  return match === null ? [] : match;
 }
 
 function getIncompleteSentenceKind(

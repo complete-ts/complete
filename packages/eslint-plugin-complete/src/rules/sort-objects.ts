@@ -158,11 +158,9 @@ function getSeparator(
   const firstLocation = sourceCode.getLocFromIndex(firstProperty.range[0]);
   const lastLocation = sourceCode.getLocFromIndex(lastProperty.range[0]);
 
-  if (firstLocation.line === lastLocation.line) {
-    return ", ";
-  }
-
-  return `,\n${" ".repeat(firstLocation.column)}`;
+  return firstLocation.line === lastLocation.line
+    ? ", "
+    : `,\n${" ".repeat(firstLocation.column)}`;
 }
 
 function getPropertyName(property: TSESTree.Property): string | undefined {
@@ -251,16 +249,14 @@ function getGenericConstraintPropertyOrder(
       (typeParameter) => typeParameter.name.text === typeParameterName,
     );
   const constraint = typeParameterDeclaration?.constraint;
-  if (constraint === undefined) {
-    return new Map<string, number>();
-  }
-
-  return getDeclaredPropertyOrder(
-    checker,
-    checker.getTypeFromTypeNode(constraint),
-    tsNode,
-    node,
-  );
+  return constraint === undefined
+    ? new Map<string, number>()
+    : getDeclaredPropertyOrder(
+        checker,
+        checker.getTypeFromTypeNode(constraint),
+        tsNode,
+        node,
+      );
 }
 
 function getResolvedParameterDeclaration(
@@ -279,11 +275,9 @@ function getResolvedParameterDeclaration(
 
   const signature = checker.getResolvedSignature(parent);
   const declaration = signature?.declaration;
-  if (declaration === undefined || !ts.isFunctionLike(declaration)) {
-    return undefined;
-  }
-
-  return declaration.parameters.at(argumentIndex);
+  return declaration === undefined || !ts.isFunctionLike(declaration)
+    ? undefined
+    : declaration.parameters.at(argumentIndex);
 }
 
 function getDeclaredPropertyOrder(
@@ -298,14 +292,10 @@ function getDeclaredPropertyOrder(
     tsNode,
     node,
   );
-  if (typeWithDeclaredProperties === undefined) {
-    return new Map<string, number>();
-  }
-
-  return (
-    getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
-    ?? getTypePropertyOrder(typeWithDeclaredProperties)
-  );
+  return typeWithDeclaredProperties === undefined
+    ? new Map<string, number>()
+    : (getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
+        ?? getTypePropertyOrder(typeWithDeclaredProperties));
 }
 
 function getTypePropertyOrder(type: ts.Type): ReadonlyMap<string, number> {

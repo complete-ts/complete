@@ -68,9 +68,5 @@ export function trimPrefix(
     return string.replaceAll(regExp, "");
   }
 
-  if (!string.startsWith(prefix)) {
-    return string;
-  }
-
-  return string.slice(prefix.length);
+  return string.startsWith(prefix) ? string.slice(prefix.length) : string;
 }

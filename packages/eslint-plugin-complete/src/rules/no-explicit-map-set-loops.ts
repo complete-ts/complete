@@ -91,9 +91,5 @@ function getTypeTuple(
     return ["noExplicitMap", "entries"];
   }
 
-  if (typeName === "Set" || typeName === "ReadonlySet") {
-    return ["noExplicitSet", "values"];
-  }
-
-  return undefined;
+  return typeName === "Set" || typeName === "ReadonlySet" ? ["noExplicitSet", "values"] : undefined;
 }

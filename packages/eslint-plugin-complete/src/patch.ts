@@ -114,11 +114,7 @@ function isTupleType(
 function getTupleCacheKey(
   type: ts.TupleTypeReference,
 ): ts.Node | ts.Type | undefined {
-  if (getGenericTupleAlias(type) !== undefined) {
-    return undefined;
-  }
-
-  return type.node ?? type.target;
+  return getGenericTupleAlias(type) === undefined ? type.node ?? type.target : undefined;
 }
 
 function getGenericTupleAlias(

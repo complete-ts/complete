@@ -97,16 +97,12 @@ function getNeedsFix(
     );
   }
 
-  if (node.properties.length === 1) {
-    return (
+  return node.properties.length === 1 ? (
       !isMultiline(firstProperty)
       && canUseSingleLineBraces(sourceCode, node)
       && (openingBrace.loc.end.line !== firstProperty.loc.start.line
         || closingBrace.loc.start.line !== lastProperty.loc.end.line)
-    );
-  }
-
-  return (
+    ) : (
     openingBrace.loc.end.line === firstProperty.loc.start.line
     || closingBrace.loc.start.line === lastProperty.loc.end.line
     || hasTwoPropertiesOnSameLine(node.properties)
@@ -144,11 +140,7 @@ function getReplacementText(
     }
 
     const replacementText = `{ ${sourceCode.getText(property)} }`;
-    if (!canUseSingleLineBraces(sourceCode, node, replacementText)) {
-      return undefined;
-    }
-
-    return replacementText;
+    return canUseSingleLineBraces(sourceCode, node, replacementText) ? replacementText : undefined;
   }
 
   return getMultilineReplacementText(sourceCode, properties, openingBrace);

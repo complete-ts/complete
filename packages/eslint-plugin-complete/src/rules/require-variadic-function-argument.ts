@@ -100,11 +100,9 @@ function getMethodName(node: TSESTree.Expression): string | undefined {
   }
 
   const { property } = node;
-  if (property.type !== AST_NODE_TYPES.Identifier) {
-    return undefined;
-  }
-
-  return property.name;
+  return property.type === AST_NODE_TYPES.Identifier
+    ? property.name
+    : undefined;
 }
 
 /**
@@ -121,23 +119,17 @@ function isConsoleOrWindowOrLoggerFunction(
   }
 
   const { object } = callee;
-  if (object.type !== AST_NODE_TYPES.Identifier) {
-    return false;
-  }
-
-  return (
-    object.name === "console"
-    || object.name === "window"
-    || object.name === "logger"
-  );
+  return object.type === AST_NODE_TYPES.Identifier
+    ? object.name === "console"
+        || object.name === "window"
+        || object.name === "logger"
+    : false;
 }
 
 function isTimeoutFunction(callee: TSESTree.Expression): boolean {
-  if (callee.type !== AST_NODE_TYPES.Identifier) {
-    return false;
-  }
-
-  return callee.name === "setTimeout" || callee.name === "setInterval";
+  return callee.type === AST_NODE_TYPES.Identifier
+    ? callee.name === "setTimeout" || callee.name === "setInterval"
+    : false;
 }
 
 function hasJSDocExceptionTag(

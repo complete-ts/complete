@@ -155,17 +155,17 @@ export default defineConfig({
         "complete-tsconfig",
         "eslint-config-complete",
         {
-          label: "eslint-plugin-complete",
           collapsed: true,
+          label: "eslint-plugin-complete",
           items: [
             {
-              slug: "eslint-plugin-complete",
               label: "Overview",
+              slug: "eslint-plugin-complete",
             },
             "eslint-plugin-complete/comments",
             {
-              label: "Rules",
               collapsed: true,
+              label: "Rules",
               items: [
                 {
                   autogenerate: {
@@ -179,16 +179,16 @@ export default defineConfig({
         },
         "markdownlint-config-complete",
         {
-          label: "markdownlint-rule-complete",
           collapsed: true,
+          label: "markdownlint-rule-complete",
           items: [
             {
-              slug: "markdownlint-rule-complete",
               label: "Overview",
+              slug: "markdownlint-rule-complete",
             },
             {
-              label: "Rules",
               collapsed: true,
+              label: "Rules",
               items: [
                 {
                   autogenerate: {
