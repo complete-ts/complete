@@ -28,8 +28,11 @@ export const noStringLength0 = createRule({
     function isStringLength(
       node: TSESTree.PrivateIdentifier | TSESTree.Expression,
     ): boolean {
-      if ((node.type !== AST_NODE_TYPES.MemberExpression) || node.property.type !== AST_NODE_TYPES.Identifier
-        || node.property.name !== "length") {
+      if (
+        node.type !== AST_NODE_TYPES.MemberExpression
+        || node.property.type !== AST_NODE_TYPES.Identifier
+        || node.property.name !== "length"
+      ) {
         return false;
       }
 

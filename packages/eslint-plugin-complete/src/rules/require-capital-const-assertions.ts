@@ -48,7 +48,10 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
 
       for (const declaration of node.declarations) {
         const { id } = declaration;
-        if ((id.type !== AST_NODE_TYPES.Identifier) || !isFirstLetterCapitalized(id.name)) {
+        if (
+          id.type !== AST_NODE_TYPES.Identifier
+          || !isFirstLetterCapitalized(id.name)
+        ) {
           continue;
         }
 
@@ -112,7 +115,9 @@ function hasConstAssertionWithoutSatisfies(
   }
 
   const { typeName } = typeAnnotation;
-  return typeName.type === AST_NODE_TYPES.Identifier ? typeName.name === "const" : false;
+  return (
+    typeName.type === AST_NODE_TYPES.Identifier && typeName.name === "const"
+  );
 }
 
 /** The "as const" part is nested within the `TSSatisfiesExpression` node as another expression. */
@@ -120,5 +125,8 @@ function hasConstAssertionWithSatisfies(
   init: TSESTree.TSSatisfiesExpression,
 ): boolean {
   const { expression } = init;
-  return expression.type === AST_NODE_TYPES.TSAsExpression ? hasConstAssertionWithoutSatisfies(expression) : false;
+  return (
+    expression.type === AST_NODE_TYPES.TSAsExpression
+    && hasConstAssertionWithoutSatisfies(expression)
+  );
 }

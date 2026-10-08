@@ -119,17 +119,19 @@ function isConsoleOrWindowOrLoggerFunction(
   }
 
   const { object } = callee;
-  return object.type === AST_NODE_TYPES.Identifier
-    ? object.name === "console"
-        || object.name === "window"
-        || object.name === "logger"
-    : false;
+  return (
+    object.type === AST_NODE_TYPES.Identifier
+    && (object.name === "console"
+      || object.name === "window"
+      || object.name === "logger")
+  );
 }
 
 function isTimeoutFunction(callee: TSESTree.Expression): boolean {
-  return callee.type === AST_NODE_TYPES.Identifier
-    ? callee.name === "setTimeout" || callee.name === "setInterval"
-    : false;
+  return (
+    callee.type === AST_NODE_TYPES.Identifier
+    && (callee.name === "setTimeout" || callee.name === "setInterval")
+  );
 }
 
 function hasJSDocExceptionTag(

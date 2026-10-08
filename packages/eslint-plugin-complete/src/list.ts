@@ -177,7 +177,7 @@ function getJSDocTagName(text: string): string | undefined {
     }
 
     const { tagWithVariableName } = paramMatch.groups;
-    return tagWithVariableName === undefined ? "@param" : tagWithVariableName;
+    return tagWithVariableName ?? "@param";
   }
 
   return `@${tagName}`;

@@ -97,16 +97,14 @@ function getNeedsFix(
     );
   }
 
-  return node.properties.length === 1 ? (
-      !isMultiline(firstProperty)
-      && canUseSingleLineBraces(sourceCode, node)
-      && (openingBrace.loc.end.line !== firstProperty.loc.start.line
-        || closingBrace.loc.start.line !== lastProperty.loc.end.line)
-    ) : (
-    openingBrace.loc.end.line === firstProperty.loc.start.line
-    || closingBrace.loc.start.line === lastProperty.loc.end.line
-    || hasTwoPropertiesOnSameLine(node.properties)
-  );
+  return node.properties.length === 1
+    ? !isMultiline(firstProperty)
+        && canUseSingleLineBraces(sourceCode, node)
+        && (openingBrace.loc.end.line !== firstProperty.loc.start.line
+          || closingBrace.loc.start.line !== lastProperty.loc.end.line)
+    : openingBrace.loc.end.line === firstProperty.loc.start.line
+        || closingBrace.loc.start.line === lastProperty.loc.end.line
+        || hasTwoPropertiesOnSameLine(node.properties);
 }
 
 function hasTwoPropertiesOnSameLine(
@@ -140,7 +138,9 @@ function getReplacementText(
     }
 
     const replacementText = `{ ${sourceCode.getText(property)} }`;
-    return canUseSingleLineBraces(sourceCode, node, replacementText) ? replacementText : undefined;
+    return canUseSingleLineBraces(sourceCode, node, replacementText)
+      ? replacementText
+      : undefined;
   }
 
   return getMultilineReplacementText(sourceCode, properties, openingBrace);

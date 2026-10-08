@@ -111,5 +111,5 @@ function getFirstWord(text: string): string {
   // We want to match e.g., `console.log`.
   const parts = firstWord.split(".");
   const firstPart = parts[0];
-  return firstPart === undefined ? "" : firstPart;
+  return firstPart ?? "";
 }

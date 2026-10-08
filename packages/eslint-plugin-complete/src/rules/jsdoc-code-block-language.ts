@@ -45,26 +45,28 @@ export const jsdocCodeBlockLanguage = createRule({
           continue;
         }
 
-        if (line.endsWith("```")) {
-          const nextLine = comment.loc.start.line + i + 1;
-
-          const start = {
-            line: nextLine,
-            column: line.indexOf("```") + " * ".length,
-          };
-          const end = {
-            line: nextLine + 1,
-            column: 0,
-          };
-
-          context.report({
-            loc: {
-              start,
-              end,
-            },
-            messageId: "noLanguage",
-          });
+        if (!line.endsWith("```")) {
+          continue;
         }
+
+        const nextLine = comment.loc.start.line + i + 1;
+
+        const start = {
+          line: nextLine,
+          column: line.indexOf("```") + " * ".length,
+        };
+        const end = {
+          line: nextLine + 1,
+          column: 0,
+        };
+
+        context.report({
+          loc: {
+            start,
+            end,
+          },
+          messageId: "noLanguage",
+        });
       }
     }
 

@@ -66,28 +66,30 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
       const immutabilityCache: ImmutabilityCache = new WeakMap();
 
       if (
-        !isImmutableTypeWithPatches(
+        isImmutableTypeWithPatches(
           program,
           type,
           IMMUTABILITY_OVERRIDES,
           immutabilityCache,
         )
       ) {
-        const offendingFields = getOffendingFields(type);
-        const firstFieldName = offendingFields[0] ?? "(unknown)";
-        const violationCount =
-          offendingFields.length === 0 ? 1 : offendingFields.length;
-
-        context.report({
-          node: node.id,
-          messageId: "mustBeImmutable",
-          data: {
-            firstFieldName,
-            violationCount,
-            violationNoun: violationCount === 1 ? "violation" : "violations",
-          },
-        });
+        return;
       }
+
+      const offendingFields = getOffendingFields(type);
+      const firstFieldName = offendingFields[0] ?? "(unknown)";
+      const violationCount =
+        offendingFields.length === 0 ? 1 : offendingFields.length;
+
+      context.report({
+        node: node.id,
+        messageId: "mustBeImmutable",
+        data: {
+          firstFieldName,
+          violationCount,
+          violationNoun: violationCount === 1 ? "violation" : "violations",
+        },
+      });
     }
 
     function getOffendingFields(type: ts.Type): readonly string[] {

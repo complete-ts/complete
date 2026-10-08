@@ -71,7 +71,10 @@ export const noRedundantJSDocDefault = createRule({
         }
 
         const jsDocDefaultValue = getJSDocDefaultValue(checker, propertySymbol);
-        if ((jsDocDefaultValue === undefined) || !areComparableDefaultValuesEqual(propertyValue, jsDocDefaultValue)) {
+        if (
+          jsDocDefaultValue === undefined
+          || !areComparableDefaultValuesEqual(propertyValue, jsDocDefaultValue)
+        ) {
           return;
         }
 
@@ -122,7 +125,9 @@ function getComparableLiteralValue(
   return typeof value === "boolean"
     || typeof value === "number"
     || typeof value === "string"
-    || value === null ? value : undefined;
+    || value === null
+    ? value
+    : undefined;
 }
 
 function getJSDocDefaultValue(
@@ -140,7 +145,9 @@ function getJSDocDefaultValue(
     ?.map((displayPart) => displayPart.text)
     .join("")
     .trim();
-  return tagText === undefined || tagText === "" ? undefined : parseDefaultValue(tagText);
+  return tagText === undefined || tagText === ""
+    ? undefined
+    : parseDefaultValue(tagText);
 }
 
 function getPrintableDefaultValue(value: ComparableDefaultValue): string {
@@ -190,7 +197,9 @@ function getUnaryExpressionValue(
 ): number | undefined {
   return node.operator !== "-"
     || node.argument.type !== AST_NODE_TYPES.Literal
-    || typeof node.argument.value !== "number" ? undefined : -node.argument.value;
+    || typeof node.argument.value !== "number"
+    ? undefined
+    : -node.argument.value;
 }
 
 function parseDefaultValue(
@@ -230,7 +239,9 @@ function parseDefaultValueStringOrNumber(
     return numberValue;
   }
 
-  return !defaultValue.startsWith('"') || !defaultValue.endsWith('"') ? undefined : parseJSONString(defaultValue);
+  return !defaultValue.startsWith('"') || !defaultValue.endsWith('"')
+    ? undefined
+    : parseJSONString(defaultValue);
 }
 
 function parseJSONString(defaultValue: string): string | undefined {
