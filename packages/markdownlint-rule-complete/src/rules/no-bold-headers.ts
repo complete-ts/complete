@@ -18,7 +18,10 @@ const noBoldHeaders: Rule = {
       }
 
       const { children } = inlineToken;
-      if ((children === null) || children.every((child) => child.type !== "strong_open")) {
+      if (
+        children === null
+        || children.every((child) => child.type !== "strong_open")
+      ) {
         continue;
       }
 
@@ -37,7 +40,9 @@ const noBoldHeaders: Rule = {
           if (child.type === "softbreak") {
             return "\n";
           }
-          return child.type === "code_inline" ? `${child.markup}${child.content}${child.markup}` : child.markup;
+          return child.type === "code_inline"
+            ? `${child.markup}${child.content}${child.markup}`
+            : child.markup;
         })
         .join("");
 

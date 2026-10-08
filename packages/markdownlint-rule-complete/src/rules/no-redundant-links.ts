@@ -53,5 +53,7 @@ function getAttr(token: MarkdownItBaseToken, name: string): string | undefined {
 }
 
 function getLineNumber(token: object, fallback: number): number {
-  return "lineNumber" in token && typeof token.lineNumber === "number" ? token.lineNumber : fallback;
+  return "lineNumber" in token && typeof token.lineNumber === "number"
+    ? token.lineNumber
+    : fallback;
 }
