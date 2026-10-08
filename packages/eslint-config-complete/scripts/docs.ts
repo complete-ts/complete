@@ -766,7 +766,7 @@ function getMarkdownTableRow(
   const filledRuleURL = ruleURL.replace("__RULE_NAME__", baseRuleName);
   const ruleNameWithLink = `[\`${ruleName}\`](${filledRuleURL})`;
   const enabled =
-    baseConfigText === undefined ? true : getRuleEnabled(ruleName, rule);
+    baseConfigText === undefined || getRuleEnabled(ruleName, rule);
   // eslint-disable-next-line complete/require-ascii
   const enabledEmoji = enabled ? "✅" : "❌";
   const parentConfigsLinks = getParentConfigsLinks(ruleName);

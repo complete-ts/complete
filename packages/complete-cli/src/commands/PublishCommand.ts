@@ -129,11 +129,7 @@ async function getPackageManagerUsedForExistingProject(): Promise<PackageManager
   }
 
   const packageManager = packageManagers[0];
-  if (packageManager !== undefined) {
-    return packageManager;
-  }
-
-  return DEFAULT_PACKAGE_MANAGER;
+  return packageManager ?? DEFAULT_PACKAGE_MANAGER;
 }
 
 async function updateDependencies(
@@ -147,13 +143,15 @@ async function updateDependencies(
 
   console.log('Updating dependencies in the "package.json" file...');
   const hasNewDependencies = await updatePackageJSONDependencies(undefined);
-  if (hasNewDependencies) {
-    const command = getPackageManagerInstallCommand(packageManager);
-    const commandParts = command.split(" ");
-    await $`${commandParts}`;
-    if (!dryRun) {
-      await gitCommitAllAndPush("chore: update dependencies");
-    }
+  if (!hasNewDependencies) {
+    return;
+  }
+
+  const command = getPackageManagerInstallCommand(packageManager);
+  const commandParts = command.split(" ");
+  await $`${commandParts}`;
+  if (!dryRun) {
+    await gitCommitAllAndPush("chore: update dependencies");
   }
 }
 
@@ -218,10 +216,12 @@ async function tryRunPackageScript(
   const $$ = $({ reject: false });
   const { exitCode } = await $$`${packageManager} run ${scriptName}`;
 
-  if (exitCode !== 0) {
-    await $`git reset --hard`; // Revert the version changes.
-    fatalError(`Failed to run "${scriptName}".`);
+  if (exitCode === 0) {
+    return;
   }
+
+  await $`git reset --hard`; // Revert the version changes.
+  fatalError(`Failed to run "${scriptName}".`);
 }
 
 async function publish(dryRun: boolean) {

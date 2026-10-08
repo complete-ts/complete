@@ -144,7 +144,7 @@ export const baseJSDoc = defineConfig(
       /** Disabled because it is not needed in TypeScript. */
       "jsdoc/no-undefined-types": "off",
 
-      /** Disabled because it is not needed in TypeScript. */
+      /** Superseded by the `@typescript-eslint/no-unnecessary-type-assertion` rule. */
       "jsdoc/no-unnecessary-type-assertion": "off",
 
       "jsdoc/normalize-see-links": "error",

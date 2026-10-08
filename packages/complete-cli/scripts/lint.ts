@@ -24,10 +24,12 @@ async function checkGitIgnoreUpdates() {
   const response = await fetch(GITIGNORE_URL);
   const remoteGitIgnore = await response.text();
 
-  if (localGitIgnore !== remoteGitIgnore) {
-    diff(localGitIgnore, remoteGitIgnore);
-    throw new Error(
-      `There is a new "${GITIGNORE_FILE_NAME}" file. Get it at: ${GITIGNORE_URL}`,
-    );
+  if (localGitIgnore === remoteGitIgnore) {
+    return;
   }
+
+  diff(localGitIgnore, remoteGitIgnore);
+  throw new Error(
+    `There is a new "${GITIGNORE_FILE_NAME}" file. Get it at: ${GITIGNORE_URL}`,
+  );
 }
