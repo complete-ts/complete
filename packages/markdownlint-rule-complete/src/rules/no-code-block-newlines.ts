@@ -40,20 +40,24 @@ const noCodeBlockNewlines: Rule = {
 
       const lastContentLine = closingFenceLine - 1;
       if (
-        lastContentLine !== firstContentLine
-        && lastContentLine > startLine
-        && lastContentLine >= firstContentLine
+        lastContentLine === firstContentLine
+        || lastContentLine <= startLine
+        || lastContentLine < firstContentLine
       ) {
-        const line = params.lines[lastContentLine];
-        if (line !== undefined && line.trim() === "") {
-          onError({
-            lineNumber: lastContentLine + 1,
-            fixInfo: {
-              deleteCount: -1,
-            },
-          });
-        }
+        continue;
       }
+
+      const line = params.lines[lastContentLine];
+      if (line === undefined || line.trim() !== "") {
+        continue;
+      }
+
+      onError({
+        lineNumber: lastContentLine + 1,
+        fixInfo: {
+          deleteCount: -1,
+        },
+      });
     }
   },
 };

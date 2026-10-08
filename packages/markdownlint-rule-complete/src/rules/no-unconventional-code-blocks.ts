@@ -21,26 +21,29 @@ const noUnconventionalCodeBlocks: Rule = {
       const info = token.info.trim();
       const replacement = UNCONVENTIONAL_LANGUAGES.get(info);
 
-      if (replacement !== undefined) {
-        const line = params.lines[token.lineNumber - 1];
-        if (line === undefined) {
-          continue;
-        }
-
-        const markupIndex = line.indexOf(token.markup);
-        const infoIndex = line.indexOf(info, markupIndex + token.markup.length);
-
-        if (infoIndex !== -1) {
-          onError({
-            lineNumber: token.lineNumber,
-            fixInfo: {
-              editColumn: infoIndex + 1,
-              deleteCount: info.length,
-              insertText: replacement,
-            },
-          });
-        }
+      if (replacement === undefined) {
+        continue;
       }
+
+      const line = params.lines[token.lineNumber - 1];
+      if (line === undefined) {
+        continue;
+      }
+
+      const markupIndex = line.indexOf(token.markup);
+      const infoIndex = line.indexOf(info, markupIndex + token.markup.length);
+      if (infoIndex === -1) {
+        continue;
+      }
+
+      onError({
+        lineNumber: token.lineNumber,
+        fixInfo: {
+          editColumn: infoIndex + 1,
+          deleteCount: info.length,
+          insertText: replacement,
+        },
+      });
     }
   },
 };
