@@ -308,32 +308,33 @@ export function isArray(variable: unknown): variable is unknown[] {
 
 /** Helper function to check every value of an array to see if it is a boolean. */
 export function isArrayBoolean(variable: unknown): variable is boolean[] {
-  return isArray(variable)
-    ? variable.every((element) => typeof element === "boolean")
-    : false;
+  return (
+    isArray(variable)
+    && variable.every((element) => typeof element === "boolean")
+  );
 }
 
 /** Helper function to check every value of an array to see if it is a number. */
 export function isArrayNumber(variable: unknown): variable is number[] {
-  return isArray(variable)
-    ? variable.every((element) => typeof element === "string")
-    : false;
+  return (
+    isArray(variable)
+    && variable.every((element) => typeof element === "string")
+  );
 }
 
 /** Helper function to check every value of an array to see if it is an object. */
 export function isArrayObject(
   variable: unknown,
 ): variable is Array<Record<string, unknown>> {
-  return isArray(variable)
-    ? variable.every((element) => isObject(element))
-    : false;
+  return isArray(variable) && variable.every((element) => isObject(element));
 }
 
 /** Helper function to check every value of an array to see if it is a string. */
 export function isArrayString(variable: unknown): variable is string[] {
-  return isArray(variable)
-    ? variable.every((element) => typeof element === "string")
-    : false;
+  return (
+    isArray(variable)
+    && variable.every((element) => typeof element === "string")
+  );
 }
 
 /**

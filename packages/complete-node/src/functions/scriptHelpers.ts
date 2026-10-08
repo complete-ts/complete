@@ -170,10 +170,12 @@ export async function script(
     throw error;
   }
 
-  if (!quiet && verb !== undefined) {
-    const packageName = path.basename(packageRoot);
-    printSuccess(startTime, verb, packageName);
+  if (quiet || verb === undefined) {
+    return;
   }
+
+  const packageName = path.basename(packageRoot);
+  printSuccess(startTime, verb, packageName);
 }
 
 /** The type given to the `lintCommands` helper function. */
@@ -264,11 +266,13 @@ export async function lintCommands(
     process.exit(1);
   }
 
-  if (!quiet) {
-    console.log();
-    const packageName = path.basename(packageRoot);
-    printSuccess(startTime, "linted", packageName);
+  if (quiet) {
+    return;
   }
+
+  console.log();
+  const packageName = path.basename(packageRoot);
+  printSuccess(startTime, "linted", packageName);
 }
 
 /**
@@ -328,10 +332,12 @@ async function getBunBinPaths(
         binEntry = entry;
       }
     }
-    if (binEntry !== undefined) {
-      const binPath = path.join(packageRoot, "node_modules", cmd, binEntry);
-      bunBinPaths.set(cmd, binPath);
+    if (binEntry === undefined) {
+      return;
     }
+
+    const binPath = path.join(packageRoot, "node_modules", cmd, binEntry);
+    bunBinPaths.set(cmd, binPath);
   });
 
   return bunBinPaths;

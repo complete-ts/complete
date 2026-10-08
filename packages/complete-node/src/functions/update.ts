@@ -231,9 +231,5 @@ async function runNPMCheckUpdatesQuiet(
     workspaces: packageJSONHasWorkspaces,
   });
 
-  if (!isObject(upgradedPackages)) {
-    return false;
-  }
-
-  return Object.keys(upgradedPackages).length > 0;
+  return isObject(upgradedPackages) && Object.keys(upgradedPackages).length > 0;
 }

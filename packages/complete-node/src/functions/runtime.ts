@@ -23,18 +23,14 @@ export function getJavaScriptRuntime(): JavaScriptRuntime | undefined {
   }
 
   // Since "process" exists in both Deno and Bun, the logic for Node.js must come afterward.
-  if (
-    isObject(process)
+  return isObject(process)
     && "versions" in process
     && isObject(process.versions)
     && "node" in process.versions
     && typeof process.versions.node === "string"
     && process.versions.node !== ""
-  ) {
-    return JavaScriptRuntime.node;
-  }
-
-  return undefined;
+    ? JavaScriptRuntime.node
+    : undefined;
 }
 
 /**

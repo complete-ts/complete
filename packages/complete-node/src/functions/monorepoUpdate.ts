@@ -319,11 +319,9 @@ async function getMonorepoChildPackageJSONMap(
 
       const childPackageJSONPath = path.join(childPackagePath, "package.json");
       const childPackageJSONExists = await isFile(childPackageJSONPath);
-      if (!childPackageJSONExists) {
-        return undefined;
-      }
-
-      return await getPackageJSON(childPackagePath);
+      return childPackageJSONExists
+        ? await getPackageJSON(childPackagePath)
+        : undefined;
     },
   );
 

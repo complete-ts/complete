@@ -138,9 +138,9 @@ export async function getMonorepoPackageNames(
         "package.json",
       );
       const exists = await isFile(packageJSONPath);
-      return exists
-        ? await packageJSONHasScript(packageJSONPath, scriptName)
-        : false;
+      return (
+        exists && (await packageJSONHasScript(packageJSONPath, scriptName))
+      );
     },
   );
 
