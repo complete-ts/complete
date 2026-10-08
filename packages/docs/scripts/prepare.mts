@@ -42,10 +42,12 @@ await mapAsync(monorepoPackageNames, async (packageName) => {
     "website-root.md",
   );
   const fileExists = await isFile(srcPath);
-  if (fileExists) {
-    const dstPath = path.join(docsDir, `${packageName}.md`);
-    await stageMarkdownFile(srcPath, dstPath);
+  if (!fileExists) {
+    return;
   }
+
+  const dstPath = path.join(docsDir, `${packageName}.md`);
+  await stageMarkdownFile(srcPath, dstPath);
 });
 
 const srcPluginPath = path.join(

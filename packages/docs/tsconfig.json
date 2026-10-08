@@ -12,6 +12,9 @@
 
     "lib": ["DOM", "ES2023"],
 
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
     // The Astro configuration imports package-specific TypeDoc configurations.
     "rootDir": "..",
 
