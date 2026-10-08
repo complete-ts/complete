@@ -378,11 +378,7 @@ export function trimPrefix(
     return string.replaceAll(regExp, "");
   }
 
-  if (!string.startsWith(prefix)) {
-    return string;
-  }
-
-  return string.slice(prefix.length);
+  return string.startsWith(prefix) ? string.slice(prefix.length) : string;
 }
 
 /** Helper function to trim a suffix from a string, if it exists. Returns the trimmed string. */
@@ -400,9 +396,5 @@ export function trimSuffix(string: string, prefix: string): string {
  * than or equal to the provided maximum length, the string will be returned unmodified.
  */
 export function truncateString(string: string, maxLength: number): string {
-  if (string.length <= maxLength) {
-    return string;
-  }
-
-  return string.slice(0, maxLength);
+  return string.length <= maxLength ? string : string.slice(0, maxLength);
 }

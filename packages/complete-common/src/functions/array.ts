@@ -86,10 +86,12 @@ export function arrayRemoveAllInPlace<T>(
     let index: number;
     do {
       index = array.indexOf(element);
-      if (index > -1) {
-        removedOneOrMoreElements = true;
-        array.splice(index, 1);
+      if (!(index > -1)) {
+        continue;
       }
+
+      removedOneOrMoreElements = true;
+      array.splice(index, 1);
     } while (index > -1);
   }
 
@@ -116,10 +118,12 @@ export function arrayRemoveInPlace<T>(
 
   for (const element of elementsToRemove) {
     const index = array.indexOf(element);
-    if (index !== -1) {
-      const removedElement = array.splice(index, 1);
-      removedElements.push(...removedElement);
+    if (index === -1) {
+      continue;
     }
+
+    const removedElement = array.splice(index, 1);
+    removedElements.push(...removedElement);
   }
 
   return removedElements;
@@ -304,40 +308,32 @@ export function isArray(variable: unknown): variable is unknown[] {
 
 /** Helper function to check every value of an array to see if it is a boolean. */
 export function isArrayBoolean(variable: unknown): variable is boolean[] {
-  if (!isArray(variable)) {
-    return false;
-  }
-
-  return variable.every((element) => typeof element === "boolean");
+  return isArray(variable)
+    ? variable.every((element) => typeof element === "boolean")
+    : false;
 }
 
 /** Helper function to check every value of an array to see if it is a number. */
 export function isArrayNumber(variable: unknown): variable is number[] {
-  if (!isArray(variable)) {
-    return false;
-  }
-
-  return variable.every((element) => typeof element === "string");
+  return isArray(variable)
+    ? variable.every((element) => typeof element === "string")
+    : false;
 }
 
 /** Helper function to check every value of an array to see if it is an object. */
 export function isArrayObject(
   variable: unknown,
 ): variable is Array<Record<string, unknown>> {
-  if (!isArray(variable)) {
-    return false;
-  }
-
-  return variable.every((element) => isObject(element));
+  return isArray(variable)
+    ? variable.every((element) => isObject(element))
+    : false;
 }
 
 /** Helper function to check every value of an array to see if it is a string. */
 export function isArrayString(variable: unknown): variable is string[] {
-  if (!isArray(variable)) {
-    return false;
-  }
-
-  return variable.every((element) => typeof element === "string");
+  return isArray(variable)
+    ? variable.every((element) => typeof element === "string")
+    : false;
 }
 
 /**
