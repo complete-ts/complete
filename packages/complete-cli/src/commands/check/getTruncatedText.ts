@@ -50,11 +50,7 @@ export function getTruncatedText(
   let previousLine = "";
 
   for (const line of lines) {
-    if (line.trim() === "") {
-      continue;
-    }
-
-    if (ignoreLines.has(line.trim())) {
+    if (line.trim() === "" || ignoreLines.has(line.trim())) {
       continue;
     }
 
@@ -176,10 +172,12 @@ export function getTruncatedText(
     // Final checks
     // ------------
 
-    if (!isSkipping) {
-      newLines.push(line);
-      previousLine = line;
+    if (isSkipping) {
+      continue;
     }
+
+    newLines.push(line);
+    previousLine = line;
   }
 
   const newText = newLines.join("\n");

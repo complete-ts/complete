@@ -35,21 +35,15 @@ export async function getGitHubUsername(): Promise<string | undefined> {
   }
 
   const { user } = githubCom;
-  if (user === undefined || user === "") {
-    return undefined;
-  }
-
-  return user;
+  return user === undefined || user === "" ? undefined : user;
 }
 
 function getGithubCLIHostsPath(): string | undefined {
   if (process.platform === "win32") {
     const appData = process.env["APPDATA"];
-    if (appData === undefined || appData === "") {
-      return undefined;
-    }
-
-    return path.join(appData, "GitHub CLI", "hosts.yml");
+    return appData === undefined || appData === ""
+      ? undefined
+      : path.join(appData, "GitHub CLI", "hosts.yml");
   }
 
   // The location is the same on both macOS and Linux.
@@ -158,11 +152,7 @@ export async function initGitRepository(
   gitRemoteURL: string | undefined,
 ): Promise<void> {
   const gitExists = await commandExists("git");
-  if (!gitExists) {
-    return;
-  }
-
-  if (gitRemoteURL === undefined) {
+  if (!gitExists || gitRemoteURL === undefined) {
     return;
   }
 
@@ -172,12 +162,14 @@ export async function initGitRepository(
   await $$q`git remote add origin ${gitRemoteURL}`;
 
   const gitNameAndEmailConfigured = await isGitNameAndEmailConfigured();
-  if (gitNameAndEmailConfigured) {
-    await $$q`git add --all`;
-    const commitMessage = `chore: add files from ${PROJECT_NAME} ${PROJECT_VERSION} template`;
-    await $$q`git commit --message ${commitMessage}`;
-    await $$q`git push --set-upstream origin main`;
+  if (!gitNameAndEmailConfigured) {
+    return;
   }
+
+  await $$q`git add --all`;
+  const commitMessage = `chore: add files from ${PROJECT_NAME} ${PROJECT_VERSION} template`;
+  await $$q`git commit --message ${commitMessage}`;
+  await $$q`git push --set-upstream origin main`;
 }
 
 async function isGitNameAndEmailConfigured(): Promise<boolean> {

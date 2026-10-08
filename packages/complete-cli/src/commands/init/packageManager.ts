@@ -12,11 +12,7 @@ export async function getPackageManagerUsedForNewProject(
 ): Promise<PackageManager> {
   // If the package manager was explicitly specified in the options, use that.
   const packageManagerFromOptions = await getPackageManagerFromOptions(options);
-  if (packageManagerFromOptions !== undefined) {
-    return packageManagerFromOptions;
-  }
-
-  return DEFAULT_PACKAGE_MANAGER;
+  return packageManagerFromOptions ?? DEFAULT_PACKAGE_MANAGER;
 }
 
 async function getPackageManagerFromOptions(
