@@ -8,9 +8,10 @@
 
 ## Rule Details
 
-Use the TypeScript `private` modifier instead of JavaScript `#` private members.
-This rule reports every private identifier, including fields, methods,
-accessors, member accesses, and private brand checks such as `#value in object`.
+For TypeScript projects, using `private` instead of `#` is superior in a few
+ways.
+[This blog](https://github.com/typescript-eslint/typescript-eslint/issues/4571#issuecomment-1272609077)
+goes into more detail.
 
 ```ts
 // Bad
@@ -31,11 +32,6 @@ class Foo {
   }
 }
 ```
-
-This rule does not provide an automatic fix. JavaScript `#` private members
-enforce privacy at runtime, while the TypeScript `private` modifier only
-enforces privacy during type checking. Converting between them can change
-program behavior.
 
 ## Options
 
