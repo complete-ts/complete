@@ -21,6 +21,7 @@ import { noMutableReturn } from "./rules/no-mutable-return.js";
 import { noNumberEnums } from "./rules/no-number-enums.js";
 import { noObjectAny } from "./rules/no-object-any.js";
 import { noObjectMethodsWithMapSet } from "./rules/no-object-methods-with-map-set.js";
+import { noPrivateIdentifiers } from "./rules/no-private-identifiers.js";
 import { noRedundantJSDocDefault } from "./rules/no-redundant-jsdoc-default.js";
 import { noStringLength0 } from "./rules/no-string-length-0.js";
 import { noTemplateCurlyInStringFix } from "./rules/no-template-curly-in-string-fix.js";
@@ -70,6 +71,7 @@ export const rules = {
   "no-number-enums": noNumberEnums,
   "no-object-any": noObjectAny,
   "no-object-methods-with-map-set": noObjectMethodsWithMapSet,
+  "no-private-identifiers": noPrivateIdentifiers,
   "no-redundant-jsdoc-default": noRedundantJSDocDefault,
   "no-string-length-0": noStringLength0,
   "no-template-curly-in-string-fix": noTemplateCurlyInStringFix,
