@@ -17,6 +17,13 @@ Requires object literal properties to match the declared type order. If there is
 no declared property order, object literal properties must be in alphabetical
 order.
 
+Declaration order is used only when the properties being sorted each have one
+declaration and share the same declaration container. Otherwise, alphabetical
+order is used, including when properties come from different base interfaces,
+intersection members, or merged declarations. TypeScript's property enumeration
+order is not used because it can depend on which files or types were checked
+first.
+
 Note that this rule has an auto-fixer, but it will refuse to auto-fix if there
 are attached block comments, as those usually semantic meaning relating to the
 line and the auto-fixer is not smart enough to move them.

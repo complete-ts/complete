@@ -173,8 +173,58 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  type: "prod",
   applications: [],
+  type: "prod",
+};
+      `,
+    },
+    {
+      code: `
+interface BaseOptions {
+  method?: string;
+  signal?: string;
+  body?: unknown;
+}
+
+interface RequestOptions extends Omit<BaseOptions, "body"> {
+  body?: string;
+}
+
+declare function request(options: RequestOptions): void;
+
+request({
+  body: "payload",
+  method: "POST",
+  signal: "abort",
+});
+      `,
+    },
+    {
+      code: `
+interface Options {
+  signal?: string;
+  method?: string;
+}
+
+interface Options {
+  body?: string;
+}
+
+const options: Options = {
+  body: "payload",
+  method: "POST",
+  signal: "abort",
+};
+      `,
+    },
+    {
+      code: `
+type Options = { signal?: string } & { method?: string; body?: string };
+
+const options: Options = {
+  body: "payload",
+  method: "POST",
+  signal: "abort",
 };
       `,
     },
@@ -467,8 +517,8 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  applications: [],
   type: "prod",
+  applications: [],
 };
       `,
       output: `
@@ -493,16 +543,137 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  type: "prod",
   applications: [],
+  type: "prod",
 };
       `,
       errors: [
         {
-          messageId: "incorrectDeclaredTypeOrder",
+          messageId: "incorrectAlphabeticalOrder",
           data: {
-            earlierName: "type",
-            laterName: "applications",
+            earlierName: "applications",
+            laterName: "type",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface BaseOptions {
+  method?: string;
+  signal?: string;
+  body?: unknown;
+}
+
+interface RequestOptions extends Omit<BaseOptions, "body"> {
+  body?: string;
+}
+
+declare function request(options: RequestOptions): void;
+
+request({
+  method: "POST",
+  signal: "abort",
+  body: "payload",
+});
+      `,
+      output: `
+interface BaseOptions {
+  method?: string;
+  signal?: string;
+  body?: unknown;
+}
+
+interface RequestOptions extends Omit<BaseOptions, "body"> {
+  body?: string;
+}
+
+declare function request(options: RequestOptions): void;
+
+request({
+  body: "payload",
+  method: "POST",
+  signal: "abort",
+});
+      `,
+      errors: [
+        {
+          messageId: "incorrectAlphabeticalOrder",
+          data: {
+            earlierName: "body",
+            laterName: "signal",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface Options {
+  signal?: string;
+  method?: string;
+}
+
+interface Options {
+  body?: string;
+}
+
+const options: Options = {
+  signal: "abort",
+  method: "POST",
+  body: "payload",
+};
+      `,
+      output: `
+interface Options {
+  signal?: string;
+  method?: string;
+}
+
+interface Options {
+  body?: string;
+}
+
+const options: Options = {
+  body: "payload",
+  method: "POST",
+  signal: "abort",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectAlphabeticalOrder",
+          data: {
+            earlierName: "method",
+            laterName: "signal",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+type Options = { signal?: string } & { method?: string; body?: string };
+
+const options: Options = {
+  signal: "abort",
+  method: "POST",
+  body: "payload",
+};
+      `,
+      output: `
+type Options = { signal?: string } & { method?: string; body?: string };
+
+const options: Options = {
+  body: "payload",
+  method: "POST",
+  signal: "abort",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectAlphabeticalOrder",
+          data: {
+            earlierName: "method",
+            laterName: "signal",
           },
         },
       ],

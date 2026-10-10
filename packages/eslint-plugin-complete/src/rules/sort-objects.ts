@@ -295,17 +295,7 @@ function getDeclaredPropertyOrder(
   return typeWithDeclaredProperties === undefined
     ? new Map<string, number>()
     : (getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
-        ?? getTypePropertyOrder(typeWithDeclaredProperties));
-}
-
-function getTypePropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
-  const propertyOrder = new Map<string, number>();
-
-  for (const [i, property] of type.getProperties().entries()) {
-    propertyOrder.set(property.getName(), i);
-  }
-
-  return propertyOrder;
+        ?? new Map<string, number>());
 }
 
 function getTypeWithDeclaredProperties(
