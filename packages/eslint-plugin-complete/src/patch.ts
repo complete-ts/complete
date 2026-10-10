@@ -1,4 +1,3 @@
-import { getTypeOfPropertyOfType } from "@typescript-eslint/type-utils";
 import type {
   ImmutabilityCache,
   ImmutabilityOverrides,
@@ -83,14 +82,7 @@ function cachePatchedImmutableTypes(
     }
 
     for (const property of typeToVisit.getProperties()) {
-      const propertyType = getTypeOfPropertyOfType(
-        checker,
-        typeToVisit,
-        property,
-      );
-      if (propertyType !== undefined) {
-        visitType(propertyType);
-      }
+      visitType(checker.getTypeOfSymbol(property));
     }
 
     for (const indexKind of [ts.IndexKind.String, ts.IndexKind.Number]) {

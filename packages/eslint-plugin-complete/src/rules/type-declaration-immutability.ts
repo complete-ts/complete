@@ -1,4 +1,3 @@
-import { getTypeOfPropertyOfType } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import type { ImmutabilityCache } from "is-immutable-type";
@@ -119,22 +118,13 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
       containingType: ts.Type,
       property: ts.Symbol,
     ): boolean {
-      if (
+      return (
         !isPropertyReadonlyInType(
           containingType,
           property.getEscapedName(),
           checker,
-        )
-      ) {
-        return true;
-      }
-
-      const propertyType = getTypeOfPropertyOfType(
-        checker,
-        containingType,
-        property,
+        ) || !isImmutable(checker.getTypeOfSymbol(property))
       );
-      return propertyType !== undefined && !isImmutable(propertyType);
     }
 
     function isImmutable(type: ts.Type): boolean {

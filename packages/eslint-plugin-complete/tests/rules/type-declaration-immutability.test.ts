@@ -5,6 +5,18 @@ ruleTester.run("type-declaration-immutability", typeDeclarationImmutability, {
   valid: [
     {
       code: `
+declare const key: unique symbol;
+type Container<T> = {
+  readonly [key]: T;
+};
+
+interface ImmutableSymbolProperties extends Container<readonly [string]> {
+  readonly id: number;
+}
+      `,
+    },
+    {
+      code: `
 type Primitive = string;
 type PrimitiveUnion = string | number | undefined;
 type MutableElement = {
@@ -91,6 +103,52 @@ interface ImmutableCallbackTuple {
   ],
 
   invalid: [
+    {
+      code: `
+interface ReadonlyArrayInterface extends ReadonlyArray<string> {}
+      `,
+      errors: [{ messageId: "mustBeImmutable" }],
+    },
+    {
+      code: `
+declare const key: unique symbol;
+type Container<T> = {
+  readonly [key]: T;
+};
+
+interface MutableSymbolProperty extends Container<{ value: string }> {
+  value: string;
+}
+      `,
+      errors: [
+        {
+          messageId: "mustBeImmutable",
+          data: {
+            firstFieldName: "value",
+            violationCount: 2,
+            violationNoun: "violations",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+interface SymbolPropertyWithMutableSibling {
+  readonly [Symbol.toStringTag]: string;
+  value: string;
+}
+      `,
+      errors: [
+        {
+          messageId: "mustBeImmutable",
+          data: {
+            firstFieldName: "value",
+            violationCount: 1,
+            violationNoun: "violation",
+          },
+        },
+      ],
+    },
     {
       code: `
 interface MutableInterface {
