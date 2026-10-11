@@ -294,7 +294,12 @@ function getDeclaredPropertyOrder(
   );
   return typeWithDeclaredProperties === undefined
     ? new Map<string, number>()
-    : (getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
+    : (getDeclarationPropertyOrder(
+        checker,
+        typeWithDeclaredProperties,
+        tsNode,
+        node,
+      )
         ?? getMappedPropertyOrder(checker, typeWithDeclaredProperties, node)
         ?? new Map<string, number>());
 }
@@ -304,10 +309,11 @@ function getMappedPropertyOrder(
   type: ts.Type,
   node: TSESTree.ObjectExpression,
 ): ReadonlyMap<string, number> | undefined {
-  const keyType = getMappedKeyType(
+  const keyType = getMappedTypeArgument(
     checker,
     type.aliasSymbol,
     type.aliasTypeArguments ?? [],
+    "keys",
   );
   const keyDeclarations = keyType?.aliasSymbol?.declarations;
   const keyDeclaration = keyDeclarations?.[0];
@@ -339,10 +345,11 @@ function getMappedPropertyOrder(
     : undefined;
 }
 
-function getMappedKeyType(
+function getMappedTypeArgument(
   checker: ts.TypeChecker,
   symbol: ts.Symbol | undefined,
   typeArguments: readonly ts.Type[],
+  kind: "keys" | "source",
 ): ts.Type | undefined {
   const visited = new Set<ts.Symbol>();
   let currentSymbol = symbol;
@@ -379,11 +386,18 @@ function getMappedKeyType(
       continue;
     }
 
-    return ts.isMappedTypeNode(type)
-      && type.nameType === undefined
-      && type.typeParameter.constraint !== undefined
-      ? resolveType(type.typeParameter.constraint)
-      : undefined;
+    if (!ts.isMappedTypeNode(type) || type.nameType !== undefined) {
+      return undefined;
+    }
+
+    let argument = type.typeParameter.constraint;
+    if (kind === "source") {
+      argument =
+        type.type !== undefined && ts.isIndexedAccessTypeNode(type.type)
+          ? type.type.objectType
+          : undefined;
+    }
+    return argument === undefined ? undefined : resolveType(argument);
   }
 
   return undefined;
@@ -465,6 +479,7 @@ function hasAllObjectExpressionProperties(
 interface PropertyDeclarationPosition {
   readonly declarationPosition: {
     readonly containerEnd: number;
+    readonly containerKey: string;
     readonly containerStart: number;
     readonly fileName: string;
     readonly start: number;
@@ -473,6 +488,7 @@ interface PropertyDeclarationPosition {
 }
 
 function getDeclarationPropertyOrder(
+  checker: ts.TypeChecker,
   type: ts.Type,
   tsNode: ts.Expression,
   node: TSESTree.ObjectExpression,
@@ -507,12 +523,26 @@ function getDeclarationPropertyOrder(
     firstFileName === undefined
     || firstContainerStart === undefined
     || firstContainerEnd === undefined
-    || propertyDeclarationPositions.some(
-      ({ declarationPosition }) =>
-        declarationPosition.fileName !== firstFileName
-        || declarationPosition.containerStart !== firstContainerStart
-        || declarationPosition.containerEnd !== firstContainerEnd,
-    )
+  ) {
+    return undefined;
+  }
+
+  const hasMultipleContainers = propertyDeclarationPositions.some(
+    ({ declarationPosition }) =>
+      declarationPosition.fileName !== firstFileName
+      || declarationPosition.containerStart !== firstContainerStart
+      || declarationPosition.containerEnd !== firstContainerEnd,
+  );
+  const containerOrder = hasMultipleContainers
+    ? getInheritanceContainerOrder(checker, type)
+    : undefined;
+  if (
+    hasMultipleContainers
+    && (containerOrder === undefined
+      || propertyDeclarationPositions.some(
+        ({ declarationPosition }) =>
+          !containerOrder.has(declarationPosition.containerKey),
+      ))
   ) {
     return undefined;
   }
@@ -527,9 +557,14 @@ function getDeclarationPropertyOrder(
 
   const propertyOrder = new Map<string, number>();
   const sortedPropertyDeclarationPositions =
-    propertyDeclarationPositions.toSorted(
-      (a, b) => a.declarationPosition.start - b.declarationPosition.start,
-    );
+    propertyDeclarationPositions.toSorted((a, b) => {
+      const containerDifference =
+        (containerOrder?.get(a.declarationPosition.containerKey) ?? 0)
+        - (containerOrder?.get(b.declarationPosition.containerKey) ?? 0);
+      return containerDifference === 0
+        ? a.declarationPosition.start - b.declarationPosition.start
+        : containerDifference;
+    });
 
   for (const [
     i,
@@ -539,6 +574,75 @@ function getDeclarationPropertyOrder(
   }
 
   return propertyOrder;
+}
+
+function getInheritanceContainerOrder(
+  checker: ts.TypeChecker,
+  type: ts.Type,
+): ReadonlyMap<string, number> | undefined {
+  const containerOrder = new Map<string, number>();
+  const visited = new Set<ts.Type>();
+  let currentType: ts.Type | undefined = type;
+
+  while (currentType !== undefined) {
+    if (visited.has(currentType)) {
+      return undefined;
+    }
+
+    visited.add(currentType);
+    const declarations: readonly ts.Declaration[] | undefined =
+      currentType.getSymbol()?.declarations;
+    const declaration: ts.Declaration | undefined = declarations?.[0];
+    if (declaration === undefined || declarations?.length !== 1) {
+      return undefined;
+    }
+
+    if (
+      ts.isInterfaceDeclaration(declaration)
+      || ts.isTypeLiteralNode(declaration)
+    ) {
+      containerOrder.set(getContainerKey(declaration), containerOrder.size);
+      const baseTypes: readonly ts.ExpressionWithTypeArguments[] =
+        ts.isInterfaceDeclaration(declaration)
+          ? (declaration.heritageClauses?.flatMap((clause) => clause.types)
+            ?? [])
+          : [];
+      if (baseTypes.length > 1) {
+        return undefined;
+      }
+
+      const baseType = baseTypes[0];
+      currentType =
+        baseType === undefined
+          ? undefined
+          : checker.getTypeAtLocation(baseType);
+      continue;
+    }
+
+    const sourceType = getMappedTypeArgument(
+      checker,
+      currentType.aliasSymbol,
+      currentType.aliasTypeArguments ?? [],
+      "source",
+    );
+    if (
+      sourceType === undefined
+      || !currentType.getProperties().every((property) => {
+        const sourceProperty = sourceType.getProperty(property.getName());
+        return (
+          property.declarations?.length === 1
+          && sourceProperty?.declarations?.length === 1
+          && property.declarations[0] === sourceProperty.declarations[0]
+        );
+      })
+    ) {
+      return undefined;
+    }
+
+    currentType = sourceType;
+  }
+
+  return containerOrder;
 }
 
 function getPropertyDeclarationPosition(
@@ -555,10 +659,15 @@ function getPropertyDeclarationPosition(
 
   return {
     containerEnd: declaration.parent.getEnd(),
+    containerKey: getContainerKey(declaration.parent),
     containerStart: declaration.parent.getStart(),
     fileName: declaration.getSourceFile().fileName,
     start: declaration.getStart(),
   };
+}
+
+function getContainerKey(node: ts.Node): string {
+  return `${node.getSourceFile().fileName}:${node.getStart()}:${node.getEnd()}`;
 }
 
 function getObjectExpressionPropertyNames(

@@ -17,6 +17,13 @@ Requires object literal properties to match the declared type order. If there is
 no declared property order, object literal properties must be in alphabetical
 order.
 
+For single interface inheritance chains, derived properties come first, followed
+by inherited properties, with source order preserved within each declaration.
+Overrides keep their derived position. Mapped types such as `Partial` and `Omit`
+preserve this order when their properties retain the original declarations.
+Properties from unrelated bases, intersections, or merged declarations still
+fall back to alphabetical order when they span multiple declaration containers.
+
 This rule has an auto-fixer, but it will refuse to auto-fix if there are
 attached block comments, as those usually semantic meaning relating to the line
 and the auto-fixer is not smart enough to move them.

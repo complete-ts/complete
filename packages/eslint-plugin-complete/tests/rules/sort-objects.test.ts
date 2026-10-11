@@ -1,8 +1,33 @@
+import path from "node:path";
+import ts from "typescript";
 import { sortObjects } from "../../src/rules/sort-objects.js";
 import { ruleTester } from "../utils.js";
 
+const INHERITANCE_FILE_PATH = path.join(__dirname, "../fixtures/file.ts");
+const INHERITANCE_CODE = `
+import type { Config } from "./sort-objects-derived";
+
+const config: Config = {
+  overrides: [],
+  plugins: [],
+  experimentalOperatorPosition: "start",
+};
+`;
+
 ruleTester.run("sort-objects", sortObjects, {
   valid: [
+    ...[false, true].flatMap((reverseFiles) =>
+      [false, true].map((reverseTypes) => ({
+        code: INHERITANCE_CODE,
+        filename: INHERITANCE_FILE_PATH,
+        languageOptions: {
+          parserOptions: {
+            programs: [createInheritanceProgram(reverseFiles, reverseTypes)],
+            projectService: false,
+          },
+        },
+      })),
+    ),
     {
       code: `
 const a = 1;
@@ -311,8 +336,8 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  applications: [],
   type: "prod",
+  applications: [],
 };
       `,
     },
@@ -335,6 +360,112 @@ request({
   method: "POST",
   signal: "abort",
 });
+      `,
+    },
+    {
+      code: `
+interface Base {
+  zebra?: string;
+  alpha?: string;
+  removed?: string;
+}
+
+type Wrapped = Readonly<Partial<Omit<Base, "removed">>>;
+
+interface Options extends Wrapped {
+  own?: string;
+}
+
+const options: Options = {
+  own: "own",
+  zebra: "zebra",
+  alpha: "alpha",
+};
+      `,
+    },
+    {
+      code: `
+interface Base {
+  zebra: string;
+  alpha: string;
+}
+
+interface Options extends Base {
+  own: string;
+}
+
+type Wrapped = Partial<Options>;
+
+const options: Wrapped = {
+  own: "own",
+  zebra: "zebra",
+  alpha: "alpha",
+};
+      `,
+    },
+    {
+      code: `
+interface Base<T> {
+  zebra: T;
+  overridden: string;
+  alpha: T;
+}
+
+interface Middle<T> extends Base<T> {
+  middle: T;
+}
+
+interface Options extends Middle<number> {
+  own: number;
+  overridden: "value";
+}
+
+const options: Options = {
+  own: 1,
+  overridden: "value",
+  middle: 2,
+  zebra: 3,
+  alpha: 4,
+};
+      `,
+    },
+    {
+      code: `
+interface First {
+  zebra: string;
+}
+
+interface Second {
+  alpha: string;
+}
+
+interface Options extends First, Second {
+  middle: string;
+}
+
+const options: Options = {
+  alpha: "alpha",
+  middle: "middle",
+  zebra: "zebra",
+};
+      `,
+    },
+    {
+      code: `
+interface Base {
+  alpha: string;
+}
+
+interface Options extends Base {
+  zebra: string;
+}
+
+type Remapped = { [Key in keyof Options as Key]: Options[Key] };
+
+const options: Remapped = {
+  alpha: "alpha",
+  zebra: "zebra",
+};
       `,
     },
     {
@@ -369,6 +500,53 @@ const options: Options = {
   ],
 
   invalid: [
+    {
+      code: `
+interface RequiredOptions {
+  plugins: string[];
+  experimentalOperatorPosition: "start" | "end";
+}
+
+interface Options extends Partial<RequiredOptions> {}
+
+interface Config extends Options {
+  overrides?: string[];
+}
+
+const config: Config = {
+  experimentalOperatorPosition: "start",
+  overrides: [],
+  plugins: [],
+};
+      `,
+      output: `
+interface RequiredOptions {
+  plugins: string[];
+  experimentalOperatorPosition: "start" | "end";
+}
+
+interface Options extends Partial<RequiredOptions> {}
+
+interface Config extends Options {
+  overrides?: string[];
+}
+
+const config: Config = {
+  overrides: [],
+  plugins: [],
+  experimentalOperatorPosition: "start",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectDeclaredTypeOrder",
+          data: {
+            earlierName: "overrides",
+            laterName: "experimentalOperatorPosition",
+          },
+        },
+      ],
+    },
     {
       code: `
 type ParentConfig = "eslint/recommended" | "@typescript-eslint/recommended";
@@ -709,8 +887,8 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  type: "prod",
   applications: [],
+  type: "prod",
 };
       `,
       output: `
@@ -735,16 +913,16 @@ interface DevEnvironment extends EnvironmentBase {
 type Environment = ProdEnvironment | StagingEnvironment | DevEnvironment;
 
 const prod: Environment = {
-  applications: [],
   type: "prod",
+  applications: [],
 };
       `,
       errors: [
         {
-          messageId: "incorrectAlphabeticalOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
-            earlierName: "applications",
-            laterName: "type",
+            earlierName: "type",
+            laterName: "applications",
           },
         },
       ],
@@ -790,7 +968,7 @@ request({
       `,
       errors: [
         {
-          messageId: "incorrectAlphabeticalOrder",
+          messageId: "incorrectDeclaredTypeOrder",
           data: {
             earlierName: "body",
             laterName: "signal",
@@ -1047,3 +1225,78 @@ const foo: Foo = {
     },
   ],
 });
+
+function createInheritanceProgram(
+  reverseFiles: boolean,
+  reverseTypes: boolean,
+): ts.Program {
+  const basePath = path.join(__dirname, "../fixtures/sort-objects-base.ts");
+  const derivedPath = path.join(
+    __dirname,
+    "../fixtures/sort-objects-derived.ts",
+  );
+  const files = new Map([
+    [
+      basePath,
+      `
+export interface RequiredOptions {
+  plugins: string[];
+  experimentalOperatorPosition: "start" | "end";
+}
+`,
+    ],
+    [
+      derivedPath,
+      `
+import type { RequiredOptions } from "./sort-objects-base";
+
+export interface Options extends Partial<RequiredOptions> {}
+
+export interface Config extends Options {
+  overrides?: string[];
+}
+`,
+    ],
+    [INHERITANCE_FILE_PATH, INHERITANCE_CODE],
+  ]);
+  const options: ts.CompilerOptions = {
+    module: ts.ModuleKind.CommonJS,
+    strict: true,
+    target: ts.ScriptTarget.ESNext,
+  };
+  const host = ts.createCompilerHost(options);
+  const fileExists = host.fileExists.bind(host);
+  const getSourceFile = host.getSourceFile.bind(host);
+  const readFile = host.readFile.bind(host);
+  host.fileExists = (fileName) => files.has(fileName) || fileExists(fileName);
+  host.readFile = (fileName) => files.get(fileName) ?? readFile(fileName);
+  host.getSourceFile = (fileName, languageVersion, onError, shouldCreate) => {
+    const code = files.get(fileName);
+    return code === undefined
+      ? getSourceFile(fileName, languageVersion, onError, shouldCreate)
+      : ts.createSourceFile(fileName, code, languageVersion);
+  };
+
+  const rootNames = files.keys().toArray();
+  if (reverseFiles) {
+    rootNames.reverse();
+  }
+
+  const program = ts.createProgram(rootNames, options, host);
+  const checker = program.getTypeChecker();
+  const typeOrder = reverseTypes ? rootNames.toReversed() : rootNames;
+  for (const fileName of typeOrder) {
+    const source = program.getSourceFile(fileName);
+    if (source === undefined) {
+      throw new Error(`Missing test source: ${fileName}`);
+    }
+
+    for (const statement of source.statements) {
+      if (ts.isInterfaceDeclaration(statement)) {
+        checker.getTypeAtLocation(statement).getProperties();
+      }
+    }
+  }
+
+  return program;
+}
