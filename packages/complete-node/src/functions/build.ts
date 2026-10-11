@@ -71,8 +71,7 @@ export async function compileToSingleFileWithBun(
     `Failed to find the project "package.json" file at: ${packageJSONPath}`,
   );
 
-  const packageJSON = await getPackageJSON(packageJSONPath);
-  const { name } = packageJSON;
+  const { name } = await getPackageJSON(packageJSONPath);
 
   assertStringNotEmpty(
     name,

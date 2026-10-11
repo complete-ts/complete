@@ -33,8 +33,7 @@ export function testMarkdownlintRule(rule: Rule, input: string) {
     },
   };
 
-  const result = sync(options);
-  const { content: errors } = result;
+  const { content: errors } = sync(options);
   assertDefined(errors, 'Failed to get the "content" field from the result.');
   const fixed = applyFixes(input, errors);
 

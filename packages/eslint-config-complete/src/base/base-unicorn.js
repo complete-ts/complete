@@ -521,8 +521,8 @@ export const baseUnicorn = defineConfig(
   // TODO: Remove this when "eslint-plugin-unicorn" is >= "77.0.0".
   {
     files: [
-      "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
-      "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
+      "**/*.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
+      "**/*.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
     ],
     rules: {
       "unicorn/no-top-level-side-effects": "off",

@@ -8,12 +8,11 @@ const noCodeBlockNewlines: Rule = {
   parser: "markdownit",
   function: (params, onError) => {
     for (const token of params.parsers.markdownit.tokens) {
-      if (token.type !== "fence") {
-        continue;
-      }
-
-      // eslint-disable-next-line complete/prefer-is-array
-      if (!Array.isArray(token.map)) {
+      if (
+        token.type !== "fence"
+        // eslint-disable-next-line complete/prefer-is-array
+        || !Array.isArray(token.map)
+      ) {
         continue;
       }
 

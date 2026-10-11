@@ -248,9 +248,9 @@ export async function lintCommands(
   });
 
   const listr = new Listr<unknown>(tasks, {
+    collectErrors: true,
     concurrent: true,
     exitOnError: false,
-    collectErrors: true,
     rendererOptions: {
       collapseErrors: false,
     },

@@ -72,18 +72,12 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
         context.report({
           loc: node.loc,
           messageId: "noConstAssertion",
-          fix: (fixer) => {
-            // If this variable is not being assigned to anything, then there is nothing we can fix.
-            if (
-              init.type === AST_NODE_TYPES.TSAsExpression
-              || AUTO_FIX_TYPE_BLACKLIST.has(init.type)
-            ) {
-              // eslint-disable-next-line unicorn/no-null
-              return null;
-            }
-
-            return fixer.insertTextAfter(init, " as const");
-          },
+          fix: (fixer) =>
+            init.type === AST_NODE_TYPES.TSAsExpression
+            || AUTO_FIX_TYPE_BLACKLIST.has(init.type)
+              ? // eslint-disable-next-line unicorn/no-null
+                null
+              : fixer.insertTextAfter(init, " as const"),
         });
       }
     },
