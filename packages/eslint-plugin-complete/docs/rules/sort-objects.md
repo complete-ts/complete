@@ -17,11 +17,6 @@ Requires object literal properties to match the declared type order. If there is
 no declared property order, object literal properties must be in alphabetical
 order.
 
-For `Record<Keys, Value>` and mapped type aliases, a key type alias containing
-only string literals in a union supplies the property order. The rule uses the
-union's written order, not TypeScript's internal type ordering. This fallback
-does not infer an order from remapped keys or unions composed from other types.
-
 This rule has an auto-fixer, but it will refuse to auto-fix if there are
 attached block comments, as those usually semantic meaning relating to the line
 and the auto-fixer is not smart enough to move them.

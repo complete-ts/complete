@@ -300,8 +300,8 @@ export const baseImportX = defineConfig(
         "error",
         {
           devDependencies: [
-            "**/eslint.config.{js,cjs,mjs,ts,cts,mts}",
-            "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}",
+            "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
+            "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
           ],
           optionalDependencies: false,
           whitelist: ["eslint", "eslint-config-complete"],

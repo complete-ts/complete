@@ -522,7 +522,8 @@ export const baseTypeScriptESLint = defineConfig(
     files: [
       // ESLint configs in monorepos often intentionally import from the "src" subdirectory (because
       // the config files are JavaScript so they cannot use tsconfig-paths).
-      "eslint.config.mjs",
+      "**/eslint.config.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.mjs"
+      "**/eslint.config.*.{js,cjs,mjs,ts,cts,mts}", // Config files like "eslint.config.json.mjs"
 
       // We want to be allowed to import from the "src" directory in script files that are located
       // in a separate "scripts" directory.
