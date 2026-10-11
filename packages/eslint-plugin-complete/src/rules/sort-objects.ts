@@ -295,7 +295,113 @@ function getDeclaredPropertyOrder(
   return typeWithDeclaredProperties === undefined
     ? new Map<string, number>()
     : (getDeclarationPropertyOrder(typeWithDeclaredProperties, tsNode, node)
+        ?? getMappedPropertyOrder(checker, typeWithDeclaredProperties, node)
         ?? new Map<string, number>());
+}
+
+function getMappedPropertyOrder(
+  checker: ts.TypeChecker,
+  type: ts.Type,
+  node: TSESTree.ObjectExpression,
+): ReadonlyMap<string, number> | undefined {
+  const keyType = getMappedKeyType(
+    checker,
+    type.aliasSymbol,
+    type.aliasTypeArguments ?? [],
+  );
+  const keyDeclarations = keyType?.aliasSymbol?.declarations;
+  const keyDeclaration = keyDeclarations?.[0];
+  if (
+    keyDeclaration === undefined
+    || keyDeclarations?.length !== 1
+    || !ts.isTypeAliasDeclaration(keyDeclaration)
+    || !ts.isUnionTypeNode(keyDeclaration.type)
+  ) {
+    return undefined;
+  }
+
+  const propertyOrder = new Map<string, number>();
+  for (const member of keyDeclaration.type.types) {
+    if (!ts.isLiteralTypeNode(member) || !ts.isStringLiteral(member.literal)) {
+      return undefined;
+    }
+
+    const propertyName = member.literal.text;
+    if (!propertyOrder.has(propertyName)) {
+      propertyOrder.set(propertyName, propertyOrder.size);
+    }
+  }
+
+  return getObjectExpressionPropertyNames(node).every((propertyName) =>
+    propertyOrder.has(propertyName),
+  )
+    ? propertyOrder
+    : undefined;
+}
+
+function getMappedKeyType(
+  checker: ts.TypeChecker,
+  symbol: ts.Symbol | undefined,
+  typeArguments: readonly ts.Type[],
+): ts.Type | undefined {
+  const visited = new Set<ts.Symbol>();
+  let currentSymbol = symbol;
+  let currentTypeArguments = typeArguments;
+  while (currentSymbol !== undefined && !visited.has(currentSymbol)) {
+    visited.add(currentSymbol);
+    if (isFlagSet(currentSymbol.flags, ts.SymbolFlags.Alias)) {
+      currentSymbol = checker.getAliasedSymbol(currentSymbol);
+      continue;
+    }
+
+    const { declarations } = currentSymbol;
+    const declaration = declarations?.[0];
+    if (
+      declaration === undefined
+      || declarations?.length !== 1
+      || !ts.isTypeAliasDeclaration(declaration)
+    ) {
+      return undefined;
+    }
+
+    const resolvedTypeArguments = currentTypeArguments;
+    const resolveType = (node: ts.TypeNode): ts.Type =>
+      resolveAliasTypeArgument(
+        checker,
+        declaration,
+        node,
+        resolvedTypeArguments,
+      );
+    const { type } = declaration;
+    if (ts.isTypeReferenceNode(type)) {
+      currentSymbol = checker.getSymbolAtLocation(type.typeName);
+      currentTypeArguments = type.typeArguments?.map(resolveType) ?? [];
+      continue;
+    }
+
+    return ts.isMappedTypeNode(type)
+      && type.nameType === undefined
+      && type.typeParameter.constraint !== undefined
+      ? resolveType(type.typeParameter.constraint)
+      : undefined;
+  }
+
+  return undefined;
+}
+
+function resolveAliasTypeArgument(
+  checker: ts.TypeChecker,
+  declaration: ts.TypeAliasDeclaration,
+  node: ts.TypeNode,
+  typeArguments: readonly ts.Type[],
+): ts.Type {
+  const type = checker.getTypeFromTypeNode(node);
+  const parameterIndex = declaration.typeParameters?.findIndex(
+    (parameter) => checker.getSymbolAtLocation(parameter.name) === type.symbol,
+  );
+  return parameterIndex === undefined || parameterIndex === -1
+    ? type
+    : (typeArguments[parameterIndex] ?? type);
 }
 
 function getTypeWithDeclaredProperties(

@@ -26,6 +26,144 @@ const foo: Record<string, unknown> = {
     },
     {
       code: `
+type ParentConfig = "eslint/recommended" | "@typescript-eslint/recommended";
+
+const links = {
+  "eslint/recommended": "eslint",
+  "@typescript-eslint/recommended": "typescript-eslint",
+} as const satisfies Record<ParentConfig, string>;
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+type Values = Record<Keys, string>;
+
+const values: Values = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+type Values<K extends string> = Record<K, string>;
+type Options<K extends string> = Values<K>;
+
+const values: Options<Keys> = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+type Values = { [Key in Keys]?: string };
+
+const values: Values = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+
+declare function logValues(values: Record<Keys, string>): void;
+
+logValues({
+  name: "foo",
+  description: "A foo.",
+});
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+
+declare function logValues<T extends Record<Keys, string>>(values: T): void;
+
+logValues({
+  name: "foo",
+  description: "A foo.",
+});
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description" | "name";
+
+const values: Record<Keys, string> = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+    },
+    {
+      code: `
+type FirstKeys = "name" | "description";
+type SecondKeys = "description" | "name";
+
+const first: Record<FirstKeys, string> = {
+  name: "foo",
+  description: "A foo.",
+};
+const second: Record<SecondKeys, string> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
+type FirstKeys = "name" | "description";
+type Keys = FirstKeys | "value";
+
+const values: Record<Keys, string> = {
+  description: "A foo.",
+  name: "foo",
+  value: "foo",
+};
+      `,
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+type Values = { [Key in Keys as Key]: string };
+
+const values: Values = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
+type FirstKeys = "name" | "description";
+type SecondKeys = "description" | "name";
+
+const values: Record<FirstKeys, string> | Record<SecondKeys, string> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
+type FirstKeys = "name";
+type SecondKeys = "description";
+
+const values: Record<FirstKeys, string> & Record<SecondKeys, string> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+    },
+    {
+      code: `
 interface Foo {
   name: string;
   description: string;
@@ -231,6 +369,60 @@ const options: Options = {
   ],
 
   invalid: [
+    {
+      code: `
+type ParentConfig = "eslint/recommended" | "@typescript-eslint/recommended";
+
+const links = {
+  "@typescript-eslint/recommended": "typescript-eslint",
+  "eslint/recommended": "eslint",
+} as const satisfies Record<ParentConfig, string>;
+      `,
+      output: `
+type ParentConfig = "eslint/recommended" | "@typescript-eslint/recommended";
+
+const links = {
+  "eslint/recommended": "eslint",
+  "@typescript-eslint/recommended": "typescript-eslint",
+} as const satisfies Record<ParentConfig, string>;
+      `,
+      errors: [
+        {
+          messageId: "incorrectDeclaredTypeOrder",
+          data: {
+            earlierName: "eslint/recommended",
+            laterName: "@typescript-eslint/recommended",
+          },
+        },
+      ],
+    },
+    {
+      code: `
+type Keys = "name" | "description";
+
+const values: Record<Keys, string> = {
+  description: "A foo.",
+  name: "foo",
+};
+      `,
+      output: `
+type Keys = "name" | "description";
+
+const values: Record<Keys, string> = {
+  name: "foo",
+  description: "A foo.",
+};
+      `,
+      errors: [
+        {
+          messageId: "incorrectDeclaredTypeOrder",
+          data: {
+            earlierName: "name",
+            laterName: "description",
+          },
+        },
+      ],
+    },
     {
       code: `
 const foo = {
