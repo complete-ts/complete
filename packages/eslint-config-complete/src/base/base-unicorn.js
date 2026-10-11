@@ -14,6 +14,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/better-dom-traversing": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/class-reference-in-static-methods": "error",
+
+    /** Handled by Prettier. */
+    "unicorn/comma-spacing": "off",
+
     "unicorn/comment-content": "error",
 
     /** Superseded by the `arrow-body-style` rule. */
@@ -53,8 +57,16 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/id-match": "error",
     "unicorn/import-style": "error",
+
+    /** Handled by Prettier. */
+    "unicorn/indent": "off",
+
     "unicorn/isolated-functions": "error",
     "unicorn/iteration-fallback-style": "error",
+
+    /** Disabled since it does not apply to JavaScript/TypeScript files. */
+    "unicorn/key-name-casing": "off",
+
     "unicorn/logical-assignment-operators": "error",
     "unicorn/max-nested-calls": "error",
 
@@ -111,29 +123,24 @@ export const baseUnicorn = defineConfig({
     /** Disabled since it is unnecessary with TypeScript objects that are properly typed. */
     "unicorn/no-computed-property-existence-check": "off",
 
+    "unicorn/no-conflicting-constraints": "error",
     "unicorn/no-confusing-array-splice": "error",
     "unicorn/no-confusing-array-with": "error",
     "unicorn/no-console-spaces": "error",
     "unicorn/no-constant-zero-expression": "error",
     "unicorn/no-declarations-before-early-exit": "error",
 
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-deprecated-css-features": "off",
-
     "unicorn/no-document-cookie": "error",
     "unicorn/no-double-comparison": "error",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-duplicate-css-selectors": "off",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-duplicate-font-family-names": "off",
-
     "unicorn/no-duplicate-if-branches": "error",
     "unicorn/no-duplicate-logical-operands": "error",
     "unicorn/no-duplicate-loops": "error",
     "unicorn/no-duplicate-set-values": "error",
     "unicorn/no-empty-file": "error",
+
+    /** Disabled since it does not apply to JavaScript/TypeScript files. */
+    "unicorn/no-empty-link-text": "off",
+
     "unicorn/no-error-property-assignment": "error",
     "unicorn/no-exports-in-scripts": "error",
     "unicorn/no-for-each": "error",
@@ -141,27 +148,45 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-global-object-property-assignment": "error",
     "unicorn/no-immediate-mutation": "error",
     "unicorn/no-impossible-length-comparison": "error",
+    "unicorn/no-incomplete-accessor-override": "error",
     "unicorn/no-incorrect-query-selector": "error",
     "unicorn/no-incorrect-template-string-interpolation": "error",
+    "unicorn/no-ineffective-csp-directives": "error",
     "unicorn/no-instanceof-builtins": "error",
     "unicorn/no-invalid-argument-count": "error",
+    "unicorn/no-invalid-boolean-attribute-value": "error",
     "unicorn/no-invalid-character-comparison": "error",
+    "unicorn/no-invalid-dom-token": "error",
     "unicorn/no-invalid-fetch-options": "error",
     "unicorn/no-invalid-file-input-accept": "error",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-invalid-media-features": "off",
-
+    "unicorn/no-invalid-integrity": "error",
+    "unicorn/no-invalid-intl-options": "error",
+    "unicorn/no-invalid-property-descriptor": "error",
     "unicorn/no-invalid-remove-event-listener": "error",
+    "unicorn/no-invalid-response-options": "error",
+    "unicorn/no-invalid-style-set-property": "error",
+    "unicorn/no-invalid-temporal-arithmetic": "error",
+    "unicorn/no-invalid-url-protocol-comparison": "error",
     "unicorn/no-invalid-well-known-symbol-methods": "error",
+
+    /** Disabled since it does not apply to JavaScript/TypeScript files. */
+    "unicorn/no-javascript-url": "off",
 
     /** Disabled because it is common to prefix variables with "new". */
     "unicorn/no-keyword-prefix": "off",
 
     "unicorn/no-late-current-target-access": "error",
     "unicorn/no-late-event-control": "error",
+
+    /** Handled by Prettier. */
+    "unicorn/no-leading-empty-lines": "off",
+
     "unicorn/no-lonely-if": "error",
     "unicorn/no-loop-iterable-mutation": "error",
+
+    /** Disabled since it does not apply to JavaScript/TypeScript files. */
+    "unicorn/no-loss-of-precision": "off",
+
     "unicorn/no-magic-array-flat-depth": "error",
 
     /** Superseded by the `complete/format-line-comments` rule. */
@@ -178,9 +203,6 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-negation-in-equality-check": "error",
     "unicorn/no-nested-ternary": "off", // eslint-config-prettier
 
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-nesting-with-mixed-specificity": "off",
-
     "unicorn/no-new-array": "error",
     "unicorn/no-new-buffer": "error",
     "unicorn/no-non-function-verb-prefix": "error",
@@ -189,6 +211,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-object-methods-with-collections": "error",
     "unicorn/no-optional-chaining-on-undeclared-variable": "error",
+    "unicorn/no-prevent-default-in-passive-listener": "error",
 
     /**
      * Disabled because using `process.exit` is common to exit command-line apps without verbose
@@ -197,9 +220,6 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-process-exit": "off",
 
     "unicorn/no-redundant-comparison": "error",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-redundant-nested-style-rules": "off",
 
     "unicorn/no-return-array-push": "error",
     "unicorn/no-selector-as-dom-name": "error",
@@ -220,12 +240,6 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-uncalled-method": "error",
     "unicorn/no-undeclared-class-members": "error",
 
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-unknown-css-annotations": "off",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-unknown-pseudo-selectors": "off",
-
     "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-unnecessary-array-flat-map": "error",
     "unicorn/no-unnecessary-array-splice-count": "error",
@@ -234,6 +248,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unnecessary-fetch-options": "error",
     "unicorn/no-unnecessary-global-this": "error",
     "unicorn/no-unnecessary-nested-ternary": "error",
+    "unicorn/no-unnecessary-parameters": "error",
     "unicorn/no-unnecessary-polyfills": "error",
     "unicorn/no-unnecessary-slice-end": "error",
     "unicorn/no-unnecessary-splice": "error",
@@ -245,6 +260,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/no-unreadable-object-destructuring": "error",
     "unicorn/no-unsafe-buffer-conversion": "error",
     "unicorn/no-unsafe-dom-html": "error",
+    "unicorn/no-unsafe-json-serialization": "error",
     "unicorn/no-unsafe-promise-all-settled-values": "error",
     "unicorn/no-unsafe-property-key": "error",
     "unicorn/no-unsafe-sqlite-interpolation": "error",
@@ -252,12 +268,10 @@ export const baseUnicorn = defineConfig({
     /** Disabled since it has too many false positives. */
     "unicorn/no-unsafe-string-replacement": "off",
 
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/no-unscoped-css-nesting-selector": "off",
-
     "unicorn/no-unused-builtin-method-return": "error",
     "unicorn/no-unused-iterator-helper": "error",
     "unicorn/no-unused-properties": "error",
+    "unicorn/no-url-in-search-params": "error",
     "unicorn/no-useless-boolean-cast": "error",
     "unicorn/no-useless-coercion": "error",
     "unicorn/no-useless-collection-argument": "error",
@@ -331,11 +345,8 @@ export const baseUnicorn = defineConfig({
     /** Disabled because ECMAScript 2027 APIs are too new to enforce. */
     "unicorn/prefer-error-is-error": "off",
 
+    "unicorn/prefer-escaped-irregular-whitespace": "error",
     "unicorn/prefer-event-target": "error",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/prefer-explicit-viewport-units": "off",
-
     "unicorn/prefer-export-from": "error",
     "unicorn/prefer-flat-math-min-max": "error",
     "unicorn/prefer-get-or-insert-computed": "error",
@@ -369,6 +380,7 @@ export const baseUnicorn = defineConfig({
 
     "unicorn/prefer-json-import": "error",
     "unicorn/prefer-keyboard-event-key": "error",
+    "unicorn/prefer-literal-ascii": "error",
     "unicorn/prefer-location-assign": "error",
     "unicorn/prefer-logical-operator-over-ternary": "error",
     "unicorn/prefer-map-from-entries": "error",
@@ -376,9 +388,6 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-math-constants": "error",
     "unicorn/prefer-math-min-max": "error",
     "unicorn/prefer-math-trunc": "error",
-
-    /** Disabled since it causes errors on JavaScript/TypeScript files. */
-    "unicorn/prefer-media-feature-range-syntax": "off",
 
     "unicorn/prefer-minimal-ternary": "error",
     "unicorn/prefer-modern-dom-apis": "error",
@@ -398,6 +407,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-path2d": "error",
     "unicorn/prefer-private-class-fields": "error",
+    "unicorn/prefer-promise-static-methods": "error",
     "unicorn/prefer-promise-try": "error",
     "unicorn/prefer-promise-with-resolvers": "error",
     "unicorn/prefer-prototype-methods": "error",
@@ -412,6 +422,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/prefer-set-methods": "error",
     "unicorn/prefer-set-size": "error",
     "unicorn/prefer-short-arrow-method": "error",
+    "unicorn/prefer-short-escape-sequences": "error",
     "unicorn/prefer-simple-condition-first": "error",
     "unicorn/prefer-simple-sort-comparator": "error",
     "unicorn/prefer-simplified-conditions": "error",
@@ -465,7 +476,10 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-array-sort-compare": "off",
 
     "unicorn/require-css-escape": "error",
-    "unicorn/require-frontmatter-fields": "error",
+
+    /** Disabled since it does not apply to JavaScript/TypeScript files. */
+    "unicorn/require-frontmatter-fields": "off",
+
     "unicorn/require-module-attributes": "error",
     "unicorn/require-module-specifiers": "error",
     "unicorn/require-number-to-fixed-digits-argument": "error",
@@ -479,6 +493,7 @@ export const baseUnicorn = defineConfig({
     "unicorn/require-post-message-target-origin": "off",
 
     "unicorn/require-proxy-trap-boolean-return": "error",
+    "unicorn/require-text-decoder-streaming": "error",
 
     /** The default is "multiline", which is not idiomatic in the TypeScript ecosystem. */
     "unicorn/single-line-block-comment-style": ["error", "single-line"],
