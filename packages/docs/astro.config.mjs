@@ -127,13 +127,78 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      title: "Complete",
+      customCss: ["./src/styles/custom.css"],
       description:
         "A collection of packages to make working with TypeScript easier.",
+      expressiveCode: {
+        themes: ["github-light", "github-dark"],
+      },
+      favicon: "/img/favicon.ico",
       logo: {
         src: "./src/assets/logo.png",
         alt: "Complete Logo",
       },
+      plugins: [
+        ...typeDocPackageNames.map((packageName) =>
+          getTypeDocPlugin(packageName),
+        ),
+        starlightLinksValidator(),
+      ],
+      sidebar: [
+        "overview",
+        "complete-cli",
+        getTypeDocSidebar("complete-common"),
+        "complete-lint",
+        getTypeDocSidebar("complete-node"),
+        "complete-tsconfig",
+        "eslint-config-complete",
+        {
+          collapsed: true,
+          items: [
+            {
+              label: "Overview",
+              slug: "eslint-plugin-complete",
+            },
+            "eslint-plugin-complete/comments",
+            {
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: "eslint-plugin-complete/rules",
+                    collapsed: true,
+                  },
+                },
+              ],
+              label: "Rules",
+            },
+          ],
+          label: "eslint-plugin-complete",
+        },
+        "markdownlint-config-complete",
+        {
+          collapsed: true,
+          items: [
+            {
+              label: "Overview",
+              slug: "markdownlint-rule-complete",
+            },
+            {
+              collapsed: true,
+              items: [
+                {
+                  autogenerate: {
+                    directory: "markdownlint-rule-complete/rules",
+                    collapsed: true,
+                  },
+                },
+              ],
+              label: "Rules",
+            },
+          ],
+          label: "markdownlint-rule-complete",
+        },
+      ],
       social: [
         {
           icon: "github",
@@ -146,72 +211,7 @@ export default defineConfig({
           href: "https://discord.gg/quxcs6gMN6",
         },
       ],
-      sidebar: [
-        "overview",
-        "complete-cli",
-        getTypeDocSidebar("complete-common"),
-        "complete-lint",
-        getTypeDocSidebar("complete-node"),
-        "complete-tsconfig",
-        "eslint-config-complete",
-        {
-          collapsed: true,
-          label: "eslint-plugin-complete",
-          items: [
-            {
-              label: "Overview",
-              slug: "eslint-plugin-complete",
-            },
-            "eslint-plugin-complete/comments",
-            {
-              collapsed: true,
-              label: "Rules",
-              items: [
-                {
-                  autogenerate: {
-                    directory: "eslint-plugin-complete/rules",
-                    collapsed: true,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        "markdownlint-config-complete",
-        {
-          collapsed: true,
-          label: "markdownlint-rule-complete",
-          items: [
-            {
-              label: "Overview",
-              slug: "markdownlint-rule-complete",
-            },
-            {
-              collapsed: true,
-              label: "Rules",
-              items: [
-                {
-                  autogenerate: {
-                    directory: "markdownlint-rule-complete/rules",
-                    collapsed: true,
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      customCss: ["./src/styles/custom.css"],
-      favicon: "/img/favicon.ico",
-      expressiveCode: {
-        themes: ["github-light", "github-dark"],
-      },
-      plugins: [
-        ...typeDocPackageNames.map((packageName) =>
-          getTypeDocPlugin(packageName),
-        ),
-        starlightLinksValidator(),
-      ],
+      title: "Complete",
     }),
   ],
 });
