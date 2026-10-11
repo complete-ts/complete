@@ -11,8 +11,7 @@ export async function getRuleEntries(): Promise<
 > {
   // We have to dynamically import the "rules.ts" file because the scripts use ESM (so that they can
   // leverage other helper functions in the monorepo) and the plugin uses CJS.
-  const rulesFiles = await import("../src/rules.js");
-  const { rules } = rulesFiles;
+  const { rules } = await import("../src/rules.js");
 
   return Object.entries(rules).toSorted((a, b) => a[0].localeCompare(b[0]));
 }
