@@ -27,6 +27,9 @@ export const basePerfectionist = defineConfig({
     /** Disabled because class member ordering can be semantically significant. */
     "perfectionist/sort-classes": "off",
 
+    /** Disabled because constructor parameters are positional. */
+    "perfectionist/sort-constructor-parameters": "off",
+
     /** Disabled because decorator ordering can be semantically significant. */
     "perfectionist/sort-decorators": "off",
 

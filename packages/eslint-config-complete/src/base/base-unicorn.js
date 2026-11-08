@@ -221,6 +221,7 @@ export const baseUnicorn = defineConfig(
       "unicorn/no-process-exit": "off",
 
       "unicorn/no-redundant-comparison": "error",
+      "unicorn/no-repeated-call-wrappers": "error",
 
       "unicorn/no-return-array-push": "error",
       "unicorn/no-selector-as-dom-name": "error",
@@ -246,6 +247,7 @@ export const baseUnicorn = defineConfig(
       "unicorn/no-unnecessary-array-splice-count": "error",
       "unicorn/no-unnecessary-await": "error",
       "unicorn/no-unnecessary-boolean-comparison": "error",
+      "unicorn/no-unnecessary-default-arguments": "error",
       "unicorn/no-unnecessary-fetch-options": "error",
       "unicorn/no-unnecessary-global-this": "error",
       "unicorn/no-unnecessary-nested-ternary": "error",
