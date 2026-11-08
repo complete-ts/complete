@@ -203,9 +203,11 @@ export async function getFileNamesInDirectory(
     }
   }
 
-  return paths
-    ? filteredFileEntries.map((file) => path.join(file.parentPath, file.name))
-    : filteredFileEntries.map((file) => file.name);
+  return filteredFileEntries.map(
+    paths
+      ? (file) => path.join(file.parentPath, file.name)
+      : (file) => file.name,
+  );
 }
 
 /**

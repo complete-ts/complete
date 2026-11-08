@@ -16,7 +16,6 @@ export const jsdocCodeBlockLanguage = createRule({
       noLanguage: "You must specify a language for the code block.",
     },
   },
-  defaultOptions: [],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of
@@ -41,11 +40,7 @@ export const jsdocCodeBlockLanguage = createRule({
         }
 
         // Ignore the second "```" that closes a code block.
-        if (!insideCodeBlock) {
-          continue;
-        }
-
-        if (!line.endsWith("```")) {
+        if (!insideCodeBlock || !line.endsWith("```")) {
           continue;
         }
 

@@ -30,7 +30,6 @@ export const sortDestructuredProperties = createRule<Options, MessageIds>({
         "Destructured property `{{ earlierName }}` must be before `{{ laterName }}` to match the declared type order.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

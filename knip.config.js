@@ -6,6 +6,7 @@ const config = {
   prettier: {},
 
   ignoreDependencies: [
+    "@cspell/cspell-bundled-dicts", // Provided by "cspell" and imported in: cspell.config.jsonc
     "cspell", // Executed in: scripts/lint.ts
     "cspell-check-unused-words", // Executed in: scripts/lint.ts
     "eslint-plugin-complete", // Executed in: scripts/lint.ts

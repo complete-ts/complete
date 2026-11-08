@@ -26,7 +26,6 @@ export const noRedundantJSDocDefault = createRule({
         "Omit this property because it is already set to its JSDoc default value of {{ defaultValue }}.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
@@ -195,11 +194,11 @@ function getTemplateLiteralValue(
 function getUnaryExpressionValue(
   node: TSESTree.UnaryExpression,
 ): number | undefined {
-  return node.operator !== "-"
-    || node.argument.type !== AST_NODE_TYPES.Literal
-    || typeof node.argument.value !== "number"
-    ? undefined
-    : -node.argument.value;
+  return node.operator === "-"
+    && node.argument.type === AST_NODE_TYPES.Literal
+    && typeof node.argument.value === "number"
+    ? -node.argument.value
+    : undefined;
 }
 
 function parseDefaultValue(
@@ -239,9 +238,9 @@ function parseDefaultValueStringOrNumber(
     return numberValue;
   }
 
-  return !defaultValue.startsWith('"') || !defaultValue.endsWith('"')
-    ? undefined
-    : parseJSONString(defaultValue);
+  return defaultValue.startsWith('"') && defaultValue.endsWith('"')
+    ? parseJSONString(defaultValue)
+    : undefined;
 }
 
 function parseJSONString(defaultValue: string): string | undefined {

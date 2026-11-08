@@ -16,7 +16,6 @@ export const requireUnannotatedConstAssertions = createRule({
         "Don't use `as const` with a type annotated variable, since it widens the type.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     'VariableDeclarator[id.typeAnnotation] :matches(TSTypeAssertion, TSAsExpression) > TSTypeReference.typeAnnotation > Identifier[name="const"]':
       (node) => {

@@ -17,7 +17,6 @@ export const preferPathResolve = createRule({
       usePathResolve: 'Change "path.join" to "path.resolve".',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

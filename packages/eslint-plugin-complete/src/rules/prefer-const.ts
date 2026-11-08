@@ -359,7 +359,6 @@ function findUp(node, type, shouldStop) {
 
 export const preferConst = createRule({
   name: "prefer-const", // Added
-  defaultOptions: [], // Added; necessary for the `ruleCreator` helper function
 
   meta: {
     type: "suggestion",

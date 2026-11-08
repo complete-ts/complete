@@ -17,7 +17,6 @@ export const strictVoidFunctions = createRule({
         "You cannot return values in functions annotated as returning `void`. Either remove the value after the `return` keyword or change the function return type annotation.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     ReturnStatement(node) {
       if (node.argument === null) {

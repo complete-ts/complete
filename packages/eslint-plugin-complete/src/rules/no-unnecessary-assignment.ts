@@ -47,7 +47,6 @@ export const noUnnecessaryAssignment = createRule<Options, MessageIds>({
         'This short circuit assignment using the "{{operator}}" operator is unnecessary because it would have no effect on the variable.',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

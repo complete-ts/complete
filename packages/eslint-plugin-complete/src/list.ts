@@ -64,14 +64,9 @@ export function getAdjustedList(
 
     case ListKind.NumberPeriod:
     case ListKind.NumberParentheses: {
-      // If we are already inside of a numbered list, then do not require blank lines in between the
-      // bullets.
-      if (list.kind === insideList?.kind) {
-        return list;
-      }
-
-      // If the previous line had a colon, then do not require blank lines in between the bullets.
-      if (previousLineEndedInColon) {
+      // If we are already inside of a numbered list, or if the previous line had a colon, then do
+      // not require blank lines in between the bullets.
+      if (previousLineEndedInColon || list.kind === insideList?.kind) {
         return list;
       }
 
@@ -190,13 +185,10 @@ export function reachedNewList(
   insideList: List | undefined,
   list: List | undefined,
 ): boolean {
-  if (list === undefined) {
-    return false;
-  }
-
   return (
-    insideList === undefined // Going from a non-list to list
-    || insideList.numLeadingSpaces !== list.numLeadingSpaces // Going from a list to a sub-list
-    || insideList.jsDocTagName !== list.jsDocTagName // Going from a JSDoc to a different JSDoc tag
+    list !== undefined
+    && (insideList === undefined // Going from a non-list to list
+      || insideList.numLeadingSpaces !== list.numLeadingSpaces // Going from a list to a sub-list
+      || insideList.jsDocTagName !== list.jsDocTagName) // Going from a JSDoc to a different JSDoc tag
   );
 }

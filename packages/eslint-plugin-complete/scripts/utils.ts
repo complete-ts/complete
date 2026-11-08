@@ -2,7 +2,7 @@ import type { TSESLint } from "@typescript-eslint/utils";
 import { kebabCaseToCamelCase } from "complete-common";
 import { PLUGIN_NAME } from "./constants.js";
 
-export type RuleDefinition = TSESLint.RuleModule<string, unknown[]>;
+export type RuleDefinition = TSESLint.RuleModule<string, readonly unknown[]>;
 
 const RULE_NAME_PREFIX = `${PLUGIN_NAME}/`;
 

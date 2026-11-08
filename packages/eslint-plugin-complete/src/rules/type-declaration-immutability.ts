@@ -53,7 +53,6 @@ export const typeDeclarationImmutability = createRule<Options, MessageIds>({
         'Interface must be immutable. Found {{violationCount}} field {{violationNoun}}; the first offending field is "{{firstFieldName}}".',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const { program } = parserServices;

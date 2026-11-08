@@ -15,8 +15,6 @@ const plugin = {
   rules,
 };
 
-// This is the intended way to build the plugin object in ESLint plugins.
-// eslint-disable-next-line unicorn/no-top-level-side-effects
 addPluginToConfigs(configs, name);
 
 // ESLint plugins must provide a default export by design.

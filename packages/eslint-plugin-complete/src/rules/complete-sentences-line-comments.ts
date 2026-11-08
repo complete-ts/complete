@@ -35,7 +35,6 @@ export const completeSentencesLineComments = createRule<
         "Leading line comments must not end with a double period. Did you make a typo?\n{{ sentence }}",
     },
   },
-  defaultOptions: [],
   create(context) {
     const { sourceCode } = context;
     const comments = sourceCode.getAllComments();

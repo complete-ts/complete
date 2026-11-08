@@ -57,12 +57,8 @@ export async function promptGitHubRepoOrGitRemoteURL(
   yes: boolean,
   skipGit: boolean,
 ): Promise<string | undefined> {
-  if (skipGit) {
-    return undefined;
-  }
-
   // Hard-code certain project names as never causing a Git repository to be initialized.
-  if (projectName === "foo" || projectName.startsWith("test")) {
+  if (skipGit || projectName === "foo" || projectName.startsWith("test")) {
     return undefined;
   }
 
@@ -114,13 +110,9 @@ If you do not want to initialize a Git repository for this project, press enter 
         guessedRemoteURL,
       )}`,
     );
-    if (shouldUseGuessedURL) {
-      return guessedRemoteURL;
-    }
-
-    // Assume that since they do not want to connect this project to the existing GitHub repository,
+    // Assume that if they do not want to connect this project to the existing GitHub repository,
     // they do not want to initialize a remote Git URL at all.
-    return undefined;
+    return shouldUseGuessedURL ? guessedRemoteURL : undefined;
   }
 
   if (yes) {

@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-top-level-assignment-in-function */
-/* eslint-disable unicorn/no-top-level-side-effects */
 
 // This script also checks for missing rules from all of the ESLint plugins.
 

@@ -23,7 +23,6 @@ export const noExplicitMapSetLoops = createRule<Options, MessageIds>({
         'Explicit iteration over sets is disallowed. (Get rid of the ".values()".)',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -53,7 +53,6 @@ export const noObjectMethodsWithMapSet = createRule<Options, MessageIds>({
         "You cannot use the `Object.values` method with a set. Consider using the `values` method on the set instead.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

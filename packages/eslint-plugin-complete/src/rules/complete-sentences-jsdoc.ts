@@ -27,7 +27,6 @@ export const completeSentencesJSDoc = createRule<
         "JSDoc comments must not end with a double period. Did you make a typo?.\n{{ sentence }}",
     },
   },
-  defaultOptions: [],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of

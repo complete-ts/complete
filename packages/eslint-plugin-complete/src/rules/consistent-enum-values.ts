@@ -15,7 +15,6 @@ export const consistentEnumValues = createRule({
         "The value of an enum member must be a string that exactly matches the enum name.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     TSEnumMember(node) {
       // Ignore computed enums; those are intended to be checked with the

@@ -153,7 +153,6 @@ function isAnySegmentReachable(segments) {
 
 export const noUselessReturn = createRule({
   name: "no-useless-return", // Added
-  defaultOptions: [], // Added; necessary for the `ruleCreator` helper function
 
   meta: {
     type: "suggestion",

@@ -19,7 +19,6 @@ export const noUnsafePlusplus = createRule({
         'Complex usages of the "--" operator can be confusing. You should only use it in contexts where it could be swapped with "-= 1".',
     },
   },
-  defaultOptions: [],
   create(context) {
     function unsafe(nodeNever: never) {
       // The type of the node is "never" for some reason, so cast it to something we can work with.

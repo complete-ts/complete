@@ -24,7 +24,6 @@ export const noExplicitArrayLoops = createRule<Options, MessageIds>({
         'Explicit iteration over arrays is disallowed. (Get rid of the "Object.values()".)',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -17,7 +17,6 @@ export const noUndefinedReturnType = createRule({
         "Functions cannot have an `undefined` return type. Change the return type to `void` instead.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -31,7 +31,6 @@ export const requireCapitalReadOnly = createRule<Options, MessageIds>({
         'Objects with a capital letter must be read-only. Try using a type annotation with the "Readonly" helper type.',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

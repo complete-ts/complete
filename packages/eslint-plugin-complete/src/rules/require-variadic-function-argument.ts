@@ -34,7 +34,6 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
       noArgument: "You must pass at least one argument to a variadic function.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
@@ -48,15 +47,12 @@ export const requireVariadicFunctionArgument = createRule<Options, MessageIds>({
         }
 
         const declaration = signature.getDeclaration();
-        // The `getDeclaration` method actually returns `ts.SignatureDeclaration | undefined`, not
-        // `ts.SignatureDeclaration`.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (declaration === undefined) {
-          return;
-        }
-
         if (
-          isHardCodedException(node)
+          // The `getDeclaration` method actually returns `ts.SignatureDeclaration | undefined`, not
+          // `ts.SignatureDeclaration`.
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          declaration === undefined
+          || isHardCodedException(node)
           || hasJSDocExceptionTag(checker, declaration)
         ) {
           return;

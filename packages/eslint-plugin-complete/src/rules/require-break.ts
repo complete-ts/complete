@@ -22,7 +22,6 @@ export const requireBreak = createRule<Options, MessageIds>({
       noBreak: "Expected a 'break' statement.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const codePathSegments: Array<Set<TSESLint.CodePathSegment>> = [];
     let currentCodePathSegments = new Set<TSESLint.CodePathSegment>();

@@ -21,7 +21,6 @@ export const strictUndefinedFunctions = createRule<Options, MessageIds>({
         "You must explicitly return `undefined` in in functions that can return `undefined`.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

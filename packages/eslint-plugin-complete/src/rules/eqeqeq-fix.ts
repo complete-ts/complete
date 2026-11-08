@@ -46,7 +46,6 @@ function isNullLiteral(node) {
 
 export const eqeqeqFix = createRule({
   name: "eqeqeq-fix", // Added
-  defaultOptions: [], // Added; necessary for the `ruleCreator` helper function
 
   meta: {
     type: "suggestion",

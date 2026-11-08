@@ -16,7 +16,6 @@ export const noPrivateIdentifiers = createRule({
         "Use the TypeScript private modifier instead of # private members.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     PrivateIdentifier(node) {
       context.report({

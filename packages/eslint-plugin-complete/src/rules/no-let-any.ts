@@ -17,7 +17,6 @@ export const noLetAny = createRule({
       noType: "Variables must be declared with a type.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

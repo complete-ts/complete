@@ -223,12 +223,11 @@ export async function lintCommands(
 
           if (isBunRuntime()) {
             const jsPath = bunBinPaths.get(cmd);
-            if (jsPath !== undefined) {
-              return await $q("bun", [jsPath, ...args], { cwd: packageRoot });
-            }
             // Fall back to "bun run" for packages whose binary name differs from the package name
             // (e.g., "tsc" from the "typescript" package).
-            return await $q("bun", ["run", cmd, ...args], { cwd: packageRoot });
+            const bunArgs =
+              jsPath === undefined ? ["run", cmd, ...args] : [jsPath, ...args];
+            return await $q("bun", bunArgs, { cwd: packageRoot });
           }
 
           return await $q(cmd, args, {

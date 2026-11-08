@@ -19,7 +19,6 @@ export const noObjectAny = createRule({
         "Objects/arrays must be declared with a type. (The {{ ordinal }} type parameter is `any`.)",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

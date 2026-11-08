@@ -19,7 +19,6 @@ export const noVoidReturnType = createRule({
         "Non-exported functions cannot have a `void` return type. Remove the `void` keyword.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -15,7 +15,6 @@ export const preferPostfixPlusplus = createRule({
       minusMinus: 'You must use postfix "--" instead of prefix "--".',
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     UpdateExpression(node) {
       if (!node.prefix) {

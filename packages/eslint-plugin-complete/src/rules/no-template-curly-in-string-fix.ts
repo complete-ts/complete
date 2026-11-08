@@ -23,7 +23,6 @@ export const noTemplateCurlyInStringFix = createRule({
       unexpectedTemplateExpression: "Unexpected template string expression.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     Literal(node) {
       if (

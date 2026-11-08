@@ -20,7 +20,6 @@ export const noStringLength0 = createRule({
         "Compare to an empty string directly instead of using the length method, as it is shorter and easier to read.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -21,7 +21,6 @@ export const preferUnknownTypeAnnotations = createRule<Options, MessageIds>({
         "Use a variable type annotation instead of an `as unknown` assertion.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     VariableDeclarator(node) {
       const { id, init } = node;

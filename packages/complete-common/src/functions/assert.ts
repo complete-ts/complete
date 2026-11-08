@@ -39,11 +39,10 @@ export function assertArrayBoolean<T>(
       ]
     : [string]
 ): asserts value is T & boolean[] {
-  if (!Array.isArray(value)) {
-    throw new TypeError(msg);
-  }
-
-  if ((value as unknown[]).some((element) => typeof element !== "boolean")) {
+  if (
+    !Array.isArray(value)
+    || (value as unknown[]).some((element) => typeof element !== "boolean")
+  ) {
     throw new TypeError(msg);
   }
 }
@@ -82,11 +81,7 @@ export function assertArrayNonEmpty<T>(
     : [string]
 ): asserts value is T
   & (T extends ReadonlyArray<infer E> ? [E, ...E[]] : [unknown, ...unknown[]]) {
-  if (!Array.isArray(value)) {
-    throw new TypeError(msg);
-  }
-
-  if (value.length === 0) {
+  if (!Array.isArray(value) || value.length === 0) {
     throw new TypeError(msg);
   }
 }
@@ -103,11 +98,10 @@ export function assertArrayNumber<T>(
       ]
     : [string]
 ): asserts value is T & number[] {
-  if (!Array.isArray(value)) {
-    throw new TypeError(msg);
-  }
-
-  if ((value as unknown[]).some((element) => typeof element !== "number")) {
+  if (
+    !Array.isArray(value)
+    || (value as unknown[]).some((element) => typeof element !== "number")
+  ) {
     throw new TypeError(msg);
   }
 }
@@ -124,11 +118,10 @@ export function assertArrayObject<T>(
       ]
     : [string]
 ): asserts value is T & Array<Record<string, unknown>> {
-  if (!Array.isArray(value)) {
-    throw new TypeError(msg);
-  }
-
-  if ((value as unknown[]).some((element) => !isObject(element))) {
+  if (
+    !Array.isArray(value)
+    || (value as unknown[]).some((element) => !isObject(element))
+  ) {
     throw new TypeError(msg);
   }
 }
@@ -145,11 +138,10 @@ export function assertArrayString<T>(
       ]
     : [string]
 ): asserts value is T & string[] {
-  if (!Array.isArray(value)) {
-    throw new TypeError(msg);
-  }
-
-  if ((value as unknown[]).some((element) => typeof element !== "string")) {
+  if (
+    !Array.isArray(value)
+    || (value as unknown[]).some((element) => typeof element !== "string")
+  ) {
     throw new TypeError(msg);
   }
 }

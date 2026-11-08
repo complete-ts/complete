@@ -17,7 +17,6 @@ export const noEmptyJSDoc = createRule({
       isEmpty: "Empty JSDoc comments are not allowed.",
     },
   },
-  defaultOptions: [],
 
   /**
    * We need to write the rule in such a way that it operates on the entire source code instead of

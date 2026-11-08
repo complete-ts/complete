@@ -16,7 +16,6 @@ export const RULE_NAME_CAMEL_CASE = createRule({
       foo: "Foo must be bar.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -22,7 +22,6 @@ export const newlineBetweenSwitchCase = createRule<Options, MessageIds>({
       noNewline: "Newline required between switch cases.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const { sourceCode } = context;
 

@@ -15,7 +15,6 @@ export const noForIn = createRule({
         'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use a "for of" loop instead.',
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     ForInStatement(node) {
       context.report({

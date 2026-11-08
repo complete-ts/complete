@@ -15,7 +15,6 @@ export const noNumberEnums = createRule({
         "Number enums are disallowed; use a string enum instead because they are safer.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     "TSEnumMember > :matches(Literal[raw>=0].initializer, UnaryExpression.initializer)":
       (node) => {

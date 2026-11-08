@@ -83,15 +83,13 @@ export function getCommentBlocks(
         break;
       }
 
-      // Break if we are on a non-contiguous line.
+      // Break if we are on a non-contiguous line or if this is a "separator" line.
       const nextCommentStartLine = nextComment.loc.start.line;
       const lineDelta = j - commentIndex;
-      if (nextCommentStartLine !== firstCommentStartLine + lineDelta) {
-        break;
-      }
-
-      // Break if this is a "separator" line.
-      if (isSeparatorLine(nextComment.value)) {
+      if (
+        nextCommentStartLine !== firstCommentStartLine + lineDelta
+        || isSeparatorLine(nextComment.value)
+      ) {
         break;
       }
 

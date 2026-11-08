@@ -39,7 +39,6 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
         "Variables with capital letters that assign an object or array must use const assertions.",
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     VariableDeclaration(node) {
       if (node.kind !== "const") {
@@ -55,17 +54,13 @@ export const requireCapitalConstAssertions = createRule<Options, MessageIds>({
           continue;
         }
 
-        const { init } = declaration;
-        if (init === null) {
-          continue;
-        }
-
         // Do nothing if this is not an object or array expression.
-        if (!ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type)) {
-          continue;
-        }
-
-        if (hasConstAssertion(init)) {
+        const { init } = declaration;
+        if (
+          init === null
+          || !ARRAY_OR_OBJECT_EXPRESSION_TYPES.has(init.type)
+          || hasConstAssertion(init)
+        ) {
           continue;
         }
 

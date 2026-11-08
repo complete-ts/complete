@@ -22,7 +22,6 @@ export const preferPlusplus = createRule<Options, MessageIds>({
       minusMinus: 'Use "--" instead, as it is more concise and easier to read.',
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
 

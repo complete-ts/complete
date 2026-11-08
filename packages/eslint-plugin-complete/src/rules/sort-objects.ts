@@ -40,7 +40,6 @@ export const sortObjects = createRule<Options, MessageIds>({
         "Object property `{{ earlierName }}` must be before `{{ laterName }}` to match the declared type order.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

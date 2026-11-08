@@ -39,18 +39,15 @@ export function getIncompleteSentences(
     const squishedText = textBlock.replaceAll("\n", " ").trim();
 
     // Handling all edge cases for "e.g." or "i.e." is very difficult, since sometimes it is correct
-    // to put a period after them, and sometimes not. Thus, ignore all text that contains them.
+    // to put a period after them, and sometimes not. Thus, ignore all text that contains them. Also
+    // whitelist markdown links.
     if (
       squishedText.includes("e.g.")
       || squishedText.includes("e.g.,")
       || squishedText.includes("i.e.")
       || squishedText.includes("i.e.,")
+      || squishedText.endsWith("](")
     ) {
-      continue;
-    }
-
-    // Whitelist markdown links.
-    if (squishedText.endsWith("](")) {
       continue;
     }
 

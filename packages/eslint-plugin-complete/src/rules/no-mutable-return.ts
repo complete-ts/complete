@@ -27,7 +27,6 @@ export const noMutableReturn = createRule<Options, MessageIds>({
         "Sets that are returned from functions must be read-only. (Annotate the function using the `ReadonlySet` type.)",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

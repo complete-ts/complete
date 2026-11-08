@@ -41,7 +41,6 @@ export const strictEnums = createRule<Options, MessageIds>({
         "The {{ ordinal }} argument in the function call does not match the declared enum type of the function signature.\nArgument: {{ type1 }}\nParameter: {{ type2 }}",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
@@ -59,11 +58,10 @@ export const strictEnums = createRule<Options, MessageIds>({
      */
     function getBaseEnumType(type: ts.Type): ts.Type {
       const symbol = type.getSymbol();
-      if (symbol === undefined) {
-        return type;
-      }
-
-      if (!isSymbolFlagSet(symbol, ts.SymbolFlags.EnumMember)) {
+      if (
+        symbol === undefined
+        || !isSymbolFlagSet(symbol, ts.SymbolFlags.EnumMember)
+      ) {
         return type;
       }
 
@@ -254,17 +252,13 @@ export const strictEnums = createRule<Options, MessageIds>({
         return false;
       }
 
+      // Allow assignments that are not to an enum. As a special case, also allow assignment of
+      // certain types that the TypeScript compiler should handle properly.
       const leftEnumTypes = getEnumTypes(leftType);
-      if (leftEnumTypes.size === 0) {
-        // This is not an enum assignment.
-        return false;
-      }
-
-      /**
-       * As a special case, allow assignment of certain types that the TypeScript compiler should
-       * handle properly.
-       */
-      if (isNullOrUndefinedOrAnyOrUnknownOrNever(rightType)) {
+      if (
+        leftEnumTypes.size === 0
+        || isNullOrUndefinedOrAnyOrUnknownOrNever(rightType)
+      ) {
         return false;
       }
 
@@ -385,12 +379,9 @@ export const strictEnums = createRule<Options, MessageIds>({
        */
       const argumentSubTypesSet = new Set(argumentSubTypes);
       const parameterSubTypesSet = new Set(parameterSubtypes);
-      if (setHasAnyElementFromSet(argumentSubTypesSet, parameterSubTypesSet)) {
-        return false;
-      }
 
       /**
-       * Allow function calls that have a base enum that match the function type, like the
+       * Also allow function calls that have a base enum that match the function type, like the
        * following:
        *
        * ```ts
@@ -398,7 +389,10 @@ export const strictEnums = createRule<Options, MessageIds>({
        * useFruit(Fruit.Apple);
        * ```
        */
-      return !setHasAnyElementFromSet(argumentEnumTypes, parameterEnumTypes);
+      return (
+        !setHasAnyElementFromSet(argumentSubTypesSet, parameterSubTypesSet)
+        && !setHasAnyElementFromSet(argumentEnumTypes, parameterEnumTypes)
+      );
     }
 
     // ------------------

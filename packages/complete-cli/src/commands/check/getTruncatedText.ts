@@ -156,16 +156,13 @@ export function getTruncatedText(
       continue;
     }
 
-    if (fileName === "ci.yml" || fileName === "action.yml") {
-      // End-users can have different package managers.
-      if (hasPackageManagerString(line)) {
-        continue;
-      }
-
-      // Ignore comments, since end-users are expected to delete the explanations.
-      if (/^\s*#/v.test(line)) {
-        continue;
-      }
+    // End-users can have different package managers. Ignore comments, since end-users are expected
+    // to delete the explanations.
+    if (
+      (fileName === "ci.yml" || fileName === "action.yml")
+      && (hasPackageManagerString(line) || /^\s*#/v.test(line))
+    ) {
+      continue;
     }
 
     // ------------

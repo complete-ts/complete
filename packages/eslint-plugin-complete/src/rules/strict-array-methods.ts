@@ -29,7 +29,6 @@ export const strictArrayMethods = createRule({
         "Unexpected value in array method. A boolean expression is required.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();

@@ -23,7 +23,6 @@ export const consistentObjectBraces = createRule<Options, MessageIds>({
         "Object braces must be single-line for one property and multiline for multiple properties.",
     },
   },
-  defaultOptions: [],
   create(context) {
     const { sourceCode } = context;
 

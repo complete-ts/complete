@@ -18,7 +18,6 @@ export const preferIsArray = createRule({
         'Use the "isArray" helper from "complete-common" instead of "Array.isArray".',
     },
   },
-  defaultOptions: [],
   create: (context) => ({
     MemberExpression(node) {
       if (
