@@ -102,9 +102,13 @@ async function promptVSCode(
     return;
   }
 
-  // The "--yes" command-line flag implies that they want a silent install, so skip opening Visual
-  // Studio Code. The Visual Studio Code command does not work properly inside WSL on Windows.
-  if (yes || process.platform === "linux") {
+  if (
+    // The "--yes" command-line flag implies that they want a silent install, so skip opening Visual
+    // Studio Code.
+    yes
+    // The Visual Studio Code command does not work properly inside WSL on Windows.
+    || process.platform === "linux"
+  ) {
     return;
   }
 
