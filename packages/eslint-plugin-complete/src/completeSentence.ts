@@ -370,7 +370,16 @@ function getIncompleteSentenceKind(
   return undefined;
 }
 
-const CAPITALIZED_WORD_EXCEPTIONS = ["iPad", "iPhone", "iPod"] as const;
+const CAPITALIZED_WORD_EXCEPTIONS = [
+  "iOS",
+  "iPad",
+  "iPhone",
+  "iPod",
+  "macOS",
+  "tvOS",
+  "visionOS",
+  "watchOS",
+] as const;
 
 function isCapitalizedWordException(text: string): boolean {
   return CAPITALIZED_WORD_EXCEPTIONS.some((word) => text.startsWith(word));

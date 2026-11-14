@@ -293,6 +293,13 @@ iPad on iOS 13 detection.
   testIncompleteSentence(text, undefined);
 });
 
+test("Sentence that starts with an Apple operating system", () => {
+  const text = `
+iOS 17 dropped the iPhone 8, so it stays on Safari 16.
+  `;
+  testIncompleteSentence(text, undefined);
+});
+
 test("Question marks surrounded by brackets", () => {
   const text = `
 (?) [?]
