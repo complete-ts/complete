@@ -1,7 +1,7 @@
 import { isSeparatorLine } from "../comments.js";
 import { assertDefined } from "../completeCommon.js";
 import type { CompleteSentenceMessageIds } from "../completeSentence.js";
-import { getIncompleteSentences } from "../completeSentence.js";
+import { findSentence, getIncompleteSentences } from "../completeSentence.js";
 import { JAVASCRIPT_RESERVED_WORDS_SET } from "../constants.js";
 import {
   allCommentsInBlockAreCommentedOutArrayElements,
@@ -82,12 +82,28 @@ export const completeSentencesLineComments = createRule<
       }
 
       const incompleteSentences = getIncompleteSentences(text);
+      let searchStart = firstComment.range[0];
       for (const incompleteSentence of incompleteSentences) {
+        const sentenceRange = findSentence(
+          sourceCode.text,
+          incompleteSentence.sentence,
+          [searchStart, lastComment.range[1]],
+        );
+        if (sentenceRange !== undefined) {
+          searchStart = sentenceRange[1];
+        }
+
         context.report({
-          loc: {
-            start: firstComment.loc.start,
-            end: lastComment.loc.end,
-          },
+          loc:
+            sentenceRange === undefined
+              ? {
+                  start: firstComment.loc.start,
+                  end: lastComment.loc.end,
+                }
+              : {
+                  start: sourceCode.getLocFromIndex(sentenceRange[0]),
+                  end: sourceCode.getLocFromIndex(sentenceRange[1]),
+                },
           messageId: incompleteSentence.messageId,
           data: {
             sentence: incompleteSentence.sentence,

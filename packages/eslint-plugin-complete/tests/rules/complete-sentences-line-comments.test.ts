@@ -290,6 +290,39 @@ const array = [
   `,
 });
 
+invalid.push({
+  name: "Incomplete sentence after a complete sentence reports only that sentence",
+  code: `
+// This is a complete sentence. this one is not
+// capitalized.
+  `,
+  errors: [
+    {
+      messageId: "missingCapital",
+      line: 2,
+      column: 33,
+      endLine: 3,
+      endColumn: 16,
+    },
+  ],
+});
+
+invalid.push({
+  name: "Incomplete sentence that cannot be found reports the whole comment",
+  code: `
+// we sell apples, pears, etc. and other fruit.
+  `,
+  errors: [
+    {
+      messageId: "missingCapital",
+      line: 2,
+      column: 1,
+      endLine: 2,
+      endColumn: 48,
+    },
+  ],
+});
+
 ruleTester.run(
   "complete-sentences-line-comments",
   completeSentencesLineComments,

@@ -599,6 +599,24 @@ valid.push({
  */  `,
 });
 
+invalid.push({
+  name: "Incomplete sentence after a complete sentence reports only that sentence",
+  code: `
+/**
+ * This is fine. but this is not.
+ */
+  `,
+  errors: [
+    {
+      messageId: "missingCapital",
+      line: 3,
+      column: 18,
+      endLine: 3,
+      endColumn: 34,
+    },
+  ],
+});
+
 ruleTester.run("complete-sentences-jsdoc", completeSentencesJSDoc, {
   valid,
   invalid,

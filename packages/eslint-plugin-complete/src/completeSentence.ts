@@ -269,6 +269,53 @@ function getInlineLinkReplacement(linkContent: string): string {
   return description === "" ? target : description;
 }
 
+/**
+ * Finds a sentence from `getIncompleteSentences` in the source code of its comment, so that a rule
+ * can report the sentence instead of the whole comment. The sentence lost the comment markers and
+ * the line breaks, so they can appear between any two words.
+ *
+ * @returns The range of the sentence in the source code, or undefined if the sentence was changed
+ *          too much to find (such as when it contained a URL).
+ */
+export function findSentence(
+  sourceText: string,
+  sentence: string,
+  range: readonly [start: number, end: number],
+): readonly [start: number, end: number] | undefined {
+  const words = sentence
+    .replaceAll(SENTENCE_SEPARATOR_IDENTIFIER, " ")
+    .replaceAll(LIST_ELEMENT_IDENTIFIER, " ")
+    .split(/\s+/v)
+    .filter((word) => word !== "");
+  if (words.length === 0) {
+    return undefined;
+  }
+
+  const wordPatterns = words.map((word) =>
+    word
+      .split(IN_LINE_CODE_IDENTIFIER)
+      .map((part) => escapeRegExp(part))
+      // The code was matched with "`.+`" on one line.
+      .join("`.+`"),
+  );
+  const separator = String.raw`[\s*\/]`;
+  const pattern = `(?<=^|${separator})${wordPatterns.join(`${separator}+`)}`;
+  const regExp = new RegExp(pattern, "gv");
+  regExp.lastIndex = range[0];
+  const match = regExp.exec(sourceText);
+  if (match === null) {
+    return undefined;
+  }
+
+  const end = match.index + match[0].length;
+  return end <= range[1] ? [match.index, end] : undefined;
+}
+
+/** Escapes the characters that have a meaning in a regular expression outside of a class. */
+function escapeRegExp(text: string): string {
+  return text.replaceAll(/[$\(\)*+.\/?\[\\\]^\{\|\}]/gv, String.raw`\$&`);
+}
+
 export function getSentences(text: string): readonly string[] {
   const match = text.match(SENTENCE_REGEX);
   return match ?? [];

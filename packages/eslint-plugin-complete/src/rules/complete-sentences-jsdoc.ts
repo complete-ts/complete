@@ -1,5 +1,5 @@
 import type { CompleteSentenceMessageIds } from "../completeSentence.js";
-import { getIncompleteSentences } from "../completeSentence.js";
+import { findSentence, getIncompleteSentences } from "../completeSentence.js";
 import { getJSDocComments, getTextFromJSDocComment } from "../jsdoc.js";
 import { createRule } from "../utils.js";
 
@@ -34,7 +34,8 @@ export const completeSentencesJSDoc = createRule<
    * https://stackoverflow.com/questions/47429792/is-it-possible-to-get-comments-as-nodes-in-the-ast-using-the-typescript-compiler
    */
   create(context) {
-    const comments = context.sourceCode.getAllComments();
+    const { sourceCode } = context;
+    const comments = sourceCode.getAllComments();
 
     // We only look at `/**` style comments.
     const jsDocComments = getJSDocComments(comments);
@@ -42,13 +43,26 @@ export const completeSentencesJSDoc = createRule<
     for (const comment of jsDocComments) {
       const text = getTextFromJSDocComment(comment.value);
       const incompleteSentences = getIncompleteSentences(text);
+      let searchStart = comment.range[0];
 
       for (const incompleteSentence of incompleteSentences) {
+        const sentenceRange = findSentence(
+          sourceCode.text,
+          incompleteSentence.sentence,
+          [searchStart, comment.range[1]],
+        );
+        if (sentenceRange !== undefined) {
+          searchStart = sentenceRange[1];
+        }
+
         context.report({
-          loc: {
-            start: comment.loc.start,
-            end: comment.loc.end,
-          },
+          loc:
+            sentenceRange === undefined
+              ? comment.loc
+              : {
+                  start: sourceCode.getLocFromIndex(sentenceRange[0]),
+                  end: sourceCode.getLocFromIndex(sentenceRange[1]),
+                },
           messageId: incompleteSentence.messageId,
           data: {
             sentence: incompleteSentence.sentence,
