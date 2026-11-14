@@ -146,6 +146,28 @@ test("2 leading newlines", () => {
   testFormatText(text, formattedText, false);
 });
 
+test("Inline code with a space does not get split", () => {
+  const text = `
+But I must explain to you how all this mistaken idea of denouncing pleasure and praising \`new Date().toISOString()\` was born
+  `;
+  const formattedText = `
+But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+\`new Date().toISOString()\` was born
+  `;
+  testFormatText(text, formattedText);
+});
+
+test("Unmatched backtick still splits on spaces", () => {
+  const text = `
+But I must explain to you how all this mistaken idea of denouncing pleasure and praising \`new Date was born
+  `;
+  const formattedText = `
+But I must explain to you how all this mistaken idea of denouncing pleasure and praising \`new Date
+was born
+  `;
+  testFormatText(text, formattedText);
+});
+
 test("Line that goes past ruler", () => {
   const text = `
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

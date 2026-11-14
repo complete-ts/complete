@@ -388,9 +388,11 @@ function stringContainsOnlyWhitespace(string: string) {
  * For most cases, we can get the words on a line by splitting on a space.
  *
  * However, we don't want to split up a fragment like "{@link foo}" between lines, because it breaks
- * the parsing inside Visual Studio Code. Thus, anything matching this pattern should be considered
- * its own word, even if it has spaces inside of it.
+ * the parsing inside Visual Studio Code. We also don't want to split up inline code (text between
+ * backticks), because inline code that is split between lines is hard to read and to search for.
+ * Thus, anything matching these patterns should be considered its own word, even if it has spaces
+ * inside of it.
  */
 function getWordsFromLine(line: string): readonly string[] {
-  return line.match(/(?:\{@link .+?\}|\S)+/gv) ?? [];
+  return line.match(/(?:\{@link .+?\}|`[^`]+`|\S)+/gv) ?? [];
 }
