@@ -14,7 +14,9 @@ export const baseRegexp = defineConfig({
     "regexp/confusing-quantifier": "error",
     "regexp/control-character-escape": "error",
     "regexp/grapheme-string-literal": "error",
-    "regexp/hexadecimal-escape": "error",
+
+    /** Disabled since it conflicts with the `unicorn/prefer-unicode-code-point-escapes` rule. */
+    "regexp/hexadecimal-escape": "off",
 
     /** Disabled since it conflicts with the `unicorn/escape-case` rule. */
     "regexp/letter-case": "off",
