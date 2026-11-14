@@ -46,7 +46,7 @@ function getAttr(token: MarkdownItBaseToken, name: string): string | undefined {
     const key = attr[0];
     const value = attr[1];
     if (key === name) {
-      return value;
+      return String(value);
     }
   }
   return undefined;
