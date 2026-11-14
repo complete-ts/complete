@@ -8,6 +8,12 @@ type MessageIds = "incorrectOrder";
 
 type Replacement = [range: TSESTree.Range, replacementText: string];
 
+interface DeclaredProperty {
+  readonly name: string;
+  readonly declaringTypeIndex: number;
+  readonly position: number;
+}
+
 interface SortableProperty {
   readonly order: number;
   readonly property: TSESTree.Property;
@@ -168,17 +174,40 @@ function hasCommentInRange(
     );
 }
 
+/**
+ * The checker lists the properties of a mapped type such as `Pick` in the order of its key union,
+ * and the order of a union depends on which files the checker loaded first. Thus, we sort the
+ * properties of each declaring type by their position in the source code, and keep the declaring
+ * types in the order that the checker lists them.
+ */
 function getPropertyOrder(type: ts.Type): ReadonlyMap<string, number> {
-  const propertyOrder = new Map<string, number>();
+  const declaringTypeIndexes = new Map<ts.Node, number>();
+  const declaredProperties: DeclaredProperty[] = [];
 
-  for (const [i, property] of type.getProperties().entries()) {
-    const declarations = property.getDeclarations();
-    if (declarations === undefined || declarations.length === 0) {
+  for (const property of type.getProperties()) {
+    const declaration = property.getDeclarations()?.[0];
+    if (declaration === undefined) {
       continue;
     }
 
-    propertyOrder.set(property.getName(), i);
+    let declaringTypeIndex = declaringTypeIndexes.get(declaration.parent);
+    if (declaringTypeIndex === undefined) {
+      declaringTypeIndex = declaringTypeIndexes.size;
+      declaringTypeIndexes.set(declaration.parent, declaringTypeIndex);
+    }
+
+    declaredProperties.push({
+      name: property.getName(),
+      declaringTypeIndex,
+      position: declaration.pos,
+    });
   }
 
-  return propertyOrder;
+  const sortedProperties = declaredProperties.toSorted((a, b) =>
+    a.declaringTypeIndex === b.declaringTypeIndex
+      ? a.position - b.position
+      : a.declaringTypeIndex - b.declaringTypeIndex,
+  );
+
+  return new Map(sortedProperties.map(({ name }, i) => [name, i]));
 }

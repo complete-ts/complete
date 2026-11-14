@@ -64,6 +64,32 @@ declare function getFields<T extends string>(
 const { name, version } = getFields("name", "version");
       `,
     },
+    {
+      code: `
+interface Foo {
+  names: string[];
+  name: string;
+}
+
+const literal = "name" as const;
+const { length } = literal;
+declare const foo: Pick<Foo, "names" | "name">;
+const { names, name } = foo;
+      `,
+    },
+    {
+      code: `
+interface Foo {
+  names: string[];
+  name: string;
+}
+
+const literal = "name" as const;
+const { length } = literal;
+declare const foo: Pick<Foo, "names" | "name"> & { description: string };
+const { names, name, description } = foo;
+      `,
+    },
   ],
 
   invalid: [
