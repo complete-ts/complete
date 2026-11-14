@@ -142,6 +142,27 @@ const STATIC_ANALYSIS = {
  * @see https://github.com/un-ts/eslint-plugin-import-x/blob/master/README.md#style-guide
  */
 const STYLE_GUIDE = {
+  /**
+   * Disabled because packages commonly expose their API with an "index.ts" file that re-exports the
+   * other files.
+   */
+  "import-x/avoid-barrel-files": "off",
+
+  /**
+   * Disabled because packages commonly expose their API with an "index.ts" file that re-exports the
+   * other files.
+   */
+  "import-x/avoid-importing-barrel-files": "off",
+
+  /** Disabled because it conflicts with the `import-x/prefer-namespace-import` rule. */
+  "import-x/avoid-namespace-import": "off",
+
+  /**
+   * Disabled because packages commonly expose their API with an "index.ts" file that re-exports the
+   * other files.
+   */
+  "import-x/avoid-re-export-all": "off",
+
   "import-x/consistent-type-specifier-style": "error",
 
   /** Disabled because it is only useful in environments that use webpack. */
