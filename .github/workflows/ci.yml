@@ -2,6 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   get-build-packages:
     runs-on: ubuntu-latest
@@ -23,7 +26,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/workflows/setup
+      - uses: ./.github/actions/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: bun run build
       - name: Store the docs build directory
@@ -54,7 +57,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/workflows/setup
+      - uses: ./.github/actions/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: bun run lint
 
@@ -78,7 +81,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/workflows/setup
+      - uses: ./.github/actions/setup
       - working-directory: ./packages/${{ matrix.package-name }}
         run: bun run test
 
@@ -86,7 +89,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/workflows/setup
+      - uses: ./.github/actions/setup
+      - name: Install actionlint
+        env:
+          VERSION: 1.7.12
+          SHA256: 8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8
+        run: |
+          archive="actionlint_${VERSION}_linux_amd64.tar.gz"
+          curl -fsSLO "https://github.com/rhysd/actionlint/releases/download/v${VERSION}/$archive"
+          echo "$SHA256  $archive" | sha256sum --check --strict
+          tar -xzf "$archive" actionlint
+          sudo install -m 755 actionlint /usr/local/bin/actionlint
+          rm "$archive" actionlint
       - run: bun run lint
 
   docs-deploy:
@@ -95,7 +109,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/workflows/setup
+      - uses: ./.github/actions/setup
 
       - name: Check if the "DOCS_SSH_PRIVATE_KEY" GitHub secret is set
         env:

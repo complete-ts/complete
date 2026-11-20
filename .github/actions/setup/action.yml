@@ -1,3 +1,6 @@
+name: Setup
+description: Installs Bun and the project's dependencies.
+
 runs:
   using: composite
 

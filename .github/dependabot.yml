@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: github-actions
     directories:
       - /
-      - /packages/complete-cli/file-templates/dynamic
+      - /.github/actions/setup
+      - /packages/complete-cli/file-templates/dynamic/.github/actions/setup
       - /packages/complete-cli/file-templates/static
     schedule:
       interval: weekly

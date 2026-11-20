@@ -118,7 +118,7 @@ async function copyDynamicFiles(
   projectPath: string,
   packageManager: PackageManager,
 ) {
-  // `.github/workflows/setup/action.yml`
+  // `.github/actions/setup/action.yml`
   {
     const fileName = ACTION_YML;
     const templatePath = ACTION_YML_TEMPLATE_PATH;
@@ -129,7 +129,7 @@ async function copyDynamicFiles(
       .replaceAll("PACKAGE_MANAGER_NAME", packageManager)
       .replaceAll("PACKAGE_MANAGER_INSTALL_COMMAND", installCommand);
 
-    const setupPath = path.join(projectPath, ".github", "workflows", "setup");
+    const setupPath = path.join(projectPath, ".github", "actions", "setup");
     await makeDirectory(setupPath);
     const destinationPath = path.join(setupPath, fileName);
     await writeFile(destinationPath, actionYML);

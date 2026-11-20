@@ -24,7 +24,7 @@ export const ACTION_YML = "action.yml";
 export const ACTION_YML_TEMPLATE_PATH = path.join(
   TEMPLATES_DYNAMIC_DIR,
   ".github",
-  "workflows",
+  "actions",
   "setup",
   ACTION_YML,
 );

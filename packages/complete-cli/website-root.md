@@ -140,7 +140,7 @@ Discord, feel free to delete this block. Otherwise, you need to set a
   URL" step. (The pasted URL should not have a "/github" suffix.)
 - Click on the "Add secret" button.
 
-### [`.github/workflows/setup/action.yml`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/dynamic/.github/workflows/setup/action.yml)
+### [`.github/actions/setup/action.yml`](https://github.com/complete-ts/complete/blob/main/packages/complete-cli/file-templates/dynamic/.github/actions/setup/action.yml)
 
 This contains a composite job that is used by the `.github/workflows/ci.yml`
 file.

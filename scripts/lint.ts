@@ -31,4 +31,8 @@ await lintCommands(import.meta.dirname, [
 
   // Use markdownlint to lint Markdown files.
   "markdownlint-cli2 **/*.md",
+
+  // Use actionlint to lint the GitHub Actions workflows, including the one that new projects get.
+  "actionlint",
+  "actionlint packages/complete-cli/file-templates/static/.github/workflows/ci.yml",
 ]);
