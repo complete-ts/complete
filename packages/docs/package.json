@@ -14,9 +14,9 @@
   "author": "Zamiell",
   "scripts": {
     "build": "bun run prepare-docs && astro build",
-    "deploy": "bun run  ./scripts/deploy.mts",
-    "lint": "bun run prepare-docs && bun run ./scripts/lint.mts",
-    "prepare-docs": "bun run ./scripts/prepare.mts",
+    "deploy": "bun ./scripts/deploy.mts",
+    "lint": "bun run prepare-docs && bun ./scripts/lint.mts",
+    "prepare-docs": "bun ./scripts/prepare.mts",
     "serve": "astro preview",
     "start": "bun run prepare-docs && astro dev"
   },

@@ -24,9 +24,9 @@
     "src"
   ],
   "scripts": {
-    "build": "bun run ./scripts/build.ts",
-    "lint": "bun run ./scripts/lint.ts",
-    "start": "bun run ./src/main.ts",
+    "build": "bun ./scripts/build.ts",
+    "lint": "bun ./scripts/lint.ts",
+    "start": "bun ./src/main.ts",
     "test": "bun test"
   },
   "dependencies": {

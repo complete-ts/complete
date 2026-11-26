@@ -27,7 +27,7 @@ await lintCommands(import.meta.dirname, [
   "cspell-check-unused-words",
 
   // Check for template updates.
-  "bun run ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json",
+  "bun ./packages/complete-cli/src/main.ts check --ignore build.ts,ci.yml,eslint.config.mjs,knip.config.js,lint.ts,tsconfig.json",
 
   // Use markdownlint to lint Markdown files.
   "markdownlint-cli2 **/*.md",

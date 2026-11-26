@@ -34,12 +34,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun run ./scripts/build.ts",
-    "create-rule": "bun run ./scripts/createRule.ts",
+    "build": "bun ./scripts/build.ts",
+    "create-rule": "bun ./scripts/createRule.ts",
     "docs": "bun run build && eslint-doc-generator",
     "docs:check": "bun run build && eslint-doc-generator --check",
-    "generate": "bun run ./scripts/generate.ts",
-    "lint": "bun run ./scripts/lint.ts",
+    "generate": "bun ./scripts/generate.ts",
+    "lint": "bun ./scripts/lint.ts",
     "test": "jest"
   },
   "dependencies": {

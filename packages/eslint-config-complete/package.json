@@ -27,9 +27,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun run ./scripts/build.ts",
-    "docs": "bun run ./scripts/docs.ts",
-    "lint": "bun run ./scripts/lint.ts"
+    "build": "bun ./scripts/build.ts",
+    "docs": "bun ./scripts/docs.ts",
+    "lint": "bun ./scripts/lint.ts"
   },
   "dependencies": {
     "@stylistic/eslint-plugin": "catalog:",

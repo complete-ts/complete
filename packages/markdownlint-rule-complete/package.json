@@ -34,8 +34,8 @@
     "src"
   ],
   "scripts": {
-    "build": "bun run ./scripts/build.ts",
-    "lint": "bun run ./scripts/lint.ts",
+    "build": "bun ./scripts/build.ts",
+    "lint": "bun ./scripts/lint.ts",
     "test": "bun test"
   },
   "dependencies": {

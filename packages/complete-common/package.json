@@ -26,9 +26,9 @@
     "src"
   ],
   "scripts": {
-    "build": "bun run ./scripts/build.ts",
+    "build": "bun ./scripts/build.ts",
     "docs": "typedoc",
-    "lint": "bun run ./scripts/lint.ts",
+    "lint": "bun ./scripts/lint.ts",
     "test": "bun test ./tests"
   },
   "devDependencies": {

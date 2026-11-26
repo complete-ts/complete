@@ -96,13 +96,13 @@
     }
   },
   "scripts": {
-    "postinstall": "bun run ./packages/eslint-plugin-complete/scripts/build.ts",
-    "lint": "bun run ./scripts/lint.ts",
-    "lint-all": "bun run ./scripts/lint-all.ts",
+    "postinstall": "bun ./packages/eslint-plugin-complete/scripts/build.ts",
+    "lint": "bun ./scripts/lint.ts",
+    "lint-all": "bun ./scripts/lint-all.ts",
     "prepare": "husky",
     "prepublish": "cd packages/eslint-plugin-complete && bun run build",
-    "publish": "bun run ./scripts/publish.ts",
-    "update": "bun run ./packages/complete-cli/src/main.ts update"
+    "publish": "bun ./scripts/publish.ts",
+    "update": "bun ./packages/complete-cli/src/main.ts update"
   },
   "devDependencies": {
     "@types/node": "catalog:",

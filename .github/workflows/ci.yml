@@ -139,7 +139,7 @@ jobs:
           path: complete-ts.github.io
 
       - name: Deploy the documentation website
-        run: bun run ./packages/docs/scripts/deploy.mts
+        run: bun ./packages/docs/scripts/deploy.mts
 
   discord:
     name: Discord Failure Notification
