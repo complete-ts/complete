@@ -12,6 +12,7 @@
 - Only write code with normal ASCII characters. Never use emojis in your code.
 - Never put pointless comments in your code. You should be writing easy to read
   code, making comments superfluous.
-- Do not commit to the repository unless explicitly asked to.
+- Once your changes pass all checks, commit and push them automatically, without
+  asking first.
 - When making a new lint rule for "eslint-plugin-complete", use the "bun run
   create-rule" script.
