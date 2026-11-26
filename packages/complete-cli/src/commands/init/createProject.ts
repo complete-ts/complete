@@ -242,10 +242,11 @@ async function copyPackageManagerSpecificFiles(
         await writeFile(filePath, newFileContents);
       });
 
-      // Second, replace "tsx" with "bun run".
+      // Second, replace "tsx" with "bun" in the scripts. (We only replace "tsx" at the start of a
+      // script so that we do not modify other strings that happen to contain "tsx".)
       const packageJSONPath = path.join(projectPath, "package.json");
       const fileContents = await readFile(packageJSONPath);
-      const newFileContents = fileContents.replaceAll("tsx", "bun run");
+      const newFileContents = fileContents.replaceAll('": "tsx ', '": "bun ');
       await writeFile(packageJSONPath, newFileContents);
 
       break;
